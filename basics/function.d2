@@ -1,0 +1,82 @@
+direction: right
+
+...@styles
+
+type {
+    *.class: [ type; a ]
+    a
+    explanation: |md
+        # type
+
+        A type a
+        
+        - can loosely be seen as the set of all possible values for a
+        - is used to define domains and codomains of functions
+    |
+    explanation.class: [ comment ]
+}
+value {
+    *.class: [ value; a ]
+    a0: a0 :: a
+    explanation: |md
+        # value
+
+        A value a0 of type a is
+        
+        - one representative of the set of possible values for the type
+        - sometimes also called witness
+    |
+    explanation.class: [ comment ]
+}
+function {
+    *.class: [ function; f ]
+    f: f :: a ⟶ b
+    f: { tooltip: Function that takes parameters or arguments and produces a result }
+    explanation: |md
+        # an impure function has side effects
+        - writes or reads from a file
+        - uses global environment
+        - calls library methods which are not pure (get time, RNG, ...)
+        - can trigger exceptions
+        - ... any other expected effect that is not visible in the signature
+
+        # a pure function has NO side effects
+        - result depends solely on the arguments
+        - you could memoize the result (theoretically)
+        - is easy to reason about on use (type semantics)
+        - has an implementation that is easy to check thanks code locality
+        - can be tested easily
+    |
+    explanation.class: [ comment ]
+}
+declare: declaration {
+    a -> f
+    f -> b
+    f: f :: a ⟶ b
+    a.class: [ type; a ]
+    b.class: [ type; b ]
+    f.class: [ function; f ]
+    f: { tooltip: Function that takes a domain value of type a and produces a codomain value of type b }
+}
+definitions:  {
+    explanation: |md
+        # total / safe
+        A total function yields values over the whole domain, for any value in a 
+        # partial
+        A partial function is non total, meaning it can break on some values
+    |
+    explanation.class: [ comment ]
+}
+apply: application {
+    a0 -> f
+    f -> b0
+    f: f(a0) ⟶ b0
+    f: { tooltip: Apply function to compute a value of type b (namely b0) from a value of type a (namely a0) }
+    a0: a0 :: a
+    b0: b0 :: b
+    f.class: [ function; f ]
+    a0.class: [ value; a ]
+    b0.class: [ value; b ]
+}
+
+*.class: definition

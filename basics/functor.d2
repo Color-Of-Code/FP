@@ -1,0 +1,65 @@
+direction: right
+
+...@styles
+
+definition: Functorial lifting, reuse of f within a functor {
+    f: f :: a ⟶ b {
+        a -> f
+        f -> b
+        f: f
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        f.class: [ function; f ]
+        f: { tooltip: Function that takes a value of type a and produces a value of type b }
+    }
+    Ff: Ff :: Fa ⟶ Fb (for a functor F) {
+        a -> f
+        f -> b
+        f: fmap f
+        a: Fa
+        b: Fb
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        f.class: [ function; f ]
+        f: { tooltip: Function f is lifted in the functor Ff = fmap f. Note that fmap depends on F! To apply f you let the fmap of the functor do the job. }
+    }
+}
+example1: List Functor {
+    List: fmap f :: List<a> ⟶ List<b> {
+        a -> f
+        f -> b
+        f: fmap f = map f
+        a: List<a>
+        b: List<b>
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        f.class: [ function; f ]
+        f: { tooltip: Function f is lifted in the List: Apply f on each element inside the list }
+    }
+}
+example2: Maybe Functor {
+    Maybe: fmap f :: Maybe<a> ⟶ Maybe<b> {
+        a -> f
+        f -> b
+        f: fmap f
+        a: Maybe<a>
+        b: Maybe<b>
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        f.class: [ function; f ]
+        f: { tooltip: Function f is lifted in the Maybe functor. }
+    }
+}
+examplec: (., string) Functor {
+    Maybe: fmap f :: (a, string) ⟶ (b, string) {
+        a -> f
+        f -> b
+        f: fmap f
+        a: (a, string)
+        b: (b, string)
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        f.class: [ function; f ]
+        f: { tooltip: Function f is lifted in the Maybe functor. }
+    }
+}

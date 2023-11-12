@@ -1,0 +1,102 @@
+direction: right
+
+...@styles
+
+def_partial_app: partial application {
+    f: f2 :: (a,b) ⟶ c {
+        a -> f2
+        b -> f2
+        f2 -> c
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        c.class: [ type; c ]
+        f2.class: [ function; f2 ]
+        f2: { tooltip: Function that takes a value of type a and another value of type b and produces a value of type c }
+    }
+    appa: f1a :: b ⟶ c {
+        b -> f1a
+        f1a -> c
+        f1a.class: [ function; f ]
+        f1a: { tooltip: Function that takes a value of type b and produces a value of type c (a disappears by applying it internally) }
+        b.class: [ type; b ]
+        c.class: [ type; c ]
+    }
+    f -> appa: apply a
+    appb: f1b :: a ⟶ c {
+        a -> f1b
+        f1b -> c
+        f1b.class: [ function; g ]
+        f1b: { tooltip: Function that takes a value of type a and produces a value of type c (b disappears by applying it internally) }
+        a.class: [ type; a ]
+        c.class: [ type; c ]
+    }
+    f -> appb: apply b
+}
+
+def_partial_app: { tooltip: Transform a function into another function with lower arity by applying a fixed value to one or more (but not all) arguments }
+
+def_partial_app_impl: partial application (implementation) {
+    f: f2 :: (a,b) ⟶ c {
+        a -> f2
+        b -> f2
+        f2 -> c
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        c.class: [ type; c ]
+        f2.class: [ function; f2 ]
+    }
+    appa: f1a :: b ⟶ c {
+        f1a.a -> f1a.f2
+        b -> f1a.f2
+        f1a.a: x :: a
+        f1a.f2 -> c
+        f1a.f2.class: [ function; f2 ]
+        f1a.class: [ function; f ]
+        f1a.a.class: [ value; a ]
+        b.class: [ type; b ]
+        c.class: [ type; c ]
+    }
+    f -> appa: apply a
+    appb: f1b :: a ⟶ c {
+        f1b.b -> f1b.f2
+        a -> f1b.f2
+        f1b.b: x :: b
+        f1b.f2 -> c
+        f1b.f2.class: [ function; f2 ]
+        f1b.class: [ function; g ]
+        a.class: [ type; a ]
+        f1b.b.class: [ value; b ]
+        c.class: [ type; c ]
+    }
+    f -> appb: apply b
+}
+
+def_curry: currying {
+    f: f2 :: (a,b) ⟶ c {
+        a -> f2
+        b -> f2
+        f2 -> c
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        c.class: [ type; c ]
+        f2.class: [ function; f2 ]
+        f2: { tooltip: Function that takes a value of type a and another value of type b and produces a value of type c }
+    }
+    curry: curry f2 :: a ⟶ (b ⟶ c) {
+        a -> curryf
+        curryf -> f1a
+        f1a: f1 :: b ⟶ c
+        f1a.b -> f1a.f1
+        f1a.f1 -> f1a.c
+        curryf: curry f2
+
+        f1a.f1.class: [ function; f ]
+        curryf.class: [ function; g ]
+        a.class: [ type; a ]
+        f1a.b.class: [ type; b ]
+        f1a.c.class: [ type; c ]
+    }
+    f -> curry: curry
+}
+
+def_curry: { tooltip: Transform a function of multiple arguments into a sequence of function of a single argument }

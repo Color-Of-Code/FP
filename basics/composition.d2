@@ -1,0 +1,44 @@
+direction: right
+
+...@styles
+
+input: having... {
+    f: f :: a ⟶ b  {
+        a -> f
+        f -> b
+        f: f
+        a.class: [ type; a ]
+        b.class: [ type; b ]
+        f.class: [ function; f ]
+    }
+    g: g :: b ⟶ c {
+        b -> g
+        g -> c
+        g: g
+        b.class: [ type; b ]
+        c.class: [ type; c ]
+        g.class: [ function; g ]
+    }
+}
+output: building a NEW function: composition h = g∘f {
+    gof: g∘f :: a ⟶ c {
+        definition {
+            a -> h
+            h -> c
+            h: h = g∘f
+            a.class: [ type; a ]
+            c.class: [ type; c ]
+            h.class: [ function; h ]
+        }
+        operation: operation on values {
+            a0 -> b0 : apply f
+            b0 -> c0 : apply g
+            a0: a0
+            b0: b0
+            c0: c0
+            a0.class: [ value; a ]
+            b0.class: [ value; b ]
+            c0.class: [ value; c ]
+        }
+    }
+}
