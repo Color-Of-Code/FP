@@ -1,0 +1,71 @@
+...@styles
+
+direction: down
+
+before: without State monad: state threaded as explicit variables {
+  direction: right
+  s1 -> step1 -> s2 -> step2 -> s3 -> step3 -> s4
+  s1: "s0 (input)"
+  step1: "step1(s0) → (a, s1)"
+  s2: s1
+  step2: "step2(s1) → (b, s2)"
+  s3: s2
+  step3: "step3(s2) → (c, s3)"
+  s4: "s3 (final)"
+  s1.class: [
+    type
+    b
+  ]
+  step1.class: [
+    function
+    f
+  ]
+  s2.class: [
+    type
+    b
+  ]
+  step2.class: [
+    function
+    g
+  ]
+  s3.class: [
+    type
+    b
+  ]
+  step3.class: [
+    function
+    h
+  ]
+  s4.class: [
+    type
+    b
+  ]
+  note: passing s1 where s2 is needed compiles but is a silent bug
+  note.class: [comment]
+}
+
+after: with State monad: state flows automatically through bind {
+  direction: right
+  step1 -> step2 -> step3 -> result
+  step1 -> step2: ">>="
+  step2 -> step3: ">>="
+  step3 -> result: ">>="
+  step1.class: [
+    function
+    f
+  ]
+  step2.class: [
+    function
+    g
+  ]
+  step3.class: [
+    function
+    h
+  ]
+  result.class: [
+    type
+    a
+  ]
+  result: "runState s0"
+  result: {tooltip: runState supplies the initial state and returns the final state alongside the result}
+}

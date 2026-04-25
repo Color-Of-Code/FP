@@ -1,0 +1,96 @@
+...@styles
+
+direction: down
+
+before: without fold: a separate loop per aggregation {
+  direction: right
+  sum_l: "sum :: List<a> ⟶ a" {
+    direction: right
+    xs -> loop -> result
+    xs: "List<a>"
+    loop: "acc + x"
+    result: a
+    xs.class: [
+      type
+      a
+    ]
+    loop.class: [
+      function
+      f
+    ]
+    result.class: [
+      type
+      b
+    ]
+  }
+  prod_l: "product :: List<a> ⟶ a" {
+    direction: right
+    xs -> loop -> result
+    xs: "List<a>"
+    loop: "acc × x"
+    result: a
+    xs.class: [
+      type
+      a
+    ]
+    loop.class: [
+      function
+      g
+    ]
+    result.class: [
+      type
+      b
+    ]
+  }
+  len_l: "length :: List<a> ⟶ Int" {
+    direction: right
+    xs -> loop -> result
+    xs: "List<a>"
+    loop: "acc + 1"
+    result: Int
+    xs.class: [
+      type
+      a
+    ]
+    loop.class: [
+      function
+      h
+    ]
+    result.class: [
+      type
+      b
+    ]
+  }
+}
+
+after: with fold: write the traversal once {
+  fold_box: "fold f init :: List<a> ⟶ b" {
+    direction: right
+    xs -> fold -> result
+    xs: "List<a>"
+    fold: fold
+    result: b
+    xs.class: [
+      type
+      a
+    ]
+    fold.class: [
+      function
+      g
+    ]
+    result.class: [
+      type
+      b
+    ]
+    fold: {tooltip: Collapse List<a> to b by repeatedly applying f with accumulator init}
+  }
+  derived: derived operations — one line each {
+    direction: down
+    s: "sum     = fold (+) 0"
+    p: "product = fold (×) 1"
+    l: "length  = fold (λacc _ → acc+1) 0"
+    s.class: [definition]
+    p.class: [definition]
+    l.class: [definition]
+  }
+}

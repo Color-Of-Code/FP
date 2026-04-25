@@ -37,6 +37,8 @@ validate_and_trim   = trim   ∘ validate
 result = x |> validate |> trim |> format
 ```
 
+![composition motivation](../basics/composition-motivation.svg)
+
 ## Examples
 
 ### C\#

@@ -48,6 +48,8 @@ fmap double myTree       -- Tree functor
 -- One function name, any functor.  Laws guarantee consistent behaviour.
 ```
 
+![functor motivation](../basics/functor-motivation.svg)
+
 ## Examples
 
 ### C\#

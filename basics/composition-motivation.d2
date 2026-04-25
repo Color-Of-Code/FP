@@ -1,0 +1,100 @@
+...@styles
+
+direction: down
+
+before: without composition: one wrapper function per combination {
+  vt: "validate_and_trim :: a ⟶ c" {
+    direction: right
+    a -> validate -> b -> trim -> c
+    a.class: [
+      type
+      a
+    ]
+    b.class: [
+      type
+      b
+    ]
+    c.class: [
+      type
+      c
+    ]
+    validate.class: [
+      function
+      f
+    ]
+    trim.class: [
+      function
+      g
+    ]
+  }
+  vtf: "validate_trim_format :: a ⟶ d" {
+    direction: right
+    a -> validate -> b -> trim -> c -> format -> d
+    a.class: [
+      type
+      a
+    ]
+    b.class: [
+      type
+      b
+    ]
+    c.class: [
+      type
+      c
+    ]
+    d.class: [
+      type
+      b
+    ]
+    validate.class: [
+      function
+      f
+    ]
+    trim.class: [
+      function
+      g
+    ]
+    format.class: [
+      function
+      h
+    ]
+  }
+}
+
+after: with composition: assemble freely with ∘ {
+  h: "h = format ∘ trim ∘ validate :: a ⟶ d" {
+    direction: right
+    a -> validate -> b -> trim -> c -> format -> d
+    a.class: [
+      type
+      a
+    ]
+    b.class: [
+      type
+      b
+    ]
+    c.class: [
+      type
+      c
+    ]
+    d.class: [
+      type
+      b
+    ]
+    validate.class: [
+      function
+      f
+    ]
+    trim.class: [
+      function
+      g
+    ]
+    format.class: [
+      function
+      h
+    ]
+    h: {tooltip: any sub-chain (e.g. trim ∘ validate) is one expression — no new function needed}
+  }
+  note: any sub-chain is one expression — no extra wrapper needed
+  note.class: [comment]
+}

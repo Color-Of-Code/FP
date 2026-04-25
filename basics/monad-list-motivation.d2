@@ -1,0 +1,56 @@
+...@styles
+
+direction: down
+
+before: without List monad: nested loop per dimension {
+  outer: for x in xs {
+    inner: for y in ys {
+      collect: "result.append((x, y))"
+      collect.class: [
+        function
+        b
+      ]
+    }
+    inner.class: [
+      function
+      g
+    ]
+  }
+  outer.class: [
+    function
+    f
+  ]
+  note: each extra dimension adds a nesting level and another append
+  note.class: [comment]
+}
+
+after: with List monad: one bind per dimension — flat pipeline {
+  direction: right
+  xs -> bind1 -> ys -> bind2 -> result
+  xs: xs
+  bind1: ">>= x ->"
+  ys: ys
+  bind2: ">>= y ->"
+  result: "pure (x, y)"
+  xs.class: [
+    type
+    a
+  ]
+  ys.class: [
+    type
+    a
+  ]
+  bind1.class: [
+    function
+    f
+  ]
+  bind2.class: [
+    function
+    g
+  ]
+  result.class: [
+    value
+    b
+  ]
+  result: {tooltip: Each extra dimension is one more >>= line, not a new loop level}
+}

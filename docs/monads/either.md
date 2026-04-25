@@ -57,6 +57,8 @@ process(input) =
     >>= save_to_db
 ```
 
+![either motivation](../../basics/monad-either-motivation.svg)
+
 ## Examples
 
 ### C\#

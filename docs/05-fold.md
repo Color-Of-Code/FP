@@ -52,6 +52,8 @@ length  xs = fold (\acc _ -> acc + 1) 0 xs
 -- New aggregation = one line.  The loop is never rewritten.
 ```
 
+![fold motivation](../basics/fold-motivation.svg)
+
 ## Examples
 
 ### C\#

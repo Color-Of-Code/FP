@@ -1,0 +1,64 @@
+...@styles
+
+direction: down
+
+before: without IO monad: side effects hidden in a pure-looking type {
+  compute: "compute :: Int → Int" {
+    direction: down
+    eff1: "reads config.txt"
+    eff2: "writes to log"
+    eff1.class: [
+      function
+      b
+    ]
+    eff2.class: [
+      function
+      b
+    ]
+  }
+  input -> compute -> output
+  input: "x : Int"
+  output: "result : Int"
+  input.class: [
+    type
+    a
+  ]
+  output.class: [
+    type
+    a
+  ]
+  note: nothing in the type warns callers about side effects
+  note.class: [comment]
+}
+
+after: with IO monad: effects explicit in the return type {
+  compute: "compute :: Int → IO Int" {
+    direction: right
+    io1 -> io2
+    io1: readFile
+    io2: logMessage
+    io1.class: [
+      function
+      f
+    ]
+    io2.class: [
+      function
+      g
+    ]
+    io1: {tooltip: IO effect declared — callers know this touches the file system}
+    io2: {tooltip: IO effect declared — callers know this writes a log}
+  }
+  input -> compute -> output
+  input: "x : Int"
+  output: "result : IO Int"
+  input.class: [
+    type
+    a
+  ]
+  output.class: [
+    type
+    b
+  ]
+  note: IO in the type makes effects visible and their order guaranteed by bind
+  note.class: [comment]
+}

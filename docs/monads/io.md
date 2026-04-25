@@ -62,6 +62,8 @@ compute x = do
 -- The runtime executes effects in the exact order bind specifies.
 ```
 
+![IO motivation](../../basics/monad-io-motivation.svg)
+
 ## Examples
 
 ### C\# (Task as an IO-like monad)

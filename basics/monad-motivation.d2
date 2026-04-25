@@ -1,0 +1,56 @@
+...@styles
+
+direction: down
+
+before: fmap only: f :: a ⟶ Mb produces a nested M(Mb) {
+  direction: right
+  Ma -> fmap -> MMb -> flatten -> Mb
+  Ma: Ma
+  MMb: "M(Mb)"
+  Mb: Mb
+  fmap: "fmap f"
+  flatten: flatten
+  Ma.class: [
+    type
+    a
+  ]
+  MMb.class: [
+    type
+    b
+  ]
+  Mb.class: [
+    type
+    c
+  ]
+  fmap.class: [
+    function
+    f
+  ]
+  flatten.class: [
+    function
+    b
+  ]
+  fmap: {tooltip: f :: a ⟶ Mb so fmap f :: Ma ⟶ M(Mb) — the wrapper is doubled}
+  flatten: {tooltip: a separate flatten step is needed to collapse M(Mb) to Mb}
+}
+
+after: bind: fmap + flatten in one step — directly yields Mb {
+  direction: right
+  Ma -> bind -> Mb
+  Ma: Ma
+  Mb: Mb
+  bind: "bind f  (>>= f)"
+  Ma.class: [
+    type
+    a
+  ]
+  Mb.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: bind = fmap f then flatten. Ma >>= f always returns a flat Mb.}
+}

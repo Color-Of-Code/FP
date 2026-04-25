@@ -64,6 +64,8 @@ cartesian(xs, ys, zs) =
 -- Adding a dimension is one more >>= line, not a new loop level.
 ```
 
+![list motivation](../../basics/monad-list-motivation.svg)
+
 ## Examples
 
 ### C\#

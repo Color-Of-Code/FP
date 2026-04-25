@@ -55,6 +55,8 @@ lookup_user_city(id) =
     >>= city    -> Just city.name
 ```
 
+![maybe motivation](../../basics/monad-maybe-motivation.svg)
+
 ## Examples
 
 ### C\#

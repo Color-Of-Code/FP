@@ -69,6 +69,8 @@ pipeline = do
 -- runWriter returns (r3, combinedLog) with all fragments in order.
 ```
 
+![writer motivation](../../basics/monad-writer-motivation.svg)
+
 ## Examples
 
 ### C\#

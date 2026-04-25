@@ -1,0 +1,68 @@
+...@styles
+
+direction: down
+
+before: without Reader monad: config passed into every function {
+  direction: right
+  cfg -> build_url
+  cfg -> get_host
+  cfg -> get_port
+  build_url -> result
+  get_host -> build_url
+  get_port -> build_url
+  cfg: Config
+  build_url: "buildUrl(config)"
+  get_host: "getHost(config)"
+  get_port: "getPort(config)"
+  result: "URL"
+  cfg.class: [
+    type
+    b
+  ]
+  build_url.class: [
+    function
+    f
+  ]
+  get_host.class: [
+    function
+    g
+  ]
+  get_port.class: [
+    function
+    h
+  ]
+  result.class: [
+    type
+    a
+  ]
+  note: every helper needs config even when it uses only one field
+  note.class: [comment]
+}
+
+after: with Reader monad: environment supplied once at the top {
+  direction: right
+  asks_host -> asks_port -> build_url -> result
+  asks_host -> asks_port: ">>="
+  asks_port -> build_url: ">>="
+  asks_host: "asks .host"
+  asks_port: "asks .port"
+  build_url: buildUrl
+  result: "runReader env"
+  asks_host.class: [
+    function
+    f
+  ]
+  asks_port.class: [
+    function
+    g
+  ]
+  build_url.class: [
+    function
+    h
+  ]
+  result.class: [
+    type
+    a
+  ]
+  result: {tooltip: runReader supplies the environment once; every step receives it implicitly}
+}

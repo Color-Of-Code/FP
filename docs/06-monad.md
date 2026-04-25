@@ -59,6 +59,8 @@ result = Just 10
 -- Flat result at every step; Nothing short-circuits the rest.
 ```
 
+![monad motivation](../basics/monad-motivation.svg)
+
 ## Examples
 
 ### C\#

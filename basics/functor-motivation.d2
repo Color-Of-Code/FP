@@ -1,0 +1,89 @@
+...@styles
+
+direction: down
+
+before: without fmap: a separate map function per container {
+  direction: right
+  ml: "map_list :: List<a> ⟶ List<b>" {
+    la -> ml -> lb
+    la: "List<a>"
+    lb: "List<b>"
+    ml: map_list
+    la.class: [
+      type
+      a
+    ]
+    lb.class: [
+      type
+      b
+    ]
+    ml.class: [
+      function
+      f
+    ]
+    ml: {tooltip: re-implemented specifically for List}
+  }
+  mm: "map_maybe :: Maybe<a> ⟶ Maybe<b>" {
+    ma -> mm -> mb
+    ma: "Maybe<a>"
+    mb: "Maybe<b>"
+    mm: map_maybe
+    ma.class: [
+      type
+      a
+    ]
+    mb.class: [
+      type
+      b
+    ]
+    mm.class: [
+      function
+      g
+    ]
+    mm: {tooltip: same logic, re-implemented for Maybe}
+  }
+  mt: "map_tree :: Tree<a> ⟶ Tree<b>" {
+    ta -> mt -> tb
+    ta: "Tree<a>"
+    tb: "Tree<b>"
+    mt: map_tree
+    ta.class: [
+      type
+      a
+    ]
+    tb.class: [
+      type
+      b
+    ]
+    mt.class: [
+      function
+      h
+    ]
+    mt: {tooltip: same logic again, re-implemented for Tree}
+  }
+}
+
+after: with fmap: one function works for any functor {
+  direction: right
+  fmap_def: "fmap f :: Fa ⟶ Fb" {
+    fa -> fmap -> fb
+    fa: Fa
+    fb: Fb
+    fmap: "fmap f"
+    fa.class: [
+      type
+      a
+    ]
+    fb.class: [
+      type
+      b
+    ]
+    fmap.class: [
+      function
+      g
+    ]
+    fmap: {tooltip: works for List, Maybe, Tree — and any other lawful functor}
+  }
+  note: adding a new container requires zero new map code
+  note.class: [comment]
+}

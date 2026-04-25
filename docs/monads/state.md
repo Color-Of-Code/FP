@@ -72,6 +72,8 @@ pipeline(input) = do
 -- No state variables at call sites; the monad threads them correctly.
 ```
 
+![state motivation](../../basics/monad-state-motivation.svg)
+
 ## Examples
 
 ### C\# (threading state manually)

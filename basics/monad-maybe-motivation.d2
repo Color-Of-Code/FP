@@ -1,0 +1,65 @@
+...@styles
+
+direction: down
+
+before: without Maybe monad: explicit null guard at every step {
+  direction: right
+  find_user -> check1 -> find_address -> check2 -> find_city -> check3 -> result
+  find_user.class: [
+    function
+    f
+  ]
+  check1: "null?"
+  check1.class: [
+    function
+    b
+  ]
+  find_address.class: [
+    function
+    g
+  ]
+  check2: "null?"
+  check2.class: [
+    function
+    b
+  ]
+  find_city.class: [
+    function
+    h
+  ]
+  check3: "null?"
+  check3.class: [
+    function
+    b
+  ]
+  result.class: [
+    type
+    a
+  ]
+  result: "city.name"
+}
+
+after: with Maybe monad: bind short-circuits on Nothing automatically {
+  direction: right
+  find_user -> find_address -> find_city -> result
+  find_user -> find_address: ">>="
+  find_address -> find_city: ">>="
+  find_city -> result: ">>="
+  find_user.class: [
+    function
+    f
+  ]
+  find_address.class: [
+    function
+    g
+  ]
+  find_city.class: [
+    function
+    h
+  ]
+  result.class: [
+    type
+    a
+  ]
+  result: "Just city.name"
+}

@@ -71,6 +71,8 @@ build_url = do
 -- No config parameter in sight; runReader supplies it once at the top.
 ```
 
+![reader motivation](../../basics/monad-reader-motivation.svg)
+
 ## Examples
 
 ### C\#
