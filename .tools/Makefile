@@ -13,7 +13,7 @@ SVG_FILES  := $(D2_FILES:.d2=.svg)
 DIAGRAM_D2  := $(filter-out $(BASICS)/styles.d2, $(D2_FILES))
 DIAGRAM_SVG := $(DIAGRAM_D2:.d2=.svg)
 
-.PHONY: all svgs fmt-d2 fmt-md lint-md check-md fmt install help
+.PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help
 
 ## Default: show help
 help:
@@ -25,6 +25,7 @@ help:
 	@echo "  fmt-d2      Format all D2 source files"
 	@echo "  fmt-md      Format all Markdown files with prettier"
 	@echo "  lint-md     Lint all Markdown files with markdownlint-cli2"
+	@echo "  lint-langs  Check language-example completeness and order"
 	@echo "  check-md    Check Markdown formatting without writing (CI-friendly)"
 	@echo "  fmt         Format both D2 and Markdown"
 	@echo "  all         svgs + fmt + lint-md"
@@ -54,6 +55,10 @@ fmt-md: $(NODE_BIN)/prettier
 lint-md: $(NODE_BIN)/markdownlint-cli2
 	$(NODE_BIN)/markdownlint-cli2 "$(REPO_ROOT)/**/*.md" "!$(REPO_ROOT)/.tools/node_modules/**"
 
+## Check language-example sections are complete and in the correct order
+lint-langs:
+	node $(REPO_ROOT)/.tools/check-lang-order.js
+
 ## Check Markdown formatting without writing (for CI)
 check-md: $(NODE_BIN)/prettier
 	$(NODE_BIN)/prettier --check "$(REPO_ROOT)/**/*.md"
@@ -62,7 +67,7 @@ check-md: $(NODE_BIN)/prettier
 fmt: fmt-d2 fmt-md
 
 ## Run everything
-all: svgs fmt lint-md
+all: svgs fmt lint-md lint-langs
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:

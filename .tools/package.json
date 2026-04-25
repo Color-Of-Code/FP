@@ -4,6 +4,7 @@
   "description": "Dev tooling for the FP repository",
   "scripts": {
     "lint:md": "markdownlint-cli2 '../**/*.md' '!../node_modules/**'",
+    "lint:langs": "node check-lang-order.js",
     "fmt:md": "prettier --write '../**/*.md'",
     "check:md": "prettier --check '../**/*.md'"
   },
