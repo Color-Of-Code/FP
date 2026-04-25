@@ -1,0 +1,118 @@
+direction: right
+
+...@styles
+
+type_def: List<a> as a monad {
+  explanation: |md
+    # List\<a\> — non-determinism
+
+    Models computations with **multiple possible results**.
+    Each element independently goes through the next step, and all results are flattened.
+
+    **bind (>>=)** = `flatMap` / `concatMap`:
+    apply `f` to every element, then flatten all resulting lists into one.
+  |
+  explanation.class: [comment]
+}
+
+bind_def: bind :: List<a> ⟶ (a ⟶ List<b>) ⟶ List<b> {
+  la -> bind
+  f -> bind
+  bind -> lb
+  la: List<a>
+  f: a ⟶ List<b>
+  lb: List<b> (flattened)
+  la.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  lb.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: Apply f to every element in List<a>, then concatenate all resulting lists.}
+}
+
+example: expand each x to x and x*10 {
+  input -> e1
+  input -> e2
+  input: "List [1, 2]"
+  e1: element 1 {
+    v1 -> f1
+    f1 -> out1
+    v1: 1
+    f1: "f 1 = [1, 10]"
+    out1: "[1, 10]"
+    v1.class: [
+      value
+      a
+    ]
+    f1.class: [
+      function
+      f
+    ]
+    out1.class: [
+      value
+      b
+    ]
+  }
+  e2: element 2 {
+    v2 -> f2
+    f2 -> out2
+    v2: 2
+    f2: "f 2 = [2, 20]"
+    out2: "[2, 20]"
+    v2.class: [
+      value
+      a
+    ]
+    f2.class: [
+      function
+      f
+    ]
+    out2.class: [
+      value
+      b
+    ]
+  }
+  e1 -> result
+  e2 -> result
+  result: "List [1, 10, 2, 20]"
+  input.class: [
+    type
+    a
+  ]
+  result.class: [
+    type
+    b
+  ]
+}
+
+example2: cartesian product {
+  la -> bind1
+  bind1 -> result2
+  la: "List [1, 2]"
+  bind1: "bind (x -> [(x,a),(x,b)])"
+  result2: "List [(1,a),(1,b),(2,a),(2,b)]"
+  la.class: [
+    type
+    a
+  ]
+  bind1.class: [
+    function
+    g
+  ]
+  result2.class: [
+    type
+    b
+  ]
+  bind1: {tooltip: For each x in the input list, produce pairs with every element of the second list, then flatten all results.}
+}

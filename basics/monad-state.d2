@@ -1,0 +1,123 @@
+direction: right
+
+...@styles
+
+type_def: State s a = s ⟶ (a, s) {
+  explanation: |md
+    # State s a
+
+    A state computation is a **function** from an input state `s`
+    to a result `a` paired with a new output state `s`.
+
+    **bind (>>=)** threads the state: the output state of each step
+    becomes the input state of the next.
+    The result value of each step is passed to the next function.
+  |
+  explanation.class: [comment]
+}
+
+bind_def: bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b {
+  sa -> bind
+  f -> bind
+  bind -> sb
+  sa: State s a
+  f: a ⟶ State s b
+  sb: State s b
+  sa.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  sb.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: Run sa with the current state to get (a, s'). Pass a to f. Run f(a) with s' to get (b, s'').}
+}
+
+example: integer counter {
+  step1: get (read state) {
+    s_in -> op
+    op -> v_out
+    op -> s_out
+    s_in: s = 0
+    op: get
+    v_out: result = 0
+    s_out: s = 0
+    s_in.class: [
+      value
+      b
+    ]
+    v_out.class: [
+      value
+      a
+    ]
+    s_out.class: [
+      value
+      b
+    ]
+    op.class: [
+      function
+      f
+    ]
+  }
+  step2: modify (+1) {
+    s_in -> op
+    op -> v_out
+    op -> s_out
+    s_in: s = 0
+    op: modify (+1)
+    v_out: result = ()
+    s_out: s = 1
+    s_in.class: [
+      value
+      b
+    ]
+    v_out.class: [
+      value
+      a
+    ]
+    s_out.class: [
+      value
+      b
+    ]
+    op.class: [
+      function
+      g
+    ]
+  }
+  step3: get (read new state) {
+    s_in -> op
+    op -> v_out
+    op -> s_out
+    s_in: s = 1
+    op: get
+    v_out: result = 1
+    s_out: s = 1
+    s_in.class: [
+      value
+      b
+    ]
+    v_out.class: [
+      value
+      a
+    ]
+    s_out.class: [
+      value
+      b
+    ]
+    op.class: [
+      function
+      f
+    ]
+  }
+  step1.s_out -> step2.s_in
+  step2.s_out -> step3.s_in
+}

@@ -20,13 +20,17 @@ the previous one.
 
 ## Common monads
 
-| Monad          | Effect modelled                                |
-| -------------- | ---------------------------------------------- |
-| `Maybe<a>`     | optional value / failure without error message |
-| `Either<e, a>` | failure with an error value                    |
-| `List<a>`      | non-determinism / multiple results             |
-| `IO a`         | input/output side effects (Haskell)            |
-| `State s a`    | stateful computation                           |
+Each monad below has its own detailed page with diagram and code examples.
+
+| Monad          | Effect modelled                                | Detail                        |
+| -------------- | ---------------------------------------------- | ----------------------------- |
+| `Maybe<a>`     | optional value / failure without error message | [maybe.md](monads/maybe.md)   |
+| `Either<e, a>` | failure with an error value                    | [either.md](monads/either.md) |
+| `List<a>`      | non-determinism / multiple results             | [list.md](monads/list.md)     |
+| `IO a`         | input/output side effects                      | [io.md](monads/io.md)         |
+| `State s a`    | stateful computation                           | [state.md](monads/state.md)   |
+| `Reader r a`   | read-only shared environment / config          | [reader.md](monads/reader.md) |
+| `Writer w a`   | accumulated log / output alongside a result    | [writer.md](monads/writer.md) |
 
 ## Examples
 

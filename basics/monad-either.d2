@@ -1,0 +1,153 @@
+direction: right
+
+...@styles
+
+type_def: Either<e, a> = Left e | Right a {
+  explanation: |md
+    # Either\<e, a\>
+
+    Represents a computation that either succeeds with a value `Right a`
+    or fails with an error `Left e`.
+
+    **bind (>>=)** behaviour:
+    - `Right a` → unwrap `a`, apply `f`, return the result
+    - `Left e` → skip `f`, propagate the error unchanged
+  |
+  explanation.class: [comment]
+}
+
+bind_right: bind — Right a continues {
+  ra -> bind
+  f -> bind
+  bind -> result
+  ra: Right a
+  f: a ⟶ Either<e, b>
+  result: Either<e, b>
+  ra.class: [
+    value
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  result.class: [
+    value
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: Unwrap a from Right a, apply f. Result is Right b or Left e from f.}
+}
+
+bind_left: bind — Left e short-circuits {
+  le -> bind
+  bind -> le2
+  le: Left e
+  le2: Left e
+  le.class: [
+    type
+    b
+  ]
+  le2.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: f is never called. The Left error value propagates unchanged through the chain.}
+}
+
+example: parse and validate an age {
+  input1 -> parse1
+  parse1 -> r42
+  r42 -> validate1
+  validate1 -> r42b
+  r42b -> format1
+  format1 -> ok
+  input1: input "42"
+  parse1: bind parse
+  r42: Right 42
+  validate1: bind validate
+  r42b: Right 42
+  format1: bind format
+  ok: Right "42 years old"
+  input1.class: [
+    value
+    a
+  ]
+  r42.class: [
+    value
+    a
+  ]
+  r42b.class: [
+    value
+    a
+  ]
+  ok.class: [
+    value
+    b
+  ]
+  parse1.class: [
+    function
+    f
+  ]
+  validate1.class: [
+    function
+    f
+  ]
+  format1.class: [
+    function
+    g
+  ]
+}
+
+example_err: error short-circuits {
+  input2 -> parse2
+  parse2 -> lerr
+  lerr -> validate2
+  validate2 -> lerr2
+  lerr2 -> format2
+  format2 -> lerr3
+  input2: input "abc"
+  parse2: bind parse
+  lerr: Left "not a number"
+  validate2: bind validate
+  lerr2: Left "not a number"
+  format2: bind format
+  lerr3: Left "not a number"
+  input2.class: [
+    value
+    a
+  ]
+  lerr.class: [
+    type
+    b
+  ]
+  lerr2.class: [
+    type
+    b
+  ]
+  lerr3.class: [
+    type
+    b
+  ]
+  parse2.class: [
+    function
+    f
+  ]
+  validate2.class: [
+    function
+    g
+  ]
+  format2.class: [
+    function
+    g
+  ]
+  validate2: {tooltip: f is not called.}
+  format2: {tooltip: f is not called.}
+}

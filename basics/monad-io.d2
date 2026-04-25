@@ -1,0 +1,102 @@
+direction: right
+
+...@styles
+
+type_def: IO a — a description of an effectful computation {
+  explanation: |md
+    # IO a
+
+    An `IO a` value is a **description** of a side-effectful computation that,
+    when executed, produces a value of type `a`.
+
+    Nothing runs until the runtime executes it (at `main`).
+
+    **bind (>>=)** sequences two IO actions:
+    run the first, feed its result to the second.
+    The order of bind determines the order of effects.
+  |
+  explanation.class: [comment]
+}
+
+bind_def: bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b {
+  ia -> bind
+  f -> bind
+  bind -> ib
+  ia: IO a
+  f: a ⟶ IO b
+  ib: IO b
+  ia.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  ib.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: Execute ia to get a, pass a to f, execute the resulting IO b action.}
+}
+
+example: greet the user {
+  read -> bind1
+  bind1 -> greet
+  greet -> bind2
+  bind2 -> confirm
+  read: getLine :: IO String
+  bind1: bind
+  greet: putStrLn "Hello, name" :: IO ()
+  bind2: bind
+  confirm: putStrLn "Have a nice day!" :: IO ()
+  read.class: [
+    function
+    f
+  ]
+  greet.class: [
+    function
+    g
+  ]
+  confirm.class: [
+    function
+    h
+  ]
+  bind1.class: [function; f2]
+  bind2.class: [function; f2]
+  bind1: {tooltip: The String read from stdin is passed to the greeting action.}
+  bind2: {tooltip: The () result of putStrLn is passed (ignored) to the confirmation action.}
+}
+
+example2: read and parse a number {
+  step1 -> bind1
+  bind1 -> step2
+  step2 -> bind2
+  bind2 -> step3
+  step1: getLine :: IO String
+  bind1: bind
+  step2: putStrLn "Got: n" :: IO ()
+  bind2: bind
+  step3: return (read n) :: IO Int
+  step1.class: [
+    function
+    f
+  ]
+  step2.class: [
+    function
+    g
+  ]
+  step3.class: [
+    function
+    h
+  ]
+  bind1.class: [function; f2]
+  bind2.class: [function; f2]
+  step1: {tooltip: Side effect: reads a line from stdin.}
+  step2: {tooltip: Side effect: writes to stdout.}
+  step3: {tooltip: Pure: parses the string to Int and wraps in IO.}
+}

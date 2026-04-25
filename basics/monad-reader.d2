@@ -1,0 +1,152 @@
+direction: right
+
+...@styles
+
+type_def: Reader r a = r ⟶ a {
+  explanation: |md
+    # Reader r a
+
+    A reader computation is a **function** from a shared read-only environment `r` to a result `a`.
+
+    **bind (>>=)** threads the same environment through every step —
+    each step receives the identical `r`, and the result of each step is passed to the next function.
+    The environment is never modified.
+  |
+  explanation.class: [comment]
+}
+
+bind_def: bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b {
+  ra -> bind
+  f -> bind
+  bind -> rb
+  ra: Reader r a
+  f: a ⟶ Reader r b
+  rb: Reader r b
+  ra.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  rb.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: Run ra with env r to get a. Pass a to f to get Reader r b. Run that with the same env r.}
+}
+
+primitives: primitive operations {
+  ask: ask :: Reader r r {
+    r -> op
+    op -> r2
+    r: env r
+    r2: result = r
+    op: ask
+    r.class: [
+      value
+      b
+    ]
+    r2.class: [
+      value
+      a
+    ]
+    op.class: [
+      function
+      f
+    ]
+    op: {tooltip: Retrieve the whole environment as the result value.}
+  }
+  asks: asks :: (r ⟶ a) ⟶ Reader r a {
+    r2 -> op2
+    op2 -> a
+    r2: env r
+    a: result = f(r)
+    op2: asks f
+    r2.class: [
+      value
+      b
+    ]
+    a.class: [
+      value
+      a
+    ]
+    op2.class: [
+      function
+      g
+    ]
+    op2: {tooltip: Project a field out of the environment.}
+  }
+}
+
+example: build a greeting from a config {
+  step1: ask for host {
+    env -> op
+    op -> host
+    env: Config {host, port}
+    op: asks .host
+    host: "example.com"
+    env.class: [
+      value
+      b
+    ]
+    host.class: [
+      value
+      a
+    ]
+    op.class: [
+      function
+      f
+    ]
+  }
+  step2: ask for port {
+    env2 -> op2
+    op2 -> port
+    env2: Config {host, port}
+    op2: asks .port
+    port: 8080
+    env2.class: [
+      value
+      b
+    ]
+    port.class: [
+      value
+      a
+    ]
+    op2.class: [
+      function
+      g
+    ]
+  }
+  step3: combine {
+    host2 -> combine
+    port2 -> combine
+    combine -> url
+    host2: "example.com"
+    port2: 8080
+    url: "http://example.com:8080"
+    host2.class: [
+      value
+      a
+    ]
+    port2.class: [
+      value
+      a
+    ]
+    url.class: [
+      value
+      b
+    ]
+    combine.class: [
+      function
+      h
+    ]
+  }
+  step1.env -> step2.env2
+  step2.env2 -> step3.host2
+}

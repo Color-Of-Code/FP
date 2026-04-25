@@ -1,0 +1,107 @@
+direction: right
+
+...@styles
+
+type_def: Maybe<a> = Just a | Nothing {
+  explanation: |md
+    # Maybe\<a\>
+
+    Represents an **optional** value — a computation that either produces a result or fails silently.
+
+    **bind (>>=)** behaviour:
+    - `Just a` → unwrap `a`, apply `f`, return the result
+    - `Nothing` → skip `f`, propagate `Nothing` immediately
+  |
+  explanation.class: [comment]
+}
+
+bind_just: bind — Just a continues {
+  ja -> bind
+  f -> bind
+  bind -> result
+  ja: Just a
+  f: a ⟶ Maybe<b>
+  result: Maybe<b>
+  ja.class: [
+    value
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  result.class: [
+    value
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: Unwrap a from Just a, apply f. Result is whatever f returns — Just b or Nothing.}
+}
+
+bind_nothing: bind — Nothing short-circuits {
+  nothing -> bind
+  bind -> nothing2
+  nothing: Nothing
+  nothing2: Nothing
+  nothing.class: [
+    type
+    b
+  ]
+  nothing2.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: f is never called. Nothing propagates unchanged through the entire chain.}
+}
+
+example: safeDivide 10 then 0 then 1 {
+  j10 -> div2
+  div2 -> j5
+  j5 -> div0
+  div0 -> nothing
+  nothing -> div1
+  div1 -> nothing2
+  j10: Just 10
+  div2: bind safeDivide 2
+  j5: Just 5
+  div0: bind safeDivide 0
+  nothing: Nothing
+  div1: bind safeDivide 1
+  nothing2: Nothing
+  j10.class: [
+    value
+    a
+  ]
+  j5.class: [
+    value
+    a
+  ]
+  nothing.class: [
+    type
+    b
+  ]
+  nothing2.class: [
+    type
+    b
+  ]
+  div2.class: [
+    function
+    f
+  ]
+  div0.class: [
+    function
+    f
+  ]
+  div1.class: [
+    function
+    g
+  ]
+  div1: {tooltip: f is not called — Nothing is already present.}
+}

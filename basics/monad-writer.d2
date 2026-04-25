@@ -1,0 +1,142 @@
+direction: right
+
+...@styles
+
+type_def: Writer w a = (a, w) {
+  explanation: |md
+    # Writer w a
+
+    A writer computation produces a result `a` **paired with a log** `w`.
+    `w` must be a **monoid** (has an empty value and an append operation)
+    so that logs from successive steps can be combined.
+
+    **bind (>>=)** runs each step, collecting the result value and
+    **accumulating** all log entries with `mappend` (`<>`).
+  |
+  explanation.class: [comment]
+}
+
+bind_def: bind :: Writer w a ⟶ (a ⟶ Writer w b) ⟶ Writer w b {
+  wa -> bind
+  f -> bind
+  bind -> wb
+  wa: "(a, w1)"
+  f: a ⟶ "(b, w2)"
+  wb: "(b, w1 <> w2)"
+  wa.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  wb.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: Extract a from (a, w1). Apply f(a) to get (b, w2). Return (b, w1 <> w2) — result b with combined log.}
+}
+
+primitives: primitive operations {
+  tell: tell :: w ⟶ Writer w () {
+    w -> op
+    op -> out
+    w: log entry w
+    out: "((), w)"
+    w.class: [
+      value
+      a
+    ]
+    out.class: [
+      value
+      b
+    ]
+    op.class: [
+      function
+      f
+    ]
+    op: tell w
+    op: {tooltip: Append w to the log. Produces no meaningful result value.}
+  }
+  writer_op: writer :: (a, w) ⟶ Writer w a {
+    pair -> op
+    op -> out
+    pair: "(a, w)"
+    out: Writer w a
+    pair.class: [
+      value
+      a
+    ]
+    out.class: [
+      value
+      b
+    ]
+    op.class: [
+      function
+      g
+    ]
+    op: writer
+    op: {tooltip: Construct a Writer from a value and an initial log entry.}
+  }
+}
+
+example: logging a computation {
+  step1: double 3 {
+    in1 -> op1
+    op1 -> out1
+    in1: 3
+    out1: "(6, [doubled 3])"
+    in1.class: [
+      value
+      a
+    ]
+    out1.class: [
+      value
+      b
+    ]
+    op1.class: [
+      function
+      f
+    ]
+    op1: double
+  }
+  step2: add 1 {
+    in2 -> op2
+    op2 -> out2
+    in2: 6
+    out2: "(7, [added 1])"
+    in2.class: [
+      value
+      a
+    ]
+    out2.class: [
+      value
+      b
+    ]
+    op2.class: [
+      function
+      g
+    ]
+    op2: add1
+  }
+  step3: combined result {
+    result -> log
+    result: 7
+    log: "[doubled 3, added 1]"
+    result.class: [
+      value
+      a
+    ]
+    log.class: [
+      value
+      b
+    ]
+  }
+  step1.out1 -> step2.in2
+  step2.out2 -> step3.result
+}
