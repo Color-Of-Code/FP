@@ -3,7 +3,7 @@
 The **State monad** models computations that read and write a **shared mutable state** without
 actually using mutable variables — state is threaded explicitly as a function argument.
 
-![state monad](../../basics/monad-state.svg)
+![state monad](diagrams/state.svg)
 
 ## Type
 
@@ -72,7 +72,7 @@ pipeline(input) = do
 -- No state variables at call sites; the monad threads them correctly.
 ```
 
-![state motivation](../../basics/monad-state-motivation.svg)
+![state motivation](diagrams/state-motivation.svg)
 
 ## Examples
 

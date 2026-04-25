@@ -3,7 +3,7 @@
 The **Writer monad** models computations that produce a result **alongside an accumulated log** (or
 any other monoidal side output such as metrics, warnings, or a list of events).
 
-![writer monad](../../basics/monad-writer.svg)
+![writer monad](diagrams/writer.svg)
 
 ## Type
 
@@ -69,7 +69,7 @@ pipeline = do
 -- runWriter returns (r3, combinedLog) with all fragments in order.
 ```
 
-![writer motivation](../../basics/monad-writer-motivation.svg)
+![writer motivation](diagrams/writer-motivation.svg)
 
 ## Examples
 

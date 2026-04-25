@@ -6,7 +6,7 @@ accumulator.
 
 `fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b`
 
-![fold](../basics/fold.svg)
+![fold](diagrams/fold.svg)
 
 `map`, `filter`, `sum`, `product`, `length` and many other operations can all be expressed as a
 fold.
@@ -52,7 +52,7 @@ length  xs = fold (\acc _ -> acc + 1) 0 xs
 -- New aggregation = one line.  The loop is never rewritten.
 ```
 
-![fold motivation](../basics/fold-motivation.svg)
+![fold motivation](diagrams/fold-motivation.svg)
 
 ## Examples
 

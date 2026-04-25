@@ -3,7 +3,7 @@
 Both techniques build on the idea that functions are first-class values and can be produced as
 results.
 
-![currying and partial application](../basics/function2.svg)
+![currying and partial application](diagrams/function2.svg)
 
 ## Partial application
 

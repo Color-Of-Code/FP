@@ -4,7 +4,7 @@ The **Reader monad** (`Environment` monad) models computations that depend on a 
 environment** — configuration, dependency injection, or any context that all steps need but none
 should modify.
 
-![reader monad](../../basics/monad-reader.svg)
+![reader monad](diagrams/reader.svg)
 
 ## Type
 
@@ -71,7 +71,7 @@ build_url = do
 -- No config parameter in sight; runReader supplies it once at the top.
 ```
 
-![reader motivation](../../basics/monad-reader-motivation.svg)
+![reader motivation](diagrams/reader-motivation.svg)
 
 ## Examples
 

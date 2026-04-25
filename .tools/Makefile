@@ -2,16 +2,22 @@
 # Run from anywhere: make -C .tools <target>
 # Or: cd .tools && make <target>
 
-REPO_ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
-BASICS     := $(REPO_ROOT)/basics
+REPO_ROOT  := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
+DOCS_DIAG  := $(REPO_ROOT)/docs/diagrams
+MONAD_DIAG := $(REPO_ROOT)/docs/monads/diagrams
 NODE_BIN   := $(REPO_ROOT)/.tools/node_modules/.bin
 
-D2_FILES   := $(wildcard $(BASICS)/*.d2)
-SVG_FILES  := $(D2_FILES:.d2=.svg)
+# styles.d2 lives alongside the diagrams under docs/
+STYLES := $(REPO_ROOT)/docs/styles.d2
 
-# Exclude styles.d2 — it is an import-only file, not a standalone diagram
-DIAGRAM_D2  := $(filter-out $(BASICS)/styles.d2, $(D2_FILES))
-DIAGRAM_SVG := $(DIAGRAM_D2:.d2=.svg)
+# D2 source files in each location
+D2_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.d2)
+D2_FILES_MONADS := $(wildcard $(MONAD_DIAG)/*.d2)
+
+D2_FILES_ALL := $(D2_FILES_DOCS) $(D2_FILES_MONADS)
+
+DIAGRAM_SVG := $(D2_FILES_DOCS:.d2=.svg) \
+               $(D2_FILES_MONADS:.d2=.svg)
 
 .PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help
 
@@ -38,13 +44,19 @@ install:
 ## Regenerate all SVG diagrams
 svgs: $(DIAGRAM_SVG)
 
-$(BASICS)/%.svg: $(BASICS)/%.d2 $(BASICS)/styles.d2
+# Rule for docs/diagrams/ diagrams (depend on styles.d2)
+$(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.d2 $(STYLES)
+	d2 --layout=elk "$<" "$@"
+	@echo "  generated $@"
+
+# Rule for docs/monads/diagrams/ diagrams (depend on styles.d2)
+$(MONAD_DIAG)/%.svg: $(MONAD_DIAG)/%.d2 $(STYLES)
 	d2 --layout=elk "$<" "$@"
 	@echo "  generated $@"
 
 ## Format D2 source files (uses d2 fmt built-in)
 fmt-d2:
-	d2 fmt $(D2_FILES)
+	d2 fmt $(D2_FILES_ALL) $(STYLES)
 	@echo "  formatted D2 files"
 
 ## Format Markdown files

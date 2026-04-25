@@ -3,7 +3,7 @@
 The **Maybe monad** (`Option` in some languages) models computations that may **fail silently** —
 producing either a value or nothing at all.
 
-![maybe monad](../../basics/monad-maybe.svg)
+![maybe monad](diagrams/maybe.svg)
 
 ## Type
 
@@ -55,7 +55,7 @@ lookup_user_city(id) =
     >>= city    -> Just city.name
 ```
 
-![maybe motivation](../../basics/monad-maybe-motivation.svg)
+![maybe motivation](diagrams/maybe-motivation.svg)
 
 ## Examples
 

@@ -3,7 +3,7 @@
 The **Either monad** (`Result` in Rust/Swift) models computations that may **fail with an error
 value** — carrying a description of what went wrong.
 
-![either monad](../../basics/monad-either.svg)
+![either monad](diagrams/either.svg)
 
 ## Type
 
@@ -57,7 +57,7 @@ process(input) =
     >>= save_to_db
 ```
 
-![either motivation](../../basics/monad-either-motivation.svg)
+![either motivation](diagrams/either-motivation.svg)
 
 ## Examples
 
