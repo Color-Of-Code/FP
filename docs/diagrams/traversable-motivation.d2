@@ -1,0 +1,57 @@
+...@../styles
+
+direction: down
+
+before: "without traverse: manual recursive loop per container+effect pair" {
+  direction: right
+  xs: "List<Int>" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  validate: "validate :: Int ⟶ Maybe Int" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  loop: "manual loop + case analysis per element" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  result_bad: "Maybe<List<Int>>" {
+    style.fill: "#ffe0e0"
+  }
+  result_bad.class: [
+    type
+    a
+  ]
+  xs -> loop
+  validate -> loop
+  loop -> result_bad
+}
+
+after: "with traverse: single call, any Applicative, any Traversable container" {
+  direction: right
+  xs2: "List<Int>" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  validate2: "validate :: Int ⟶ Maybe Int" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  trav: "traverse validate xs" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  result_ok: "Maybe<List<Int>>" {
+    style.fill: "#e0ffe0"
+  }
+  result_ok.class: [
+    type
+    b
+  ]
+  xs2 -> trav
+  validate2 -> trav
+  trav -> result_ok
+}
+
+before -> after: traverse

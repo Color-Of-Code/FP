@@ -1,0 +1,83 @@
+...@../styles
+
+direction: down
+
+before: "without <*>: manual case-analysis for each combination" {
+  direction: right
+  step1: "parse x  ::  Maybe Int" {
+    ix -> mx
+    ix: "input x"
+    mx: "Maybe Int"
+    ix.class: [
+      value
+      a
+    ]
+    mx.class: [
+      type
+      a
+    ]
+  }
+  step2: "parse y  ::  Maybe Int" {
+    iy -> my
+    iy: "input y"
+    my: "Maybe Int"
+    iy.class: [
+      value
+      b
+    ]
+    my.class: [
+      type
+      b
+    ]
+  }
+  combine: "case parsed_x of { Nothing -> Nothing; Just x -> case parsed_y of { Nothing -> Nothing; Just y -> Just (x+y) } }" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  step1 -> combine
+  step2 -> combine
+}
+
+after: "with <*>: combine independently parsed values in one expression" {
+  direction: right
+  px: "parse x  ::  Maybe Int" {
+    ix2 -> mx2
+    ix2: "input x"
+    mx2: "Maybe Int"
+    ix2.class: [
+      value
+      a
+    ]
+    mx2.class: [
+      type
+      a
+    ]
+  }
+  py: "parse y  ::  Maybe Int" {
+    iy2 -> my2
+    iy2: "input y"
+    my2: "Maybe Int"
+    iy2.class: [
+      value
+      b
+    ]
+    my2.class: [
+      type
+      b
+    ]
+  }
+  ap: "pure (+) <*> parse x <*> parse y" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  result: "Maybe Int"
+  result.class: [
+    type
+    b
+  ]
+  px -> ap
+  py -> ap
+  ap -> result
+}
+
+before -> after: "applicative"

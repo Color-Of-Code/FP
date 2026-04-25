@@ -1,0 +1,63 @@
+direction: right
+
+...@../styles
+
+definition: "Traversable: effectful mapping that preserves shape" {
+  traverse: "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)" {
+    direction: right
+    ta -> trav
+    f2 -> trav
+    trav -> ftb
+    ta: "Ta"
+    f2: "a ⟶ Fb"
+    trav: traverse
+    ftb: "F(Tb)"
+    ta.class: [
+      type
+      a
+    ]
+    f2.class: [
+      function
+      g
+    ]
+    trav.class: [
+      function
+      f
+    ]
+    ftb.class: [
+      type
+      b
+    ]
+    ftb: {tooltip: The container shape T is preserved; all effects F are collected into one outer F}
+  }
+  sequence: "sequence :: T(Fa) ⟶ F(Ta)   (= traverse id)" {
+    direction: right
+    tfa -> seq
+    seq -> fta
+    tfa: "T(Fa)"
+    seq: sequence
+    fta: "F(Ta)"
+    tfa.class: [
+      type
+      a
+    ]
+    seq.class: [
+      function
+      f
+    ]
+    fta.class: [
+      type
+      b
+    ]
+    fta: {tooltip: Swaps the container and the effect: a list of Maybe becomes a Maybe of list}
+  }
+}
+
+requirement: "Requirements" {
+  f_appl: "F must be Applicative" {
+    style.fill: "#f4f4f4"
+  }
+  t_funct: "T must be Functor (+ Foldable)" {
+    style.fill: "#f4f4f4"
+  }
+}

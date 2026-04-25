@@ -1,4 +1,4 @@
-# 6. Monad
+# 8. Monad
 
 A **monad** is a functor extended with two operations that allow **sequencing of effectful
 computations**.
@@ -11,7 +11,8 @@ this.
 
 ## Operations
 
-- **`pure :: a ⟶ Ma`** — lift a plain value into the monad. Also called `return`.
+- **`pure :: a ⟶ Ma`** — lift a plain value into the monad (inherited from
+  [Applicative](./05-applicative.md)). Also called `return`.
 - **`bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb`** — unwrap `a` from `Ma`, apply `f`, and flatten `M(Mb)` to `Mb`.
   Also called `flatMap` or `>>=`.
 

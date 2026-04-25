@@ -1,0 +1,74 @@
+direction: right
+
+...@../styles
+
+definition: "Applicative: lifting over a wrapped function" {
+  plain: "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb  (Functor)" {
+    direction: right
+    a -> f
+    f -> b
+    a: Fa
+    b: Fb
+    f: "fmap f (plain f)"
+    a.class: [
+      type
+      a
+    ]
+    b.class: [
+      type
+      b
+    ]
+    f.class: [
+      function
+      f
+    ]
+    f: {tooltip: fmap lifts a plain function into the functor}
+  }
+  applicative: "<*> :: F(a ⟶ b) ⟶ Fa ⟶ Fb  (Applicative)" {
+    direction: right
+    ff -> a -> b
+    ff: "F(a ⟶ b)"
+    a: Fa
+    b: Fb
+    ff.class: [
+      type
+      f
+    ]
+    a.class: [
+      type
+      a
+    ]
+    b.class: [
+      type
+      b
+    ]
+  }
+  pure: "pure :: a ⟶ Fa" {
+    direction: right
+    x -> fx
+    x: "x :: a"
+    fx: "pure x :: Fa"
+    x.class: [
+      value
+      a
+    ]
+    fx.class: [
+      type
+      a
+    ]
+  }
+}
+
+hierarchy: "Functor ⊂ Applicative ⊂ Monad" {
+  functor: Functor {
+    style.fill: "#f4f4f4"
+  }
+  applicative: Applicative {
+    style.fill: "#f4f4f4"
+  }
+  monad: Monad {
+    style.fill: "#f4f4f4"
+  }
+  functor -> applicative: "adds pure, <*>"
+  applicative -> monad: "adds bind (>>=)"
+}
