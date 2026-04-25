@@ -10,11 +10,12 @@ A learning track through the core concepts of functional programming, each build
 | 2   | [Composition](docs/02-composition.md)                 | Combining functions into new functions — the central mechanism of FP          |
 | 3   | [Currying & Partial Application](docs/03-currying.md) | Transforming multi-argument functions; functions as results                   |
 | 4   | [Algebraic Data Types](docs/04-adt.md)                | Product types (AND), sum types (OR), pattern matching; the shape of FP data   |
-| 5   | [Functor](docs/05-functor.md)                         | Lifting a function to work inside a wrapped type with `fmap`                  |
-| 6   | [Applicative](docs/06-applicative.md)                 | Applying wrapped functions to wrapped values; combining independent effects   |
-| 7   | [Fold](docs/07-fold.md)                               | Reducing a collection to a value; `map`, `filter` and more as folds           |
-| 8   | [Traversable](docs/08-traversable.md)                 | Effectful mapping that preserves shape; swapping container and effect         |
-| 9   | [Monad](docs/09-monad.md)                             | Sequencing effectful computations; solving the `fmap` nesting problem         |
+| 5   | [Semigroup & Monoid](docs/05-semigroup-monoid.md)     | Associative combination of values; the algebra behind `fold` and `mconcat`    |
+| 6   | [Functor](docs/06-functor.md)                         | Lifting a function to work inside a wrapped type with `fmap`                  |
+| 7   | [Applicative](docs/07-applicative.md)                 | Applying wrapped functions to wrapped values; combining independent effects   |
+| 8   | [Fold](docs/08-fold.md)                               | Reducing a collection to a value; `map`, `filter` and more as folds           |
+| 9   | [Traversable](docs/09-traversable.md)                 | Effectful mapping that preserves shape; swapping container and effect         |
+| 10  | [Monad](docs/10-monad.md)                             | Sequencing effectful computations; solving the `fmap` nesting problem         |
 
 ## Diagrams
 

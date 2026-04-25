@@ -1,4 +1,4 @@
-# 5. Functor
+# 6. Functor
 
 A **functor** `F` is a type constructor that wraps values and supports **`fmap`**, which lifts a
 plain function `f :: a ⟶ b` to work inside the wrapper: `fmap f :: Fa ⟶ Fb`.

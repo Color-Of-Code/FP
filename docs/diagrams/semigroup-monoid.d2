@@ -1,0 +1,86 @@
+direction: down
+
+...@../styles
+
+semigroup: Semigroup {
+  direction: right
+  op: "(<>) :: a → a → a" {
+    x -> combine
+    y -> combine
+    combine -> z
+    x: "x :: a"
+    y: "y :: a"
+    z: "x <> y :: a"
+    combine: "<>"
+    x.class: [
+      value
+      a
+    ]
+    y.class: [
+      value
+      b
+    ]
+    z.class: [
+      value
+      f2
+    ]
+    combine.class: [
+      function
+      f
+    ]
+    combine: {tooltip: Associative: (x <> y) <> z = x <> (y <> z)}
+  }
+  law: "(x <> y) <> z  =  x <> (y <> z)   -- associativity" {
+    shape: text
+    style.font-size: 14
+  }
+}
+
+monoid: "Monoid (extends Semigroup)" {
+  direction: right
+  identity: "mempty :: a" {
+    e -> left_id
+    left_id -> x2
+    e: mempty
+    x2: "x :: a"
+    left_id: "<>"
+    e.class: [
+      value
+      g
+    ]
+    x2.class: [
+      value
+      a
+    ]
+    left_id.class: [
+      function
+      f
+    ]
+    left_id: {tooltip: mempty <> x = x   (left identity)}
+  }
+  laws: "mempty <> x = x    x <> mempty = x   -- identity laws" {
+    shape: text
+    style.font-size: 14
+  }
+}
+
+instances: "Common instances" {
+  str: "String:  \"\" and (++)" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  list: "List<a>: [] and (++)" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  sum_int: "Sum Int:  0 and (+)" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  prod_int: "Product Int:  1 and (*)" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+}
+
+semigroup -> monoid: "adds mempty"

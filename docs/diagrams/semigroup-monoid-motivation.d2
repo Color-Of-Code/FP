@@ -1,0 +1,58 @@
+...@../styles
+
+direction: down
+
+before: "without monoid: separate accumulation function per type" {
+  direction: right
+  concat_str: "concat_strings(xs)" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  concat_list: "concat_lists(xs)" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  sum_ints: "sum_ints(xs)" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  note: "3 identical loops — new type = new function" {
+    shape: text
+    style.font-size: 13
+    style.fill: "#ffe0e0"
+  }
+}
+
+after: "with monoid: one mconcat works for any monoid instance" {
+  direction: right
+  mconcat: "mconcat = foldr (<>) mempty" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  str_out: "String" {
+    style.fill: "#e0ffe0"
+  }
+  str_out.class: [
+    type
+    a
+  ]
+  list_out: "List<a>" {
+    style.fill: "#e0ffe0"
+  }
+  list_out.class: [
+    type
+    b
+  ]
+  int_out: "Sum Int" {
+    style.fill: "#e0ffe0"
+  }
+  int_out.class: [
+    type
+    f2
+  ]
+  mconcat -> str_out: "String instance"
+  mconcat -> list_out: "List instance"
+  mconcat -> int_out: "Sum instance"
+}
+
+before -> after: "Monoid"
