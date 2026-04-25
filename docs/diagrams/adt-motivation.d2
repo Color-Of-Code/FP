@@ -1,0 +1,58 @@
+...@../styles
+
+direction: down
+
+before: "without sum types: null represents absence; type system cannot enforce checking" {
+  direction: right
+  fn: "safeDivide(a, b)" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  null_out: "Int or null" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  caller: "caller: may forget null check" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  crash: "runtime crash / silent wrong result" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  fn -> null_out
+  null_out -> caller
+  caller -> crash: "null + 1"
+}
+
+after: "with sum type (Maybe): absence is encoded in the type; all cases must be handled" {
+  direction: right
+  fn2: "safeDivide :: Int -> Int -> Maybe Int" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  nothing: "Nothing" {
+    style.fill: "#e0ffe0"
+  }
+  nothing.class: [
+    type
+    g
+  ]
+  just: "Just Int" {
+    style.fill: "#e0ffe0"
+  }
+  just.class: [
+    type
+    f2
+  ]
+  match: "pattern match: must handle both variants" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  fn2 -> nothing: "b == 0"
+  fn2 -> just: "b != 0"
+  nothing -> match
+  just -> match
+}
+
+before -> after: "ADT"

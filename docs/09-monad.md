@@ -1,9 +1,9 @@
-# 8. Monad
+# 9. Monad
 
 A **monad** is a functor extended with two operations that allow **sequencing of effectful
 computations**.
 
-`fmap` (from [Functor](./04-functor.md)) handles `f :: a ⟶ b`. But when `f :: a ⟶ Mb` (the function
+`fmap` (from [Functor](./05-functor.md)) handles `f :: a ⟶ b`. But when `f :: a ⟶ Mb` (the function
 itself produces a wrapped value), `fmap` yields `M(Mb)` — an unwanted nested wrapper. Monads solve
 this.
 
@@ -12,7 +12,7 @@ this.
 ## Operations
 
 - **`pure :: a ⟶ Ma`** — lift a plain value into the monad (inherited from
-  [Applicative](./05-applicative.md)). Also called `return`.
+  [Applicative](./06-applicative.md)). Also called `return`.
 - **`bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb`** — unwrap `a` from `Ma`, apply `f`, and flatten `M(Mb)` to `Mb`.
   Also called `flatMap` or `>>=`.
 

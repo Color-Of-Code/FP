@@ -1,0 +1,112 @@
+direction: right
+
+...@../styles
+
+product: "Product type: AND of all fields" {
+  direction: right
+  point: "Point = (x: Int, y: Int)" {
+    x -> point
+    y -> point
+    x: "x :: Int"
+    y: "y :: Int"
+    point: Point
+    x.class: [
+      value
+      a
+    ]
+    y.class: [
+      value
+      b
+    ]
+    point.class: [
+      type
+      f2
+    ]
+    point: {tooltip: Both x AND y must be present — the type is the Cartesian product Int × Int}
+  }
+  size: "|Point| = |Int| × |Int|" {
+    shape: text
+    style.font-size: 14
+  }
+}
+
+sum: "Sum type: OR of one variant" {
+  direction: down
+  shape_type: "Shape = Circle | Rectangle | Triangle" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  circle: "Circle(radius: Float)" {
+    r -> c
+    r: "radius :: Float"
+    c: Circle
+    r.class: [
+      value
+      a
+    ]
+    c.class: [
+      type
+      f
+    ]
+  }
+  rect: "Rectangle(width: Float, height: Float)" {
+    w -> rc
+    h -> rc
+    w: "width :: Float"
+    h: "height :: Float"
+    rc: Rectangle
+    w.class: [
+      value
+      a
+    ]
+    h.class: [
+      value
+      b
+    ]
+    rc.class: [
+      type
+      g
+    ]
+  }
+  tri: "Triangle(base: Float, height: Float)" {
+    b -> t
+    ht -> t
+    b: "base :: Float"
+    ht: "height :: Float"
+    t: Triangle
+    b.class: [
+      value
+      a
+    ]
+    ht.class: [
+      value
+      b
+    ]
+    t.class: [
+      type
+      h
+    ]
+  }
+  shape_type -> circle: "variant 1"
+  shape_type -> rect: "variant 2"
+  shape_type -> tri: "variant 3"
+  size: "|Shape| = |Circle| + |Rectangle| + |Triangle|" {
+    shape: text
+    style.font-size: 14
+  }
+}
+
+adt_examples: "Common ADTs" {
+  maybe: "Maybe<a> = Nothing | Just a" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  either: "Either<e,a> = Left e | Right a" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  list: "List<a> = Nil | Cons(head: a, tail: List<a>)" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+}
