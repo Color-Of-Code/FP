@@ -6,6 +6,7 @@
 | --------------------- | ------------------------------ | ------------------------------- |
 | `docs/NN-name.md`     | `docs/diagrams/name.d2`        | `docs/diagrams/name.svg`        |
 | `docs/monads/name.md` | `docs/monads/diagrams/name.d2` | `docs/monads/diagrams/name.svg` |
+| `docs/optics/name.md` | `docs/optics/diagrams/name.d2` | `docs/optics/diagrams/name.svg` |
 
 Each concept gets **two diagrams**:
 
@@ -31,6 +32,9 @@ declaration**:
 ...@../styles
 
 # From docs/monads/diagrams/
+...@../../styles
+
+# From docs/optics/diagrams/
 ...@../../styles
 ```
 

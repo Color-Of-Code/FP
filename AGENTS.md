@@ -43,4 +43,7 @@ make -C .tools <target>
 4. **SKIP_FILES**: only discussion/comparison chapters (no tutorial code) belong in this set in
    `.tools/check-lang-order.js`. Do not add a file there to silence a check — fix the content.
 
-5. **README table and monad catalogue** must be kept in sync with actual files.
+5. **README table, monad catalogue, and optics catalogue** must be kept in sync with actual files.
+   - `docs/monads/` — monad detail pages (linked from `docs/10-monad.md` and README)
+   - `docs/optics/` — optic detail pages (linked from `docs/13-optics.md` and README) See
+     [`specs/doc-structure.md`](specs/doc-structure.md).

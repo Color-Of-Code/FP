@@ -67,7 +67,8 @@ fences. Run `fmt-md` after every prose edit to keep diffs clean.
 
 ## Language-order checker (`.tools/check-lang-order.js`)
 
-Validates that every `docs/*.md` and `docs/monads/*.md` file (except SKIP_FILES) contains:
+Validates that every `docs/*.md`, `docs/monads/*.md`, and `docs/optics/*.md` file (except
+SKIP_FILES) contains:
 
 - Exactly **one** `### <Lang>` heading per language
 - All nine languages present

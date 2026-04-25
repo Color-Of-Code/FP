@@ -106,6 +106,59 @@ Short definition sentence.
 4. Add a row to the monad catalogue in `docs/10-monad.md` and in `README.md`.
 5. Run `make -C .tools fmt-md lint-md lint-langs`.
 
+## Optic detail docs (`docs/optics/name.md`)
+
+Filename pattern: `docs/optics/name.md` (no number prefix). Currently: `iso.md`, `lens.md`,
+`prism.md`, `traversal.md`, `fold.md`, `getter-setter.md`.
+
+### Required section order
+
+````markdown
+# <Name>
+
+Short definition sentence. State the optic's position in the hierarchy (stronger/weaker than).
+
+![concept diagram](diagrams/concept.svg)
+
+## Type
+
+(```text fence: the optic type, its operations, and the van Laarhoven encoding)
+
+## Laws
+
+(table with Law / Expression / Meaning columns)
+
+## Key use cases
+
+(bullet list, 4–6 items)
+
+## Motivation
+
+(two ```text fences: without-optic pain, then with-optic relief)
+
+![motivation diagram](diagrams/concept-motivation.svg)
+
+## Examples
+
+### C\#
+
+... (all 9 languages in order)
+````
+
+### Rules
+
+- Diagrams live in `docs/optics/diagrams/` and import `...@../../styles`.
+- Cross-links to other optic pages use relative paths: `[Lens](lens.md)`.
+- Cross-links from `docs/` use: `[lens.md](optics/lens.md)`.
+
+## Adding a new optic detail page
+
+1. Create `docs/optics/name.md` following the optic template above.
+2. Create `docs/optics/diagrams/name.d2` and `docs/optics/diagrams/name-motivation.d2`.
+3. Compile SVGs: `make -C .tools svgs`.
+4. Add a row to the optics catalogue table in `docs/13-optics.md` and in `README.md`.
+5. Run `make -C .tools fmt-md lint-md lint-langs`.
+
 ## Renaming or renumbering docs
 
 - Update the filename.
