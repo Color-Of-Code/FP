@@ -1,0 +1,74 @@
+direction: right
+
+...@../../styles
+
+type_def: "Cont r a = (a -> r) -> r" {
+  explanation: |md
+    # Cont r a
+
+    A `Cont r a` value is a **function that takes a continuation** `k :: a -> r`
+    and returns the final result `r`.
+
+    **pure x** = `\k -> k x` — pass `x` directly to the continuation.
+
+    **bind m f** = `\k -> m (\a -> f a k)` — give `m` a continuation that
+    first runs `f a`, which is then given the original `k`.
+
+    **callCC** captures the current continuation as an escape function,
+    enabling early exit, exceptions, and coroutines as pure values.
+  |
+  explanation.class: [comment]
+}
+
+bind_def: "bind :: Cont r a -> (a -> Cont r b) -> Cont r b" {
+  m -> bind
+  f -> bind
+  bind -> result
+  m: "Cont r a"
+  f: "a -> Cont r b"
+  result: "Cont r b"
+  m.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  result.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: bind m f = k -> m (a -> f a k). Composes continuations; the current step runs last.}
+}
+
+callCC_def: "callCC :: ((a -> Cont r b) -> Cont r a) -> Cont r a" {
+  f -> callCC
+  callCC -> result
+  f: "f :: (a -> Cont r b) -> Cont r a"
+  result: "Cont r a"
+  escape: "escape :: a -> Cont r b"
+  callCC -> escape: provides
+  f -> escape: receives
+  f.class: [
+    function
+    f
+  ]
+  callCC.class: [
+    function
+    g
+  ]
+  result.class: [
+    type
+    a
+  ]
+  escape.class: [
+    value
+    b
+  ]
+  callCC: {tooltip: Capture the current continuation k as an escape function. Calling escape(a) jumps directly to the runCont call site with value a.}
+}

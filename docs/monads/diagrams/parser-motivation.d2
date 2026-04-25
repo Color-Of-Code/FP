@@ -1,0 +1,71 @@
+...@../../styles
+
+direction: down
+
+before: without Parser monad: remaining input threaded manually {
+  direction: right
+  parse1 -> check1 -> pass1 -> parse2 -> check2 -> pass2 -> result
+  parse1: "parse_digit(input)"
+  check1: "null?"
+  pass1:  "(d, rest1)"
+  parse2: "parse_letter(rest1)"
+  check2: "null?"
+  pass2:  "(l, rest2)"
+  result: "((d,l), rest2)"
+  parse1.class: [
+    function
+    f
+  ]
+  check1.class: [
+    function
+    g
+  ]
+  parse2.class: [
+    function
+    f
+  ]
+  check2.class: [
+    function
+    g
+  ]
+  pass1.class: [
+    value
+    a
+  ]
+  pass2.class: [
+    value
+    a
+  ]
+  result.class: [
+    type
+    b
+  ]
+  note: every parser step must accept AND return remaining input
+  note.class: [comment]
+}
+
+after: with Parser monad: bind threads remaining input automatically {
+  direction: right
+  digit -> letter -> pure -> result
+  digit -> letter: ">>="
+  letter -> pure: ">>="
+  pure -> result: "runParser"
+  digit.class: [
+    function
+    f
+  ]
+  letter.class: [
+    function
+    g
+  ]
+  pure.class: [
+    function
+    h
+  ]
+  result.class: [
+    type
+    a
+  ]
+  result: "(value, rest)"
+  result: {tooltip: The parser returns the parsed value and remaining unconsumed input.}
+}

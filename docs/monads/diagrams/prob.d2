@@ -1,0 +1,87 @@
+direction: right
+
+...@../../styles
+
+type_def: "Prob a = [(a, Double)]" {
+  explanation: ||md
+    # Prob a
+
+    A `Prob a` value is a list of **(outcome, probability)** pairs.
+    The probabilities should sum to 1.
+
+    **pure x** = `[(x, 1.0)]` — the certain distribution.
+
+    **bind dist f** = `[(b, pa*pb) | (a,pa) <- dist, (b,pb) <- f a]`
+
+    This is the law of total probability / conditional probability:
+    `P(B = b) = sum over a of P(B = b | A = a) * P(A = a)`
+  ||
+  explanation.class: [comment]
+}
+
+bind_def: "bind :: Prob a -> (a -> Prob b) -> Prob b" {
+  dist -> bind
+  f -> bind
+  bind -> result
+  dist: "Prob a"
+  f: "a -> Prob b"
+  result: "Prob b"
+  dist.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  result.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    g
+  ]
+  bind: {tooltip: For each (a, pa) in dist, apply f to get a Prob b. Each (b, pb) gets weight pa * pb. Cartesian product weighted by joint probability.}
+}
+
+primitives: primitive operations {
+  uniform: "uniform xs -> Prob a" {
+    xs -> op -> out
+    xs: "[x1, x2, ..., xn]"
+    out: "[(x1, 1/n), ..., (xn, 1/n)]"
+    xs.class: [
+      value
+      a
+    ]
+    out.class: [
+      value
+      b
+    ]
+    op.class: [
+      function
+      f
+    ]
+    op: uniform
+    op: {tooltip: Assign equal probability 1/n to each element.}
+  }
+  prob_op: "probability pred dist -> Double" {
+    dist2 -> op2 -> p
+    dist2: "Prob a"
+    p: "Double"
+    dist2.class: [
+      type
+      a
+    ]
+    p.class: [
+      value
+      b
+    ]
+    op2.class: [
+      function
+      g
+    ]
+    op2: probability
+    op2: {tooltip: Sum the probabilities of all outcomes where pred holds.}
+  }
+}

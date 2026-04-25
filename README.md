@@ -22,3 +22,22 @@ A learning track through the core concepts of functional programming, each build
 
 The `docs/diagrams/` folder contains [D2](https://d2lang.com) source files for each concept diagram.
 Monad-specific diagrams live in `docs/monads/diagrams/`.
+
+## Monad catalogue
+
+Each monad has a detailed page with type, bind semantics, motivation, diagram, and code examples in
+all nine languages.
+
+| Monad          | Effect modelled                               | Detail                             |
+| -------------- | --------------------------------------------- | ---------------------------------- |
+| `Maybe<a>`     | optional value / silent failure               | [maybe.md](docs/monads/maybe.md)   |
+| `Either<e, a>` | failure with an error value                   | [either.md](docs/monads/either.md) |
+| `List<a>`      | non-determinism / multiple results            | [list.md](docs/monads/list.md)     |
+| `IO a`         | input/output side effects                     | [io.md](docs/monads/io.md)         |
+| `State s a`    | stateful computation                          | [state.md](docs/monads/state.md)   |
+| `Reader r a`   | read-only shared environment / config         | [reader.md](docs/monads/reader.md) |
+| `Writer w a`   | accumulated log / output alongside a result   | [writer.md](docs/monads/writer.md) |
+| `Parser a`     | consuming input; parsing as sequenced effects | [parser.md](docs/monads/parser.md) |
+| `Cont r a`     | first-class continuations; `callCC`           | [cont.md](docs/monads/cont.md)     |
+| `STM a`        | atomic transactions over shared mutable state | [stm.md](docs/monads/stm.md)       |
+| `Prob a`       | discrete probability distributions            | [prob.md](docs/monads/prob.md)     |

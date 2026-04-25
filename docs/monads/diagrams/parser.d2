@@ -1,0 +1,87 @@
+direction: right
+
+...@../../styles
+
+type_def: "Parser a = String -> Maybe (a, String)" {
+  explanation: |md
+    # Parser a
+
+    A parser is a **function from input string to an optional (value, rest) pair**.
+
+    - **Succeeds**: returns `Just (a, rest)` where `a` is the parsed value
+      and `rest` is the unconsumed input.
+    - **Fails**: returns `Nothing`.
+
+    **bind (>>=)** behaviour:
+    - `Just (a, rest)` → pass `rest` to `f a`; return whatever `f a` produces
+    - `Nothing` → skip `f`; propagate failure (like Maybe monad)
+  |
+  explanation.class: [comment]
+}
+
+bind_succeed: bind — first parser succeeds {
+  input -> p
+  p -> a_rest
+  a_rest -> f
+  f -> result
+  input: input string
+  p: parser p
+  a_rest: "(a, rest)"
+  f: "f a"
+  result: "Maybe (b, rest2)"
+  input.class: [
+    value
+    a
+  ]
+  p.class: [
+    function
+    f
+  ]
+  a_rest.class: [
+    value
+    b
+  ]
+  f.class: [
+    function
+    g
+  ]
+  result.class: [
+    value
+    b
+  ]
+  p: {tooltip: Run parser p on input. On success produce (a, rest).}
+  f: {tooltip: Feed rest to f(a). f(a) is itself a parser for b.}
+}
+
+bind_fail: bind — first parser fails {
+  input -> p
+  p -> nothing
+  nothing -> nothing2
+  nothing -> f: {style.opacity: 0.2}
+  f: "f (skipped)"
+  input: input string
+  nothing: Nothing
+  nothing2: Nothing
+  input.class: [
+    value
+    a
+  ]
+  p.class: [
+    function
+    f
+  ]
+  nothing.class: [
+    type
+    b
+  ]
+  nothing2.class: [
+    type
+    b
+  ]
+  f.class: [
+    function
+    g
+  ]
+  p: {tooltip: Parser p fails on this input.}
+  nothing2: {tooltip: Failure propagates; f is never called.}
+}

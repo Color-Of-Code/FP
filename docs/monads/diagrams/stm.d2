@@ -1,0 +1,90 @@
+direction: right
+
+...@../../styles
+
+type_def: "STM a — atomic transactional action" {
+  explanation: |md
+    # STM a
+
+    An `STM a` action reads and writes **TVars** (transactional variables) atomically.
+
+    - **`atomically`** executes an `STM` action in `IO`, committing all writes at once
+      or retrying the whole transaction if a conflict is detected.
+    - **`retry`** blocks the current transaction and re-runs it when any `TVar` it
+      read has been changed by another thread.
+    - **`orElse`** tries the first action; if it calls `retry`, runs the second.
+
+    Unlike locks, STM actions compose with `>>=` and `orElse` without the risk of
+    deadlock from incorrect lock ordering.
+  |
+  explanation.class: [comment]
+}
+
+tvar: "TVar a — shared mutable cell" {
+  read -> tvar
+  tvar -> write
+  read: "readTVar :: TVar a -> STM a"
+  write: "writeTVar :: TVar a -> a -> STM ()"
+  tvar: TVar a
+  tvar.class: [
+    value
+    a
+  ]
+  read.class: [
+    function
+    f
+  ]
+  write.class: [
+    function
+    g
+  ]
+  read: {tooltip: Read the current value of the TVar inside an STM transaction.}
+  write: {tooltip: Write a new value. The write is tentative until atomically commits.}
+}
+
+atomically_box: "atomically :: STM a -> IO a" {
+  stm_action -> atomically
+  atomically -> io_result
+  stm_action: STM a
+  io_result: IO a
+  stm_action.class: [
+    type
+    a
+  ]
+  io_result.class: [
+    type
+    b
+  ]
+  atomically.class: [
+    function
+    h
+  ]
+  atomically: {tooltip: Execute the STM action. All writes commit atomically or the whole transaction retries on conflict.}
+}
+
+retry_orElse: "retry / orElse — conditional blocking" {
+  direction: right
+  stm1 -> orElse
+  stm2 -> orElse
+  orElse -> result
+  stm1: "STM a (may retry)"
+  stm2: "STM a (fallback)"
+  result: "STM a"
+  stm1.class: [
+    type
+    a
+  ]
+  stm2.class: [
+    type
+    b
+  ]
+  result.class: [
+    type
+    b
+  ]
+  orElse.class: [
+    function
+    g
+  ]
+  orElse: {tooltip: Run stm1. If it calls retry, run stm2. If stm2 also retries, block until any read TVar changes.}
+}

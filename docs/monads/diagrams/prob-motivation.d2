@@ -1,0 +1,58 @@
+...@../../styles
+
+direction: down
+
+before: without Prob monad: explicit nested loop to multiply probabilities {
+  direction: right
+  coin -> loop -> multiply -> flatten -> result
+  coin: coin distribution
+  loop: "for (coin, p_coin)"
+  multiply: "p_coin * p_score"
+  flatten: flatten results
+  result: "[(score, prob)]"
+  coin.class: [
+    type
+    a
+  ]
+  loop.class: [
+    function
+    f
+  ]
+  multiply.class: [
+    function
+    g
+  ]
+  flatten.class: [
+    function
+    h
+  ]
+  result.class: [
+    type
+    b
+  ]
+  note: inner loop repeated for each conditional distribution; probability arithmetic is manual
+  note.class: [comment]
+}
+
+after: with Prob monad: bind handles Cartesian product and probability weighting {
+  direction: right
+  biased_coin -> die_roll -> result
+  biased_coin -> die_roll: ">>="
+  die_roll -> result: "runProb"
+  biased_coin: biasedCoin
+  die_roll: "rollDie coin"
+  result: "Prob Int"
+  biased_coin.class: [
+    function
+    f
+  ]
+  die_roll.class: [
+    function
+    g
+  ]
+  result.class: [
+    type
+    a
+  ]
+  result: {tooltip: bind multiplies probabilities and flattens the joint distribution automatically.}
+}

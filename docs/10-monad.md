@@ -32,6 +32,10 @@ Each monad below has its own detailed page with diagram and code examples.
 | `State s a`    | stateful computation                           | [state.md](monads/state.md)   |
 | `Reader r a`   | read-only shared environment / config          | [reader.md](monads/reader.md) |
 | `Writer w a`   | accumulated log / output alongside a result    | [writer.md](monads/writer.md) |
+| `Parser a`     | consuming input; parsing as sequenced effects  | [parser.md](monads/parser.md) |
+| `Cont r a`     | first-class continuations; `callCC`            | [cont.md](monads/cont.md)     |
+| `STM a`        | atomic transactions over shared mutable state  | [stm.md](monads/stm.md)       |
+| `Prob a`       | discrete probability distributions             | [prob.md](monads/prob.md)     |
 
 ## Motivation
 
