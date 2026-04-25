@@ -42,6 +42,35 @@ The environment is **never modified** — every step sees the identical `r`.
 - Compiler / interpreter passes that need a read-only symbol table
 - Any function that currently takes a `Config` or `Context` as its last argument
 
+## Motivation
+
+Without the Reader monad, a shared environment (config, logger, database handle) must be passed as
+an explicit argument to every function — even helpers that only use one field. Extending the
+environment or adding a new helper means touching every signature in the call chain.
+
+```text
+-- Without Reader monad: config threaded explicitly into every helper
+function build_url(config):
+    return get_scheme(config) + "://"
+         + get_host(config) + ":"
+         + get_port(config)
+
+function get_scheme(config): return config.scheme  -- needs all of config
+function get_host(config):   return config.host    --   just for one field
+function get_port(config):   return config.port    --   just for one field
+-- Adding a new helper that needs config means adding a parameter everywhere.
+```
+
+```text
+-- With Reader monad: environment threaded implicitly; helpers ask only for what they need
+build_url = do
+    scheme <- asks .scheme
+    host   <- asks .host
+    port   <- asks .port
+    pure (scheme + "://" + host + ":" + port)
+-- No config parameter in sight; runReader supplies it once at the top.
+```
+
 ## Examples
 
 ### C\#

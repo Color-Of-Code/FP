@@ -29,6 +29,32 @@ at the first `Nothing`.
 - Parsing that may fail
 - Any optional configuration value
 
+## Motivation
+
+Without Maybe, a chain of operations that may each return `null` requires a null check after every
+single step. The business logic drowns in boilerplate.
+
+```text
+-- Without Maybe: explicit null guard at every step
+function lookup_user_city(id):
+    user    = find_user(id)
+    if user    == null: return null
+    address = find_address(user.address_id)
+    if address == null: return null
+    city    = find_city(address.city_id)
+    if city    == null: return null
+    return city.name
+```
+
+```text
+-- With Maybe: bind handles the null check; only happy-path logic remains
+lookup_user_city(id) =
+    find_user(id)
+    >>= user    -> find_address(user.address_id)
+    >>= address -> find_city(address.city_id)
+    >>= city    -> Just city.name
+```
+
 ## Examples
 
 ### C\#

@@ -43,6 +43,35 @@ The result value flows down; the state flows sideways through every step.
 - Parser state (position in input stream)
 - Any algorithm needing implicit "context"
 
+## Motivation
+
+Without the State monad, every function in a stateful pipeline must accept the current state as an
+extra parameter and return the updated state alongside its result. A single wrong variable name
+(passing `s1` where `s3` was intended) is a silent bug.
+
+```text
+-- Without State monad: state threaded manually through every call
+function pipeline(input, s0):
+    (tok1, s1) = next_token(input, s0)
+    (tok2, s2) = next_token(input, s1)   -- must use s1, not s0!
+    (node, s3) = build_node(tok1, tok2, s2)
+    (result, s4) = validate(node, s3)    -- must use s3, not s2!
+    return (result, s4)
+-- Every new step adds two variables (result + state).
+-- Using a stale state variable compiles fine but is a logic bug.
+```
+
+```text
+-- With State monad: state flows automatically; steps see only their result
+pipeline(input) = do
+    tok1   <- next_token input
+    tok2   <- next_token input
+    node   <- build_node tok1 tok2
+    result <- validate node
+    pure result
+-- No state variables at call sites; the monad threads them correctly.
+```
+
 ## Examples
 
 ### C\# (threading state manually)

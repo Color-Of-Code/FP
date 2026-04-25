@@ -37,6 +37,33 @@ and collects every outcome.
 - Parsing alternatives (a token may match multiple rules)
 - Backtracking algorithms
 
+## Motivation
+
+Without the List monad, exploring all combinations requires one nested loop per dimension. Adding
+another dimension means adding another loop and another append — the nesting grows with the problem.
+
+```text
+-- Without List monad: nested loops, manual collection
+function cartesian(xs, ys, zs):
+    results = []
+    for x in xs:
+        for y in ys:
+            for z in zs:
+                results.append((x, y, z))
+    return results
+-- Every new dimension adds a loop and a nesting level.
+```
+
+```text
+-- With List monad: bind (flatMap) composes dimensions uniformly
+cartesian(xs, ys, zs) =
+    xs >>= x ->
+    ys >>= y ->
+    zs >>= z ->
+    pure (x, y, z)
+-- Adding a dimension is one more >>= line, not a new loop level.
+```
+
 ## Examples
 
 ### C\#

@@ -42,6 +42,33 @@ Each step produces its own log fragment; `bind` concatenates them in order.
 - Accumulating metrics or counters alongside a computation
 - Tracing the steps of an algorithm
 
+## Motivation
+
+Without the Writer monad, every function must accept the accumulated log as an extra parameter and
+return the updated log alongside its result. Forgetting to pass the latest log to the next step
+silently discards entries.
+
+```text
+-- Without Writer monad: log threaded manually through every call
+function pipeline(x):
+    (r1, log1) = step1(x,  [])    -- initial empty log
+    (r2, log2) = step2(r1, log1)  -- must pass log1, not []
+    (r3, log3) = step3(r2, log2)  -- must pass log2, not log1
+    return (r3, log3)
+-- Every new step needs two variables (result + log).
+-- Passing a stale log variable compiles fine but silently drops entries.
+```
+
+```text
+-- With Writer monad: log accumulated automatically via tell/writer
+pipeline = do
+    r1 <- step1      -- appends its own log fragment
+    r2 <- step2 r1   -- appends its own log fragment
+    r3 <- step3 r2   -- appends its own log fragment
+    pure r3
+-- runWriter returns (r3, combinedLog) with all fragments in order.
+```
+
 ## Examples
 
 ### C\#

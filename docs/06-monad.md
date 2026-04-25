@@ -32,6 +32,33 @@ Each monad below has its own detailed page with diagram and code examples.
 | `Reader r a`   | read-only shared environment / config          | [reader.md](monads/reader.md) |
 | `Writer w a`   | accumulated log / output alongside a result    | [writer.md](monads/writer.md) |
 
+## Motivation
+
+`fmap` (from Functor) works when the mapping function is pure: `f :: a ⟶ b`. But when `f` itself
+produces a wrapped value (`f :: a ⟶ Mb`), `fmap` yields a doubly-nested `M(Mb)` — which is unusable
+without manual unwrapping at every step.
+
+```text
+-- Without monad: fmap produces M(Mb), requiring manual case analysis at every step
+result1 = fmap safeDivide (Just 10)
+-- yields: Just (Just 5)   ← nested wrapper, not chainable
+
+result2 = case result1 of
+    Nothing        -> Nothing
+    Just Nothing   -> Nothing
+    Just (Just x)  -> fmap safeDivide (Just x)  -- and so on...
+-- Each step requires the same unwrap/re-wrap ceremony.
+```
+
+```text
+-- With monad: bind = fmap + flatten, chains cleanly
+result = Just 10
+    >>= safeDivide   -- Just 5
+    >>= safeDivide   -- Just 2
+    >>= safeDivide   -- Just 0
+-- Flat result at every step; Nothing short-circuits the rest.
+```
+
 ## Examples
 
 ### C\#

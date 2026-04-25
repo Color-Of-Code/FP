@@ -33,6 +33,35 @@ The order of `bind` calls determines the order in which side effects happen.
 - Clock / random number generation
 - Any real-world interaction
 
+## Motivation
+
+Without an IO monad, functions can silently perform side effects despite having a pure-looking type
+signature. The caller cannot tell from the type whether a function reads a file, writes to a
+database, or launches a rocket. Testing requires global mocks; effect order is implicit and fragile.
+
+```text
+-- Without IO monad: side effects hidden behind a pure-looking type
+function compute(x: Int) -> Int:
+    factor = read_file("config.txt")  -- surprise! reads a file
+    log("computing...")               -- surprise! writes to a log
+    return x * factor
+-- Nothing in the signature warns callers about the side effects.
+-- Unit-testing means mocking the file system globally.
+-- Reordering lines may silently change observable behaviour.
+```
+
+```text
+-- With IO monad: effects are explicit in the return type
+compute :: Int -> IO Int
+compute x = do
+    factor <- readFile "config.txt"  -- IO effect declared
+    log "computing..."               -- IO effect declared
+    pure (x * factor)
+-- IO Int tells every caller: this computation has side effects.
+-- Pure functions remain IO-free and trivially testable.
+-- The runtime executes effects in the exact order bind specifies.
+```
+
 ## Examples
 
 ### C\# (Task as an IO-like monad)

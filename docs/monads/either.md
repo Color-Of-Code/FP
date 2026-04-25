@@ -31,6 +31,32 @@ know _why_ it failed.
 - HTTP / IO operations that may fail with a reason
 - Replacing exception-based error handling
 
+## Motivation
+
+Without Either, error-handling logic is scattered — either as deeply nested `if`/`try-catch` blocks
+or as repetitive early-return boilerplate that buries the actual logic.
+
+```text
+-- Without Either: error check repeated after every step
+function process(input):
+    parsed = parse_int(input)
+    if parsed.failed: return Fail(parsed.error)
+    validated = validate_positive(parsed.value)
+    if validated.failed: return Fail(validated.error)
+    saved = save_to_db(validated.value)
+    if saved.failed: return Fail(saved.error)
+    return Ok(saved.value)
+-- Adding a step means adding another if/return pair.
+```
+
+```text
+-- With Either: bind short-circuits on the first Left; happy path reads top to bottom
+process(input) =
+    parse_int(input)
+    >>= validate_positive
+    >>= save_to_db
+```
+
 ## Examples
 
 ### C\#
