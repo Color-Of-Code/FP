@@ -51,7 +51,7 @@ example2: Maybe Functor {
     }
 }
 examplec: (., string) Functor {
-    Maybe: fmap f :: (a, string) ⟶ (b, string) {
+    Pair: fmap f :: (a, string) ⟶ (b, string) {
         a -> f
         f -> b
         f: fmap f
@@ -60,6 +60,6 @@ examplec: (., string) Functor {
         a.class: [ type; a ]
         b.class: [ type; b ]
         f.class: [ function; f ]
-        f: { tooltip: Function f is lifted in the Maybe functor. }
+        f: { tooltip: Function f is lifted in the product functor (., string): apply f to the first element, keep the string component unchanged. }
     }
 }

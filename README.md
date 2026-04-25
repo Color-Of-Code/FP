@@ -5,6 +5,10 @@
 ![basics](./basics/function.svg)
 ![basics](./basics/function2.svg)
 
+## Functor
+
+![functor](./basics/functor.svg)
+
 ## Composition
 
 ![basics](./basics/composition.svg)
@@ -32,12 +36,8 @@ var h = Compose(g,f);
 ```ruby
 # Patch Proc and add * operator
 class Proc
-    def self.compose(g, f)
-        lambda { |*args| g[f[*args]] }
-    end
-
     def *(f)
-        Proc.compose(self, f)
+        lambda { |*args| self[f[*args]] }
     end
 end
 
