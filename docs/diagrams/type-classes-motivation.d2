@@ -1,0 +1,30 @@
+...@../styles
+
+direction: right
+
+before: "without type classes:\nmanual dispatch per type" {
+  direction: down
+  style.fill: "#fff0f0"
+  f1: "showInt    :: Int    → String" { style.fill: "#ffe0e0"; shape: rectangle }
+  f2: "showBool   :: Bool   → String" { style.fill: "#ffe0e0"; shape: rectangle }
+  f3: "showDouble :: Double → String" { style.fill: "#ffe0e0"; shape: rectangle }
+  call: "-- caller must know the type statically\nprintInt 42\nprintBool True" { shape: rectangle; style.fill: "#ffe0e0" }
+  f1 -> call
+  f2 -> call
+  f3 -> call
+}
+
+after: "with type classes:\npolymorphic dispatch via instance" {
+  direction: down
+  style.fill: "#f0fff0"
+  tc: "class Show a where\n  show :: a → String" { style.fill: "#e0ffe0"; shape: rectangle }
+  i1: "instance Show Int" { style.fill: "#e0ffe0"; shape: rectangle }
+  i2: "instance Show Bool" { style.fill: "#e0ffe0"; shape: rectangle }
+  use: "print :: Show a => a → IO ()\nprint x = putStrLn (show x)\n\n-- one function works for all Show types" { style.fill: "#e0ffe0"; shape: rectangle }
+  tc -> i1
+  tc -> i2
+  i1 -> use
+  i2 -> use
+}
+
+before -> after: "replace with"

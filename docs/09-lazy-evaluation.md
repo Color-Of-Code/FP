@@ -1,11 +1,11 @@
-# 6. Lazy Evaluation
+# 9. Lazy Evaluation
 
 **Lazy evaluation** (also called _non-strict_ or _call-by-need_) delays computing a value until the
 result is actually needed. The unevaluated expression is stored in a **thunk**; the first time its
 value is demanded the thunk is forced, the result is cached, and subsequent accesses return the
 cached value for free. The opposite strategy — computing every argument as soon as it is bound — is
 called **eager** (or _strict_) evaluation. Understanding the difference is essential before
-exploring [7. Semigroup & Monoid](./07-semigroup-monoid.md) and [10. Fold](./10-fold.md), where
+exploring [10. Semigroup & Monoid](./10-semigroup-monoid.md) and [13. Fold](./13-fold.md), where
 evaluation order determines whether folds terminate.
 
 ![lazy evaluation](diagrams/lazy-evaluation.svg)

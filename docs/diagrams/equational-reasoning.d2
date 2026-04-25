@@ -1,0 +1,29 @@
+...@../styles
+
+direction: down
+
+expr: "double (double 3)" {
+  class: [definition]
+  style.fill: "#e3f2fd"
+}
+
+step1: "double (double 3)\n= double (3 + 3)      — unfold inner double" {
+  shape: rectangle
+  style.fill: "#e3f2fd"
+}
+
+step2: "= double 6\n= 6 + 6               — unfold outer double" {
+  shape: rectangle
+  style.fill: "#bbdefb"
+}
+
+step3: "= 12                  — arithmetic" {
+  shape: rectangle
+  style.fill: "#90caf9"
+}
+
+note: "Each step replaces an expression with an equal expression.\nThe result is the same no matter what order steps are taken." {
+  class: comment
+}
+
+expr -> step1 -> step2 -> step3 -> note

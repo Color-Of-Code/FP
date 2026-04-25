@@ -1,0 +1,33 @@
+...@../styles
+
+direction: right
+
+mutable: "without purity: reasoning requires tracking state" {
+  direction: down
+  style.fill: "#fff0f0"
+  code1: "x = 1\nf()\nx = ?   ← could be anything; f may have mutated x" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  code2: "must inspect f's body\nand every function f calls\nto know what x is" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  code1 -> code2
+}
+
+pure: "with purity: replace and simplify anywhere" {
+  direction: down
+  style.fill: "#f0fff0"
+  code1: "x = compute(42)\ny = x + x\n  = compute(42) + compute(42)   ← safe substitution\n  = 84                           ← if compute(42) = 42" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  code2: "no hidden state; no need to\ninspect anything outside the expression" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  code1 -> code2
+}
+
+mutable -> pure: "replace with"

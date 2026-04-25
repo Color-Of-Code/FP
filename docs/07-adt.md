@@ -1,4 +1,4 @@
-# 5. Algebraic Data Types
+# 7. Algebraic Data Types
 
 An **algebraic data type** (ADT) is a type built by combining simpler types in two fundamental ways.
 They are the primary tool for modelling data in functional programming.
@@ -44,8 +44,8 @@ Sum types are also called **tagged unions**, **discriminated unions**, or **vari
 | `List<a>`      | `Nil \| Cons(head: a, tail: List<a>)` — recursive sum type |
 | `Tree<a>`      | `Leaf \| Node(value: a, left: Tree<a>, right: Tree<a>)`    |
 
-All the types used by [Functor](./08-functor.md), [Applicative](./09-applicative.md), and
-[Monad](./12-monad.md) are ADTs.
+All the types used by [Functor](./11-functor.md), [Applicative](./12-applicative.md), and
+[Monad](./15-monad.md) are ADTs.
 
 ## Pattern matching
 

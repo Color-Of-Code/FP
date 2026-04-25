@@ -1,4 +1,4 @@
-# 3. Composition
+# 4. Composition
 
 Given two functions `f :: a ⟶ b` and `g :: b ⟶ c`, their **composition** `h = g∘f :: a ⟶ c` is a new
 function that applies `f` first and then `g`.

@@ -1,0 +1,26 @@
+...@../styles
+
+direction: down
+
+hof: "Higher-Order Function\n(takes a function as argument)" {
+  direction: right
+  style.fill: "#e8f5e9"
+  f: "f :: a → b" { class: [function; f] }
+  data: "Container<a>" { class: [type; a] }
+  hof_box: "map\n(f :: a → b) → Container<a> → Container<b>" {
+    class: [function; g]
+  }
+  result: "Container<b>" { class: [type; b] }
+  f  -> hof_box
+  data -> hof_box
+  hof_box -> result
+}
+
+returning: "Higher-Order Function\n(returns a function)" {
+  direction: right
+  style.fill: "#e3f2fd"
+  x: "x :: a" { class: [value; a] }
+  const_box: "const\nx → (b → a)" { class: [function; f] }
+  result2: "b → a\n(ignores its argument, always returns x)" { class: [type; b] }
+  x -> const_box -> result2
+}

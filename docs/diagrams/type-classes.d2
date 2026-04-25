@@ -1,0 +1,27 @@
+...@../styles
+
+direction: down
+
+typeclass: "Type Class\n(contract: operations + laws)" {
+  style.fill: "#e3f2fd"
+  shape: rectangle
+  ops: "show :: a → String\n(==) :: a → a → Bool\ncompare :: a → a → Ordering" {
+    shape: text
+  }
+}
+
+instance1: "instance Show Int\nshow 42 = \"42\"" { style.fill: "#e8f5e9"; shape: rectangle }
+instance2: "instance Show Bool\nshow True = \"true\"" { style.fill: "#e8f5e9"; shape: rectangle }
+instance3: "instance Show [a] where Show a\nshow xs = \"[\" ++ intercalate \",\" (map show xs) ++ \"]\"" { style.fill: "#e8f5e9"; shape: rectangle }
+
+user_code: "printAll :: Show a => [a] → IO ()\nprintAll = mapM_ (putStrLn . show)\n\n-- works for any type with a Show instance" {
+  style.fill: "#fff9c4"
+  shape: rectangle
+}
+
+typeclass -> instance1: "implemented by"
+typeclass -> instance2: "implemented by"
+typeclass -> instance3: "implemented by"
+instance1 -> user_code
+instance2 -> user_code
+instance3 -> user_code

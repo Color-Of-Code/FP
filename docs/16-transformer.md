@@ -1,4 +1,4 @@
-# Monad Transformers
+# 16. Monad Transformers
 
 A **monad transformer** `T` converts any monad `M` into a new monad `T M` that adds one extra effect
 on top. Stacking several transformers produces a **transformer stack**: a single type that carries
@@ -7,7 +7,7 @@ multiple effects simultaneously.
 ![transformer stack](diagrams/transformer.svg)
 
 > Part of the **learning track**. For a comparison of Monad Transformers, Free Monads, and Algebraic
-> Effects side-by-side, see [14. Composing Effects](./14-effects.md).
+> Effects side-by-side, see [17. Composing Effects](./17-effects.md).
 
 ## The problem transformers solve
 
@@ -19,7 +19,7 @@ requires manual unwrapping at every step.
 Transformers solve this by providing a standard way to layer effects. Each transformer adds exactly
 one effect and forwards all others to the monad below it.
 
-See [14. Composing Effects](./14-effects.md) for a comparison of Monad Transformers, Free Monads,
+See [17. Composing Effects](./17-effects.md) for a comparison of Monad Transformers, Free Monads,
 and Algebraic Effects.
 
 ## Type
