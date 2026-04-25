@@ -1,5 +1,8 @@
 # 6. Partial Application & Currying
 
+> Mathematical background: [Adjunction](../ct/adjunction.md) — the curry/uncurry adjunction
+> $({-} \times A) \dashv (A \Rightarrow {-})$
+
 These two techniques are closely related but distinct. Both build on functions being first-class
 values.
 

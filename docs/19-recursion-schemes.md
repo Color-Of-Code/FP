@@ -1,5 +1,8 @@
 # 19. Recursion Schemes
 
+> Mathematical background: [F-Algebra](../ct/f-algebra.md) — initial algebras, fixed points, and
+> catamorphisms
+
 **Recursion schemes** are higher-order functions that encapsulate common patterns of recursion over
 recursive data structures. Rather than writing explicit recursive functions, you provide an
 **algebra** (what to do at each node) and let the scheme handle the traversal.

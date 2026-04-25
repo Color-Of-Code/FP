@@ -47,3 +47,16 @@ make -C .tools <target>
    - `docs/monads/` — monad detail pages (linked from `docs/10-monad.md` and README)
    - `docs/optics/` — optic detail pages (linked from `docs/13-optics.md` and README) See
      [`specs/doc-structure.md`](specs/doc-structure.md).
+
+6. **Category Theory track (`ct/`)** — a math-first parallel track with no per-language code.
+   - `ct/*.md` pages follow the mandatory template in
+     [`specs/ct-doc-structure.md`](specs/ct-doc-structure.md): Definition → Laws → FP Analog → CTFP
+     Reference.
+   - **No 9-language requirement** in `ct/`. The `lint-langs` check does not apply. Do not add `ct/`
+     files to `SKIP_FILES` in `.tools/check-lang-order.js` — the checker only scans `docs/`.
+   - Every `ct/` page must link to the corresponding `docs/NN-` chapter (relative path
+     `../docs/NN-name.md`) and to the CTFP source (GitHub URL, not local path).
+   - Every `docs/` page that has a CT counterpart must carry a one-line blockquote near the top:
+     `> Mathematical background: [CT concept](../ct/concept.md) — one-line description`
+   - The `ct/README.md` catalog table must be updated whenever a new `ct/` page is added.
+   - Run `make -C .tools fmt-md lint-md` after editing `ct/` pages (not `lint-langs`).

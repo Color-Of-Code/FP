@@ -68,3 +68,24 @@ languages.
 | [Getter / Setter](docs/optics/getter-setter.md) | Read-only (derived values) and write-only optics  |
 
 > Overview and composition rules: [18. Lens / Optics](docs/18-optics.md)
+
+## Category Theory track
+
+A parallel math-first track explaining the categorical origins of the FP abstractions above. Each
+page defines a CT concept precisely, maps it to its FP programming analog, and links to the
+corresponding chapter in Bartosz Milewski's _Category Theory for Programmers_ (CTFP).
+
+Pages contain **no per-language code** — for code examples follow the links into the FP track.
+
+| CT Concept                                             | One-line summary                             | FP Analog                         |
+| ------------------------------------------------------ | -------------------------------------------- | --------------------------------- |
+| [Category](ct/category.md)                             | Objects, morphisms, composition, identity    | Types & functions; composition    |
+| [Types & Functions](ct/types-functions.md)             | Hask as a category                           | All of functional programming     |
+| [Product & Coproduct](ct/product-coproduct.md)         | Universal pairing and choice                 | Product types & sum types         |
+| [Functor](ct/functor.md)                               | Structure-preserving map between categories  | `Functor` / `fmap`                |
+| [Natural Transformation](ct/natural-transformation.md) | Morphism between functors                    | Polymorphic functions `F a → G a` |
+| [Adjunction](ct/adjunction.md)                         | Universal relation between two functors      | Curry/uncurry; monad derivation   |
+| [Monad](ct/monad.md)                                   | Monoid in the category of endofunctors       | `Monad` / `>>=` / `return`        |
+| [F-Algebra](ct/f-algebra.md)                           | Algebras for an endofunctor; initial algebra | Recursion schemes: cata, ana      |
+
+> Full catalog, reading order, and CTFP source index: [ct/README.md](ct/README.md)

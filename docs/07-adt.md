@@ -1,5 +1,8 @@
 # 7. Algebraic Data Types
 
+> Mathematical background: [Product & Coproduct](../ct/product-coproduct.md) — universal
+> constructions for pairing and choice
+
 An **algebraic data type** (ADT) is a type built by combining simpler types in two fundamental ways.
 They are the primary tool for modelling data in functional programming.
 

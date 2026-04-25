@@ -1,5 +1,8 @@
 # 15. Monad
 
+> Mathematical background: [Monad](../ct/monad.md) — monoid in the category of endofunctors; Kleisli
+> triple
+
 A **monad** is a functor extended with two operations that allow **sequencing of effectful
 computations**.
 
