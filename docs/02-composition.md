@@ -8,6 +8,35 @@ function that applies `f` first and then `g`.
 This is the central mechanism of functional programming: building complex behaviour by combining
 small, pure functions.
 
+## Motivation
+
+Without composition, combining functions requires writing new glue functions or nesting calls
+manually. Each combination is a one-off; the pieces cannot be assembled generically.
+
+```text
+-- Without composition: each combination is written by hand
+function validate_and_format(x):
+    validated = validate(x)
+    trimmed   = trim(validated)
+    return format(trimmed)
+
+function validate_and_trim(x):
+    validated = validate(x)
+    return trim(validated)
+-- Every new combination requires a new function.
+-- Nesting grows inward: format(trim(validate(x)))
+```
+
+```text
+-- With composition: functions are assembled like building blocks
+validate_and_format = format ∘ trim ∘ validate
+validate_and_trim   = trim   ∘ validate
+
+-- The same pieces, rearranged freely without extra code.
+-- Pipelines read left-to-right with |> operator:
+result = x |> validate |> trim |> format
+```
+
 ## Examples
 
 ### C\#

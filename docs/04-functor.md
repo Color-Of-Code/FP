@@ -23,6 +23,31 @@ A lawful functor must satisfy:
 | `Maybe<a>`    | applies `f` if `Just a`, passes `Nothing` through               |
 | `(a, String)` | applies `f` to the first element, leaves the `String` unchanged |
 
+## Motivation
+
+Without `fmap`, the same mapping logic must be re-implemented for every container type separately.
+Adding a new container means writing yet another variant; there is no shared abstraction.
+
+```text
+-- Without functor: a separate mapping function per container
+function map_list(f, xs):  return [f(x) for x in xs]
+function map_maybe(f, mx): return if mx == null then null else f(mx)
+function map_tree(f, t):   return Tree(f(t.value), map_tree(f, t.left), map_tree(f, t.right))
+-- To double values, you call a different function depending on the container:
+map_list(double, [1,2,3])   -- list
+map_maybe(double, Just 5)   -- maybe
+map_tree(double, myTree)    -- tree
+-- New container = new map_* function.
+```
+
+```text
+-- With functor: fmap works on any container that is a functor
+fmap double [1, 2, 3]    -- List functor
+fmap double (Just 5)     -- Maybe functor
+fmap double myTree       -- Tree functor
+-- One function name, any functor.  Laws guarantee consistent behaviour.
+```
+
 ## Examples
 
 ### C\#
