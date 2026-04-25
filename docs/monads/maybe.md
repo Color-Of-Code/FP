@@ -67,6 +67,36 @@ let result2 = maybe {
 // result2 = None
 ```
 
+### Ruby
+
+```ruby
+def safe_divide(a, b)
+  b.zero? ? nil : a / b
+end
+
+# && acts as bind: short-circuits on nil
+x = safe_divide(10, 2)      # 5
+y = x && safe_divide(x, 0)  # nil (short-circuits)
+z = y && safe_divide(y, 1)  # nil (never reached)
+# z = nil
+```
+
+### C++
+
+```cpp
+#include <optional>
+
+auto safe_divide = [](int a, int b) -> std::optional<int> {
+    return b == 0 ? std::nullopt : std::optional{a / b};
+};
+
+// C++23: and_then is bind for optional
+auto result = safe_divide(10, 2)
+    .and_then([&](int x) { return safe_divide(x, 0); })  // nullopt
+    .and_then([&](int x) { return safe_divide(x, 1); }); // never reached
+// result = std::nullopt
+```
+
 ### JavaScript
 
 ```js

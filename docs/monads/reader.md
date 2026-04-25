@@ -85,6 +85,40 @@ let url = buildUrl { Host = "example.com"; Port = 8080 }
 // }
 ```
 
+### Ruby
+
+```ruby
+# Reader as a plain lambda taking a config hash
+asks       = ->(f)       { ->(env) { f.call(env) } }
+run_reader = ->(ra, env) { ra.call(env) }
+
+get_host = asks[->(cfg) { cfg[:host] }]
+get_port = asks[->(cfg) { cfg[:port] }]
+build_url = ->(env) { "http://#{get_host.call(env)}:#{get_port.call(env)}" }
+
+run_reader.call(build_url, { host: "example.com", port: 8080 })
+# "http://example.com:8080"
+```
+
+### C++
+
+```cpp
+#include <string>
+
+struct Config { std::string host; int port; };
+
+// Reader r a = just a function taking Config
+auto get_host = [](const Config& cfg) { return cfg.host; };
+auto get_port = [](const Config& cfg) { return cfg.port; };
+auto build_url = [](const Config& cfg) {
+    return "http://" + cfg.host + ":" + std::to_string(cfg.port);
+};
+
+Config env{"example.com", 8080};
+auto url = build_url(env);
+// "http://example.com:8080"
+```
+
 ### JavaScript
 
 ```js

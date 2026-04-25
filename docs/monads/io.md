@@ -64,6 +64,36 @@ let greetUser () = async {
 let name = greetUser () |> Async.RunSynchronously
 ```
 
+### Ruby
+
+```ruby
+# Ruby IO is sequential by nature — plain method calls in order
+def greet_user
+  name = gets.chomp        # IO: read from stdin
+  puts "Hello, #{name}!"  # IO: write to stdout
+  puts "Have a nice day!"
+  name
+end
+
+name = greet_user
+```
+
+### C++
+
+```cpp
+#include <iostream>
+#include <string>
+
+// C++ IO is sequential by nature — no IO monad needed
+std::string greet_user() {
+    std::string name;
+    std::getline(std::cin, name);              // IO: read
+    std::cout << "Hello, " << name << "!\n"; // IO: write
+    std::cout << "Have a nice day!\n";
+    return name;
+}
+```
+
 ### JavaScript (Promise as an IO-like monad)
 
 ```js

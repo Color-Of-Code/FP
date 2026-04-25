@@ -85,6 +85,51 @@ let result, finalState = program 0
 // }
 ```
 
+### Ruby
+
+```ruby
+# State as a lambda: ->(s) { [result, new_state] }
+get      = ->(s) { [s, s] }
+modify_f = ->(f) { ->(s) { [nil, f.call(s)] } }
+
+def bind(sa)
+  ->(s) {
+    a, s1 = sa.call(s)
+    yield(a).call(s1)
+  }
+end
+
+# counter: modify (+1), then get
+program = bind(modify_f[->(s) { s + 1 }]) { get }
+result, final_state = program.call(0)
+# result = 1, final_state = 1
+```
+
+### C++
+
+```cpp
+#include <functional>
+#include <tuple>
+
+// State<S,A> = std::function<std::pair<A,S>(S)>
+auto get = [](int s) { return std::make_pair(s, s); };
+auto modify = [](auto f) {
+    return [f](int s) { return std::make_pair(0, f(s)); };
+};
+auto bind = [](auto sa, auto f) {
+    return [sa, f](int s) {
+        auto [a, s1] = sa(s);
+        return f(a)(s1);
+    };
+};
+
+// counter: modify (+1), then get
+auto program = bind(modify([](int s) { return s + 1; }),
+                    [](int) { return get; });
+auto [result, final_state] = program(0);
+// result = 1, final_state = 1
+```
+
 ### JavaScript
 
 ```js

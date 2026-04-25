@@ -61,6 +61,36 @@ let result =
 // None
 ```
 
+### Ruby
+
+```ruby
+# Ruby's && short-circuits on nil, acting as Maybe bind
+def safe_divide(a, b)
+  b.zero? ? nil : a / b
+end
+
+x = safe_divide(10, 2)      # 5
+y = x && safe_divide(x, 0)  # nil (short-circuits)
+z = y && safe_divide(y, 1)  # nil (never reached)
+# z = nil
+```
+
+### C++
+
+```cpp
+#include <optional>
+
+auto safe_divide = [](int a, int b) -> std::optional<int> {
+    return b == 0 ? std::nullopt : std::optional{a / b};
+};
+
+// C++23: and_then is bind for optional
+auto result = safe_divide(10, 2)
+    .and_then([&](int x) { return safe_divide(x, 0); })  // nullopt
+    .and_then([&](int x) { return safe_divide(x, 1); }); // never reached
+// std::nullopt
+```
+
 ### JavaScript
 
 ```js

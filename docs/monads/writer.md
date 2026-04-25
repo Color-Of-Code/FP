@@ -83,6 +83,49 @@ let result = bind (double 3) addOne
 // }
 ```
 
+### Ruby
+
+```ruby
+def bind(wa)
+  value, log1 = wa
+  value2, log2 = yield(value)
+  [value2, log1 + log2]
+end
+
+double  = ->(n) { [n * 2, ["doubled #{n}"]] }
+add_one = ->(n) { [n + 1, ["added 1 to #{n}"]] }
+
+result = bind(double.call(3), &add_one)
+# [7, ["doubled 3", "added 1 to 6"]]
+```
+
+### C++
+
+```cpp
+#include <vector>
+#include <string>
+
+template<typename A>
+struct Writer { A value; std::vector<std::string> log; };
+
+auto bind_w = [](auto wa, auto f) {
+    auto [value2, log2] = f(wa.value);
+    auto combined = wa.log;
+    combined.insert(combined.end(), log2.begin(), log2.end());
+    return Writer<decltype(value2)>{value2, combined};
+};
+
+auto double_ = [](int n) -> Writer<int> {
+    return {n * 2, {"doubled " + std::to_string(n)}};
+};
+auto add_one = [](int n) -> Writer<int> {
+    return {n + 1, {"added 1 to " + std::to_string(n)}};
+};
+
+auto result = bind_w(double_(3), add_one);
+// { value: 7, log: ["doubled 3", "added 1 to 6"] }
+```
+
 ### JavaScript
 
 ```js

@@ -74,6 +74,48 @@ let result =
 // result = Ok "42 years old"
 ```
 
+### Ruby
+
+```ruby
+# Minimal Result type
+Ok   = ->(val) { [:ok,   val] }
+Fail = ->(err) { [:fail, err] }
+
+def bind(result)
+  result[0] == :ok ? yield(result[1]) : result
+end
+
+result = bind(Ok["42"])  { |s| s =~ /\A\d+\z/ ? Ok[s.to_i] : Fail["not a number"] }
+result = bind(result)    { |n| n >= 0 ? Ok[n] : Fail["negative age"] }
+result = bind(result)    { |n| Ok["#{n} years old"] }
+# [:ok, "42 years old"]
+```
+
+### C++
+
+```cpp
+#include <expected>  // C++23
+#include <string>
+
+auto parse_age(const std::string& s) -> std::expected<int, std::string> {
+    try { return std::stoi(s); }
+    catch (...) { return std::unexpected("not a number"); }
+}
+
+auto validate_age(int n) -> std::expected<int, std::string> {
+    return n >= 0 ? std::expected<int, std::string>{n}
+                 : std::unexpected("negative age");
+}
+
+// C++23: and_then is bind for expected
+auto result = parse_age("42")
+    .and_then(validate_age)
+    .and_then([](int n) -> std::expected<std::string, std::string> {
+        return std::to_string(n) + " years old";
+    });
+// expected("42 years old")
+```
+
 ### JavaScript
 
 ```js

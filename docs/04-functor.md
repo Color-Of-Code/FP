@@ -54,6 +54,25 @@ Option.map ((*) 2) None      // None
 [1, 2, 3].map { |x| x * 2 }  # [2, 4, 6]
 ```
 
+### C++
+
+```cpp
+// std::vector as a functor — std::transform is fmap
+#include <algorithm>
+#include <vector>
+
+std::vector<int> xs = {1, 2, 3};
+std::vector<int> result;
+std::transform(xs.begin(), xs.end(), std::back_inserter(result),
+               [](int x) { return x * 2; });
+// result = {2, 4, 6}
+
+// std::optional as a functor (C++23)
+std::optional<int> value = 5;
+auto mapped = value.transform([](int x) { return x * 2; });
+// std::optional{10}
+```
+
 ### JavaScript
 
 ```js

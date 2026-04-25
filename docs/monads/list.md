@@ -72,6 +72,38 @@ let pairs = [
 // [(1,'a'); (1,'b'); (2,'a'); (2,'b')]
 ```
 
+### Ruby
+
+```ruby
+# Array#flat_map is bind for the List monad
+result = [1, 2, 3].flat_map { |x| [x, -x] }
+# [1, -1, 2, -2, 3, -3]
+
+# Cartesian product
+pairs = [1, 2].flat_map { |x| ['a', 'b'].map { |y| [x, y] } }
+# [[1, "a"], [1, "b"], [2, "a"], [2, "b"]]
+```
+
+### C++
+
+```cpp
+#include <vector>
+
+// bind for List monad: flat_map
+auto flat_map = [](const std::vector<int>& xs, auto f) {
+    std::vector<int> result;
+    for (int x : xs)
+        for (int y : f(x))
+            result.push_back(y);
+    return result;
+};
+
+auto result = flat_map({1, 2, 3}, [](int x) {
+    return std::vector{x, -x};
+});
+// {1, -1, 2, -2, 3, -3}
+```
+
 ### JavaScript
 
 ```js
