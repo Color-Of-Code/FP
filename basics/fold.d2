@@ -1,0 +1,112 @@
+direction: right
+
+...@styles
+
+def_fold: fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b {
+  f -> fold
+  b0 -> fold
+  as -> fold
+  fold -> result
+  f: f :: b ⟶ a ⟶ b
+  b0: b (init)
+  as: List<a>
+  result: b (result)
+  f.class: [
+    function
+    f
+  ]
+  b0.class: [
+    type
+    b
+  ]
+  as.class: [
+    type
+    a
+  ]
+  result.class: [
+    type
+    b
+  ]
+  fold.class: [
+    function
+    g
+  ]
+  fold: {tooltip: Reduce a collection List<a> to a single value b. Repeatedly apply the combining function f, accumulating into b.}
+}
+
+def_fold: {tooltip: A higher-order function that reduces a structure to a single value using a combining function and an initial accumulator}
+
+step: fold operation on (a1, a2, a3) {
+  b0 -> f1
+  a1 -> f1
+  f1 -> b1
+  b1 -> f2
+  a2 -> f2
+  f2 -> b2
+  b2 -> f3
+  a3 -> f3
+  f3 -> b3
+  b0: b0 (init)
+  a1: a1
+  a2: a2
+  a3: a3
+  b1: b1
+  b2: b2
+  b3: b3 (result)
+  f1: f
+  f2: f
+  f3: f
+  b0.class: [
+    value
+    b
+  ]
+  a1.class: [
+    value
+    a
+  ]
+  a2.class: [
+    value
+    a
+  ]
+  a3.class: [
+    value
+    a
+  ]
+  b1.class: [
+    value
+    b
+  ]
+  b2.class: [
+    value
+    b
+  ]
+  b3.class: [
+    value
+    b
+  ]
+  f1.class: [
+    function
+    f
+  ]
+  f2.class: [
+    function
+    f
+  ]
+  f3.class: [
+    function
+    f
+  ]
+}
+
+derived: derived operations (via fold) {
+  explanation: |md
+    # map, filter and more are all folds
+
+    - **sum** — f = (+),  init = 0
+    - **product** — f = (×),  init = 1
+    - **length** — f = (acc, _) ⟶ acc + 1,  init = 0
+    - **map g** — f = (acc, x) ⟶ acc ++ [g(x)],  init = []
+    - **filter p** — f = (acc, x) ⟶ if p(x) then acc ++ [x] else acc,  init = []
+  |
+  explanation.class: [comment]
+}

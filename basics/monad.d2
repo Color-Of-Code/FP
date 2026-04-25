@@ -1,0 +1,154 @@
+direction: right
+
+...@styles
+
+problem: why not just fmap? {
+  explanation: |md
+    # the fmap problem with effectful functions
+
+    Given **f :: a ⟶ Mb** (a function that itself produces a wrapped value),
+    applying **fmap f** to **Ma** yields **M(Mb)** — an unwanted nested wrapper.
+
+    A monad solves this by also providing **bind**, which flattens the result.
+  |
+  explanation.class: [comment]
+}
+
+def_pure: pure :: a ⟶ Ma {
+  a -> pure
+  pure -> Ma
+  a.class: [
+    type
+    a
+  ]
+  Ma: Ma
+  Ma.class: [
+    type
+    b
+  ]
+  pure.class: [
+    function
+    f
+  ]
+  pure: {tooltip: Lift a plain value into the monad (minimal wrapping, identity of bind). Also called return.}
+}
+
+def_bind: bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb {
+  Ma -> bind
+  f -> bind
+  bind -> Mb
+  Ma: Ma
+  f: a ⟶ Mb
+  Mb: Mb
+  Ma.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    g
+  ]
+  Mb.class: [
+    type
+    b
+  ]
+  bind.class: [
+    function
+    f
+  ]
+  bind: {tooltip: Unwrap a from Ma, apply f, flatten M(Mb) to Mb. Also called flatMap or >>=.}
+}
+
+chain: chaining with bind {
+  Ma -> bind1
+  f -> bind1
+  bind1 -> Mb
+  Mb -> bind2
+  g -> bind2
+  bind2 -> Mc
+  Ma: Ma
+  f: a ⟶ Mb
+  g: b ⟶ Mc
+  Mb: Mb
+  Mc: Mc
+  bind1: bind
+  bind2: bind
+  Ma.class: [
+    type
+    a
+  ]
+  f.class: [
+    function
+    f
+  ]
+  g.class: [
+    function
+    g
+  ]
+  Mb.class: [
+    type
+    b
+  ]
+  Mc.class: [
+    type
+    c
+  ]
+  bind1.class: [function; f2]
+  bind2.class: [function; f2]
+}
+
+example_maybe: Maybe Monad {
+  bind_m: bind :: Maybe<a> ⟶ (a ⟶ Maybe<b>) ⟶ Maybe<b> {
+    Ma -> bind
+    f -> bind
+    bind -> Mb
+    Ma: Maybe<a>
+    f: a ⟶ Maybe<b>
+    Mb: Maybe<b>
+    Ma.class: [
+      type
+      a
+    ]
+    f.class: [
+      function
+      g
+    ]
+    Mb.class: [
+      type
+      b
+    ]
+    bind.class: [
+      function
+      f
+    ]
+    bind: {tooltip: Nothing propagates automatically — short-circuits the chain. Just a0 gets unwrapped and f applied.}
+  }
+}
+
+example_list: List Monad {
+  bind_l: bind :: List<a> ⟶ (a ⟶ List<b>) ⟶ List<b> {
+    La -> bind
+    f -> bind
+    bind -> Lb
+    La: List<a>
+    f: a ⟶ List<b>
+    Lb: List<b>
+    La.class: [
+      type
+      a
+    ]
+    f.class: [
+      function
+      g
+    ]
+    Lb.class: [
+      type
+      b
+    ]
+    bind.class: [
+      function
+      f
+    ]
+    bind: {tooltip: Apply f to every element, then flatten all resulting lists into one — this is concatMap.}
+  }
+}
