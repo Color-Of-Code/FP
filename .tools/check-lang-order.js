@@ -17,7 +17,7 @@ const fs   = require('fs');
 const path = require('path');
 
 // Languages in required order
-const REQUIRED = ['C#', 'F#', 'Ruby', 'C++', 'JavaScript', 'Python', 'Haskell'];
+const REQUIRED = ['C#', 'F#', 'Ruby', 'C++', 'JavaScript', 'Python', 'Haskell', 'Rust', 'Go'];
 
 // Files that deliberately have no language-example sections
 // (discussion/comparison chapters rather than 7-language tutorials)

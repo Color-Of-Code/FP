@@ -124,3 +124,54 @@ fmap (*2) [1, 2, 3]        -- [2, 4, 6]
 fmap (*2) (Just 5)         -- Just 10
 fmap (*2) Nothing          -- Nothing
 ```
+
+### Rust
+
+```rust
+// Option<T> functor — map is fmap
+let value: Option<i32> = Some(5);
+let doubled = value.map(|x| x * 2); // Some(10)
+
+let none: Option<i32> = None;
+let none_doubled = none.map(|x| x * 2); // None
+
+// Result<T, E> functor — map applies to the Ok value
+let ok: Result<i32, &str> = Ok(5);
+let ok_doubled = ok.map(|x| x * 2); // Ok(10)
+
+// Iterator / Vec functor — map over each element
+let doubled_vec: Vec<i32> = vec![1, 2, 3].into_iter().map(|x| x * 2).collect();
+// [2, 4, 6]
+```
+
+### Go
+
+```go
+// Go has no Functor typeclass; map is written as a generic function.
+
+type Option[T any] struct {
+	Value T
+	Valid bool
+}
+
+func MapOption[A, B any](opt Option[A], f func(A) B) Option[B] {
+	if !opt.Valid {
+		return Option[B]{}
+	}
+	return Option[B]{Value: f(opt.Value), Valid: true}
+}
+
+value := Option[int]{Value: 5, Valid: true}
+doubled := MapOption(value, func(x int) int { return x * 2 }) // {10, true}
+
+// Slice functor
+func MapSlice[A, B any](xs []A, f func(A) B) []B {
+	out := make([]B, len(xs))
+	for i, x := range xs {
+		out[i] = f(x)
+	}
+	return out
+}
+
+MapSlice([]int{1, 2, 3}, func(x int) int { return x * 2 }) // [2, 4, 6]
+```

@@ -175,3 +175,57 @@ pairs = do
     return (x, y)
 -- [(1,'a'),(1,'b'),(2,'a'),(2,'b')]
 ```
+
+### Rust
+
+```rust
+// Vec + flat_map (= bind) for non-determinism.
+
+// Expand each element to multiple values
+let result: Vec<i32> = vec![1, 2, 3]
+    .into_iter()
+    .flat_map(|x| vec![x, -x])
+    .collect(); // [1, -1, 2, -2, 3, -3]
+
+// Cartesian product: bind [1,2] then bind [10,20]
+let pairs: Vec<(i32, i32)> = vec![1, 2]
+    .into_iter()
+    .flat_map(|x| vec![10, 20].into_iter().map(move |y| (x, y)))
+    .collect(); // [(1,10),(1,20),(2,10),(2,20)]
+
+// Guard: keep only even numbers (filter = bind with conditional return)
+let evens: Vec<i32> = vec![1, 2, 3, 4, 5, 6]
+    .into_iter()
+    .flat_map(|x| if x % 2 == 0 { vec![x] } else { vec![] })
+    .collect(); // [2, 4, 6]
+```
+
+### Go
+
+```go
+// FlatMap (bind) for slices.
+func FlatMap[A, B any](xs []A, f func(A) []B) []B {
+	var result []B
+	for _, x := range xs {
+		result = append(result, f(x)...)
+	}
+	return result
+}
+
+// Expand each element
+result := FlatMap([]int{1, 2, 3}, func(x int) []int { return []int{x, -x} })
+// [1 -1 2 -2 3 -3]
+
+// Cartesian product
+pairs := FlatMap([]int{1, 2}, func(x int) [][2]int {
+	return FlatMap([]int{10, 20}, func(y int) [][2]int { return [][2]int{{x, y}} })
+})
+// [[1 10] [1 20] [2 10] [2 20]]
+
+// Guard / filter via FlatMap
+evens := FlatMap([]int{1, 2, 3, 4, 5, 6}, func(x int) []int {
+	if x%2 == 0 { return []int{x} }
+	return nil
+})
+// [2 4 6]
+```

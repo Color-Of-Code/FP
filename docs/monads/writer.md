@@ -216,3 +216,58 @@ computation = do
 -- result   = 7
 -- finalLog = ["doubled 3", "added 1 to 6"]
 ```
+
+### Rust
+
+```rust
+// Rust: Writer as an explicit (value, log) pair threaded through functions.
+
+fn double(n: i32) -> (i32, Vec<String>) {
+    let result = n * 2;
+    (result, vec![format!("doubled {n}")])
+}
+
+fn add_one(n: i32) -> (i32, Vec<String>) {
+    let result = n + 1;
+    (result, vec![format!("added 1 to {n}")])
+}
+
+// Chain by threading the value and concatenating the logs
+let (x, log1) = double(3);      // (6, ["doubled 3"])
+let (y, log2) = add_one(x);     // (7, ["added 1 to 6"])
+let full_log: Vec<String> = [log1, log2].concat();
+// result = 7, log = ["doubled 3", "added 1 to 6"]
+```
+
+### Go
+
+```go
+import "fmt"
+
+// Go: Writer as an explicit (value, log) struct.
+
+type Writer[A any] struct {
+	Value A
+	Log   []string
+}
+
+func double(n int) Writer[int] {
+	return Writer[int]{
+		Value: n * 2,
+		Log:   []string{fmt.Sprintf("doubled %d", n)},
+	}
+}
+
+func addOne(n int) Writer[int] {
+	return Writer[int]{
+		Value: n + 1,
+		Log:   []string{fmt.Sprintf("added 1 to %d", n)},
+	}
+}
+
+// Chain: thread the value, accumulate the log
+w1 := double(3)          // {6, ["doubled 3"]}
+w2 := addOne(w1.Value)   // {7, ["added 1 to 6"]}
+fullLog := append(w1.Log, w2.Log...)
+// result = 7, log = ["doubled 3", "added 1 to 6"]
+```

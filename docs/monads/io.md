@@ -163,3 +163,59 @@ greetUser = do
 
 The type `IO String` tells callers that this function has side effects and produces a `String`. A
 function with no `IO` in its return type is **guaranteed pure**.
+
+### Rust
+
+```rust
+// Rust has no IO monad; side effects are unrestricted.
+// Purity is expressed through ownership and the type system, not a wrapper type.
+// Convention: keep computation in pure functions; call them from IO-performing code.
+use std::io::{self, BufRead, Write};
+
+// Pure computation
+fn greet(name: &str) -> String {
+    format!("Hello, {}!", name)
+}
+
+// IO at the boundary; Result<(), io::Error> signals possible failure
+fn greet_user() -> io::Result<()> {
+    print!("Enter your name: ");
+    io::stdout().flush()?;
+    let stdin = io::stdin();
+    let name = stdin.lock().lines().next().unwrap()?;
+    println!("{}", greet(&name));
+    println!("Have a nice day!");
+    Ok(())
+}
+```
+
+### Go
+
+```go
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+// Go has no IO monad; IO is implicit in any function.
+// Convention: push IO to the edges; keep business logic in pure functions.
+
+// Pure computation
+func greet(name string) string {
+	return "Hello, " + name + "!"
+}
+
+// IO boundary
+func greetUser() error {
+	fmt.Print("Enter your name: ")
+	reader := bufio.NewReader(os.Stdin)
+	name, err := reader.ReadString('\n')
+	if err != nil {
+		return err
+	}
+	fmt.Println(greet(name))
+	fmt.Println("Have a nice day!")
+	return nil
+}
+```

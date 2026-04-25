@@ -162,3 +162,60 @@ result = do
     safeDivide y 1        -- never reached
 -- result = Nothing
 ```
+
+### Rust
+
+```rust
+// Option<T> is Rust's built-in Maybe.
+// and_then is bind; map is fmap; unwrap_or provides a default.
+
+fn safe_divide(a: i32, b: i32) -> Option<i32> {
+    if b == 0 { None } else { Some(a / b) }
+}
+
+let result = safe_divide(10, 2)         // Some(5)
+    .and_then(|x| safe_divide(x, 0))    // None  — short-circuits
+    .and_then(|x| safe_divide(x, 1));   // never reached
+// result = None
+
+// map: apply a plain function inside Option
+let doubled = Some(5).map(|x| x * 2); // Some(10)
+let none: Option<i32> = None;
+none.map(|x| x * 2);                  // None
+
+// unwrap_or: provide a fallback
+let value = None::<i32>.unwrap_or(0);  // 0
+```
+
+### Go
+
+```go
+// Go has no built-in Maybe; use (value, bool) or (value, error).
+
+type Option[T any] struct {
+	Value T
+	Valid bool
+}
+
+func Some[T any](x T) Option[T] { return Option[T]{Value: x, Valid: true} }
+func None[T any]() Option[T]    { return Option[T]{} }
+
+func AndThen[A, B any](m Option[A], f func(A) Option[B]) Option[B] {
+	if !m.Valid {
+		return Option[B]{}
+	}
+	return f(m.Value)
+}
+
+safeDivide := func(a, b int) Option[int] {
+	if b == 0 {
+		return None[int]()
+	}
+	return Some(a / b)
+}
+
+result := AndThen(
+	AndThen(safeDivide(10, 2), func(x int) Option[int] { return safeDivide(x, 0) }),
+	func(x int) Option[int] { return safeDivide(x, 1) },
+) // {0, false}
+```

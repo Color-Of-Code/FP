@@ -233,3 +233,54 @@ program = do
 (output, finalState) = runState program 0
 -- output = "1 then 10", finalState = 10
 ```
+
+### Rust
+
+```rust
+// Rust models state as a function from state to (result, new_state),
+// or via explicit mutable variables.
+
+// Functional state threading: a closure that returns (result, new_state)
+fn modify(s: i32, f: impl Fn(i32) -> i32) -> ((), i32) { ((), f(s)) }
+fn get_state(s: i32) -> (i32, i32) { (s, s) }
+
+let (_, s1) = modify(0, |s| s + 1);  // state -> 1
+let (_, s2) = modify(s1, |s| s + 1); // state -> 2
+let (n, _)  = get_state(s2);          // n = 2
+
+// Idiomatic Rust: pass state as a mutable reference or return a new state
+struct AppState { counter: i32 }
+
+fn increment(s: &mut AppState) { s.counter += 1; }
+fn get_counter(s: &AppState) -> i32 { s.counter }
+
+let mut state = AppState { counter: 0 };
+increment(&mut state);
+increment(&mut state);
+let result = get_counter(&state); // 2
+```
+
+### Go
+
+```go
+// Go models state explicitly via function arguments or struct mutation.
+
+type AppState struct{ Counter int }
+
+// Functional style: return a new state value
+func increment(s AppState) AppState { return AppState{Counter: s.Counter + 1} }
+func getCounter(s AppState) int     { return s.Counter }
+
+s := AppState{Counter: 0}
+s = increment(s)
+s = increment(s)
+result := getCounter(s) // 2
+
+// Imperative style: mutate via pointer
+func incrementMut(s *AppState) { s.Counter++ }
+
+state := &AppState{Counter: 0}
+incrementMut(state)
+incrementMut(state)
+// state.Counter == 2
+```

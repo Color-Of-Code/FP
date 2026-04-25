@@ -213,3 +213,63 @@ resultDev = runReader (local (\cfg -> cfg { host = "localhost" }) buildUrl)
                       (Config "example.com" 8080)
 -- "http://localhost:8080"
 ```
+
+### Rust
+
+```rust
+// Rust: the Reader pattern is expressed by passing a shared config reference.
+// No monad machinery is needed; closures capture what they need.
+
+#[derive(Clone)]
+struct Config {
+    host: String,
+    port: u16,
+}
+
+// Pure functions that depend on config take a &Config parameter.
+fn build_url(cfg: &Config) -> String {
+    format!("http://{}:{}", cfg.host, cfg.port)
+}
+
+fn build_api_url(cfg: &Config, path: &str) -> String {
+    format!("{}/{}", build_url(cfg), path)
+}
+
+let cfg = Config { host: "example.com".to_string(), port: 8080 };
+println!("{}", build_url(&cfg));              // http://example.com:8080
+println!("{}", build_api_url(&cfg, "users")); // http://example.com:8080/users
+
+// "local": run with a modified config
+let dev_cfg = Config { host: "localhost".to_string(), ..cfg.clone() };
+println!("{}", build_url(&dev_cfg)); // http://localhost:8080
+```
+
+### Go
+
+```go
+import "fmt"
+
+// Go: the Reader pattern is expressed by passing a Config struct to functions.
+
+type Config struct {
+	Host string
+	Port int
+}
+
+func buildURL(cfg Config) string {
+	return fmt.Sprintf("http://%s:%d", cfg.Host, cfg.Port)
+}
+
+func buildAPIURL(cfg Config, path string) string {
+	return buildURL(cfg) + "/" + path
+}
+
+cfg := Config{Host: "example.com", Port: 8080}
+fmt.Println(buildURL(cfg))                   // http://example.com:8080
+fmt.Println(buildAPIURL(cfg, "users"))        // http://example.com:8080/users
+
+// "local": run with a modified config
+devCfg := cfg
+devCfg.Host = "localhost"
+fmt.Println(buildURL(devCfg)) // http://localhost:8080
+```

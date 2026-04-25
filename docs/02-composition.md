@@ -125,3 +125,44 @@ Composition is built in as the `.` operator.
 ```hs
 h = g . f
 ```
+
+### Rust
+
+```rust
+// Rust has no built-in compose operator; write it as a generic function.
+fn compose<A, B, C, F, G>(f: F, g: G) -> impl Fn(A) -> C
+where
+    F: Fn(A) -> B,
+    G: Fn(B) -> C,
+{
+    move |x| g(f(x))
+}
+
+let add1 = |x: i32| x + 1;
+let double = |x: i32| x * 2;
+
+let h = compose(add1, double); // double(add1(x))
+h(3); // 8
+
+// Iterator chaining is idiomatic composition for data pipelines.
+let result: Vec<i32> = vec![1, 2, 3]
+    .into_iter()
+    .map(|x| x + 1)
+    .map(|x| x * 2)
+    .collect(); // [4, 6, 8]
+```
+
+### Go
+
+```go
+// Go 1.18+: generic compose via type parameters.
+func Compose[A, B, C any](f func(A) B, g func(B) C) func(A) C {
+	return func(x A) C { return g(f(x)) }
+}
+
+add1 := func(x int) int { return x + 1 }
+double := func(x int) int { return x * 2 }
+
+h := Compose(add1, double)
+h(3) // 8
+```

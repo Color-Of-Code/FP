@@ -155,3 +155,69 @@ result = do
     y <- safeDivide x 0    -- Nothing (short-circuits)
     safeDivide y 1         -- never reached
 ```
+
+### Rust
+
+```rust
+// Rust: Option::and_then is bind (>>=); Result::and_then is bind for errors.
+
+fn safe_divide(a: i32, b: i32) -> Option<i32> {
+    if b == 0 { None } else { Some(a / b) }
+}
+
+// Chaining: each and_then passes the unwrapped value to the next step;
+// None short-circuits the rest.
+let result = Some(100)
+    .and_then(|x| safe_divide(x, 2))  // Some(50)
+    .and_then(|x| safe_divide(x, 5))  // Some(10)
+    .and_then(|x| safe_divide(x, 0)); // None
+
+// Result<T, E> — and_then threads Ok values; Err short-circuits
+fn parse_int(s: &str) -> Result<i32, String> {
+    s.parse().map_err(|e: std::num::ParseIntError| e.to_string())
+}
+
+let chain = parse_int("42")
+    .and_then(|n| if n > 0 { Ok(n * 2) } else { Err("non-positive".to_string()) });
+// Ok(84)
+```
+
+### Go
+
+```go
+// Go has no monad typeclass; the bind pattern is encoded with explicit checks.
+
+type Option[T any] struct {
+	Value T
+	Valid bool
+}
+
+func Pure[T any](x T) Option[T] { return Option[T]{Value: x, Valid: true} }
+
+func AndThen[A, B any](m Option[A], f func(A) Option[B]) Option[B] {
+	if !m.Valid {
+		return Option[B]{}
+	}
+	return f(m.Value)
+}
+
+safeDivide := func(a, b int) Option[int] {
+	if b == 0 {
+		return Option[int]{}
+	}
+	return Pure(a / b)
+}
+
+result := AndThen(
+	AndThen(Pure(100), func(x int) Option[int] { return safeDivide(x, 2) }),
+	func(x int) Option[int] { return safeDivide(x, 0) },
+) // {0, false}
+
+// Idiomatic Go: (value, error) pairs are the conventional monad-like pattern.
+func safeDivideErr(a, b int) (int, error) {
+	if b == 0 {
+		return 0, fmt.Errorf("divide by zero")
+	}
+	return a / b, nil
+}
+```

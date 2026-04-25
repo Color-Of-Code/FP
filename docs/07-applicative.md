@@ -258,3 +258,59 @@ noSum = liftA2 (+) (Just 3) Nothing   -- Nothing
 listResult :: [Int]
 listResult = liftA2 (+) [1, 2] [10, 20]   -- [11, 21, 12, 22]
 ```
+
+### Rust
+
+```rust
+// Rust has no Applicative typeclass; encode it per container.
+
+fn apply_option<A, B, F: Fn(A) -> B>(f: Option<F>, x: Option<A>) -> Option<B> {
+    match (f, x) {
+        (Some(f), Some(x)) => Some(f(x)),
+        _ => None,
+    }
+}
+
+fn lift_a2<A, B, C, F: Fn(A, B) -> C>(f: F, x: Option<A>, y: Option<B>) -> Option<C> {
+    match (x, y) {
+        (Some(a), Some(b)) => Some(f(a, b)),
+        _ => None,
+    }
+}
+
+let wrapped_double: Option<fn(i32) -> i32> = Some(|x| x * 2);
+let result = apply_option(wrapped_double, Some(5)); // Some(10)
+
+let sum   = lift_a2(|a, b| a + b, Some(3), Some(4));       // Some(7)
+let none  = lift_a2(|a, b| a + b, Some(3), None::<i32>);   // None
+```
+
+### Go
+
+```go
+// Go 1.18+: applicative pattern with a generic Option type.
+
+type Option[T any] struct {
+	Value T
+	Valid bool
+}
+
+func Pure[T any](x T) Option[T] { return Option[T]{Value: x, Valid: true} }
+
+func Apply[A, B any](f Option[func(A) B], x Option[A]) Option[B] {
+	if !f.Valid || !x.Valid {
+		return Option[B]{}
+	}
+	return Pure(f.Value(x.Value))
+}
+
+func LiftA2[A, B, C any](f func(A, B) C, x Option[A], y Option[B]) Option[C] {
+	if !x.Valid || !y.Valid {
+		return Option[C]{}
+	}
+	return Pure(f(x.Value, y.Value))
+}
+
+sum  := LiftA2(func(a, b int) int { return a + b }, Pure(3), Pure(4))    // {7, true}
+none := LiftA2(func(a, b int) int { return a + b }, Pure(3), Option[int]{}) // {0, false}
+```

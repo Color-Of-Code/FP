@@ -266,3 +266,63 @@ ioActions = [getLine, getLine]
 allLines :: IO [String]
 allLines = sequence ioActions   -- reads two lines; returns IO [String]
 ```
+
+### Rust
+
+```rust
+fn safe_sqrt(x: i32) -> Option<f64> {
+    if x >= 0 { Some((x as f64).sqrt()) } else { None }
+}
+
+// traverse: Iterator::map + collect into Option<Vec<_>>
+// collect() short-circuits on the first None
+let ok: Option<Vec<f64>> = vec![4, 9, 16]
+    .into_iter()
+    .map(safe_sqrt)
+    .collect(); // Some([2.0, 3.0, 4.0])
+
+let fail: Option<Vec<f64>> = vec![4, -1, 16]
+    .into_iter()
+    .map(safe_sqrt)
+    .collect(); // None
+
+// sequence: Vec<Option<T>> -> Option<Vec<T>>
+let maybes: Vec<Option<i32>> = vec![Some(1), Some(2), Some(3)];
+let seq: Option<Vec<i32>> = maybes.into_iter().collect(); // Some([1, 2, 3])
+
+let with_none = vec![Some(1), None, Some(3)];
+let seq_fail: Option<Vec<i32>> = with_none.into_iter().collect(); // None
+```
+
+### Go
+
+```go
+import "math"
+
+type Option[T any] struct {
+	Value T
+	Valid bool
+}
+
+func safeSqrt(x int) Option[float64] {
+	if x < 0 {
+		return Option[float64]{}
+	}
+	return Option[float64]{Value: math.Sqrt(float64(x)), Valid: true}
+}
+
+func Traverse[A, B any](xs []A, f func(A) Option[B]) Option[[]B] {
+	results := make([]B, 0, len(xs))
+	for _, x := range xs {
+		r := f(x)
+		if !r.Valid {
+			return Option[[]B]{}
+		}
+		results = append(results, r.Value)
+	}
+	return Option[[]B]{Value: results, Valid: true}
+}
+
+ok   := Traverse([]int{4, 9, 16}, safeSqrt)  // {[2 3 4], true}
+fail := Traverse([]int{4, -1, 16}, safeSqrt) // {nil, false}
+```

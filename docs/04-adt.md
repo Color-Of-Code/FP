@@ -310,3 +310,75 @@ safeDivide' :: Int -> Int -> Either String Int
 safeDivide' _ 0 = Left "division by zero"
 safeDivide' a b = Right (a `div` b)
 ```
+
+### Rust
+
+```rust
+// Product type: struct (all fields present)
+struct Point { x: f64, y: f64 }
+
+// Sum type: enum with named variants — Rust's native ADT
+enum Shape {
+    Circle    { radius: f64 },
+    Rectangle { width: f64, height: f64 },
+    Triangle  { base: f64, height: f64 },
+}
+
+// Pattern matching — exhaustive; compiler errors on missing variants
+fn area(shape: &Shape) -> f64 {
+    match shape {
+        Shape::Circle    { radius }           => std::f64::consts::PI * radius * radius,
+        Shape::Rectangle { width, height }    => width * height,
+        Shape::Triangle  { base, height }     => 0.5 * base * height,
+    }
+}
+
+// Built-in Option<T> (= Maybe) and Result<T, E> (= Either)
+fn safe_divide(a: i32, b: i32) -> Option<i32> {
+    if b == 0 { None } else { Some(a / b) }
+}
+
+fn safe_divide_err(a: i32, b: i32) -> Result<i32, String> {
+    if b == 0 { Err("division by zero".to_string()) } else { Ok(a / b) }
+}
+```
+
+### Go
+
+```go
+import (
+	"errors"
+	"fmt"
+	"math"
+)
+
+// Product type: struct
+type Point struct{ X, Y float64 }
+
+// Sum type: interface + concrete structs (no native tagged union)
+type Shape interface{ Area() float64 }
+
+type Circle    struct{ Radius float64 }
+type Rectangle struct{ Width, Height float64 }
+type Triangle  struct{ Base, Height float64 }
+
+func (c Circle)    Area() float64 { return math.Pi * c.Radius * c.Radius }
+func (r Rectangle) Area() float64 { return r.Width * r.Height }
+func (t Triangle)  Area() float64 { return 0.5 * t.Base * t.Height }
+
+// Type switch — not exhaustively checked by compiler
+func describe(s Shape) string {
+	switch v := s.(type) {
+	case Circle:    return fmt.Sprintf("circle r=%.2f", v.Radius)
+	case Rectangle: return fmt.Sprintf("rect %.2f×%.2f", v.Width, v.Height)
+	case Triangle:  return fmt.Sprintf("triangle b=%.2f h=%.2f", v.Base, v.Height)
+	default:        return "unknown"
+	}
+}
+
+// Maybe-like: (value, bool) or (value, error) — no type-level enforcement
+func safeDivide(a, b int) (int, error) {
+	if b == 0 { return 0, errors.New("division by zero") }
+	return a / b, nil
+}
+```

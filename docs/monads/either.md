@@ -197,3 +197,82 @@ result = do
     v <- validateAge n        -- Right 42
     formatAge v               -- Right "42 years old"
 ```
+
+### Rust
+
+```rust
+// Result<T, E> is Rust's built-in Either.
+// and_then is bind; map_err transforms the error; ? operator is syntactic sugar.
+
+fn parse_age(s: &str) -> Result<u32, String> {
+    s.parse::<u32>().map_err(|_| format!("not a number: {s}"))
+}
+
+fn validate_age(age: u32) -> Result<u32, String> {
+    if age > 150 {
+        Err(format!("{age} is unrealistically large"))
+    } else {
+        Ok(age)
+    }
+}
+
+fn format_age(age: u32) -> Result<String, String> {
+    Ok(format!("{age} years old"))
+}
+
+// Chain with and_then
+let result = parse_age("42")
+    .and_then(validate_age)
+    .and_then(format_age); // Ok("42 years old")
+
+let error = parse_age("abc")
+    .and_then(validate_age); // Err("not a number: abc")
+
+// Using the ? operator inside a function (syntactic sugar for and_then)
+fn pipeline(s: &str) -> Result<String, String> {
+    let n   = parse_age(s)?;
+    let v   = validate_age(n)?;
+    format_age(v)
+}
+```
+
+### Go
+
+```go
+import (
+	"fmt"
+	"strconv"
+)
+
+// Go uses (value, error) pairs as a conventional Either.
+
+func parseAge(s string) (int, error) {
+	n, err := strconv.Atoi(s)
+	if err != nil {
+		return 0, fmt.Errorf("not a number: %s", s)
+	}
+	return n, nil
+}
+
+func validateAge(age int) (int, error) {
+	if age < 0 || age > 150 {
+		return 0, fmt.Errorf("%d is not a valid age", age)
+	}
+	return age, nil
+}
+
+func formatAge(age int) (string, error) {
+	return fmt.Sprintf("%d years old", age), nil
+}
+
+// Idiomatic Go: explicit error propagation instead of bind
+func pipeline(s string) (string, error) {
+	n, err := parseAge(s)
+	if err != nil { return "", err }
+	v, err := validateAge(n)
+	if err != nil { return "", err }
+	return formatAge(v)
+}
+
+result, err := pipeline("42") // "42 years old", nil
+```

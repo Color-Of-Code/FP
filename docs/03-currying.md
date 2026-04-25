@@ -185,3 +185,41 @@ addTupled = uncurry add
 curriedAgain :: Int -> Int -> Int
 curriedAgain = curry addTupled
 ```
+
+### Rust
+
+```rust
+// Rust closures are not curried by default.
+
+// Currying: a closure that returns a closure
+let curried_add = |a: i32| move |b: i32| a + b;
+
+// Partial application: supply only the first argument
+let add5 = curried_add(5); // closure: |b| 5 + b
+add5(3); // 8
+
+// Alternative: partial application via a capturing closure
+let add = |a: i32, b: i32| a + b;
+let add5b = |b: i32| add(5, b);
+add5b(3); // 8
+```
+
+### Go
+
+```go
+// Go functions are not curried by default.
+
+// Currying: a function that returns a function
+curriedAdd := func(a int) func(int) int {
+	return func(b int) int { return a + b }
+}
+
+// Partial application: supply only the first argument
+add5 := curriedAdd(5)
+add5(3) // 8
+
+// Alternative: partial application via a closure
+add := func(a, b int) int { return a + b }
+add5b := func(b int) int { return add(5, b) }
+add5b(3) // 8
+```

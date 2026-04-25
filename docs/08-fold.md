@@ -109,3 +109,44 @@ reduce(lambda acc, x: acc + x, [1, 2, 3], 0)  # 6
 -- sum
 foldl (+) 0 [1, 2, 3]  -- 6
 ```
+
+### Rust
+
+```rust
+// Iterator::fold is the built-in fold
+let sum     = vec![1, 2, 3, 4, 5].iter().fold(0, |acc, x| acc + x); // 15
+let product = vec![1, 2, 3, 4, 5].iter().fold(1, |acc, x| acc * x); // 120
+let length  = vec![1, 2, 3].iter().fold(0, |acc, _| acc + 1);        // 3
+
+// map expressed as fold
+let doubled: Vec<i32> = vec![1, 2, 3]
+    .iter()
+    .fold(vec![], |mut acc, &x| { acc.push(x * 2); acc }); // [2, 4, 6]
+
+// Idiomatic shortcuts
+let sum2: i32 = vec![1, 2, 3, 4, 5].iter().sum();     // 15
+let prod: i32 = vec![1, 2, 3, 4, 5].iter().product(); // 120
+```
+
+### Go
+
+```go
+// Go has no built-in fold; a generic version uses Go 1.18+ type parameters.
+func Fold[A, B any](xs []A, init B, f func(B, A) B) B {
+	acc := init
+	for _, x := range xs {
+		acc = f(acc, x)
+	}
+	return acc
+}
+
+sum    := Fold([]int{1, 2, 3, 4, 5}, 0, func(acc, x int) int { return acc + x }) // 15
+product := Fold([]int{1, 2, 3, 4, 5}, 1, func(acc, x int) int { return acc * x }) // 120
+length  := Fold([]int{1, 2, 3}, 0, func(acc int, _ int) int { return acc + 1 })   // 3
+
+// map expressed as fold
+func MapFold[A, B any](xs []A, f func(A) B) []B {
+	return Fold(xs, []B{}, func(acc []B, x A) []B { return append(acc, f(x)) })
+}
+MapFold([]int{1, 2, 3}, func(x int) int { return x * 2 }) // [2, 4, 6]
+```

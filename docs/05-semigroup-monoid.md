@@ -245,3 +245,63 @@ Just "hello" <> Just " world"   -- Just "hello world"
 Just "hello" <> Nothing         -- Just "hello"
 Nothing      <> Just "world"    -- Just "world"
 ```
+
+### Rust
+
+```rust
+// Rust: String and Vec implement + / extend; iterators provide sum/product.
+
+// String monoid
+let hello = "Hello, ".to_string() + "world"; // "Hello, world"
+let empty = String::new();                    // identity
+
+// Vec monoid via iterator chain
+let combined: Vec<i32> = [1, 2].iter().chain([3, 4].iter()).copied().collect();
+// [1, 2, 3, 4]
+
+// Sum and Product monoids
+let sum: i32     = [1, 2, 3, 4, 5].iter().sum();     // 15
+let product: i32 = [1, 2, 3, 4, 5].iter().product(); // 120
+
+// String mconcat via collect
+let concat: String = ["Hello", ", ", "world"].into_iter().collect();
+// "Hello, world"
+
+// Custom Semigroup / Monoid traits
+trait Semigroup { fn combine(self, other: Self) -> Self; }
+trait Monoid: Semigroup { fn empty() -> Self; }
+
+impl Semigroup for i32 { fn combine(self, other: i32) -> i32 { self + other } }
+impl Monoid    for i32 { fn empty() -> i32 { 0 } }
+
+fn mconcat<A: Monoid>(xs: Vec<A>) -> A {
+    xs.into_iter().fold(A::empty(), Semigroup::combine)
+}
+mconcat(vec![1i32, 2, 3, 4, 5]); // 15
+```
+
+### Go
+
+```go
+import "strings"
+
+// String monoid
+result := strings.Join([]string{"Hello", ", ", "world"}, "") // "Hello, world"
+
+// Slice monoid via append
+combined := append([]int{1, 2}, []int{3, 4}...) // [1 2 3 4]
+
+// Generic fold (Go 1.18+) serves as mconcat
+func Fold[A any](xs []A, init A, f func(A, A) A) A {
+	acc := init
+	for _, x := range xs {
+		acc = f(acc, x)
+	}
+	return acc
+}
+
+sum     := Fold([]int{1, 2, 3, 4, 5}, 0, func(a, b int) int { return a + b }) // 15
+product := Fold([]int{1, 2, 3, 4, 5}, 1, func(a, b int) int { return a * b }) // 120
+concat  := Fold([]string{"Hello", ", ", "world"}, "",
+	func(a, b string) string { return a + b }) // "Hello, world"
+```
