@@ -1,0 +1,48 @@
+...@../styles
+
+direction: down
+
+before: "without a composition strategy: manual nesting for 3 effects" {
+  direction: right
+  stack: "IO (Either Err (State S (Writer Log a)))" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  lift1: "liftIO — cross IO boundary" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  case1: "case — unwrap Either" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  state1: "runState — unwrap State" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  stack -> lift1 -> case1 -> state1
+}
+
+after: "with a composition strategy: one uniform interface" {
+  direction: right
+  transformers: "Monad Transformers" {
+    detail: "ExceptT (StateT (WriterT IO)) a"
+    detail.shape: text
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  free_monad: "Free Monad" {
+    detail: "Free (ExceptF :+: StateF :+: LogF) a"
+    detail.shape: text
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  alg_effects: "Algebraic Effects" {
+    detail: "Eff '[Error, State S, Writer Log] a"
+    detail.shape: text
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+}
+
+before -> after

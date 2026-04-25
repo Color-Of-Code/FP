@@ -16,6 +16,7 @@ A learning track through the core concepts of functional programming, each build
 | 8   | [Fold](docs/08-fold.md)                               | Reducing a collection to a value; `map`, `filter` and more as folds           |
 | 9   | [Traversable](docs/09-traversable.md)                 | Effectful mapping that preserves shape; swapping container and effect         |
 | 10  | [Monad](docs/10-monad.md)                             | Sequencing effectful computations; solving the `fmap` nesting problem         |
+| 11  | [Composing Effects](docs/11-effects.md)               | Monad Transformers, Free Monad, and Algebraic Effects compared                |
 
 ## Diagrams
 

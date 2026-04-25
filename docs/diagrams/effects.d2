@@ -1,0 +1,72 @@
+direction: down
+
+...@../styles
+
+problem: "Two monads do not compose automatically" {
+  direction: right
+  m: "Maybe<a>" {
+    a1 -> m_box
+    a1: "a"
+    m_box: Maybe
+    a1.class: [
+      value
+      a
+    ]
+    m_box.class: [
+      type
+      f
+    ]
+  }
+  n: "State<s, a>" {
+    s1 -> n_box
+    a2 -> n_box
+    s1: "s"
+    a2: "a"
+    n_box: "State s"
+    s1.class: [
+      type
+      b
+    ]
+    a2.class: [
+      value
+      a
+    ]
+    n_box.class: [
+      type
+      g
+    ]
+  }
+  composed: "Maybe<State<s, a>> — NOT a monad in general" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  order_a: "ExceptT (StateT M): state kept on error" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  order_b: "StateT (ExceptT M): state discarded on error" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  m -> composed
+  n -> composed
+  composed -> order_a: "order matters"
+  composed -> order_b: "order matters"
+}
+
+solutions: "Three strategies for composing effects" {
+  transformers: "Monad Transformers" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  free_m: "Free Monad" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  alg_eff: "Algebraic Effects" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+}
+
+problem -> solutions
