@@ -1,0 +1,14 @@
+{
+  "name": "fp-tools",
+  "private": true,
+  "description": "Dev tooling for the FP repository",
+  "scripts": {
+    "lint:md": "markdownlint-cli2 '../**/*.md' '!../node_modules/**'",
+    "fmt:md": "prettier --write '../**/*.md'",
+    "check:md": "prettier --check '../**/*.md'"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "^0.17.2",
+    "prettier": "^3.5.3"
+  }
+}
