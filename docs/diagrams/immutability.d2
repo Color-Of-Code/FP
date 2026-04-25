@@ -1,0 +1,26 @@
+...@../styles
+
+direction: right
+
+original: "xs = [1, 2, 3]" {
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  node1: "1" { class: [value; a] }
+  node2: "2" { class: [value; b] }
+  node3: "3" { class: [value; c] }
+  node1 -> node2 -> node3
+}
+
+prepend: "ys = 0 : xs\n(0 → shared tail)" {
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  node0: "0" { class: [value; f] }
+}
+
+prepend.node0 -> original.node1: "structural sharing\n(no copy)" {
+  style.stroke-dash: 4
+}
+
+note: "xs is unchanged\nys and xs share the tail" {
+  class: comment
+}

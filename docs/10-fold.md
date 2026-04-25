@@ -1,4 +1,4 @@
-# 8. Fold
+# 10. Fold
 
 **Fold** (also called _reduce_) is the fundamental higher-order function that collapses a collection
 into a single value by repeatedly applying a combining function `f :: b ⟶ a ⟶ b` with an initial

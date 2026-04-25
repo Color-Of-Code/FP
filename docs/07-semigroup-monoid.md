@@ -1,4 +1,4 @@
-# 5. Semigroup & Monoid
+# 7. Semigroup & Monoid
 
 **Semigroup** and **Monoid** capture the idea of **combining values** of the same type in an
 associative way. They are among the simplest and most widely useful abstractions in FP.

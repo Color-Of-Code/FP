@@ -1,0 +1,41 @@
+...@../styles
+
+direction: right
+
+mutable: "without immutability: mutation in place" {
+  direction: down
+  style.fill: "#fff0f0"
+  step1: "user = { name: \"Alice\", age: 30 }" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  step2: "user.age = 31  ← mutate" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  step3: "original lost — all references see new value\nconcurrent readers see inconsistent state" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  step1 -> step2 -> step3
+}
+
+immutable: "with immutability: return a new value" {
+  direction: down
+  style.fill: "#f0fff0"
+  step1: "user = { name: \"Alice\", age: 30 }" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  step2: "older = { user | age = 31 }  ← new value" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  step3: "user unchanged; older is independent\nno data races; both versions coexist" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  step1 -> step2 -> step3
+}
+
+mutable -> immutable: "replace with"

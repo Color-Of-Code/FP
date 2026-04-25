@@ -1,0 +1,25 @@
+...@../styles
+
+direction: right
+
+eager_problem: "without lazy evaluation:\nprocessing large sequences" {
+  direction: down
+  style.fill: "#fff0f0"
+  step1: "load all N records into memory" { style.fill: "#ffe0e0"; shape: rectangle }
+  step2: "filter(predicate) → new list (up to N)" { style.fill: "#ffe0e0"; shape: rectangle }
+  step3: "map(transform) → new list (up to N)" { style.fill: "#ffe0e0"; shape: rectangle }
+  step4: "take(10) → first 10" { style.fill: "#ffe0e0"; shape: rectangle }
+  step1 -> step2 -> step3 -> step4: "processes all N even to get 10 results"
+}
+
+lazy_solution: "with lazy evaluation:\ncomposed pipeline; pull-driven" {
+  direction: down
+  style.fill: "#f0fff0"
+  step1: "source (potentially infinite)" { style.fill: "#e0ffe0"; shape: rectangle }
+  step2: "filter (produces elements on demand)" { style.fill: "#e0ffe0"; shape: rectangle }
+  step3: "map (transforms one element at a time)" { style.fill: "#e0ffe0"; shape: rectangle }
+  step4: "take(10) demands exactly 10 elements" { style.fill: "#e0ffe0"; shape: rectangle }
+  step1 -> step2 -> step3 -> step4: "stops as soon as 10 pass the filter"
+}
+
+eager_problem -> lazy_solution: "replace with"

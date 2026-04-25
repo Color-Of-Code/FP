@@ -1,4 +1,4 @@
-# 3. Partial Application & Currying
+# 4. Partial Application & Currying
 
 These two techniques are closely related but distinct. Both build on functions being first-class
 values.

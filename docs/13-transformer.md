@@ -7,7 +7,7 @@ multiple effects simultaneously.
 ![transformer stack](diagrams/transformer.svg)
 
 > Part of the **learning track**. For a comparison of Monad Transformers, Free Monads, and Algebraic
-> Effects side-by-side, see [12. Composing Effects](./12-effects.md).
+> Effects side-by-side, see [14. Composing Effects](./14-effects.md).
 
 ## The problem transformers solve
 
@@ -19,7 +19,7 @@ requires manual unwrapping at every step.
 Transformers solve this by providing a standard way to layer effects. Each transformer adds exactly
 one effect and forwards all others to the monad below it.
 
-See [12. Composing Effects](./12-effects.md) for a comparison of Monad Transformers, Free Monads,
+See [14. Composing Effects](./14-effects.md) for a comparison of Monad Transformers, Free Monads,
 and Algebraic Effects.
 
 ## Type

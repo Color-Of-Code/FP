@@ -1,4 +1,4 @@
-# 13. Lens / Optics
+# 15. Lens / Optics
 
 **Optics** are composable, first-class tools for **focusing on a part of a data structure** — to
 read it, update it, or fold over it — without breaking immutability or scattering field-access logic
@@ -9,7 +9,7 @@ across the codebase.
 A **lens** is the most common optic: it focuses on exactly one field inside a product type and
 provides a `get` (read the field) and a `set`/`over` (return a new structure with the field
 changed). Because lenses are values, they **compose** with function composition `(.)` — the
-fundamental operation from [02. Composition](./02-composition.md) — making deep updates as readable
+fundamental operation from [03. Composition](./03-composition.md) — making deep updates as readable
 as shallow ones.
 
 ## Optic hierarchy

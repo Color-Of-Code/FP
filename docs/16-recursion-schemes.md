@@ -1,11 +1,11 @@
-# 14. Recursion Schemes
+# 16. Recursion Schemes
 
 **Recursion schemes** are higher-order functions that encapsulate common patterns of recursion over
 recursive data structures. Rather than writing explicit recursive functions, you provide an
 **algebra** (what to do at each node) and let the scheme handle the traversal.
 
-This is the generalisation of [8. Fold](./08-fold.md) from lists to arbitrary recursive types, and
-directly builds on [4. Algebraic Data Types](./04-adt.md) and [6. Functor](./06-functor.md).
+This is the generalisation of [10. Fold](./10-fold.md) from lists to arbitrary recursive types, and
+directly builds on [5. Algebraic Data Types](./05-adt.md) and [8. Functor](./08-functor.md).
 
 ![recursion schemes](diagrams/recursion-schemes.svg)
 
