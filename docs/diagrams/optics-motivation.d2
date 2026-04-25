@@ -1,0 +1,69 @@
+...@../styles
+
+direction: down
+
+before: without lenses: deep update requires rebuilding every intermediate layer {
+  direction: right
+  read_outer -> rebuild_inner -> rebuild_mid -> rebuild_outer -> result
+  read_outer:   "read address"
+  rebuild_inner: "new City{name=Berlin}"
+  rebuild_mid:   "new Address{city=...}"
+  rebuild_outer: "new Person{address=...}"
+  result: Person
+  read_outer.class: [
+    function
+    g
+  ]
+  rebuild_inner.class: [
+    function
+    f
+  ]
+  rebuild_mid.class: [
+    function
+    f
+  ]
+  rebuild_outer.class: [
+    function
+    f
+  ]
+  result.class: [
+    type
+    b
+  ]
+  note: "n levels of nesting = n levels of manual reconstruction; adding a level touches every caller"
+  note.class: [comment]
+}
+
+after: with lenses: compose the path once; use set or over for any depth {
+  direction: right
+  path -> set_or_over -> result
+  path -> set_or_over: "set / over"
+  path: "address . city . name"
+  set_or_over: "lens op"
+  result: Person
+  path.class: [
+    function
+    f
+  ]
+  set_or_over.class: [
+    function
+    g
+  ]
+  result.class: [
+    type
+    a
+  ]
+  result: {tooltip: Lenses compose with (.). Adding a new nesting level means extending the path by one segment.}
+  view_op: "view path alice"
+  traverse_op: "traverse . each %~ f"
+  view_op.class: [
+    value
+    b
+  ]
+  traverse_op.class: [
+    value
+    b
+  ]
+  path -> view_op: view
+  path -> traverse_op: traverse
+}

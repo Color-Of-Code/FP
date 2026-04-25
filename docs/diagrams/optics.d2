@@ -1,0 +1,127 @@
+direction: right
+
+...@../styles
+
+type_def: "Optic hierarchy — every optic is a restriction of Traversal" {
+  explanation: ||md
+    # Optics
+
+    An optic **focuses** on part of a data structure.
+    The hierarchy goes from most general (Traversal) to most specific (Lens/Iso):
+
+    - **Iso**: isomorphic pair — get and review are inverses
+    - **Lens**: exactly one product-type field — always get, always set
+    - **Prism**: one sum-type constructor — may fail to get; can always construct
+    - **Traversal**: zero or more targets — fold or map over all of them
+
+    Optics **compose** with `(.)` — the same function composition from Ch. 2.
+    A Lens composed with a Traversal produces a Traversal.
+  ||
+  explanation.class: [comment]
+}
+
+hierarchy: optic hierarchy {
+  direction: down
+  iso -> lens -> traversal
+  prism -> traversal
+  traversal -> fold -> getter
+  traversal -> setter
+  iso: Iso
+  lens: Lens
+  prism: Prism
+  traversal: Traversal
+  fold: Fold
+  getter: Getter
+  setter: Setter
+  iso.class: [
+    type
+    a
+  ]
+  lens.class: [
+    type
+    b
+  ]
+  prism.class: [
+    type
+    b
+  ]
+  traversal.class: [
+    function
+    f
+  ]
+  fold.class: [
+    value
+    a
+  ]
+  getter.class: [
+    value
+    a
+  ]
+  setter.class: [
+    value
+    b
+  ]
+  iso: {tooltip: Isomorphism between s and a — can convert both ways with no information loss.}
+  lens: {tooltip: Focus on exactly one field in a product type. Always succeeds.}
+  prism: {tooltip: Focus on one constructor of a sum type. Getting may return Nothing.}
+  traversal: {tooltip: Focus on zero or more targets. Compose Lens + Prism to get a Traversal.}
+  fold: {tooltip: Read-only traversal — accumulate values but cannot update.}
+  getter: {tooltip: Single-target read-only focus.}
+  setter: {tooltip: Update focus — cannot read back.}
+}
+
+lens_ops: "Lens s a — core operations" {
+  s_in -> view
+  s_in -> set
+  s_in -> over
+  view -> a_out
+  set -> s_new
+  over -> s_new2
+  f -> over
+  a_in -> set
+  s_in: "s (structure)"
+  a_out: "a (focused value)"
+  s_new: "s (new structure)"
+  s_new2: "s (new structure)"
+  a_in: "a (new value)"
+  f: "a -> a"
+  s_in.class: [
+    type
+    a
+  ]
+  a_out.class: [
+    value
+    b
+  ]
+  s_new.class: [
+    type
+    a
+  ]
+  s_new2.class: [
+    type
+    a
+  ]
+  a_in.class: [
+    value
+    b
+  ]
+  f.class: [
+    function
+    f
+  ]
+  view.class: [
+    function
+    g
+  ]
+  set.class: [
+    function
+    h
+  ]
+  over.class: [
+    function
+    f2
+  ]
+  view: {tooltip: Read the focused field from s.}
+  set:  {tooltip: Replace the focused field; return a new s.}
+  over: {tooltip: Apply f to the focused field; return a new s.}
+}

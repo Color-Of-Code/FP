@@ -18,6 +18,7 @@ A learning track through the core concepts of functional programming, each build
 | 10  | [Monad](docs/10-monad.md)                             | Sequencing effectful computations; solving the `fmap` nesting problem         |
 | 11  | [Monad Transformers](docs/11-transformer.md)          | Stacking monads to combine multiple effects in one computation                |
 | 12  | [Composing Effects](docs/12-effects.md)               | Monad Transformers, Free Monad, and Algebraic Effects compared                |
+| 13  | [Lens / Optics](docs/13-optics.md)                    | Composable, first-class access and update of nested immutable data            |
 
 ## Diagrams
 
