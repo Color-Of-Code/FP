@@ -57,6 +57,34 @@ var (v, _)  = Get(s1);             // result = 1
 // v == 1
 ```
 
+### F\# (state computation expression)
+
+F# computation expressions can model State. Here using explicit state threading, which is the
+idiomatic F# approach without a library.
+
+```fsharp
+// State as a function: int -> ('a * int)
+let get s = (s, s)
+let modify f s = ((), f s)
+let ret a s = (a, s)
+
+let bind sa f s =
+    let a, s' = sa s
+    f a s'
+
+// counter: modify (+1), then get
+let program = bind (modify (fun s -> s + 1)) (fun _ -> get)
+let result, finalState = program 0
+// result = 1, finalState = 1
+
+// With FSharpPlus or a custom CE the syntax becomes:
+// state {
+//     do! modify ((+) 1)
+//     do! modify ((+) 1)
+//     return! get
+// }
+```
+
 ### JavaScript
 
 ```js

@@ -53,6 +53,25 @@ var pairs = new[] { 1, 2 }
 // [(1,'a'), (1,'b'), (2,'a'), (2,'b')]
 ```
 
+### F\#
+
+F# `List.collect` is `flatMap` / `concatMap`. Sequence expressions with `yield!` give a clean
+alternative syntax.
+
+```fsharp
+// Expand each x to [x; -x]
+let result = [1; 2; 3] |> List.collect (fun x -> [x; -x])
+// [1; -1; 2; -2; 3; -3]
+
+// Cartesian product using sequence expression
+let pairs = [
+    for x in [1; 2] do
+    for y in ['a'; 'b'] do
+    yield (x, y)
+]
+// [(1,'a'); (1,'b'); (2,'a'); (2,'b')]
+```
+
 ### JavaScript
 
 ```js

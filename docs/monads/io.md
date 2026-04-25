@@ -47,6 +47,23 @@ async Task<string> GreetUser()
 }
 ```
 
+### F\# (async computation expression)
+
+F# `async { }` is a computation expression that sequences IO actions just like `do`-notation, with
+`let!` as bind.
+
+```fsharp
+let greetUser () = async {
+    let! name = Console.In.ReadLineAsync() |> Async.AwaitTask  // IO String
+    do! Console.Out.WriteLineAsync($"Hello, {name}!") |> Async.AwaitTask  // IO ()
+    do! Console.Out.WriteLineAsync("Have a nice day!") |> Async.AwaitTask
+    return name
+}
+
+// Execute
+let name = greetUser () |> Async.RunSynchronously
+```
+
 ### JavaScript (Promise as an IO-like monad)
 
 ```js

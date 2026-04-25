@@ -24,6 +24,19 @@ static Func<Ta, Tc> Compose<Ta, Tb, Tc>(
 var h = Compose(g, f);
 ```
 
+### F\#
+
+F# has the built-in `>>` (forward composition) and `<<` (backward composition) operators.
+
+```fsharp
+// >> applies left function first, then right
+let h = f >> g
+
+// Equivalent manual definition
+let compose g f x = g (f x)
+let h = compose g f
+```
+
 ### Ruby
 
 ```ruby

@@ -60,6 +60,31 @@ var url = buildUrl(new Config("example.com", 8080));
 // "http://example.com:8080"
 ```
 
+### F\#
+
+F# functions are already curried, so the Reader pattern is just passing a record as the last
+argument and using partial application. No special type is needed.
+
+```fsharp
+type Config = { Host: string; Port: int }
+
+let getHost (cfg: Config) = cfg.Host
+let getPort (cfg: Config) = cfg.Port
+
+let buildUrl cfg =
+    $"http://{getHost cfg}:{getPort cfg}"
+
+let url = buildUrl { Host = "example.com"; Port = 8080 }
+// "http://example.com:8080"
+
+// With an explicit Reader CE (e.g. from FSharpPlus):
+// let buildUrl = reader {
+//     let! h = asks (fun cfg -> cfg.Host)
+//     let! p = asks (fun cfg -> cfg.Port)
+//     return $"http://{h}:{p}"
+// }
+```
+
 ### JavaScript
 
 ```js

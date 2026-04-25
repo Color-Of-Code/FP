@@ -28,6 +28,16 @@ fold.
 new[] { 1, 2, 3 }.Aggregate(0, (acc, x) => acc + x); // 6
 ```
 
+### F\#
+
+```fsharp
+// sum
+List.fold (fun acc x -> acc + x) 0 [1; 2; 3]  // 6
+
+// or with the built-in operator section
+List.fold (+) 0 [1; 2; 3]  // 6
+```
+
 ### Ruby
 
 ```ruby

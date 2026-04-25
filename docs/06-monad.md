@@ -45,6 +45,22 @@ int? result = SafeDivide(10, 2)           // Just 5
     .SelectMany(x => SafeDivide(x, 1));  // never reached
 ```
 
+### F\#
+
+F# `option` is a built-in Maybe monad. Computation expressions provide `do`-notation style
+sequencing.
+
+```fsharp
+let safeDivide a b = if b = 0 then None else Some (a / b)
+
+// Using Option.bind explicitly
+let result =
+    safeDivide 10 2
+    |> Option.bind (fun x -> safeDivide x 0)
+    |> Option.bind (fun x -> safeDivide x 1)
+// None
+```
+
 ### JavaScript
 
 ```js

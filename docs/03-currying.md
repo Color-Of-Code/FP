@@ -36,6 +36,18 @@ Func<int, int> add5 = b => add(5, b);
 add5(3); // 8
 ```
 
+### F\#
+
+All F# functions are curried by default, just like Haskell.
+
+```fsharp
+let add a b = a + b
+
+let add5 = add 5   // partial application — no special syntax needed
+
+add5 3  // 8
+```
+
 ### Ruby
 
 ```ruby

@@ -60,6 +60,29 @@ var finalLog = log1.Concat(log2);     // ["doubled 3", "added 1 to 6"]
 // result = 7
 ```
 
+### F\#
+
+F# models Writer as a tuple `'a * 'w list`. The `@` operator concatenates log lists.
+
+```fsharp
+let bind (value, log1) f =
+    let value2, log2 = f value
+    (value2, log1 @ log2)
+
+let double n = (n * 2, [$"doubled {n}"])
+let addOne n = (n + 1, [$"added 1 to {n}"])
+
+let result = bind (double 3) addOne
+// (7, ["doubled 3"; "added 1 to 6"])
+
+// With a computation expression (e.g. FSharpPlus writer CE):
+// let computation = writer {
+//     let! x = writer (3 * 2, ["doubled 3"])
+//     let! y = writer (x + 1, [$"added 1 to {x}"])
+//     return y
+// }
+```
+
 ### JavaScript
 
 ```js

@@ -42,6 +42,31 @@ int? result = SafeDivide(10, 2)
     .SelectMany(x => SafeDivide(x, 1)); // null
 ```
 
+### F\#
+
+F# has a built-in `option` type and `Option.bind` for chaining. The `|>` pipe operator makes chains
+read naturally left-to-right.
+
+```fsharp
+let safeDivide a b = if b = 0 then None else Some (a / b)
+
+// Chain using Option.bind and |>
+let result =
+    safeDivide 10 2
+    |> Option.bind (fun x -> safeDivide x 0)  // None (short-circuits)
+    |> Option.bind (fun x -> safeDivide x 1)  // never reached
+// result = None
+
+// Using a computation expression (CE) for do-notation style
+let maybe = OptionBuilder()  // or use a library like FSharpPlus
+let result2 = maybe {
+    let! x = safeDivide 10 2
+    let! y = safeDivide x 0
+    return! safeDivide y 1
+}
+// result2 = None
+```
+
 ### JavaScript
 
 ```js

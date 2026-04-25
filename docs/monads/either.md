@@ -52,6 +52,28 @@ var result = Result<string>.Ok("42")
 // Ok("42 years old")
 ```
 
+### F\#
+
+F# has a built-in `Result<'T,'E>` type with `Ok` and `Error` cases and `Result.bind` for chaining.
+
+```fsharp
+let parseAge (s: string) =
+    match System.Int32.TryParse(s) with
+    | true, n  -> Ok n
+    | _        -> Error "not a number"
+
+let validateAge n =
+    if n >= 0 then Ok n else Error "negative age"
+
+let formatAge n = Ok $"{n} years old"
+
+let result =
+    parseAge "42"
+    |> Result.bind validateAge   // Ok 42
+    |> Result.bind formatAge     // Ok "42 years old"
+// result = Ok "42 years old"
+```
+
 ### JavaScript
 
 ```js

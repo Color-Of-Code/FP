@@ -36,6 +36,17 @@ int? value = 5;
 int? result = value.HasValue ? value * 2 : null; // 10
 ```
 
+### F\#
+
+```fsharp
+// List functor — List.map is fmap
+List.map ((*) 2) [1; 2; 3]  // [2; 4; 6]
+
+// Option functor — Option.map is fmap
+Option.map ((*) 2) (Some 5)  // Some 10
+Option.map ((*) 2) None      // None
+```
+
 ### Ruby
 
 ```ruby
