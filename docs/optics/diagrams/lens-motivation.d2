@@ -1,0 +1,31 @@
+...@../../styles
+
+direction: down
+
+before: without lens: manual record spread at every layer {
+  direction: right
+  f1: "updateCity city person ="
+  f2: "  person { address = (address person)"
+  f3: "    { city = city } }"
+  note: "3 layers of spread for a single leaf update"
+  f1.class: [code]
+  f2.class: [code]
+  f3.class: [code]
+  note.class: [comment]
+}
+
+after: with lens: compose the path once; reuse for any operation {
+  direction: right
+  path -> get_op
+  path -> set_op
+  path -> over_op
+  path: "personCityL = addressL . cityL"
+  get_op: "view personCityL person"
+  set_op: "set  personCityL city person"
+  over_op: "over personCityL f person"
+  path.class: [definition]
+  get_op.class: [value; a]
+  set_op.class: [value; a]
+  over_op.class: [value; a]
+  path: {tooltip: Composed once; works for get, set, over, and further composition.}
+}

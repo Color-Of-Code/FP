@@ -1,0 +1,41 @@
+direction: right
+
+...@../../styles
+
+iso_def: "Iso s a — lossless, reversible conversion between two types" {
+  explanation: "view   :: Iso s a -> s -> a\nreview :: Iso s a -> a -> s\nover   :: Iso s a -> (a -> a) -> s -> s"
+  explanation.class: [definition]
+}
+
+s_in -> view_fn -> a_out: view
+a_in -> review_fn -> s_out: review
+s_in2 -> view_fn2 -> f_box -> review_fn2 -> s_out2: over
+
+s_in: s
+a_out: a
+a_in: a
+s_out: s
+s_in2: s
+s_out2: s
+
+view_fn: view
+review_fn: review
+view_fn2: view
+review_fn2: review
+f_box: "f :: a -> a"
+
+s_in.class: [type; a]
+a_out.class: [value; b]
+a_in.class: [value; b]
+s_out.class: [type; a]
+s_in2.class: [type; a]
+s_out2.class: [type; a]
+view_fn.class: [function; f]
+review_fn.class: [function; g]
+view_fn2.class: [function; f]
+review_fn2.class: [function; g]
+f_box.class: [function; h]
+
+laws: "Laws: review(view s) = s   ·   view(review a) = a" {
+  laws.class: [comment]
+}

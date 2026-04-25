@@ -1,0 +1,35 @@
+direction: right
+
+...@../../styles
+
+fold_def: "Fold s a — read zero or more values (no set)" {
+  explanation: "toListOf :: Fold s a -> s -> [a]\npreview  :: Fold s a -> s -> Maybe a\nsumOf    :: Num a => Fold s a -> s -> a\nallOf    :: Fold s a -> (a -> Bool) -> s -> Bool"
+  explanation.class: [definition]
+}
+
+s_in -> fold_fn
+fold_fn -> a1
+fold_fn -> a2
+fold_fn -> a3
+a1 -> aggregate
+a2 -> aggregate
+a3 -> aggregate
+aggregate -> result
+
+s_in: s
+a1: "a₁"
+a2: "a₂"
+a3: "a₃"
+fold_fn: fold
+aggregate: "aggregate\n(sum / all / list / first)"
+result: "[a] / Bool / a / Maybe a"
+no_set: "no set — read only"
+
+s_in.class: [type; a]
+fold_fn.class: [function; f]
+a1.class: [value; b]
+a2.class: [value; b]
+a3.class: [value; b]
+aggregate.class: [function; g]
+result.class: [value; b]
+no_set.class: [comment]

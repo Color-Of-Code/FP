@@ -1,0 +1,34 @@
+direction: right
+
+...@../../styles
+
+lens_def: "Lens s a — focus on exactly one field of a product type" {
+  explanation: "get :: Lens s a -> s -> a\nset :: Lens s a -> a -> s -> s\nover :: Lens s a -> (a -> a) -> s -> s"
+  explanation.class: [definition]
+}
+
+s_node -> get_fn -> a_node: get
+s_node -> set_fn -> s_out: set
+a_in -> set_fn
+a_node -> over_fn -> s_out2: "over f"
+over_fn -> apply_f -> s_out2
+
+s_node: s
+s_out: s
+s_out2: s
+a_node: a
+a_in: a
+get_fn: get
+set_fn: set
+over_fn: over
+apply_f: "f :: a -> a"
+
+s_node.class: [type; a]
+s_out.class: [type; a]
+s_out2.class: [type; a]
+a_node.class: [value; b]
+a_in.class: [value; b]
+get_fn.class: [function; f]
+set_fn.class: [function; g]
+over_fn.class: [function; f]
+apply_f.class: [function; h]

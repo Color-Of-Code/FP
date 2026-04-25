@@ -14,15 +14,14 @@ as shallow ones.
 
 ## Optic hierarchy
 
-| Optic         | Focuses on              | Can get? | Can set? | Can fold? | Typeclass constraint |
-| ------------- | ----------------------- | :------: | :------: | :-------: | -------------------- |
-| **Iso**       | isomorphic pair         |    ✓     |    ✓     |     ✓     | –                    |
-| **Lens**      | exactly one field       |    ✓     |    ✓     |     ✓     | –                    |
-| **Prism**     | one constructor (sum)   | partial  |    ✓     |     ✓     | –                    |
-| **Traversal** | zero or more targets    |   fold   |    ✓     |     ✓     | `Traversable`        |
-| **Fold**      | zero or more, read-only |   fold   |    ✗     |     ✓     | `Foldable`           |
-| **Getter**    | one field, read-only    |    ✓     |    ✗     |     ✗     | –                    |
-| **Setter**    | any target, write-only  |    ✗     |    ✓     |     ✗     | –                    |
+| Optic                                          | Focuses on                   | Can get? | Can set? | Can fold? | Typeclass constraint |
+| ---------------------------------------------- | ---------------------------- | :------: | :------: | :-------: | -------------------- |
+| **[Iso](optics/iso.md)**                       | isomorphic pair              |    ✓     |    ✓     |     ✓     | –                    |
+| **[Lens](optics/lens.md)**                     | exactly one field            |    ✓     |    ✓     |     ✓     | –                    |
+| **[Prism](optics/prism.md)**                   | one constructor (sum)        | partial  |    ✓     |     ✓     | –                    |
+| **[Traversal](optics/traversal.md)**           | zero or more targets         |   fold   |    ✓     |     ✓     | `Traversable`        |
+| **[Fold](optics/fold.md)**                     | zero or more, read-only      |   fold   |    ✗     |     ✓     | `Foldable`           |
+| **[Getter / Setter](optics/getter-setter.md)** | one (Getter) or any (Setter) |  ✓ / ✗   |  ✗ / ✓   |     ✗     | –                    |
 
 Every row is a **restriction** of the one above it. Lens ⊆ Traversal ⊆ Fold; Prism ⊆ Traversal. This
 means any function that accepts a `Traversal` works with a `Lens` or a `Prism`.
@@ -522,3 +521,17 @@ func Compose[S, A, B any](outer Lens[S, A], inner Lens[A, B]) Lens[S, B] {
 	}
 }
 ```
+
+## Optics catalogue
+
+Each optic has a dedicated page with type, laws, motivation, and code examples in all nine
+languages.
+
+| Optic                                      | Summary                                           |
+| ------------------------------------------ | ------------------------------------------------- |
+| [Iso](optics/iso.md)                       | Lossless, reversible conversion between two types |
+| [Lens](optics/lens.md)                     | Focus on exactly one field of a product type      |
+| [Prism](optics/prism.md)                   | Focus on one constructor of a sum type            |
+| [Traversal](optics/traversal.md)           | Focus on zero or more elements; read and write    |
+| [Fold](optics/fold.md)                     | Focus on zero or more elements; read only         |
+| [Getter / Setter](optics/getter-setter.md) | Read-only (derived values) and write-only optics  |

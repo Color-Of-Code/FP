@@ -1,0 +1,28 @@
+...@../../styles
+
+direction: down
+
+before: without iso: manual wrap and unwrap at every use site {
+  direction: right
+  f1: "processEmail email ="
+  f2: "  let lower = toLower (unEmail email)"
+  f3: "  in  Email lower"
+  note: "Every call site knows the newtype internals. Conversion is not composable."
+  f1.class: [code]
+  f2.class: [code]
+  f3.class: [code]
+  note.class: [comment]
+}
+
+after: with iso: conversion is a first-class optic; composes freely {
+  direction: right
+  iso_val -> over_op
+  iso_val -> compose_op
+  iso_val: "_email :: Iso' Email String"
+  over_op: "over _email toLower email"
+  compose_op: "_email . each :: Traversal' Email Char"
+  iso_val.class: [definition]
+  over_op.class: [value; a]
+  compose_op.class: [value; b]
+  iso_val: {tooltip: The Iso is a value. Composing _email . each gives a Traversal over each character.}
+}

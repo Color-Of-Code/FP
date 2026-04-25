@@ -1,0 +1,31 @@
+...@../../styles
+
+direction: down
+
+before: without fold: bespoke traversal per aggregation {
+  direction: right
+  f1: "totalPrice  cart = sum (map (.price) (orders cart))"
+  f2: "allExpensive cart = all (>100) (map (.price) (orders cart))"
+  note: "The path (orders -> price) is restated for every aggregation."
+  f1.class: [code]
+  f2.class: [code]
+  note.class: [comment]
+}
+
+after: with fold: one path; any aggregator {
+  direction: right
+  path -> sum_op
+  path -> all_op
+  path -> list_op
+  path -> first_op
+  path: "pricesF :: Fold Cart Double\n= orders . each . price"
+  sum_op: "sumOf    pricesF cart"
+  all_op: "allOf    pricesF (>100) cart"
+  list_op: "toListOf pricesF cart"
+  first_op: "preview  pricesF cart"
+  path.class: [definition]
+  sum_op.class: [value; a]
+  all_op.class: [value; b]
+  list_op.class: [value; b]
+  first_op.class: [value; c]
+}

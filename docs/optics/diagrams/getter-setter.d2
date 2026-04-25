@@ -1,0 +1,35 @@
+direction: right
+
+...@../../styles
+
+getter_def: "Getter s a — read a single derived value (no set)" {
+  explanation: "view :: Getter s a -> s -> a\nto   :: (s -> a) -> Getter s a"
+  explanation.class: [definition]
+}
+
+s_getter -> getter_fn -> a_out: view
+s_getter: s
+a_out: a
+getter_fn: "Getter\n(s -> a)"
+s_getter.class: [type; a]
+a_out.class: [value; b]
+getter_fn.class: [function; f]
+no_set_g: "read only — no set exists"
+no_set_g.class: [comment]
+
+setter_def: "Setter s a — modify all focused values (no get)" {
+  explanation: "over :: Setter s a -> (a -> a) -> s -> s\nset  :: Setter s a -> a -> s -> s\nsets :: ((a->a)->s->s) -> Setter s a"
+  explanation.class: [definition]
+}
+
+s_setter -> setter_fn -> f_box -> s_out: over
+s_setter: s
+f_box: "f :: a -> a"
+s_out: s
+setter_fn: "Setter\n(map fn)"
+s_setter.class: [type; a]
+setter_fn.class: [function; g]
+f_box.class: [function; h]
+s_out.class: [type; a]
+no_get_s: "write only — no get exists"
+no_get_s.class: [comment]

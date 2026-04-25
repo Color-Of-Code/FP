@@ -1,0 +1,41 @@
+direction: right
+
+...@../../styles
+
+trav_def: "Traversal s a — focus on zero or more elements" {
+  explanation: "toListOf :: Traversal s a -> s -> [a]\nover     :: Traversal s a -> (a -> a) -> s -> s\nset      :: Traversal s a -> a -> s -> s"
+  explanation.class: [definition]
+}
+
+s_in -> trav_fn -> a1
+trav_fn -> a2
+trav_fn -> a3
+a1 -> combine -> list_out: "collect"
+a2 -> combine
+a3 -> combine
+
+s_in2 -> trav_fn2 -> f_box -> s_out: over
+
+s_in: s
+s_in2: s
+trav_fn: traversal
+trav_fn2: traversal
+a1: "a₁"
+a2: "a₂"
+a3: "a₃"
+combine: "[ ]"
+list_out: "[a]"
+f_box: "f :: a -> a"
+s_out: s
+
+s_in.class: [type; a]
+s_in2.class: [type; a]
+trav_fn.class: [function; f]
+trav_fn2.class: [function; f]
+a1.class: [value; b]
+a2.class: [value; b]
+a3.class: [value; b]
+combine.class: [function; g]
+list_out.class: [value; b]
+f_box.class: [function; h]
+s_out.class: [type; a]

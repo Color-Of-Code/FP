@@ -1,0 +1,39 @@
+...@../../styles
+
+direction: down
+
+getter_before: without getter: derived field computed inline at every use site {
+  direction: right
+  f1: "putStrLn (firstName p ++ \" \" ++ lastName p)"
+  f2: "logAge (currentYear - birthYear p)"
+  note: "The read logic is scattered. No reusable optic path."
+  f1.class: [code]
+  f2.class: [code]
+  note.class: [comment]
+}
+
+getter_after: with getter: derived read is a first-class optic {
+  direction: right
+  g1: "fullNameG = to (\\p -> firstName p ++ \" \" ++ lastName p)"
+  g2: "view fullNameG person"
+  note2: "Composable: fullNameG . each :: Traversal' Person Char"
+  g1.class: [definition]
+  g2.class: [value; a]
+  note2.class: [comment]
+}
+
+setter_before: without setter: two separate map passes {
+  direction: right
+  s1: "prices' = map (+tax) (map (*1.1) prices)"
+  note3: "Two passes; entangled with the container type."
+  s1.class: [code]
+  note3.class: [comment]
+}
+
+setter_after: with setter: single composable over {
+  direction: right
+  s2: "over (mapped . price) (*1.1) orders"
+  note4: "Single pass; composes with any Lens/Traversal path."
+  s2.class: [definition]
+  note4.class: [comment]
+}

@@ -46,3 +46,19 @@ all nine languages.
 | `Prob a`       | discrete probability distributions            | [prob.md](docs/monads/prob.md)     |
 
 > Combining multiple monads into one computation: [11. Monad Transformers](docs/11-transformer.md)
+
+## Optics catalogue
+
+Each optic has a dedicated page with type, laws, motivation, and code examples in all nine
+languages.
+
+| Optic                                                    | Effect modelled                                      |
+| -------------------------------------------------------- | ---------------------------------------------------- |
+| [Iso](docs/optics/iso.md)                               | Lossless, reversible conversion between two types    |
+| [Lens](docs/optics/lens.md)                             | Focus on exactly one field of a product type         |
+| [Prism](docs/optics/prism.md)                           | Focus on one constructor of a sum type               |
+| [Traversal](docs/optics/traversal.md)                   | Focus on zero or more elements; read and write       |
+| [Fold](docs/optics/fold.md)                             | Focus on zero or more elements; read only            |
+| [Getter / Setter](docs/optics/getter-setter.md)         | Read-only (derived values) and write-only optics     |
+
+> Overview and composition rules: [13. Lens / Optics](docs/13-optics.md)

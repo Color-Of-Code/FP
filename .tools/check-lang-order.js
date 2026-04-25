@@ -27,6 +27,7 @@ const repoRoot = path.resolve(__dirname, '..');
 const docDirs  = [
   path.join(repoRoot, 'docs'),
   path.join(repoRoot, 'docs', 'monads'),
+  path.join(repoRoot, 'docs', 'optics'),
 ];
 
 /** Collect all .md files under the given directories (non-recursive). */

@@ -2,10 +2,11 @@
 # Run from anywhere: make -C .tools <target>
 # Or: cd .tools && make <target>
 
-REPO_ROOT  := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
-DOCS_DIAG  := $(REPO_ROOT)/docs/diagrams
-MONAD_DIAG := $(REPO_ROOT)/docs/monads/diagrams
-NODE_BIN   := $(REPO_ROOT)/.tools/node_modules/.bin
+REPO_ROOT   := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
+DOCS_DIAG   := $(REPO_ROOT)/docs/diagrams
+MONAD_DIAG  := $(REPO_ROOT)/docs/monads/diagrams
+OPTIC_DIAG  := $(REPO_ROOT)/docs/optics/diagrams
+NODE_BIN    := $(REPO_ROOT)/.tools/node_modules/.bin
 
 # styles.d2 lives alongside the diagrams under docs/
 STYLES := $(REPO_ROOT)/docs/styles.d2
@@ -13,11 +14,13 @@ STYLES := $(REPO_ROOT)/docs/styles.d2
 # D2 source files in each location
 D2_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.d2)
 D2_FILES_MONADS := $(wildcard $(MONAD_DIAG)/*.d2)
+D2_FILES_OPTICS := $(wildcard $(OPTIC_DIAG)/*.d2)
 
-D2_FILES_ALL := $(D2_FILES_DOCS) $(D2_FILES_MONADS)
+D2_FILES_ALL := $(D2_FILES_DOCS) $(D2_FILES_MONADS) $(D2_FILES_OPTICS)
 
 DIAGRAM_SVG := $(D2_FILES_DOCS:.d2=.svg) \
-               $(D2_FILES_MONADS:.d2=.svg)
+               $(D2_FILES_MONADS:.d2=.svg) \
+               $(D2_FILES_OPTICS:.d2=.svg)
 
 .PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help
 
@@ -51,6 +54,11 @@ $(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.d2 $(STYLES)
 
 # Rule for docs/monads/diagrams/ diagrams (depend on styles.d2)
 $(MONAD_DIAG)/%.svg: $(MONAD_DIAG)/%.d2 $(STYLES)
+	d2 --layout=elk "$<" "$@"
+	@echo "  generated $@"
+
+# Rule for docs/optics/diagrams/ diagrams (depend on styles.d2)
+$(OPTIC_DIAG)/%.svg: $(OPTIC_DIAG)/%.d2 $(STYLES)
 	d2 --layout=elk "$<" "$@"
 	@echo "  generated $@"
 

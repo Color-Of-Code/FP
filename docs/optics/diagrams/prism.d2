@@ -1,0 +1,29 @@
+direction: right
+
+...@../../styles
+
+prism_def: "Prism s a — focus on one constructor of a sum type" {
+  explanation: "preview :: Prism s a -> s -> Maybe a  (partial get)\nreview  :: Prism s a -> a -> s          (construct)\nover    :: Prism s a -> (a -> a) -> s -> s"
+  explanation.class: [definition]
+}
+
+s_node -> preview_fn
+preview_fn -> just_a: "Just a  (constructor matched)"
+preview_fn -> nothing: "Nothing (wrong constructor)"
+a_in -> review_fn -> s_out: review
+
+s_node: s
+just_a: "Maybe a"
+nothing: "Nothing"
+a_in: a
+s_out: s
+preview_fn: preview
+review_fn: review
+
+s_node.class: [type; a]
+just_a.class: [value; b]
+nothing.class: [value; c]
+a_in.class: [value; b]
+s_out.class: [type; a]
+preview_fn.class: [function; f]
+review_fn.class: [function; g]
