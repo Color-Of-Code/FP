@@ -16,7 +16,8 @@ A learning track through the core concepts of functional programming, each build
 | 8   | [Fold](docs/08-fold.md)                               | Reducing a collection to a value; `map`, `filter` and more as folds           |
 | 9   | [Traversable](docs/09-traversable.md)                 | Effectful mapping that preserves shape; swapping container and effect         |
 | 10  | [Monad](docs/10-monad.md)                             | Sequencing effectful computations; solving the `fmap` nesting problem         |
-| 11  | [Composing Effects](docs/11-effects.md)               | Monad Transformers, Free Monad, and Algebraic Effects compared                |
+| 11  | [Monad Transformers](docs/11-transformer.md)          | Stacking monads to combine multiple effects in one computation                |
+| 12  | [Composing Effects](docs/12-effects.md)               | Monad Transformers, Free Monad, and Algebraic Effects compared                |
 
 ## Diagrams
 
@@ -41,3 +42,5 @@ all nine languages.
 | `Cont r a`     | first-class continuations; `callCC`           | [cont.md](docs/monads/cont.md)     |
 | `STM a`        | atomic transactions over shared mutable state | [stm.md](docs/monads/stm.md)       |
 | `Prob a`       | discrete probability distributions            | [prob.md](docs/monads/prob.md)     |
+
+> Combining multiple monads into one computation: [11. Monad Transformers](docs/11-transformer.md)

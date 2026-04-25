@@ -1,4 +1,4 @@
-# 11. Composing Effects
+# 12. Composing Effects
 
 A single monad models one effect cleanly. Real programs need several effects simultaneously — a
 computation that can fail, reads configuration, accumulates a log, and performs I/O. Combining two
@@ -11,7 +11,9 @@ This chapter describes the problem and three approaches to solving it.
 
 ## The problem
 
-Each monad from [Monad](./10-monad.md) models exactly one effect:
+Each monad from [10. Monad](./10-monad.md) models exactly one effect.
+[11. Monad Transformers](./11-transformer.md) explores the primary solution in depth; this chapter
+compares all three approaches.
 
 | Monad          | Effect modelled              |
 | -------------- | ---------------------------- |

@@ -1,0 +1,64 @@
+...@../styles
+
+direction: down
+
+before: without transformers: every effect threaded as an explicit parameter {
+  direction: right
+  step1 -> check1 -> step2 -> check2 -> result
+  step1:  "step1(input, config, state, log)"
+  check1: "error?"
+  step2:  "step2(r1, config, state', log')"
+  check2: "error?"
+  result: "(r2, state'', log'')"
+  step1.class: [
+    function
+    f
+  ]
+  check1.class: [
+    function
+    g
+  ]
+  step2.class: [
+    function
+    f
+  ]
+  check2.class: [
+    function
+    g
+  ]
+  result.class: [
+    type
+    b
+  ]
+  note: adding a fourth effect touches every function signature and call site
+  note.class: [comment]
+}
+
+after: with transformers: bind threads all effects; do-notation reads as plain code {
+  direction: right
+  step1 -> step2 -> step3 -> runStack
+  step1 -> step2: ">>="
+  step2 -> step3: ">>="
+  step3 -> runStack: "run"
+  step1: step1
+  step2: step2
+  step3: step3
+  runStack: "(result, finalState, log)"
+  step1.class: [
+    function
+    f
+  ]
+  step2.class: [
+    function
+    g
+  ]
+  step3.class: [
+    function
+    h
+  ]
+  runStack.class: [
+    type
+    a
+  ]
+  runStack: {tooltip: Unwinding the stack (runReaderT then runExceptT then runWriter) peels off one layer at a time.}
+}

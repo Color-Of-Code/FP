@@ -1,0 +1,66 @@
+direction: right
+
+...@../styles
+
+type_def: "T M a — transformer T adds one effect on top of monad M" {
+  explanation: ||md
+    # Monad Transformers
+
+    A **monad transformer** `T` turns a base monad `M` into a new monad `T M`
+    that adds exactly one extra effect.
+
+    Stacking `n` transformers produces a type that carries `n` effects:
+    `T1 (T2 (T3 Base)) a`
+
+    **`lift`** promotes an action from the layer below into the current layer.
+    `liftIO` lifts any `IO` action to the top of an arbitrary stack.
+  ||
+  explanation.class: [comment]
+}
+
+stack: "ReaderT r (ExceptT e (Writer w)) a — three-layer example" {
+  direction: down
+  reader_layer -> except_layer -> writer_layer -> base
+  reader_layer:  "ReaderT r  — reads config r"
+  except_layer:  "ExceptT e  — may fail with error e"
+  writer_layer:  "WriterT w  — accumulates output w"
+  base:          "Identity   — pure base (no extra effect)"
+  reader_layer.class: [
+    type
+    a
+  ]
+  except_layer.class: [
+    type
+    b
+  ]
+  writer_layer.class: [
+    function
+    f
+  ]
+  base.class: [
+    value
+    a
+  ]
+  note: "innermost layer runs first when unwinding; outermost when binding"
+  note.class: [comment]
+}
+
+lift_diagram: "lift :: M a -> T M a" {
+  m_action -> lift
+  lift -> t_action
+  m_action: "M a (inner layer)"
+  t_action: "T M a (outer layer)"
+  m_action.class: [
+    type
+    a
+  ]
+  t_action.class: [
+    type
+    b
+  ]
+  lift.class: [
+    function
+    g
+  ]
+  lift: {tooltip: lift crosses one layer boundary. Use lift twice for two boundaries, or liftIO for any depth to reach IO.}
+}

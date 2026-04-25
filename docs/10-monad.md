@@ -37,6 +37,8 @@ Each monad below has its own detailed page with diagram and code examples.
 | `STM a`        | atomic transactions over shared mutable state  | [stm.md](monads/stm.md)       |
 | `Prob a`       | discrete probability distributions             | [prob.md](monads/prob.md)     |
 
+For combining multiple monads in one computation, see [11. Monad Transformers](./11-transformer.md).
+
 ## Motivation
 
 `fmap` (from Functor) works when the mapping function is pure: `f :: a ⟶ b`. But when `f` itself
