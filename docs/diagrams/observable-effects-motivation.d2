@@ -1,0 +1,36 @@
+...@../styles
+
+direction: right
+
+before: "naive comparison\n(short-circuits on first mismatch)" {
+  direction: down
+  style.fill: "#fff0f0"
+  b0: "byte[0]: match?" {
+    shape: diamond
+  }
+  early: "return false ← fast exit\nleaks prefix length to attacker" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  cont: "compare rest …\n(slower when more bytes match)" {
+    shape: rectangle
+  }
+  b0 -> early: "no — exits early"
+  b0 -> cont: "yes — continues"
+}
+
+after: "constant-time comparison\n(always visits every byte)" {
+  direction: down
+  style.fill: "#f0fff0"
+  loop: "acc |= a[i] ⊕ b[i]\nfor all i = 0 … n-1" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  result: "return acc == 0" {
+    style.fill: "#e0ffe0"
+    shape: rectangle
+  }
+  loop -> result: "identical time for any input"
+}
+
+before -> after: "replace with"

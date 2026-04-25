@@ -1,0 +1,33 @@
+...@../styles
+
+direction: down
+
+math: "Mathematical\n(pure relations — timeless, no cost)" {
+  style.fill: "#e8f5e9"
+  shape: rectangle
+}
+
+functional: "Functional\n(IO · State · Error — explicit in types)" {
+  style.fill: "#e3f2fd"
+  shape: rectangle
+}
+
+runtime: "Runtime\n(GC · JIT · allocation — invisible to logic)" {
+  style.fill: "#fff9c4"
+  shape: rectangle
+}
+
+micro: "Microarchitecture\n(cache · branch prediction · pipelines)" {
+  style.fill: "#fff3e0"
+  shape: rectangle
+}
+
+physical: "Physical\n(timing · power draw · EM radiation · heat)" {
+  style.fill: "#fce4ec"
+  shape: rectangle
+}
+
+math -> functional: "FP programs live here"
+functional -> runtime
+runtime -> micro
+micro -> physical: "side-channel attacks exploit this layer"

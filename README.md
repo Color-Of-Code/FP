@@ -20,6 +20,7 @@ A learning track through the core concepts of functional programming, each build
 | 12  | [Composing Effects](docs/12-effects.md)               | Monad Transformers, Free Monad, and Algebraic Effects compared                |
 | 13  | [Lens / Optics](docs/13-optics.md)                    | Composable, first-class access and update of nested immutable data            |
 | 14  | [Recursion Schemes](docs/14-recursion-schemes.md)     | Generalised folds: cata, ana, hylo and the base functor pattern               |
+| 15  | [Observable Effects](docs/15-observable-effects.md)   | The effect spectrum from pure FP to physical hardware; side-channel attacks   |
 
 ## Diagrams
 
