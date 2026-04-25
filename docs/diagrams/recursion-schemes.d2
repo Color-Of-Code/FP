@@ -1,0 +1,125 @@
+direction: right
+
+...@../styles
+
+type_def: "Recursion Schemes — separate shape from recursion" {
+  explanation: ||md
+    # Recursion Schemes
+
+    **Base functor** `F`: the shape of one level of the data type,
+    with type parameter `R` in place of every recursive child.
+
+    **Fix F**: the fixed point — `Fix F = F (Fix F)` — recovers the
+    full recursive type from the shape alone.
+
+    **fmap**: apply a function to every `R` inside `F R`.
+    This is the only Functor instance needed.
+
+    Once you have `fmap`, you get `cata`, `ana`, `hylo` for free.
+  ||
+  explanation.class: [comment]
+}
+
+cata_def: "cata alg = alg . fmap (cata alg) . unFix" {
+  direction: right
+  fix_in -> unfix -> fmap_r -> alg_box -> a_out
+  fix_in -> unfix: unFix
+  unfix -> fmap_r: "fmap (cata alg)"
+  fmap_r -> alg_box: alg
+  fix_in: "Fix F"
+  unfix: "F (Fix F)"
+  fmap_r: "F a"
+  alg_box: alg
+  a_out: a
+  fix_in.class: [
+    type
+    a
+  ]
+  unfix.class: [
+    type
+    b
+  ]
+  fmap_r.class: [
+    type
+    b
+  ]
+  alg_box.class: [
+    function
+    f
+  ]
+  a_out.class: [
+    value
+    a
+  ]
+  fmap_r: {tooltip: Recurse on all children first (bottom-up). Each child Fix F is reduced to a.}
+  alg_box: {tooltip: Apply alg once at the current node. alg never recurses — it only sees F a.}
+}
+
+ana_def: "ana coalg = Fix . fmap (ana coalg) . coalg" {
+  direction: right
+  seed -> coalg_box -> fmap_r2 -> fix_wrap -> fix_out
+  seed -> coalg_box: coalg
+  coalg_box -> fmap_r2: "fmap (ana coalg)"
+  fmap_r2 -> fix_wrap: Fix
+  seed: a
+  coalg_box: coalg
+  fmap_r2: "F (Fix F)"
+  fix_wrap: Fix
+  fix_out: "Fix F"
+  seed.class: [
+    value
+    a
+  ]
+  coalg_box.class: [
+    function
+    g
+  ]
+  fmap_r2.class: [
+    type
+    b
+  ]
+  fix_wrap.class: [
+    function
+    h
+  ]
+  fix_out.class: [
+    type
+    a
+  ]
+  coalg_box: {tooltip: Produce one layer of structure F a from seed a.}
+  fmap_r2: {tooltip: Recurse into each seed to build the full subtree.}
+}
+
+hylo_def: "hylo alg coalg = alg . fmap (hylo alg coalg) . coalg" {
+  direction: right
+  seed2 -> coalg2 -> fmap_h -> alg2 -> result
+  seed2 -> coalg2: coalg
+  coalg2 -> fmap_h: "fmap hylo"
+  fmap_h -> alg2: alg
+  seed2: a
+  coalg2: coalg
+  fmap_h: "F b"
+  alg2: alg
+  result: b
+  seed2.class: [
+    value
+    a
+  ]
+  coalg2.class: [
+    function
+    g
+  ]
+  fmap_h.class: [
+    type
+    b
+  ]
+  alg2.class: [
+    function
+    f
+  ]
+  result.class: [
+    value
+    b
+  ]
+  result: {tooltip: hylo = cata . ana but fused. No Fix is ever allocated — the intermediate structure never exists.}
+}

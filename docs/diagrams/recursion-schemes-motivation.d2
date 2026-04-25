@@ -1,0 +1,58 @@
+...@../styles
+
+direction: down
+
+before: without recursion schemes: traversal skeleton repeated in every function {
+  direction: right
+  eval_fn -> pp_fn -> count_fn
+  eval_fn: "eval :: Expr -> Int"
+  pp_fn:   "pp :: Expr -> String"
+  count_fn: "countNodes :: Expr -> Int"
+  eval_fn.class: [
+    function
+    f
+  ]
+  pp_fn.class: [
+    function
+    g
+  ]
+  count_fn.class: [
+    function
+    h
+  ]
+  skeleton: "same case/match skeleton\nrepeated in all three"
+  skeleton.class: [comment]
+  eval_fn -> skeleton
+  pp_fn -> skeleton
+  count_fn -> skeleton
+}
+
+after: with cata: one traversal; algebras are plain data-mapping functions {
+  direction: right
+  cata_box -> eval_alg
+  cata_box -> pp_alg
+  cata_box -> count_alg
+  cata_box: "cata :: (ExprF a -> a) -> Expr -> a"
+  eval_alg:  "evalAlg  :: ExprF Int    -> Int"
+  pp_alg:    "ppAlg    :: ExprF String -> String"
+  count_alg: "countAlg :: ExprF Int    -> Int"
+  cata_box.class: [
+    function
+    g
+  ]
+  eval_alg.class: [
+    value
+    a
+  ]
+  pp_alg.class: [
+    value
+    a
+  ]
+  count_alg.class: [
+    value
+    a
+  ]
+  cata_box: {tooltip: cata provides the only recursion. Adding a new algebra = writing one new plain function.}
+  hylo_note: "hylo: fused unfold + fold\nfactorial without building the list"
+  hylo_note.class: [comment]
+}
