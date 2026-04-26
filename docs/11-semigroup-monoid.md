@@ -58,7 +58,7 @@ mconcat :: [a] → a
 mconcat = foldr (<>) mempty
 ```
 
-Any type that is a Monoid can be used directly as the accumulator of a [Fold](./14-fold.md).
+Any type that is a Monoid can be used directly as the accumulator of a [Fold](./16-fold.md).
 
 ## Motivation
 

@@ -1,4 +1,4 @@
-# 15. Traversable
+# 17. Traversable
 
 A **traversable** container `T` generalises the idea of **visiting every element with an effectful
 function** and collecting the results — while preserving the container's shape.
@@ -11,9 +11,9 @@ Two core operations:
   all effects into a single outer `F`.
 - **`sequence :: T(Fa) ⟶ F(Ta)`** — swap the container and the effect; `sequence = traverse id`.
 
-`F` must be an [Applicative](./13-applicative.md) so that independent effects can be combined. `T`
-must be a [Functor](./12-functor.md) so that its shape can be mapped over. Many traversable types
-are also [Foldable](./14-fold.md).
+`F` must be an [Applicative](./15-applicative.md) so that independent effects can be combined. `T`
+must be a [Functor](./13-functor.md) so that its shape can be mapped over. Many traversable types
+are also [Foldable](./16-fold.md).
 
 ## Laws
 

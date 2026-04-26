@@ -1,0 +1,37 @@
+...@../styles
+
+direction: right
+
+prop: Property\n"∀ x: law holds" {
+  class: definition
+}
+
+gen: Generator {
+  class: function
+  style.fill: "#9191f4"
+}
+
+run: Run 100+ examples {
+  class: function
+}
+
+ok: All pass ✓ {
+  style.fill: "#57cc99"
+}
+
+fail: Failure found {
+  style.fill: "#f4a261"
+}
+
+shrink: Shrink to minimal\ncounterexample {
+  style.fill: "#f4a261"
+}
+
+report: Report minimal\ncounterexample + seed {
+  class: comment
+}
+
+prop -> gen -> run
+run -> ok: all pass
+run -> fail: any fail
+fail -> shrink -> report

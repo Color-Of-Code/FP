@@ -4,30 +4,33 @@ A learning track through the core concepts of functional programming, each build
 
 ## Learning track
 
-| #   | Concept                                                     | Description                                                                     |
-| --- | ----------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| 1   | [Function](docs/01-function.md)                             | The basic unit: pure vs impure, total vs partial, declaration and application   |
-| 2   | [Immutability](docs/02-immutability.md)                     | Values that never change; persistent data structures and structural sharing     |
-| 3   | [Equational Reasoning](docs/03-equational-reasoning.md)     | Referential transparency, substitution model, and laws as rewrite rules         |
-| 4   | [Composition](docs/04-composition.md)                       | Combining functions into new functions — the central mechanism of FP            |
-| 5   | [Higher-Order Functions](docs/05-higher-order-functions.md) | Functions as values; map, filter, flip, closures, and point-free style          |
-| 6   | [Currying & Partial Application](docs/06-currying.md)       | Transforming multi-argument functions; functions as results                     |
-| 7   | [Algebraic Data Types](docs/07-adt.md)                      | Product types (AND), sum types (OR), pattern matching; the shape of FP data     |
-| 8   | [Newtype / Wrapper Types](docs/08-newtype.md)               | Type-safe wrappers with zero runtime cost; alternative instances; phantom types |
-| 9   | [Type Classes](docs/09-type-classes.md)                     | Ad-hoc polymorphism: contracts, instances, laws, and dispatch by type           |
-| 10  | [Lazy Evaluation](docs/10-lazy-evaluation.md)               | Thunks, non-strict semantics, infinite structures, and eager vs lazy trade-offs |
-| 11  | [Semigroup & Monoid](docs/11-semigroup-monoid.md)           | Associative combination of values; the algebra behind `fold` and `mconcat`      |
-| 12  | [Functor](docs/12-functor.md)                               | Lifting a function to work inside a wrapped type with `fmap`                    |
-| 13  | [Applicative](docs/13-applicative.md)                       | Applying wrapped functions to wrapped values; combining independent effects     |
-| 14  | [Fold](docs/14-fold.md)                                     | Reducing a collection to a value; `map`, `filter` and more as folds             |
-| 15  | [Traversable](docs/15-traversable.md)                       | Effectful mapping that preserves shape; swapping container and effect           |
-| 16  | [Continuation Passing Style](docs/16-cps.md)                | CPS transform, callCC, and the bridge from direct style to the Cont monad       |
-| 17  | [Monad](docs/17-monad.md)                                   | Sequencing effectful computations; solving the `fmap` nesting problem           |
-| 18  | [Monad Transformers](docs/18-transformer.md)                | Stacking monads to combine multiple effects in one computation                  |
-| 19  | [Composing Effects](docs/19-effects.md)                     | Monad Transformers, Free Monad, and Algebraic Effects compared                  |
-| 20  | [Lens / Optics](docs/20-optics.md)                          | Composable, first-class access and update of nested immutable data              |
-| 21  | [Recursion Schemes](docs/21-recursion-schemes.md)           | Generalised folds: cata, ana, hylo and the base functor pattern                 |
-| 22  | [Observable Effects](docs/22-observable-effects.md)         | The effect spectrum from pure FP to physical hardware; side-channel attacks     |
+| #   | Concept                                                       | Description                                                                     |
+| --- | ------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| 1   | [Function](docs/01-function.md)                               | The basic unit: pure vs impure, total vs partial, declaration and application   |
+| 2   | [Immutability](docs/02-immutability.md)                       | Values that never change; persistent data structures and structural sharing     |
+| 3   | [Equational Reasoning](docs/03-equational-reasoning.md)       | Referential transparency, substitution model, and laws as rewrite rules         |
+| 4   | [Composition](docs/04-composition.md)                         | Combining functions into new functions — the central mechanism of FP            |
+| 5   | [Higher-Order Functions](docs/05-higher-order-functions.md)   | Functions as values; map, filter, flip, closures, and point-free style          |
+| 6   | [Currying & Partial Application](docs/06-currying.md)         | Transforming multi-argument functions; functions as results                     |
+| 7   | [Algebraic Data Types](docs/07-adt.md)                        | Product types (AND), sum types (OR), pattern matching; the shape of FP data     |
+| 8   | [Newtype / Wrapper Types](docs/08-newtype.md)                 | Type-safe wrappers with zero runtime cost; alternative instances; phantom types |
+| 9   | [Type Classes](docs/09-type-classes.md)                       | Ad-hoc polymorphism: contracts, instances, laws, and dispatch by type           |
+| 10  | [Lazy Evaluation](docs/10-lazy-evaluation.md)                 | Thunks, non-strict semantics, infinite structures, and eager vs lazy trade-offs |
+| 11  | [Semigroup & Monoid](docs/11-semigroup-monoid.md)             | Associative combination of values; the algebra behind `fold` and `mconcat`      |
+| 12  | [Property-Based Testing](docs/12-property-based-testing.md)   | Laws as universal properties; QuickCheck / Hypothesis / fast-check; shrinking   |
+| 13  | [Functor](docs/13-functor.md)                                 | Lifting a function to work inside a wrapped type with `fmap`                    |
+| 14  | [Natural Transformations](docs/14-natural-transformations.md) | `∀ a. F a → G a`; parametricity gives the naturality law for free               |
+| 15  | [Applicative](docs/15-applicative.md)                         | Applying wrapped functions to wrapped values; combining independent effects     |
+| 16  | [Fold](docs/16-fold.md)                                       | Reducing a collection to a value; `map`, `filter` and more as folds             |
+| 17  | [Traversable](docs/17-traversable.md)                         | Effectful mapping that preserves shape; swapping container and effect           |
+| 18  | [Continuation Passing Style](docs/18-cps.md)                  | CPS transform, callCC, and the bridge from direct style to the Cont monad       |
+| 19  | [Monad](docs/19-monad.md)                                     | Sequencing effectful computations; solving the `fmap` nesting problem           |
+| 20  | [Comonad](docs/20-comonad.md)                                 | Categorical dual of monad; `extract`/`extend`; streams, Store, Game of Life     |
+| 21  | [Monad Transformers](docs/21-transformer.md)                  | Stacking monads to combine multiple effects in one computation                  |
+| 22  | [Composing Effects](docs/22-effects.md)                       | Monad Transformers, Free Monad, and Algebraic Effects compared                  |
+| 23  | [Lens / Optics](docs/23-optics.md)                            | Composable, first-class access and update of nested immutable data              |
+| 24  | [Recursion Schemes](docs/24-recursion-schemes.md)             | Generalised folds: cata, ana, hylo and the base functor pattern                 |
+| 25  | [Observable Effects](docs/25-observable-effects.md)           | The effect spectrum from pure FP to physical hardware; side-channel attacks     |
 
 ## Diagrams
 
@@ -53,7 +56,7 @@ all nine languages.
 | `STM a`        | atomic transactions over shared mutable state | [stm.md](docs/monads/stm.md)       |
 | `Prob a`       | discrete probability distributions            | [prob.md](docs/monads/prob.md)     |
 
-> Combining multiple monads into one computation: [18. Monad Transformers](docs/18-transformer.md)
+> Combining multiple monads into one computation: [21. Monad Transformers](docs/21-transformer.md)
 
 ## Optics catalogue
 
@@ -69,7 +72,7 @@ languages.
 | [Fold](docs/optics/fold.md)                     | Focus on zero or more elements; read only         |
 | [Getter / Setter](docs/optics/getter-setter.md) | Read-only (derived values) and write-only optics  |
 
-> Overview and composition rules: [20. Lens / Optics](docs/20-optics.md)
+> Overview and composition rules: [23. Lens / Optics](docs/23-optics.md)
 
 ## Category Theory track
 

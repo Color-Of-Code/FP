@@ -31,7 +31,7 @@ const REQUIRED: readonly string[] = [
 // (discussion/comparison chapters rather than 9-language tutorials)
 const SKIP_FILES: ReadonlySet<string> = new Set([
   "01-function.md",
-  "19-effects.md",
+  "22-effects.md",
 ]);
 
 const repoRoot: string = path.resolve(import.meta.dirname, "..");

@@ -1,4 +1,4 @@
-# 20. Lens / Optics
+# 23. Lens / Optics
 
 **Optics** are composable, first-class tools for **focusing on a part of a data structure** — to
 read it, update it, or fold over it — without breaking immutability or scattering field-access logic

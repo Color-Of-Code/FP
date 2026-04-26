@@ -47,8 +47,8 @@ Sum types are also called **tagged unions**, **discriminated unions**, or **vari
 | `List<a>`      | `Nil \| Cons(head: a, tail: List<a>)` — recursive sum type |
 | `Tree<a>`      | `Leaf \| Node(value: a, left: Tree<a>, right: Tree<a>)`    |
 
-All the types used by [Functor](./12-functor.md), [Applicative](./13-applicative.md), and
-[Monad](./17-monad.md) are ADTs.
+All the types used by [Functor](./13-functor.md), [Applicative](./15-applicative.md), and
+[Monad](./19-monad.md) are ADTs.
 
 ## Pattern matching
 

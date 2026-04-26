@@ -1,4 +1,4 @@
-# 16. Continuation Passing Style
+# 18. Continuation Passing Style
 
 **Continuation Passing Style (CPS)** is a program transformation where every function receives an
 extra argument — the **continuation** `k` — that represents _what to do next with the result_.
@@ -317,6 +317,6 @@ func main() {
 
 ## See also
 
-- [15. Traversable](./15-traversable.md) — effectful mapping; Cont is the "universal effect"
-- [17. Monad](./17-monad.md) — Cont is a monad; CPS is the bridge from functions to monads
+- [17. Traversable](./17-traversable.md) — effectful mapping; Cont is the "universal effect"
+- [19. Monad](./19-monad.md) — Cont is a monad; CPS is the bridge from functions to monads
 - [Cont monad](../monads/cont.md) — type, bind mechanics, `callCC`, `reset`/`shift` with examples

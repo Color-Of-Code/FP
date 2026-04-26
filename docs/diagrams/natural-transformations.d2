@@ -1,0 +1,44 @@
+...@../styles
+
+direction: right
+
+fa: F a {
+  class: [type; a]
+}
+
+ga: G a {
+  class: [type; b]
+}
+
+fb: F b {
+  class: [type; a]
+}
+
+gb: G b {
+  class: [type; b]
+}
+
+alpha_a: "αₐ :: F a → G a" {
+  class: function
+}
+
+alpha_b: "α_b :: F b → G b" {
+  class: function
+}
+
+fmap_f: "fmap f" {
+  class: function
+}
+
+gmap_f: "fmap f" {
+  class: function
+}
+
+fa -> alpha_a -> ga
+fb -> alpha_b -> gb
+fa -> fmap_f -> fb: "in F"
+ga -> gmap_f -> gb: "in G"
+
+naturality: "Naturality square:\nα_b ∘ fmap_F f  =  fmap_G f ∘ αₐ" {
+  class: comment
+}

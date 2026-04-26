@@ -1,6 +1,6 @@
-# 13. Applicative
+# 15. Applicative
 
-An **applicative functor** `F` extends [Functor](./12-functor.md) with two operations that allow
+An **applicative functor** `F` extends [Functor](./13-functor.md) with two operations that allow
 applying **wrapped functions** to **wrapped values**.
 
 ![applicative](diagrams/applicative.svg)

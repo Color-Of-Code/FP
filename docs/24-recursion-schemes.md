@@ -1,4 +1,4 @@
-# 21. Recursion Schemes
+# 24. Recursion Schemes
 
 > Mathematical background: [F-Algebra](../ct/f-algebra.md) — initial algebras, fixed points, and
 > catamorphisms
@@ -7,8 +7,8 @@
 recursive data structures. Rather than writing explicit recursive functions, you provide an
 **algebra** (what to do at each node) and let the scheme handle the traversal.
 
-This is the generalisation of [14. Fold](./14-fold.md) from lists to arbitrary recursive types, and
-directly builds on [7. Algebraic Data Types](./07-adt.md) and [12. Functor](./12-functor.md).
+This is the generalisation of [16. Fold](./16-fold.md) from lists to arbitrary recursive types, and
+directly builds on [7. Algebraic Data Types](./07-adt.md) and [13. Functor](./13-functor.md).
 
 ![recursion schemes](diagrams/recursion-schemes.svg)
 

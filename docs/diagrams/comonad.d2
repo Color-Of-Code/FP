@@ -1,0 +1,33 @@
+...@../styles
+
+direction: right
+
+monad: Monad {
+  class: definition
+  style.fill: "#9191f4"
+}
+
+comonad: Comonad {
+  class: definition
+  style.fill: "#f4a261"
+}
+
+monad -> comonad: categorical dual\n(reverse all arrows) {
+  style.stroke-dash: 5
+}
+
+ops_m: Monad operations {
+  pure: "pure/return :: a → M a"
+  bind: "bind   :: M a → (a → M b) → M b"
+  join: "join   :: M (M a) → M a"
+}
+
+ops_w: Comonad operations {
+  extract: "extract   :: W a → a"
+  extend: "extend    :: W a → (W a → b) → W b"
+  duplicate: "duplicate :: W a → W (W a)"
+}
+
+ops_m -> ops_w: dual {
+  style.stroke-dash: 5
+}

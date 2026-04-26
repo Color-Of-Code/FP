@@ -1,0 +1,38 @@
+...@../styles
+
+direction: down
+
+before: Without natural transformations {
+  direction: right
+  fl: "List<a>"
+  fm: "Maybe<a>"
+  head: "safeHead :: List a → Maybe a" {
+    style.fill: "#f4a261"
+  }
+  fl -> head -> fm
+  note: "Ad-hoc conversion;\nno guarantee it respects fmap" {
+    class: comment
+  }
+}
+
+after: Natural transformation (respects fmap) {
+  direction: right
+  fl2: "List<a>" {
+    class: [type; a]
+  }
+  fm2: "Maybe<a>" {
+    class: [type; b]
+  }
+  nt: "α :: List a → Maybe a" {
+    class: function
+  }
+  law: "α ∘ fmap_List f  =  fmap_Maybe f ∘ α" {
+    class: definition
+  }
+  fl2 -> nt -> fm2
+  nt -> law
+}
+
+before -> after: parametricity\nguarantees the law {
+  style.stroke-dash: 5
+}

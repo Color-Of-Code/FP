@@ -1,0 +1,32 @@
+...@../styles
+
+direction: down
+
+manual: Manual example-based tests {
+  direction: right
+  dev: Developer
+  t1: test(0) ✓
+  t2: test(1) ✓
+  t3: test(-1) ✓
+  t4: "test(MAX)?" {
+    style.fill: "#f4a261"
+  }
+  dev -> t1
+  dev -> t2
+  dev -> t3
+  dev -> t4
+}
+
+pbt: Property-based tests {
+  direction: right
+  prop: "∀ a b: f(a) <> f(b) = f(a <> b)" {
+    style.fill: "#57cc99"
+  }
+  gen: Generator\n(100s of inputs)
+  fail: Shrink to\nminimal counter-example
+  prop -> gen -> fail
+}
+
+manual -> pbt: laws replace\nhandpicked examples {
+  style.stroke-dash: 5
+}
