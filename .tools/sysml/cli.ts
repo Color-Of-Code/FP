@@ -10,7 +10,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { tokenise } from "./lexer.ts";
 import { Parser } from "./parser.ts";
-import { modelToSvg } from "./render.ts";
+import { modelToSvg } from "./render/index.ts";
 
 const [, , inFile, outFile] = process.argv;
 if (!inFile || !outFile) {
