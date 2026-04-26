@@ -35,7 +35,7 @@ def_pure: pure :: a ⟶ Ma {
 
 def_bind: bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb {
   Ma -> bind
-  f -> bind
+  f -> bind: { class: hof-conn }
   bind -> Mb
   Ma: Ma
   f: a ⟶ Mb
@@ -44,10 +44,7 @@ def_bind: bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb {
     type
     a
   ]
-  f.class: [
-    function
-    g
-  ]
+  f.class: [hof]
   Mb.class: [
     type
     b
@@ -61,10 +58,10 @@ def_bind: bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb {
 
 chain: chaining with bind {
   Ma -> bind1
-  f -> bind1
+  f -> bind1: { class: hof-conn }
   bind1 -> Mb
   Mb -> bind2
-  g -> bind2
+  g -> bind2: { class: hof-conn }
   bind2 -> Mc
   Ma: Ma
   f: a ⟶ Mb
@@ -77,14 +74,8 @@ chain: chaining with bind {
     type
     a
   ]
-  f.class: [
-    function
-    f
-  ]
-  g.class: [
-    function
-    g
-  ]
+  f.class: [hof]
+  g.class: [hof]
   Mb.class: [
     type
     b
@@ -100,7 +91,7 @@ chain: chaining with bind {
 example_maybe: Maybe Monad {
   bind_m: bind :: Maybe<a> ⟶ (a ⟶ Maybe<b>) ⟶ Maybe<b> {
     Ma -> bind
-    f -> bind
+    f -> bind: { class: hof-conn }
     bind -> Mb
     Ma: Maybe<a>
     f: a ⟶ Maybe<b>
@@ -109,10 +100,7 @@ example_maybe: Maybe Monad {
       type
       a
     ]
-    f.class: [
-      function
-      g
-    ]
+    f.class: [hof]
     Mb.class: [
       type
       b
@@ -128,7 +116,7 @@ example_maybe: Maybe Monad {
 example_list: List Monad {
   bind_l: bind :: List<a> ⟶ (a ⟶ List<b>) ⟶ List<b> {
     La -> bind
-    f -> bind
+    f -> bind: { class: hof-conn }
     bind -> Lb
     La: List<a>
     f: a ⟶ List<b>
@@ -137,10 +125,7 @@ example_list: List Monad {
       type
       a
     ]
-    f.class: [
-      function
-      g
-    ]
+    f.class: [hof]
     Lb.class: [
       type
       b

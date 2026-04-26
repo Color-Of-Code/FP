@@ -39,7 +39,9 @@ def_partial_app: partial application {
       c
     ]
   }
-  f -> appa: apply a
+  f -> appa: apply a {
+    class: hof-conn
+  }
   appb: f1b :: a ⟶ c {
     a -> f1b
     f1b -> c
@@ -57,7 +59,9 @@ def_partial_app: partial application {
       c
     ]
   }
-  f -> appb: apply b
+  f -> appb: apply b {
+    class: hof-conn
+  }
 }
 
 def_partial_app: {tooltip: Transform a function into another function with lower arity by applying a fixed value to one or more (but not all) arguments}
@@ -104,7 +108,9 @@ def_partial_app_impl: partial application (implementation) {
       c
     ]
   }
-  f -> appa: apply a
+  f -> appa: apply a {
+    class: hof-conn
+  }
   appb: f1b :: a ⟶ c {
     f1b.b -> f1b.f2
     a -> f1b.f2
@@ -128,7 +134,9 @@ def_partial_app_impl: partial application (implementation) {
       c
     ]
   }
-  f -> appb: apply b
+  f -> appb: apply b {
+    class: hof-conn
+  }
 }
 
 def_curry: currying {

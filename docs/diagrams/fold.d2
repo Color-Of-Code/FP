@@ -3,7 +3,7 @@ direction: right
 ...@../styles
 
 def_fold: fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b {
-  f -> fold
+  f -> fold: { class: hof-conn }
   b0 -> fold
   as -> fold
   fold -> result
@@ -11,10 +11,7 @@ def_fold: fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b {
   b0: b (init)
   as: List<a>
   result: b (result)
-  f.class: [
-    function
-    f
-  ]
+  f.class: [hof]
   b0.class: [
     type
     b

@@ -59,14 +59,15 @@ development:
 
 Defined in `docs/styles.d2`:
 
-| Class        | Shape     | Usage                                           |
-| ------------ | --------- | ----------------------------------------------- |
-| `type`       | circle    | A type or type constructor (`Fix F`, `Maybe a`) |
-| `value`      | circle    | A concrete value or term (`Just 5`, `a`)        |
-| `function`   | rectangle | A function (`fmap`, `alg`, `cata`)              |
-| `comment`    | text      | Explanatory label, no border                    |
-| `definition` | rectangle | A definition block (wider, larger font)         |
-| `code`       | rectangle | Code snippet node                               |
+| Class        | Shape           | Usage                                                                           |
+| ------------ | --------------- | ------------------------------------------------------------------------------- |
+| `type`       | circle          | A type or type constructor (`Fix F`, `Maybe a`)                                 |
+| `value`      | circle          | A concrete value or term (`Just 5`, `a`)                                        |
+| `function`   | rectangle       | A function that **executes** (`fmap`, `alg`, `cata`)                            |
+| `hof`        | circle (dashed) | A **function type** flowing in as a value argument — e.g. `(a → b)`, `(a → Mb)` |
+| `comment`    | text            | Explanatory label, no border                                                    |
+| `definition` | rectangle       | A definition block (wider, larger font)                                         |
+| `code`       | rectangle       | Code snippet node                                                               |
 
 ### Colour modifier classes (combine with shape class)
 
@@ -80,6 +81,45 @@ Defined in `docs/styles.d2`:
 | `h`   | yellow | Function (same hue as `c`) |
 | `f2`  | green  | Second function / variant  |
 | `p`   | green  | Product / pair             |
+
+> `hof` has a built-in teal fill (`#80c8c0`) — do **not** combine with colour modifier classes.
+
+### Connection classes
+
+| Class      | Usage                                                                 |
+| ---------- | --------------------------------------------------------------------- |
+| `hof-conn` | Dashed thick arrow from an `hof` node to a `function` node (HOF-wire) |
+
+## HOF-wire convention
+
+When a higher-order function receives **another function as a value argument**, that input has a
+different conceptual status from a data type argument. Use two classes to make this visible:
+
+- Mark the input node as `hof` (teal dashed circle) — it represents a **function type** (`a → b`,
+  `a → Mb`, `F(a → b)`) flowing in as data, not a computation node.
+- Mark the connection `[hof-node] -> [function-node]` with `{ class: hof-conn }` — the dashed thick
+  arrow visually separates the function-valued wire from plain data-flow wires.
+
+```d2
+# fold :: (b → a → b) → b → [a] → b
+def_fold: fold :: ... {
+  f -> fold: { class: hof-conn }   # f is a function type flowing in
+  b0 -> fold                       # b0 is a plain data value
+  as -> fold                       # as is a plain data structure
+  f.class: [hof]                   # dashed teal circle
+  b0.class: [type; b]
+  as.class: [type; a]
+  fold.class: [function; g]
+}
+```
+
+**Rule of thumb:**
+
+| Node is...                              | Class to use           |
+| --------------------------------------- | ---------------------- |
+| A function executing a computation      | `function` (rectangle) |
+| A function type received as an argument | `hof` (dashed circle)  |
+| A plain type (data)                     | `type` (circle)        |
 
 Apply multiple classes as an array:
 

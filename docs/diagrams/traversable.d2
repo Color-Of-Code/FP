@@ -6,7 +6,7 @@ definition: "Traversable: effectful mapping that preserves shape" {
   traverse: "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)" {
     direction: right
     ta -> trav
-    f2 -> trav
+    f2 -> trav: { class: hof-conn }
     trav -> ftb
     ta: "Ta"
     f2: "a ⟶ Fb"
@@ -16,10 +16,7 @@ definition: "Traversable: effectful mapping that preserves shape" {
       type
       a
     ]
-    f2.class: [
-      function
-      g
-    ]
+    f2.class: [hof]
     trav.class: [
       function
       f
