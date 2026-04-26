@@ -2,6 +2,9 @@
 
 > Mathematical background: [Kleisli Categories](../ct/kleisli.md) — Kleisli arrows formalise monadic
 > functions; every `Arrow` whose `arr` is faithful is a Kleisli category for some monad
+>
+> **In plain terms:** An arrow generalises a function into a typed, composable pipeline segment that
+> can carry extra structure — state, side-effects, or parallelism — baked into the type.
 
 An **arrow** `A b c` is an abstraction of a computation from `b` to `c` that may carry **extra
 structure** — state, side effects, or parallelism — without requiring the full power of a monad.

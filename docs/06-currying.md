@@ -2,6 +2,10 @@
 
 > Mathematical background: [Adjunction](../ct/adjunction.md) — the curry/uncurry adjunction
 > $({-} \times A) \dashv (A \Rightarrow {-})$
+>
+> **In plain terms:** Partial application is like pre-filling form fields: call a two-argument
+> function with only the first argument and get back a new single-argument function with that first
+> value already baked in.
 
 These two techniques are closely related but distinct. Both build on functions being first-class
 values.

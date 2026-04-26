@@ -1,5 +1,9 @@
 # 3. Equational Reasoning
 
+> **In plain terms:** Equational reasoning is refactoring by substitution: because pure functions
+> have no hidden state, you can replace any call `f x` with its definition — like simplifying an
+> algebra expression — without changing the program's meaning.
+
 **Equational reasoning** is the technique of proving properties of programs by treating code as
 algebra: replace any expression with an equal expression, simplify, and arrive at the result. It
 works because pure functions, introduced in [1. Function](./01-function.md), and

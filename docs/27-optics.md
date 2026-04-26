@@ -3,6 +3,10 @@
 > Mathematical background: [Yoneda Lemma](../ct/yoneda.md) — van Laarhoven lenses are Yoneda
 > encodings; `forall f. Functor f => (a -> f b) -> s -> f t` says the whole lens family is
 > determined by what it does on any single functor
+>
+> **In plain terms:** Optics are composable getter/setter pairs for nested data: instead of writing
+> `obj.a.b.c` to read and a deep-copy spread to update, you compose lenses and get both read and
+> immutable update operations for free.
 
 **Optics** are composable, first-class tools for **focusing on a part of a data structure** — to
 read it, update it, or fold over it — without breaking immutability or scattering field-access logic

@@ -5,6 +5,10 @@
 > [Yoneda Lemma](../ct/yoneda.md) — `forall p. Profunctor p => p a b -> p s t` is Yoneda over the
 > profunctor argument | [Ends & Coends](../ct/ends-coends.md) — profunctor composition is a coend;
 > optics are ends over the `Profunctor` constraint
+>
+> **In plain terms:** A profunctor is a two-ended adapter: you can independently transform what goes
+> _in_ (contramap the input) and what comes _out_ (map the output) — the mathematical backbone for
+> composable lenses and optics.
 
 A **profunctor** is a type constructor `P` with two type parameters `A` and `B` that is
 **contravariant in `A`** and **covariant in `B`**. The single operation is `dimap`:

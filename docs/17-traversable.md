@@ -1,5 +1,9 @@
 # 17. Traversable
 
+> **In plain terms:** Traversable is "`map` + `Promise.all`": it applies an effectful function to
+> every element and collects all results back into the same container shape — turning a list of
+> futures into a future of a list.
+
 A **traversable** container `T` generalises the idea of **visiting every element with an effectful
 function** and collecting the results — while preserving the container's shape.
 

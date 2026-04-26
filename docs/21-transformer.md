@@ -1,5 +1,9 @@
 # 21. Monad Transformers
 
+> **In plain terms:** A monad transformer stacks one effect on top of another — like layering
+> middleware — so a single type can carry error handling, config access, and logging simultaneously
+> without manual wiring.
+
 A **monad transformer** `T` converts any monad `M` into a new monad `T M` that adds one extra effect
 on top. Stacking several transformers produces a **transformer stack**: a single type that carries
 multiple effects simultaneously.

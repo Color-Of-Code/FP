@@ -1,6 +1,9 @@
 # 4. Composition
 
 > Mathematical background: [Category](../ct/category.md) — objects, morphisms, composition laws
+>
+> **In plain terms:** Composing functions is like piping shell commands — `ls | grep ".md" | wc -l`
+> chains three tools end-to-end; function composition does the same thing in code.
 
 Given two functions `f :: a ⟶ b` and `g :: b ⟶ c`, their **composition** `h = g∘f :: a ⟶ c` is a new
 function that applies `f` first and then `g`.

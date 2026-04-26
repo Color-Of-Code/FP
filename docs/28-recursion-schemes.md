@@ -2,6 +2,9 @@
 
 > Mathematical background: [F-Algebra](../ct/f-algebra.md) — initial algebras, fixed points, and
 > catamorphisms
+>
+> **In plain terms:** Recursion schemes are to recursive data structures what `fold` is to lists:
+> you supply the per-node logic and the scheme handles all the traversal boilerplate.
 
 **Recursion schemes** are higher-order functions that encapsulate common patterns of recursion over
 recursive data structures. Rather than writing explicit recursive functions, you provide an

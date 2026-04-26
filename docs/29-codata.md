@@ -2,6 +2,10 @@
 
 > Mathematical background: [F-Algebra](../ct/f-algebra.md) — initial algebras (data) and terminal
 > coalgebras (codata) as the two fixed points of an endofunctor
+>
+> **In plain terms:** Codata is the dual of data: where a `data` type is defined by how you _build_
+> it (constructors), a codata type is defined by how you _observe_ it — enabling infinite or
+> lazily-produced sequences without running out of memory.
 
 Algebraic Data Types are **defined by their constructors** — how values are _built_. Codata is the
 exact dual: defined by **destructors/observations** — how values are _taken apart_. This duality

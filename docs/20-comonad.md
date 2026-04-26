@@ -2,6 +2,10 @@
 
 > Mathematical background: [Comonad](../ct/comonad.md) — extract/extend laws; co-Kleisli category;
 > Store and Env comonads as lenses and readers
+>
+> **In plain terms:** A comonad is the flip side of a monad: instead of building up context
+> step-by-step, you always work with a value embedded in a surrounding context (like a spreadsheet
+> cell that always knows its neighbours) and chain steps that _read_ that context.
 
 A **comonad** is the categorical dual of a monad. Where a monad injects a value into a context and
 chains computations that _produce_ context, a comonad _extracts_ a focused value from a context and

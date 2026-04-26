@@ -3,6 +3,10 @@
 > Mathematical background: [Natural Transformation](../ct/natural-transformation.md) — morphisms
 > between functors | [Kan Extensions](../ct/kan-extensions.md) — all concepts in category theory are
 > Kan extensions; natural transformations expressed as ends
+>
+> **In plain terms:** A natural transformation is a function that converts one container type into
+> another (e.g. `List` → `Maybe`) in a way that works uniformly for _any_ element type — it
+> restructures the container without caring what's inside.
 
 A **natural transformation** `α` between two functors `F` and `G` is a family of functions — one per
 type `a` — that converts `F a` into `G a` **without inspecting or depending on `a`**.

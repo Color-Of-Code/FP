@@ -2,6 +2,10 @@
 
 > Mathematical background: [Lambda Calculus](../ct/lambda-calculus.md) — β/η-reduction,
 > Church-Turing thesis, SKI, System F
+>
+> **In plain terms:** The λ-calculus is the theoretical "assembly language" beneath functional
+> programming: every computation can be expressed as function definitions and applications — no
+> mutation, no loops, no mutable state required.
 
 Every programming language embodies a **model of computation** — a precise description of what it
 means to compute. Functional programming is grounded in the **λ-calculus** (Church, 1936), not the

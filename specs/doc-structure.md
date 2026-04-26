@@ -10,6 +10,10 @@ number determines the position in the README learning-track table and must be un
 ```markdown
 # NN. Concept Title
 
+> Mathematical background: [CT Concept](../ct/concept.md) — one-line description (optional)
+
+> **In plain terms:** One sentence programmer-friendly analogy (optional, for abstract concepts)
+
 Intro paragraph (2–4 sentences). State what the concept is and which earlier concept it builds on.
 Link backward with [N. Name](./NN-name.md) syntax.
 

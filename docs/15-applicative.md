@@ -1,5 +1,9 @@
 # 15. Applicative
 
+> **In plain terms:** An applicative is like `map`, but the function is also wrapped in the
+> container — letting you apply an `Optional<transform>` to an `Optional<value>`, or combine
+> multiple independent `Result` values while accumulating all errors.
+
 An **applicative functor** `F` extends [Functor](./13-functor.md) with two operations that allow
 applying **wrapped functions** to **wrapped values**.
 

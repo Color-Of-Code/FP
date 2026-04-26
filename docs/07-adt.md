@@ -4,6 +4,10 @@
 > constructions for pairing and choice | [Limits & Colimits](../ct/limits-colimits.md) — products
 > and coproducts are binary limits and colimits; `Void` and `()` are the initial and terminal
 > objects
+>
+> **In plain terms:** An ADT is either a record (all fields combined, like a struct) or a choice
+> between alternatives (like an enum with payloads) — the two fundamental building blocks for
+> modelling any domain concept.
 
 An **algebraic data type** (ADT) is a type built by combining simpler types in two fundamental ways.
 They are the primary tool for modelling data in functional programming.

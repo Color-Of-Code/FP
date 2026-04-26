@@ -2,6 +2,10 @@
 
 > Mathematical background: [Functor](../ct/functor.md) — structure-preserving maps between
 > categories
+>
+> **In plain terms:** A functor is any container that supports `map`: you hand it a plain `a → b`
+> function and it applies that function to the contents without touching the container's shape —
+> like `Array.map`, but generalised to `Optional`, `Result`, `Tree`, and any other wrapper.
 
 A **functor** `F` is a type constructor that wraps values and supports **`fmap`**, which lifts a
 plain function `f :: a ⟶ b` to work inside the wrapper: `fmap f :: Fa ⟶ Fb`.

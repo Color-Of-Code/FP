@@ -2,6 +2,10 @@
 
 > Mathematical background: [Monad](../ct/monad.md) — monoid in the category of endofunctors;
 > [Kleisli Categories](../ct/kleisli.md) — `>>=` as Kleisli composition; monad laws as category laws
+>
+> **In plain terms:** A monad is a wrapper type that supports `flatMap`: it lets you chain steps
+> where each step produces a new wrapped value, automatically flattening the nesting so you never
+> end up with `Optional<Optional<T>>` or `Promise<Promise<T>>`.
 
 A **monad** is a functor extended with two operations that allow **sequencing of effectful
 computations**.

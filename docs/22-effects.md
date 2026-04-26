@@ -1,5 +1,9 @@
 # 22. Composing Effects
 
+> **In plain terms:** Combining several effects (errors, config, logging, I/O) in one computation
+> requires explicit wiring; this chapter compares transformer stacks, free monads, and algebraic
+> effect systems — and when to reach for each.
+
 A single monad models one effect cleanly. Real programs need several effects simultaneously — a
 computation that can fail, reads configuration, accumulates a log, and performs I/O. Combining two
 monads is **not automatic**: given monads `M` and `N`, the type `M(N(a))` is not generally a monad,

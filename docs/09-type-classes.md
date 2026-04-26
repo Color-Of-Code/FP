@@ -2,6 +2,10 @@
 
 > Mathematical background: [Lawvere Theories](../ct/lawvere-theories.md) — a type class is a Lawvere
 > theory; a type-class instance is a model (product-preserving functor)
+>
+> **In plain terms:** A type class is like an interface or protocol: it declares a set of operations
+> any conforming type must implement, and any generic code written against that interface
+> automatically works with all conforming types.
 
 A **type class** is a named contract: a set of operations and laws that a type must satisfy. Any
 type that provides implementations for those operations is said to have an **instance** of the class

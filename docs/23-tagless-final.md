@@ -1,5 +1,9 @@
 # 23. Tagless Final
 
+> **In plain terms:** Tagless Final is programming against an abstract capability interface `F[_]`
+> so you can swap the concrete backend — real I/O in production, a pure in-memory stub in tests — by
+> passing a different `F` at the call site.
+
 **Tagless Final** (also called _Finally Tagless_ or _MTL-style_) is an approach to effect
 abstraction where a program is written as a **typeclass-polymorphic function** over an abstract
 effect type `F[_]`, rather than as a concrete free monad AST. Different interpreters simply pick

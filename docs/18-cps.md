@@ -1,5 +1,9 @@
 # 18. Continuation Passing Style
 
+> **In plain terms:** CPS is like rewriting every function to accept a callback for its result —
+> similar to Node.js-style callbacks — but applied systematically so the entire control flow becomes
+> explicit and first-class.
+
 **Continuation Passing Style (CPS)** is a program transformation where every function receives an
 extra argument — the **continuation** `k` — that represents _what to do next with the result_.
 Instead of returning a value, a CPS function calls `k` with it.
