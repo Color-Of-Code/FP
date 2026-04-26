@@ -77,7 +77,7 @@ lint-md: $(NODE_BIN)/markdownlint-cli2
 
 ## Check language-example sections are complete and in the correct order
 lint-langs:
-	node $(REPO_ROOT)/.tools/check-lang-order.js
+	node --experimental-strip-types $(REPO_ROOT)/.tools/check-lang-order.ts
 
 ## Check Markdown formatting without writing (for CI)
 check-md: $(NODE_BIN)/prettier

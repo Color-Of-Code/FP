@@ -1,10 +1,11 @@
 {
   "name": "fp-tools",
   "private": true,
+  "type": "module",
   "description": "Dev tooling for the FP repository",
   "scripts": {
     "lint:md": "markdownlint-cli2 '../**/*.md' '!../node_modules/**'",
-    "lint:langs": "node check-lang-order.js",
+    "lint:langs": "node --experimental-strip-types check-lang-order.ts",
     "fmt:md": "prettier --write '../**/*.md'",
     "check:md": "prettier --check '../**/*.md'"
   },
