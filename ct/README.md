@@ -23,6 +23,7 @@ Pages contain **no per-language code**. For code examples, follow the FP track l
 | [Monad](./monad.md)                                   | Monoid in the category of endofunctors; Kleisli triple          | `Monad` / `>>=` / `return`                   | 1.4, 3.4–3.6 |
 | [Adjunction](./adjunction.md)                         | Universal relation between two functors; factory of monads      | Free/forgetful pairs; monad derivation       | 3.2–3.3      |
 | [F-Algebra](./f-algebra.md)                           | Algebras for an endofunctor; initial algebra as fixed point     | Recursion schemes: catamorphism, anamorphism | 3.8–3.9      |
+| [Lambda Calculus](./lambda-calculus.md)               | The formal computation model behind every FP language           | λ literals, β-reduction, Y combinator, SKI   | 1.2, 1.9     |
 
 ---
 
@@ -38,6 +39,7 @@ CT is a web, not a line — but this order minimises forward references:
 6. [Adjunction](./adjunction.md)
 7. [Monad](./monad.md)
 8. [F-Algebra](./f-algebra.md)
+9. [Lambda Calculus](./lambda-calculus.md)
 
 ---
 

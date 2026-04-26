@@ -1,0 +1,44 @@
+direction: right
+
+...@../styles
+
+sequential: "Sequential models" {
+  turing: "Turing machine"
+  fsm: "Finite-state machine"
+  pushdown: "Pushdown automaton"
+  ram: "Random-access machine"
+  turing.class: [type b]
+  fsm.class: [type b]
+  pushdown.class: [type b]
+  ram.class: [type b]
+}
+
+functional: "Functional models\n← FP lives here" {
+  lambda_box: "λ-Calculus\n(FP's foundation)"
+  ski: "Combinatory logic\n(SKI — point-free basis)"
+  sysf: "System F\n(polymorphism / generics)"
+  mu_rec: "μ-recursive functions\n(Gödel, Kleene)"
+  lambda_box.class: [function f]
+  ski.class: [function g]
+  sysf.class: [function h]
+  mu_rec.class: [value]
+  lambda_box -> ski: "compile"
+  lambda_box -> sysf: "type"
+}
+
+concurrent: "Concurrent models" {
+  actor: "Actor model\n(Erlang, Akka)"
+  csp: "CSP / π-calculus\n(Go channels)"
+  petri: "Petri nets"
+  actor.class: [type a]
+  csp.class: [type a]
+  petri.class: [value]
+}
+
+sequential -> functional: "Church-Turing\nthesis (equivalent\nexpressive power)"
+functional -> concurrent: "effect layer\n(IO monad, STM,\nasync/await)"
+
+thesis: "All three families compute the same class of functions\n(Church-Turing thesis); they differ in style and abstraction level" {
+  class: [comment]
+}
+functional -> thesis

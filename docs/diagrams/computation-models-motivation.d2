@@ -1,0 +1,38 @@
+...@../styles
+
+direction: down
+
+turing: "Turing Machine model\n(imperative baseline)" {
+  direction: right
+  tape: "tape\n(mutable, infinite)"
+  head: "read/write\nhead"
+  state: "finite\ncontrol"
+  tape -> head: "read/write"
+  head -> state: "transition"
+  state -> head: "move"
+  tape.class: [type b]
+  head.class: [function g]
+  state.class: [value]
+  problem: "state mutation is the primitive;\ncoordination = shared mutable cells"
+  problem.class: [comment]
+  tape -> problem
+  state -> problem
+}
+
+lambda: "λ-Calculus model\n(FP's foundation)" {
+  direction: right
+  abs: "λx. e\n(abstraction)"
+  app: "f a\n(application)"
+  beta: "β-reduction\n(substitution)"
+  abs -> app: "apply"
+  app -> beta: "compute"
+  abs.class: [function f]
+  app.class: [type a]
+  beta.class: [value]
+  insight: "no mutation; computation = substitution;\nequational reasoning is the default"
+  insight.class: [comment]
+  abs -> insight
+  beta -> insight
+}
+
+turing -> lambda: "Church-Turing thesis:\nequally expressive;\nλ-calculus is cleaner for types"

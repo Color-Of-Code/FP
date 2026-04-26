@@ -1,5 +1,8 @@
 # 1. Function
 
+> Mathematical background: [Lambda Calculus](../ct/lambda-calculus.md) — abstraction, β-reduction,
+> and the Church-Turing thesis
+
 A **function** `f :: a ⟶ b` takes a value of type `a` (the domain) and produces a value of type `b`
 (the codomain).
 
