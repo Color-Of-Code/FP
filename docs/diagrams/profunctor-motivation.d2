@@ -1,0 +1,30 @@
+...@../styles
+
+direction: down
+
+functor: Functor\ncovariant in A {
+  class: [type; a]
+}
+
+contra: Contravariant\ncontravariant in A {
+  class: [type; b]
+}
+
+profunctor: Profunctor\ncontravariant in A\ncovariant in B {
+  class: definition
+  style.fill: "#9191f4"
+}
+
+functor -> profunctor: "fix A, vary B\n(covariant half)" {
+  style.stroke-dash: 5
+}
+
+contra -> profunctor: "fix B, vary A\n(contravariant half)" {
+  style.stroke-dash: 5
+}
+
+dimap: "dimap :: (A' → A) → (B → B') → P A B → P A' B'" {
+  class: comment
+}
+
+profunctor -> dimap

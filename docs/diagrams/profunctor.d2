@@ -1,0 +1,49 @@
+...@../styles
+
+direction: right
+
+pab: "P A B" {
+  class: [type; a]
+}
+
+pst: "P S T" {
+  class: [type; b]
+}
+
+optic: "Optic :: \u2200 P. C P \u21d2 P A B \u2192 P S T" {
+  class: definition
+  style.fill: "#9191f4"
+}
+
+lens_c: "Lens\nC = Strong" {
+  class: function
+  style.fill: "#57cc99"
+}
+
+prism_c: "Prism\nC = Choice" {
+  class: function
+  style.fill: "#f4a261"
+}
+
+trav_c: "Traversal\nC = Traversing" {
+  class: function
+}
+
+iso_c: "Iso\nC = Profunctor" {
+  class: function
+  style.fill: "#c3b1e1"
+}
+
+pab -> optic: "dimap (S\u2192A) (B\u2192T)"
+optic -> pst
+
+optic -> lens_c
+optic -> prism_c
+optic -> trav_c
+optic -> iso_c
+
+compose: "Composition = function composition (.)" {
+  class: comment
+}
+
+optic -> compose
