@@ -1,4 +1,4 @@
-# 10. Semigroup & Monoid
+# 11. Semigroup & Monoid
 
 **Semigroup** and **Monoid** capture the idea of **combining values** of the same type in an
 associative way. They are among the simplest and most widely useful abstractions in FP.
@@ -58,7 +58,7 @@ mconcat :: [a] → a
 mconcat = foldr (<>) mempty
 ```
 
-Any type that is a Monoid can be used directly as the accumulator of a [Fold](./13-fold.md).
+Any type that is a Monoid can be used directly as the accumulator of a [Fold](./14-fold.md).
 
 ## Motivation
 

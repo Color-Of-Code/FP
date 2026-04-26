@@ -1,4 +1,4 @@
-# 8. Type Classes
+# 9. Type Classes
 
 A **type class** is a named contract: a set of operations and laws that a type must satisfy. Any
 type that provides implementations for those operations is said to have an **instance** of the class

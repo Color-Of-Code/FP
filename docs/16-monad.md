@@ -1,4 +1,4 @@
-# 15. Monad
+# 16. Monad
 
 > Mathematical background: [Monad](../ct/monad.md) — monoid in the category of endofunctors; Kleisli
 > triple
@@ -6,7 +6,7 @@
 A **monad** is a functor extended with two operations that allow **sequencing of effectful
 computations**.
 
-`fmap` (from [Functor](./11-functor.md)) handles `f :: a ⟶ b`. But when `f :: a ⟶ Mb` (the function
+`fmap` (from [Functor](./12-functor.md)) handles `f :: a ⟶ b`. But when `f :: a ⟶ Mb` (the function
 itself produces a wrapped value), `fmap` yields `M(Mb)` — an unwanted nested wrapper. Monads solve
 this.
 
@@ -15,7 +15,7 @@ this.
 ## Operations
 
 - **`pure :: a ⟶ Ma`** — lift a plain value into the monad (inherited from
-  [Applicative](./12-applicative.md)). Also called `return`.
+  [Applicative](./13-applicative.md)). Also called `return`.
 - **`bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb`** — unwrap `a` from `Ma`, apply `f`, and flatten `M(Mb)` to `Mb`.
   Also called `flatMap` or `>>=`.
 
@@ -40,7 +40,7 @@ Each monad below has its own detailed page with diagram and code examples.
 | `STM a`        | atomic transactions over shared mutable state  | [stm.md](monads/stm.md)       |
 | `Prob a`       | discrete probability distributions             | [prob.md](monads/prob.md)     |
 
-For combining multiple monads in one computation, see [16. Monad Transformers](./16-transformer.md).
+For combining multiple monads in one computation, see [17. Monad Transformers](./17-transformer.md).
 
 ## Motivation
 

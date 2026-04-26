@@ -1,0 +1,42 @@
+...@../styles
+
+direction: right
+
+underlying: "Int\n(underlying type)" {
+  style.fill: "#e3f2fd"
+  shape: rectangle
+}
+
+newtype_age: "Age\nnewtype Age = Age Int" {
+  style.fill: "#e8f5e9"
+  shape: rectangle
+}
+
+newtype_year: "Year\nnewtype Year = Year Int" {
+  style.fill: "#fff9c4"
+  shape: rectangle
+}
+
+newtype_kg: "Kg\nnewtype Kg = Kg Int" {
+  style.fill: "#fce4ec"
+  shape: rectangle
+}
+
+underlying -> newtype_age: "wrap / coerce\n(zero-cost at runtime)" {
+  style.stroke-dash: 4
+}
+underlying -> newtype_year: "wrap / coerce\n(zero-cost at runtime)" {
+  style.stroke-dash: 4
+}
+underlying -> newtype_kg: "wrap / coerce\n(zero-cost at runtime)" {
+  style.stroke-dash: 4
+}
+
+note: "Age, Year, Kg are mutually incompatible at compile time\nbut identical in memory — no runtime overhead" {
+  style.fill: "#f5f5f5"
+  shape: rectangle
+}
+
+newtype_age -> note
+newtype_year -> note
+newtype_kg -> note

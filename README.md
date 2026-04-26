@@ -13,19 +13,20 @@ A learning track through the core concepts of functional programming, each build
 | 5   | [Higher-Order Functions](docs/05-higher-order-functions.md) | Functions as values; map, filter, flip, closures, and point-free style          |
 | 6   | [Currying & Partial Application](docs/06-currying.md)       | Transforming multi-argument functions; functions as results                     |
 | 7   | [Algebraic Data Types](docs/07-adt.md)                      | Product types (AND), sum types (OR), pattern matching; the shape of FP data     |
-| 8   | [Type Classes](docs/08-type-classes.md)                     | Ad-hoc polymorphism: contracts, instances, laws, and dispatch by type           |
-| 9   | [Lazy Evaluation](docs/09-lazy-evaluation.md)               | Thunks, non-strict semantics, infinite structures, and eager vs lazy trade-offs |
-| 10  | [Semigroup & Monoid](docs/10-semigroup-monoid.md)           | Associative combination of values; the algebra behind `fold` and `mconcat`      |
-| 11  | [Functor](docs/11-functor.md)                               | Lifting a function to work inside a wrapped type with `fmap`                    |
-| 12  | [Applicative](docs/12-applicative.md)                       | Applying wrapped functions to wrapped values; combining independent effects     |
-| 13  | [Fold](docs/13-fold.md)                                     | Reducing a collection to a value; `map`, `filter` and more as folds             |
-| 14  | [Traversable](docs/14-traversable.md)                       | Effectful mapping that preserves shape; swapping container and effect           |
-| 15  | [Monad](docs/15-monad.md)                                   | Sequencing effectful computations; solving the `fmap` nesting problem           |
-| 16  | [Monad Transformers](docs/16-transformer.md)                | Stacking monads to combine multiple effects in one computation                  |
-| 17  | [Composing Effects](docs/17-effects.md)                     | Monad Transformers, Free Monad, and Algebraic Effects compared                  |
-| 18  | [Lens / Optics](docs/18-optics.md)                          | Composable, first-class access and update of nested immutable data              |
-| 19  | [Recursion Schemes](docs/19-recursion-schemes.md)           | Generalised folds: cata, ana, hylo and the base functor pattern                 |
-| 20  | [Observable Effects](docs/20-observable-effects.md)         | The effect spectrum from pure FP to physical hardware; side-channel attacks     |
+| 8   | [Newtype / Wrapper Types](docs/08-newtype.md)               | Type-safe wrappers with zero runtime cost; alternative instances; phantom types |
+| 9   | [Type Classes](docs/09-type-classes.md)                     | Ad-hoc polymorphism: contracts, instances, laws, and dispatch by type           |
+| 10  | [Lazy Evaluation](docs/10-lazy-evaluation.md)               | Thunks, non-strict semantics, infinite structures, and eager vs lazy trade-offs |
+| 11  | [Semigroup & Monoid](docs/11-semigroup-monoid.md)           | Associative combination of values; the algebra behind `fold` and `mconcat`      |
+| 12  | [Functor](docs/12-functor.md)                               | Lifting a function to work inside a wrapped type with `fmap`                    |
+| 13  | [Applicative](docs/13-applicative.md)                       | Applying wrapped functions to wrapped values; combining independent effects     |
+| 14  | [Fold](docs/14-fold.md)                                     | Reducing a collection to a value; `map`, `filter` and more as folds             |
+| 15  | [Traversable](docs/15-traversable.md)                       | Effectful mapping that preserves shape; swapping container and effect           |
+| 16  | [Monad](docs/16-monad.md)                                   | Sequencing effectful computations; solving the `fmap` nesting problem           |
+| 17  | [Monad Transformers](docs/17-transformer.md)                | Stacking monads to combine multiple effects in one computation                  |
+| 18  | [Composing Effects](docs/18-effects.md)                     | Monad Transformers, Free Monad, and Algebraic Effects compared                  |
+| 19  | [Lens / Optics](docs/19-optics.md)                          | Composable, first-class access and update of nested immutable data              |
+| 20  | [Recursion Schemes](docs/20-recursion-schemes.md)           | Generalised folds: cata, ana, hylo and the base functor pattern                 |
+| 21  | [Observable Effects](docs/21-observable-effects.md)         | The effect spectrum from pure FP to physical hardware; side-channel attacks     |
 
 ## Diagrams
 
@@ -51,7 +52,7 @@ all nine languages.
 | `STM a`        | atomic transactions over shared mutable state | [stm.md](docs/monads/stm.md)       |
 | `Prob a`       | discrete probability distributions            | [prob.md](docs/monads/prob.md)     |
 
-> Combining multiple monads into one computation: [16. Monad Transformers](docs/16-transformer.md)
+> Combining multiple monads into one computation: [17. Monad Transformers](docs/17-transformer.md)
 
 ## Optics catalogue
 
@@ -67,7 +68,7 @@ languages.
 | [Fold](docs/optics/fold.md)                     | Focus on zero or more elements; read only         |
 | [Getter / Setter](docs/optics/getter-setter.md) | Read-only (derived values) and write-only optics  |
 
-> Overview and composition rules: [18. Lens / Optics](docs/18-optics.md)
+> Overview and composition rules: [19. Lens / Optics](docs/19-optics.md)
 
 ## Category Theory track
 

@@ -1,4 +1,4 @@
-# 11. Functor
+# 12. Functor
 
 > Mathematical background: [Functor](../ct/functor.md) — structure-preserving maps between
 > categories

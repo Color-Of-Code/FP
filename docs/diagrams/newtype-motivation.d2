@@ -1,0 +1,29 @@
+...@../styles
+
+direction: down
+
+before: "without newtype: Int used for all measures; compiler cannot distinguish them" {
+  direction: right
+  raw: "calculateAge(birthYear: Int): Int\ncalculateBMI(weightKg: Int, heightCm: Int): Int" {
+    style.fill: "#f4f4f4"
+    shape: rectangle
+  }
+  bug: "age = calculateBMI(1990, 70)\n      ← compiler accepts; silent logical error" {
+    style.fill: "#ffe0e0"
+    shape: rectangle
+  }
+  raw -> bug
+}
+
+after: "with newtype wrappers: distinct types for distinct concepts; confusion is a compile error" {
+  direction: right
+  wrapped: "calculateAge(birthYear: Year): Age\ncalculateBMI(weight: Kg, height: Cm): BMI" {
+    style.fill: "#e8f5e9"
+    shape: rectangle
+  }
+  safe: "age = calculateBMI(Year(1990), Kg(70))\n      ← type error: expected Cm for height" {
+    style.fill: "#e8f5e9"
+    shape: rectangle
+  }
+  wrapped -> safe
+}

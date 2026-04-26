@@ -59,7 +59,7 @@ Other adjunctions of interest:
 | Discrete category     | Constant functor      | (foundational; no single monad) |
 
 → FP track: [6. Currying & Partial Application](../docs/06-currying.md) |
-[15. Monad](../docs/15-monad.md)
+[16. Monad](../docs/16-monad.md)
 
 ## CTFP Reference
 

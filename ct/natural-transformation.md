@@ -64,8 +64,8 @@ Examples:
 | `reverse`             | `[a] -> [a]`     | List → List; reversal is natural               |
 | `return` (monad unit) | `a -> M a`       | Id → M; lifts a pure value into the monad      |
 
-→ FP track: [11. Functor](../docs/11-functor.md) (functor laws encode the square),
-[15. Monad](../docs/15-monad.md) (unit and join are NTs)
+→ FP track: [12. Functor](../docs/12-functor.md) (functor laws encode the square),
+[16. Monad](../docs/16-monad.md) (unit and join are NTs)
 
 ## CTFP Reference
 

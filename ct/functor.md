@@ -56,7 +56,7 @@ In Hask, an endofunctor $F$ is a type constructor (e.g. `Maybe`, `[]`, `Tree`) t
 The `Functor` type class in Haskell encodes exactly this structure. Every standard container
 (`Maybe`, `[]`, `Either e`, `IO`) is a functor.
 
-→ FP track: [11. Functor](../docs/11-functor.md)
+→ FP track: [12. Functor](../docs/12-functor.md)
 
 ## CTFP Reference
 

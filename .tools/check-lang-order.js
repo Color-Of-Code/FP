@@ -21,7 +21,7 @@ const REQUIRED = ['C#', 'F#', 'Ruby', 'C++', 'JavaScript', 'Python', 'Haskell', 
 
 // Files that deliberately have no language-example sections
 // (discussion/comparison chapters rather than 7-language tutorials)
-const SKIP_FILES = new Set(['01-function.md', '17-effects.md']);
+const SKIP_FILES = new Set(['01-function.md', '18-effects.md']);
 
 const repoRoot = path.resolve(__dirname, '..');
 const docDirs  = [

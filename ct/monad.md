@@ -74,7 +74,7 @@ $$
 
 Every monad instance (`Maybe`, `[]`, `IO`, `State`, …) is a concrete realisation of this structure.
 
-→ FP track: [15. Monad](../docs/15-monad.md) | [16. Monad Transformers](../docs/16-transformer.md)
+→ FP track: [16. Monad](../docs/16-monad.md) | [17. Monad Transformers](../docs/17-transformer.md)
 
 ## CTFP Reference
 
