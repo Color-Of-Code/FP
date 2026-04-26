@@ -1,5 +1,9 @@
 # 11. Semigroup & Monoid
 
+> Mathematical background: [Free Monoid](../ct/free-monoid.md) — list `[a]` is the free monoid;
+> `foldMap` is the unique homomorphism | [Lawvere Theories](../ct/lawvere-theories.md) — the theory
+> of monoids as a Lawvere theory; finitary monads as algebraic theories
+
 **Semigroup** and **Monoid** capture the idea of **combining values** of the same type in an
 associative way. They are among the simplest and most widely useful abstractions in FP.
 

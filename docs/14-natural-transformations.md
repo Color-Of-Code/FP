@@ -1,7 +1,8 @@
 # 14. Natural Transformations
 
 > Mathematical background: [Natural Transformation](../ct/natural-transformation.md) — morphisms
-> between functors
+> between functors | [Kan Extensions](../ct/kan-extensions.md) — all concepts in category theory are
+> Kan extensions; natural transformations expressed as ends
 
 A **natural transformation** `α` between two functors `F` and `G` is a family of functions — one per
 type `a` — that converts `F a` into `G a` **without inspecting or depending on `a`**.

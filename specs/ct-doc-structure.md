@@ -114,20 +114,20 @@ concept.
 | 1.9      | Function Types              | `lambda-calculus.md`        | `01-function.md`, `31-computation-models.md`   | ✅ (partial) |
 | 1.10     | Natural Transformations     | `natural-transformation.md` | `14-natural-transformations.md`                | ✅           |
 | 2.1      | Declarative Programming     | —                           | philosophical survey; no CT page needed        | ➖           |
-| 2.2      | Limits & Colimits           | —                           | `07-adt.md`                                    | 🔲 candidate |
-| 2.3      | Free Monoids                | —                           | `11-semigroup-monoid.md`                       | 🔲 candidate |
-| 2.4      | Representable Functors      | —                           | relates to Yoneda                              | 🔲 candidate |
+| 2.2      | Limits & Colimits           | `limits-colimits.md`        | `07-adt.md`                                    | ✅           |
+| 2.3      | Free Monoids                | `free-monoid.md`            | `11-semigroup-monoid.md`                       | ✅           |
+| 2.4      | Representable Functors      | `representable.md`          | `13-functor.md`, `20-comonad.md`               | ✅           |
 | 2.5–2.6  | Yoneda Lemma / Embedding    | `yoneda.md`                 | `25-profunctor.md`, `27-optics.md`             | ✅           |
 | 3.1      | It's All About Morphisms    | —                           | survey; no dedicated CT page needed            | ➖           |
 | 3.2–3.3  | Adjunctions                 | `adjunction.md`             | `06-currying.md`, `19-monad.md`                | ✅           |
 | 3.4–3.6  | Monads                      | `monad.md`                  | `19-monad.md`                                  | ✅           |
 | 3.7      | Comonads                    | `comonad.md`                | `20-comonad.md`                                | ✅           |
 | 3.8–3.9  | F-Algebras                  | `f-algebra.md`              | `28-recursion-schemes.md`                      | ✅           |
-| 3.10     | Ends & Coends               | —                           | `25-profunctor.md`                             | 🔲 candidate |
-| 3.11     | Kan Extensions              | —                           | `14-natural-transformations.md`                | 🔲 candidate |
+| 3.10     | Ends & Coends               | `ends-coends.md`            | `25-profunctor.md`                             | ✅           |
+| 3.11     | Kan Extensions              | `kan-extensions.md`         | `14-natural-transformations.md`                | ✅           |
 | 3.12     | Enriched Categories         | —                           | very abstract; defer                           | ➖           |
 | 3.13     | Topoi                       | —                           | very abstract; defer                           | ➖           |
-| 3.14     | Lawvere Theories            | —                           | `09-type-classes.md`, `11-semigroup-monoid.md` | 🔲 candidate |
+| 3.14     | Lawvere Theories            | `lawvere-theories.md`       | `09-type-classes.md`, `11-semigroup-monoid.md` | ✅           |
 | 3.15     | Monads, Monoids, Categories | —                           | extends `monad.md`                             | 🔲 candidate |
 | —        | Lambda Calculus             | `lambda-calculus.md`        | `01-function.md`, `31-computation-models.md`   | ✅           |
 
