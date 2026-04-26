@@ -1,4 +1,4 @@
-# 16. Monad
+# 17. Monad
 
 > Mathematical background: [Monad](../ct/monad.md) — monoid in the category of endofunctors; Kleisli
 > triple
@@ -40,7 +40,7 @@ Each monad below has its own detailed page with diagram and code examples.
 | `STM a`        | atomic transactions over shared mutable state  | [stm.md](monads/stm.md)       |
 | `Prob a`       | discrete probability distributions             | [prob.md](monads/prob.md)     |
 
-For combining multiple monads in one computation, see [17. Monad Transformers](./17-transformer.md).
+For combining multiple monads in one computation, see [18. Monad Transformers](./18-transformer.md).
 
 ## Motivation
 

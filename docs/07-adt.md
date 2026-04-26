@@ -48,7 +48,7 @@ Sum types are also called **tagged unions**, **discriminated unions**, or **vari
 | `Tree<a>`      | `Leaf \| Node(value: a, left: Tree<a>, right: Tree<a>)`    |
 
 All the types used by [Functor](./12-functor.md), [Applicative](./13-applicative.md), and
-[Monad](./16-monad.md) are ADTs.
+[Monad](./17-monad.md) are ADTs.
 
 ## Pattern matching
 

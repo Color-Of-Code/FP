@@ -65,7 +65,7 @@ Examples:
 | `return` (monad unit) | `a -> M a`       | Id → M; lifts a pure value into the monad      |
 
 → FP track: [12. Functor](../docs/12-functor.md) (functor laws encode the square),
-[16. Monad](../docs/16-monad.md) (unit and join are NTs)
+[17. Monad](../docs/17-monad.md) (unit and join are NTs)
 
 ## CTFP Reference
 

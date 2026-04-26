@@ -1,0 +1,32 @@
+...@../styles
+
+direction: right
+
+direct: "Direct style\nresult = f(g(h(x)))" {
+  style.fill: "#e3f2fd"
+  shape: rectangle
+}
+
+cps: "CPS\nh_cps(x, \\h_res ->\n  g_cps(h_res, \\g_res ->\n    f_cps(g_res, k)))" {
+  style.fill: "#e8f5e9"
+  shape: rectangle
+}
+
+cont_monad: "Cont monad\ndo\n  h_res <- toCPS h x\n  g_res <- toCPS g h_res\n  toCPS f g_res" {
+  style.fill: "#fff9c4"
+  shape: rectangle
+}
+
+direct -> cps: "CPS transform\n(mechanical)" {
+  style.stroke-dash: 4
+}
+cps -> cont_monad: "wrap in Cont\n(>>= sequences\ncontinuations)" {
+  style.stroke-dash: 4
+}
+
+properties: "CPS properties:\n· tail calls only (TCO-friendly)\n· explicit control flow\n· callCC = first-class goto\n· Cont monad = CPS with do-notation" {
+  style.fill: "#f5f5f5"
+  shape: rectangle
+}
+
+cont_monad -> properties
