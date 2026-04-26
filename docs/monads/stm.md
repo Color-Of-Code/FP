@@ -6,6 +6,10 @@ once — or retries from the beginning if another thread modified a value it rea
 
 ![STM monad](diagrams/stm.svg)
 
+![bind type signature](diagrams/stm-ibd.svg)
+
+![bind implementation](diagrams/stm-bind.svg)
+
 ## Type
 
 ```text

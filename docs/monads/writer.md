@@ -5,6 +5,10 @@ any other monoidal side output such as metrics, warnings, or a list of events).
 
 ![writer monad](diagrams/writer.svg)
 
+![bind type signature](diagrams/writer-ibd.svg)
+
+![bind implementation](diagrams/writer-bind.svg)
+
 ## Type
 
 ```text

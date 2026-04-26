@@ -5,18 +5,18 @@ direction: right
 eager: "Eager (strict)\nall arguments evaluated before call" {
   direction: down
   style.fill: "#e3f2fd"
-  arg1: "f(1 + 1, 2 * 3)" { shape: rectangle }
-  eval: "2, 6  ← evaluated immediately" { shape: rectangle; style.fill: "#bbdefb" }
-  call: "f(2, 6)" { shape: rectangle }
+  arg1: "f(1 + 1, 2 * 3)" {shape: rectangle}
+  eval: "2, 6  ← evaluated immediately" {shape: rectangle; style.fill: "#bbdefb"}
+  call: "f(2, 6)" {shape: rectangle}
   arg1 -> eval -> call
 }
 
 lazy: "Lazy (non-strict)\narguments wrapped in thunks; evaluated on demand" {
   direction: down
   style.fill: "#e8f5e9"
-  arg1: "f(1 + 1, 2 * 3)" { shape: rectangle }
-  thunk: "thunk(1+1), thunk(2*3)  ← no work yet" { shape: rectangle; style.fill: "#c8e6c9" }
-  force: "forced only if f actually uses the argument" { shape: rectangle; style.fill: "#a5d6a7" }
+  arg1: "f(1 + 1, 2 * 3)" {shape: rectangle}
+  thunk: "thunk(1+1), thunk(2*3)  ← no work yet" {shape: rectangle; style.fill: "#c8e6c9"}
+  force: "forced only if f actually uses the argument" {shape: rectangle; style.fill: "#a5d6a7"}
   arg1 -> thunk -> force
 }
 
@@ -24,7 +24,7 @@ infinite: "Infinite structure\n(only possible with lazy evaluation)" {
   style.fill: "#fff9c4"
   shape: rectangle
   stream: "nats = 0 : 1 : 2 : …  (never ends)"
-  take:   "take 5 nats  = [0,1,2,3,4]  ← demanded 5 elements"
+  take: "take 5 nats  = [0,1,2,3,4]  ← demanded 5 elements"
   stream -> take
 }
 

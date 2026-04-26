@@ -6,6 +6,10 @@ conditional probability — weighting each outcome by the probability of reachin
 
 ![prob monad](diagrams/prob.svg)
 
+![bind type signature](diagrams/prob-ibd.svg)
+
+![bind implementation](diagrams/prob-bind.svg)
+
 ## Type
 
 ```text

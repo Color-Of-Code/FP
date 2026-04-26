@@ -20,32 +20,6 @@ type_def: "Cont r a = (a -> r) -> r" {
   explanation.class: [comment]
 }
 
-bind_def: "bind :: Cont r a -> (a -> Cont r b) -> Cont r b" {
-  m -> bind
-  f -> bind
-  bind -> result
-  m: "Cont r a"
-  f: "a -> Cont r b"
-  result: "Cont r b"
-  m.class: [
-    type
-    a
-  ]
-  f.class: [
-    function
-    f
-  ]
-  result.class: [
-    type
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: bind m f = k -> m (a -> f a k). Composes continuations; the current step runs last.}
-}
-
 callCC_def: "callCC :: ((a -> Cont r b) -> Cont r a) -> Cont r a" {
   f -> callCC
   callCC -> result

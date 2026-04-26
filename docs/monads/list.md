@@ -5,6 +5,10 @@ many results simultaneously.
 
 ![list monad](diagrams/list.svg)
 
+![bind type signature](diagrams/list-ibd.svg)
+
+![bind implementation](diagrams/list-bind.svg)
+
 ## Type
 
 ```text

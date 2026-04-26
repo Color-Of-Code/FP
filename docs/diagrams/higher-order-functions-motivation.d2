@@ -5,21 +5,21 @@ direction: right
 before: "without HOFs: one function per type" {
   direction: down
   style.fill: "#fff0f0"
-  f1: "mapInts    :: [Int]    → [Int]" { style.fill: "#ffe0e0"; shape: rectangle }
-  f2: "mapStrings :: [String] → [String]" { style.fill: "#ffe0e0"; shape: rectangle }
-  f3: "mapUsers   :: [User]   → [User]" { style.fill: "#ffe0e0"; shape: rectangle }
-  note: "duplicate logic; grows with every new type" { shape: text }
+  f1: "mapInts    :: [Int]    → [Int]" {style.fill: "#ffe0e0"; shape: rectangle}
+  f2: "mapStrings :: [String] → [String]" {style.fill: "#ffe0e0"; shape: rectangle}
+  f3: "mapUsers   :: [User]   → [User]" {style.fill: "#ffe0e0"; shape: rectangle}
+  note: "duplicate logic; grows with every new type" {shape: text}
   f1 -> f2 -> f3 -> note
 }
 
 after: "with HOFs: one function for all types" {
   direction: down
   style.fill: "#f0fff0"
-  map: "map :: (a → b) → [a] → [b]" { style.fill: "#e0ffe0"; shape: rectangle }
-  ex1: "map show   :: [Int]  → [String]" { style.fill: "#e0ffe0"; shape: rectangle }
-  ex2: "map length :: [String] → [Int]" { style.fill: "#e0ffe0"; shape: rectangle }
-  ex3: "map .name  :: [User]   → [String]" { style.fill: "#e0ffe0"; shape: rectangle }
-  note2: "one definition; works for any type pair a, b" { shape: text }
+  map: "map :: (a → b) → [a] → [b]" {style.fill: "#e0ffe0"; shape: rectangle}
+  ex1: "map show   :: [Int]  → [String]" {style.fill: "#e0ffe0"; shape: rectangle}
+  ex2: "map length :: [String] → [Int]" {style.fill: "#e0ffe0"; shape: rectangle}
+  ex3: "map .name  :: [User]   → [String]" {style.fill: "#e0ffe0"; shape: rectangle}
+  note2: "one definition; works for any type pair a, b" {shape: text}
   map -> ex1
   map -> ex2
   map -> ex3

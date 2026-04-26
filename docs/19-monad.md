@@ -16,6 +16,14 @@ this.
 
 ![monad](diagrams/monad.svg)
 
+![bind](diagrams/monad-2.svg)
+
+![Maybe monad](diagrams/monad-3.svg)
+
+![List monad](diagrams/monad-4.svg)
+
+![bind type signature](diagrams/monad-ibd.svg)
+
 ## Operations
 
 - **`pure :: a ⟶ Ma`** — lift a plain value into the monad (inherited from

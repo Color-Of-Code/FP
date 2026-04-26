@@ -12,7 +12,8 @@ before: without fold: bespoke traversal per aggregation {
   note.class: [comment]
 }
 
-after: with fold: one path; any aggregator {
+after: with fold: one path
+any aggregator: {
   direction: right
   path -> sum_op
   path -> all_op
@@ -24,8 +25,20 @@ after: with fold: one path; any aggregator {
   list_op: "toListOf pricesF cart"
   first_op: "preview  pricesF cart"
   path.class: [definition]
-  sum_op.class: [value; a]
-  all_op.class: [value; b]
-  list_op.class: [value; b]
-  first_op.class: [value; c]
+  sum_op.class: [
+    value
+    a
+  ]
+  all_op.class: [
+    value
+    b
+  ]
+  list_op.class: [
+    value
+    b
+  ]
+  first_op.class: [
+    value
+    c
+  ]
 }

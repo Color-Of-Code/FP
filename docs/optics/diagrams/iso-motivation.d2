@@ -14,7 +14,8 @@ before: without iso: manual wrap and unwrap at every use site {
   note.class: [comment]
 }
 
-after: with iso: conversion is a first-class optic; composes freely {
+after: with iso: conversion is a first-class optic
+composes freely: {
   direction: right
   iso_val -> over_op
   iso_val -> compose_op
@@ -22,7 +23,13 @@ after: with iso: conversion is a first-class optic; composes freely {
   over_op: "over _email toLower email"
   compose_op: "_email . each :: Traversal' Email Char"
   iso_val.class: [definition]
-  over_op.class: [value; a]
-  compose_op.class: [value; b]
+  over_op.class: [
+    value
+    a
+  ]
+  compose_op.class: [
+    value
+    b
+  ]
   iso_val: {tooltip: The Iso is a value. Composing _email . each gives a Traversal over each character.}
 }

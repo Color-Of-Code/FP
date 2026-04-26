@@ -5,6 +5,10 @@ The **Parser monad** models computations that **consume a sequence of input** â€
 
 ![parser monad](diagrams/parser.svg)
 
+![bind type signature](diagrams/parser-ibd.svg)
+
+![bind implementation](diagrams/parser-bind.svg)
+
 ## Type
 
 ```text

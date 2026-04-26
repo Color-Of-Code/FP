@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 894 235" width="894" height="235">
+<defs>
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
+  </marker>
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
+  </marker>
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
+  </marker>
+</defs>
+<rect width="894" height="235" fill="white"/>
+<text x="447.0" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)</text>
+<g transform="translate(0,28)">
+  <rect x="0" y="0" width="894" height="207" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+  <g class="activity-frame-tab">
+    <path d="M0,0 L105.2,0 L115.2,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+    <text x="57.6" y="12.0" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» curry</text>
+  </g>
+  <g class="edge hof-edge">
+    <path d="M166.8,98.0 C166.8,98.0 206.8,98.0 206.8,98.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <text x="186.8" y="85.0" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">curry</text>
+  </g>
+  <g class="edge">
+    <path d="M326.8,98.0 C342.7,98.0 356.3,123.0 372.3,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    
+  </g>
+  <g class="edge">
+    <path d="M520.2,123.0 C540.4,123.0 557.8,97.3 578.0,97.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <text x="543.8" y="98.3" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">apply a</text>
+  </g>
+  <g class="edge">
+    <path d="M507.4,90.0 C507.4,90.0 578.0,82.7 578.0,82.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    
+  </g>
+  <g class="edge">
+    <path d="M698.0,90.0 C698.0,90.0 738.0,90.0 738.0,90.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    
+  </g>
+  <g class="edge">
+    <path d="M326.8,98.0 C326.8,98.0 578.0,90.0 578.0,90.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
+    
+  </g>
+  <g class="action-node"><title>curry: transforms a multi-arg function into a chain of single-arg functions</title>
+    <rect x="206.8" y="76.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+    <text x="266.8" y="98.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">curry</text>
+    <rect x="202.8" y="94.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+    <text x="212.8" y="98.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f2</text>
+    <rect x="322.8" y="94.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+    <text x="320.8" y="98.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">curried</text>
+  </g>
+  <g class="action-node"><title>Apply the first argument a, yielding the specialised function</title>
+    <rect x="578.0" y="68.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+    <text x="638.0" y="90.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">applyA</text>
+    <rect x="574.0" y="78.7" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+    <text x="584.0" y="82.7" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+    <rect x="574.0" y="93.3" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+    <text x="584.0" y="97.3" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">curried</text>
+    <rect x="694.0" y="86.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+    <text x="692.0" y="90.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f1</text>
+  </g>
+  <g class="object-node hof"><title>(a,b) ⟶ c — original multi-argument function, flowing in as a data token</title>
+    <rect x="46.0" y="79.0" width="120.8" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+    <text x="106.4" y="91.0" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+    <text x="106.4" y="105.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f2 : (a,b) ⟶ c</text>
+  </g>
+  <g class="object-node"><title>a ⟶ (b ⟶ c) — the curried form, itself a function</title>
+    <rect x="366.8" y="123.0" width="171.20000000000002" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+    <text x="452.4" y="142.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">curried : a ⟶ (b ⟶ c)</text>
+  </g>
+  <g class="object-node">
+    <rect x="397.4" y="71.0" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+    <text x="452.4" y="90.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a : a</text>
+  </g>
+  <g class="object-node"><title>b ⟶ c — the specialised function with a already applied</title>
+    <rect x="738.0" y="71.0" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+    <text x="793.0" y="90.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f1 : b ⟶ c</text>
+  </g>
+</g>
+</svg>

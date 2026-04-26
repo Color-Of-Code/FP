@@ -5,8 +5,8 @@ direction: down
 before: without STM: explicit locks require careful ordering to avoid deadlock {
   direction: right
   lock_a -> lock_b -> update_a -> update_b -> unlock_b -> unlock_a
-  lock_a:   "lock(accountA)"
-  lock_b:   "lock(accountB)"
+  lock_a: "lock(accountA)"
+  lock_b: "lock(accountB)"
   update_a: "accountA -= amount"
   update_b: "accountB += amount"
   unlock_b: "unlock(accountB)"
@@ -46,11 +46,11 @@ after: with STM: compose reads and writes freely — runtime prevents conflicts 
   write_a -> read_b: ">>="
   read_b -> write_b: ">>="
   write_b -> commit: atomically
-  read_a:  "readTVar accountA"
+  read_a: "readTVar accountA"
   write_a: "writeTVar accountA"
-  read_b:  "readTVar accountB"
+  read_b: "readTVar accountB"
   write_b: "writeTVar accountB"
-  commit:  "IO ()"
+  commit: "IO ()"
   read_a.class: [
     function
     f

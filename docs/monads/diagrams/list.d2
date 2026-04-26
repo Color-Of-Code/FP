@@ -15,32 +15,6 @@ type_def: List<a> as a monad {
   explanation.class: [comment]
 }
 
-bind_def: bind :: List<a> ⟶ (a ⟶ List<b>) ⟶ List<b> {
-  la -> bind
-  f -> bind
-  bind -> lb
-  la: List<a>
-  f: a ⟶ List<b>
-  lb: List<b> (flattened)
-  la.class: [
-    type
-    a
-  ]
-  f.class: [
-    function
-    f
-  ]
-  lb.class: [
-    type
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: Apply f to every element in List<a>, then concatenate all resulting lists.}
-}
-
 example: expand each x to x and x*10 {
   input -> e1
   input -> e2

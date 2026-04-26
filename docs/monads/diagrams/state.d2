@@ -16,32 +16,6 @@ type_def: State s a = s ⟶ (a, s) {
   explanation.class: [comment]
 }
 
-bind_def: bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b {
-  sa -> bind
-  f -> bind
-  bind -> sb
-  sa: State s a
-  f: a ⟶ State s b
-  sb: State s b
-  sa.class: [
-    type
-    a
-  ]
-  f.class: [
-    function
-    f
-  ]
-  sb.class: [
-    type
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: Run sa with the current state to get (a, s'). Pass a to f. Run f(a) with s' to get (b, s'').}
-}
-
 example: integer counter {
   step1: get (read state) {
     s_in -> op

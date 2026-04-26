@@ -5,6 +5,10 @@ value** — carrying a description of what went wrong.
 
 ![either monad](diagrams/either.svg)
 
+![bind type signature](diagrams/either-ibd.svg)
+
+![bind implementation](diagrams/either-bind.svg)
+
 ## Type
 
 ```text

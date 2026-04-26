@@ -15,32 +15,6 @@ type_def: Reader r a = r ⟶ a {
   explanation.class: [comment]
 }
 
-bind_def: bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b {
-  ra -> bind
-  f -> bind
-  bind -> rb
-  ra: Reader r a
-  f: a ⟶ Reader r b
-  rb: Reader r b
-  ra.class: [
-    type
-    a
-  ]
-  f.class: [
-    function
-    f
-  ]
-  rb.class: [
-    type
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: Run ra with env r to get a. Pass a to f to get Reader r b. Run that with the same env r.}
-}
-
 primitives: primitive operations {
   ask: ask :: Reader r r {
     r -> op

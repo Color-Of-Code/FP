@@ -11,9 +11,11 @@ NODE_BIN    := $(REPO_ROOT)/.tools/node_modules/.bin
 # styles.d2 lives alongside the diagrams under docs/
 STYLES := $(REPO_ROOT)/docs/styles.d2
 
-# SysML v2 source files (transpile to SVG via sysml-to-svg.ts)
-SYSML_FILES := $(wildcard $(DOCS_DIAG)/*.sysml)
-SYSML_SVGS  := $(SYSML_FILES:.sysml=.svg)
+# SysML v2 source files (transpile to SVG via sysml/cli.ts)
+SYSML_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.sysml)
+SYSML_FILES_MONADS := $(wildcard $(MONAD_DIAG)/*.sysml)
+SYSML_FILES        := $(SYSML_FILES_DOCS) $(SYSML_FILES_MONADS)
+SYSML_SVGS         := $(patsubst %.sysml,%.svg,$(SYSML_FILES))
 
 # D2 source files in each location
 D2_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.d2)
@@ -52,6 +54,9 @@ install:
 sysml: $(SYSML_SVGS)
 
 $(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.sysml
+	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
+
+$(MONAD_DIAG)/%.svg: $(MONAD_DIAG)/%.sysml
 	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
 
 ## Regenerate all SVG diagrams

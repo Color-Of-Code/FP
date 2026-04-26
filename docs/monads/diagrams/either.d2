@@ -16,52 +16,6 @@ type_def: Either<e, a> = Left e | Right a {
   explanation.class: [comment]
 }
 
-bind_right: bind — Right a continues {
-  ra -> bind
-  f -> bind
-  bind -> result
-  ra: Right a
-  f: a ⟶ Either<e, b>
-  result: Either<e, b>
-  ra.class: [
-    value
-    a
-  ]
-  f.class: [
-    function
-    f
-  ]
-  result.class: [
-    value
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: Unwrap a from Right a, apply f. Result is Right b or Left e from f.}
-}
-
-bind_left: bind — Left e short-circuits {
-  le -> bind
-  bind -> le2
-  le: Left e
-  le2: Left e
-  le.class: [
-    type
-    b
-  ]
-  le2.class: [
-    type
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: f is never called. The Left error value propagates unchanged through the chain.}
-}
-
 example: parse and validate an age {
   input1 -> parse1
   parse1 -> r42

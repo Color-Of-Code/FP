@@ -12,17 +12,26 @@ prog: "Program\n∀ F[_]. Algebra[F] ⇒ F[Result]" {
 }
 
 prod: Production\nF = IO {
-  class: [type; b]
+  class: [
+    type
+    b
+  ]
   style.fill: "#57cc99"
 }
 
 test: "Test\nF = State[Log]" {
-  class: [type; a]
+  class: [
+    type
+    a
+  ]
   style.fill: "#f4a261"
 }
 
 pure2: "Pure / Id\nF = Identity" {
-  class: [type; c]
+  class: [
+    type
+    c
+  ]
 }
 
 algebra -> prog

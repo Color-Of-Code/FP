@@ -9,6 +9,12 @@ applying **wrapped functions** to **wrapped values**.
 
 ![applicative](diagrams/applicative.svg)
 
+![fmap and pure](diagrams/applicative-2.svg)
+
+![typeclass hierarchy](diagrams/applicative-3.svg)
+
+![(<*>) type signature](diagrams/applicative-ibd.svg)
+
 A plain functor can only lift an unwrapped function: `fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb`. But what if the
 function itself is wrapped inside `F`? Applicative adds:
 

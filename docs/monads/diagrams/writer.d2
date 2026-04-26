@@ -16,32 +16,6 @@ type_def: Writer w a = (a, w) {
   explanation.class: [comment]
 }
 
-bind_def: bind :: Writer w a ⟶ (a ⟶ Writer w b) ⟶ Writer w b {
-  wa -> bind
-  f -> bind
-  bind -> wb
-  wa: "(a, w1)"
-  f: a ⟶ "(b, w2)"
-  wb: "(b, w1 <> w2)"
-  wa.class: [
-    type
-    a
-  ]
-  f.class: [
-    function
-    f
-  ]
-  wb.class: [
-    type
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: Extract a from (a, w1). Apply f(a) to get (b, w2). Return (b, w1 <> w2) — result b with combined log.}
-}
-
 primitives: primitive operations {
   tell: tell :: w ⟶ Writer w () {
     w -> op

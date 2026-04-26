@@ -19,32 +19,6 @@ type_def: "Prob a = [(a, Double)]" {
   explanation.class: [comment]
 }
 
-bind_def: "bind :: Prob a -> (a -> Prob b) -> Prob b" {
-  dist -> bind
-  f -> bind
-  bind -> result
-  dist: "Prob a"
-  f: "a -> Prob b"
-  result: "Prob b"
-  dist.class: [
-    type
-    a
-  ]
-  f.class: [
-    function
-    f
-  ]
-  result.class: [
-    type
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: For each (a, pa) in dist, apply f to get a Prob b. Each (b, pb) gets weight pa * pb. Cartesian product weighted by joint probability.}
-}
-
 primitives: primitive operations {
   uniform: "uniform xs -> Prob a" {
     xs -> op -> out

@@ -12,6 +12,8 @@ plain function `f :: a ⟶ b` to work inside the wrapper: `fmap f :: Fa ⟶ Fb`.
 
 ![functor](diagrams/functor.svg)
 
+![fmap type signature](diagrams/functor-ibd.svg)
+
 This means you can reuse any ordinary function over any functor without rewriting it — the functor
 handles the "opening and closing" of the wrapper.
 

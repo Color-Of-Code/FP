@@ -7,10 +7,10 @@ before: without Parser monad: remaining input threaded manually {
   parse1 -> check1 -> pass1 -> parse2 -> check2 -> pass2 -> result
   parse1: "parse_digit(input)"
   check1: "null?"
-  pass1:  "(d, rest1)"
+  pass1: "(d, rest1)"
   parse2: "parse_letter(rest1)"
   check2: "null?"
-  pass2:  "(l, rest2)"
+  pass2: "(l, rest2)"
   result: "((d,l), rest2)"
   parse1.class: [
     function

@@ -6,6 +6,10 @@ explicit gives first-class control over the flow of a program.
 
 ![cont monad](diagrams/cont.svg)
 
+![bind type signature](diagrams/cont-ibd.svg)
+
+![bind implementation](diagrams/cont-bind.svg)
+
 ## Type
 
 ```text

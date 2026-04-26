@@ -5,6 +5,10 @@ actually using mutable variables — state is threaded explicitly as a function 
 
 ![state monad](diagrams/state.svg)
 
+![bind type signature](diagrams/state-ibd.svg)
+
+![bind implementation](diagrams/state-bind.svg)
+
 ## Type
 
 ```text

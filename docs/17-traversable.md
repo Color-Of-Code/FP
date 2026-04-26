@@ -9,6 +9,12 @@ function** and collecting the results — while preserving the container's shape
 
 ![traversable](diagrams/traversable.svg)
 
+![sequence](diagrams/traversable-2.svg)
+
+![traversable requirements](diagrams/traversable-3.svg)
+
+![traverse type signature](diagrams/traversable-ibd.svg)
+
 Two core operations:
 
 - **`traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)`** — apply an effectful function to every element; collect

@@ -6,6 +6,10 @@ should modify.
 
 ![reader monad](diagrams/reader.svg)
 
+![bind type signature](diagrams/reader-ibd.svg)
+
+![bind implementation](diagrams/reader-bind.svg)
+
 ## Type
 
 ```text

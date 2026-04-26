@@ -5,6 +5,10 @@ producing either a value or nothing at all.
 
 ![maybe monad](diagrams/maybe.svg)
 
+![bind type signature](diagrams/maybe-ibd.svg)
+
+![bind implementation](diagrams/maybe-bind.svg)
+
 ## Type
 
 ```text

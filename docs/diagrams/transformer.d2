@@ -21,10 +21,10 @@ type_def: "T M a — transformer T adds one effect on top of monad M" {
 stack: "ReaderT r (ExceptT e (Writer w)) a — three-layer example" {
   direction: down
   reader_layer -> except_layer -> writer_layer -> base
-  reader_layer:  "ReaderT r  — reads config r"
-  except_layer:  "ExceptT e  — may fail with error e"
-  writer_layer:  "WriterT w  — accumulates output w"
-  base:          "Identity   — pure base (no extra effect)"
+  reader_layer: "ReaderT r  — reads config r"
+  except_layer: "ExceptT e  — may fail with error e"
+  writer_layer: "WriterT w  — accumulates output w"
+  base: "Identity   — pure base (no extra effect)"
   reader_layer.class: [
     type
     a

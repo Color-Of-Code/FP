@@ -12,7 +12,8 @@ before: without traversal: ad hoc map per combination {
   note.class: [comment]
 }
 
-after: with traversal: compose once; any aggregator works {
+after: with traversal: compose once
+any aggregator works: {
   direction: right
   path -> over_op
   path -> sum_op
@@ -24,8 +25,20 @@ after: with traversal: compose once; any aggregator works {
   list_op: "toListOf t cart"
   all_op: "allOf t (>100) cart"
   path.class: [definition]
-  over_op.class: [value; a]
-  sum_op.class: [value; b]
-  list_op.class: [value; b]
-  all_op.class: [value; c]
+  over_op.class: [
+    value
+    a
+  ]
+  sum_op.class: [
+    value
+    b
+  ]
+  list_op.class: [
+    value
+    b
+  ]
+  all_op.class: [
+    value
+    c
+  ]
 }

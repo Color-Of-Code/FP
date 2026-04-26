@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 715.1999999999999 298" width="715.1999999999999" height="298">
+<defs>
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
+  </marker>
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
+  </marker>
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
+  </marker>
+</defs>
+<rect width="715.1999999999999" height="298" fill="white"/>
+<text x="357.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b</text>
+<g transform="translate(0,28)">
+<rect x="0" y="0" width="715.1999999999999" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
+<text x="357.6" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» EitherBindContext</text>
+
+
+  <g class="edge">
+    <path d="M257.6,150.2 C257.6,150.2 308.4,142.3 308.4,142.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    
+  </g>
+  <g class="edge hof-edge">
+    <path d="M268.4,121.3 C268.4,121.3 308.4,127.7 308.4,127.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    
+  </g>
+  <g class="edge">
+    <path d="M428.4,135.0 C428.4,135.0 468.4,135.0 468.4,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    
+  </g>
+  <g class="object-node"><title>Either e a — Right a (carry a) or Left e (carry error e). Unlike Maybe, the error value is preserved.</title>
+    <rect x="100.8" y="142.0" width="156.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+    <text x="179.2" y="161.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ma_val : Either e a</text>
+  </g>
+  <g class="object-node hof"><title>(a ⟶ Either e b) — called only when ma_val is Right a; may itself return Left e</title>
+    <rect x="90.0" y="90.0" width="178.4" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+    <text x="179.2" y="102.0" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+    <text x="179.2" y="116.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f_val : a ⟶ Either e b</text>
+  </g>
+  <g class="action-node"><title>Right a →  f a          (unwrap, apply, return result)\nLeft e  →  Left e       (short-circuit: skip f, propagate the error value unchanged)</title>
+    <rect x="308.4" y="113.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+    <text x="368.4" y="135.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : EitherBindOp</text>
+    
+    
+  </g>
+  <g class="object-node"><title>Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)</title>
+    <rect x="468.4" y="116.0" width="156.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+    <text x="546.8" y="135.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb_val : Either e b</text>
+  </g>
+</g>
+</svg>

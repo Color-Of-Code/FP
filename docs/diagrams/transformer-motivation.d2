@@ -5,9 +5,9 @@ direction: down
 before: without transformers: every effect threaded as an explicit parameter {
   direction: right
   step1 -> check1 -> step2 -> check2 -> result
-  step1:  "step1(input, config, state, log)"
+  step1: "step1(input, config, state, log)"
   check1: "error?"
-  step2:  "step2(r1, config, state', log')"
+  step2: "step2(r1, config, state', log')"
   check2: "error?"
   result: "(r2, state'', log'')"
   step1.class: [
@@ -34,7 +34,8 @@ before: without transformers: every effect threaded as an explicit parameter {
   note.class: [comment]
 }
 
-after: with transformers: bind threads all effects; do-notation reads as plain code {
+after: with transformers: bind threads all effects
+do-notation reads as plain code: {
   direction: right
   step1 -> step2 -> step3 -> runStack
   step1 -> step2: ">>="

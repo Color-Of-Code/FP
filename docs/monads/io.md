@@ -5,6 +5,10 @@ files, clocks, or any interaction with the outside world.
 
 ![IO monad](diagrams/io.svg)
 
+![bind type signature](diagrams/io-ibd.svg)
+
+![bind implementation](diagrams/io-bind.svg)
+
 ## Type
 
 ```text

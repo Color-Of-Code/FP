@@ -12,6 +12,8 @@ values.
 
 ![currying and partial application](diagrams/function2.svg)
 
+![currying](diagrams/function2-2.svg)
+
 ## Partial application
 
 **Partial application** fixes one or more (but not all) arguments of a function, producing a new

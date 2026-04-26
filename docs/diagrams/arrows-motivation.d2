@@ -3,7 +3,10 @@
 direction: down
 
 monad: Monad {
-  class: [type; b]
+  class: [
+    type
+    b
+  ]
   style.fill: "#9191f4"
 }
 
@@ -17,7 +20,10 @@ monad -> arrow: "every Monad\nis an Arrow" {
 }
 
 profunctor: Profunctor {
-  class: [type; a]
+  class: [
+    type
+    a
+  ]
 }
 
 arrow -> profunctor: "every Arrow\nis a Profunctor\n(Strong)" {

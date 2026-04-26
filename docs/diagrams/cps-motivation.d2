@@ -4,10 +4,10 @@ direction: down
 
 before: "direct style: call stack controls return; hard to interrupt or redirect" {
   direction: right
-  f: "f()" { style.fill: "#f4f4f4"; shape: rectangle }
-  g: "g()" { style.fill: "#f4f4f4"; shape: rectangle }
-  h: "h()" { style.fill: "#f4f4f4"; shape: rectangle }
-  caller: "caller receives result" { style.fill: "#ffe0e0"; shape: rectangle }
+  f: "f()" {style.fill: "#f4f4f4"; shape: rectangle}
+  g: "g()" {style.fill: "#f4f4f4"; shape: rectangle}
+  h: "h()" {style.fill: "#f4f4f4"; shape: rectangle}
+  caller: "caller receives result" {style.fill: "#ffe0e0"; shape: rectangle}
   f -> g: "calls"
   g -> h: "calls"
   h -> g: "returns"
@@ -17,10 +17,10 @@ before: "direct style: call stack controls return; hard to interrupt or redirect
 
 after: "CPS: each function receives a continuation k — what to do next; caller controls flow" {
   direction: right
-  f2: "f(k)" { style.fill: "#e8f5e9"; shape: rectangle }
-  g2: "g(k)" { style.fill: "#e8f5e9"; shape: rectangle }
-  h2: "h(k)" { style.fill: "#e8f5e9"; shape: rectangle }
-  k: "k(result)\n← continuation passed\n   to each step" { style.fill: "#fff9c4"; shape: rectangle }
+  f2: "f(k)" {style.fill: "#e8f5e9"; shape: rectangle}
+  g2: "g(k)" {style.fill: "#e8f5e9"; shape: rectangle}
+  h2: "h(k)" {style.fill: "#e8f5e9"; shape: rectangle}
+  k: "k(result)\n← continuation passed\n   to each step" {style.fill: "#fff9c4"; shape: rectangle}
   f2 -> g2: "passes k"
   g2 -> h2: "passes k"
   h2 -> k: "calls k with result\n(no return)"

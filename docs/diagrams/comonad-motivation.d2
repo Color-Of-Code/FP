@@ -5,13 +5,22 @@ direction: down
 monad_view: Monad — inject and chain {
   direction: right
   a: a {
-    class: [value; a]
+    class: [
+      value
+      a
+    ]
   }
   ma: "M a" {
-    class: [type; a]
+    class: [
+      type
+      a
+    ]
   }
   mb: "M b" {
-    class: [type; b]
+    class: [
+      type
+      b
+    ]
   }
   a -> ma: "pure: inject context"
   ma -> mb: "bind: use value,\nreturn new context"
@@ -20,13 +29,22 @@ monad_view: Monad — inject and chain {
 comonad_view: Comonad — extract and broadcast {
   direction: right
   wa: "W a" {
-    class: [type; a]
+    class: [
+      type
+      a
+    ]
   }
   a2: a {
-    class: [value; a]
+    class: [
+      value
+      a
+    ]
   }
   wb: "W b" {
-    class: [type; b]
+    class: [
+      type
+      b
+    ]
   }
   wa -> a2: "extract: focus value"
   wa -> wb: "extend: use whole\ncontext, produce new"

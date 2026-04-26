@@ -18,32 +18,6 @@ type_def: IO a — a description of an effectful computation {
   explanation.class: [comment]
 }
 
-bind_def: bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b {
-  ia -> bind
-  f -> bind
-  bind -> ib
-  ia: IO a
-  f: a ⟶ IO b
-  ib: IO b
-  ia.class: [
-    type
-    a
-  ]
-  f.class: [
-    function
-    f
-  ]
-  ib.class: [
-    type
-    b
-  ]
-  bind.class: [
-    function
-    g
-  ]
-  bind: {tooltip: Execute ia to get a, pass a to f, execute the resulting IO b action.}
-}
-
 example: greet the user {
   read -> bind1
   bind1 -> greet

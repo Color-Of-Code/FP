@@ -1,0 +1,17 @@
+direction: right
+
+...@../styles
+
+hierarchy: "Functor ⊂ Applicative ⊂ Monad" {
+  functor: Functor {
+    style.fill: "#f4f4f4"
+  }
+  applicative: Applicative {
+    style.fill: "#f4f4f4"
+  }
+  monad: Monad {
+    style.fill: "#f4f4f4"
+  }
+  functor -> applicative: "adds pure, <*>"
+  applicative -> monad: "adds bind (>>=)"
+}

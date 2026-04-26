@@ -6,7 +6,7 @@ before: without recursion schemes: traversal skeleton repeated in every function
   direction: right
   eval_fn -> pp_fn -> count_fn
   eval_fn: "eval :: Expr -> Int"
-  pp_fn:   "pp :: Expr -> String"
+  pp_fn: "pp :: Expr -> String"
   count_fn: "countNodes :: Expr -> Int"
   eval_fn.class: [
     function
@@ -27,14 +27,15 @@ before: without recursion schemes: traversal skeleton repeated in every function
   count_fn -> skeleton
 }
 
-after: with cata: one traversal; algebras are plain data-mapping functions {
+after: with cata: one traversal
+algebras are plain data-mapping functions: {
   direction: right
   cata_box -> eval_alg
   cata_box -> pp_alg
   cata_box -> count_alg
   cata_box: "cata :: (ExprF a -> a) -> Expr -> a"
-  eval_alg:  "evalAlg  :: ExprF Int    -> Int"
-  pp_alg:    "ppAlg    :: ExprF String -> String"
+  eval_alg: "evalAlg  :: ExprF Int    -> Int"
+  pp_alg: "ppAlg    :: ExprF String -> String"
   count_alg: "countAlg :: ExprF Int    -> Int"
   cata_box.class: [
     function
