@@ -1,0 +1,41 @@
+...@../styles
+
+direction: right
+
+arr: "arr :: (B → C) → A B C\n(embed pure fn)" {
+  class: function
+}
+
+compose_a: "(>>>) :: A B C → A C D → A B D\n(sequential composition)" {
+  class: function
+}
+
+first_a: "first :: A B C → A (B,D) (C,D)\n(pass extra input through)" {
+  class: function
+}
+
+laws: Laws {
+  class: definition
+  style.fill: "#9191f4"
+}
+
+arr -> laws
+compose_a -> laws
+first_a -> laws
+
+uses: Applications {
+  stream: "Stream\nprocessors" {
+    class: [type; a]
+  }
+  parser: "Parser\ncombinators" {
+    class: [type; b]
+  }
+  frp: "FRP\nsignal graphs" {
+    class: [type; c]
+  }
+  circuit: "Circuit /\nautomaton" {
+    class: [type; a]
+  }
+}
+
+laws -> uses

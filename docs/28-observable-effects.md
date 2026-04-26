@@ -1,4 +1,4 @@
-# 27. Observable Effects
+# 28. Observable Effects
 
 The functional model treats functions as timeless mathematical mappings: given the same inputs a
 pure function always returns the same output, with no visible interaction with the world. Real

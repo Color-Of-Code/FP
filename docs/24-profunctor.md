@@ -452,4 +452,4 @@ func main() {
 - [13. Functor](./13-functor.md) — `fmap` is the covariant half; profunctor generalises to two sides
 - [14. Natural Transformations](./14-natural-transformations.md) — profunctor optics _are_ natural
   transformations between profunctors
-- [25. Lens / Optics](./25-optics.md) — Van Laarhoven and profunctor encodings side-by-side
+- [26. Lens / Optics](./26-optics.md) — Van Laarhoven and profunctor encodings side-by-side

@@ -30,9 +30,10 @@ A learning track through the core concepts of functional programming, each build
 | 22  | [Composing Effects](docs/22-effects.md)                       | Monad Transformers, Free Monad, and Algebraic Effects compared                  |
 | 23  | [Tagless Final](docs/23-tagless-final.md)                     | Typeclass-polymorphic programs; capability control; Free Monad alternative      |
 | 24  | [Profunctor](docs/24-profunctor.md)                           | `dimap`; Strong→Lens, Choice→Prism; profunctor optics unify all optic kinds     |
-| 25  | [Lens / Optics](docs/25-optics.md)                            | Composable, first-class access and update of nested immutable data              |
-| 26  | [Recursion Schemes](docs/26-recursion-schemes.md)             | Generalised folds: cata, ana, hylo and the base functor pattern                 |
-| 27  | [Observable Effects](docs/27-observable-effects.md)           | The effect spectrum from pure FP to physical hardware; side-channel attacks     |
+| 25  | [Arrows](docs/25-arrows.md)                                   | `arr`/`>>>`/`first`; Kleisli; stream processors, FRP, parser combinators        |
+| 26  | [Lens / Optics](docs/26-optics.md)                            | Composable, first-class access and update of nested immutable data              |
+| 27  | [Recursion Schemes](docs/27-recursion-schemes.md)             | Generalised folds: cata, ana, hylo and the base functor pattern                 |
+| 28  | [Observable Effects](docs/28-observable-effects.md)           | The effect spectrum from pure FP to physical hardware; side-channel attacks     |
 
 ## Diagrams
 
@@ -74,7 +75,7 @@ languages.
 | [Fold](docs/optics/fold.md)                     | Focus on zero or more elements; read only         |
 | [Getter / Setter](docs/optics/getter-setter.md) | Read-only (derived values) and write-only optics  |
 
-> Overview and composition rules: [25. Lens / Optics](docs/25-optics.md)
+> Overview and composition rules: [26. Lens / Optics](docs/26-optics.md)
 
 ## Category Theory track
 

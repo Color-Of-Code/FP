@@ -1,0 +1,29 @@
+...@../styles
+
+direction: down
+
+monad: Monad {
+  class: [type; b]
+  style.fill: "#9191f4"
+}
+
+arrow: Arrow {
+  class: definition
+  style.fill: "#57cc99"
+}
+
+monad -> arrow: "every Monad\nis an Arrow" {
+  style.stroke-dash: 5
+}
+
+profunctor: Profunctor {
+  class: [type; a]
+}
+
+arrow -> profunctor: "every Arrow\nis a Profunctor\n(Strong)" {
+  style.stroke-dash: 5
+}
+
+note: "Arrows capture computations\nwhere the shape of the input\nmatters (not just the value)" {
+  class: comment
+}
