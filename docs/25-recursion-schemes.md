@@ -1,4 +1,4 @@
-# 24. Recursion Schemes
+# 25. Recursion Schemes
 
 > Mathematical background: [F-Algebra](../ct/f-algebra.md) — initial algebras, fixed points, and
 > catamorphisms

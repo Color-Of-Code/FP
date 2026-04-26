@@ -377,5 +377,5 @@ func main() {
 ## See also
 
 - [19. Monad](./19-monad.md) — the categorical dual; comparing the two clarifies both
-- [23. Lens / Optics](./23-optics.md) — Store comonad is the denotational basis of Lens
+- [24. Lens / Optics](./24-optics.md) — Store comonad is the denotational basis of Lens
 - [../ct/monad.md](../ct/monad.md) — categorical formulation; dualising gives comonad laws

@@ -58,7 +58,7 @@ The structure map `in = Fix` and its inverse `out = unFix` correspond to Lambek'
 | Anamorphism `ana`          | `(a -> f a) -> a -> Fix f`                   | Unfold from any F-coalgebra           |
 | Hylomorphism `hylo`        | `(f b -> b) -> (a -> f a) -> a -> b`         | Unfold then fold                      |
 
-→ FP track: [24. Recursion Schemes](../docs/24-recursion-schemes.md) |
+→ FP track: [25. Recursion Schemes](../docs/25-recursion-schemes.md) |
 [7. Algebraic Data Types](../docs/07-adt.md)
 
 ## CTFP Reference

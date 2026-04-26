@@ -1,0 +1,37 @@
+...@../styles
+
+direction: right
+
+algebra: Algebra (typeclass) {
+  class: definition
+  style.fill: "#9191f4"
+}
+
+prog: "Program\n∀ F[_]. Algebra[F] ⇒ F[Result]" {
+  class: function
+}
+
+prod: Production\nF = IO {
+  class: [type; b]
+  style.fill: "#57cc99"
+}
+
+test: "Test\nF = State[Log]" {
+  class: [type; a]
+  style.fill: "#f4a261"
+}
+
+pure2: "Pure / Id\nF = Identity" {
+  class: [type; c]
+}
+
+algebra -> prog
+prog -> prod: "interpret"
+prog -> test: "interpret"
+prog -> pure2: "interpret"
+
+compose: Combine algebras\nvia implicit params {
+  class: comment
+}
+
+algebra -> compose

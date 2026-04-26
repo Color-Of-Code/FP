@@ -1,0 +1,37 @@
+...@../styles
+
+direction: down
+
+free: Free Monad approach {
+  direction: right
+  ops: Operations\nas ADT variants {
+    class: function
+    style.fill: "#f4a261"
+  }
+  interp: Interpreter\nfunction {
+    class: function
+  }
+  ops -> interp: "build AST\nthen interpret"
+  note: "Allocates heap per\noperation; slower" {
+    class: comment
+  }
+}
+
+tf: Tagless Final approach {
+  direction: right
+  algebra: Algebra\ntypeclass/interface {
+    class: definition
+    style.fill: "#57cc99"
+  }
+  prog: Program\n(polymorphic in F) {
+    class: function
+  }
+  interp2: Interpreter\n(pick F = IO, Pure…) {
+    class: function
+  }
+  algebra -> prog -> interp2: "write once\nrun anywhere"
+}
+
+free -> tf: "same power\nbetter performance" {
+  style.stroke-dash: 5
+}
