@@ -1,7 +1,9 @@
 # 25. Profunctor
 
 > Mathematical background: [Natural Transformation](../ct/natural-transformation.md) — natural
-> transformations between profunctors underpin the profunctor optics encoding
+> transformations between profunctors underpin the profunctor optics encoding |
+> [Yoneda Lemma](../ct/yoneda.md) — `forall p. Profunctor p => p a b -> p s t` is Yoneda over the
+> profunctor argument
 
 A **profunctor** is a type constructor `P` with two type parameters `A` and `B` that is
 **contravariant in `A`** and **covariant in `B`**. The single operation is `dimap`:

@@ -1,5 +1,8 @@
 # 20. Comonad
 
+> Mathematical background: [Comonad](../ct/comonad.md) — extract/extend laws; co-Kleisli category;
+> Store and Env comonads as lenses and readers
+
 A **comonad** is the categorical dual of a monad. Where a monad injects a value into a context and
 chains computations that _produce_ context, a comonad _extracts_ a focused value from a context and
 chains computations that _consume_ context.

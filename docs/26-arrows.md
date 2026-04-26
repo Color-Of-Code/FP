@@ -1,5 +1,8 @@
 # 26. Arrows
 
+> Mathematical background: [Kleisli Categories](../ct/kleisli.md) — Kleisli arrows formalise monadic
+> functions; every `Arrow` whose `arr` is faithful is a Kleisli category for some monad
+
 An **arrow** `A b c` is an abstraction of a computation from `b` to `c` that may carry **extra
 structure** — state, side effects, or parallelism — without requiring the full power of a monad.
 Where a monad sequences computations that _produce_ context (`a → M b`), an arrow is a first-class

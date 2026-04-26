@@ -1,7 +1,7 @@
 # 19. Monad
 
-> Mathematical background: [Monad](../ct/monad.md) — monoid in the category of endofunctors; Kleisli
-> triple
+> Mathematical background: [Monad](../ct/monad.md) — monoid in the category of endofunctors;
+> [Kleisli Categories](../ct/kleisli.md) — `>>=` as Kleisli composition; monad laws as category laws
 
 A **monad** is a functor extended with two operations that allow **sequencing of effectful
 computations**.

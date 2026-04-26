@@ -96,3 +96,39 @@ make -C .tools fmt-md lint-md
 The `lint-langs` check does **not** apply to `ct/` pages (they have no per-language sections). Do
 not add `ct/` files to `SKIP_FILES` in `.tools/check-lang-order.js` — the checker only scans `docs/`
 and `docs/monads/`.
+
+## CTFP chapter coverage
+
+The table below maps every CTFP chapter to its `ct/` page and the primary `docs/` chapter it
+supports. Use this when deciding whether a new `ct/` page is worth adding: create one when a CTFP
+chapter has a **direct analog in `docs/`** and the CT perspective genuinely illuminates the FP
+concept.
+
+| CTFP     | Title                       | `ct/` page                  | Primary `docs/` analog                         | Status       |
+| -------- | --------------------------- | --------------------------- | ---------------------------------------------- | ------------ |
+| 1.1, 1.3 | Category / Composition      | `category.md`               | `04-composition.md`                            | ✅           |
+| 1.2      | Types & Functions           | `types-functions.md`        | `01-function.md`                               | ✅           |
+| 1.4      | Kleisli Categories          | `kleisli.md`                | `19-monad.md`, `26-arrows.md`                  | ✅           |
+| 1.5–1.6  | Products & Coproducts       | `product-coproduct.md`      | `07-adt.md`                                    | ✅           |
+| 1.7–1.8  | Functors / Functoriality    | `functor.md`                | `13-functor.md`                                | ✅           |
+| 1.9      | Function Types              | `lambda-calculus.md`        | `01-function.md`, `31-computation-models.md`   | ✅ (partial) |
+| 1.10     | Natural Transformations     | `natural-transformation.md` | `14-natural-transformations.md`                | ✅           |
+| 2.1      | Declarative Programming     | —                           | philosophical survey; no CT page needed        | ➖           |
+| 2.2      | Limits & Colimits           | —                           | `07-adt.md`                                    | 🔲 candidate |
+| 2.3      | Free Monoids                | —                           | `11-semigroup-monoid.md`                       | 🔲 candidate |
+| 2.4      | Representable Functors      | —                           | relates to Yoneda                              | 🔲 candidate |
+| 2.5–2.6  | Yoneda Lemma / Embedding    | `yoneda.md`                 | `25-profunctor.md`, `27-optics.md`             | ✅           |
+| 3.1      | It's All About Morphisms    | —                           | survey; no dedicated CT page needed            | ➖           |
+| 3.2–3.3  | Adjunctions                 | `adjunction.md`             | `06-currying.md`, `19-monad.md`                | ✅           |
+| 3.4–3.6  | Monads                      | `monad.md`                  | `19-monad.md`                                  | ✅           |
+| 3.7      | Comonads                    | `comonad.md`                | `20-comonad.md`                                | ✅           |
+| 3.8–3.9  | F-Algebras                  | `f-algebra.md`              | `28-recursion-schemes.md`                      | ✅           |
+| 3.10     | Ends & Coends               | —                           | `25-profunctor.md`                             | 🔲 candidate |
+| 3.11     | Kan Extensions              | —                           | `14-natural-transformations.md`                | 🔲 candidate |
+| 3.12     | Enriched Categories         | —                           | very abstract; defer                           | ➖           |
+| 3.13     | Topoi                       | —                           | very abstract; defer                           | ➖           |
+| 3.14     | Lawvere Theories            | —                           | `09-type-classes.md`, `11-semigroup-monoid.md` | 🔲 candidate |
+| 3.15     | Monads, Monoids, Categories | —                           | extends `monad.md`                             | 🔲 candidate |
+| —        | Lambda Calculus             | `lambda-calculus.md`        | `01-function.md`, `31-computation-models.md`   | ✅           |
+
+**Status key:** ✅ done · 🔲 good candidate for a new page · ➖ no page warranted

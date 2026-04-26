@@ -1,5 +1,9 @@
 # 27. Lens / Optics
 
+> Mathematical background: [Yoneda Lemma](../ct/yoneda.md) — van Laarhoven lenses are Yoneda
+> encodings; `forall f. Functor f => (a -> f b) -> s -> f t` says the whole lens family is
+> determined by what it does on any single functor
+
 **Optics** are composable, first-class tools for **focusing on a part of a data structure** — to
 read it, update it, or fold over it — without breaking immutability or scattering field-access logic
 across the codebase.
