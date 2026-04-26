@@ -11,22 +11,23 @@ Both produce `.svg` files that are embedded in Markdown docs identically.
 
 ## File locations
 
-| Doc type              | Diagram source location             | SVG output location             |
-| --------------------- | ----------------------------------- | ------------------------------- |
-| `docs/NN-name.md`     | `docs/diagrams/name.d2` or `.sysml` | `docs/diagrams/name.svg`        |
-| `docs/monads/name.md` | `docs/monads/diagrams/name.d2`      | `docs/monads/diagrams/name.svg` |
-| `docs/optics/name.md` | `docs/optics/diagrams/name.d2`      | `docs/optics/diagrams/name.svg` |
+| Doc type              | Diagram source location                    | SVG output location             |
+| --------------------- | ------------------------------------------ | ------------------------------- |
+| `docs/NN-name.md`     | `docs/diagrams/name.d2` or `.sysml`        | `docs/diagrams/name.svg`        |
+| `docs/monads/name.md` | `docs/monads/diagrams/name.d2` or `.sysml` | `docs/monads/diagrams/name.svg` |
+| `docs/optics/name.md` | `docs/optics/diagrams/name.d2`             | `docs/optics/diagrams/name.svg` |
 
-Each concept gets **two diagrams**:
+Each concept gets **at minimum two diagrams**:
 
 - `name.d2` / `name.svg` — the concept itself (types, operations, flow)
 - `name-motivation.d2` / `name-motivation.svg` — before/after showing why the concept exists
 
-Reference them in the doc as:
+Monad detail pages additionally use SysML for the two monad operations and their shared type
+signature:
 
-```markdown
-![concept title](diagrams/concept.svg) ![concept motivation](diagrams/concept-motivation.svg)
-```
+- `name-pure.sysml` / `name-pure.svg` — activity: `pure :: a ⟶ Maybe a` (wrap in context)
+- `name-bind.sysml` / `name-bind.svg` — activity: `bind` (pattern match, apply, short-circuit)
+- `name-ibd.sysml` / `name-ibd.svg` — IBD: type signature for `bind`
 
 ---
 
@@ -79,29 +80,32 @@ displays the math notation verbatim.
 
 #### Activity diagrams (behavioral — token flow)
 
-| SysML source                        | SVG output                        | Chapter                  |
-| ----------------------------------- | --------------------------------- | ------------------------ |
-| `docs/diagrams/fold.sysml`          | `docs/diagrams/fold.svg`          | ch 08 Fold               |
-| `docs/diagrams/applicative.sysml`   | `docs/diagrams/applicative.svg`   | ch 07 Applicative        |
-| `docs/diagrams/applicative-2.sysml` | `docs/diagrams/applicative-2.svg` | ch 07 Applicative (fmap) |
-| `docs/diagrams/traversable.sysml`   | `docs/diagrams/traversable.svg`   | ch 09 Traversable        |
-| `docs/diagrams/traversable-2.sysml` | `docs/diagrams/traversable-2.svg` | ch 09 Traversable (seq)  |
-| `docs/diagrams/monad.sysml`         | `docs/diagrams/monad.svg`         | ch 10 Monad (chain)      |
-| `docs/diagrams/monad-2.sysml`       | `docs/diagrams/monad-2.svg`       | ch 10 Monad (bind/pure)  |
-| `docs/diagrams/monad-3.sysml`       | `docs/diagrams/monad-3.svg`       | ch 10 Monad (Maybe)      |
-| `docs/diagrams/monad-4.sysml`       | `docs/diagrams/monad-4.svg`       | ch 10 Monad (List)       |
-| `docs/diagrams/function2.sysml`     | `docs/diagrams/function2.svg`     | ch 03 Currying/partial   |
-| `docs/diagrams/function2-2.sysml`   | `docs/diagrams/function2-2.svg`   | ch 03 Currying           |
+| SysML source                            | SVG output                            | Chapter                   |
+| --------------------------------------- | ------------------------------------- | ------------------------- |
+| `docs/diagrams/fold.sysml`              | `docs/diagrams/fold.svg`              | ch 08 Fold                |
+| `docs/diagrams/applicative.sysml`       | `docs/diagrams/applicative.svg`       | ch 07 Applicative         |
+| `docs/diagrams/applicative-2.sysml`     | `docs/diagrams/applicative-2.svg`     | ch 07 Applicative (fmap)  |
+| `docs/diagrams/traversable.sysml`       | `docs/diagrams/traversable.svg`       | ch 09 Traversable         |
+| `docs/diagrams/traversable-2.sysml`     | `docs/diagrams/traversable-2.svg`     | ch 09 Traversable (seq)   |
+| `docs/diagrams/monad.sysml`             | `docs/diagrams/monad.svg`             | ch 10 Monad (chain)       |
+| `docs/diagrams/monad-2.sysml`           | `docs/diagrams/monad-2.svg`           | ch 10 Monad (bind/pure)   |
+| `docs/diagrams/monad-3.sysml`           | `docs/diagrams/monad-3.svg`           | ch 10 Monad (Maybe)       |
+| `docs/diagrams/monad-4.sysml`           | `docs/diagrams/monad-4.svg`           | ch 10 Monad (List)        |
+| `docs/diagrams/function2.sysml`         | `docs/diagrams/function2.svg`         | ch 03 Currying/partial    |
+| `docs/diagrams/function2-2.sysml`       | `docs/diagrams/function2-2.svg`       | ch 03 Currying            |
+| `docs/monads/diagrams/maybe-pure.sysml` | `docs/monads/diagrams/maybe-pure.svg` | Maybe monad detail (pure) |
+| `docs/monads/diagrams/maybe-bind.sysml` | `docs/monads/diagrams/maybe-bind.svg` | Maybe monad detail (bind) |
 
 #### IBD diagrams (structural — type signatures)
 
-| SysML source                          | SVG output                          | Chapter           |
-| ------------------------------------- | ----------------------------------- | ----------------- |
-| `docs/diagrams/functor-ibd.sysml`     | `docs/diagrams/functor-ibd.svg`     | ch 06 Functor     |
-| `docs/diagrams/applicative-ibd.sysml` | `docs/diagrams/applicative-ibd.svg` | ch 07 Applicative |
-| `docs/diagrams/traversable-ibd.sysml` | `docs/diagrams/traversable-ibd.svg` | ch 09 Traversable |
-| `docs/diagrams/monad-ibd.sysml`       | `docs/diagrams/monad-ibd.svg`       | ch 10 Monad       |
-| `docs/diagrams/fold-ibd.sysml`        | `docs/diagrams/fold-ibd.svg`        | ch 08 Fold        |
+| SysML source                           | SVG output                           | Chapter                       |
+| -------------------------------------- | ------------------------------------ | ----------------------------- |
+| `docs/diagrams/functor-ibd.sysml`      | `docs/diagrams/functor-ibd.svg`      | ch 06 Functor                 |
+| `docs/diagrams/applicative-ibd.sysml`  | `docs/diagrams/applicative-ibd.svg`  | ch 07 Applicative             |
+| `docs/diagrams/traversable-ibd.sysml`  | `docs/diagrams/traversable-ibd.svg`  | ch 09 Traversable             |
+| `docs/diagrams/monad-ibd.sysml`        | `docs/diagrams/monad-ibd.svg`        | ch 10 Monad                   |
+| `docs/diagrams/fold-ibd.sysml`         | `docs/diagrams/fold-ibd.svg`         | ch 08 Fold                    |
+| `docs/monads/diagrams/maybe-ibd.sysml` | `docs/monads/diagrams/maybe-ibd.svg` | Maybe monad detail (bind sig) |
 
 ### SysML v2 constructs used
 
@@ -186,6 +190,7 @@ standard SysML keywords). It controls visual rendering only.
     title     = "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b"
     name      = "fold"            // short label for the activity-frame tab
     direction = TB                // layout direction: LR (default) or TB (top→bottom)
+    layout    = elk               // layout engine: dagre (default) or elk
     render    = FoldProcess       // which activity def or part def to render
     show f     as hof             // rectangle with «function» stereotype + teal fill
     show step1 as function        // rounded rectangle — the action that executes
@@ -195,15 +200,16 @@ standard SysML keywords). It controls visual rendering only.
 }
 ```
 
-| Field       | Required | Values / notes                                                               |
-| ----------- | -------- | ---------------------------------------------------------------------------- |
-| `type`      | yes      | `activity` or `ibd`                                                          |
-| `title`     | no       | Displayed in the SVG title row (full signature)                              |
-| `name`      | no       | Short label for the activity-frame tab (e.g. `"traverse"`, `">>="`)          |
-| `direction` | no       | `LR` (default, left→right) or `TB` (top→bottom, useful for stepped diagrams) |
-| `render`    | no       | Which `activity def` or `part def` to render; defaults to the first one      |
-| `show`      | no       | Assign a visual role (see below)                                             |
-| `tooltip`   | no       | Hover text on a node                                                         |
+| Field       | Required | Values / notes                                                                                       |
+| ----------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| `type`      | yes      | `activity` or `ibd`                                                                                  |
+| `title`     | no       | Displayed in the SVG title row (full signature)                                                      |
+| `name`      | no       | Short label for the activity-frame tab (e.g. `"traverse"`, `"bind"`)                                 |
+| `direction` | no       | `LR` (default, left→right) or `TB` (top→bottom, useful for stepped diagrams)                         |
+| `layout`    | no       | `dagre` (default, fast, sync) or `elk` (better edge routing for HOF inputs that skip multiple ranks) |
+| `render`    | no       | Which `activity def` or `part def` to render; defaults to the first one                              |
+| `show`      | no       | Assign a visual role (see below)                                                                     |
+| `tooltip`   | no       | Hover text on a node                                                                                 |
 
 **`show` roles:** `hof`, `type`, `value`, `function`, `initial`, `final`, `decision`, `merge`.
 

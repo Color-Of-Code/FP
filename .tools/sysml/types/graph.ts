@@ -37,6 +37,8 @@ export interface GEdge {
   minlen?:      number;
   /** true for invisible layout-only separator edges — not rendered */
   isSeparator?: boolean;
+  /** true when source is a decision diamond whose null-branch exits SOUTH */
+  isSouthExit?: boolean;
 }
 
 // ── Node dimensions ────────────────────────────────────────────────────────
@@ -45,7 +47,10 @@ export interface GEdge {
 export function nodeDims(n: GNode): [number, number] {
   if (n.kind === "initial")   return [INIT_R * 2,    INIT_R * 2];
   if (n.kind === "final")     return [FINAL_R * 2,   FINAL_R * 2];
-  if (n.kind === "decision" || n.kind === "merge") return [DECISION_SZ, DECISION_SZ];
+  if (n.kind === "decision" || n.kind === "merge") {
+    const w = n.label ? Math.max(DECISION_SZ, n.label.length * 6 + 16) : DECISION_SZ;
+    return [w, DECISION_SZ];
+  }
   if (n.kind === "action")    return [ACTION_W,       ACTION_H];
   if (n.kind === "separator") return [1,              BRANCH_SEP_H];
   // object node: width scales with label length

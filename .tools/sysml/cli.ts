@@ -22,6 +22,6 @@ const src = fs.readFileSync(inFile, "utf8");
 const tokens = tokenise(src);
 const model = parse(tokens);
 const baseName = path.basename(inFile, ".sysml");
-const svg = modelToSvg(model, baseName);
+const svg = await modelToSvg(model, baseName);
 fs.writeFileSync(outFile, svg, "utf8");
 console.log(`  generated ${outFile}`);

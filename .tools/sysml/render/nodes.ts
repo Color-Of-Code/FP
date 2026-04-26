@@ -97,8 +97,11 @@ function renderDiamondNode(n: GNode): string {
   const hw  = n.w / 2;
   const hh  = n.h / 2;
   const pts = `${n.x.toFixed(1)},${(n.y - hh).toFixed(1)} ${(n.x + hw).toFixed(1)},${n.y.toFixed(1)} ${n.x.toFixed(1)},${(n.y + hh).toFixed(1)} ${(n.x - hw).toFixed(1)},${n.y.toFixed(1)}`;
+  const labelEl = n.label
+    ? `\n    <text x="${n.x.toFixed(1)}" y="${n.y.toFixed(1)}" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">${escXml(n.label)}</text>`
+    : "";
   return `  <g class="${n.kind}-node">${tip}
-    <polygon points="${pts}" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+    <polygon points="${pts}" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>${labelEl}
   </g>`;
 }
 

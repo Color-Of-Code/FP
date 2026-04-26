@@ -222,10 +222,14 @@ const activityBodyItem: Parser<ActivityBodyItem | null> = alt<ActivityBodyItem |
     tok(":").thenR(stringOrIdent).opt().thenL(optSemi)
       .map(type => ({ k: "object" as const, v: { kind: "object" as const, id, type: type ?? id } }))
   ),
-  tok("decision").thenR(anyTok).thenL(optSemi)
-    .map(id => ({ k: "decision" as const, v: { kind: "decision" as const, id } })),
-  tok("merge").thenR(anyTok).thenL(optSemi)
-    .map(id => ({ k: "merge" as const, v: { kind: "merge" as const, id } })),
+  tok("decision").thenR(anyTok).flatMap(id =>
+    tok(":").thenR(stringOrIdent).opt().thenL(optSemi)
+      .map(label => ({ k: "decision" as const, v: { kind: "decision" as const, id, label } }))
+  ),
+  tok("merge").thenR(anyTok).flatMap(id =>
+    tok(":").thenR(stringOrIdent).opt().thenL(optSemi)
+      .map(label => ({ k: "merge" as const, v: { kind: "merge" as const, id, label } }))
+  ),
   tok("flow").thenR(tok("from")).thenR(dottedPath).flatMap(from =>
     tok("to").thenR(dottedPath).flatMap(to =>
       tok(":").thenR(stringOrIdent).opt().thenL(optSemi)
@@ -297,6 +301,7 @@ type DiagramField =
   | { k: "title";     v: string }
   | { k: "name";      v: string }
   | { k: "direction"; v: "LR" | "TB" }
+  | { k: "layout";    v: "dagre" | "elk" }
   | { k: "render";    v: string }
   | { k: "show";      id: string; role: Role }
   | { k: "tooltip";   id: string; text: string };
@@ -310,6 +315,8 @@ const diagramField: Parser<DiagramField | null> = alt<DiagramField | null>(
     .map(v => ({ k: "name" as const, v })),
   tok("direction").thenR(tok("=").opt()).thenR(anyTok)
     .map(v => ({ k: "direction" as const, v: v as "LR" | "TB" })),
+  tok("layout").thenR(tok("=").opt()).thenR(anyTok)
+    .map(v => ({ k: "layout" as const, v: v as "dagre" | "elk" })),
   tok("render").thenR(tok("=").opt()).thenR(stringOrIdent)
     .map(v => ({ k: "render" as const, v })),
   tok("show").thenR(dottedPath).flatMap(id =>
@@ -335,6 +342,7 @@ const diagramMeta: Parser<DiagramMeta> =
         else if (f.k === "title")     diag.title     = f.v;
         else if (f.k === "name")      diag.name      = f.v;
         else if (f.k === "direction") diag.direction = f.v;
+        else if (f.k === "layout")    diag.layout    = f.v;
         else if (f.k === "render")    diag.render    = f.v;
         else if (f.k === "show")      diag.shows[f.id]    = f.role;
         else if (f.k === "tooltip")   diag.tooltips[f.id] = f.text;

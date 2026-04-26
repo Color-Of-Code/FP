@@ -7,6 +7,8 @@ producing either a value or nothing at all.
 
 ![bind type signature](diagrams/maybe-ibd.svg)
 
+![pure implementation](diagrams/maybe-pure.svg)
+
 ![bind implementation](diagrams/maybe-bind.svg)
 
 ## Type
@@ -54,12 +56,14 @@ function lookup_user_city(id):
 -- With Maybe: bind handles the null check; only happy-path logic remains
 lookup_user_city(id) =
     find_user(id)
-    >>= user    -> find_address(user.address_id)
-    >>= address -> find_city(address.city_id)
-    >>= city    -> Just city.name
+        .bind(user    -> find_address(user.address_id))
+        .bind(address -> find_city(address.city_id))
+        .bind(city    -> pure(city.name))
 ```
 
-![maybe motivation](diagrams/maybe-motivation.svg)
+![maybe motivation: without Maybe monad](diagrams/maybe-motivation-without.svg)
+
+![maybe motivation: with Maybe monad](diagrams/maybe-motivation-with.svg)
 
 ## Examples
 

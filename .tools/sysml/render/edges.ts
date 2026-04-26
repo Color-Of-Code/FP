@@ -95,17 +95,24 @@ export function computeEndpoints(
       x1 = from.x + from.w / 2;
       y1 = from.y;
     } else {
-      // Clip toward the target's exact path endpoint so direction is correct
-      let tgtX = to.x, tgtY = to.y;
-      if (to.kind === "action" && e.isObjectFlow) {
-        const [idx, total] = inIdx.get(e) ?? [0, 1];
-        tgtX = to.x - to.w / 2 - PIN_SZ / 2 - ARROW_DEPTH;
-        tgtY = pinSlotY(to, idx, total);
-      } else if (to.kind === "action") {
-        tgtX = to.x - to.w / 2 - ARROW_DEPTH;
-        tgtY = to.y;
+      if (from.kind === "decision" && to.kind === "merge") {
+        // Null branch exits from the bottom (SOUTH) vertex of the decision diamond.
+        e.isSouthExit = true;
+        x1 = from.x;
+        y1 = from.y + from.h / 2;
+      } else {
+        // Clip toward the target's exact path endpoint so direction is correct
+        let tgtX = to.x, tgtY = to.y;
+        if (to.kind === "action" && e.isObjectFlow) {
+          const [idx, total] = inIdx.get(e) ?? [0, 1];
+          tgtX = to.x - to.w / 2 - PIN_SZ / 2 - ARROW_DEPTH;
+          tgtY = pinSlotY(to, idx, total);
+        } else if (to.kind === "action") {
+          tgtX = to.x - to.w / 2 - ARROW_DEPTH;
+          tgtY = to.y;
+        }
+        [x1, y1] = clipPoint(from, tgtX, tgtY);
       }
-      [x1, y1] = clipPoint(from, tgtX, tgtY);
     }
 
     // ── Target endpoint ────────────────────────────────────────────────
@@ -134,11 +141,13 @@ export function renderGEdge(e: GEdge, pt: Pt4): string {
   const dx = x2 - x1;
   const dy = y2 - y1;
 
-  // Horizontal control points give smooth S-curves; straight for nearly-flat edges
+  // South-exit edges (null branch from decision diamond) drop straight down
+  // before curving toward the merge target.
+  const SOUTH_DROP = 32;
   const cpOff = Math.abs(dy) < 15 ? 0 : Math.abs(dx) * 0.35;
-  const cp1x = x1 + cpOff;
-  const cp1y = y1;
-  const cp2x = x2 - cpOff;
+  const cp1x = e.isSouthExit ? x1                              : x1 + cpOff;
+  const cp1y = e.isSouthExit ? y1 + SOUTH_DROP                : y1;
+  const cp2x = e.isSouthExit ? x2 - Math.max(cpOff, SOUTH_DROP) : x2 - cpOff;
   const cp2y = y2;
 
   const edgeCol   = e.isHof ? COL.hofEdge : COL.edgeStroke;

@@ -1,19 +1,14 @@
 // SysML v2 — Maybe bind: implementation activity
-// Shows the decision (pattern match on ma) that determines the outcome.
-//
-// Decision node branches on Just/Nothing.  The Just path unwraps a,
-// applies f, and produces Maybe b.  The Nothing path skips f entirely.
-// A merge node joins both paths into a single Maybe b result.
+// Pattern match on ma simultaneously tests the constructor and
+// destructures the payload.  The Just branch carries a : a (already
+// unwrapped); f is applied and returns Maybe b directly — no re-wrap.
+// The Nothing branch short-circuits: the same constructor is propagated
+// as Nothing (: Maybe b) without calling f.  Wrapping is pure's job.
 
 package MaybeBindImpl {
 
-    action def UnwrapJust {
-        in  ma : "Maybe a";
-        out a  : a;
-    }
-
     action def ApplyF {
-        in  a  : a;
+        in  a0 : a;
         in  f  : "a ⟶ Maybe b";
         out mb : "Maybe b";
     }
@@ -23,15 +18,14 @@ package MaybeBindImpl {
         object ma   : "Maybe a";
         object f    : "a ⟶ Maybe b";
 
-        // decision: pattern match on ma
+        // decision: pattern match — tests constructor AND destructures in one step
+        // Just branch  → a : a  (payload already unwrapped by the match)
+        // Nothing branch → short-circuit directly to output
         decision matchMa;
 
-        // Just path: unwrap then apply f
-        action unwrap  : UnwrapJust;
+        // Just path: unwrapped payload available immediately
+        object a0 : a;
         action apply_f : ApplyF;
-
-        // Nothing path: no action, value passes through
-        object nothing : Nothing;
 
         // merge both paths
         merge joinResult;
@@ -42,15 +36,14 @@ package MaybeBindImpl {
         // main flow
         flow from ma to matchMa;
 
-        // Just branch
-        flow from matchMa to unwrap  : "Just a";
-        flow from unwrap to apply_f;
-        flow from f to apply_f;
+        // Just branch: decision destructures, a0 is the unwrapped payload
+        flow from matchMa to a0      : "Just a0";
+        flow from a0      to apply_f;
+        flow from f       to apply_f;
         flow from apply_f to joinResult;
 
-        // Nothing branch
-        flow from matchMa to nothing : "Nothing";
-        flow from nothing to joinResult;
+        // Nothing branch: short-circuit — same constructor, type shifts to Maybe b
+        flow from matchMa to joinResult : "Nothing (: Maybe b)";
 
         // single output
         flow from joinResult to mb;
@@ -58,21 +51,20 @@ package MaybeBindImpl {
 }
 
 #diagram {
-    type  = activity
-    title = "Maybe >>= : pattern match on ma determines the path"
-    name  = ">>="
+    type   = activity
+    layout = elk
+    title = "Maybe bind: pattern match unwraps Just or short-circuits Nothing"
+    name  = "bind"
     show ma         as type
     show f          as hof
-    show unwrap     as function
+    show a0         as value
     show apply_f    as function
-    show nothing    as type
     show mb         as type
-    tooltip ma          = "Maybe a — the input value. Either Just a or Nothing."
-    tooltip f           = "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a."
-    tooltip matchMa     = "Pattern match: is ma = Just a  or  Nothing?"
-    tooltip unwrap      = "Unwrap: extract the a from Just a."
-    tooltip apply_f     = "Apply f(a). Returns Maybe b — may itself be Just b or Nothing."
-    tooltip nothing     = "Nothing — propagated unchanged. f is never called."
-    tooltip joinResult  = "Merge: both paths produce Maybe b (Just-path result or Nothing)."
-    tooltip mb          = "Maybe b — the single result of bind."
+    tooltip ma         = "Maybe a — the input value. Either Just a0 or Nothing."
+    tooltip f          = "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0."
+    tooltip matchMa    = "Pattern match: simultaneously tests the constructor and destructures the payload.\nJust a0 → a0 is available (no separate unwrap step)\nNothing → skip f entirely"
+    tooltip a0         = "a0 — the unwrapped payload, extracted by the Just pattern. No separate unwrap action needed."
+    tooltip apply_f    = "Apply f(a). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job."
+    tooltip joinResult = "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."
+    tooltip mb         = "Maybe b — the single result of bind."
 }

@@ -68,6 +68,12 @@ Short definition sentence.
 
 ![concept diagram](diagrams/concept.svg)
 
+![bind type signature](diagrams/concept-ibd.svg)
+
+![pure implementation](diagrams/concept-pure.svg)
+
+![bind implementation](diagrams/concept-bind.svg)
+
 ## Type
 
 (```text fence showing the type constructors)
@@ -105,7 +111,12 @@ Short definition sentence.
 ## Adding a new monad detail page
 
 1. Create `docs/monads/name.md` following the monad template above.
-2. Create `docs/monads/diagrams/name.d2` and `docs/monads/diagrams/name-motivation.d2`.
+2. Create the following diagram sources in `docs/monads/diagrams/`:
+   - `name.d2` — concept overview (type constructors, flow)
+   - `name-motivation.d2` — before/after motivation
+   - `name-pure.sysml` — activity diagram: `pure :: a ⟶ Maybe a` (wrap into context)
+   - `name-bind.sysml` — activity diagram: `bind` (pattern match, apply f, short-circuit)
+   - `name-ibd.sysml` — IBD: structural type signature for `bind`
 3. Compile SVGs: `make -C .tools svgs`.
 4. Add a row to the monad catalogue in `docs/10-monad.md` and in `README.md`.
 5. Run `make -C .tools fmt-md lint-md lint-langs`.

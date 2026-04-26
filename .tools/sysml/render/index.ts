@@ -13,7 +13,7 @@ import { makeSvg } from "./title.ts";
  * Convert a parsed SysML v2 model to a standalone SVG string.
  * `baseName` is used as a fallback title when the model has none.
  */
-export function modelToSvg(model: Model, baseName: string): string {
+export async function modelToSvg(model: Model, baseName: string): Promise<string> {
   const diag  = model.diagram;
   const title = diag.title ?? baseName;
 
@@ -36,6 +36,6 @@ export function modelToSvg(model: Model, baseName: string): string {
     ? allActivityDefs.find(d => d.name === diag.render) ?? allActivityDefs[0]
     : allActivityDefs[0];
   if (!act) return makeSvg(`<text x="20" y="40" fill="red">No activity def found</text>`, title, 400, 100);
-  const [inner, W, H] = renderActivity(act, diag, allActionDefs);
+  const [inner, W, H] = await renderActivity(act, diag, allActionDefs);
   return makeSvg(inner, title, W, H);
 }

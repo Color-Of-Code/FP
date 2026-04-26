@@ -42,9 +42,9 @@ before: without Maybe monad: explicit null guard at every step {
 after: with Maybe monad: bind short-circuits on Nothing automatically {
   direction: right
   find_user -> find_address -> find_city -> result
-  find_user -> find_address: ">>="
-  find_address -> find_city: ">>="
-  find_city -> result: ">>="
+  find_user -> find_address: "bind"
+  find_address -> find_city: "bind"
+  find_city -> result: "bind"
   find_user.class: [
     function
     f

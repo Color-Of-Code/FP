@@ -15,7 +15,7 @@ import {
   FRAME_PAD, FRAME_TAB_H, BRANCH_SEP_H,
   nodeDims,
 } from "../types.ts";
-import { layeredLayout } from "../layout.ts";
+import { autoLayout } from "../layout.ts";
 import { renderGNode } from "./nodes.ts";
 import { computeEndpoints, renderGEdge } from "./edges.ts";
 import { renderActivityFrame } from "./frame.ts";
@@ -24,11 +24,11 @@ import { renderActivityFrame } from "./frame.ts";
  * Build the SVG content for one activity diagram.
  * Returns [innerSvg, totalWidth, totalHeight].
  */
-export function renderActivity(
+export async function renderActivity(
   actDef: ActivityDef,
   diagram: DiagramMeta,
   actionDefs: Map<string, ActionDef>,
-): [string, number, number] {
+): Promise<[string, number, number]> {
   const nodes: GNode[]           = [];
   const nodeMap = new Map<string, GNode>();
 
@@ -64,7 +64,7 @@ export function renderActivity(
   // ── Decision / Merge nodes ─────────────────────────────────────────────
   for (const d of actDef.decisions) {
     const n: GNode = {
-      id: d.id, label: "",
+      id: d.id, label: d.label ?? "",
       kind: "decision", isHof: false,
       tooltip: diagram.tooltips[d.id],
       x: 0, y: 0, w: DECISION_SZ, h: DECISION_SZ,
@@ -74,7 +74,7 @@ export function renderActivity(
   }
   for (const m of actDef.merges) {
     const n: GNode = {
-      id: m.id, label: "",
+      id: m.id, label: m.label ?? "",
       kind: "merge", isHof: false,
       tooltip: diagram.tooltips[m.id],
       x: 0, y: 0, w: DECISION_SZ, h: DECISION_SZ,
@@ -133,7 +133,11 @@ export function renderActivity(
   }
 
   // ── Layout ─────────────────────────────────────────────────────────────
-  const [innerW, innerH] = layeredLayout(nodes, edges, diagram.direction ?? "LR");
+  const [innerW, innerH] = await autoLayout(
+    nodes, edges,
+    diagram.layout    ?? "dagre",
+    diagram.direction ?? "LR",
+  );
   for (const n of nodes) {
     n.x += FRAME_PAD;
     n.y += FRAME_PAD + FRAME_TAB_H;

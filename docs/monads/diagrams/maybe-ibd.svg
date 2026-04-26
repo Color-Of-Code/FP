@@ -12,7 +12,7 @@
   </marker>
 </defs>
 <rect width="672" height="298" fill="white"/>
-<text x="336.0" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b</text>
+<text x="336.0" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b</text>
 <g transform="translate(0,28)">
 <rect x="0" y="0" width="672" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
 <text x="336.0" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» MaybeBindContext</text>
@@ -39,7 +39,7 @@
     <text x="168.4" y="102.0" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
     <text x="168.4" y="116.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f_val : a ⟶ Maybe b</text>
   </g>
-  <g class="action-node"><title>Just a  →  f a        (unwrap, apply, return result)\nNothing →  Nothing   (short-circuit: skip f, propagate Nothing)</title>
+  <g class="action-node"><title>Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)</title>
     <rect x="286.8" y="113.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="346.8" y="135.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : MaybeBindOp</text>
     
