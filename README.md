@@ -34,7 +34,8 @@ A learning track through the core concepts of functional programming, each build
 | 26  | [Arrows](docs/26-arrows.md)                                   | `arr`/`>>>`/`first`; Kleisli; stream processors, FRP, parser combinators        |
 | 27  | [Lens / Optics](docs/27-optics.md)                            | Composable, first-class access and update of nested immutable data              |
 | 28  | [Recursion Schemes](docs/28-recursion-schemes.md)             | Generalised folds: cata, ana, hylo and the base functor pattern                 |
-| 29  | [Observable Effects](docs/29-observable-effects.md)           | The effect spectrum from pure FP to physical hardware; side-channel attacks     |
+| 29  | [Codata and Coinduction](docs/29-codata.md)                   | Dual of ADTs; infinite structures (streams, comonads) as greatest fixpoints     |
+| 30  | [Observable Effects](docs/30-observable-effects.md)           | The effect spectrum from pure FP to physical hardware; side-channel attacks     |
 
 ## Diagrams
 

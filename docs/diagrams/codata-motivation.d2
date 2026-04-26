@@ -1,0 +1,31 @@
+...@../styles
+
+direction: down
+
+inductive: "Inductive data — defined by how it is BUILT" {
+  direction: right
+  nil: "Nil  :: List a"
+  cons: "Cons :: a → List a → List a"
+  nil.class: [type a]
+  cons.class: [function f]
+  nil -> cons: "unfold →"
+  constructors: "finite constructors → must terminate"
+  constructors.class: [comment]
+  nil -> constructors
+  cons -> constructors
+}
+
+coinductive: "Coinductive codata — defined by how it is OBSERVED" {
+  direction: right
+  head_obs: "head :: Stream a → a"
+  tail_obs: "tail :: Stream a → Stream a"
+  head_obs.class: [function g]
+  tail_obs.class: [function h]
+  head_obs -> tail_obs: "always one more step →"
+  destructors: "finite destructors → may be infinite"
+  destructors.class: [comment]
+  head_obs -> destructors
+  tail_obs -> destructors
+}
+
+inductive -> coinductive: "dualise"

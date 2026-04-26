@@ -1,0 +1,50 @@
+direction: right
+
+...@../styles
+
+type_def: "Codata — the dual of algebraic data types" {
+  explanation: ||md
+    # Codata and Coinduction
+
+    **Data (inductive)**: defined by constructors — how values are **built**.
+    Guaranteed to be *finite*.  Eliminated by *case analysis*.
+
+    **Codata (coinductive)**: defined by destructors/observations — how values
+    are **taken apart**.  May be *infinite*.  Introduced by *corecursion*.
+
+    **The key duality**
+
+    | Inductive | Coinductive |
+    |-----------|-------------|
+    | intro: constructors | intro: corecursion |
+    | elim: pattern match | elim: destructors |
+    | termination: structural | productivity: each step finite |
+    | `Fix F` (least fixpoint) | `Cofix F` (greatest fixpoint) |
+  ||
+  explanation.class: [comment]
+}
+
+least_fp: "Fix F\n(least fixpoint)\nfinite trees" {
+  class: [type a]
+}
+greatest_fp: "Cofix F\n(greatest fixpoint)\npotentially infinite streams" {
+  class: [type b]
+}
+
+ana: "ana :: (s → F s) → s → Cofix F\n(anamorphism / unfold)" {
+  class: [function f]
+}
+cata: "cata :: (F a → a) → Fix F → a\n(catamorphism / fold)" {
+  class: [function g]
+}
+
+seed: seed
+seed -> ana: "corecursion"
+ana -> greatest_fp
+greatest_fp -> cata: "observation"
+cata -> result: a
+result: a
+seed.class: [value]
+result.class: [value]
+
+least_fp -> cata
