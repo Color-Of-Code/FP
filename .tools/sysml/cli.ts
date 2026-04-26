@@ -9,7 +9,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { tokenise } from "./lexer.ts";
-import { Parser } from "./parser.ts";
+import { parse } from "./parser.ts";
 import { modelToSvg } from "./render/index.ts";
 
 const [, , inFile, outFile] = process.argv;
@@ -20,8 +20,7 @@ if (!inFile || !outFile) {
 
 const src = fs.readFileSync(inFile, "utf8");
 const tokens = tokenise(src);
-const parser = new Parser(tokens);
-const model = parser.parseModel();
+const model = parse(tokens);
 const baseName = path.basename(inFile, ".sysml");
 const svg = modelToSvg(model, baseName);
 fs.writeFileSync(outFile, svg, "utf8");
