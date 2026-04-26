@@ -11,6 +11,10 @@ NODE_BIN    := $(REPO_ROOT)/.tools/node_modules/.bin
 # styles.d2 lives alongside the diagrams under docs/
 STYLES := $(REPO_ROOT)/docs/styles.d2
 
+# SysML v2 source files (transpile to SVG via sysml-to-svg.ts)
+SYSML_FILES := $(wildcard $(DOCS_DIAG)/*.sysml)
+SYSML_SVGS  := $(SYSML_FILES:.sysml=.svg)
+
 # D2 source files in each location
 D2_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.d2)
 D2_FILES_MONADS := $(wildcard $(MONAD_DIAG)/*.d2)
@@ -43,6 +47,12 @@ help:
 ## Install npm dependencies
 install:
 	cd $(REPO_ROOT)/.tools && npm install
+
+## Transpile SysML v2 sources to SVG
+sysml: $(SYSML_SVGS)
+
+$(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.sysml
+	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
 
 ## Regenerate all SVG diagrams
 svgs: $(DIAGRAM_SVG)
@@ -87,7 +97,7 @@ check-md: $(NODE_BIN)/prettier
 fmt: fmt-d2 fmt-md
 
 ## Run everything
-all: svgs fmt lint-md lint-langs
+all: svgs sysml fmt lint-md lint-langs
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:

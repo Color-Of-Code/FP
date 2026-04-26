@@ -12,5 +12,8 @@
   "devDependencies": {
     "markdownlint-cli2": "^0.17.2",
     "prettier": "^3.5.3"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "^3.0.0"
   }
 }
