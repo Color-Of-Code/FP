@@ -467,24 +467,450 @@ func main() {
 }
 ```
 
-## Key points
+## Interaction nets — parallel graph rewriting
 
-| Concept              | Description                                                                                |
-| -------------------- | ------------------------------------------------------------------------------------------ |
-| λ-calculus           | The computation model behind FP: syntax = variable, abstraction, application               |
-| β-reduction          | $(\lambda x.\,e_1)\,e_2 \to e_1[e_2/x]$ — the fundamental computation step                 |
-| η-equivalence        | $f \equiv \lambda x.\,f\,x$ — extensional equality; basis of point-free style              |
-| Church-Turing thesis | λ-calculus, Turing machines, and μ-recursive functions compute the same class of functions |
-| Church numerals      | Natural numbers as iteration count: $\mathbf{n} = \lambda f.\lambda x.\, f^n(x)$           |
-| SKI combinators      | Turing-complete point-free basis; `I=id`, `K=const`, `S≈(<*>)`                             |
-| Y combinator         | $Y\,f = f\,(Y\,f)$ — fixed point; recursion without naming; works under lazy evaluation    |
-| Z combinator         | Strict variant of Y; needed in call-by-value languages                                     |
-| System F             | Polymorphic λ-calculus; formal basis of `forall` types and parametricity                   |
-| Normal order         | Outermost-first reduction = lazy evaluation                                                |
-| Applicative order    | Innermost-first reduction = strict evaluation                                              |
+All the models above are **sequential at heart**: β-reduction picks one redex at a time. Interaction
+nets (Yves Lafont, 1990) are a graph-rewriting model where every reduction is **inherently
+parallel** — there are no dependencies between active pairs, so any or all can fire at once.
+
+### The model
+
+An **interaction net** is a graph of **agents** (nodes) connected by **ports** (edges). Every agent
+has exactly one distinguished **principal port** and zero or more **auxiliary ports**. Reduction
+fires on an **active pair**: two agents connected **principal-to-principal**:
+
+```text
+    a          b              result
+   / \        / \            / ... \
+  …  (*)----(*) …   →      (expanded local subgraph)
+```
+
+Each interaction rule:
+
+- is **purely local** — only the two active agents and their wires are touched
+- **destroys** the two agents after firing (no sharing, no global traversal)
+- is **confluent** — the order of firing never affects the final result
+
+Because no rule touches the same wire as any other, **all active pairs can be reduced in parallel**
+without coordination.
+
+### Interaction combinators (Lafont's universal system)
+
+Three agents suffice to compute anything (a universal basis, analogous to SKI):
+
+| Agent       | Symbol | Principal | Auxiliaries | Role                            |
+| ----------- | ------ | --------- | ----------- | ------------------------------- |
+| Eraser      | ε      | 1         | 0           | Discard a value                 |
+| Duplicator  | δ      | 1         | 2           | Copy a value (fan-out)          |
+| Constructor | γ      | 1         | 2           | Build a pair / apply a function |
+
+The six pairwise interaction rules (ε–ε, δ–δ, γ–γ, ε–γ, ε–δ, γ–δ) define a complete, Turing-complete
+rewriting system. The λ-calculus compiles into interaction combinators via the **Lamping
+translation**, which implements **optimal β-reduction** (never duplicates a redex before it is
+needed, and never reduces inside an unevaluated thunk).
+
+### HVM and Bend — interaction nets at scale
+
+**HVM** (Higher-order Virtual Machine, HigherOrderCO, 2022) is a runtime that executes interaction
+nets on real hardware — CPUs and GPUs — achieving linear speedup with core count for many pure
+functional programs. **Bend** is a high-level language that compiles to HVM. The key insight is that
+HVM maps active pairs directly to independent GPU threads: the parallelism is structural, not
+inferred by an optimiser.
+
+This connects directly to [24. Concurrency and Parallelism](./24-concurrency.md): where that chapter
+treats concurrency as an _effect_ to be managed, interaction nets make parallelism **the default**
+by construction.
+
+### Examples
+
+The examples below simulate a minimal interaction net interpreter: an agent graph that erases,
+duplicates, and constructs pairs, plus a reduction loop. A full Lamping translation is too large to
+inline; these snippets show the data structures and one-step reduction.
+
+#### C\#
+
+```csharp
+// Minimal interaction net: agents, ports, and one-step reduction
+// Agents: Eraser (ε), Duplicator (δ), Constructor (γ)
+
+enum AgentKind { Eraser, Duplicator, Constructor }
+
+record Port(Agent Agent, int Index); // Index 0 = principal
+
+class Agent(AgentKind kind, int arity) {
+    public AgentKind Kind   = kind;
+    public Port?[]   Ports  = new Port?[arity + 1]; // [0]=principal, [1..]=aux
+}
+
+// Active pair: two agents connected on their principal ports
+record ActivePair(Agent A, Agent B);
+
+// Interaction: ε–ε → nothing (both erased)
+static void Interact(ActivePair pair, List<ActivePair> work) {
+    var (a, b) = (pair.A, pair.B);
+    if (a.Kind == AgentKind.Eraser && b.Kind == AgentKind.Eraser) {
+        // both disappear, no new active pairs
+        return;
+    }
+    // ε–γ: eraser erases both auxiliary ports of γ
+    if (a.Kind == AgentKind.Eraser && b.Kind == AgentKind.Constructor) {
+        var e1 = new Agent(AgentKind.Eraser, 0);
+        var e2 = new Agent(AgentKind.Eraser, 0);
+        // connect e1 to b.Ports[1], e2 to b.Ports[2] (omitted: wire bookkeeping)
+        _ = e1; _ = e2;
+        return;
+    }
+    // ... other rules elided for brevity
+}
+```
+
+#### F\#
+
+```fsharp
+// Interaction net in F#: algebraic types for agents + reduction step
+
+type AgentKind = Eraser | Duplicator | Constructor
+
+type Agent =
+    { Kind  : AgentKind
+      Ports : Agent option array } // Ports.[0] = principal
+
+let makeAgent kind arity =
+    { Kind = kind; Ports = Array.create (arity + 1) None }
+
+// One reduction step: ε–ε → nothing
+let reduce (a: Agent) (b: Agent) : (Agent * Agent) list =
+    match a.Kind, b.Kind with
+    | Eraser, Eraser -> []                          // both erased
+    | Eraser, Constructor ->                        // ε erases each aux port of γ
+        let e1 = makeAgent Eraser 0
+        let e2 = makeAgent Eraser 0
+        // wire e1 → γ.aux1, e2 → γ.aux2 (bookkeeping omitted)
+        [(e1, b); (e2, b)]                          // new active pairs to process
+    | _ -> []                                       // other rules elided
+```
+
+#### Ruby
+
+```ruby
+# Interaction net: agents as plain structs, reduction as pattern dispatch
+
+Agent = Struct.new(:kind, :ports) do
+  # ports[0] = principal port (holds the connected Agent, or nil)
+end
+
+def make_agent(kind, arity) = Agent.new(kind, Array.new(arity + 1))
+
+# One reduction step: returns list of new active pairs
+def reduce(a, b)
+  case [a.kind, b.kind]
+  in [:eraser, :eraser]
+    []                           # both disappear
+  in [:eraser, :constructor]
+    # ε erases each aux port of γ — create two new erasers
+    e1 = make_agent(:eraser, 0)
+    e2 = make_agent(:eraser, 0)
+    # wire to b.ports[1] and b.ports[2] (bookkeeping omitted)
+    [[e1, b.ports[1]], [e2, b.ports[2]]].compact
+  else
+    []                           # other rules elided
+  end
+end
+```
+
+#### C++
+
+```cpp
+// Interaction net: nodes as tagged structs, reduction dispatch
+
+#include <memory>
+#include <vector>
+#include <variant>
+
+enum class Kind { Eraser, Duplicator, Constructor };
+
+struct Agent {
+    Kind kind;
+    std::vector<std::weak_ptr<Agent>> ports; // ports[0] = principal
+    explicit Agent(Kind k, int arity) : kind(k), ports(arity + 1) {}
+};
+
+using Pair = std::pair<std::shared_ptr<Agent>, std::shared_ptr<Agent>>;
+
+// One reduction step: ε × ε → {} ; ε × γ → two new erasers
+std::vector<Pair> reduce(std::shared_ptr<Agent> a, std::shared_ptr<Agent> b) {
+    if (a->kind == Kind::Eraser && b->kind == Kind::Eraser)
+        return {};   // both vanish
+
+    if (a->kind == Kind::Eraser && b->kind == Kind::Constructor) {
+        auto e1 = std::make_shared<Agent>(Kind::Eraser, 0);
+        auto e2 = std::make_shared<Agent>(Kind::Eraser, 0);
+        // wire to b->ports[1] and b->ports[2] (bookkeeping omitted)
+        return {};   // new pairs would be pushed here
+    }
+    return {};       // other rules elided
+}
+```
+
+#### JavaScript
+
+```js
+// Interaction net in JavaScript: objects as agents, Map for wires
+
+const makeAgent = (kind, arity) => ({
+  kind,
+  ports: Array(arity + 1).fill(null), // ports[0] = principal
+});
+
+// One reduction step: ε–ε → []; ε–γ → two new erasers
+function reduce(a, b, work) {
+  if (a.kind === "eraser" && b.kind === "eraser") return; // both vanish
+
+  if (a.kind === "eraser" && b.kind === "constructor") {
+    const e1 = makeAgent("eraser", 0);
+    const e2 = makeAgent("eraser", 0);
+    // wire e1 to b.ports[1], e2 to b.ports[2] (bookkeeping omitted)
+    // push new active pairs onto work queue
+    if (b.ports[1]) work.push([e1, b.ports[1]]);
+    if (b.ports[2]) work.push([e2, b.ports[2]]);
+  }
+  // other rules elided
+}
+
+// Driver: reduce all active pairs (sequential simulation of parallel model)
+function runNet(activePairs) {
+  const work = [...activePairs];
+  while (work.length > 0) {
+    const [a, b] = work.pop();
+    reduce(a, b, work);
+  }
+}
+```
+
+#### Python
+
+```python
+from dataclasses import dataclass, field
+from enum import Enum, auto
+
+
+class Kind(Enum):
+    ERASER = auto()
+    DUPLICATOR = auto()
+    CONSTRUCTOR = auto()
+
+
+@dataclass
+class Agent:
+    kind: Kind
+    ports: list["Agent | None"] = field(default_factory=list)  # ports[0] = principal
+
+
+def make_agent(kind: Kind, arity: int) -> Agent:
+    return Agent(kind, [None] * (arity + 1))
+
+
+# One reduction step; returns new active pairs
+def reduce(a: Agent, b: Agent) -> list[tuple[Agent, Agent]]:
+    match (a.kind, b.kind):
+        case (Kind.ERASER, Kind.ERASER):
+            return []  # both vanish
+        case (Kind.ERASER, Kind.CONSTRUCTOR):
+            e1 = make_agent(Kind.ERASER, 0)
+            e2 = make_agent(Kind.ERASER, 0)
+            # wire to b.ports[1] and b.ports[2] (bookkeeping omitted)
+            pairs = []
+            if b.ports[1]:
+                pairs.append((e1, b.ports[1]))
+            if b.ports[2]:
+                pairs.append((e2, b.ports[2]))
+            return pairs
+        case _:
+            return []  # other rules elided
+```
+
+#### Haskell
+
+```hs
+-- Interaction net in Haskell: IORef-based mutable graph
+-- (A pure representation requires careful threading of the name supply)
+import Data.IORef
+
+data Kind = Eraser | Duplicator | Constructor deriving (Eq, Show)
+
+data Agent = Agent
+  { kind  :: Kind
+  , ports :: IORef [IORef (Maybe Agent)]  -- ports !! 0 = principal
+  }
+
+makeAgent :: Kind -> Int -> IO Agent
+makeAgent k arity = do
+  ps <- mapM (\_ -> newIORef Nothing) [0..arity]
+  ref <- newIORef ps
+  pure $ Agent k ref
+
+-- One step: ε–ε → nothing; ε–γ → two new erasers (auxiliary ports freed)
+-- Returns new active pairs to schedule
+step :: Agent -> Agent -> IO [(Agent, Agent)]
+step a b = case (kind a, kind b) of
+  (Eraser, Eraser)      -> pure []       -- both vanish
+  (Eraser, Constructor) -> do
+    e1 <- makeAgent Eraser 0
+    e2 <- makeAgent Eraser 0
+    -- wire e1 to b.aux1, e2 to b.aux2 (bookkeeping omitted)
+    pure []   -- new pairs would be returned here
+  _                     -> pure []
+
+-- see: 'inet' package on Hackage for a full interaction net library
+```
+
+#### Rust
+
+```rust
+// Interaction net in Rust: arena-allocated agents, indices as pointers
+// (avoids Rc<RefCell<_>> cyclic graph problems)
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum Kind { Eraser, Duplicator, Constructor }
+
+#[derive(Clone, Debug)]
+struct Agent {
+    kind:  Kind,
+    ports: Vec<Option<usize>>,  // index into arena; ports[0] = principal
+}
+
+struct Net {
+    agents: Vec<Agent>,
+    active: Vec<(usize, usize)>,  // active pairs as index pairs
+}
+
+impl Net {
+    fn new_agent(&mut self, kind: Kind, arity: usize) -> usize {
+        let id = self.agents.len();
+        self.agents.push(Agent { kind, ports: vec![None; arity + 1] });
+        id
+    }
+
+    // One reduction step: ε–ε → nothing; ε–γ → two new erasers
+    fn reduce_pair(&mut self, ai: usize, bi: usize) {
+        match (self.agents[ai].kind, self.agents[bi].kind) {
+            (Kind::Eraser, Kind::Eraser) => {}  // both vanish
+            (Kind::Eraser, Kind::Constructor) => {
+                let e1 = self.new_agent(Kind::Eraser, 0);
+                let e2 = self.new_agent(Kind::Eraser, 0);
+                // wire e1 → agents[bi].ports[1], e2 → agents[bi].ports[2]
+                if let Some(p1) = self.agents[bi].ports[1] {
+                    self.active.push((e1, p1));
+                }
+                if let Some(p2) = self.agents[bi].ports.get(2).copied().flatten() {
+                    self.active.push((e2, p2));
+                }
+            }
+            _ => {}  // other rules elided
+        }
+    }
+
+    fn run(&mut self) {
+        while let Some((a, b)) = self.active.pop() {
+            self.reduce_pair(a, b);
+        }
+    }
+}
+// see: HVM2 source (github.com/HigherOrderCO/HVM) for production implementation
+```
+
+#### Go
+
+```go
+// Interaction net in Go: slice-of-structs arena, indices as references
+
+package main
+
+import "fmt"
+
+type Kind int
+
+const (
+	Eraser Kind = iota
+	Duplicator
+	Constructor
+)
+
+type Agent struct {
+	kind  Kind
+	ports []int // index into agents slice; -1 = unconnected; ports[0] = principal
+}
+
+type Net struct {
+	agents []Agent
+	active [][2]int // active pairs: indices of the two agents
+}
+
+func (n *Net) newAgent(k Kind, arity int) int {
+	id := len(n.agents)
+	ports := make([]int, arity+1)
+	for i := range ports {
+		ports[i] = -1
+	}
+	n.agents = append(n.agents, Agent{kind: k, ports: ports})
+	return id
+}
+
+// One reduction step: ε–ε → nothing; ε–γ → two new erasers
+func (n *Net) reducePair(ai, bi int) {
+	a, b := n.agents[ai], n.agents[bi]
+	switch {
+	case a.kind == Eraser && b.kind == Eraser:
+		// both vanish
+	case a.kind == Eraser && b.kind == Constructor:
+		e1 := n.newAgent(Eraser, 0)
+		e2 := n.newAgent(Eraser, 0)
+		// wire e1 → b.ports[1], e2 → b.ports[2]
+		if len(b.ports) > 1 && b.ports[1] >= 0 {
+			n.active = append(n.active, [2]int{e1, b.ports[1]})
+		}
+		if len(b.ports) > 2 && b.ports[2] >= 0 {
+			n.active = append(n.active, [2]int{e2, b.ports[2]})
+		}
+	}
+}
+
+func (n *Net) Run() {
+	for len(n.active) > 0 {
+		pair := n.active[len(n.active)-1]
+		n.active = n.active[:len(n.active)-1]
+		n.reducePair(pair[0], pair[1])
+	}
+}
+
+func main() {
+	net := &Net{}
+	a := net.newAgent(Eraser, 0)
+	b := net.newAgent(Eraser, 0)
+	net.active = append(net.active, [2]int{a, b})
+	net.Run()
+	fmt.Println("reduced", len(net.agents), "agents") // 2 (both erased conceptually)
+}
+```
+
+| β-reduction | $(\lambda x.\,e_1)\,e_2 \to e_1[e_2/x]$ — the fundamental computation step | |
+η-equivalence | $f \equiv \lambda x.\,f\,x$ — extensional equality; basis of point-free style | |
+Church-Turing thesis | λ-calculus, Turing machines, and μ-recursive functions compute the same class
+of functions | | Church numerals | Natural numbers as iteration count:
+$\mathbf{n} = \lambda f.\lambda x.\, f^n(x)$ | | SKI combinators | Turing-complete point-free basis;
+`I=id`, `K=const`, `S≈(<*>)` | | Y combinator | $Y\,f = f\,(Y\,f)$ — fixed point; recursion without
+naming; works under lazy evaluation | | Z combinator | Strict variant of Y; needed in call-by-value
+languages | | System F | Polymorphic λ-calculus; formal basis of `forall` types and parametricity |
+| Normal order | Outermost-first reduction = lazy evaluation | | Applicative order | Innermost-first
+reduction = strict evaluation | | Interaction nets | Graph-rewriting model: agents connected by
+ports; active pairs reduce locally and in parallel | | Interaction combinators | Universal basis: ε
+(erase), δ (duplicate), γ (construct) — Turing-complete in 6 rules | | HVM / Bend | Runtime that
+maps active pairs to GPU threads; structural parallelism without a scheduler |
 
 ## See also
 
+- [24. Concurrency and Parallelism](./24-concurrency.md) — HVM/Bend: interaction nets as a massively
+  parallel runtime; active pairs as independent GPU threads
 - [ct/lambda-calculus.md](../ct/lambda-calculus.md) — formal definition, Church-Rosser theorem,
   System F, and the full SKI translation
 - [3. Equational Reasoning](./03-equational-reasoning.md) — β-reduction makes every call site
