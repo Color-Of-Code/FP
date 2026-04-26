@@ -1,0 +1,33 @@
+...@../styles
+
+direction: down
+
+shared: Shared mutable state {
+  locks: Locks\n(mutex, semaphore) {
+    style.fill: "#f4a261"
+  }
+  race: Data races\ndeadlocks {
+    style.fill: "#e63946"
+  }
+  locks -> race: "if used\nincorrectly"
+}
+
+fp: FP concurrency approaches {
+  direction: right
+  immut: Immutable values\n(share freely) {
+    style.fill: "#57cc99"
+  }
+  stm: STM\n(compose atomically) {
+    style.fill: "#57cc99"
+  }
+  msg: Message passing\n(no shared state) {
+    style.fill: "#57cc99"
+  }
+  par: Data parallelism\n(pure, auto-parallel) {
+    style.fill: "#57cc99"
+  }
+}
+
+shared -> fp: "FP eliminates the\nproblem at the root" {
+  style.stroke-dash: 5
+}

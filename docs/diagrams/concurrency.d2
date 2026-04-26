@@ -1,0 +1,30 @@
+...@../styles
+
+direction: right
+
+pure: Pure parallelism\n(par / pseq / Strategies) {
+  class: [type; a]
+  style.fill: "#57cc99"
+}
+
+stm: STM\n(atomic transactions) {
+  class: [type; b]
+  style.fill: "#9191f4"
+}
+
+async_task: Async tasks\n(Future / Task / Promise) {
+  class: [type; c]
+}
+
+actor: Actor model\n(isolated mailbox) {
+  class: [type; a]
+  style.fill: "#f4a261"
+}
+
+pure -> stm: "add shared\nmutable cells"
+stm -> async_task: "add I/O\nscheduling"
+async_task -> actor: "add isolation\n+ location transparency"
+
+note: "Each step adds\nmore coordination power\nat the cost of more complexity" {
+  class: comment
+}

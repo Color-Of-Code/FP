@@ -1,4 +1,4 @@
-# 25. Arrows
+# 26. Arrows
 
 An **arrow** `A b c` is an abstraction of a computation from `b` to `c` that may carry **extra
 structure** — state, side effects, or parallelism — without requiring the full power of a monad.
@@ -512,7 +512,7 @@ func main() {
 
 ## See also
 
-- [24. Profunctor](./24-profunctor.md) — every Arrow is a Strong profunctor; `first` = `first'`
+- [25. Profunctor](./25-profunctor.md) — every Arrow is a Strong profunctor; `first` = `first'`
 - [19. Monad](./19-monad.md) — every Monad gives a Kleisli Arrow; `>>=` corresponds to `>>>`
-- [26. Lens / Optics](./26-optics.md) — `ArrowChoice` maps directly to the `Choice` typeclass
+- [27. Lens / Optics](./27-optics.md) — `ArrowChoice` maps directly to the `Choice` typeclass
   underlying Prism
