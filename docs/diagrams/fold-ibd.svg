@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 632.4 350" width="632.4" height="350">
 <defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
   </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
   </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
   </marker>
 </defs>
@@ -19,19 +19,19 @@
 
 
   <g class="edge hof-edge">
-    <path d="M223.8,194.0 C240.8,194.0 255.4,172.0 272.4,172.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M206.0,194.0 C224.2,194.0 239.7,172.0 257.9,172.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M216.2,161.0 C216.2,161.0 272.4,161.0 272.4,161.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M216.2,161.0 C216.2,161.0 257.9,161.0 257.9,161.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M221.6,127.3 C239.4,127.3 254.6,150.0 272.4,150.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M206.0,128.0 C224.2,128.0 239.7,150.0 257.9,150.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M392.4,161.0 C392.4,161.0 432.4,161.0 432.4,161.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M396.4,161.0 C396.4,161.0 421.9,161.0 421.9,161.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="object-node hof"><title>(b ⟶ a ⟶ b) — combining function: takes accumulator and element, returns new accumulator</title>

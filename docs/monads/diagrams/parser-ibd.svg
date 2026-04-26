@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 686.4 350" width="686.4" height="350">
 <defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
   </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
   </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
   </marker>
 </defs>
@@ -19,19 +19,19 @@
 
 
   <g class="edge">
-    <path d="M238.5,194.0 C257.9,194.0 274.6,172.0 294.0,172.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M221.8,194.0 C242.0,194.0 259.3,172.0 279.5,172.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge hof-edge">
-    <path d="M254.0,161.0 C254.0,161.0 294.0,161.0 294.0,161.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M254.0,161.0 C254.0,161.0 279.5,161.0 279.5,161.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M228.8,125.2 C251.6,125.2 271.2,150.0 294.0,150.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M221.8,128.0 C242.0,128.0 259.3,150.0 279.5,150.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M414.0,161.0 C414.0,161.0 454.0,161.0 454.0,161.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M418.0,161.0 C418.0,161.0 443.5,161.0 443.5,161.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="object-node"><title>Parser a = String ⟶ Maybe (a, String) — run on input; succeeds with (a, rest) or fails with Nothing</title>

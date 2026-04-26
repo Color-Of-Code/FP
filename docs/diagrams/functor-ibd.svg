@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 603.6 298" width="603.6" height="298">
 <defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
   </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
   </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
   </marker>
 </defs>
@@ -19,15 +19,15 @@
 
 
   <g class="edge hof-edge">
-    <path d="M203.6,151.6 C203.6,151.6 243.6,142.3 243.6,142.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M203.6,148.1 C203.6,148.1 229.1,142.3 229.1,142.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M201.8,118.1 C201.8,118.1 243.6,127.7 243.6,127.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M201.8,121.5 C201.8,121.5 229.1,127.7 229.1,127.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M363.6,135.0 C363.6,135.0 403.6,135.0 403.6,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M367.6,135.0 C367.6,135.0 393.1,135.0 393.1,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="object-node hof"><title>(a ⟶ b) — plain function, flowing in as a structural argument</title>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 498.7 666" width="498.7" height="666">
 <defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
   </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
   </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
   </marker>
 </defs>
@@ -16,63 +16,63 @@
 <g transform="translate(0,28)">
   <rect x="0" y="0" width="498.7" height="638" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
   <g class="activity-frame-tab">
-    <path d="M0,0 L99,0 L109,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+    <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
     <text x="54.5" y="12.0" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» fold</text>
   </g>
   <g class="edge hof-edge">
-    <path d="M360.9,106.0 C421.9,106.0 126.0,157.0 186.9,157.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M349.7,106.0 C411.8,106.0 110.3,179.0 172.4,179.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M237.1,106.0 C254.7,106.0 169.3,168.0 186.9,168.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M217.4,106.0 C233.1,106.0 156.7,157.0 172.4,157.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M135.2,106.0 C153.3,106.0 168.8,179.0 186.9,179.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M117.7,106.0 C136.9,106.0 153.3,168.0 172.4,168.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M306.9,168.0 C314.5,168.0 277.7,230.0 285.2,230.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M310.9,168.0 C318.3,168.0 282.4,230.0 289.8,230.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge hof-edge">
-    <path d="M388.2,106.0 C441.1,106.0 184.1,319.0 237.0,319.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M382.9,106.0 C439.1,106.0 166.3,341.0 222.5,341.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M297.0,268.0 C318.0,268.0 216.0,330.0 237.0,330.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M276.8,268.0 C295.8,268.0 203.5,319.0 222.5,319.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M202.1,268.0 C214.3,268.0 224.8,341.0 237.0,341.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M184.6,268.0 C197.9,268.0 209.2,330.0 222.5,330.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M357.0,330.0 C368.8,330.0 311.5,392.0 323.3,392.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M361.0,330.0 C372.6,330.0 316.2,392.0 327.8,392.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge hof-edge">
-    <path d="M392.9,106.0 C434.9,106.0 231.0,481.0 273.0,481.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M389.6,106.0 C435.5,106.0 212.6,503.0 258.5,503.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M331.8,430.0 C352.3,430.0 252.4,492.0 273.0,492.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M311.6,430.0 C330.2,430.0 239.9,481.0 258.5,481.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M236.9,430.0 C249.5,430.0 260.4,503.0 273.0,503.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M219.4,430.0 C233.1,430.0 244.8,492.0 258.5,492.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M393.0,492.0 C414.0,492.0 312.0,554.0 333.0,554.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M397.0,492.0 C417.8,492.0 316.7,554.0 337.5,554.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M306.9,168.0 C331.4,168.0 212.5,330.0 237.0,330.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
+    <path d="M306.9,168.0 C335.0,168.0 198.4,330.0 226.5,330.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
     
   </g>
   <g class="edge">
-    <path d="M357.0,330.0 C386.4,330.0 243.6,492.0 273.0,492.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
+    <path d="M357.0,330.0 C390.1,330.0 229.4,492.0 262.5,492.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
     
   </g>
   <g class="action-node"><title>Apply f to b0 and a1 → b1</title>

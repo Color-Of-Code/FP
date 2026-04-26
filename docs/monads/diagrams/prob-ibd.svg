@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 657.6 298" width="657.6" height="298">
 <defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
   </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
   </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
   </marker>
 </defs>
@@ -19,15 +19,15 @@
 
 
   <g class="edge">
-    <path d="M228.8,151.5 C228.8,151.5 279.6,142.3 279.6,142.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M228.8,149.1 C228.8,149.1 265.1,142.3 265.1,142.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge hof-edge">
-    <path d="M239.6,120.1 C239.6,120.1 279.6,127.7 279.6,127.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M239.6,122.9 C239.6,122.9 265.1,127.7 265.1,127.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M399.6,135.0 C399.6,135.0 439.6,135.0 439.6,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M403.6,135.0 C403.6,135.0 429.1,135.0 429.1,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="object-node"><title>Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1.</title>

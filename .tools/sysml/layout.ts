@@ -32,7 +32,10 @@ export function layeredLayout(
   }
   edges.forEach((e, i) => {
     if (g.hasNode(e.from) && g.hasNode(e.to)) {
-      g.setEdge(e.from, e.to, {}, `e${i}`);
+      g.setEdge(e.from, e.to, {
+        weight: e.isSeparator ? 0 : 1,
+        minlen: e.minlen ?? 1,
+      }, `e${i}`);
     }
   });
 

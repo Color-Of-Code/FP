@@ -19,7 +19,7 @@ import type {
 import {
   ACTION_W, ACTION_H, ACTION_RX, PIN_SZ,
   INIT_R, FINAL_R, FINAL_R_INNER, DECISION_SZ,
-  FRAME_PAD, FRAME_TAB_W, FRAME_TAB_H,
+  FRAME_PAD, FRAME_TAB_W, FRAME_TAB_H, BRANCH_SEP_H, ARROW_DEPTH,
   COL, nodeDims, escXml,
 } from "./types.ts";
 import { layeredLayout } from "./layout.ts";
@@ -61,16 +61,85 @@ function pinSlotY(n: GNode, index: number, total: number): number {
 type Pt4 = [number, number, number, number];
 
 /**
- * Precompute start and end coordinates for every edge.
+ * Assign each object-flow edge to a pin slot on action nodes using semantic
+ * matching so the correct pin is targeted regardless of spatial position.
  *
- * – Object-flow leaving an action → departs from an output-pin slot (right side).
- * – Object-flow entering an action → arrives at an input-pin slot (left side).
- * – Control-flow (succession) between actions → centre of right/left side.
- * – Edges involving object / initial / final nodes → clipPoint as before.
+ * Priority (incoming edge from src → action dst):
+ *   1. src is action  → match src.outPin name to dst.inPin name
+ *   2. src is object  → match src.id to dst.inPin name
+ *   3. fallback       → assign leftover slots in y-sorted order
  *
- * Incoming and outgoing edges are sorted by the y-position of the opposite
- * node so that pin assignment matches spatial order (reduces crossings).
+ * Symmetric logic for outgoing (action src → dst):
+ *   1. dst is action  → match src.outPin name to dst.inPin name (from src side)
+ *   2. dst is object  → match src.outPin name to dst.id
+ *   3. fallback       → y-sorted order
  */
+function semanticPinIndex(
+  nodeId: string,
+  es: GEdge[],
+  nodeMap: Map<string, GNode>,
+  side: "in" | "out",
+): Map<GEdge, [number, number]> {
+  const result = new Map<GEdge, [number, number]>();
+  const node = nodeMap.get(nodeId);
+  const pins = side === "in" ? (node?.inPins ?? []) : (node?.outPins ?? []);
+
+  if (node?.kind !== "action" || pins.length === 0) {
+    // No pin matching — assign positionally in y-sorted order
+    const sorted = [...es].sort((a, b) => {
+      const opp = side === "in" ? a.from : a.to;
+      const oppB = side === "in" ? b.from : b.to;
+      return (nodeMap.get(opp)?.y ?? 0) - (nodeMap.get(oppB)?.y ?? 0);
+    });
+    sorted.forEach((e, i) => result.set(e, [i, es.length]));
+    return result;
+  }
+
+  const assigned = new Map<GEdge, number>(); // edge → pin slot index
+  const usedSlots = new Set<number>();
+  const unmatched: GEdge[] = [];
+
+  for (const e of es) {
+    const otherId = side === "in" ? e.from : e.to;
+    const other = nodeMap.get(otherId);
+    let slotIdx = -1;
+
+    if (other?.kind === "action") {
+      // Match by pin names that appear in both the other node and this node
+      const otherPins = side === "in" ? other.outPins : other.inPins;
+      for (const p of otherPins) {
+        const idx = pins.findIndex((q, i) => q === p && !usedSlots.has(i));
+        if (idx !== -1) { slotIdx = idx; break; }
+      }
+    }
+    if (slotIdx === -1 && other) {
+      // Match by node id → pin name
+      const idx = pins.findIndex((q, i) => q === other.id && !usedSlots.has(i));
+      if (idx !== -1) slotIdx = idx;
+    }
+
+    if (slotIdx !== -1) {
+      assigned.set(e, slotIdx);
+      usedSlots.add(slotIdx);
+    } else {
+      unmatched.push(e);
+    }
+  }
+
+  // Assign remaining unmatched edges to unused slots in y-sorted order
+  const unusedSlots = pins.map((_, i) => i).filter(i => !usedSlots.has(i));
+  const sortedUnmatched = [...unmatched].sort((a, b) => {
+    const opp = side === "in" ? a.from : a.to;
+    const oppB = side === "in" ? b.from : b.to;
+    return (nodeMap.get(opp)?.y ?? 0) - (nodeMap.get(oppB)?.y ?? 0);
+  });
+  sortedUnmatched.forEach((e, i) =>
+    assigned.set(e, unusedSlots[i] ?? pins.length - 1));
+
+  es.forEach(e => result.set(e, [assigned.get(e) ?? 0, pins.length]));
+  return result;
+}
+
 function computeEndpoints(
   edges: GEdge[],
   nodeMap: Map<string, GNode>,
@@ -86,39 +155,17 @@ function computeEndpoints(
     outgoing.get(e.from)!.push(e);
   }
 
-  // Sort each group by the y-position of the opposite end to reduce crossings,
-  // then reorder the action node's pin-label arrays to match so that every
-  // label corresponds to the arrow actually arriving/leaving at that slot.
-  // Only reorder when every edge source/target matches a pin name; otherwise
-  // keep the original pin order from the action def.
-  for (const [nodeId, es] of incoming) {
-    es.sort((a, b) => (nodeMap.get(a.from)?.y ?? 0) - (nodeMap.get(b.from)?.y ?? 0));
-    const node = nodeMap.get(nodeId);
-    if (node?.kind === "action" && node.inPins.length === es.length) {
-      const reordered = es.map(e => node.inPins.find(p => p === e.from));
-      if (reordered.every(p => p !== undefined)) {
-        node.inPins = reordered as string[];
-      }
-    }
-  }
-  for (const [nodeId, es] of outgoing) {
-    es.sort((a, b) => (nodeMap.get(a.to)?.y ?? 0) - (nodeMap.get(b.to)?.y ?? 0));
-    const node = nodeMap.get(nodeId);
-    if (node?.kind === "action" && node.outPins.length === es.length) {
-      const reordered = es.map(e => node.outPins.find(p => p === e.to));
-      if (reordered.every(p => p !== undefined)) {
-        node.outPins = reordered as string[];
-      }
-    }
-  }
-
-  // Build fast index lookup: edge → (slot index, slot total) per side
+  // Build semantic pin → slot mappings
   const inIdx = new Map<GEdge, [number, number]>();
   const outIdx = new Map<GEdge, [number, number]>();
-  for (const [nodeId, es] of incoming)
-    es.forEach((e, i) => inIdx.set(e, [i, es.length]));
-  for (const [nodeId, es] of outgoing)
-    es.forEach((e, i) => outIdx.set(e, [i, es.length]));
+  for (const [nodeId, es] of incoming) {
+    const m = semanticPinIndex(nodeId, es, nodeMap, "in");
+    for (const [e, v] of m) inIdx.set(e, v);
+  }
+  for (const [nodeId, es] of outgoing) {
+    const m = semanticPinIndex(nodeId, es, nodeMap, "out");
+    for (const [e, v] of m) outIdx.set(e, v);
+  }
 
   return edges.map(e => {
     const from = nodeMap.get(e.from)!;
@@ -128,27 +175,46 @@ function computeEndpoints(
     // ── Source endpoint ──────────────────────────────────────────────────
     if (from.kind === "action" && e.isObjectFlow) {
       const [idx, total] = outIdx.get(e) ?? [0, 1];
-      x1 = from.x + from.w / 2;
+      // Depart from the outer (right) edge of the output-pin square
+      x1 = from.x + from.w / 2 + PIN_SZ / 2;
       y1 = pinSlotY(from, idx, total);
     } else if (from.kind === "action") {
       // control flow: depart from right centre
       x1 = from.x + from.w / 2;
       y1 = from.y;
     } else {
-      [x1, y1] = clipPoint(from, to.x, to.y);
+      // Clip toward the target's exact path endpoint (boundary − arrow depth)
+      // so the source departure direction is correct.
+      let tgtX = to.x, tgtY = to.y;
+      if (to.kind === "action" && e.isObjectFlow) {
+        const [idx, total] = inIdx.get(e) ?? [0, 1];
+        tgtX = to.x - to.w / 2 - PIN_SZ / 2 - ARROW_DEPTH;
+        tgtY = pinSlotY(to, idx, total);
+      } else if (to.kind === "action") {
+        tgtX = to.x - to.w / 2 - ARROW_DEPTH;
+        tgtY = to.y;
+      }
+      [x1, y1] = clipPoint(from, tgtX, tgtY);
     }
 
     // ── Target endpoint ──────────────────────────────────────────────────
+    // All edges use refX="0" (back of arrowhead at path endpoint), so the
+    // path must end ARROW_DEPTH before the visual boundary so the tip lands
+    // exactly on it.
     if (to.kind === "action" && e.isObjectFlow) {
       const [idx, total] = inIdx.get(e) ?? [0, 1];
-      x2 = to.x - to.w / 2;
+      x2 = to.x - to.w / 2 - PIN_SZ / 2 - ARROW_DEPTH;
       y2 = pinSlotY(to, idx, total);
     } else if (to.kind === "action") {
       // control flow: arrive at left centre
-      x2 = to.x - to.w / 2;
+      x2 = to.x - to.w / 2 - ARROW_DEPTH;
       y2 = to.y;
     } else {
-      [x2, y2] = clipPoint(to, from.x, from.y);
+      // Clip to boundary, then pull back so the tip (not the path end) is
+      // on the boundary.  The final Bezier tangent is always horizontal, so
+      // subtracting ARROW_DEPTH from x is exact.
+      [x2, y2] = clipPoint(to, x1, y1);
+      x2 -= ARROW_DEPTH;
     }
 
     return [x1, y1, x2, y2] as Pt4;
@@ -236,12 +302,13 @@ function renderDiamondNode(n: GNode): string {
 
 function renderGNode(n: GNode): string {
   switch (n.kind) {
-    case "action":   return renderActionNode(n);
-    case "object":   return renderObjectNode(n);
-    case "initial":  return renderInitialNode(n);
-    case "final":    return renderFinalNode(n);
-    case "decision": return renderDiamondNode(n);
-    case "merge":    return renderDiamondNode(n);
+    case "action":    return renderActionNode(n);
+    case "object":    return renderObjectNode(n);
+    case "initial":   return renderInitialNode(n);
+    case "final":     return renderFinalNode(n);
+    case "decision":  return renderDiamondNode(n);
+    case "merge":     return renderDiamondNode(n);
+    case "separator": return ""; // invisible layout-only spacer
   }
 }
 
@@ -289,7 +356,7 @@ function renderActivityFrame(name: string, W: number, H: number): string {
   const label = `«activity» ${name}`;
   const tw = Math.min(FRAME_TAB_W, label.length * 6.2 + 16);
   const th = FRAME_TAB_H;
-  const tabPath = `M0,0 L${tw - 10},0 L${tw},${th} L0,${th} Z`;
+  const tabPath = `M0,0 L${tw},0 L${tw},${th - 10} L${tw - 10},${th} L0,${th} Z`;
 
   return `  <rect x="0" y="0" width="${W}" height="${H}" rx="8" fill="${COL.frameFill}" stroke="${COL.frameStroke}" stroke-width="1.5"/>
   <g class="activity-frame-tab">
@@ -433,6 +500,47 @@ function renderActivity(
     edges.push({ from: s.from, to: s.to, label: undefined, isHof: false, isObjectFlow: false });
   }
 
+  // ── Branch separators ────────────────────────────────────────────────────
+  // For each decision node, inject one invisible separator node (zero width,
+  // BRANCH_SEP_H tall) with edges decision→sep (minlen=1) and sep→merge
+  // (minlen=2).  The minlen=2 forces the separator to land at the same rank
+  // as the direct branch targets, and its height pushes the branches apart
+  // vertically so that neither branch edge overlaps the other branch's nodes.
+  const mergeIdSet = new Set(actDef.merges.map(m => m.id));
+
+  function findMerge(decisionId: string): string | null {
+    const queue = [decisionId];
+    const visited = new Set<string>();
+    while (queue.length > 0) {
+      const curr = queue.shift()!;
+      if (visited.has(curr)) continue;
+      visited.add(curr);
+      if (curr !== decisionId && mergeIdSet.has(curr)) return curr;
+      for (const e of edges) {
+        if (e.from === curr && !visited.has(e.to)) queue.push(e.to);
+      }
+    }
+    return null;
+  }
+
+  for (const d of actDef.decisions) {
+    const mergeId = findMerge(d.id);
+    if (!mergeId) continue;
+    const sepId = `_sep_${d.id}`;
+    const sepNode: GNode = {
+      id: sepId, label: "",
+      kind: "separator", isHof: false, tooltip: undefined,
+      x: 0, y: 0, w: 1, h: BRANCH_SEP_H,
+      inPins: [], outPins: [],
+    };
+    nodes.push(sepNode);
+    nodeMap.set(sepId, sepNode);
+    // minlen=1: separator lands at rank(decision)+1 (same rank as branch starts)
+    // minlen=2: merge stays ≥ rank(separator)+2, keeping separator at branch rank
+    edges.push({ from: d.id,  to: sepId,  label: undefined, isHof: false, isObjectFlow: false, isSeparator: true, minlen: 1 });
+    edges.push({ from: sepId, to: mergeId, label: undefined, isHof: false, isObjectFlow: false, isSeparator: true, minlen: 2 });
+  }
+
   const [innerW, innerH] = layeredLayout(nodes, edges, diagram.direction ?? "LR");
   for (const n of nodes) { n.x += FRAME_PAD; n.y += FRAME_PAD + FRAME_TAB_H; }
 
@@ -441,7 +549,7 @@ function renderActivity(
 
   const frame = renderActivityFrame(diagram.name ?? actDef.name, W, H);
   const pts = computeEndpoints(edges, nodeMap);
-  const edgeEls = edges.map((e, i) => renderGEdge(e, pts[i])).join("\n");
+  const edgeEls = edges.map((e, i) => e.isSeparator ? "" : renderGEdge(e, pts[i])).join("\n");
   const nodeEls = nodes.map(n => renderGNode(n)).join("\n");
 
   return [`${frame}\n${edgeEls}\n${nodeEls}`, W, H];
@@ -450,13 +558,13 @@ function renderActivity(
 // ── SVG shell ──────────────────────────────────────────────────────────────
 
 const SVG_DEFS = `<defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="${COL.edgeStroke}"/>
   </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10" fill="none" stroke="${COL.edgeStroke}" stroke-width="1.5"/>
   </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="${COL.hofEdge}"/>
   </marker>
 </defs>`;

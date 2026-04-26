@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1207.6 295.5" width="1207.6" height="295.5">
 <defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
   </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
   </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
   </marker>
 </defs>
@@ -16,51 +16,51 @@
 <g transform="translate(0,28)">
   <rect x="0" y="0" width="1207.6" height="267.5" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
   <g class="activity-frame-tab">
-    <path d="M0,0 L92.8,0 L102.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+    <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
     <text x="51.4" y="12.0" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
   </g>
   <g class="edge">
-    <path d="M174.0,150.9 C174.0,150.9 214.0,149.7 214.0,149.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M174.0,148.9 C174.0,148.9 199.5,149.7 199.5,149.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M165.0,187.2 C182.2,187.2 196.8,164.3 214.0,164.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M154.6,183.5 C170.3,183.5 183.8,164.3 199.5,164.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M334.0,157.0 C334.0,157.0 393.8,144.7 393.8,144.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M338.0,157.0 C338.0,157.0 383.3,147.9 383.3,147.9" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M503.8,139.0 C503.8,139.0 563.6,146.3 563.6,146.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M503.8,135.0 C503.8,135.0 549.1,131.7 549.1,131.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge hof-edge">
-    <path d="M512.7,106.0 C530.5,106.0 545.8,131.7 563.6,131.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M480.9,106.0 C504.8,106.0 525.2,146.3 549.1,146.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M683.6,139.0 C683.6,139.0 723.6,127.1 723.6,127.1" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M687.6,139.0 C687.6,139.0 713.1,132.0 713.1,132.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M851.6,137.3 C865.6,137.3 877.6,157.7 891.6,157.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M832.2,138.5 C847.9,138.5 861.4,157.7 877.1,157.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M165.0,200.0 C419.3,200.0 637.3,172.3 891.6,172.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M165.0,200.3 C414.2,200.3 627.9,172.3 877.1,172.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M1011.6,165.0 C1011.6,165.0 1051.6,165.0 1051.6,165.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M1015.6,165.0 C1015.6,165.0 1041.1,165.0 1041.1,165.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M334.0,157.0 C414.4,157.0 483.2,139.0 563.6,139.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
+    <path d="M334.0,157.0 C410.7,157.0 476.4,139.0 553.1,139.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
     
   </g>
   <g class="edge">
-    <path d="M683.6,139.0 C756.4,139.0 818.8,165.0 891.6,165.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
+    <path d="M683.6,139.0 C752.7,139.0 812.0,165.0 881.1,165.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
     
   </g>
   <g class="action-node"><title>Run ra(env): supply env to ra, get result a</title>
@@ -77,9 +77,9 @@
     <rect x="563.6" y="117.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="623.6" y="139.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply_f</text>
     <rect x="559.6" y="127.7" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="569.6" y="131.7" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+    <text x="569.6" y="131.7" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
     <rect x="559.6" y="142.3" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="569.6" y="146.3" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+    <text x="569.6" y="146.3" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
     <rect x="679.6" y="135.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
     <text x="677.6" y="139.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">rb</text>
   </g>

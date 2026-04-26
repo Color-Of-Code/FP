@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 232" width="512" height="232">
 <defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
   </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
   </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
   </marker>
 </defs>
@@ -16,28 +16,28 @@
 <g transform="translate(0,28)">
   <rect x="0" y="0" width="512" height="204" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
   <g class="activity-frame-tab">
-    <path d="M0,0 L123.80000000000001,0 L133.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+    <path d="M0,0 L133.8,0 L133.8,12 L123.80000000000001,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
     <text x="66.9" y="12.0" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» traverse</text>
   </g>
   <g class="edge hof-edge">
-    <path d="M156.0,129.8 C156.0,129.8 196.0,120.3 196.0,120.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    <path d="M146.9,120.0 C146.9,120.0 181.5,105.7 181.5,105.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
     
   </g>
   <g class="edge">
-    <path d="M156.0,96.2 C156.0,96.2 196.0,105.7 196.0,105.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M146.9,106.0 C146.9,106.0 181.5,120.3 181.5,120.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="edge">
-    <path d="M316.0,113.0 C316.0,113.0 356.0,113.0 356.0,113.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    <path d="M320.0,113.0 C320.0,113.0 345.5,113.0 345.5,113.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
     
   </g>
   <g class="action-node"><title>traverse: maps each element with f, collects effects into outer F</title>
     <rect x="196.0" y="91.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="256.0" y="113.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">trav</text>
     <rect x="192.0" y="101.7" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="202.0" y="105.7" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ta</text>
+    <text x="202.0" y="105.7" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
     <rect x="192.0" y="116.3" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="202.0" y="120.3" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+    <text x="202.0" y="120.3" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ta</text>
     <rect x="312.0" y="109.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
     <text x="310.0" y="113.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ftb</text>
   </g>

@@ -130,7 +130,7 @@ export interface GNode {
   id: string;
   label: string;
   stereotype?: string;
-  kind: "action" | "object" | "initial" | "final" | "decision" | "merge";
+  kind: "action" | "object" | "initial" | "final" | "decision" | "merge" | "separator";
   isHof: boolean;
   tooltip?: string;
   x: number; y: number;
@@ -144,6 +144,10 @@ export interface GEdge {
   label?: string;
   isObjectFlow: boolean;
   isHof: boolean;
+  /** dagre minimum rank distance for this edge (default 1) */
+  minlen?: number;
+  /** true for invisible layout-only separator edges — not rendered */
+  isSeparator?: boolean;
 }
 
 // ── Dimension constants ────────────────────────────────────────────────────
@@ -163,6 +167,18 @@ export const FRAME_TAB_W = 200;
 export const FRAME_TAB_H = 22;
 export const EDGE_GAP = 40;
 export const NODE_VGAP = 14;
+/** Height of the invisible separator node injected between decision branches */
+export const BRANCH_SEP_H = 60;
+/**
+ * Rendered depth of the arrowhead in SVG user-space units.
+ *
+ * Markers use markerUnits="strokeWidth" (default), strokeWidth=1.5,
+ * markerWidth=7, viewBox="0 0 10 10": scale = 7×1.5/10 = 1.05 u/unit.
+ * Tip is at marker-x=10  → depth = 10 × 1.05 = 10.5.
+ * Used with refX="0" (back of arrowhead at path endpoint) to pull the path
+ * endpoint back so the visual tip lands exactly on the target boundary.
+ */
+export const ARROW_DEPTH = 10.5;
 
 // ── Colour palette ─────────────────────────────────────────────────────────
 
@@ -186,6 +202,7 @@ export function nodeDims(n: GNode): [number, number] {
   if (n.kind === "final")   return [FINAL_R * 2, FINAL_R * 2];
   if (n.kind === "decision" || n.kind === "merge") return [DECISION_SZ, DECISION_SZ];
   if (n.kind === "action")  return [ACTION_W, ACTION_H];
+  if (n.kind === "separator") return [1, BRANCH_SEP_H]; // invisible width, tall to force branch gap
   const charW = 7.2;
   const w = Math.max(OBJECT_W, n.label.length * charW + 20);
   return [w, OBJECT_H];
