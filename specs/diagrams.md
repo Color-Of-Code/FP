@@ -68,6 +68,8 @@ Follow it when writing new `.sysml` files.
 | Container cardinality (`[0..*]`)        | flow label `"∀ a"` or type annotation `"List a"`                                                       | activity |
 | Input pin of an action                  | `in <id> : <Type>` inside `action def`                                                                 | activity |
 | Output pin of an action                 | `out <id> : <Type>` inside `action def`                                                                | activity |
+| Pattern match / conditional branch      | `decision <id>` — diamond node with one inflow and guarded outflows                                    | activity |
+| Joining divergent paths                 | `merge <id>` — diamond node that unites branches into a single outflow                                 | activity |
 
 **Types as quoted strings** — complex math types (`a → Mb`, `F(a → b)`, `List a`) are written as
 quoted strings in the SysML source: `object f : "a → Mb"`. The renderer strips the quotes and
@@ -126,6 +128,12 @@ package <Name> {
 
         // control flow: ordering constraint (no data carried)
         succession <id> then <id>;
+
+        // decision node: diamond that branches on a condition
+        decision <id>;
+
+        // merge node: diamond that joins divergent branches
+        merge <id>;
     }
 }
 
@@ -194,8 +202,10 @@ standard SysML keywords). It controls visual rendering only.
 | `name`      | no       | Short label for the activity-frame tab (e.g. `"traverse"`, `">>="`)          |
 | `direction` | no       | `LR` (default, left→right) or `TB` (top→bottom, useful for stepped diagrams) |
 | `render`    | no       | Which `activity def` or `part def` to render; defaults to the first one      |
-| `show`      | no       | Assign a visual role: `hof \| type \| value \| function \| initial \| final` |
+| `show`      | no       | Assign a visual role (see below)                                             |
 | `tooltip`   | no       | Hover text on a node                                                         |
+
+**`show` roles:** `hof`, `type`, `value`, `function`, `initial`, `final`, `decision`, `merge`.
 
 #### Multiplicity and cardinality
 
@@ -221,29 +231,40 @@ This keeps the diagram abstract and avoids the literal enumeration that only wor
 
 #### Activity constructs
 
-| ------------------------------ | --------------------------------------------------------- | |
-`action def` + `in`/`out` pins | Type signature of an operation | | `object <id> : <Type>` | A typed
-data token (value, type, or HOF function) | | `action <id> : <ActionDef>` | An operation that
-transforms tokens | | `flow from A to B` | Object flow — a token moves from node A to node B | |
-`succession A then B` | Control flow — A completes before B starts (dashed arrow) | | `part def` +
-`port in/out` | IBD structural block with typed boundary ports | | `connection connect A to B` | IBD
-wire (structural, not a data flow) |
+| SysML v2 construct             | FP diagram meaning                                            |
+| ------------------------------ | ------------------------------------------------------------- |
+| `action def` + `in`/`out` pins | Type signature of an operation                                |
+| `object <id> : <Type>`         | A typed data token (value, type, or HOF function)             |
+| `action <id> : <ActionDef>`    | An operation that transforms tokens                           |
+| `flow from A to B`             | Object flow — a token moves from node A to node B             |
+| `succession A then B`          | Control flow — A completes before B starts (dashed arrow)     |
+| `decision <id>`                | Diamond node — conditional branch (pattern match / guard)     |
+| `merge <id>`                   | Diamond node — joins divergent branches into a single outflow |
+| `part def` + `port in/out`     | IBD structural block with typed boundary ports                |
+| `connection connect A to B`    | IBD wire (structural, not a data flow)                        |
+
+**Decision / merge nodes**: Use a `decision` node when the flow depends on the shape or value of an
+incoming token (e.g. a pattern match on `Just a` vs `Nothing`). Outgoing flows from a decision carry
+**guard labels** (the `flow … : "label"` syntax). A corresponding `merge` node joins the branches
+back into a single output. Both render as yellow diamonds.
 
 #### Visual notation (SysML v2 compliant)
 
 The renderer follows OMG SysML v2 visual conventions (ISO 19514):
 
-| Element          | Shape                              | Fill / Stroke                  | When to use                                              |
-| ---------------- | ---------------------------------- | ------------------------------ | -------------------------------------------------------- |
-| Action node      | rounded rectangle (`rx=12`)        | light green `#e8f5e9`          | An **action** — an operation that executes               |
-| Object node      | plain rectangle                    | light grey `#f5f5f5`           | A data type or concrete value                            |
-| HOF object node  | rectangle with `«function»` stereo | teal `#e0f2f1` / `#00796b`     | A **function type flowing in as a data token** (HOF arg) |
-| Object flow edge | solid arrow, filled arrowhead      | grey `#424242` / teal for HOF  | Token moves from node A to node B                        |
-| Control flow     | dashed arrow, open arrowhead       | grey `#424242`                 | Ordering only — A completes before B starts              |
-| Initial node     | filled black circle                | `#212121`                      | Start pseudo-node                                        |
-| Final node       | bull's-eye (outer + inner circle)  | `#212121`                      | End pseudo-node                                          |
-| Activity frame   | rounded rect + pentagon name tab   | `#fafafa` frame, `#e0e0e0` tab | Encloses the activity, tab shows `«activity» Name`       |
-| Pins             | small squares on action boundary   | `#e0e0e0`                      | Input pins (left) / output pins (right) from action def  |
+| Element          | Shape                              | Fill / Stroke                  | When to use                                                |
+| ---------------- | ---------------------------------- | ------------------------------ | ---------------------------------------------------------- |
+| Action node      | rounded rectangle (`rx=12`)        | light green `#e8f5e9`          | An **action** — an operation that executes                 |
+| Object node      | plain rectangle                    | light grey `#f5f5f5`           | A data type or concrete value                              |
+| HOF object node  | rectangle with `«function»` stereo | teal `#e0f2f1` / `#00796b`     | A **function type flowing in as a data token** (HOF arg)   |
+| Decision node    | diamond (rotated square)           | yellow `#fff9c4` / `#f9a825`   | Pattern match / conditional branch (one in, N guarded out) |
+| Merge node       | diamond (rotated square)           | yellow `#fff9c4` / `#f9a825`   | Joins N branches back into a single flow                   |
+| Object flow edge | solid arrow, filled arrowhead      | grey `#424242` / teal for HOF  | Token moves from node A to node B                          |
+| Control flow     | dashed arrow, open arrowhead       | grey `#424242`                 | Ordering only — A completes before B starts                |
+| Initial node     | filled black circle                | `#212121`                      | Start pseudo-node                                          |
+| Final node       | bull's-eye (outer + inner circle)  | `#212121`                      | End pseudo-node                                            |
+| Activity frame   | rounded rect + pentagon name tab   | `#fafafa` frame, `#e0e0e0` tab | Encloses the activity, tab shows `«activity» Name`         |
+| Pins             | small squares on action boundary   | `#e0e0e0`                      | Input pins (left) / output pins (right) from action def    |
 
 **Canvas auto-sizing**: the SVG dimensions are computed from actual node widths and edge gaps —
 there is no fixed canvas size. The layout engine uses Sugiyama-style layered placement (left→right)

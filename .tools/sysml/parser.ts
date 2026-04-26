@@ -6,6 +6,7 @@
 import type {
   Role, DiagramType, PortDef, PortUsage, PartUsage, ConnectionUsage,
   PartDef, ActionDef, ActivityDef, PackageDecl, DiagramMeta, Model,
+  DecisionNode, MergeNode,
 } from "./types.ts";
 
 export class Parser {
@@ -140,7 +141,7 @@ export class Parser {
     const name = this.parseQualifiedName();
     const def: ActivityDef = {
       kind: "activityDef", name,
-      actions: [], objects: [], flows: [], successions: [],
+      actions: [], objects: [], decisions: [], merges: [], flows: [], successions: [],
     };
     if (!this.at("{")) { this.tryConsume(";"); return def; }
     this.consume();
@@ -160,6 +161,16 @@ export class Parser {
         if (this.at(":")) { this.consume(); type = this.parseStringOrIdent(); }
         this.tryConsume(";");
         def.objects.push({ kind: "object", id, type });
+      } else if (tok === "decision") {
+        this.consume();
+        const id = this.consume();
+        this.tryConsume(";");
+        def.decisions.push({ kind: "decision", id });
+      } else if (tok === "merge") {
+        this.consume();
+        const id = this.consume();
+        this.tryConsume(";");
+        def.merges.push({ kind: "merge", id });
       } else if (tok === "flow") {
         this.consume();
         this.expect("from");

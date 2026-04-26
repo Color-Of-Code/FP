@@ -79,37 +79,37 @@
     <rect x="186.9" y="146.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="246.9" y="168.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1</text>
     <rect x="182.9" y="153.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="192.9" y="157.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+    <text x="192.9" y="157.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
     <rect x="182.9" y="164.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="192.9" y="168.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b0</text>
+    <text x="192.9" y="168.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
     <rect x="182.9" y="175.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="192.9" y="179.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a1</text>
+    <text x="192.9" y="179.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
     <rect x="302.9" y="164.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="300.9" y="168.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b1</text>
+    <text x="300.9" y="168.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">bOut</text>
   </g>
   <g class="action-node"><title>Apply f to b1 and a2 → b2</title>
     <rect x="237.0" y="308.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="297.0" y="330.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2</text>
     <rect x="233.0" y="315.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="243.0" y="319.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+    <text x="243.0" y="319.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
     <rect x="233.0" y="326.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="243.0" y="330.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b1</text>
+    <text x="243.0" y="330.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
     <rect x="233.0" y="337.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="243.0" y="341.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a2</text>
+    <text x="243.0" y="341.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
     <rect x="353.0" y="326.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="351.0" y="330.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b2</text>
+    <text x="351.0" y="330.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">bOut</text>
   </g>
   <g class="action-node"><title>Apply f to b2 and a3 → b3 (final result)</title>
     <rect x="273.0" y="470.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="333.0" y="492.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3</text>
     <rect x="269.0" y="477.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="279.0" y="481.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+    <text x="279.0" y="481.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
     <rect x="269.0" y="488.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="279.0" y="492.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b2</text>
+    <text x="279.0" y="492.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
     <rect x="269.0" y="499.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="279.0" y="503.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a3</text>
+    <text x="279.0" y="503.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
     <rect x="389.0" y="488.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="387.0" y="492.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b3</text>
+    <text x="387.0" y="492.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">bOut</text>
   </g>
   <g class="object-node hof"><title>(b ⟶ a ⟶ b) — the combining function, passed as a token (HOF input)</title>
     <rect x="339.1" y="68.0" width="113.60000000000001" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>

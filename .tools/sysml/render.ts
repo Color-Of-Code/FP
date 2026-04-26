@@ -14,10 +14,11 @@
 
 import type {
   GNode, GEdge, PortUsage, PartDef, ActionDef, ActivityDef, DiagramMeta, Model,
+  DecisionNode, MergeNode,
 } from "./types.ts";
 import {
   ACTION_W, ACTION_H, ACTION_RX, PIN_SZ,
-  INIT_R, FINAL_R, FINAL_R_INNER,
+  INIT_R, FINAL_R, FINAL_R_INNER, DECISION_SZ,
   FRAME_PAD, FRAME_TAB_W, FRAME_TAB_H,
   COL, nodeDims, escXml,
 } from "./types.ts";
@@ -32,6 +33,13 @@ function clipPoint(n: GNode, tx: number, ty: number): [number, number] {
     const r = n.kind === "initial" ? INIT_R : FINAL_R;
     const d = Math.sqrt(dx * dx + dy * dy) || 1;
     return [n.x + (dx / d) * r, n.y + (dy / d) * r];
+  }
+  if (n.kind === "decision" || n.kind === "merge") {
+    // Diamond boundary: |dx/hw| + |dy/hh| = 1
+    const hw = n.w / 2; const hh = n.h / 2;
+    if (dx === 0 && dy === 0) return [n.x + hw, n.y];
+    const t = 1 / (Math.abs(dx) / hw + Math.abs(dy) / hh);
+    return [n.x + dx * t, n.y + dy * t];
   }
   const hw = n.w / 2; const hh = n.h / 2;
   if (dx === 0 && dy === 0) return [n.x + hw, n.y];
@@ -81,20 +89,26 @@ function computeEndpoints(
   // Sort each group by the y-position of the opposite end to reduce crossings,
   // then reorder the action node's pin-label arrays to match so that every
   // label corresponds to the arrow actually arriving/leaving at that slot.
+  // Only reorder when every edge source/target matches a pin name; otherwise
+  // keep the original pin order from the action def.
   for (const [nodeId, es] of incoming) {
     es.sort((a, b) => (nodeMap.get(a.from)?.y ?? 0) - (nodeMap.get(b.from)?.y ?? 0));
     const node = nodeMap.get(nodeId);
     if (node?.kind === "action" && node.inPins.length === es.length) {
-      // Each edge's source id matches the pin parameter name in this SysML subset.
-      // Reorder so slot i is labelled with the name of the edge actually arriving there.
-      node.inPins = es.map(e => node.inPins.find(p => p === e.from) ?? e.from);
+      const reordered = es.map(e => node.inPins.find(p => p === e.from));
+      if (reordered.every(p => p !== undefined)) {
+        node.inPins = reordered as string[];
+      }
     }
   }
   for (const [nodeId, es] of outgoing) {
     es.sort((a, b) => (nodeMap.get(a.to)?.y ?? 0) - (nodeMap.get(b.to)?.y ?? 0));
     const node = nodeMap.get(nodeId);
     if (node?.kind === "action" && node.outPins.length === es.length) {
-      node.outPins = es.map(e => node.outPins.find(p => p === e.to) ?? e.to);
+      const reordered = es.map(e => node.outPins.find(p => p === e.to));
+      if (reordered.every(p => p !== undefined)) {
+        node.outPins = reordered as string[];
+      }
     }
   }
 
@@ -211,12 +225,23 @@ function renderFinalNode(n: GNode): string {
   </g>`;
 }
 
+function renderDiamondNode(n: GNode): string {
+  const tip = n.tooltip ? `<title>${escXml(n.tooltip)}</title>` : "";
+  const hw = n.w / 2; const hh = n.h / 2;
+  const pts = `${n.x.toFixed(1)},${(n.y - hh).toFixed(1)} ${(n.x + hw).toFixed(1)},${n.y.toFixed(1)} ${n.x.toFixed(1)},${(n.y + hh).toFixed(1)} ${(n.x - hw).toFixed(1)},${n.y.toFixed(1)}`;
+  return `  <g class="${n.kind}-node">${tip}
+    <polygon points="${pts}" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  </g>`;
+}
+
 function renderGNode(n: GNode): string {
   switch (n.kind) {
-    case "action":  return renderActionNode(n);
-    case "object":  return renderObjectNode(n);
-    case "initial": return renderInitialNode(n);
-    case "final":   return renderFinalNode(n);
+    case "action":   return renderActionNode(n);
+    case "object":   return renderObjectNode(n);
+    case "initial":  return renderInitialNode(n);
+    case "final":    return renderFinalNode(n);
+    case "decision": return renderDiamondNode(n);
+    case "merge":    return renderDiamondNode(n);
   }
 }
 
@@ -373,6 +398,28 @@ function renderActivity(
     };
     [n.w, n.h] = nodeDims(n);
     nodes.push(n); nodeMap.set(o.id, n);
+  }
+
+  for (const d of actDef.decisions) {
+    const tooltip = diagram.tooltips[d.id];
+    const n: GNode = {
+      id: d.id, label: "",
+      kind: "decision", isHof: false, tooltip,
+      x: 0, y: 0, w: DECISION_SZ, h: DECISION_SZ,
+      inPins: [], outPins: [],
+    };
+    nodes.push(n); nodeMap.set(d.id, n);
+  }
+
+  for (const m of actDef.merges) {
+    const tooltip = diagram.tooltips[m.id];
+    const n: GNode = {
+      id: m.id, label: "",
+      kind: "merge", isHof: false, tooltip,
+      x: 0, y: 0, w: DECISION_SZ, h: DECISION_SZ,
+      inPins: [], outPins: [],
+    };
+    nodes.push(n); nodeMap.set(m.id, n);
   }
 
   const edges: GEdge[] = [];

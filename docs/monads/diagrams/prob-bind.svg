@@ -123,45 +123,45 @@
     <rect x="374.8" y="230.5" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="434.8" y="252.5" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">branch1</text>
     <rect x="370.8" y="237.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="380.8" y="241.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+    <text x="380.8" y="241.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
     <rect x="370.8" y="248.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="380.8" y="252.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa1</text>
+    <text x="380.8" y="252.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
     <rect x="370.8" y="259.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="380.8" y="263.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a1</text>
+    <text x="380.8" y="263.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
     <rect x="490.8" y="248.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="488.8" y="252.5" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub1</text>
+    <text x="488.8" y="252.5" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub_b</text>
   </g>
   <g class="action-node"><title>Apply f(a2): get the conditional distribution Prob b given A = a2</title>
     <rect x="374.8" y="158.5" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="434.8" y="180.5" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">branch2</text>
     <rect x="370.8" y="165.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="380.8" y="169.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+    <text x="380.8" y="169.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
     <rect x="370.8" y="176.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="380.8" y="180.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa2</text>
+    <text x="380.8" y="180.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
     <rect x="370.8" y="187.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="380.8" y="191.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a2</text>
+    <text x="380.8" y="191.5" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
     <rect x="490.8" y="176.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="488.8" y="180.5" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub2</text>
+    <text x="488.8" y="180.5" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub_b</text>
   </g>
   <g class="action-node"><title>Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)</title>
     <rect x="688.4" y="248.5" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="748.4" y="270.5" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">weight1</text>
     <rect x="684.4" y="259.2" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="694.4" y="263.2" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub1</text>
+    <text x="694.4" y="263.2" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub_b</text>
     <rect x="684.4" y="273.8" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="694.4" y="277.8" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa1</text>
+    <text x="694.4" y="277.8" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
     <rect x="804.4" y="266.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="802.4" y="270.5" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w1</text>
+    <text x="802.4" y="270.5" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">weighted</text>
   </g>
   <g class="action-node"><title>Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)</title>
     <rect x="688.4" y="140.5" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
     <text x="748.4" y="162.5" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">weight2</text>
     <rect x="684.4" y="151.2" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="694.4" y="155.2" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa2</text>
+    <text x="694.4" y="155.2" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub_b</text>
     <rect x="684.4" y="165.8" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="694.4" y="169.8" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub2</text>
+    <text x="694.4" y="169.8" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
     <rect x="804.4" y="158.5" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="802.4" y="162.5" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w2</text>
+    <text x="802.4" y="162.5" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">weighted</text>
   </g>
   <g class="action-node"><title>Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B).</title>
     <rect x="1038.0" y="194.5" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>

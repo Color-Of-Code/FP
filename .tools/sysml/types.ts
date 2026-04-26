@@ -5,7 +5,7 @@
 
 // ── Shared type aliases ────────────────────────────────────────────────────
 
-export type Role = "hof" | "type" | "value" | "function" | "initial" | "final";
+export type Role = "hof" | "type" | "value" | "function" | "initial" | "final" | "decision" | "merge";
 export type DiagramType = "ibd" | "activity";
 
 // ── IBD AST ────────────────────────────────────────────────────────────────
@@ -63,6 +63,16 @@ export interface ObjectNode {
   type: string;
 }
 
+export interface DecisionNode {
+  kind: "decision";
+  id: string;
+}
+
+export interface MergeNode {
+  kind: "merge";
+  id: string;
+}
+
 export interface FlowUsage {
   kind: "flow";
   from: string;
@@ -81,6 +91,8 @@ export interface ActivityDef {
   name: string;
   actions: ActionUsage[];
   objects: ObjectNode[];
+  decisions: DecisionNode[];
+  merges: MergeNode[];
   flows: FlowUsage[];
   successions: SuccessionUsage[];
 }
@@ -118,7 +130,7 @@ export interface GNode {
   id: string;
   label: string;
   stereotype?: string;
-  kind: "action" | "object" | "initial" | "final";
+  kind: "action" | "object" | "initial" | "final" | "decision" | "merge";
   isHof: boolean;
   tooltip?: string;
   x: number; y: number;
@@ -145,6 +157,7 @@ export const PIN_SZ = 8;
 export const INIT_R = 8;
 export const FINAL_R = 10;
 export const FINAL_R_INNER = 6;
+export const DECISION_SZ = 28;  // diamond bounding box (square rotated 45°)
 export const FRAME_PAD = 16;
 export const FRAME_TAB_W = 200;
 export const FRAME_TAB_H = 22;
@@ -171,6 +184,7 @@ export const COL = {
 export function nodeDims(n: GNode): [number, number] {
   if (n.kind === "initial") return [INIT_R * 2, INIT_R * 2];
   if (n.kind === "final")   return [FINAL_R * 2, FINAL_R * 2];
+  if (n.kind === "decision" || n.kind === "merge") return [DECISION_SZ, DECISION_SZ];
   if (n.kind === "action")  return [ACTION_W, ACTION_H];
   const charW = 7.2;
   const w = Math.max(OBJECT_W, n.label.length * charW + 20);
