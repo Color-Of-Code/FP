@@ -14,7 +14,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { tokenise } from "./lexer.ts";
 import { parse } from "./parser.ts";
 import { modelToSvg } from "./render/index.ts";
 
@@ -40,7 +39,7 @@ function findSysmlFiles(): string[] {
 async function render(file: string): Promise<string> {
   const src    = fs.readFileSync(file, "utf8");
   const base   = path.basename(file, ".sysml");
-  const model  = parse(tokenise(src));
+  const model  = parse(src);
   return modelToSvg(model, base);
 }
 
