@@ -1,138 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1204 338" width="1204" height="338">
-<defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-    <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
-  </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-    <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
-  </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-    <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
-  </marker>
-</defs>
-<rect width="1204" height="338" fill="white"/>
-<text x="602.0" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Writer bind: extract a+w1, apply f→(b,w2), combine logs w1&lt;&gt;w2</text>
-<g transform="translate(0,28)">
-  <rect x="0" y="0" width="1204" height="310" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
-  <g class="activity-frame-tab">
-    <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
-    <text x="51.4" y="12.0" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
+    </marker>
+  </defs>
+  <rect width="1204" height="338" fill="white"/>
+  <text x="602" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Writer bind: extract a+w1, apply f→(b,w2), combine logs w1&lt;&gt;w2</text>
+  <g transform="translate(0,28)">
+    <rect x="0" y="0" width="1204" height="310" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <g class="activity-frame-tab">
+      <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
+    </g>
+    <g class="edge">
+      <path d="M156.0,209.0 C156.0,209.0 181.5,209.0 181.5,209.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M320.0,201.7 C336.0,201.7 349.7,226.0 365.7,226.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M320.0,216.3 C320.0,216.3 673.5,210.0 673.5,210.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M431.5,226.0 C458.8,226.0 482.2,97.7 509.5,97.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M484.0,105.1 C484.0,105.1 509.5,112.3 509.5,112.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+    </g>
+    <g class="edge">
+      <path d="M648.0,97.7 C666.0,97.7 681.4,138.0 699.4,138.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M648.0,112.3 C648.0,112.3 673.5,109.4 673.5,109.4" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M794.0,144.0 C794.0,144.0 819.5,138.0 819.5,138.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M764.5,190.0 C783.7,190.0 800.2,149.0 819.5,149.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M766.8,124.0 C785.3,124.0 801.1,160.0 819.5,160.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M958.0,149.0 C958.0,149.0 983.5,149.0 983.5,149.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M316.0,209.0 C385.1,209.0 444.4,105.0 513.5,105.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+    </g>
+    <g class="edge">
+      <path d="M644.0,105.0 C706.8,105.0 760.7,149.0 823.5,149.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+    </g>
+    <g class="action-node">
+      <title>Pattern-match the pair: extract a (for f) and w1 (for the log combiner)</title>
+      <rect x="196" y="187" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="256" y="209" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">extract</text>
+      <g class="pin pin-in">
+        <rect x="192" y="205" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="202" y="209" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">wa</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="312" y="197.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="310" y="201.66666666666666" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="312" y="212.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="310" y="216.33333333333334" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w1</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>Apply f(a): produces (b, w2) — the result value b and a new log fragment w2</title>
+      <rect x="524" y="83" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="584" y="105" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply</text>
+      <g class="pin pin-in">
+        <rect x="520" y="93.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="530" y="97.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="520" y="108.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="530" y="112.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="640" y="93.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="638" y="97.66666666666667" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b_val</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="640" y="108.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="638" y="112.33333333333333" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w2</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>Return (b, w1 &lt;&gt; w2) — result b with both log fragments combined using monoid append</title>
+      <rect x="834" y="127" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="894" y="149" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">combine</text>
+      <g class="pin pin-in">
+        <rect x="830" y="134" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="840" y="138" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b_val</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="830" y="145" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="840" y="149" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w1</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="830" y="156" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="840" y="160" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w2</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="950" y="145" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="948" y="149" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>(a, w1) — result a paired with the first log fragment w1</title>
+      <rect x="46" y="190" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="101" y="209" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">wa : (a, w1)</text>
+    </g>
+    <g class="object-node hof">
+      <title>(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2</title>
+      <rect x="356" y="68" width="128" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="420" y="80" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="420" y="94" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ (b, w2)</text>
+    </g>
+    <g class="object-node">
+      <title>a — the value to pass to f</title>
+      <rect x="365" y="226" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="420" y="245" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a_val : a</text>
+    </g>
+    <g class="object-node">
+      <title>w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped.</title>
+      <rect x="684" y="190" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="739" y="209" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">w1 : w</text>
+    </g>
+    <g class="object-node">
+      <title>b — the result value from f(a)</title>
+      <rect x="684" y="138" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="739" y="157" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b_val : b</text>
+    </g>
+    <g class="object-node">
+      <title>w — the second log fragment, produced by f(a). Combined with w1 from the first step.</title>
+      <rect x="684" y="86" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="739" y="105" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">w2 : w</text>
+    </g>
+    <g class="object-node">
+      <title>(b, w1&lt;&gt;w2) — the final result: value b and the complete accumulated log</title>
+      <rect x="994" y="130" width="164" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1076" y="149" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">result : (b, w1&lt;&gt;w2)</text>
+    </g>
   </g>
-  <g class="edge">
-    <path d="M156.0,209.0 C156.0,209.0 181.5,209.0 181.5,209.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M320.0,201.7 C336.0,201.7 349.7,226.0 365.7,226.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M320.0,216.3 C320.0,216.3 673.5,210.0 673.5,210.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M431.5,226.0 C458.8,226.0 482.2,97.7 509.5,97.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge hof-edge">
-    <path d="M484.0,105.1 C484.0,105.1 509.5,112.3 509.5,112.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M648.0,97.7 C666.0,97.7 681.4,138.0 699.4,138.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M648.0,112.3 C648.0,112.3 673.5,109.4 673.5,109.4" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M794.0,144.0 C794.0,144.0 819.5,138.0 819.5,138.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M764.5,190.0 C783.7,190.0 800.2,149.0 819.5,149.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M766.8,124.0 C785.3,124.0 801.1,160.0 819.5,160.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M958.0,149.0 C958.0,149.0 983.5,149.0 983.5,149.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M316.0,209.0 C385.1,209.0 444.4,105.0 513.5,105.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M644.0,105.0 C706.8,105.0 760.7,149.0 823.5,149.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowOpen)"/>
-    
-  </g>
-  <g class="action-node"><title>Pattern-match the pair: extract a (for f) and w1 (for the log combiner)</title>
-    <rect x="196.0" y="187.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-    <text x="256.0" y="209.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">extract</text>
-    <rect x="192.0" y="205.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="202.0" y="209.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">wa</text>
-    <rect x="312.0" y="197.7" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="310.0" y="201.7" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
-    <rect x="312.0" y="212.3" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="310.0" y="216.3" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w1</text>
-  </g>
-  <g class="action-node"><title>Apply f(a): produces (b, w2) — the result value b and a new log fragment w2</title>
-    <rect x="524.0" y="83.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-    <text x="584.0" y="105.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply</text>
-    <rect x="520.0" y="93.7" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="530.0" y="97.7" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
-    <rect x="520.0" y="108.3" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="530.0" y="112.3" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
-    <rect x="640.0" y="93.7" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="638.0" y="97.7" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b_val</text>
-    <rect x="640.0" y="108.3" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="638.0" y="112.3" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w2</text>
-  </g>
-  <g class="action-node"><title>Return (b, w1 &lt;&gt; w2) — result b with both log fragments combined using monoid append</title>
-    <rect x="834.0" y="127.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-    <text x="894.0" y="149.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">combine</text>
-    <rect x="830.0" y="134.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="840.0" y="138.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b_val</text>
-    <rect x="830.0" y="145.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="840.0" y="149.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w1</text>
-    <rect x="830.0" y="156.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="840.0" y="160.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w2</text>
-    <rect x="950.0" y="145.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="948.0" y="149.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
-  </g>
-  <g class="object-node"><title>(a, w1) — result a paired with the first log fragment w1</title>
-    <rect x="46.0" y="190.0" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="101.0" y="209.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">wa : (a, w1)</text>
-  </g>
-  <g class="object-node hof"><title>(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2</title>
-    <rect x="356.0" y="68.0" width="128" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-    <text x="420.0" y="80.0" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-    <text x="420.0" y="94.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ (b, w2)</text>
-  </g>
-  <g class="object-node"><title>a — the value to pass to f</title>
-    <rect x="365.0" y="226.0" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="420.0" y="245.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a_val : a</text>
-  </g>
-  <g class="object-node"><title>w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped.</title>
-    <rect x="684.0" y="190.0" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="739.0" y="209.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">w1 : w</text>
-  </g>
-  <g class="object-node"><title>b — the result value from f(a)</title>
-    <rect x="684.0" y="138.0" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="739.0" y="157.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b_val : b</text>
-  </g>
-  <g class="object-node"><title>w — the second log fragment, produced by f(a). Combined with w1 from the first step.</title>
-    <rect x="684.0" y="86.0" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="739.0" y="105.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">w2 : w</text>
-  </g>
-  <g class="object-node"><title>(b, w1&lt;&gt;w2) — the final result: value b and the complete accumulated log</title>
-    <rect x="994.0" y="130.0" width="164" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="1076.0" y="149.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">result : (b, w1&lt;&gt;w2)</text>
-  </g>
-</g>
 </svg>

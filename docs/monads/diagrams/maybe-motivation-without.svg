@@ -1,175 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2321.2000000000003 312" width="2321.2000000000003" height="312">
-<defs>
-  <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-    <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
-  </marker>
-  <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-    <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
-  </marker>
-  <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-    <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
-  </marker>
-</defs>
-<rect width="2321.2000000000003" height="312" fill="white"/>
-<text x="1160.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without Maybe: explicit null guard at every step</text>
-<g transform="translate(0,28)">
-  <rect x="0" y="0" width="2321.2000000000003" height="284" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
-  <g class="activity-frame-tab">
-    <path d="M0,0 L171,0 L171,12 L161,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
-    <text x="85.5" y="12.0" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» lookupUserCity</text>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
+    </marker>
+  </defs>
+  <rect width="2321.2000000000003" height="312" fill="white"/>
+  <text x="1160.6000000000001" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without Maybe: explicit null guard at every step</text>
+  <g transform="translate(0,28)">
+    <rect x="0" y="0" width="2321.2000000000003" height="284" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <g class="activity-frame-tab">
+      <path d="M0,0 L171,0 L171,12 L161,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="85.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» lookupUserCity</text>
+    </g>
+    <g class="edge">
+      <path d="M174.0,181.0 C174.0,181.0 199.5,181.0 199.5,181.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M338.0,181.0 C338.0,181.0 363.5,181.0 363.5,181.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M566.8,181.0 C566.8,181.0 596.3,181.0 596.3,181.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M629.8,195.0 C629.8,227.0 1515.9,218.8 1993.0,218.8" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <text x="1311.6455847320697" y="193.8829520843281" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
+    </g>
+    <g class="edge">
+      <path d="M651.4,180.1 C651.4,180.1 682.3,178.5 682.3,178.5" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <text x="666.1605646223604" y="166.3453916155559" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">user</text>
+    </g>
+    <g class="edge">
+      <path d="M802.8,176.3 C802.8,176.3 828.3,176.3 828.3,176.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M966.8,176.3 C966.8,176.3 992.3,176.3 992.3,176.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M1217.2,176.3 C1217.2,176.3 1246.7,176.3 1246.7,176.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M1280.2,190.3 C1280.2,222.3 1743.7,218.5 1993.3,218.5" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <text x="1637.2746768783852" y="191.41473114247492" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
+    </g>
+    <g class="edge">
+      <path d="M1301.9,175.5 C1301.9,175.5 1332.7,174.0 1332.7,174.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <text x="1316.6191799119601" y="161.7492944796156" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">address</text>
+    </g>
+    <g class="edge">
+      <path d="M1464.0,171.7 C1464.0,171.7 1489.5,171.7 1489.5,171.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M1628.0,171.7 C1628.0,171.7 1653.5,171.7 1653.5,171.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M1856.8,171.7 C1856.8,171.7 1886.3,171.7 1886.3,171.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M1919.8,185.7 C1919.8,217.7 1964.4,215.4 1996.4,215.4" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <text x="1962.7939275497922" y="188.43332245314377" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
+    </g>
+    <g class="edge">
+      <path d="M1941.4,170.8 C1941.4,170.8 1972.3,169.2 1972.3,169.2" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <text x="1956.1605646223604" y="157.0120582822226" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">city</text>
+    </g>
+    <g class="edge">
+      <path d="M2092.8,167.0 C2092.8,167.0 2122.3,167.0 2122.3,167.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M2031.3,219.0 C2031.3,219.0 2122.3,219.0 2122.3,219.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="action-node">
+      <title>find_user(id) — may return null if the user does not exist.</title>
+      <rect x="214" y="159" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="274" y="181" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findUser</text>
+      <g class="pin pin-in">
+        <rect x="210" y="177" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="220" y="181" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">userId</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="330" y="177" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="328" y="181" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>find_address(user.address_id) — may return null if no address on file.</title>
+      <rect x="842.8" y="154.33333333333331" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="902.8" y="176.33333333333331" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findAddress</text>
+      <g class="pin pin-in">
+        <rect x="838.8" y="172.33333333333331" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="848.8" y="176.33333333333331" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">user</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="958.8" y="172.33333333333331" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="956.8" y="176.33333333333331" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>find_city(address.city_id) — may return null if the city record is missing.</title>
+      <rect x="1504" y="149.66666666666669" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="1564" y="171.66666666666669" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findCity</text>
+      <g class="pin pin-in">
+        <rect x="1500" y="167.66666666666669" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1510" y="171.66666666666669" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">address</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="1620" y="167.66666666666669" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1618" y="171.66666666666669" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>The input: a user ID to look up.</title>
+      <rect x="46" y="162" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="110" y="181" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">userId : UserId</text>
+    </g>
+    <g class="object-node">
+      <rect x="374" y="162" width="192.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="470.4" y="181" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">userOrNull : User | null</text>
+    </g>
+    <g class="object-node">
+      <title>User — confirmed non-null by guard #1. Now safe to pass to findAddress.</title>
+      <rect x="692.8" y="157.33333333333331" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="747.8" y="176.33333333333331" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">user : User</text>
+    </g>
+    <g class="object-node">
+      <rect x="1002.8" y="157.33333333333331" width="214.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1110" y="176.33333333333331" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">addrOrNull : Address | null</text>
+    </g>
+    <g class="object-node">
+      <title>Address — confirmed non-null by guard #2. Now safe to pass to findCity.</title>
+      <rect x="1343.2" y="152.66666666666669" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1403.6000000000001" y="171.66666666666669" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">addr : Address</text>
+    </g>
+    <g class="object-node">
+      <rect x="1664" y="152.66666666666669" width="192.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1760.4" y="171.66666666666669" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cityOrNull : City | null</text>
+    </g>
+    <g class="object-node">
+      <title>City — confirmed non-null by guard #3. Now safe to read city.name.</title>
+      <rect x="1982.8" y="148" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="2037.8" y="167" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">city : City</text>
+    </g>
+    <g class="object-node">
+      <title>null — returned when any step failed. Caller must also guard against this.</title>
+      <rect x="2132.8" y="200" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="2193.2000000000003" y="219" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">nothing : null</text>
+    </g>
+    <g class="object-node">
+      <title>city.name — the happy-path result, reached only when all three checks pass.</title>
+      <rect x="2132.8" y="148" width="142.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="2204" y="167" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cityName : String</text>
+    </g>
+    <g class="decision-node">
+      <title>Null guard #1: must check after every fallible step — boilerplate.</title>
+      <polygon points="629.8,167 652.8,181 629.8,195 606.8,181" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="629.8" y="181" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">null?</text>
+    </g>
+    <g class="decision-node">
+      <title>Null guard #2: same pattern repeated. Skipping this is a latent bug.</title>
+      <polygon points="1280.2,162.33333333333331 1303.2,176.33333333333331 1280.2,190.33333333333331 1257.2,176.33333333333331" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="1280.2" y="176.33333333333331" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">null?</text>
+    </g>
+    <g class="decision-node">
+      <title>Null guard #3: yet another check. Business logic is buried in guards.</title>
+      <polygon points="1919.8,157.66666666666669 1942.8,171.66666666666669 1919.8,185.66666666666669 1896.8,171.66666666666669" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="1919.8" y="171.66666666666669" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">null?</text>
+    </g>
+    <g class="merge-node">
+      <title>Any null terminates the chain here — three separate null paths converge.</title>
+      <polygon points="2017.3,205 2031.3,219 2017.3,233 2003.3,219" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+    </g>
   </g>
-  <g class="edge">
-    <path d="M174.0,181.0 C174.0,181.0 199.5,181.0 199.5,181.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M338.0,181.0 C338.0,181.0 363.5,181.0 363.5,181.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M566.8,181.0 C566.8,181.0 596.3,181.0 596.3,181.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M629.8,195.0 C629.8,227.0 1515.9,218.8 1993.0,218.8" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    <text x="1311.6" y="193.9" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
-  </g>
-  <g class="edge">
-    <path d="M651.4,180.1 C651.4,180.1 682.3,178.5 682.3,178.5" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    <text x="666.2" y="166.3" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">user</text>
-  </g>
-  <g class="edge">
-    <path d="M802.8,176.3 C802.8,176.3 828.3,176.3 828.3,176.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M966.8,176.3 C966.8,176.3 992.3,176.3 992.3,176.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M1217.2,176.3 C1217.2,176.3 1246.7,176.3 1246.7,176.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M1280.2,190.3 C1280.2,222.3 1743.7,218.5 1993.3,218.5" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    <text x="1637.3" y="191.4" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
-  </g>
-  <g class="edge">
-    <path d="M1301.9,175.5 C1301.9,175.5 1332.7,174.0 1332.7,174.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    <text x="1316.6" y="161.7" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">address</text>
-  </g>
-  <g class="edge">
-    <path d="M1464.0,171.7 C1464.0,171.7 1489.5,171.7 1489.5,171.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M1628.0,171.7 C1628.0,171.7 1653.5,171.7 1653.5,171.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M1856.8,171.7 C1856.8,171.7 1886.3,171.7 1886.3,171.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M1919.8,185.7 C1919.8,217.7 1964.4,215.4 1996.4,215.4" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    <text x="1962.8" y="188.4" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
-  </g>
-  <g class="edge">
-    <path d="M1941.4,170.8 C1941.4,170.8 1972.3,169.2 1972.3,169.2" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    <text x="1956.2" y="157.0" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">city</text>
-  </g>
-  <g class="edge">
-    <path d="M2092.8,167.0 C2092.8,167.0 2122.3,167.0 2122.3,167.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-  <g class="edge">
-    <path d="M2031.3,219.0 C2031.3,219.0 2122.3,219.0 2122.3,219.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-    
-  </g>
-
-
-
-
-
-
-  <g class="action-node"><title>find_user(id) — may return null if the user does not exist.</title>
-    <rect x="214.0" y="159.0" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-    <text x="274.0" y="181.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findUser</text>
-    <rect x="210.0" y="177.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="220.0" y="181.0" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">userId</text>
-    <rect x="330.0" y="177.0" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="328.0" y="181.0" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
-  </g>
-  <g class="action-node"><title>find_address(user.address_id) — may return null if no address on file.</title>
-    <rect x="842.8" y="154.3" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-    <text x="902.8" y="176.3" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findAddress</text>
-    <rect x="838.8" y="172.3" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="848.8" y="176.3" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">user</text>
-    <rect x="958.8" y="172.3" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="956.8" y="176.3" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
-  </g>
-  <g class="action-node"><title>find_city(address.city_id) — may return null if the city record is missing.</title>
-    <rect x="1504.0" y="149.7" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-    <text x="1564.0" y="171.7" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findCity</text>
-    <rect x="1500.0" y="167.7" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="1510.0" y="171.7" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">address</text>
-    <rect x="1620.0" y="167.7" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-    <text x="1618.0" y="171.7" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
-  </g>
-  <g class="object-node"><title>The input: a user ID to look up.</title>
-    <rect x="46.0" y="162.0" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="110.0" y="181.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">userId : UserId</text>
-  </g>
-  <g class="object-node">
-    <rect x="374.0" y="162.0" width="192.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="470.4" y="181.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">userOrNull : User | null</text>
-  </g>
-  <g class="object-node"><title>User — confirmed non-null by guard #1. Now safe to pass to findAddress.</title>
-    <rect x="692.8" y="157.3" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="747.8" y="176.3" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">user : User</text>
-  </g>
-  <g class="object-node">
-    <rect x="1002.8" y="157.3" width="214.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="1110.0" y="176.3" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">addrOrNull : Address | null</text>
-  </g>
-  <g class="object-node"><title>Address — confirmed non-null by guard #2. Now safe to pass to findCity.</title>
-    <rect x="1343.2" y="152.7" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="1403.6" y="171.7" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">addr : Address</text>
-  </g>
-  <g class="object-node">
-    <rect x="1664.0" y="152.7" width="192.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="1760.4" y="171.7" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cityOrNull : City | null</text>
-  </g>
-  <g class="object-node"><title>City — confirmed non-null by guard #3. Now safe to read city.name.</title>
-    <rect x="1982.8" y="148.0" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="2037.8" y="167.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">city : City</text>
-  </g>
-  <g class="object-node"><title>null — returned when any step failed. Caller must also guard against this.</title>
-    <rect x="2132.8" y="200.0" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="2193.2" y="219.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">nothing : null</text>
-  </g>
-  <g class="object-node"><title>city.name — the happy-path result, reached only when all three checks pass.</title>
-    <rect x="2132.8" y="148.0" width="142.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-    <text x="2204.0" y="167.0" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cityName : String</text>
-  </g>
-  <g class="decision-node"><title>Null guard #1: must check after every fallible step — boilerplate.</title>
-    <polygon points="629.8,167.0 652.8,181.0 629.8,195.0 606.8,181.0" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-    <text x="629.8" y="181.0" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">null?</text>
-  </g>
-  <g class="decision-node"><title>Null guard #2: same pattern repeated. Skipping this is a latent bug.</title>
-    <polygon points="1280.2,162.3 1303.2,176.3 1280.2,190.3 1257.2,176.3" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-    <text x="1280.2" y="176.3" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">null?</text>
-  </g>
-  <g class="decision-node"><title>Null guard #3: yet another check. Business logic is buried in guards.</title>
-    <polygon points="1919.8,157.7 1942.8,171.7 1919.8,185.7 1896.8,171.7" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-    <text x="1919.8" y="171.7" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">null?</text>
-  </g>
-  <g class="merge-node"><title>Any null terminates the chain here — three separate null paths converge.</title>
-    <polygon points="2017.3,205.0 2031.3,219.0 2017.3,233.0 2003.3,219.0" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-  </g>
-
-
-
-</g>
 </svg>
