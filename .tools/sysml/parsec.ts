@@ -66,7 +66,9 @@ export class Parser<A> {
 
   /** Optional: succeed with undefined when this parser fails. */
   opt(): Parser<A | undefined> {
-    return new Parser((ts, pos) => this._run(ts, pos) ?? { value: undefined, pos });
+    return new Parser<A | undefined>(
+      (ts, pos) => this._run(ts, pos) ?? { value: undefined, pos },
+    );
   }
 
   /** Zero or more: greedily collect results until the parser fails. */

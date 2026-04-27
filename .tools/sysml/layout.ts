@@ -86,7 +86,11 @@ export async function elkLayout(
       .map((e, i) => ({ id: `e${i}`, sources: [e.from], targets: [e.to] })),
   };
 
-  const result = await elk.layout(graph);
+  const result = await elk.layout(graph) as {
+    width?: number;
+    height?: number;
+    children?: { id: string; x?: number; y?: number }[];
+  };
 
   const childMap = new Map((result.children ?? []).map(c => [c.id, c]));
   for (const n of nodes) {

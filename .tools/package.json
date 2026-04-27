@@ -9,13 +9,16 @@
     "fmt:md": "prettier --write '../**/*.md'",
     "check:md": "prettier --check '../**/*.md'",
     "test": "vitest run",
-    "test:update": "vitest run -u"
+    "test:update": "vitest run -u",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
     "@types/jsdom": "^21.1.7",
+    "@types/node": "^25.6.0",
     "markdownlint-cli2": "^0.17.2",
     "prettier": "^3.5.3",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.5"
   },
   "dependencies": {
