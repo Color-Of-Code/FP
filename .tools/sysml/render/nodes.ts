@@ -14,108 +14,222 @@ import {
   type GNode,
   ACTION_RX, PIN_SZ,
   INIT_R, FINAL_R, FINAL_R_INNER,
-  COL, escXml,
+  COL,
 } from "../types.ts";
+import type { SvgParent } from "./title.ts";
+
+function appendTooltip(group: SvgParent, tooltip?: string): void {
+  if (tooltip) group.append("title").text(tooltip);
+}
 
 // ── Action node ────────────────────────────────────────────────────────────
 
-function renderActionNode(n: GNode): string {
-  const tip  = n.tooltip ? `<title>${escXml(n.tooltip)}</title>` : "";
-  const rx   = (n.x - n.w / 2).toFixed(1);
-  const ry   = (n.y - n.h / 2).toFixed(1);
+function appendActionNode(parent: SvgParent, n: GNode): void {
+  const rx   = n.x - n.w / 2;
+  const ry   = n.y - n.h / 2;
   const LH   = 13;
   const nameLines = n.label.split("\n");
-  const textEls   = nameLines.map((l, i) =>
-    `<text x="${n.x.toFixed(1)}" y="${(n.y + (i - (nameLines.length - 1) / 2) * LH).toFixed(1)}" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="${COL.labelFill}">${escXml(l)}</text>`
-  ).join("\n    ");
+  const group = parent.append("g")
+    .attr("class", "action-node");
+  appendTooltip(group, n.tooltip);
 
-  const inPinEls = n.inPins.map((p, i) => {
+  group.append("rect")
+    .attr("x", rx)
+    .attr("y", ry)
+    .attr("width", n.w)
+    .attr("height", n.h)
+    .attr("rx", ACTION_RX)
+    .attr("fill", COL.actionFill)
+    .attr("stroke", COL.actionStroke)
+    .attr("stroke-width", 1.5);
+
+  for (const [i, line] of nameLines.entries()) {
+    group.append("text")
+      .attr("x", n.x)
+      .attr("y", n.y + (i - (nameLines.length - 1) / 2) * LH)
+      .attr("text-anchor", "middle")
+      .attr("font-size", 11)
+      .attr("font-family", "sans-serif")
+      .attr("dominant-baseline", "middle")
+      .attr("fill", COL.labelFill)
+      .text(line);
+  }
+
+  for (const [i, pin] of n.inPins.entries()) {
     const py = n.y - n.h / 2 + (n.h / (n.inPins.length + 1)) * (i + 1);
     const px = n.x - n.w / 2 - PIN_SZ / 2;
     // Label inside the node so arriving arrows don't cross it
-    return `<rect x="${px.toFixed(1)}" y="${(py - PIN_SZ / 2).toFixed(1)}" width="${PIN_SZ}" height="${PIN_SZ}" fill="${COL.pinFill}" stroke="${COL.pinStroke}" stroke-width="1"/>
-    <text x="${(px + PIN_SZ + 2).toFixed(1)}" y="${py.toFixed(1)}" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">${escXml(p)}</text>`;
-  }).join("\n    ");
+    group.append("rect")
+      .attr("x", px)
+      .attr("y", py - PIN_SZ / 2)
+      .attr("width", PIN_SZ)
+      .attr("height", PIN_SZ)
+      .attr("fill", COL.pinFill)
+      .attr("stroke", COL.pinStroke)
+      .attr("stroke-width", 1);
+    group.append("text")
+      .attr("x", px + PIN_SZ + 2)
+      .attr("y", py)
+      .attr("text-anchor", "start")
+      .attr("font-size", 8)
+      .attr("font-family", "sans-serif")
+      .attr("dominant-baseline", "middle")
+      .attr("fill", "#555")
+      .attr("stroke", "white")
+      .attr("stroke-width", 2)
+      .attr("paint-order", "stroke fill")
+      .text(pin);
+  }
 
-  const outPinEls = n.outPins.map((p, i) => {
+  for (const [i, pin] of n.outPins.entries()) {
     const py = n.y - n.h / 2 + (n.h / (n.outPins.length + 1)) * (i + 1);
     const px = n.x + n.w / 2 - PIN_SZ / 2;
     // Label inside the node so departing arrows don't cross it
-    return `<rect x="${px.toFixed(1)}" y="${(py - PIN_SZ / 2).toFixed(1)}" width="${PIN_SZ}" height="${PIN_SZ}" fill="${COL.pinFill}" stroke="${COL.pinStroke}" stroke-width="1"/>
-    <text x="${(px - 2).toFixed(1)}" y="${py.toFixed(1)}" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">${escXml(p)}</text>`;
-  }).join("\n    ");
-
-  return `  <g class="action-node">${tip}
-    <rect x="${rx}" y="${ry}" width="${n.w}" height="${n.h}" rx="${ACTION_RX}" fill="${COL.actionFill}" stroke="${COL.actionStroke}" stroke-width="1.5"/>
-    ${textEls}
-    ${inPinEls}
-    ${outPinEls}
-  </g>`;
+    group.append("rect")
+      .attr("x", px)
+      .attr("y", py - PIN_SZ / 2)
+      .attr("width", PIN_SZ)
+      .attr("height", PIN_SZ)
+      .attr("fill", COL.pinFill)
+      .attr("stroke", COL.pinStroke)
+      .attr("stroke-width", 1);
+    group.append("text")
+      .attr("x", px - 2)
+      .attr("y", py)
+      .attr("text-anchor", "end")
+      .attr("font-size", 8)
+      .attr("font-family", "sans-serif")
+      .attr("dominant-baseline", "middle")
+      .attr("fill", "#555")
+      .attr("stroke", "white")
+      .attr("stroke-width", 2)
+      .attr("paint-order", "stroke fill")
+      .text(pin);
+  }
 }
 
 // ── Object node ────────────────────────────────────────────────────────────
 
-function renderObjectNode(n: GNode): string {
-  const tip    = n.tooltip ? `<title>${escXml(n.tooltip)}</title>` : "";
-  const rx     = (n.x - n.w / 2).toFixed(1);
-  const ry     = (n.y - n.h / 2).toFixed(1);
+function appendObjectNode(parent: SvgParent, n: GNode): void {
+  const rx     = n.x - n.w / 2;
+  const ry     = n.y - n.h / 2;
   const fill   = n.isHof ? COL.hofFill   : COL.objFill;
   const stroke = n.isHof ? COL.hofStroke : COL.objStroke;
+  const classes = n.isHof ? "object-node hof" : "object-node";
+  const group = parent.append("g")
+    .attr("class", classes);
+  appendTooltip(group, n.tooltip);
+
+  group.append("rect")
+    .attr("x", rx)
+    .attr("y", ry)
+    .attr("width", n.w)
+    .attr("height", n.h)
+    .attr("fill", fill)
+    .attr("stroke", stroke)
+    .attr("stroke-width", 1.5);
 
   if (n.isHof) {
-    return `  <g class="object-node hof">${tip}
-    <rect x="${rx}" y="${ry}" width="${n.w}" height="${n.h}" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <text x="${n.x.toFixed(1)}" y="${(n.y - 7).toFixed(1)}" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="${COL.hofStroke}">«function»</text>
-    <text x="${n.x.toFixed(1)}" y="${(n.y + 7).toFixed(1)}" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="${COL.labelFill}">${escXml(n.label)}</text>
-  </g>`;
+    group.append("text")
+      .attr("x", n.x)
+      .attr("y", n.y - 7)
+      .attr("text-anchor", "middle")
+      .attr("font-size", 9)
+      .attr("font-style", "italic")
+      .attr("font-family", "sans-serif")
+      .attr("dominant-baseline", "middle")
+      .attr("fill", COL.hofStroke)
+      .text("«function»");
+    group.append("text")
+      .attr("x", n.x)
+      .attr("y", n.y + 7)
+      .attr("text-anchor", "middle")
+      .attr("font-size", 11)
+      .attr("font-family", "sans-serif")
+      .attr("dominant-baseline", "middle")
+      .attr("fill", COL.labelFill)
+      .text(n.label);
+    return;
   }
-  return `  <g class="object-node">${tip}
-    <rect x="${rx}" y="${ry}" width="${n.w}" height="${n.h}" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <text x="${n.x.toFixed(1)}" y="${n.y.toFixed(1)}" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="${COL.labelFill}">${escXml(n.label)}</text>
-  </g>`;
+
+  group.append("text")
+    .attr("x", n.x)
+    .attr("y", n.y)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 11)
+    .attr("font-family", "sans-serif")
+    .attr("dominant-baseline", "middle")
+    .attr("fill", COL.labelFill)
+    .text(n.label);
 }
 
 // ── Initial / Final nodes ──────────────────────────────────────────────────
 
-function renderInitialNode(n: GNode): string {
-  return `  <g class="initial-node">
-    <circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${INIT_R}" fill="${COL.initFill}"/>
-  </g>`;
+function appendInitialNode(parent: SvgParent, n: GNode): void {
+  parent.append("g")
+    .attr("class", "initial-node")
+    .append("circle")
+    .attr("cx", n.x)
+    .attr("cy", n.y)
+    .attr("r", INIT_R)
+    .attr("fill", COL.initFill);
 }
 
-function renderFinalNode(n: GNode): string {
-  return `  <g class="final-node">
-    <circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${FINAL_R}" fill="none" stroke="${COL.finalStroke}" stroke-width="2"/>
-    <circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${FINAL_R_INNER}" fill="${COL.finalFill}"/>
-  </g>`;
+function appendFinalNode(parent: SvgParent, n: GNode): void {
+  const group = parent.append("g")
+    .attr("class", "final-node");
+  group.append("circle")
+    .attr("cx", n.x)
+    .attr("cy", n.y)
+    .attr("r", FINAL_R)
+    .attr("fill", "none")
+    .attr("stroke", COL.finalStroke)
+    .attr("stroke-width", 2);
+  group.append("circle")
+    .attr("cx", n.x)
+    .attr("cy", n.y)
+    .attr("r", FINAL_R_INNER)
+    .attr("fill", COL.finalFill);
 }
 
 // ── Decision / Merge diamond ───────────────────────────────────────────────
 
-function renderDiamondNode(n: GNode): string {
-  const tip = n.tooltip ? `<title>${escXml(n.tooltip)}</title>` : "";
+function appendDiamondNode(parent: SvgParent, n: GNode): void {
   const hw  = n.w / 2;
   const hh  = n.h / 2;
-  const pts = `${n.x.toFixed(1)},${(n.y - hh).toFixed(1)} ${(n.x + hw).toFixed(1)},${n.y.toFixed(1)} ${n.x.toFixed(1)},${(n.y + hh).toFixed(1)} ${(n.x - hw).toFixed(1)},${n.y.toFixed(1)}`;
-  const labelEl = n.label
-    ? `\n    <text x="${n.x.toFixed(1)}" y="${n.y.toFixed(1)}" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">${escXml(n.label)}</text>`
-    : "";
-  return `  <g class="${n.kind}-node">${tip}
-    <polygon points="${pts}" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>${labelEl}
-  </g>`;
+  const pts = `${n.x},${n.y - hh} ${n.x + hw},${n.y} ${n.x},${n.y + hh} ${n.x - hw},${n.y}`;
+  const group = parent.append("g")
+    .attr("class", `${n.kind}-node`);
+  appendTooltip(group, n.tooltip);
+  group.append("polygon")
+    .attr("points", pts)
+    .attr("fill", "#fff9c4")
+    .attr("stroke", "#f9a825")
+    .attr("stroke-width", 1.5);
+  if (n.label) {
+    group.append("text")
+      .attr("x", n.x)
+      .attr("y", n.y)
+      .attr("text-anchor", "middle")
+      .attr("font-size", 9)
+      .attr("font-family", "sans-serif")
+      .attr("dominant-baseline", "middle")
+      .attr("fill", "#5d4037")
+      .text(n.label);
+  }
 }
 
 // ── Dispatch ───────────────────────────────────────────────────────────────
 
-/** Render any graph node to an SVG `<g>` element. */
-export function renderGNode(n: GNode): string {
+/** Append any graph node as an SVG `<g>` element. */
+export function appendGNode(parent: SvgParent, n: GNode): void {
   switch (n.kind) {
-    case "action":    return renderActionNode(n);
-    case "object":    return renderObjectNode(n);
-    case "initial":   return renderInitialNode(n);
-    case "final":     return renderFinalNode(n);
-    case "decision":  return renderDiamondNode(n);
-    case "merge":     return renderDiamondNode(n);
-    case "separator": return ""; // invisible layout-only spacer
+    case "action":    appendActionNode(parent, n); return;
+    case "object":    appendObjectNode(parent, n); return;
+    case "initial":   appendInitialNode(parent, n); return;
+    case "final":     appendFinalNode(parent, n); return;
+    case "decision":  appendDiamondNode(parent, n); return;
+    case "merge":     appendDiamondNode(parent, n); return;
+    case "separator": return; // invisible layout-only spacer
   }
 }

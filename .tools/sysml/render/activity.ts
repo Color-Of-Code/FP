@@ -16,19 +16,19 @@ import {
   nodeDims,
 } from "../types.ts";
 import { autoLayout } from "../layout.ts";
-import { renderGNode } from "./nodes.ts";
-import { computeEndpoints, renderGEdge } from "./edges.ts";
-import { renderActivityFrame } from "./frame.ts";
+import { appendGNode } from "./nodes.ts";
+import { computeEndpoints, appendGEdge } from "./edges.ts";
+import { appendActivityFrame } from "./frame.ts";
+import type { RenderPlan } from "./title.ts";
 
 /**
- * Build the SVG content for one activity diagram.
- * Returns [innerSvg, totalWidth, totalHeight].
+ * Build the render plan for one activity diagram.
  */
 export async function renderActivity(
   actDef: ActivityDef,
   diagram: DiagramMeta,
   actionDefs: Map<string, ActionDef>,
-): Promise<[string, number, number]> {
+): Promise<RenderPlan> {
   const nodes: GNode[]           = [];
   const nodeMap = new Map<string, GNode>();
 
@@ -146,10 +146,17 @@ export async function renderActivity(
   const W = innerW + 2 * FRAME_PAD;
   const H = innerH + 2 * FRAME_PAD + FRAME_TAB_H;
 
-  const frame    = renderActivityFrame(diagram.name ?? actDef.name, W, H);
-  const pts      = computeEndpoints(edges, nodeMap);
-  const edgeEls  = edges.map((e, i) => e.isSeparator ? "" : renderGEdge(e, pts[i])).join("\n");
-  const nodeEls  = nodes.map(n => renderGNode(n)).join("\n");
+  const pts = computeEndpoints(edges, nodeMap);
 
-  return [`${frame}\n${edgeEls}\n${nodeEls}`, W, H];
+  return {
+    width: W,
+    height: H,
+    draw(parent) {
+      appendActivityFrame(parent, diagram.name ?? actDef.name, W, H);
+      edges.forEach((e, i) => {
+        if (!e.isSeparator) appendGEdge(parent, e, pts[i]);
+      });
+      nodes.forEach(n => appendGNode(parent, n));
+    },
+  };
 }

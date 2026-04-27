@@ -1,13 +1,13 @@
 /**
  * Top-level orchestrator: selects the correct diagram renderer based on the
- * diagram type declared in the model's #diagram block, then wraps the result
- * in a complete SVG document.
+ * diagram type declared in the model's #diagram block, then draws it into a
+ * jsdom-backed SVG document using D3.
  */
 
 import { type Model } from "../types.ts";
 import { renderActivity } from "./activity.ts";
 import { renderIbd } from "./ibd.ts";
-import { makeSvg } from "./title.ts";
+import { appendStatusMessage, createSvgDocument } from "./title.ts";
 
 /**
  * Convert a parsed SysML v2 model to a standalone SVG string.
@@ -22,9 +22,15 @@ export async function modelToSvg(model: Model, baseName: string): Promise<string
     const pd = diag.render
       ? allPartDefs.find(d => d.name === diag.render) ?? allPartDefs[0]
       : allPartDefs[0];
-    if (!pd) return makeSvg(`<text x="20" y="40" fill="red">No part def found</text>`, title, 400, 100);
-    const [inner, W, H] = renderIbd(pd, diag);
-    return makeSvg(inner, title, W, H);
+    if (!pd) {
+      const doc = createSvgDocument(title, 400, 100);
+      appendStatusMessage(doc.content, "No part def found");
+      return doc.serialize();
+    }
+    const plan = renderIbd(pd, diag);
+    const doc = createSvgDocument(title, plan.width, plan.height);
+    plan.draw(doc.content);
+    return doc.serialize();
   }
 
   // activity (default)
@@ -35,7 +41,13 @@ export async function modelToSvg(model: Model, baseName: string): Promise<string
   const act = diag.render
     ? allActivityDefs.find(d => d.name === diag.render) ?? allActivityDefs[0]
     : allActivityDefs[0];
-  if (!act) return makeSvg(`<text x="20" y="40" fill="red">No activity def found</text>`, title, 400, 100);
-  const [inner, W, H] = await renderActivity(act, diag, allActionDefs);
-  return makeSvg(inner, title, W, H);
+  if (!act) {
+    const doc = createSvgDocument(title, 400, 100);
+    appendStatusMessage(doc.content, "No activity def found");
+    return doc.serialize();
+  }
+  const plan = await renderActivity(act, diag, allActionDefs);
+  const doc = createSvgDocument(title, plan.width, plan.height);
+  plan.draw(doc.content);
+  return doc.serialize();
 }
