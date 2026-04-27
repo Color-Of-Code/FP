@@ -2,14 +2,14 @@
  * Generic SVG DOM helpers backed by jsdom + d3.
  *
  * These utilities keep renderer files focused on diagram semantics rather than
- * repetitive DOM append boilerplate.
+ * repetitive DOM append boilerplate.  Final pretty-printed serialization is
+ * delegated to xmlbuilder2 so the formatting rules are well-tested rather
+ * than hand-rolled.
  */
 
 import { JSDOM } from "jsdom";
 import { select, type BaseType, type Selection } from "d3";
-
-const XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>';
-const INDENT = "  ";
+import { create } from "xmlbuilder2";
 
 export type SvgParent = Selection<any, unknown, any, any>;
 export type SvgAttrValue = string | number | boolean | null | undefined;
@@ -20,64 +20,13 @@ export interface SvgRoot {
   serialize(): string;
 }
 
-function escapeText(text: string): string {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
-function escapeAttr(text: string): string {
-  return escapeText(text).replace(/"/g, "&quot;");
-}
-
-function attrsToString(element: Element): string {
-  return Array.from(element.attributes)
-    .map(attr => ` ${attr.name}="${escapeAttr(attr.value)}"`)
-    .join("");
-}
-
-function serializeTextNode(node: Text, level: number): string {
-  const content = node.data;
-  if (content.trim() === "") return "";
-  return `${INDENT.repeat(level)}${escapeText(content)}`;
-}
-
-function serializeElementNode(element: Element, level: number): string {
-  const indent = INDENT.repeat(level);
-  const attrs = attrsToString(element);
-  const childNodes = Array.from(element.childNodes)
-    .filter(node => !(node.nodeType === node.TEXT_NODE && node.textContent?.trim() === ""));
-
-  if (childNodes.length === 0) {
-    return `${indent}<${element.tagName}${attrs}/>`;
-  }
-
-  if (childNodes.length === 1 && childNodes[0].nodeType === childNodes[0].TEXT_NODE) {
-    const text = escapeText(childNodes[0].textContent ?? "");
-    return `${indent}<${element.tagName}${attrs}>${text}</${element.tagName}>`;
-  }
-
-  const renderedChildren = childNodes
-    .map(child => serializeDomNode(child, level + 1))
-    .filter(Boolean)
-    .join("\n");
-
-  return `${indent}<${element.tagName}${attrs}>\n${renderedChildren}\n${indent}</${element.tagName}>`;
-}
-
-function serializeDomNode(node: Node, level: number): string {
-  if (node.nodeType === node.ELEMENT_NODE) {
-    return serializeElementNode(node as Element, level);
-  }
-  if (node.nodeType === node.TEXT_NODE) {
-    return serializeTextNode(node as Text, level);
-  }
-  return "";
-}
-
 function serializeSvg(svg: SVGSVGElement): string {
-  return serializeElementNode(svg, 0);
+  // Round-trip through xmlbuilder2 to get a stable, pretty-printed
+  // serialization.  jsdom's XMLSerializer emits a minified single-line
+  // string; xmlbuilder2 then re-formats it with consistent indentation.
+  const raw = new (svg.ownerDocument!.defaultView as any).XMLSerializer()
+    .serializeToString(svg);
+  return create(raw).end({ prettyPrint: true, headless: true, indent: "  " });
 }
 
 /** Create a standalone SVG root document and serializer. */
@@ -92,7 +41,8 @@ export function createSvgRoot(width: number, height: number): SvgRoot {
 
   return {
     svg,
-    serialize: () => `${XML_HEADER}\n${serializeSvg(svg.node() as SVGSVGElement)}\n`,
+    serialize: () =>
+      `<?xml version="1.0" encoding="UTF-8"?>\n${serializeSvg(svg.node() as SVGSVGElement)}\n`,
   };
 }
 
