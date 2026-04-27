@@ -16,11 +16,15 @@ import {
   INIT_R, FINAL_R, FINAL_R_INNER,
   COL,
 } from "../types.ts";
-import type { SvgParent } from "./title.ts";
-
-function appendTooltip(group: SvgParent, tooltip?: string): void {
-  if (tooltip) group.append("title").text(tooltip);
-}
+import {
+  appendElement,
+  appendGroup,
+  appendText,
+  joinElements,
+  joinGroups,
+  setAttrs,
+  type SvgParent,
+} from "../lib/svg.ts";
 
 // ── Action node ────────────────────────────────────────────────────────────
 
@@ -29,83 +33,88 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
   const ry   = n.y - n.h / 2;
   const LH   = 13;
   const nameLines = n.label.split("\n");
-  const group = parent.append("g")
-    .attr("class", "action-node");
-  appendTooltip(group, n.tooltip);
+  const group = appendGroup(parent, { class: "action-node" }, n.tooltip);
 
-  group.append("rect")
-    .attr("x", rx)
-    .attr("y", ry)
-    .attr("width", n.w)
-    .attr("height", n.h)
-    .attr("rx", ACTION_RX)
-    .attr("fill", COL.actionFill)
-    .attr("stroke", COL.actionStroke)
-    .attr("stroke-width", 1.5);
+  appendElement(group, "rect", {
+    x: rx,
+    y: ry,
+    width: n.w,
+    height: n.h,
+    rx: ACTION_RX,
+    fill: COL.actionFill,
+    stroke: COL.actionStroke,
+    "stroke-width": 1.5,
+  });
 
-  for (const [i, line] of nameLines.entries()) {
-    group.append("text")
-      .attr("x", n.x)
-      .attr("y", n.y + (i - (nameLines.length - 1) / 2) * LH)
-      .attr("text-anchor", "middle")
-      .attr("font-size", 11)
-      .attr("font-family", "sans-serif")
-      .attr("dominant-baseline", "middle")
-      .attr("fill", COL.labelFill)
-      .text(line);
-  }
+  joinElements(group, "text.action-label", "text", nameLines, (textEl, line, i) => {
+    setAttrs(textEl, {
+      class: "action-label",
+      x: n.x,
+      y: n.y + (i - (nameLines.length - 1) / 2) * LH,
+      "text-anchor": "middle",
+      "font-size": 11,
+      "font-family": "sans-serif",
+      "dominant-baseline": "middle",
+      fill: COL.labelFill,
+    });
+    textEl.text(line);
+  });
 
-  for (const [i, pin] of n.inPins.entries()) {
+  joinGroups(group, "g.pin-in", n.inPins, (pinGroup, pin, i) => {
     const py = n.y - n.h / 2 + (n.h / (n.inPins.length + 1)) * (i + 1);
     const px = n.x - n.w / 2 - PIN_SZ / 2;
     // Label inside the node so arriving arrows don't cross it
-    group.append("rect")
-      .attr("x", px)
-      .attr("y", py - PIN_SZ / 2)
-      .attr("width", PIN_SZ)
-      .attr("height", PIN_SZ)
-      .attr("fill", COL.pinFill)
-      .attr("stroke", COL.pinStroke)
-      .attr("stroke-width", 1);
-    group.append("text")
-      .attr("x", px + PIN_SZ + 2)
-      .attr("y", py)
-      .attr("text-anchor", "start")
-      .attr("font-size", 8)
-      .attr("font-family", "sans-serif")
-      .attr("dominant-baseline", "middle")
-      .attr("fill", "#555")
-      .attr("stroke", "white")
-      .attr("stroke-width", 2)
-      .attr("paint-order", "stroke fill")
-      .text(pin);
-  }
+    setAttrs(pinGroup, { class: "pin pin-in" });
+    appendElement(pinGroup, "rect", {
+      x: px,
+      y: py - PIN_SZ / 2,
+      width: PIN_SZ,
+      height: PIN_SZ,
+      fill: COL.pinFill,
+      stroke: COL.pinStroke,
+      "stroke-width": 1,
+    });
+    appendText(pinGroup, pin, {
+      x: px + PIN_SZ + 2,
+      y: py,
+      "text-anchor": "start",
+      "font-size": 8,
+      "font-family": "sans-serif",
+      "dominant-baseline": "middle",
+      fill: "#555",
+      stroke: "white",
+      "stroke-width": 2,
+      "paint-order": "stroke fill",
+    });
+  });
 
-  for (const [i, pin] of n.outPins.entries()) {
+  joinGroups(group, "g.pin-out", n.outPins, (pinGroup, pin, i) => {
     const py = n.y - n.h / 2 + (n.h / (n.outPins.length + 1)) * (i + 1);
     const px = n.x + n.w / 2 - PIN_SZ / 2;
     // Label inside the node so departing arrows don't cross it
-    group.append("rect")
-      .attr("x", px)
-      .attr("y", py - PIN_SZ / 2)
-      .attr("width", PIN_SZ)
-      .attr("height", PIN_SZ)
-      .attr("fill", COL.pinFill)
-      .attr("stroke", COL.pinStroke)
-      .attr("stroke-width", 1);
-    group.append("text")
-      .attr("x", px - 2)
-      .attr("y", py)
-      .attr("text-anchor", "end")
-      .attr("font-size", 8)
-      .attr("font-family", "sans-serif")
-      .attr("dominant-baseline", "middle")
-      .attr("fill", "#555")
-      .attr("stroke", "white")
-      .attr("stroke-width", 2)
-      .attr("paint-order", "stroke fill")
-      .text(pin);
-  }
+    setAttrs(pinGroup, { class: "pin pin-out" });
+    appendElement(pinGroup, "rect", {
+      x: px,
+      y: py - PIN_SZ / 2,
+      width: PIN_SZ,
+      height: PIN_SZ,
+      fill: COL.pinFill,
+      stroke: COL.pinStroke,
+      "stroke-width": 1,
+    });
+    appendText(pinGroup, pin, {
+      x: px - 2,
+      y: py,
+      "text-anchor": "end",
+      "font-size": 8,
+      "font-family": "sans-serif",
+      "dominant-baseline": "middle",
+      fill: "#555",
+      stroke: "white",
+      "stroke-width": 2,
+      "paint-order": "stroke fill",
+    });
+  });
 }
 
 // ── Object node ────────────────────────────────────────────────────────────
@@ -116,80 +125,75 @@ function appendObjectNode(parent: SvgParent, n: GNode): void {
   const fill   = n.isHof ? COL.hofFill   : COL.objFill;
   const stroke = n.isHof ? COL.hofStroke : COL.objStroke;
   const classes = n.isHof ? "object-node hof" : "object-node";
-  const group = parent.append("g")
-    .attr("class", classes);
-  appendTooltip(group, n.tooltip);
+  const group = appendGroup(parent, { class: classes }, n.tooltip);
 
-  group.append("rect")
-    .attr("x", rx)
-    .attr("y", ry)
-    .attr("width", n.w)
-    .attr("height", n.h)
-    .attr("fill", fill)
-    .attr("stroke", stroke)
-    .attr("stroke-width", 1.5);
+  appendElement(group, "rect", {
+    x: rx,
+    y: ry,
+    width: n.w,
+    height: n.h,
+    fill,
+    stroke,
+    "stroke-width": 1.5,
+  });
 
   if (n.isHof) {
-    group.append("text")
-      .attr("x", n.x)
-      .attr("y", n.y - 7)
-      .attr("text-anchor", "middle")
-      .attr("font-size", 9)
-      .attr("font-style", "italic")
-      .attr("font-family", "sans-serif")
-      .attr("dominant-baseline", "middle")
-      .attr("fill", COL.hofStroke)
-      .text("«function»");
-    group.append("text")
-      .attr("x", n.x)
-      .attr("y", n.y + 7)
-      .attr("text-anchor", "middle")
-      .attr("font-size", 11)
-      .attr("font-family", "sans-serif")
-      .attr("dominant-baseline", "middle")
-      .attr("fill", COL.labelFill)
-      .text(n.label);
+    appendText(group, "«function»", {
+      x: n.x,
+      y: n.y - 7,
+      "text-anchor": "middle",
+      "font-size": 9,
+      "font-style": "italic",
+      "font-family": "sans-serif",
+      "dominant-baseline": "middle",
+      fill: COL.hofStroke,
+    });
+    appendText(group, n.label, {
+      x: n.x,
+      y: n.y + 7,
+      "text-anchor": "middle",
+      "font-size": 11,
+      "font-family": "sans-serif",
+      "dominant-baseline": "middle",
+      fill: COL.labelFill,
+    });
     return;
   }
 
-  group.append("text")
-    .attr("x", n.x)
-    .attr("y", n.y)
-    .attr("text-anchor", "middle")
-    .attr("font-size", 11)
-    .attr("font-family", "sans-serif")
-    .attr("dominant-baseline", "middle")
-    .attr("fill", COL.labelFill)
-    .text(n.label);
+  appendText(group, n.label, {
+    x: n.x,
+    y: n.y,
+    "text-anchor": "middle",
+    "font-size": 11,
+    "font-family": "sans-serif",
+    "dominant-baseline": "middle",
+    fill: COL.labelFill,
+  });
 }
 
 // ── Initial / Final nodes ──────────────────────────────────────────────────
 
 function appendInitialNode(parent: SvgParent, n: GNode): void {
-  parent.append("g")
-    .attr("class", "initial-node")
-    .append("circle")
-    .attr("cx", n.x)
-    .attr("cy", n.y)
-    .attr("r", INIT_R)
-    .attr("fill", COL.initFill);
+  const group = appendGroup(parent, { class: "initial-node" });
+  appendElement(group, "circle", { cx: n.x, cy: n.y, r: INIT_R, fill: COL.initFill });
 }
 
 function appendFinalNode(parent: SvgParent, n: GNode): void {
-  const group = parent.append("g")
-    .attr("class", "final-node");
-  group.append("circle")
-    .attr("cx", n.x)
-    .attr("cy", n.y)
-    .attr("r", FINAL_R)
-    .attr("fill", "none")
-    .attr("stroke", COL.finalStroke)
-    .attr("stroke-width", 2);
-  group.append("circle")
-    .attr("cx", n.x)
-    .attr("cy", n.y)
-    .attr("r", FINAL_R_INNER)
-    .attr("fill", COL.finalFill);
+  const group = appendGroup(parent, { class: "final-node" });
+  appendElement(group, "circle", {
+    cx: n.x,
+    cy: n.y,
+    r: FINAL_R,
+    fill: "none",
+    stroke: COL.finalStroke,
+    "stroke-width": 2,
+  });
+  appendElement(group, "circle", {
+    cx: n.x,
+    cy: n.y,
+    r: FINAL_R_INNER,
+    fill: COL.finalFill,
+  });
 }
 
 // ── Decision / Merge diamond ───────────────────────────────────────────────
@@ -198,24 +202,23 @@ function appendDiamondNode(parent: SvgParent, n: GNode): void {
   const hw  = n.w / 2;
   const hh  = n.h / 2;
   const pts = `${n.x},${n.y - hh} ${n.x + hw},${n.y} ${n.x},${n.y + hh} ${n.x - hw},${n.y}`;
-  const group = parent.append("g")
-    .attr("class", `${n.kind}-node`);
-  appendTooltip(group, n.tooltip);
-  group.append("polygon")
-    .attr("points", pts)
-    .attr("fill", "#fff9c4")
-    .attr("stroke", "#f9a825")
-    .attr("stroke-width", 1.5);
+  const group = appendGroup(parent, { class: `${n.kind}-node` }, n.tooltip);
+  appendElement(group, "polygon", {
+    points: pts,
+    fill: "#fff9c4",
+    stroke: "#f9a825",
+    "stroke-width": 1.5,
+  });
   if (n.label) {
-    group.append("text")
-      .attr("x", n.x)
-      .attr("y", n.y)
-      .attr("text-anchor", "middle")
-      .attr("font-size", 9)
-      .attr("font-family", "sans-serif")
-      .attr("dominant-baseline", "middle")
-      .attr("fill", "#5d4037")
-      .text(n.label);
+    appendText(group, n.label, {
+      x: n.x,
+      y: n.y,
+      "text-anchor": "middle",
+      "font-size": 9,
+      "font-family": "sans-serif",
+      "dominant-baseline": "middle",
+      fill: "#5d4037",
+    });
   }
 }
 

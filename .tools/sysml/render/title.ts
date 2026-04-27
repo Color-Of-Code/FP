@@ -6,14 +6,10 @@
  * higher-level, server-side DOM abstraction.
  */
 
-import { select, type BaseType, type Selection } from "d3";
-import { JSDOM } from "jsdom";
+import { appendElement, appendText, createSvgRoot, type SvgParent } from "../lib/svg.ts";
 import { appendArrowDefs } from "./arrows.ts";
 
 const TITLE_H = 28;
-const XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>';
-
-export type SvgParent = Selection<BaseType, unknown, null, undefined>;
 
 export interface RenderPlan {
   width: number;
@@ -22,54 +18,43 @@ export interface RenderPlan {
 }
 
 export interface SvgDocument {
-  svg: Selection<SVGSVGElement, unknown, null, undefined>;
-  content: Selection<SVGGElement, unknown, null, undefined>;
+  svg: SvgParent;
+  content: SvgParent;
   serialize(): string;
 }
 
 /** Create a standalone SVG document shell and translated diagram content group. */
 export function createSvgDocument(title: string, W: number, H: number): SvgDocument {
   const totalH = H + TITLE_H;
-  const dom = new JSDOM("<!DOCTYPE html><html><body></body></html>");
-  const svg = select(dom.window.document.body)
-    .append("svg")
-    .attr("xmlns", "http://www.w3.org/2000/svg")
-    .attr("viewBox", `0 0 ${W} ${totalH}`)
-    .attr("width", W)
-    .attr("height", totalH);
+  const root = createSvgRoot(W, totalH);
+  const svg = root.svg;
 
-  appendArrowDefs(svg as SvgParent);
+  appendArrowDefs(svg);
 
-  svg.append("rect")
-    .attr("width", W)
-    .attr("height", totalH)
-    .attr("fill", "white");
+  appendElement(svg, "rect", { width: W, height: totalH, fill: "white" });
 
-  svg.append("text")
-    .attr("x", W / 2)
-    .attr("y", 20)
-    .attr("text-anchor", "middle")
-    .attr("font-size", 14)
-    .attr("font-weight", "bold")
-    .attr("font-family", "sans-serif")
-    .attr("fill", "#222")
-    .text(title);
+  appendText(svg, title, {
+    x: W / 2,
+    y: 20,
+    "text-anchor": "middle",
+    "font-size": 14,
+    "font-weight": "bold",
+    "font-family": "sans-serif",
+    fill: "#222",
+  });
 
-  const content = svg.append("g")
-    .attr("transform", `translate(0,${TITLE_H})`);
+  const content = appendElement(svg, "g", {
+    transform: `translate(0,${TITLE_H})`,
+  });
 
   return {
     svg,
     content,
-    serialize: () => `${XML_HEADER}\n${svg.node()!.outerHTML}`,
+    serialize: root.serialize,
   };
 }
 
 /** Append a simple status message inside the diagram content area. */
 export function appendStatusMessage(parent: SvgParent, message: string): void {
-  parent.append("text")
-    .attr("x", 20)
-    .attr("y", 40)
-    .attr("fill", "red")
-    .text(message);
+  appendText(parent, message, { x: 20, y: 40, fill: "red" });
 }

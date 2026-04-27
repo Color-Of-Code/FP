@@ -6,7 +6,7 @@
  */
 
 import { FRAME_TAB_W, FRAME_TAB_H, COL } from "../types.ts";
-import type { SvgParent } from "./title.ts";
+import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/svg.ts";
 
 /**
  * Append the activity frame border and name tab for an activity of size (W × H).
@@ -20,30 +20,31 @@ export function appendActivityFrame(parent: SvgParent, name: string, W: number, 
   // Rectangle with bottom-right corner cut: 5 points
   const tabPath = `M0,0 L${tw},0 L${tw},${th - 10} L${tw - 10},${th} L0,${th} Z`;
 
-  parent.append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("width", W)
-    .attr("height", H)
-    .attr("rx", 8)
-    .attr("fill", COL.frameFill)
-    .attr("stroke", COL.frameStroke)
-    .attr("stroke-width", 1.5);
+  appendElement(parent, "rect", {
+    x: 0,
+    y: 0,
+    width: W,
+    height: H,
+    rx: 8,
+    fill: COL.frameFill,
+    stroke: COL.frameStroke,
+    "stroke-width": 1.5,
+  });
 
-  const tab = parent.append("g")
-    .attr("class", "activity-frame-tab");
-  tab.append("path")
-    .attr("d", tabPath)
-    .attr("fill", "#e0e0e0")
-    .attr("stroke", COL.frameStroke)
-    .attr("stroke-width", 1);
-  tab.append("text")
-    .attr("x", tw / 2)
-    .attr("y", th / 2 + 1)
-    .attr("text-anchor", "middle")
-    .attr("font-size", 10)
-    .attr("font-family", "sans-serif")
-    .attr("dominant-baseline", "middle")
-    .attr("fill", COL.labelFill)
-    .text(label);
+  const tab = appendGroup(parent, { class: "activity-frame-tab" });
+  appendElement(tab, "path", {
+    d: tabPath,
+    fill: "#e0e0e0",
+    stroke: COL.frameStroke,
+    "stroke-width": 1,
+  });
+  appendText(tab, label, {
+    x: tw / 2,
+    y: th / 2 + 1,
+    "text-anchor": "middle",
+    "font-size": 10,
+    "font-family": "sans-serif",
+    "dominant-baseline": "middle",
+    fill: COL.labelFill,
+  });
 }

@@ -7,47 +7,33 @@
  */
 
 import { COL } from "../types.ts";
-import type { SvgParent } from "./title.ts";
+import { appendElement, joinElements, setAttrs, type SvgParent } from "../lib/svg.ts";
+
+const MARKERS = [
+  { id: "arrowFilled", path: "M0,0 L10,5 L0,10 z", fill: COL.edgeStroke, stroke: undefined, strokeWidth: undefined },
+  { id: "arrowOpen",   path: "M0,0 L10,5 L0,10",   fill: "none",        stroke: COL.edgeStroke, strokeWidth: 1.5 },
+  { id: "arrowHof",    path: "M0,0 L10,5 L0,10 z", fill: COL.hofEdge,    stroke: undefined, strokeWidth: undefined },
+] as const;
 
 /** Append the shared marker definitions to the root SVG document. */
 export function appendArrowDefs(svg: SvgParent): void {
-  const defs = svg.append("defs");
+  const defs = appendElement(svg, "defs");
 
-  const filled = defs.append("marker")
-    .attr("id", "arrowFilled")
-    .attr("viewBox", "0 0 10 10")
-    .attr("refX", 0)
-    .attr("refY", 5)
-    .attr("markerWidth", 7)
-    .attr("markerHeight", 7)
-    .attr("orient", "auto-start-reverse");
-  filled.append("path")
-    .attr("d", "M0,0 L10,5 L0,10 z")
-    .attr("fill", COL.edgeStroke);
-
-  const open = defs.append("marker")
-    .attr("id", "arrowOpen")
-    .attr("viewBox", "0 0 10 10")
-    .attr("refX", 0)
-    .attr("refY", 5)
-    .attr("markerWidth", 7)
-    .attr("markerHeight", 7)
-    .attr("orient", "auto-start-reverse");
-  open.append("path")
-    .attr("d", "M0,0 L10,5 L0,10")
-    .attr("fill", "none")
-    .attr("stroke", COL.edgeStroke)
-    .attr("stroke-width", 1.5);
-
-  const hof = defs.append("marker")
-    .attr("id", "arrowHof")
-    .attr("viewBox", "0 0 10 10")
-    .attr("refX", 0)
-    .attr("refY", 5)
-    .attr("markerWidth", 7)
-    .attr("markerHeight", 7)
-    .attr("orient", "auto-start-reverse");
-  hof.append("path")
-    .attr("d", "M0,0 L10,5 L0,10 z")
-    .attr("fill", COL.hofEdge);
+  joinElements(defs, "marker", "marker", MARKERS, (marker, def) => {
+    setAttrs(marker, {
+      id: def.id,
+      viewBox: "0 0 10 10",
+      refX: 0,
+      refY: 5,
+      markerWidth: 7,
+      markerHeight: 7,
+      orient: "auto-start-reverse",
+    });
+    appendElement(marker, "path", {
+      d: def.path,
+      fill: def.fill,
+      stroke: def.stroke,
+      "stroke-width": def.strokeWidth,
+    });
+  });
 }

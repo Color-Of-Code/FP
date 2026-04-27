@@ -12,7 +12,7 @@ import {
   COL,
 } from "../types.ts";
 import { pinSlotY, semanticPinIndex } from "./pin.ts";
-import type { SvgParent } from "./title.ts";
+import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/svg.ts";
 
 export type Pt4 = [number, number, number, number];
 
@@ -152,37 +152,38 @@ export function appendGEdge(parent: SvgParent, e: GEdge, pt: Pt4): void {
   const cp2y = y2;
 
   const edgeCol   = e.isHof ? COL.hofEdge : COL.edgeStroke;
-  const dashAttr  = e.isObjectFlow ? "" : ' stroke-dasharray="6,4"';
   const markerRef = !e.isObjectFlow ? "url(#arrowOpen)"
     : e.isHof ? "url(#arrowHof)"
     : "url(#arrowFilled)";
 
-  const group = parent.append("g")
-    .attr("class", e.isHof ? "edge hof-edge" : "edge");
+  const group = appendGroup(parent, {
+    class: e.isHof ? "edge hof-edge" : "edge",
+  });
 
-  const path = group.append("path")
-    .attr("d", `M${x1.toFixed(1)},${y1.toFixed(1)} C${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`)
-    .attr("fill", "none")
-    .attr("stroke", edgeCol)
-    .attr("stroke-width", 1.5)
-    .attr("marker-end", markerRef);
+  const path = appendElement(group, "path", {
+    d: `M${x1.toFixed(1)},${y1.toFixed(1)} C${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`,
+    fill: "none",
+    stroke: edgeCol,
+    "stroke-width": 1.5,
+    "marker-end": markerRef,
+  });
   if (!e.isObjectFlow) path.attr("stroke-dasharray", "6,4");
 
   if (e.label) {
     // Offset perpendicular-above the chord midpoint (always screen-upward for LR layouts)
     const len = Math.sqrt(dx * dx + dy * dy) || 1;
     const LABEL_OFF = 13;
-    group.append("text")
-      .attr("x", (x1 + x2) / 2 + (dy / len) * LABEL_OFF)
-      .attr("y", (y1 + y2) / 2 - (dx / len) * LABEL_OFF)
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "middle")
-      .attr("font-size", 9)
-      .attr("font-family", "sans-serif")
-      .attr("fill", "#333")
-      .attr("stroke", "white")
-      .attr("stroke-width", 3)
-      .attr("paint-order", "stroke fill")
-      .text(e.label);
+    appendText(group, e.label, {
+      x: (x1 + x2) / 2 + (dy / len) * LABEL_OFF,
+      y: (y1 + y2) / 2 - (dx / len) * LABEL_OFF,
+      "text-anchor": "middle",
+      "dominant-baseline": "middle",
+      "font-size": 9,
+      "font-family": "sans-serif",
+      fill: "#333",
+      stroke: "white",
+      "stroke-width": 3,
+      "paint-order": "stroke fill",
+    });
   }
 }

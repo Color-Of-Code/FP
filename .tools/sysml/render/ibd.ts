@@ -13,7 +13,8 @@ import {
 import { layeredLayout } from "../layout.ts";
 import { appendGNode } from "./nodes.ts";
 import { computeEndpoints, appendGEdge } from "./edges.ts";
-import type { RenderPlan, SvgParent } from "./title.ts";
+import { appendElement, appendText, joinGroups, setAttrs, type SvgParent } from "../lib/svg.ts";
+import type { RenderPlan } from "./title.ts";
 
 // ── IBD port squares ───────────────────────────────────────────────────────
 
@@ -27,30 +28,32 @@ function appendPortSquares(
 ): void {
   if (ports.length === 0) return;
   const spacing = H / (ports.length + 1);
-  for (const [i, p] of ports.entries()) {
+  joinGroups(parent, `g.port-${side}`, ports, (portGroup, p, i) => {
     const py     = spacing * (i + 1);
     const px     = side === "left" ? -PIN_SZ / 2 : W - PIN_SZ / 2;
     const label  = `${p.id} : ${p.type}`;
     const labelX = side === "left" ? px - 3 : px + PIN_SZ + 3;
     const anchor = side === "left" ? "end" : "start";
-    parent.append("rect")
-      .attr("x", px)
-      .attr("y", py - PIN_SZ / 2)
-      .attr("width", PIN_SZ)
-      .attr("height", PIN_SZ)
-      .attr("fill", COL.pinFill)
-      .attr("stroke", COL.pinStroke)
-      .attr("stroke-width", 1.5);
-    parent.append("text")
-      .attr("x", labelX)
-      .attr("y", py)
-      .attr("font-size", 9)
-      .attr("font-family", "sans-serif")
-      .attr("dominant-baseline", "middle")
-      .attr("text-anchor", anchor)
-      .attr("fill", "#444")
-      .text(label);
-  }
+    setAttrs(portGroup, { class: `port port-${side}` });
+    appendElement(portGroup, "rect", {
+      x: px,
+      y: py - PIN_SZ / 2,
+      width: PIN_SZ,
+      height: PIN_SZ,
+      fill: COL.pinFill,
+      stroke: COL.pinStroke,
+      "stroke-width": 1.5,
+    });
+    appendText(portGroup, label, {
+      x: labelX,
+      y: py,
+      "font-size": 9,
+      "font-family": "sans-serif",
+      "dominant-baseline": "middle",
+      "text-anchor": anchor,
+      fill: "#444",
+    });
+  });
 }
 
 // ── IBD renderer ──────────────────────────────────────────────────────────
@@ -103,25 +106,26 @@ export function renderIbd(
     width: W,
     height: H,
     draw(parent) {
-      parent.append("rect")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("width", W)
-        .attr("height", H)
-        .attr("rx", 4)
-        .attr("fill", "#f8f8ff")
-        .attr("stroke", "#6666c0")
-        .attr("stroke-width", 2);
+      appendElement(parent, "rect", {
+        x: 0,
+        y: 0,
+        width: W,
+        height: H,
+        rx: 4,
+        fill: "#f8f8ff",
+        stroke: "#6666c0",
+        "stroke-width": 2,
+      });
 
-      parent.append("text")
-        .attr("x", W / 2)
-        .attr("y", 18)
-        .attr("text-anchor", "middle")
-        .attr("font-size", 12)
-        .attr("font-weight", "bold")
-        .attr("font-family", "sans-serif")
-        .attr("fill", COL.labelFill)
-        .text(`«block» ${partDef.name}`);
+      appendText(parent, `«block» ${partDef.name}`, {
+        x: W / 2,
+        y: 18,
+        "text-anchor": "middle",
+        "font-size": 12,
+        "font-weight": "bold",
+        "font-family": "sans-serif",
+        fill: COL.labelFill,
+      });
 
       appendPortSquares(parent, inPorts, "left", W, H);
       appendPortSquares(parent, outPorts, "right", W, H);
