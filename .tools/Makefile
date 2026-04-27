@@ -28,7 +28,7 @@ DIAGRAM_SVG := $(D2_FILES_DOCS:.d2=.svg) \
                $(D2_FILES_MONADS:.d2=.svg) \
                $(D2_FILES_OPTICS:.d2=.svg)
 
-.PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help
+.PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help test test-update
 
 ## Default: show help
 help:
@@ -43,6 +43,8 @@ help:
 	@echo "  lint-langs  Check language-example completeness and order"
 	@echo "  check-md    Check Markdown formatting without writing (CI-friendly)"
 	@echo "  fmt         Format both D2 and Markdown"
+	@echo "  test        Run vitest snapshot tests for the SysML pipeline"
+	@echo "  test-update Refresh SVG snapshots after intentional changes"
 	@echo "  all         svgs + fmt + lint-md"
 	@echo ""
 
@@ -101,8 +103,16 @@ check-md: $(NODE_BIN)/prettier
 ## Format everything
 fmt: fmt-d2 fmt-md
 
+## Run vitest snapshot tests against the SVG corpus
+test:
+	cd $(REPO_ROOT)/.tools && npx vitest run
+
+## Refresh SVG snapshots from current renderer output
+test-update:
+	cd $(REPO_ROOT)/.tools && npx vitest run -u
+
 ## Run everything
-all: svgs sysml fmt lint-md lint-langs
+all: svgs sysml fmt lint-md lint-langs test
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:
