@@ -43,6 +43,8 @@ early exit and other non-local control flows.
 | `reset m`     | `Cont a a -> Cont r a`                      | Delimit the scope of the current continuation          |
 | `shift f`     | `((a -> r) -> Cont r r) -> Cont r a`        | Capture the continuation up to the enclosing `reset`   |
 
+![cont callcc primitive](diagrams/cont-callcc.svg)
+
 ## Key use cases
 
 - **Early exit** — `callCC` acts as a `return` or `break` that jumps out of deeply nested code

@@ -41,6 +41,10 @@ The environment is **never modified** — every step sees the identical `r`.
 | `local f`   | `(r ⟶ r) ⟶ Reader r a ⟶ Reader r a` | run a sub-computation with a modified environment |
 | `runReader` | `Reader r a ⟶ r ⟶ a`                | supply the environment and execute                |
 
+![reader ask primitive](diagrams/reader-ask.svg)
+
+![reader local primitive](diagrams/reader-local.svg)
+
 ## Key use cases
 
 - Application configuration (database URL, feature flags, timeout values)

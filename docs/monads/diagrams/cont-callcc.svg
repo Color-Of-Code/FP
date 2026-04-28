@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630.4 130" width="630.4" height="130">
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="#424242" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
+    </marker>
+  </defs>
+  <rect width="630.4" height="130" fill="white"/>
+  <text x="315.2" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">callCC :: ((a ⟶ Cont r b) ⟶ Cont r a) ⟶ Cont r a   (capture the current continuation as an escape) — primitive</text>
+  <g transform="translate(0,28)">
+    <rect x="0" y="0" width="630.4" height="102" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-activity">
+      <path d="M0,0 L121.4,0 L121.4,12 L111.4,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="60.7" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» callCC</text>
+    </g>
+    <g class="edge">
+      <path d="M264.8,62.0 L296.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M436.8,62.0 L468.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="460.8" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">\\k -&gt; runCont (f (\\a -&gt; \\_ -&gt; k a)) k</text>
+    </g>
+    <g class="action-node">
+      <title>CallCC: pack the outer k so that calling escape(a) bypasses any code following callCC and resumes the outer continuation with a.</title>
+      <rect x="312.8" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="372.8" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cc</text>
+      <g class="pin pin-in">
+        <rect x="308.8" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="318.8" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="428.8" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="426.8" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ca</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>f — user-supplied function that receives the captured escape (a ⟶ Cont r b) and returns the body's continuation.</title>
+      <rect x="36" y="43" width="228.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="150.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : (a ⟶ Cont r b) ⟶ Cont r a</text>
+    </g>
+    <g class="object-node">
+      <title>Cont r a — same outer type as f's result; control flow may exit early via the escape.</title>
+      <rect x="480.8" y="43" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="537.6" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ca : Cont r a</text>
+    </g>
+  </g>
+</svg>

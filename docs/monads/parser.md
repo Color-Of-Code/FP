@@ -44,6 +44,8 @@ immediately — exactly like the [Maybe monad](./maybe.md).
 | `p <\|> q`     | Try `p`; on failure without consuming input, try `q` (alternative) |
 | `chainl1 p op` | Parse `p` separated by binary operator `op`; left-associative      |
 
+![parser alt primitive](diagrams/parser-alt.svg)
+
 ## Key use cases
 
 - Language parsers (JSON, CSV, config files, DSLs)

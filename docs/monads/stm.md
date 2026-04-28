@@ -32,6 +32,10 @@ TVar a    -- a mutable cell readable and writable inside STM
 | `retry`            | `STM a`        | Block; retry the whole transaction when any read `TVar` changes |
 | `orElse stm1 stm2` | `STM a`        | Try `stm1`; if it calls `retry`, run `stm2` instead             |
 
+![stm retry primitive](diagrams/stm-retry.svg)
+
+![stm orelse primitive](diagrams/stm-orelse.svg)
+
 ## What makes STM unique
 
 - **Composability** — STM actions combine with `>>=` and `orElse` without holding any locks

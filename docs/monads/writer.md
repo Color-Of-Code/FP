@@ -41,6 +41,8 @@ Each step produces its own log fragment; `bind` concatenates them in order.
 | `listen`        | `Writer w a ⟶ Writer w (a, w)` | expose the accumulated log as part of the result    |
 | `runWriter`     | `Writer w a ⟶ (a, w)`          | execute and return the result-log pair              |
 
+![writer tell primitive](diagrams/writer-tell.svg)
+
 ## Key use cases
 
 - Audit trails and operation logs

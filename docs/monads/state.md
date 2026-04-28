@@ -41,6 +41,12 @@ The result value flows down; the state flows sideways through every step.
 | `modify f` | `State s ()` | apply `f` to the current state         |
 | `return a` | `State s a`  | produce `a` without touching the state |
 
+![state get primitive](diagrams/state-get.svg)
+
+![state put primitive](diagrams/state-put.svg)
+
+![state modify primitive](diagrams/state-modify.svg)
+
 ## Key use cases
 
 - Counters and accumulators
