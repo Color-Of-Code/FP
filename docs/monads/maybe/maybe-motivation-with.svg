@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2058.4 130" width="2058.4" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1794.4 130" width="1794.4" height="130">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,91 +11,91 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="2058.4" height="130" fill="white"/>
-  <text x="1029.2" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With Maybe: bind short-circuits on Nothing automatically</text>
+  <rect width="1794.4" height="130" fill="white"/>
+  <text x="897.2" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With Maybe: bind short-circuits on Nothing automatically</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="2058.4" height="102" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1794.4" height="102" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L171,0 L171,12 L161,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="85.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» lookupUserCity</text>
     </g>
     <g class="edge">
-      <path d="M164.0,62.0 L196.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M164.0,62.0 L172.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M336.0,62.0 L368.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M312.0,62.0 L320.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M558.4,62.0 L674.4,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="620.4" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">&gt;&gt;= bind</text>
+      <path d="M510.4,62.0 L578.4,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="548.4" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">&gt;&gt;= bind</text>
     </g>
     <g class="edge">
-      <path d="M814.4,62.0 L846.4,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M718.4,62.0 L726.4,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M1058.4,62.0 L1174.4,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1120.4" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">&gt;&gt;= bind</text>
+      <path d="M938.4,62.0 L1006.4,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="976.4" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">&gt;&gt;= bind</text>
     </g>
     <g class="edge">
-      <path d="M1314.4,62.0 L1346.4,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M1146.4,62.0 L1154.4,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M1536.8,62.0 L1652.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1598.8000000000002" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">&gt;&gt;= bind</text>
+      <path d="M1344.8,62.0 L1412.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1382.8000000000002" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">&gt;&gt;= bind</text>
     </g>
     <g class="edge">
-      <path d="M1792.8,62.0 L1824.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M1552.8,62.0 L1560.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="action-node">
       <title>find_user(id) → Maybe User.  Returns Just user or Nothing.</title>
-      <rect x="212" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="272" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findUser</text>
+      <rect x="188" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="248" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findUser</text>
       <g class="pin pin-in">
-        <rect x="208" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="218" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">userId</text>
+        <rect x="184" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="194" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">userId</text>
       </g>
       <g class="pin pin-out">
-        <rect x="328" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="326" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
+        <rect x="304" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="302" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
       </g>
     </g>
     <g class="action-node">
       <title>find_address(user.address_id) → Maybe Address.\nbind skips this entirely if findUser returned Nothing.</title>
-      <rect x="690.4" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="750.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findAddress</text>
+      <rect x="594.4" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="654.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findAddress</text>
       <g class="pin pin-in">
-        <rect x="686.4" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="696.4" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">user</text>
+        <rect x="590.4" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="600.4" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">user</text>
       </g>
       <g class="pin pin-out">
-        <rect x="806.4" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="804.4" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
+        <rect x="710.4" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="708.4" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
       </g>
     </g>
     <g class="action-node">
       <title>find_city(address.city_id) → Maybe City.\nbind skips this if any earlier step was Nothing.</title>
-      <rect x="1190.4" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="1250.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findCity</text>
+      <rect x="1022.4000000000001" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="1082.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findCity</text>
       <g class="pin pin-in">
-        <rect x="1186.4" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1196.4" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">address</text>
+        <rect x="1018.4000000000001" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1028.4" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">address</text>
       </g>
       <g class="pin pin-out">
-        <rect x="1306.4" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1304.4" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
+        <rect x="1138.4" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1136.4" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
       </g>
     </g>
     <g class="action-node">
       <title>pure(city.name) → Maybe String.  Lifts the plain String into Maybe.</title>
-      <rect x="1668.8000000000002" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="1728.8000000000002" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">liftName</text>
+      <rect x="1428.8000000000002" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="1488.8000000000002" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">liftName</text>
       <g class="pin pin-in">
-        <rect x="1664.8000000000002" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1674.8000000000002" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">city</text>
+        <rect x="1424.8000000000002" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1434.8000000000002" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">city</text>
       </g>
       <g class="pin pin-out">
-        <rect x="1784.8000000000002" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1782.8000000000002" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
+        <rect x="1544.8000000000002" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1542.8000000000002" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">result</text>
       </g>
     </g>
     <g class="object-node">
@@ -105,23 +105,23 @@
     </g>
     <g class="object-node">
       <title>Maybe User — Just the user record, or Nothing.</title>
-      <rect x="380" y="43" width="178.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="469.2" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">maybeUser : Maybe User</text>
+      <rect x="332" y="43" width="178.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="421.2" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">maybeUser : Maybe User</text>
     </g>
     <g class="object-node">
       <title>Maybe Address — Just the address, or Nothing propagated from above.</title>
-      <rect x="858.4" y="43" width="200" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="958.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">maybeAddr : Maybe Address</text>
+      <rect x="738.4" y="43" width="200" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="838.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">maybeAddr : Maybe Address</text>
     </g>
     <g class="object-node">
       <title>Maybe City — Just the city, or Nothing propagated from above.</title>
-      <rect x="1358.4" y="43" width="178.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1447.6000000000001" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">maybeCity : Maybe City</text>
+      <rect x="1166.4" y="43" width="178.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1255.6000000000001" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">maybeCity : Maybe City</text>
     </g>
     <g class="object-node">
       <title>Maybe String — Just city.name on success; Nothing if any step failed.\nNo explicit null checks anywhere in this chain.</title>
-      <rect x="1836.8000000000002" y="43" width="185.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1929.6000000000001" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cityName : Maybe String</text>
+      <rect x="1572.8000000000002" y="43" width="185.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1665.6000000000001" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cityName : Maybe String</text>
     </g>
   </g>
 </svg>

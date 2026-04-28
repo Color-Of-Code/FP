@@ -29,7 +29,7 @@ export const theme = {
     frameTabH:      22,
 
     // Layout parameters (ELK)
-    edgeGap:        40,    // ELK spacing.nodeNodeBetweenLayers
+    edgeGap:        16,    // ELK spacing.nodeNodeBetweenLayers (minimum; layers with labels grow as needed)
     nodeVgap:       14,    // ELK spacing.nodeNode
 
     /**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660.8000000000001 246" width="660.8000000000001" height="246">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620.8000000000001 246" width="620.8000000000001" height="246">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,29 +11,29 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="660.8000000000001" height="246" fill="white"/>
-  <text x="330.40000000000003" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b</text>
-  <text x="330.40000000000003" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, &gt;&gt;=</text>
+  <rect width="620.8000000000001" height="246" fill="white"/>
+  <text x="310.40000000000003" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b</text>
+  <text x="310.40000000000003" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, &gt;&gt;=</text>
   <g transform="translate(0,44)">
-    <rect x="0" y="0" width="660.8000000000001" height="202" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="620.8000000000001" height="202" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L164.8,0 L164.8,12 L154.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="82.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» StateBindContext</text>
     </g>
     <g class="edge">
-      <path d="M241.2,153.0 L246.2,153.0 Q251.2,153.0 251.2,148.0 L251.2,118.0 Q251.2,112.0 257.2,112.0 L269.2,112.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M241.2,153.0 L246.2,153.0 Q251.2,153.0 251.2,148.0 L251.2,112.0 L251.2,112.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M241.2,101.0 L269.2,101.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M241.2,101.0 L249.2,101.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M241.2,49.0 L246.2,49.0 Q251.2,49.0 251.2,54.0 L251.2,84.0 Q251.2,90.0 257.2,90.0 L269.2,90.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M241.2,49.0 L246.2,49.0 Q251.2,49.0 251.2,54.0 L251.2,90.0 L251.2,90.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M401.2,94.0 L429.2,94.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M381.2,94.0 L389.2,94.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M401.2,108.0 L406.2,108.0 Q411.2,108.0 411.2,113.0 L411.2,140.0 Q411.2,146.0 417.2,146.0 L429.2,146.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M381.2,108.0 L386.2,108.0 Q391.2,108.0 391.2,113.0 L391.2,146.0 L391.2,146.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>State s a — a computation: given state s returns (a, s')</title>
@@ -53,18 +53,18 @@
     </g>
     <g class="action-node">
       <title>bind sa f = \\s -&gt;\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\n  in  (b, s'')</title>
-      <rect x="281.20000000000005" y="79" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="341.20000000000005" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : StateBindOp</text>
+      <rect x="261.20000000000005" y="79" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="321.20000000000005" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : StateBindOp</text>
     </g>
     <g class="object-node">
       <title>State s b — the composed computation; when run it produces (b, s'')</title>
-      <rect x="441.2" y="75" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="516" y="94" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sb_val : State s b</text>
+      <rect x="401.20000000000005" y="75" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="476.00000000000006" y="94" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sb_val : State s b</text>
     </g>
     <g class="object-node">
       <title>s — the transformed state after both sa and f(a) have run. Different from s_in.</title>
-      <rect x="441.20000000000005" y="127" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="496.20000000000005" y="146" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s_out : s</text>
+      <rect x="401.20000000000005" y="127" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="456.20000000000005" y="146" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s_out : s</text>
     </g>
   </g>
 </svg>

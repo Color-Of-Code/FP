@@ -14,15 +14,15 @@
   <rect width="611" height="146" fill="white"/>
   <text x="305.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">get :: State s s   (return the current state as the result; state unchanged)</text>
   <text x="305.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">primitive</text>
-  <g transform="translate(71,44)">
-    <rect x="0" y="0" width="469.8" height="102" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+  <g transform="translate(95,44)">
+    <rect x="0" y="0" width="421.8" height="102" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» get</text>
     </g>
     <g class="edge">
-      <path d="M160.0,62.0 L301.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="238.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">\\s -&gt; (s, s)</text>
+      <path d="M160.0,62.0 L253.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="214.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">\\s -&gt; (s, s)</text>
     </g>
     <g class="action-node">
       <title>Get: build \\s -&gt; (s, s) — value and outgoing state are both the incoming state.</title>
@@ -35,8 +35,8 @@
     </g>
     <g class="object-node">
       <title>State s s — a stateful computation that observes s without modifying it.</title>
-      <rect x="313" y="43" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="373.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">gs : State s s</text>
+      <rect x="265" y="43" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="325.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">gs : State s s</text>
     </g>
   </g>
 </svg>

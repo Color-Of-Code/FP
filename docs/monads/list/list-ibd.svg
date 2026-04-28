@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 617.6 194" width="617.6" height="194">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 573.6 194" width="573.6" height="194">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,23 +11,23 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="617.6" height="194" fill="white"/>
-  <text x="308.8" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">bind :: List a ⟶ (a ⟶ List b) ⟶ List b</text>
-  <text x="308.8" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, concatMap, SelectMany, List.collect, &gt;&gt;=</text>
+  <rect width="573.6" height="194" fill="white"/>
+  <text x="286.8" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">bind :: List a ⟶ (a ⟶ List b) ⟶ List b</text>
+  <text x="286.8" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, concatMap, SelectMany, List.collect, &gt;&gt;=</text>
   <g transform="translate(0,44)">
-    <rect x="0" y="0" width="617.6" height="150" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="573.6" height="150" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L158.6,0 L158.6,12 L148.6,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="79.3" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» ListBindContext</text>
     </g>
     <g class="edge">
-      <path d="M219.6,101.0 L224.6,101.0 Q229.6,101.0 229.6,96.0 L229.6,69.0 Q229.6,63.0 235.6,63.0 L247.6,63.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M219.6,101.0 L224.6,101.0 Q229.6,101.0 229.6,96.0 L229.6,63.0 L229.6,63.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M219.6,49.0 L247.6,49.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M219.6,49.0 L227.6,49.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M379.6,56.0 L407.6,56.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M359.6,56.0 L363.6,56.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>List a — zero or more possible values. An empty list short-circuits (no elements to process).</title>
@@ -42,13 +42,13 @@
     </g>
     <g class="action-node">
       <title>concatMap f: apply f to each element, concatenate all resulting lists.\nbind [a1,a2,a3] f  =  f(a1) ++ f(a2) ++ f(a3)</title>
-      <rect x="259.6" y="34" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="319.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : ListBindOp</text>
+      <rect x="239.60000000000002" y="34" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="299.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : ListBindOp</text>
     </g>
     <g class="object-node">
       <title>List b — all branches expanded and flattened into a single list</title>
-      <rect x="419.6" y="37" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="483.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb_val : List b</text>
+      <rect x="375.6" y="37" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="439.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb_val : List b</text>
     </g>
   </g>
 </svg>

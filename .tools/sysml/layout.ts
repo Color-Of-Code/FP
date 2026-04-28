@@ -260,7 +260,7 @@ export async function layoutGraph(
       "elk.edgeRouting":                                   "ORTHOGONAL",
       "elk.layered.spacing.nodeNodeBetweenLayers":         String(EDGE_GAP),
       "elk.spacing.nodeNode":                              String(NODE_VGAP),
-      "elk.spacing.edgeNode":                              "16",
+      "elk.spacing.edgeNode":                              "8",
       "elk.spacing.edgeEdge":                              "10",
       "elk.spacing.edgeLabel":                             "4",
       "elk.edgeLabels.inline":                             "false",
