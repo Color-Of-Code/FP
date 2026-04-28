@@ -4,7 +4,7 @@ A **Lens** is an optic that focuses on **exactly one field inside a product type
 tuple). It provides a `get` to read the field and a `set`/`over` to return a new structure with the
 field replaced — without mutating the original.
 
-![lens](diagrams/lens.svg)
+![lens](lens/lens.svg)
 
 ## Type
 
@@ -70,7 +70,7 @@ over  personCityL toUpper alice   -- modify
 -- The same lens works for view, set, over, and composes with Traversal/Prism.
 ```
 
-![lens motivation](diagrams/lens-motivation.svg)
+![lens motivation](lens/lens-motivation.svg)
 
 ## Examples
 

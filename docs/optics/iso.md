@@ -7,7 +7,7 @@ freely with every other optic.
 Because an Iso is strictly stronger than a Lens (and a Prism), it can be used anywhere either is
 accepted.
 
-![iso](diagrams/iso.svg)
+![iso](iso/iso.svg)
 
 ## Type
 
@@ -67,7 +67,7 @@ processEmail = over _Email toLower        -- convert to String, apply, convert b
 -- Compose with other optics: _Email . each :: Traversal' Email Char
 ```
 
-![iso motivation](diagrams/iso-motivation.svg)
+![iso motivation](iso/iso-motivation.svg)
 
 ## Examples
 

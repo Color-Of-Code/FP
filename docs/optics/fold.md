@@ -5,7 +5,7 @@ _aggregate_ them, but provides no way to set or modify them. It is the weakest o
 you observe multiple values — a strict generalisation of `Getter` (one value) and a weaker version
 of `Traversal` (which also allows writes).
 
-![fold](diagrams/fold.svg)
+![fold](fold/fold.svg)
 
 ## Type
 
@@ -59,7 +59,7 @@ firstPrice   = preview  pricesF cart
 -- The path is a value; any fold function works with it.
 ```
 
-![fold motivation](diagrams/fold-motivation.svg)
+![fold motivation](fold/fold-motivation.svg)
 
 ## Examples
 

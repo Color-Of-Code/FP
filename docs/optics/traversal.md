@@ -7,7 +7,7 @@ foci.
 A Traversal can _set_ or _modify_ all targets at once, and _fold_ over them — but it cannot `get` a
 single value (there may be many, or none).
 
-![traversal](diagrams/traversal.svg)
+![traversal](traversal/traversal.svg)
 
 ## Type
 
@@ -68,7 +68,7 @@ doubled = over (traverse . traverse) (* 2) [[1,2],[3,4]]
 -- over (orders . each . price) (* 1.1) cart  -- apply 10% markup to every price
 ```
 
-![traversal motivation](diagrams/traversal-motivation.svg)
+![traversal motivation](traversal/traversal-motivation.svg)
 
 ## Examples
 

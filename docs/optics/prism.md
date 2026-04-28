@@ -4,7 +4,7 @@ A **Prism** is an optic that focuses on **one constructor of a sum type** (an en
 union). Unlike a Lens, the focus is _partial_: a Prism can fail to match when the value is a
 different constructor.
 
-![prism](diagrams/prism.svg)
+![prism](prism/prism.svg)
 
 ## Type
 
@@ -67,7 +67,7 @@ review  _Circle 5.0          -- Circle 5.0
 -- _Circle . radiusL :: Prism' Shape Double  (focus on radius inside Circle)
 ```
 
-![prism motivation](diagrams/prism-motivation.svg)
+![prism motivation](prism/prism-motivation.svg)
 
 ## Examples
 
