@@ -10,12 +10,15 @@
     "check:md": "prettier --check '../**/*.md'",
     "test": "vitest run",
     "test:update": "vitest run -u",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "langium:gen": "langium generate"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^25.6.0",
+    "langium": "^4.2.2",
+    "langium-cli": "^4.2.1",
     "markdownlint-cli2": "^0.17.2",
     "prettier": "^3.5.3",
     "typescript": "^6.0.3",
@@ -23,7 +26,6 @@
   },
   "dependencies": {
     "@dagrejs/dagre": "^3.0.0",
-    "chevrotain": "^12.0.0",
     "d3": "^7.9.0",
     "elkjs": "^0.11.1",
     "jsdom": "^26.1.0",

@@ -28,7 +28,7 @@ DIAGRAM_SVG := $(D2_FILES_DOCS:.d2=.svg) \
                $(D2_FILES_MONADS:.d2=.svg) \
                $(D2_FILES_OPTICS:.d2=.svg)
 
-.PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help test test-update typecheck
+.PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help test test-update typecheck langium-gen
 
 ## Default: show help
 help:
@@ -46,6 +46,7 @@ help:
 	@echo "  test        Run vitest snapshot tests for the SysML pipeline"
 	@echo "  test-update Refresh SVG snapshots after intentional changes"
 	@echo "  typecheck   Run tsc --noEmit on the .tools/ TypeScript sources"
+	@echo "  langium-gen Regenerate the SysML parser/AST from sysml.langium"
 	@echo "  all         svgs + fmt + lint-md"
 	@echo ""
 
@@ -115,6 +116,10 @@ test-update:
 ## Type-check all .tools/ TypeScript sources without emitting
 typecheck:
 	cd $(REPO_ROOT)/.tools && npx tsc --noEmit
+
+## Regenerate the Langium parser from sysml.langium
+langium-gen:
+	cd $(REPO_ROOT)/.tools && npx langium generate
 
 ## Run everything
 all: svgs sysml fmt lint-md lint-langs typecheck test

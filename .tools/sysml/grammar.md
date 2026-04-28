@@ -1,8 +1,9 @@
 # SysML grammar reference
 
 This repository uses a small SysML v2 textual notation subset plus a project-specific `#diagram`
-block for rendering metadata. This file is the reference grammar for the subset accepted by
-`.tools/sysml/lexer.ts` and `.tools/sysml/parser.ts`.
+block for rendering metadata. The authoritative grammar source lives in
+[`sysml.langium`](sysml.langium); this file is a human-readable companion. Run
+`make -C .tools langium-gen` after changing the grammar to refresh `sysml/generated/`.
 
 This is a derived reference, not a verbatim copy of the full OMG grammar.
 
