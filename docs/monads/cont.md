@@ -82,7 +82,9 @@ pipeline = callCC $ \exit -> do
     return r3
 ```
 
-![cont motivation](cont/cont-motivation.svg)
+![cont motivation: without callCC](cont/cont-motivation-without.svg)
+
+![cont motivation: with callCC](cont/cont-motivation-with.svg)
 
 ## Examples
 

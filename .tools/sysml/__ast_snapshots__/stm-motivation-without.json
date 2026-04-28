@@ -1,0 +1,176 @@
+{
+  "packages": [
+    {
+      "name": "STMMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "LockA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "token",
+              "type": "Lock",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "LockB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "token",
+              "type": "Lock",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "UpdateA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "amt",
+              "type": "Int",
+              "direction": "in"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "UpdateB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "amt",
+              "type": "Int",
+              "direction": "in"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "UnlockB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "token",
+              "type": "Lock",
+              "direction": "in"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "UnlockA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "token",
+              "type": "Lock",
+              "direction": "in"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "TransferWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "lockA",
+              "type": "LockA"
+            },
+            {
+              "kind": "action",
+              "id": "lockB",
+              "type": "LockB"
+            },
+            {
+              "kind": "action",
+              "id": "updateA",
+              "type": "UpdateA"
+            },
+            {
+              "kind": "action",
+              "id": "updateB",
+              "type": "UpdateB"
+            },
+            {
+              "kind": "action",
+              "id": "unlockB",
+              "type": "UnlockB"
+            },
+            {
+              "kind": "action",
+              "id": "unlockA",
+              "type": "UnlockA"
+            }
+          ],
+          "objects": [],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "lockA",
+              "to": "lockB"
+            },
+            {
+              "kind": "flow",
+              "from": "lockB",
+              "to": "updateA"
+            },
+            {
+              "kind": "flow",
+              "from": "updateA",
+              "to": "updateB",
+              "label": "accountA -= amount"
+            },
+            {
+              "kind": "flow",
+              "from": "updateB",
+              "to": "unlockB",
+              "label": "accountB += amount"
+            },
+            {
+              "kind": "flow",
+              "from": "unlockB",
+              "to": "unlockA"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "lockA": "function",
+      "lockB": "function",
+      "updateA": "function",
+      "updateB": "function",
+      "unlockB": "function",
+      "unlockA": "function"
+    },
+    "tooltips": {
+      "lockA": "lock(accountA) — must be acquired in a globally agreed order.",
+      "lockB": "lock(accountB) — second lock.  A thread that takes B before A can deadlock against this one.",
+      "updateA": "accountA -= amount — only safe inside both locks.",
+      "updateB": "accountB += amount — likewise.",
+      "unlockB": "unlock(accountB) — release in reverse order; forgetting is a leak.",
+      "unlockA": "unlock(accountA) — also reverse-order; ordering is contract, not type."
+    },
+    "title": "Without STM: explicit locks require careful ordering to avoid deadlock",
+    "name": "transfer"
+  }
+}

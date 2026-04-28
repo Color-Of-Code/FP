@@ -84,7 +84,9 @@ pipeline(input) = do
 -- No state variables at call sites; the monad threads them correctly.
 ```
 
-![state motivation](state/state-motivation.svg)
+![state motivation: without State monad](state/state-motivation-without.svg)
+
+![state motivation: with State monad](state/state-motivation-with.svg)
 
 ## Examples
 

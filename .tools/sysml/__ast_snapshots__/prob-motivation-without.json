@@ -1,0 +1,153 @@
+{
+  "packages": [
+    {
+      "name": "ProbMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "OuterLoop",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "coin",
+              "type": "Prob CoinFace",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "face",
+              "type": "(CoinFace, p_coin)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Multiply",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "pCoin",
+              "type": "Float",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pScore",
+              "type": "Float",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "joint",
+              "type": "Float",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Flatten",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "nested",
+              "type": "[[ (Int, Float) ]]",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "flat",
+              "type": "[(Int, Float)]",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "CoinThenDieWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "outer",
+              "type": "OuterLoop"
+            },
+            {
+              "kind": "action",
+              "id": "multiply",
+              "type": "Multiply"
+            },
+            {
+              "kind": "action",
+              "id": "flatten",
+              "type": "Flatten"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "coin",
+              "type": "Prob CoinFace"
+            },
+            {
+              "kind": "object",
+              "id": "outResult",
+              "type": "[(Int, Float)]"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "coin",
+              "to": "outer"
+            },
+            {
+              "kind": "flow",
+              "from": "outer",
+              "to": "multiply",
+              "label": "for (face, p_coin)"
+            },
+            {
+              "kind": "flow",
+              "from": "multiply",
+              "to": "flatten",
+              "label": "p_coin * p_score"
+            },
+            {
+              "kind": "flow",
+              "from": "flatten",
+              "to": "outResult"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "coin": "type",
+      "outer": "function",
+      "multiply": "function",
+      "flatten": "function",
+      "outResult": "type"
+    },
+    "tooltips": {
+      "coin": "Prob CoinFace — the coin distribution as a list of (face, probability) pairs.",
+      "outer": "for (face, p_coin) in coin — opens an outer loop; the inner loop over the die's conditional distribution is implied inside multiply.",
+      "multiply": "p_coin * p_score — multiply marginal × conditional by hand.  Off-by-one here is invisible until totals don't sum to one.",
+      "flatten": "Flatten the nested [[ (Int, Float) ]] back into a single distribution.",
+      "outResult": "[(Int, Float)] — the joint distribution, hand-built."
+    },
+    "title": "Without Prob: manual nested loop and probability arithmetic",
+    "name": "coinThenDie"
+  }
+}

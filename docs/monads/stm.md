@@ -77,7 +77,9 @@ transfer from to amount = atomically $ do
 -- Runtime retries automatically if another transaction conflicts; no deadlock possible.
 ```
 
-![STM motivation](stm/stm-motivation.svg)
+![STM motivation: without STM](stm/stm-motivation-without.svg)
+
+![STM motivation: with STM](stm/stm-motivation-with.svg)
 
 ## Examples
 

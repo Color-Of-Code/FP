@@ -1,0 +1,142 @@
+{
+  "packages": [
+    {
+      "name": "ReaderMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "AsksHost",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "env",
+              "type": "Config",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "host",
+              "type": "String",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "AsksPort",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "env",
+              "type": "Config",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "portNum",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BuildUrl",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "host",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "portNum",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "url",
+              "type": "URL",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "BuildUrlWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "asksHost",
+              "type": "AsksHost"
+            },
+            {
+              "kind": "action",
+              "id": "asksPort",
+              "type": "AsksPort"
+            },
+            {
+              "kind": "action",
+              "id": "buildUrl",
+              "type": "BuildUrl"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "url",
+              "type": "URL"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "asksHost",
+              "to": "asksPort",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "asksPort",
+              "to": "buildUrl",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "buildUrl",
+              "to": "url",
+              "label": "runReader env"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "asksHost": "function",
+      "asksPort": "function",
+      "buildUrl": "function",
+      "url": "type"
+    },
+    "tooltips": {
+      "asksHost": "asks (.host) — projects the host field out of the implicit Config environment.",
+      "asksPort": "asks (.port) — projects the port field out of the implicit Config environment.  bind chains it after asksHost without rethreading the config.",
+      "buildUrl": "buildUrl(host, port) — pure assembly of the URL.  No need to receive the environment at all.",
+      "url": "URL — final value.  runReader env supplies the environment exactly once at the top of the chain."
+    },
+    "title": "With Reader: environment supplied once at the top",
+    "name": "buildUrl"
+  }
+}

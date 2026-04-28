@@ -1,0 +1,111 @@
+{
+  "packages": [
+    {
+      "name": "IOMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Compute",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ComputeWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "compute",
+              "type": "Compute"
+            },
+            {
+              "kind": "action",
+              "id": "hiddenReadConfig",
+              "type": "reads config.txt"
+            },
+            {
+              "kind": "action",
+              "id": "hiddenWriteLog",
+              "type": "writes to log"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "Int"
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "Int"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "compute"
+            },
+            {
+              "kind": "flow",
+              "from": "compute",
+              "to": "result"
+            },
+            {
+              "kind": "flow",
+              "from": "compute",
+              "to": "hiddenReadConfig",
+              "label": "hidden"
+            },
+            {
+              "kind": "flow",
+              "from": "compute",
+              "to": "hiddenWriteLog",
+              "label": "hidden"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "x": "value",
+      "compute": "function",
+      "result": "type",
+      "hiddenReadConfig": "function",
+      "hiddenWriteLog": "function"
+    },
+    "tooltips": {
+      "x": "x : Int — the only input the caller sees.",
+      "compute": "compute :: Int → Int — the type promises a pure function.  The implementation breaks that promise.",
+      "result": "result : Int — looks like a pure return, but its computation depended on a file and a log call.",
+      "hiddenReadConfig": "Hidden effect: reads config.txt during execution.  Not visible in the type.",
+      "hiddenWriteLog": "Hidden effect: writes to a log during execution.  Not visible in the type."
+    },
+    "title": "Without IO: side effects hidden inside a pure-looking type",
+    "name": "compute"
+  }
+}

@@ -80,7 +80,9 @@ natural = do
     return (combine d1 d2)
 ```
 
-![parser motivation](parser/parser-motivation.svg)
+![parser motivation: without Parser monad](parser/parser-motivation-without.svg)
+
+![parser motivation: with Parser monad](parser/parser-motivation-with.svg)
 
 ## Examples
 

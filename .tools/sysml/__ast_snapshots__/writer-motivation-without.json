@@ -1,0 +1,148 @@
+{
+  "packages": [
+    {
+      "name": "WriterMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Step1",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "(r1, log1)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step2",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "r1",
+              "type": "R1",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "log1",
+              "type": "Log",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "(r2, log2)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step3",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "r2",
+              "type": "R2",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "log2",
+              "type": "Log",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "(r3, log3)",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "WriterChainWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "step1",
+              "type": "Step1"
+            },
+            {
+              "kind": "action",
+              "id": "step2",
+              "type": "Step2"
+            },
+            {
+              "kind": "action",
+              "id": "step3",
+              "type": "Step3"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "outResult",
+              "type": "(r3, log3)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "step1",
+              "to": "step2",
+              "label": "(r1, log1)"
+            },
+            {
+              "kind": "flow",
+              "from": "step2",
+              "to": "step3",
+              "label": "(r2, log2)"
+            },
+            {
+              "kind": "flow",
+              "from": "step3",
+              "to": "outResult",
+              "label": "(r3, log3)"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "step1": "function",
+      "step2": "function",
+      "step3": "function",
+      "outResult": "type"
+    },
+    "tooltips": {
+      "step1": "step1(x) → (r1, log1).  Returns the value and the log entries it produced.",
+      "step2": "step2(r1, log1) → (r2, log2).  Must accept and return the running log.  Passing log1 instead of log2 silently drops entries.",
+      "step3": "step3(r2, log2) → (r3, log3).  Same plumbing repeated.  Adding a step means adding two more parameters everywhere it is called from.",
+      "outResult": "(r3, log3) — the caller is responsible for unpacking both."
+    },
+    "title": "Without Writer: log threaded as an explicit variable",
+    "name": "writerChain"
+  }
+}

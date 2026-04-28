@@ -1,0 +1,142 @@
+{
+  "packages": [
+    {
+      "name": "ParserMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Digit",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "input",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Parser Char",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Letter",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "input",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Parser Char",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "MakePair",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "d",
+              "type": "Char",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "l",
+              "type": "Char",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Parser (Char, Char)",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "DigitLetterWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "digit",
+              "type": "Digit"
+            },
+            {
+              "kind": "action",
+              "id": "letter",
+              "type": "Letter"
+            },
+            {
+              "kind": "action",
+              "id": "makePair",
+              "type": "MakePair"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "outResult",
+              "type": "(value, rest)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "digit",
+              "to": "letter",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "letter",
+              "to": "makePair",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "makePair",
+              "to": "outResult",
+              "label": "runParser"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "digit": "function",
+      "letter": "function",
+      "makePair": "function",
+      "outResult": "type"
+    },
+    "tooltips": {
+      "digit": "digit :: Parser Char — consumes one digit, leaves the rest of the string in its state.",
+      "letter": "letter :: Parser Char — runs on the remaining input from digit; bind threads the leftover automatically.",
+      "makePair": "pure (d, l) — lifts a plain pair back into the Parser monad.",
+      "outResult": "runParser supplies the input string and returns (value, rest) — or Nothing if any step failed."
+    },
+    "title": "With Parser: bind threads the remaining input automatically",
+    "name": "digitLetter"
+  }
+}

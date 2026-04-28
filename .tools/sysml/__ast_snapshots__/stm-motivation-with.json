@@ -1,0 +1,143 @@
+{
+  "packages": [
+    {
+      "name": "STMMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ReadA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "WriteA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "delta",
+              "type": "Int",
+              "direction": "in"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ReadB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "WriteB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "delta",
+              "type": "Int",
+              "direction": "in"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "TransferWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "readA",
+              "type": "ReadA"
+            },
+            {
+              "kind": "action",
+              "id": "writeA",
+              "type": "WriteA"
+            },
+            {
+              "kind": "action",
+              "id": "readB",
+              "type": "ReadB"
+            },
+            {
+              "kind": "action",
+              "id": "writeB",
+              "type": "WriteB"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "commit",
+              "type": "IO ()"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "readA",
+              "to": "writeA",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "writeA",
+              "to": "readB",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "readB",
+              "to": "writeB",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "writeB",
+              "to": "commit",
+              "label": "atomically"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "readA": "function",
+      "writeA": "function",
+      "readB": "function",
+      "writeB": "function",
+      "commit": "type"
+    },
+    "tooltips": {
+      "readA": "readTVar accountA — STM action.  Reads are tracked, never committed alone.",
+      "writeA": "writeTVar accountA — STM action.  No lock involved; the runtime decides what is consistent.",
+      "readB": "readTVar accountB — composes via bind like any other STM action.",
+      "writeB": "writeTVar accountB — composes via bind.",
+      "commit": "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict.  No deadlock possible."
+    },
+    "title": "With STM: compose reads and writes freely — runtime prevents conflicts",
+    "name": "transfer"
+  }
+}

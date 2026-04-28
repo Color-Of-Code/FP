@@ -1,0 +1,172 @@
+{
+  "packages": [
+    {
+      "name": "ParserMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ParseDigit",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "input",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "(Char, String) | null",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ParseLetter",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "input",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "(Char, String) | null",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "DigitLetterWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "parseDigit",
+              "type": "ParseDigit"
+            },
+            {
+              "kind": "action",
+              "id": "parseLetter",
+              "type": "ParseLetter"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "input",
+              "type": "String"
+            },
+            {
+              "kind": "object",
+              "id": "outResult",
+              "type": "((d, l), rest2)"
+            },
+            {
+              "kind": "object",
+              "id": "failed",
+              "type": "null"
+            }
+          ],
+          "decisions": [
+            {
+              "kind": "decision",
+              "id": "check1",
+              "label": "null?"
+            },
+            {
+              "kind": "decision",
+              "id": "check2",
+              "label": "null?"
+            }
+          ],
+          "merges": [
+            {
+              "kind": "merge",
+              "id": "failRail"
+            }
+          ],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "input",
+              "to": "parseDigit"
+            },
+            {
+              "kind": "flow",
+              "from": "parseDigit",
+              "to": "check1",
+              "label": "(Char, String) | null"
+            },
+            {
+              "kind": "flow",
+              "from": "check1",
+              "to": "failRail",
+              "label": "null"
+            },
+            {
+              "kind": "flow",
+              "from": "check1",
+              "to": "parseLetter",
+              "label": "(d, rest1)"
+            },
+            {
+              "kind": "flow",
+              "from": "parseLetter",
+              "to": "check2",
+              "label": "(Char, String) | null"
+            },
+            {
+              "kind": "flow",
+              "from": "check2",
+              "to": "failRail",
+              "label": "null"
+            },
+            {
+              "kind": "flow",
+              "from": "check2",
+              "to": "outResult",
+              "label": "((d, l), rest2)"
+            },
+            {
+              "kind": "flow",
+              "from": "failRail",
+              "to": "failed"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "input": "value",
+      "parseDigit": "function",
+      "parseLetter": "function",
+      "outResult": "type",
+      "failed": "type"
+    },
+    "tooltips": {
+      "input": "input : String — the full input string, threaded through the whole chain.",
+      "parseDigit": "parseDigit(input) → (Char, String) or null.  Returns the consumed character and the leftover.",
+      "parseLetter": "parseLetter(rest1) → (Char, String) or null.  Must be called with the leftover from parseDigit, never the original input.",
+      "check1": "Null guard #1: skip and you'll feed null to parseLetter.",
+      "check2": "Null guard #2: skip and you'll return garbage.",
+      "failRail": "Any null short-circuits the whole chain.",
+      "outResult": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.",
+      "failed": "null — a plausible parse failure value indistinguishable from a real returned value of null."
+    },
+    "title": "Without Parser: remaining input threaded by hand",
+    "name": "digitLetter"
+  }
+}

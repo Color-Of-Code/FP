@@ -68,7 +68,9 @@ compute x = do
 -- The runtime executes effects in the exact order bind specifies.
 ```
 
-![IO motivation](io/io-motivation.svg)
+![IO motivation: without IO monad](io/io-motivation-without.svg)
+
+![IO motivation: with IO monad](io/io-motivation-with.svg)
 
 ## Examples
 

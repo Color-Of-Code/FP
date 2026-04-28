@@ -1,0 +1,136 @@
+{
+  "packages": [
+    {
+      "name": "StateMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Step1",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sIn",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pair",
+              "type": "(a, s)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step2",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sIn",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pair",
+              "type": "(b, s)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step3",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sIn",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pair",
+              "type": "(c, s)",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "StateChainWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "step1",
+              "type": "Step1"
+            },
+            {
+              "kind": "action",
+              "id": "step2",
+              "type": "Step2"
+            },
+            {
+              "kind": "action",
+              "id": "step3",
+              "type": "Step3"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "outResult",
+              "type": "((a, b, c), sFinal)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "step1",
+              "to": "step2",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "step2",
+              "to": "step3",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "step3",
+              "to": "outResult",
+              "label": "runState s0"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "step1": "function",
+      "step2": "function",
+      "step3": "function",
+      "outResult": "type"
+    },
+    "tooltips": {
+      "step1": "step1 :: State s a — receives the implicit state, returns (a, s').",
+      "step2": "step2 :: State s b — bind passes the s' from step1 in automatically.  No way to use the wrong state.",
+      "step3": "step3 :: State s c — same deal: bind threads the latest state for free.",
+      "outResult": "runState s0 supplies the initial state and returns the final value alongside the final state.  Threading is mechanical."
+    },
+    "title": "With State: state flows automatically through bind",
+    "name": "stateChain"
+  }
+}

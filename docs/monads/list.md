@@ -70,7 +70,9 @@ cartesian(xs, ys, zs) =
 -- Adding a dimension is one more >>= line, not a new loop level.
 ```
 
-![list motivation](list/list-motivation.svg)
+![list motivation: without List monad](list/list-motivation-without.svg)
+
+![list motivation: with List monad](list/list-motivation-with.svg)
 
 ## Examples
 

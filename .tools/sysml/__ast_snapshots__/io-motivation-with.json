@@ -1,0 +1,171 @@
+{
+  "packages": [
+    {
+      "name": "IOMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ReadFile",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "path",
+              "type": "FilePath",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "IO Config",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "LogMessage",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cfg",
+              "type": "Config",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "IO ()",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Compute",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cfg",
+              "type": "Config",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "IO Int",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ComputeWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "readFile",
+              "type": "ReadFile"
+            },
+            {
+              "kind": "action",
+              "id": "logMessage",
+              "type": "LogMessage"
+            },
+            {
+              "kind": "action",
+              "id": "compute",
+              "type": "Compute"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "Int"
+            },
+            {
+              "kind": "object",
+              "id": "ioCfg",
+              "type": "IO Config"
+            },
+            {
+              "kind": "object",
+              "id": "ioUnit",
+              "type": "IO ()"
+            },
+            {
+              "kind": "object",
+              "id": "ioResult",
+              "type": "IO Int"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "readFile"
+            },
+            {
+              "kind": "flow",
+              "from": "readFile",
+              "to": "ioCfg"
+            },
+            {
+              "kind": "flow",
+              "from": "ioCfg",
+              "to": "logMessage",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "logMessage",
+              "to": "ioUnit"
+            },
+            {
+              "kind": "flow",
+              "from": "ioUnit",
+              "to": "compute",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "compute",
+              "to": "ioResult"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "x": "value",
+      "readFile": "function",
+      "logMessage": "function",
+      "compute": "function",
+      "ioCfg": "type",
+      "ioUnit": "type",
+      "ioResult": "type"
+    },
+    "tooltips": {
+      "x": "x : Int — the plain input.  Pure callers see only this in the API.",
+      "readFile": "readFile(path) → IO Config.  IO in the type warns callers: this touches the file system.",
+      "logMessage": "logMessage(cfg) → IO ().  IO in the type warns callers: this writes a side log.",
+      "compute": "compute(cfg) → IO Int.  Effects are sequenced by bind — never reordered or duplicated.",
+      "ioCfg": "IO Config — a description of the effect that produces the config.  Not yet executed.",
+      "ioUnit": "IO () — a description of the log-write effect.  Sequenced after readFile by bind.",
+      "ioResult": "IO Int — the final described program.  The runtime (main) is the only thing that actually executes it."
+    },
+    "title": "With IO: effects explicit in the return type, ordered by bind",
+    "name": "compute"
+  }
+}

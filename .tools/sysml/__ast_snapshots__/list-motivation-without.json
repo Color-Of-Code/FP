@@ -1,0 +1,166 @@
+{
+  "packages": [
+    {
+      "name": "ListMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "OuterLoop",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "xs",
+              "type": "[A]",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "A",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "InnerLoop",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ys",
+              "type": "[B]",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "y",
+              "type": "B",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "AppendPair",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "y",
+              "type": "B",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "result : [(A, B)]",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "CartesianWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "outer",
+              "type": "OuterLoop"
+            },
+            {
+              "kind": "action",
+              "id": "inner",
+              "type": "InnerLoop"
+            },
+            {
+              "kind": "action",
+              "id": "append",
+              "type": "AppendPair"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "xs",
+              "type": "[A]"
+            },
+            {
+              "kind": "object",
+              "id": "ys",
+              "type": "[B]"
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "[(A, B)]"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "xs",
+              "to": "outer"
+            },
+            {
+              "kind": "flow",
+              "from": "outer",
+              "to": "inner",
+              "label": "for x in xs"
+            },
+            {
+              "kind": "flow",
+              "from": "ys",
+              "to": "inner"
+            },
+            {
+              "kind": "flow",
+              "from": "inner",
+              "to": "append",
+              "label": "for y in ys"
+            },
+            {
+              "kind": "flow",
+              "from": "append",
+              "to": "result",
+              "label": "result.append((x, y))"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "xs": "value",
+      "ys": "value",
+      "outer": "function",
+      "inner": "function",
+      "append": "function",
+      "result": "type"
+    },
+    "tooltips": {
+      "xs": "xs : [A] — the first list, iterated by the outer loop.",
+      "ys": "ys : [B] — the second list, iterated by the inner loop for every x.",
+      "outer": "for x in xs — outer loop opens scope for x.",
+      "inner": "for y in ys — inner loop nested inside; each extra dimension means one more nesting level.",
+      "append": "result.append((x, y)) — manual mutation of a shared accumulator.  Easy to forget; easy to break.",
+      "result": "[(A, B)] — the result list built by side effect.  Adding a 3rd dimension means rewriting the whole structure."
+    },
+    "title": "Without List: one nested loop level per dimension",
+    "name": "cartesian"
+  }
+}

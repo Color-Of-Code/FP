@@ -77,7 +77,9 @@ pipeline = do
 -- runWriter returns (r3, combinedLog) with all fragments in order.
 ```
 
-![writer motivation](writer/writer-motivation.svg)
+![writer motivation: without Writer monad](writer/writer-motivation-without.svg)
+
+![writer motivation: with Writer monad](writer/writer-motivation-with.svg)
 
 ## Examples
 

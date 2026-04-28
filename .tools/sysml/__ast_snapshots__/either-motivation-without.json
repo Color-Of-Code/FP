@@ -1,0 +1,221 @@
+{
+  "packages": [
+    {
+      "name": "EitherMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Parse",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "raw",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Parsed | Error",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Validate",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "parsed",
+              "type": "Parsed",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Valid | Error",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Save",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "valid",
+              "type": "Valid",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Saved | Error",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ParseValidateSaveWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "parse",
+              "type": "Parse"
+            },
+            {
+              "kind": "action",
+              "id": "validate",
+              "type": "Validate"
+            },
+            {
+              "kind": "action",
+              "id": "save",
+              "type": "Save"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "raw",
+              "type": "String"
+            },
+            {
+              "kind": "object",
+              "id": "errOut",
+              "type": "Error"
+            },
+            {
+              "kind": "object",
+              "id": "saved",
+              "type": "Saved"
+            }
+          ],
+          "decisions": [
+            {
+              "kind": "decision",
+              "id": "checkParse",
+              "label": "err?"
+            },
+            {
+              "kind": "decision",
+              "id": "checkValidate",
+              "label": "err?"
+            },
+            {
+              "kind": "decision",
+              "id": "checkSave",
+              "label": "err?"
+            }
+          ],
+          "merges": [
+            {
+              "kind": "merge",
+              "id": "errorRail"
+            }
+          ],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "raw",
+              "to": "parse"
+            },
+            {
+              "kind": "flow",
+              "from": "parse",
+              "to": "checkParse",
+              "label": "Parsed | Error"
+            },
+            {
+              "kind": "flow",
+              "from": "checkParse",
+              "to": "errorRail",
+              "label": "Error"
+            },
+            {
+              "kind": "flow",
+              "from": "checkParse",
+              "to": "validate",
+              "label": "parsed : Parsed"
+            },
+            {
+              "kind": "flow",
+              "from": "validate",
+              "to": "checkValidate",
+              "label": "Valid | Error"
+            },
+            {
+              "kind": "flow",
+              "from": "checkValidate",
+              "to": "errorRail",
+              "label": "Error"
+            },
+            {
+              "kind": "flow",
+              "from": "checkValidate",
+              "to": "save",
+              "label": "valid : Valid"
+            },
+            {
+              "kind": "flow",
+              "from": "save",
+              "to": "checkSave",
+              "label": "Saved | Error"
+            },
+            {
+              "kind": "flow",
+              "from": "checkSave",
+              "to": "errorRail",
+              "label": "Error"
+            },
+            {
+              "kind": "flow",
+              "from": "checkSave",
+              "to": "saved",
+              "label": "saved : Saved"
+            },
+            {
+              "kind": "flow",
+              "from": "errorRail",
+              "to": "errOut"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "raw": "value",
+      "parse": "function",
+      "validate": "function",
+      "save": "function",
+      "errOut": "type",
+      "saved": "value"
+    },
+    "tooltips": {
+      "raw": "The raw input — for example a request body or untrusted user data.",
+      "parse": "parse(raw) — may return Error if the input is malformed.",
+      "validate": "validate(parsed) — may return Error if a business rule is violated.",
+      "save": "save(valid) — may return Error on a database / IO failure.",
+      "checkParse": "Error guard #1: pattern-matches Parsed | Error.  The error branch joins errorRail; the value branch carries 'parsed : Parsed' to validate.",
+      "checkValidate": "Error guard #2: same pattern repeated.  Skipping this is a latent bug.",
+      "checkSave": "Error guard #3: yet another check.  Business logic is buried in guards.",
+      "errorRail": "Any Error terminates the chain here — three separate error paths converge.",
+      "errOut": "Error — returned when any step failed.  Caller must also inspect this and decide what to do.",
+      "saved": "Saved — the happy-path result, reached only when all three checks pass."
+    },
+    "title": "Without Either: explicit error guard at every step",
+    "name": "parseValidateSave"
+  }
+}

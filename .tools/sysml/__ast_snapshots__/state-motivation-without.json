@@ -1,0 +1,169 @@
+{
+  "packages": [
+    {
+      "name": "StateMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Step1",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sIn",
+              "type": "s0",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pair",
+              "type": "(a, s1)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step2",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sIn",
+              "type": "s1",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pair",
+              "type": "(b, s2)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step3",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sIn",
+              "type": "s2",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pair",
+              "type": "(c, s3)",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "StateChainWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "step1",
+              "type": "Step1"
+            },
+            {
+              "kind": "action",
+              "id": "step2",
+              "type": "Step2"
+            },
+            {
+              "kind": "action",
+              "id": "step3",
+              "type": "Step3"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "s0",
+              "type": "s0 (input)"
+            },
+            {
+              "kind": "object",
+              "id": "s1",
+              "type": "s1"
+            },
+            {
+              "kind": "object",
+              "id": "s2",
+              "type": "s2"
+            },
+            {
+              "kind": "object",
+              "id": "s3",
+              "type": "s3 (final)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "s0",
+              "to": "step1"
+            },
+            {
+              "kind": "flow",
+              "from": "step1",
+              "to": "s1"
+            },
+            {
+              "kind": "flow",
+              "from": "s1",
+              "to": "step2"
+            },
+            {
+              "kind": "flow",
+              "from": "step2",
+              "to": "s2"
+            },
+            {
+              "kind": "flow",
+              "from": "s2",
+              "to": "step3"
+            },
+            {
+              "kind": "flow",
+              "from": "step3",
+              "to": "s3"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "s0": "type",
+      "s1": "type",
+      "s2": "type",
+      "s3": "type",
+      "step1": "function",
+      "step2": "function",
+      "step3": "function"
+    },
+    "tooltips": {
+      "s0": "Initial state, passed in by the caller.",
+      "s1": "Intermediate state — must be threaded into step2 by hand.",
+      "s2": "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug.",
+      "s3": "Final state — caller is also responsible for receiving and forwarding it.",
+      "step1": "step1(s0) → (a, s1).  Returns a new state alongside the value.",
+      "step2": "step2(s1) → (b, s2).  Must be called with the freshest state — easy to get wrong.",
+      "step3": "step3(s2) → (c, s3).  Same plumbing, repeated."
+    },
+    "title": "Without State: state threaded as explicit variables",
+    "name": "stateChain"
+  }
+}

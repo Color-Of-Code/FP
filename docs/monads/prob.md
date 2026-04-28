@@ -76,7 +76,9 @@ score = do
     return score
 ```
 
-![prob motivation](prob/prob-motivation.svg)
+![prob motivation: without Prob monad](prob/prob-motivation-without.svg)
+
+![prob motivation: with Prob monad](prob/prob-motivation-with.svg)
 
 ## Examples
 

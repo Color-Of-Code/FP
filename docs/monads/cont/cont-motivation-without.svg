@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1430 186" width="1430" height="186">
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="#424242" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
+    </marker>
+  </defs>
+  <rect width="1430" height="186" fill="white"/>
+  <text x="715" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without callCC: every caller must propagate the ABORT sentinel</text>
+  <g transform="translate(0,28)">
+    <rect x="0" y="0" width="1430" height="158" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-activity">
+      <path d="M0,0 L140,0 L140,12 L130,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="70" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» contChain</text>
+    </g>
+    <g class="edge">
+      <path d="M146.0,62.0 L154.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M294.0,62.0 L367.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="338.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">B | ABORT</text>
+    </g>
+    <g class="edge">
+      <path d="M415.0,77.0 L415.0,114.0 Q415.0,120.0 421.0,120.0 L1208.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="419" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">ABORT</text>
+    </g>
+    <g class="edge">
+      <path d="M451.0,62.0 L504.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="481.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">b : B</text>
+    </g>
+    <g class="edge">
+      <path d="M644.0,62.0 L717.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="688.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">C | ABORT</text>
+    </g>
+    <g class="edge">
+      <path d="M765.0,77.0 L765.0,114.0 Q765.0,120.0 771.0,120.0 L1208.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="769" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">ABORT</text>
+    </g>
+    <g class="edge">
+      <path d="M801.0,62.0 L854.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="831.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">c : C</text>
+    </g>
+    <g class="edge">
+      <path d="M994.0,62.0 L1071.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1040.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">D | ABORT</text>
+    </g>
+    <g class="edge">
+      <path d="M1119.0,77.0 L1119.0,114.0 Q1119.0,120.0 1125.0,120.0 L1208.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1123" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">ABORT</text>
+    </g>
+    <g class="edge">
+      <path d="M1155.0,62.0 L1254.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1210.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">d : D</text>
+    </g>
+    <g class="edge">
+      <path d="M1250.0,120.0 L1254.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="action-node">
+      <title>step1 — may return ABORT.  Caller must check.</title>
+      <rect x="170" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="230" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1</text>
+      <g class="pin pin-in">
+        <rect x="166" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="176" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">x</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="286" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="284" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">result</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>step2 — same protocol.  Skipping the check feeds ABORT into a function expecting B.</title>
+      <rect x="520" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="580" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2</text>
+      <g class="pin pin-in">
+        <rect x="516" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="526" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">x</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="636" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="634" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">result</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>step3 — yet another check.  The same boilerplate, three times.</title>
+      <rect x="870" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="930" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3</text>
+      <g class="pin pin-in">
+        <rect x="866" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="876" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">x</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="986" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="984" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">result</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>x : A — the input to the chain.</title>
+      <rect x="36" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">x : A</text>
+    </g>
+    <g class="object-node">
+      <title>ABORT — produced by any step that wished to short-circuit and re-emitted by every subsequent caller.</title>
+      <rect x="1266" y="101" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1330" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">aborted : ABORT</text>
+    </g>
+    <g class="object-node">
+      <title>D — the happy-path output; reached only when no step aborted.</title>
+      <rect x="1266" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1321" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">final : D</text>
+    </g>
+    <g class="decision-node">
+      <title>Sentinel guard #1 — pattern-matches on ABORT.  Error branch joins abortRail.</title>
+      <polygon points="415,48 450,62 415,76 380,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="415" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">== ABORT?</text>
+    </g>
+    <g class="decision-node">
+      <title>Sentinel guard #2 — same shape, different step.</title>
+      <polygon points="765,48 800,62 765,76 730,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="765" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">== ABORT?</text>
+    </g>
+    <g class="decision-node">
+      <title>Sentinel guard #3 — yet another by-hand check.</title>
+      <polygon points="1119,48 1154,62 1119,76 1084,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="1119" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">== ABORT?</text>
+    </g>
+    <g class="merge-node">
+      <polygon points="1235,106 1249,120 1235,134 1221,120" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

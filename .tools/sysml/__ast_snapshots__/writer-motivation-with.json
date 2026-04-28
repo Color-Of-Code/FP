@@ -1,0 +1,136 @@
+{
+  "packages": [
+    {
+      "name": "WriterMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Step1",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Writer w r1",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step2",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "r1",
+              "type": "R1",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Writer w r2",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step3",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "r2",
+              "type": "R2",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Writer w r3",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "WriterChainWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "step1",
+              "type": "Step1"
+            },
+            {
+              "kind": "action",
+              "id": "step2",
+              "type": "Step2"
+            },
+            {
+              "kind": "action",
+              "id": "step3",
+              "type": "Step3"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "outResult",
+              "type": "(r3, log123)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "step1",
+              "to": "step2",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "step2",
+              "to": "step3",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "step3",
+              "to": "outResult",
+              "label": "runWriter"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "step1": "function",
+      "step2": "function",
+      "step3": "function",
+      "outResult": "type"
+    },
+    "tooltips": {
+      "step1": "step1 :: A → Writer w R1.  Step appends to the log via tell; the log itself is never visible in the user code.",
+      "step2": "step2 :: R1 → Writer w R2.  bind concatenates this step's log onto step1's automatically.",
+      "step3": "step3 :: R2 → Writer w R3.  Same again — the log just accumulates.",
+      "outResult": "runWriter returns the final value and the combined log in order.  Drops are impossible by construction."
+    },
+    "title": "With Writer: log accumulation is automatic",
+    "name": "writerChain"
+  }
+}

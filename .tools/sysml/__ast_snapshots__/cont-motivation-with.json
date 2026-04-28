@@ -1,0 +1,173 @@
+{
+  "packages": [
+    {
+      "name": "ContMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "CallCC",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "body",
+              "type": "(b -> r) -> Cont r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "cont",
+              "type": "Cont r b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step1",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cont",
+              "type": "Cont r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "next",
+              "type": "Cont r b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step2",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cont",
+              "type": "Cont r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "next",
+              "type": "Cont r b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step3",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cont",
+              "type": "Cont r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "next",
+              "type": "Cont r b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ContChainWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "callCC",
+              "type": "CallCC"
+            },
+            {
+              "kind": "action",
+              "id": "step1",
+              "type": "Step1"
+            },
+            {
+              "kind": "action",
+              "id": "step2",
+              "type": "Step2"
+            },
+            {
+              "kind": "action",
+              "id": "step3",
+              "type": "Step3"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "outVal",
+              "type": "r"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "callCC",
+              "to": "step1",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "step1",
+              "to": "step2",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "step2",
+              "to": "step3",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "step3",
+              "to": "outVal",
+              "label": "runCont"
+            },
+            {
+              "kind": "flow",
+              "from": "callCC",
+              "to": "outVal",
+              "label": "exit a — direct jump"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "callCC": "function",
+      "step1": "function",
+      "step2": "function",
+      "step3": "function",
+      "outVal": "type"
+    },
+    "tooltips": {
+      "callCC": "callCC \\\\exit -> ...  Captures the current continuation and binds it to exit.  Inside the body, calling exit a aborts the chain and returns a immediately.",
+      "step1": "step1 — runs only if no earlier exit has fired.  Composes via bind like any other Cont.",
+      "step2": "step2 — likewise.  No knowledge of the escape path is required.",
+      "step3": "step3 — likewise.",
+      "outVal": "r — the final continuation result.  Reached either by completing the chain or by the exit shortcut from callCC."
+    },
+    "title": "With callCC: the escape function jumps directly to the runCont call site",
+    "name": "contChain"
+  }
+}

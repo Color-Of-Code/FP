@@ -81,7 +81,9 @@ build_url = do
 -- No config parameter in sight; runReader supplies it once at the top.
 ```
 
-![reader motivation](reader/reader-motivation.svg)
+![reader motivation: without Reader monad](reader/reader-motivation-without.svg)
+
+![reader motivation: with Reader monad](reader/reader-motivation-with.svg)
 
 ## Examples
 

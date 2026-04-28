@@ -1,0 +1,220 @@
+{
+  "packages": [
+    {
+      "name": "ContMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Step1",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "B | ABORT",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step2",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "B",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "C | ABORT",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step3",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "C",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "D | ABORT",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ContChainWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "step1",
+              "type": "Step1"
+            },
+            {
+              "kind": "action",
+              "id": "step2",
+              "type": "Step2"
+            },
+            {
+              "kind": "action",
+              "id": "step3",
+              "type": "Step3"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "A"
+            },
+            {
+              "kind": "object",
+              "id": "aborted",
+              "type": "ABORT"
+            },
+            {
+              "kind": "object",
+              "id": "final",
+              "type": "D"
+            }
+          ],
+          "decisions": [
+            {
+              "kind": "decision",
+              "id": "check1",
+              "label": "== ABORT?"
+            },
+            {
+              "kind": "decision",
+              "id": "check2",
+              "label": "== ABORT?"
+            },
+            {
+              "kind": "decision",
+              "id": "check3",
+              "label": "== ABORT?"
+            }
+          ],
+          "merges": [
+            {
+              "kind": "merge",
+              "id": "abortRail"
+            }
+          ],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "step1"
+            },
+            {
+              "kind": "flow",
+              "from": "step1",
+              "to": "check1",
+              "label": "B | ABORT"
+            },
+            {
+              "kind": "flow",
+              "from": "check1",
+              "to": "abortRail",
+              "label": "ABORT"
+            },
+            {
+              "kind": "flow",
+              "from": "check1",
+              "to": "step2",
+              "label": "b : B"
+            },
+            {
+              "kind": "flow",
+              "from": "step2",
+              "to": "check2",
+              "label": "C | ABORT"
+            },
+            {
+              "kind": "flow",
+              "from": "check2",
+              "to": "abortRail",
+              "label": "ABORT"
+            },
+            {
+              "kind": "flow",
+              "from": "check2",
+              "to": "step3",
+              "label": "c : C"
+            },
+            {
+              "kind": "flow",
+              "from": "step3",
+              "to": "check3",
+              "label": "D | ABORT"
+            },
+            {
+              "kind": "flow",
+              "from": "check3",
+              "to": "abortRail",
+              "label": "ABORT"
+            },
+            {
+              "kind": "flow",
+              "from": "check3",
+              "to": "final",
+              "label": "d : D"
+            },
+            {
+              "kind": "flow",
+              "from": "abortRail",
+              "to": "aborted"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "x": "value",
+      "step1": "function",
+      "step2": "function",
+      "step3": "function",
+      "aborted": "type",
+      "final": "value"
+    },
+    "tooltips": {
+      "x": "x : A — the input to the chain.",
+      "step1": "step1 — may return ABORT.  Caller must check.",
+      "step2": "step2 — same protocol.  Skipping the check feeds ABORT into a function expecting B.",
+      "step3": "step3 — yet another check.  The same boilerplate, three times.",
+      "check1": "Sentinel guard #1 — pattern-matches on ABORT.  Error branch joins abortRail.",
+      "check2": "Sentinel guard #2 — same shape, different step.",
+      "check3": "Sentinel guard #3 — yet another by-hand check.",
+      "aborted": "ABORT — produced by any step that wished to short-circuit and re-emitted by every subsequent caller.",
+      "final": "D — the happy-path output; reached only when no step aborted."
+    },
+    "title": "Without callCC: every caller must propagate the ABORT sentinel",
+    "name": "contChain"
+  }
+}

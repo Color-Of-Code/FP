@@ -63,7 +63,9 @@ process(input) =
     >>= save_to_db
 ```
 
-![either motivation](either/either-motivation.svg)
+![either motivation: without Either monad](either/either-motivation-without.svg)
+
+![either motivation: with Either monad](either/either-motivation-with.svg)
 
 ## Examples
 

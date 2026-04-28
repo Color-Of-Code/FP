@@ -1,0 +1,169 @@
+{
+  "packages": [
+    {
+      "name": "ReaderMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "GetHost",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cfg",
+              "type": "Config",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "host",
+              "type": "String",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "GetPort",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cfg",
+              "type": "Config",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "portNum",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BuildUrl",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cfg",
+              "type": "Config",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "host",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "portNum",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "url",
+              "type": "URL",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "BuildUrlWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "getHost",
+              "type": "GetHost"
+            },
+            {
+              "kind": "action",
+              "id": "getPort",
+              "type": "GetPort"
+            },
+            {
+              "kind": "action",
+              "id": "buildUrl",
+              "type": "BuildUrl"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "cfg",
+              "type": "Config"
+            },
+            {
+              "kind": "object",
+              "id": "url",
+              "type": "URL"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "cfg",
+              "to": "getHost"
+            },
+            {
+              "kind": "flow",
+              "from": "cfg",
+              "to": "getPort"
+            },
+            {
+              "kind": "flow",
+              "from": "cfg",
+              "to": "buildUrl"
+            },
+            {
+              "kind": "flow",
+              "from": "getHost",
+              "to": "buildUrl",
+              "label": "host"
+            },
+            {
+              "kind": "flow",
+              "from": "getPort",
+              "to": "buildUrl",
+              "label": "port"
+            },
+            {
+              "kind": "flow",
+              "from": "buildUrl",
+              "to": "url"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "cfg": "type",
+      "getHost": "function",
+      "getPort": "function",
+      "buildUrl": "function",
+      "url": "type"
+    },
+    "tooltips": {
+      "cfg": "Config — the environment record.  Every helper requires it as an argument.",
+      "getHost": "getHost(config) — needs only config.host but takes the whole record.",
+      "getPort": "getPort(config) — needs only config.port but still receives the whole record.",
+      "buildUrl": "buildUrl(config, host, port) — receives config a third time.  Adding a new helper repeats the plumbing.",
+      "url": "URL — the result.  Most of the signatures involved were boilerplate."
+    },
+    "title": "Without Reader: config passed into every function",
+    "name": "buildUrl"
+  }
+}

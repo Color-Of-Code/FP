@@ -1,0 +1,166 @@
+{
+  "packages": [
+    {
+      "name": "ListMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "BindX",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "xs",
+              "type": "[A]",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "A",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BindY",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ys",
+              "type": "[B]",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "y",
+              "type": "B",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Pair",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "y",
+              "type": "B",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "(A, B)",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "CartesianWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bindX",
+              "type": "BindX"
+            },
+            {
+              "kind": "action",
+              "id": "bindY",
+              "type": "BindY"
+            },
+            {
+              "kind": "action",
+              "id": "pair",
+              "type": "Pair"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "xs",
+              "type": "[A]"
+            },
+            {
+              "kind": "object",
+              "id": "ys",
+              "type": "[B]"
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "[(A, B)]"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "xs",
+              "to": "bindX"
+            },
+            {
+              "kind": "flow",
+              "from": "bindX",
+              "to": "bindY",
+              "label": ">>= x ->"
+            },
+            {
+              "kind": "flow",
+              "from": "ys",
+              "to": "bindY"
+            },
+            {
+              "kind": "flow",
+              "from": "bindY",
+              "to": "pair",
+              "label": ">>= y ->"
+            },
+            {
+              "kind": "flow",
+              "from": "pair",
+              "to": "result",
+              "label": "pure (x, y)"
+            }
+          ],
+          "successions": [],
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "xs": "value",
+      "ys": "value",
+      "bindX": "function",
+      "bindY": "function",
+      "pair": "function",
+      "result": "type"
+    },
+    "tooltips": {
+      "xs": "xs : [A] — the first list.",
+      "ys": "ys : [B] — the second list.",
+      "bindX": "xs >>= \\\\x -> ...  Iterates over xs, binding each element to the local name x.",
+      "bindY": "ys >>= \\\\y -> ...  Iterates over ys for each x, binding to y.",
+      "pair": "pure (x, y) — lifts a single pair back into the list monad.",
+      "result": "[(A, B)] — the Cartesian product as a flat list.  Each new dimension is one more >>= line."
+    },
+    "title": "With List: one bind per dimension — flat pipeline",
+    "name": "cartesian"
+  }
+}
