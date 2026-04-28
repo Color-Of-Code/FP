@@ -127,14 +127,30 @@ export async function layoutGraph(
   });
 
   // ── Build ELK edges ──────────────────────────────────────────────────────
+  // We attach the user-supplied edge label as an ELK edge label with
+  // approximate width/height so ELK reserves enough horizontal space between
+  // layers for the text to render legibly.  Without this, long labels
+  // ("f(a0) — Right b' or Left e'") get clipped or visually overlap nearby
+  // nodes.  The empirical char-width of 5.5 matches the 9pt sans-serif the
+  // edge renderer uses; the +12 padding is breathing room either side.
+  interface ElkLabelIn {
+    text: string;
+    width: number;
+    height: number;
+  }
   type ElkEdgeIn = {
     id: string;
     sources: string[];
     targets: string[];
+    labels?: ElkLabelIn[];
   };
   const elkEdges: ElkEdgeIn[] = [];
   /** Map from `e<i>` ids back into the original `edges[]` index. */
   const elkEdgeIdToOrig = new Map<string, number>();
+
+  const EDGE_LABEL_CHAR_W = 5.5;
+  const EDGE_LABEL_PAD    = 12;
+  const EDGE_LABEL_H      = 14;
 
   edges.forEach((e, i) => {
     const src = nodeIndex.get(e.from);
@@ -150,7 +166,15 @@ export async function layoutGraph(
 
     const id = `e${i}`;
     elkEdgeIdToOrig.set(id, i);
-    elkEdges.push({ id, sources: [sourceId], targets: [targetId] });
+    const elkEdge: ElkEdgeIn = { id, sources: [sourceId], targets: [targetId] };
+    if (e.label && e.label.length > 0) {
+      elkEdge.labels = [{
+        text: e.label,
+        width:  Math.ceil(e.label.length * EDGE_LABEL_CHAR_W) + EDGE_LABEL_PAD,
+        height: EDGE_LABEL_H,
+      }];
+    }
+    elkEdges.push(elkEdge);
   });
 
   // ── Run ELK ──────────────────────────────────────────────────────────────
@@ -164,6 +188,10 @@ export async function layoutGraph(
       "elk.spacing.nodeNode":                              String(NODE_VGAP),
       "elk.spacing.edgeNode":                              "16",
       "elk.spacing.edgeEdge":                              "10",
+      "elk.spacing.edgeLabel":                             "4",
+      "elk.edgeLabels.inline":                             "false",
+      "elk.edgeLabels.placement":                          "CENTER",
+      "elk.layered.edgeLabels.sideSelection":              "ALWAYS_DOWN",
       "elk.padding":                                       "[top=12,left=30,bottom=12,right=30]",
       "elk.layered.nodePlacement.strategy":                "NETWORK_SIMPLEX",
       "elk.layered.crossingMinimization.semiInteractive":  "true",

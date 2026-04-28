@@ -15,7 +15,7 @@
   <text x="337.6" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b</text>
   <text x="337.6" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, &gt;&gt;=</text>
   <g transform="translate(0,44)">
-    <rect x="0" y="0" width="675.2" height="202" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="675.2" height="202" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L171,0 L171,12 L161,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="85.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» ReaderBindContext</text>

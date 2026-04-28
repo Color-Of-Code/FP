@@ -34,7 +34,6 @@ export function appendDiagramFrame(
     y: 0,
     width: W,
     height: H,
-    rx: 8,
     fill: COL.frameFill,
     stroke: COL.frameStroke,
     "stroke-width": 1.5,

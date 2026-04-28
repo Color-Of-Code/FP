@@ -104,8 +104,8 @@ to the diagram, and a richer tooltip on the same node for readers who hover.
 
 ## 6. Notes pin commentary to the right spot
 
-When a clarification is too important to live only in a tooltip, but too long to fit in the title
-or in a node label, use a `note`:
+When a clarification is too important to live only in a tooltip, but too long to fit in the title or
+in a node label, use a `note`:
 
 ```sysml
 note shortCircuit on matchEa :
@@ -120,13 +120,13 @@ overlap. `\n` in the text produces a line break.
 
 When to reach for a note vs. another mechanism:
 
-| Need                                                            | Use                                  |
-| --------------------------------------------------------------- | ------------------------------------ |
-| One-line operation signature read at a glance                   | `title`                              |
-| Per-language alias list                                         | `title` suffix `— also called: …`    |
-| Hover-only deep explanation                                     | `tooltip`                            |
-| Visible callout pinned to a specific node, 1–4 short lines      | `note`                               |
-| Long discursive prose                                           | the surrounding Markdown chapter     |
+| Need                                                       | Use                               |
+| ---------------------------------------------------------- | --------------------------------- |
+| One-line operation signature read at a glance              | `title`                           |
+| Per-language alias list                                    | `title` suffix `— also called: …` |
+| Hover-only deep explanation                                | `tooltip`                         |
+| Visible callout pinned to a specific node, 1–4 short lines | `note`                            |
+| Long discursive prose                                      | the surrounding Markdown chapter  |
 
 Anti-patterns:
 

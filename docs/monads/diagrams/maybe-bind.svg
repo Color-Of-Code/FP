@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 812 223" width="812" height="223">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 903 240" width="903" height="240">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,83 +11,83 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="812" height="223" fill="white"/>
-  <text x="406" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Maybe bind: pattern match unwraps Just or short-circuits Nothing</text>
-  <text x="406" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, andThen / and_then, SelectMany, chain, &gt;&gt;=</text>
+  <rect width="903" height="240" fill="white"/>
+  <text x="451.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Maybe bind: pattern match unwraps Just or short-circuits Nothing</text>
+  <text x="451.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, andThen / and_then, SelectMany, chain, &gt;&gt;=</text>
   <g transform="translate(0,44)">
-    <rect x="0" y="0" width="812" height="179" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="903" height="196" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» bind</text>
     </g>
     <g class="edge">
-      <path d="M146.0,59.0 L174.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,102.0 L174.0,102.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M214.0,64.0 L219.0,64.0 Q224.0,64.0 224.0,69.0 L224.0,84.0 Q224.0,90.0 230.0,90.0 L251.0,90.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="243.5" y="84" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Just a0</text>
+      <path d="M214.0,107.0 L342.0,107.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="284" y="101" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Just a0</text>
     </g>
     <g class="edge">
-      <path d="M373.0,90.0 L414.0,90.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M464.0,107.0 L505.0,107.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M382.0,142.0 L387.0,142.0 Q392.0,142.0 392.0,137.0 L392.0,114.0 Q392.0,108.0 398.0,108.0 L414.0,108.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M473.0,159.0 L478.0,159.0 Q483.0,159.0 483.0,154.0 L483.0,131.0 Q483.0,125.0 489.0,125.0 L505.0,125.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M554.0,99.0 L562.0,99.0 Q568.0,99.0 568.0,93.0 L568.0,70.0 Q568.0,64.0 574.0,64.0 L586.0,64.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M645.0,116.0 L653.0,116.0 Q659.0,116.0 659.0,110.0 L659.0,70.0 Q659.0,64.0 665.0,64.0 L677.0,64.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M214.0,54.0 L586.0,54.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="406" y="48" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Nothing (: Maybe b)</text>
+      <path d="M214.0,97.0 L219.0,97.0 Q224.0,97.0 224.0,92.0 L224.0,60.0 Q224.0,54.0 230.0,54.0 L677.0,54.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="456.5" y="48" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Nothing (: Maybe b)</text>
     </g>
     <g class="edge">
-      <path d="M626.0,59.0 L654.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M717.0,59.0 L745.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="action-node">
       <title>Apply f(a). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.</title>
-      <rect x="430" y="77" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="490" y="99" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply_f</text>
+      <rect x="521" y="94" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="581" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply_f</text>
       <g class="pin pin-in">
-        <rect x="426" y="87.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="436" y="91.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a0</text>
+        <rect x="517" y="104.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="527" y="108.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a0</text>
       </g>
       <g class="pin pin-in">
-        <rect x="426" y="102.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="436" y="106.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <rect x="517" y="119.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="527" y="123.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="546" y="95" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="544" y="99" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">mb</text>
+        <rect x="637" y="112" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="635" y="116" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">mb</text>
       </g>
     </g>
     <g class="object-node">
       <title>Maybe a — the input value. Either Just a0 or Nothing.</title>
-      <rect x="36" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ma : Maybe a</text>
+      <rect x="36" y="83" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="102" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ma : Maybe a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0.</title>
-      <rect x="254" y="123" width="128" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="318" y="135" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="318" y="149" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Maybe b</text>
+      <rect x="345" y="140" width="128" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="409" y="152" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="409" y="166" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Maybe b</text>
     </g>
     <g class="object-node">
       <title>a0 — the unwrapped payload, extracted by the Just pattern. No separate unwrap action needed.</title>
-      <rect x="263" y="71" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="318" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a0 : a</text>
+      <rect x="354" y="88" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="409" y="107" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a0 : a</text>
     </g>
     <g class="object-node">
       <title>Maybe b — the single result of bind.</title>
-      <rect x="666" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="721" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb : Maybe b</text>
+      <rect x="757" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="812" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb : Maybe b</text>
     </g>
     <g class="decision-node">
       <title>Pattern match: simultaneously tests the constructor and destructures the payload.\nJust a0 → a0 is available (no separate unwrap step)\nNothing → skip f entirely</title>
-      <polygon points="200,45 214,59 200,73 186,59" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <polygon points="200,88 214,102 200,116 186,102" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
     </g>
     <g class="merge-node">
       <title>Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit).</title>
-      <polygon points="612,45 626,59 612,73 598,59" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <polygon points="703,45 717,59 703,73 689,59" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
     </g>
   </g>
 </svg>

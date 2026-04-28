@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 603 146" width="603" height="146">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 611 146" width="611" height="146">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,18 +11,18 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="603" height="146" fill="white"/>
-  <text x="301.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">retry :: STM a   (abort + block until a watched TVar changes; then restart)</text>
-  <text x="301.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">primitive</text>
-  <g transform="translate(127,44)">
-    <rect x="0" y="0" width="350" height="102" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+  <rect width="611" height="146" fill="white"/>
+  <text x="305.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">retry :: STM a   (abort + block until a watched TVar changes; then restart)</text>
+  <text x="305.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">primitive</text>
+  <g transform="translate(0,44)">
+    <rect x="0" y="0" width="611" height="102" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L115.2,0 L115.2,12 L105.2,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="57.6" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» retry</text>
     </g>
     <g class="edge">
-      <path d="M160.0,62.0 L192.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="184" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">block; rollback; re-run on TVar change</text>
+      <path d="M160.0,62.0 L453.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="314.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">block; rollback; re-run on TVar change</text>
     </g>
     <g class="action-node">
       <title>Retry: discard the transaction's pending writes, suspend the thread, wake when any TVar in the read set is written by another thread.</title>
@@ -35,8 +35,8 @@
     </g>
     <g class="object-node">
       <title>STM a — type-polymorphic in a because retry never returns through the value channel; the runtime handles the resumption.</title>
-      <rect x="204" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="259" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sa : STM a</text>
+      <rect x="465" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="520" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sa : STM a</text>
     </g>
   </g>
 </svg>

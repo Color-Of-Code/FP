@@ -15,7 +15,7 @@
   <text x="312.4" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b</text>
   <text x="312.4" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: Bind, &gt;&gt;=</text>
   <g transform="translate(0,44)">
-    <rect x="0" y="0" width="624.8" height="150" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="624.8" height="150" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L158.6,0 L158.6,12 L148.6,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="79.3" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» ContBindContext</text>
