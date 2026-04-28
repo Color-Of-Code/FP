@@ -1,42 +1,95 @@
 // SysML v2 — Either bind: implementation activity
-// Same two-path structure as Maybe — but Left e carries the error VALUE, not just absence.
-// The error e is preserved exactly; unlike Nothing, it tells you WHY it failed.
+//
+// Pattern-match on ea simultaneously tests the constructor AND
+// destructures the payload:
+//   Right a0  →  a0 : a   is available immediately; pass to f.
+//                f returns Either e b directly — bind never re-wraps.
+//                f's own result may itself be Right b' or Left e';
+//                bind passes it through unchanged either way.
+//   Left  e0  →  short-circuit: f is NEVER invoked.  The error value e0
+//                is preserved exactly; only the static type widens from
+//                Left e to Either e b (the e component is identical).
+//
+// Both branches converge at a merge into the single output ec : Either e b.
+// This is the key correctness property of Either bind: short-circuit on
+// Left, propagate the error verbatim, never invent a new error, never
+// swallow one.
 
 package EitherBindImpl {
 
-    action def EitherBindOp {
-        in  ea        : "Either e a";
-        in  f         : "a ⟶ Either e b";  // HOF — may not be called
-        out eb_right  : "Either e b";        // Right path: result of f(unwrapped a)
-        out eb_left   : "Left e";            // Left path: f NOT invoked, e preserved
+    action def ApplyF {
+        in  a0 : a;
+        in  f  : "a ⟶ Either e b";
+        out eb : "Either e b";          // whatever f returns: Right b' or Left e'
+    }
+
+    action def WidenLeft {
+        in  e0    : e;
+        out eLeft : "Either e b";       // = Left e0, retyped from Left e to Either e b
     }
 
     activity def EitherBindProcess {
-        object ea          : "Either e a";
-        object f           : "a ⟶ Either e b";
-        action bind        : EitherBindOp;
-        object eb_right    : "Either e b";   // produced only when ea = Right a
-        object eb_left     : "Left e";       // produced only when ea = Left e
+        // inputs
+        object ea : "Either e a";
+        object f  : "a ⟶ Either e b";
 
-        flow from ea to bind;
-        flow from f  to bind;
-        flow from bind to eb_right : "Right a  →  f(a)";
-        flow from bind to eb_left  : "Left e   →  Left e  (e unchanged, f skipped)";
+        // pattern match: tests the constructor AND destructures both payloads
+        decision matchEa;
+
+        // Right path
+        object a0      : a;
+        action apply_f : ApplyF;
+
+        // Left path
+        object e0       : e;
+        action widen    : WidenLeft;
+
+        // both branches converge here
+        merge joinResult;
+
+        // single output
+        object ec : "Either e b";
+
+        // ── main flow ────────────────────────────────────────────
+        flow from ea to matchEa;
+
+        // Right branch: destructure a0, apply f, take f's result as-is
+        flow from matchEa to a0       : "Right a0";
+        flow from a0      to apply_f;
+        flow from f       to apply_f;
+        flow from apply_f to joinResult : "f(a0) — Right b' or Left e'";
+
+        // Left branch: destructure e0, propagate UNCHANGED (only type widens)
+        flow from matchEa to e0       : "Left e0  (f skipped)";
+        flow from e0      to widen;
+        flow from widen   to joinResult : "Left e0 : Either e b";
+
+        // single output
+        flow from joinResult to ec;
     }
 }
 
 #diagram {
-    type  = activity
-    title = "Either bind: Right a → f(a)  |  Left e → Left e  (error preserved, f skipped) — also called: andThen / and_then, Bind, flatMap, >>="
-    name  = "bind"
+    type   = activity
+    layout = elk
+    title  = "Either bind: pattern match — Right a0 → f(a0) | Left e0 → Left e0 (error preserved, f skipped) — also called: andThen / and_then, Bind, flatMap, >>="
+    name   = "bind"
+
     show ea       as type
     show f        as hof
-    show bind     as function
-    show eb_right as type
-    show eb_left  as type
-    tooltip ea       = "Either e a — Right a (success, has a value) or Left e (failure, carries error value e)"
-    tooltip f        = "(a ⟶ Either e b) — the continuation. Only invoked when ea is Right a."
-    tooltip bind     = "Pattern match on ea:\n  Right a → unwrap a, call f(a), return its result\n  Left e  → return Left e immediately — f is never called\nKey difference from Maybe: e carries the reason for failure, not just its presence."
-    tooltip eb_right = "Either e b — the result of f(a). May be Right b (success) or Left e (new failure from f)."
-    tooltip eb_left  = "Left e — the original error value e propagated UNCHANGED. The error identity is preserved."
+    show a0       as value
+    show apply_f  as function
+    show e0       as value
+    show widen    as function
+    show ec       as type
+
+    tooltip ea         = "Either e a — the input.  Either Right a0 (success carrying a value of type a) or Left e0 (failure carrying an error value of type e)."
+    tooltip f          = "(a ⟶ Either e b) — the continuation.  Invoked ONLY on the Right branch.  Skipped entirely when ea is Left."
+    tooltip matchEa    = "Pattern match on the sum-type constructor.\n  Right a0 → a0 : a is available immediately (no separate unwrap step).\n  Left  e0 → e0 : e is available; the right branch is skipped.\nExactly one branch fires per invocation; the runtime never executes both."
+    tooltip a0         = "a0 — the unwrapped success payload, extracted by the Right pattern.  Only exists on the Right branch."
+    tooltip apply_f    = "Apply f(a0).  f returns Either e b directly (Right b' or Left e').  bind does NOT inspect f's result — whatever f returned is forwarded unchanged.  This is what makes bind compositional: a Left arising inside f propagates exactly the same way as a Left arising before f."
+    tooltip e0         = "e0 — the unwrapped error payload, extracted by the Left pattern.  Only exists on the Left branch."
+    tooltip widen      = "Re-tag the Left constructor: the runtime VALUE Left e0 stays bit-identical, but the static type widens from Left e to Either e b so it unifies with the Right branch's output type at the merge.  No allocation, no transformation — only the type changes."
+    tooltip joinResult = "Merge node — both branches produce a value of the SAME type Either e b.  Exactly one inflow fires per invocation; the merge is a control-flow join, not a runtime choice."
+    tooltip ec         = "Either e b — the single result of bind.  Carries either f's output (when ea was Right) or the original error e0 (when ea was Left)."
 }
