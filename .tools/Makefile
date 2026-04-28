@@ -18,8 +18,9 @@ SYSML_FILES        := $(SYSML_FILES_DOCS) $(SYSML_FILES_MONADS)
 SYSML_SVGS         := $(patsubst %.sysml,%.svg,$(SYSML_FILES))
 
 # Generator tooling: any change here invalidates every SysML SVG.
-# Listed as a glob so adding new generator modules needs no Makefile edit.
-SYSML_TOOL_SRCS := $(shell find $(REPO_ROOT)/.tools/sysml -name '*.ts' -not -path '*/node_modules/*' 2>/dev/null)
+# Two wildcard patterns cover the whole tree (root + one subdir level).
+# Pure make built-in — no shell-out — so it's effectively free.
+SYSML_TOOL_SRCS := $(wildcard $(REPO_ROOT)/.tools/sysml/*.ts $(REPO_ROOT)/.tools/sysml/*/*.ts)
 
 # D2 source files in each location
 D2_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.d2)
