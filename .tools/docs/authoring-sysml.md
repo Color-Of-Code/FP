@@ -37,6 +37,50 @@ Concretely:
 If a diagram looks like a black box with a couple of input arrows and a couple of output arrows, it
 is almost certainly wrong. Open the box.
 
+## 1a. Reserve object nodes for things that earn their pixels
+
+Every `object` node costs a layer of horizontal space and a box's worth of attention. Use one
+**only** when the value it represents is one of:
+
+- An **anchor** — initial input, terminal output, or HOF argument — that the diagram is named after
+  or that surrounding prose references by name.
+- A **value with a non-trivial shape** that the picture exists to clarify (`(a, w)`, `[(b, p)]`,
+  `Maybe a`, `Cont r a`).
+- A **junction point** that two or more downstream nodes consume (an object node fans out cleanly;
+  an unnamed edge label cannot).
+
+Do **not** create an object node merely to label the type of a transient value as it passes between
+two nodes. In those cases the same information rides cleanly on the **flow edge** as `name : Type`
+(or just `Type`):
+
+```sysml
+// ✗ Cluttered — three boxes carry no information beyond their type.
+action find_user : FindUser;
+object userOrNull : "User | null";
+decision checkUser : "null?";
+object user : User;
+action find_address : FindAddress;
+flow from find_user   to userOrNull;
+flow from userOrNull  to checkUser;
+flow from checkUser   to user           : "non-null";
+flow from user        to find_address;
+
+// ✓ Clean — the decision IS the pattern-match; the next action consumes
+// the unwrapped value directly.  Edge labels carry the types.
+action find_user : FindUser;
+decision checkUser : "null?";
+action find_address : FindAddress;
+flow from find_user   to checkUser     : "User | null";
+flow from checkUser   to find_address  : "user : User";   // confirmed non-null
+```
+
+The general rule: if the only reason the box exists is to write `: Type` on it, delete it and put
+`: Type` on the inbound or outbound edge instead. The reader's eye then follows one continuous line
+per logical thread, which is what activity diagrams do best.
+
+This is SysML v2 compliant — UML/SysML activity diagrams treat object nodes and `name : Type` edge
+labels as equivalent ways to show the object-flow token. The choice is editorial.
+
 ## 2. Name operations, not operators
 
 The activity-frame tab is the **canonical name** of the type-class operation:
@@ -139,7 +183,7 @@ Anti-patterns:
 Do **not** use tooltips to restate the visible label of the node — that adds clutter without
 information.
 
-## 6. Edge labels are part of the contract
+## 8. Edge labels are part of the contract
 
 Every conditional edge out of a `decision` carries a guard label that names which case it covers.
 Every short-circuit edge says what it does to the value:
@@ -154,12 +198,14 @@ Three good reasons to label an edge:
 
 1. **It carries a value with a non-obvious shape** (e.g. `"f(a0) — Right b' or Left e'"`).
 2. **It carries a guard** (e.g. `"Right a0"`, `"Nothing"`, `"on retry"`).
-3. **It documents the type at this point** (e.g. `"\\s -> (a0, s)"`, `"[(a0, 1.0)]"`).
+3. **It documents the type at this point** (e.g. `"\\s -> (a0, s)"`, `"[(a0, 1.0)]"`,
+   `"User | null"`, `"user : User"`). This is the preferred form whenever you might otherwise be
+   tempted to insert a one-purpose `object` node — see §1a.
 
 Unlabelled edges are fine when the source and target are unambiguous; do not add labels just to fill
 space.
 
-## 7. Generic vs. concrete: keep them separate
+## 9. Generic vs. concrete: keep them separate
 
 The repo distinguishes two rendering layers:
 
@@ -175,7 +221,7 @@ exactly that.
 When both exist for the same operation, the per-instance one supersedes the generic one for
 correctness — but do not delete the generic. Readers approach the chapter top-down.
 
-## 8. Variables and types — use the language of the chapter
+## 10. Variables and types — use the language of the chapter
 
 Match the variable names used in the prose of the chapter / monad page:
 
@@ -189,7 +235,7 @@ Match the variable names used in the prose of the chapter / monad page:
 
 Diagrams that invent fresh names (`x`, `y`, `tmp`) detach from the prose and slow the reader down.
 
-## 9. Layout
+## 11. Layout — what the engine does for you
 
 - Default to ELK (`layout = elk`) for any diagram with **branching, merging, or a HOF skipping
   multiple ranks**. Dagre often produces overlapping edges in those cases.
@@ -198,7 +244,29 @@ Diagrams that invent fresh names (`x`, `y`, `tmp`) detach from the prose and slo
 - Do not over-constrain layout. The `succession … then …` ordering is for control-flow ordering
   only; it is not a positioning hint.
 
-## 10. Verify before committing
+The renderer applies the following layout policies automatically — you do not configure them
+per-diagram, but knowing they exist explains the shapes you see:
+
+- **Pad-driven layer width.** Layer-to-layer spacing is small and dominated by the edge-label width
+  reservation, so a layer with no label and no decision/merge node is narrow. Long arrows appear
+  only where a label needs the room. (`spacing.nodeNodeBetweenLayers = 16`, `spacing.edgeNode = 8`;
+  label width = `text.length × 5 + 4 px`.)
+- **Perpendicular fail-rail.** Edges from a `decision` to a `merge` are routed perpendicular to the
+  layout flow (south for LR, east for TB), forming a clean alt-exit drop. The post-layout pass snaps
+  every such edge onto the same rail so multiple null/error branches collapse into a single visual
+  trunk with tributaries — no more zig-zag for the second or third decision.
+- **Source-anchored alt labels.** Labels on decision-to-merge edges sit beside the short drop
+  segment near the decision, not in the middle of the shared rail. This keeps the rail readable and
+  means a label like `"null"` does not collide with parallel labels from other decisions.
+- **Aligned terminal sinks and sources.** Object/final nodes with no outgoing edges are pinned to
+  the rightmost layer; object/initial nodes with no incoming edges are pinned to the leftmost layer.
+  Independent end-points (e.g. a happy-path output and a failure-path output) appear in the same
+  column, vertically aligned, instead of in different columns that stretch the canvas.
+- **Transparent label backgrounds.** Edge and pin labels render with no white halo. The layout
+  already keeps labels off the rails, so a protective stroke is unnecessary; transparent text avoids
+  the white-stripe artefact some rasterisers produce when the halo overlaps an arrow.
+
+## 12. Verify before committing
 
 Workflow for a new `.sysml` file:
 
@@ -221,14 +289,15 @@ is the canonical render path for now.
 
 ## Anti-patterns (look here when something feels off)
 
-| Smell                                                                        | Likely fix                                                              |
-| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Diagram has two output nodes but the function returns one value              | Add a `merge` node; the second output was a control-flow branch         |
-| Tab labelled `>>=` / `<\|>` / `>=>`                                          | Rename the tab to the operation's name, move operator into title suffix |
-| Pattern match collapsed into a single `bind` action                          | Replace with `decision` node + guard-labelled outflows + `merge` join   |
-| `Expecting one of these possible Token sequences` parse error                | An identifier collides with a reserved keyword (e.g. `out`, `in`)       |
-| Diagram says `Just a → f(a)` for a generic monad                             | Move that diagram into `monads/diagrams/`; keep the generic abstract    |
-| Tooltip restates the node label                                              | Replace with semantics: invariants, what-doesn't-happen, per-instance   |
-| HOF argument (`f : a → Mb`) drawn as an `action` node                        | It is data — model as `object` with `show f as hof`                     |
-| Type-widening / re-tagging step (`Left e ⟶ Either e b`) absent from activity | Add a small `action` node for it; tooltip explains "value identical"    |
-| `make -C .tools sysml` red                                                   | Use `pnpm exec vitest run -u` from `.tools/`; that path works           |
+| Smell                                                                        | Likely fix                                                                    |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Diagram has two output nodes but the function returns one value              | Add a `merge` node; the second output was a control-flow branch               |
+| Tab labelled `>>=` / `<\|>` / `>=>`                                          | Rename the tab to the operation's name, move operator into title suffix       |
+| Pattern match collapsed into a single `bind` action                          | Replace with `decision` node + guard-labelled outflows + `merge` join         |
+| `Expecting one of these possible Token sequences` parse error                | An identifier collides with a reserved keyword (e.g. `out`, `in`)             |
+| Diagram says `Just a → f(a)` for a generic monad                             | Move that diagram into `monads/diagrams/`; keep the generic abstract          |
+| Tooltip restates the node label                                              | Replace with semantics: invariants, what-doesn't-happen, per-instance         |
+| HOF argument (`f : a → Mb`) drawn as an `action` node                        | It is data — model as `object` with `show f as hof`                           |
+| Type-widening / re-tagging step (`Left e ⟶ Either e b`) absent from activity | Add a small `action` node for it; tooltip explains "value identical"          |
+| Object node sandwiched between two nodes only to label its type              | Delete the box; put `: Type` (or `name : Type`) on the through-edge — see §1a |
+| `make -C .tools sysml` red                                                   | Use `pnpm exec vitest run -u` from `.tools/`; that path works                 |

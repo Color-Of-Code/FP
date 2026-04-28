@@ -113,9 +113,24 @@ Detailed table in [tooling spec](../../specs/tooling.md).
 - Action nodes expose real ELK ports for input/output pins (`portConstraints: FIXED_ORDER`, side
   derived from the diagram's rank direction). Edges that connect a known pin reference the port id
   in `sources` / `targets`; other edges connect to node centres.
-- Edge geometry comes from `edge.sections[0]` and is emitted as a polyline (`M x0,y0 L … L xn,yn`)
-  with rounded joins. The final segment is shortened by `ARROW_DEPTH` so the marker tip lands
-  exactly on the target boundary.
+- **Decision and merge nodes also expose ports**, derived from edge topology rather than the source.
+  A decision's outgoing edge that targets a merge gets a port on the perpendicular side (south for
+  LR, east for TB) so it forms a clean alt-exit drop; everything else exits forward. A merge gets a
+  single shared inbound port so multiple incoming branches converge into one trunk.
+- **Edge labels reserve layer space.** Each user-supplied label is attached to its ELK edge with
+  width `text.length × 5 + 4 px` and height `14 px`, so layers expand to fit their labels and layers
+  without labels stay tight.
+- **Topological layer pinning.** Object/final nodes that are pure sinks (no outgoing edges) are
+  given `elk.layered.layering.layerConstraint = LAST`; pure sources get `FIRST`. This aligns
+  independent end-points (happy-path output and failure-path output) in a single column.
+- **Post-layout polyline rewrite for decision→merge edges.** ELK routes each alt-exit independently
+  and pushes them to distinct rails to avoid edge-edge overlap, which produces visual zig-zags.
+  After ELK runs, those polylines are rewritten to a clean two-bend L: drop straight from the
+  decision's perpendicular port to the merge's inbound y, then run forward into the merge. All such
+  edges share the same rail and overlap, reading as a single trunk with tributaries.
+- Edge geometry comes from `edge.sections[0]` (or the rewrite above) and is emitted as a polyline
+  (`M x0,y0 L … L xn,yn`) with rounded joins. The final segment is shortened by `ARROW_DEPTH` so the
+  marker tip lands exactly on the target boundary.
 - The `layout = dagre | elk` SysML field is still parsed for backward compat with existing fixtures,
   but its value is ignored at render time.
 - See [decisions/0007-orthogonal-routing.md](decisions/0007-orthogonal-routing.md).
