@@ -14,8 +14,11 @@
   <rect width="628.8" height="298" fill="white"/>
   <text x="314.4" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: IO a ⟶ (a ⟶ IO b) ⟶ IO b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="628.8" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
-    <text x="314.4" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» IOBindContext</text>
+    <rect x="0" y="0" width="628.8" height="270" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-block">
+      <path d="M0,0 L146.20000000000002,0 L146.20000000000002,12 L136.20000000000002,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="73.10000000000001" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» IOBindContext</text>
+    </g>
     <g class="edge">
       <path d="M225.2,161.0 L230.2,161.0 Q235.2,161.0 235.2,156.0 L235.2,129.0 Q235.2,123.0 241.2,123.0 L253.2,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>

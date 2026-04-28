@@ -14,8 +14,11 @@
   <rect width="715.2" height="298" fill="white"/>
   <text x="357.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="715.2" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
-    <text x="357.6" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» EitherBindContext</text>
+    <rect x="0" y="0" width="715.2" height="270" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-block">
+      <path d="M0,0 L171,0 L171,12 L161,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="85.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» EitherBindContext</text>
+    </g>
     <g class="edge">
       <path d="M268.4,161.0 L273.4,161.0 Q278.4,161.0 278.4,156.0 L278.4,129.0 Q278.4,123.0 284.4,123.0 L296.4,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>

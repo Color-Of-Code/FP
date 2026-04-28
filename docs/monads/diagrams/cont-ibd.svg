@@ -14,8 +14,11 @@
   <rect width="664.8" height="298" fill="white"/>
   <text x="332.4" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="664.8" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
-    <text x="332.4" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» ContBindContext</text>
+    <rect x="0" y="0" width="664.8" height="270" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-block">
+      <path d="M0,0 L158.6,0 L158.6,12 L148.6,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="79.3" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» ContBindContext</text>
+    </g>
     <g class="edge">
       <path d="M254.0,161.0 L259.0,161.0 Q264.0,161.0 264.0,156.0 L264.0,129.0 Q264.0,123.0 270.0,123.0 L282.0,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>

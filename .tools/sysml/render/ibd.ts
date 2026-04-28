@@ -13,6 +13,7 @@ import {
 import { layoutGraph } from "../layout.ts";
 import { appendGNode } from "./nodes.ts";
 import { appendGEdge } from "./edges.ts";
+import { appendDiagramFrame } from "./frame.ts";
 import { assignActionPins } from "./pin.ts";
 import { appendElement, appendText, joinGroups, setAttrs, type SvgParent } from "../lib/svg.ts";
 import type { RenderPlan } from "./title.ts";
@@ -111,26 +112,7 @@ export async function renderIbd(
     width: W,
     height: H,
     draw(parent) {
-      appendElement(parent, "rect", {
-        x: 0,
-        y: 0,
-        width: W,
-        height: H,
-        rx: 4,
-        fill: "#f8f8ff",
-        stroke: "#6666c0",
-        "stroke-width": 2,
-      });
-
-      appendText(parent, `«block» ${partDef.name}`, {
-        x: W / 2,
-        y: 18,
-        "text-anchor": "middle",
-        "font-size": 12,
-        "font-weight": "bold",
-        "font-family": "sans-serif",
-        fill: COL.labelFill,
-      });
+      appendDiagramFrame(parent, "block", partDef.name, W, H);
 
       appendPortSquares(parent, inPorts, "left", W, H);
       appendPortSquares(parent, outPorts, "right", W, H);

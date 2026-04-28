@@ -15,7 +15,7 @@
   <text x="427" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Monad: Ma &gt;&gt;= (a ⟶ Mb) &gt;&gt;= (b ⟶ Mc)</text>
   <g transform="translate(0,28)">
     <rect x="0" y="0" width="854" height="259" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
-    <g class="activity-frame-tab">
+    <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
     </g>

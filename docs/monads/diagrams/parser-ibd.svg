@@ -14,8 +14,11 @@
   <rect width="686.4" height="350" fill="white"/>
   <text x="343.2" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="686.4" height="322" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
-    <text x="343.2" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» ParserBindContext</text>
+    <rect x="0" y="0" width="686.4" height="322" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-block">
+      <path d="M0,0 L171,0 L171,12 L161,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="85.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» ParserBindContext</text>
+    </g>
     <g class="edge">
       <path d="M254.0,213.0 L259.0,213.0 Q264.0,213.0 264.0,208.0 L264.0,178.0 Q264.0,172.0 270.0,172.0 L282.0,172.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>

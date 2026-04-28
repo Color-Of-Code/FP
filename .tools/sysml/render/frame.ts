@@ -1,20 +1,29 @@
 /**
- * Activity frame: outer rounded border + pentagon name tab (SysML v2 notation).
+ * SysML diagram frame: outer rounded border + pentagon name tab.
  *
  * The tab is a rectangle with the bottom-right corner cut at 45° — the
- * standard SysML activity-frame label shape per ISO 19514.
+ * standard SysML v2 frame label shape per ISO 19514.  Used identically
+ * for activity frames, block (IBD) frames, and any future diagram kind;
+ * the only thing that changes is the stereotype keyword inside the tab.
  */
 
 import { FRAME_TAB_W, FRAME_TAB_H, COL } from "../types.ts";
 import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/svg.ts";
 
 /**
- * Append the activity frame border and name tab for an activity of size (W × H).
- * `name` is shown inside the pentagon tab as `«activity» <name>`.
+ * Append a diagram frame border and stereotyped name tab for content of size
+ * (W × H).  The tab text is `«stereotype» <name>` (e.g. `«activity» bind` or
+ * `«block» Reader`).
  */
-export function appendActivityFrame(parent: SvgParent, name: string, W: number, H: number): void {
+export function appendDiagramFrame(
+  parent: SvgParent,
+  stereotype: string,
+  name: string,
+  W: number,
+  H: number,
+): void {
   // Measure label width (font-size 10 sans-serif ≈ 6.2 px/char), cap at FRAME_TAB_W
-  const label = `«activity» ${name}`;
+  const label = `«${stereotype}» ${name}`;
   const tw    = Math.min(FRAME_TAB_W, label.length * 6.2 + 16);
   const th    = FRAME_TAB_H;
   // Rectangle with bottom-right corner cut: 5 points
@@ -31,7 +40,7 @@ export function appendActivityFrame(parent: SvgParent, name: string, W: number, 
     "stroke-width": 1.5,
   });
 
-  const tab = appendGroup(parent, { class: "activity-frame-tab" });
+  const tab = appendGroup(parent, { class: `diagram-frame-tab tab-${stereotype}` });
   appendElement(tab, "path", {
     d: tabPath,
     fill: "#e0e0e0",
@@ -47,4 +56,9 @@ export function appendActivityFrame(parent: SvgParent, name: string, W: number, 
     "dominant-baseline": "middle",
     fill: COL.labelFill,
   });
+}
+
+/** Back-compat alias: activity is just a frame with the "activity" stereotype. */
+export function appendActivityFrame(parent: SvgParent, name: string, W: number, H: number): void {
+  appendDiagramFrame(parent, "activity", name, W, H);
 }

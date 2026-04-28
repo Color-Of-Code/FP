@@ -15,7 +15,7 @@
   <text x="265.8" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Partial application and currying</text>
   <g transform="translate(0,28)">
     <rect x="0" y="0" width="531.6" height="256" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
-    <g class="activity-frame-tab">
+    <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L164.8,0 L164.8,12 L154.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="82.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» partial apply</text>
     </g>
