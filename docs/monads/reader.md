@@ -10,6 +10,8 @@ should modify.
 
 ![bind implementation](diagrams/reader-bind.svg)
 
+![pure implementation](diagrams/reader-pure.svg)
+
 ## Type
 
 ```text

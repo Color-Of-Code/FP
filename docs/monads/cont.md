@@ -10,6 +10,8 @@ explicit gives first-class control over the flow of a program.
 
 ![bind implementation](diagrams/cont-bind.svg)
 
+![pure implementation](diagrams/cont-pure.svg)
+
 ## Type
 
 ```text

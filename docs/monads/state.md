@@ -9,6 +9,8 @@ actually using mutable variables — state is threaded explicitly as a function 
 
 ![bind implementation](diagrams/state-bind.svg)
 
+![pure implementation](diagrams/state-pure.svg)
+
 ## Type
 
 ```text

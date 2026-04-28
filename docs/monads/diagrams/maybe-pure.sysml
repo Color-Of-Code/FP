@@ -30,7 +30,7 @@ package MaybePureImpl {
 
 #diagram {
     type  = activity
-    title = "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing)"
+    title = "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just"
     name  = "pure"
     show a0      as value
     show wrap    as function

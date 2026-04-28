@@ -9,6 +9,8 @@ any other monoidal side output such as metrics, warnings, or a list of events).
 
 ![bind implementation](diagrams/writer-bind.svg)
 
+![pure implementation](diagrams/writer-pure.svg)
+
 ## Type
 
 ```text

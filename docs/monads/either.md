@@ -9,6 +9,8 @@ value** — carrying a description of what went wrong.
 
 ![bind implementation](diagrams/either-bind.svg)
 
+![pure implementation](diagrams/either-pure.svg)
+
 ## Type
 
 ```text

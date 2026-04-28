@@ -10,6 +10,8 @@ once — or retries from the beginning if another thread modified a value it rea
 
 ![bind implementation](diagrams/stm-bind.svg)
 
+![pure implementation](diagrams/stm-pure.svg)
+
 ## Type
 
 ```text

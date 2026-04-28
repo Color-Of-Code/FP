@@ -9,6 +9,8 @@ many results simultaneously.
 
 ![bind implementation](diagrams/list-bind.svg)
 
+![pure implementation](diagrams/list-pure.svg)
+
 ## Type
 
 ```text

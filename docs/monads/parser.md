@@ -9,6 +9,8 @@ The **Parser monad** models computations that **consume a sequence of input** â€
 
 ![bind implementation](diagrams/parser-bind.svg)
 
+![pure implementation](diagrams/parser-pure.svg)
+
 ## Type
 
 ```text

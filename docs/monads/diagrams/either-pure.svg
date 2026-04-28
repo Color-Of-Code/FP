@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540.4 130" width="540.4" height="130">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 569.2 130" width="569.2" height="130">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,10 +11,10 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="540.4" height="130" fill="white"/>
-  <text x="270.2" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just</text>
+  <rect width="569.2" height="130" fill="white"/>
+  <text x="284.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="540.4" height="102" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="569.2" height="102" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» pure</text>
@@ -24,10 +24,10 @@
     </g>
     <g class="edge">
       <path d="M318.0,62.0 L350.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="342" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Just a0</text>
+      <text x="342" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Right a0</text>
     </g>
     <g class="action-node">
-      <title>WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.</title>
+      <title>WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type.</title>
       <rect x="194" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
       <text class="action-label" x="254" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">wrap</text>
       <g class="pin pin-in">
@@ -36,18 +36,18 @@
       </g>
       <g class="pin pin-out">
         <rect x="310" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="308" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">maybe_a</text>
+        <text x="308" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">either_a</text>
       </g>
     </g>
     <g class="object-node">
-      <title>a0 — any plain value to be lifted into the Maybe context.</title>
+      <title>a0 — any plain value to lift into the Either context (the success branch).</title>
       <rect x="36" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
       <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a0 : a</text>
     </g>
     <g class="object-node">
-      <title>Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws.</title>
-      <rect x="362" y="43" width="142.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="433.2" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">just_a0 : Maybe a</text>
+      <title>Right a0 : Either e a — always Right. Producing Left here would break the monad laws.</title>
+      <rect x="362" y="43" width="171.20000000000002" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="447.6" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">right_a0 : Either e a</text>
     </g>
   </g>
 </svg>

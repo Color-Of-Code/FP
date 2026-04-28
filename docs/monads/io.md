@@ -9,6 +9,8 @@ files, clocks, or any interaction with the outside world.
 
 ![bind implementation](diagrams/io-bind.svg)
 
+![pure implementation](diagrams/io-pure.svg)
+
 ## Type
 
 ```text

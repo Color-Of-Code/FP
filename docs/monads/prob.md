@@ -10,6 +10,8 @@ conditional probability — weighting each outcome by the probability of reachin
 
 ![bind implementation](diagrams/prob-bind.svg)
 
+![pure implementation](diagrams/prob-pure.svg)
+
 ## Type
 
 ```text
