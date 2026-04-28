@@ -3,13 +3,13 @@
 The **Parser monad** models computations that **consume a sequence of input** — typically characters
 — and either succeed, returning a parsed value alongside the unconsumed remainder, or fail.
 
-![parser monad](diagrams/parser.svg)
+![parser monad](parser/parser.svg)
 
-![bind type signature](diagrams/parser-ibd.svg)
+![bind type signature](parser/parser-ibd.svg)
 
-![bind implementation](diagrams/parser-bind.svg)
+![bind implementation](parser/parser-bind.svg)
 
-![pure implementation](diagrams/parser-pure.svg)
+![pure implementation](parser/parser-pure.svg)
 
 ## Type
 
@@ -44,7 +44,7 @@ immediately — exactly like the [Maybe monad](./maybe.md).
 | `p <\|> q`     | Try `p`; on failure without consuming input, try `q` (alternative) |
 | `chainl1 p op` | Parse `p` separated by binary operator `op`; left-associative      |
 
-![parser alt primitive](diagrams/parser-alt.svg)
+![parser alt primitive](parser/parser-alt.svg)
 
 ## Key use cases
 
@@ -80,7 +80,7 @@ natural = do
     return (combine d1 d2)
 ```
 
-![parser motivation](diagrams/parser-motivation.svg)
+![parser motivation](parser/parser-motivation.svg)
 
 ## Examples
 

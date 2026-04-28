@@ -3,13 +3,13 @@
 The **Writer monad** models computations that produce a result **alongside an accumulated log** (or
 any other monoidal side output such as metrics, warnings, or a list of events).
 
-![writer monad](diagrams/writer.svg)
+![writer monad](writer/writer.svg)
 
-![bind type signature](diagrams/writer-ibd.svg)
+![bind type signature](writer/writer-ibd.svg)
 
-![bind implementation](diagrams/writer-bind.svg)
+![bind implementation](writer/writer-bind.svg)
 
-![pure implementation](diagrams/writer-pure.svg)
+![pure implementation](writer/writer-pure.svg)
 
 ## Type
 
@@ -41,7 +41,7 @@ Each step produces its own log fragment; `bind` concatenates them in order.
 | `listen`        | `Writer w a ⟶ Writer w (a, w)` | expose the accumulated log as part of the result    |
 | `runWriter`     | `Writer w a ⟶ (a, w)`          | execute and return the result-log pair              |
 
-![writer tell primitive](diagrams/writer-tell.svg)
+![writer tell primitive](writer/writer-tell.svg)
 
 ## Key use cases
 
@@ -77,7 +77,7 @@ pipeline = do
 -- runWriter returns (r3, combinedLog) with all fragments in order.
 ```
 
-![writer motivation](diagrams/writer-motivation.svg)
+![writer motivation](writer/writer-motivation.svg)
 
 ## Examples
 

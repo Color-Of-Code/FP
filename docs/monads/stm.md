@@ -4,13 +4,13 @@
 **atomic transactions**. A transaction either commits completely — with all its writes visible at
 once — or retries from the beginning if another thread modified a value it read.
 
-![STM monad](diagrams/stm.svg)
+![STM monad](stm/stm.svg)
 
-![bind type signature](diagrams/stm-ibd.svg)
+![bind type signature](stm/stm-ibd.svg)
 
-![bind implementation](diagrams/stm-bind.svg)
+![bind implementation](stm/stm-bind.svg)
 
-![pure implementation](diagrams/stm-pure.svg)
+![pure implementation](stm/stm-pure.svg)
 
 ## Type
 
@@ -32,9 +32,9 @@ TVar a    -- a mutable cell readable and writable inside STM
 | `retry`            | `STM a`        | Block; retry the whole transaction when any read `TVar` changes |
 | `orElse stm1 stm2` | `STM a`        | Try `stm1`; if it calls `retry`, run `stm2` instead             |
 
-![stm retry primitive](diagrams/stm-retry.svg)
+![stm retry primitive](stm/stm-retry.svg)
 
-![stm orelse primitive](diagrams/stm-orelse.svg)
+![stm orelse primitive](stm/stm-orelse.svg)
 
 ## What makes STM unique
 
@@ -77,7 +77,7 @@ transfer from to amount = atomically $ do
 -- Runtime retries automatically if another transaction conflicts; no deadlock possible.
 ```
 
-![STM motivation](diagrams/stm-motivation.svg)
+![STM motivation](stm/stm-motivation.svg)
 
 ## Examples
 

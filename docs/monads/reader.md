@@ -4,13 +4,13 @@ The **Reader monad** (`Environment` monad) models computations that depend on a 
 environment** — configuration, dependency injection, or any context that all steps need but none
 should modify.
 
-![reader monad](diagrams/reader.svg)
+![reader monad](reader/reader.svg)
 
-![bind type signature](diagrams/reader-ibd.svg)
+![bind type signature](reader/reader-ibd.svg)
 
-![bind implementation](diagrams/reader-bind.svg)
+![bind implementation](reader/reader-bind.svg)
 
-![pure implementation](diagrams/reader-pure.svg)
+![pure implementation](reader/reader-pure.svg)
 
 ## Type
 
@@ -41,9 +41,9 @@ The environment is **never modified** — every step sees the identical `r`.
 | `local f`   | `(r ⟶ r) ⟶ Reader r a ⟶ Reader r a` | run a sub-computation with a modified environment |
 | `runReader` | `Reader r a ⟶ r ⟶ a`                | supply the environment and execute                |
 
-![reader ask primitive](diagrams/reader-ask.svg)
+![reader ask primitive](reader/reader-ask.svg)
 
-![reader local primitive](diagrams/reader-local.svg)
+![reader local primitive](reader/reader-local.svg)
 
 ## Key use cases
 
@@ -81,7 +81,7 @@ build_url = do
 -- No config parameter in sight; runReader supplies it once at the top.
 ```
 
-![reader motivation](diagrams/reader-motivation.svg)
+![reader motivation](reader/reader-motivation.svg)
 
 ## Examples
 

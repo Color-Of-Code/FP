@@ -3,13 +3,13 @@
 The **IO monad** models **side-effectful computations** — reading input, writing output, accessing
 files, clocks, or any interaction with the outside world.
 
-![IO monad](diagrams/io.svg)
+![IO monad](io/io.svg)
 
-![bind type signature](diagrams/io-ibd.svg)
+![bind type signature](io/io-ibd.svg)
 
-![bind implementation](diagrams/io-bind.svg)
+![bind implementation](io/io-bind.svg)
 
-![pure implementation](diagrams/io-pure.svg)
+![pure implementation](io/io-pure.svg)
 
 ## Type
 
@@ -68,7 +68,7 @@ compute x = do
 -- The runtime executes effects in the exact order bind specifies.
 ```
 
-![IO motivation](diagrams/io-motivation.svg)
+![IO motivation](io/io-motivation.svg)
 
 ## Examples
 

@@ -3,13 +3,13 @@
 The **Maybe monad** (`Option` in some languages) models computations that may **fail silently** —
 producing either a value or nothing at all.
 
-![maybe monad](diagrams/maybe.svg)
+![maybe monad](maybe/maybe.svg)
 
-![bind type signature](diagrams/maybe-ibd.svg)
+![bind type signature](maybe/maybe-ibd.svg)
 
-![pure implementation](diagrams/maybe-pure.svg)
+![pure implementation](maybe/maybe-pure.svg)
 
-![bind implementation](diagrams/maybe-bind.svg)
+![bind implementation](maybe/maybe-bind.svg)
 
 ## Type
 
@@ -61,9 +61,9 @@ lookup_user_city(id) =
         .bind(city    -> pure(city.name))
 ```
 
-![maybe motivation: without Maybe monad](diagrams/maybe-motivation-without.svg)
+![maybe motivation: without Maybe monad](maybe/maybe-motivation-without.svg)
 
-![maybe motivation: with Maybe monad](diagrams/maybe-motivation-with.svg)
+![maybe motivation: with Maybe monad](maybe/maybe-motivation-with.svg)
 
 ## Examples
 

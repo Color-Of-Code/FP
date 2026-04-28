@@ -3,13 +3,13 @@
 The **State monad** models computations that read and write a **shared mutable state** without
 actually using mutable variables — state is threaded explicitly as a function argument.
 
-![state monad](diagrams/state.svg)
+![state monad](state/state.svg)
 
-![bind type signature](diagrams/state-ibd.svg)
+![bind type signature](state/state-ibd.svg)
 
-![bind implementation](diagrams/state-bind.svg)
+![bind implementation](state/state-bind.svg)
 
-![pure implementation](diagrams/state-pure.svg)
+![pure implementation](state/state-pure.svg)
 
 ## Type
 
@@ -41,11 +41,11 @@ The result value flows down; the state flows sideways through every step.
 | `modify f` | `State s ()` | apply `f` to the current state         |
 | `return a` | `State s a`  | produce `a` without touching the state |
 
-![state get primitive](diagrams/state-get.svg)
+![state get primitive](state/state-get.svg)
 
-![state put primitive](diagrams/state-put.svg)
+![state put primitive](state/state-put.svg)
 
-![state modify primitive](diagrams/state-modify.svg)
+![state modify primitive](state/state-modify.svg)
 
 ## Key use cases
 
@@ -84,7 +84,7 @@ pipeline(input) = do
 -- No state variables at call sites; the monad threads them correctly.
 ```
 
-![state motivation](diagrams/state-motivation.svg)
+![state motivation](state/state-motivation.svg)
 
 ## Examples
 

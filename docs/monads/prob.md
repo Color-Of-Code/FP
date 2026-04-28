@@ -4,13 +4,13 @@ The **Probability monad** (also called the Distribution monad) models **discrete
 distributions**. Each possible value is paired with its probability, and `bind` implements
 conditional probability — weighting each outcome by the probability of reaching it.
 
-![prob monad](diagrams/prob.svg)
+![prob monad](prob/prob.svg)
 
-![bind type signature](diagrams/prob-ibd.svg)
+![bind type signature](prob/prob-ibd.svg)
 
-![bind implementation](diagrams/prob-bind.svg)
+![bind implementation](prob/prob-bind.svg)
 
-![pure implementation](diagrams/prob-pure.svg)
+![pure implementation](prob/prob-pure.svg)
 
 ## Type
 
@@ -76,7 +76,7 @@ score = do
     return score
 ```
 
-![prob motivation](diagrams/prob-motivation.svg)
+![prob motivation](prob/prob-motivation.svg)
 
 ## Examples
 

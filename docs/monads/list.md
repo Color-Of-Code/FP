@@ -3,13 +3,13 @@
 The **List monad** models **non-deterministic** computations — ones that may produce zero, one, or
 many results simultaneously.
 
-![list monad](diagrams/list.svg)
+![list monad](list/list.svg)
 
-![bind type signature](diagrams/list-ibd.svg)
+![bind type signature](list/list-ibd.svg)
 
-![bind implementation](diagrams/list-bind.svg)
+![bind implementation](list/list-bind.svg)
 
-![pure implementation](diagrams/list-pure.svg)
+![pure implementation](list/list-pure.svg)
 
 ## Type
 
@@ -70,7 +70,7 @@ cartesian(xs, ys, zs) =
 -- Adding a dimension is one more >>= line, not a new loop level.
 ```
 
-![list motivation](diagrams/list-motivation.svg)
+![list motivation](list/list-motivation.svg)
 
 ## Examples
 

@@ -4,13 +4,13 @@ The **Continuation monad** (`Cont`) models computations as **functions that take
 continuation** — a callback that says "what to do with the result next". Making continuations
 explicit gives first-class control over the flow of a program.
 
-![cont monad](diagrams/cont.svg)
+![cont monad](cont/cont.svg)
 
-![bind type signature](diagrams/cont-ibd.svg)
+![bind type signature](cont/cont-ibd.svg)
 
-![bind implementation](diagrams/cont-bind.svg)
+![bind implementation](cont/cont-bind.svg)
 
-![pure implementation](diagrams/cont-pure.svg)
+![pure implementation](cont/cont-pure.svg)
 
 ## Type
 
@@ -43,7 +43,7 @@ early exit and other non-local control flows.
 | `reset m`     | `Cont a a -> Cont r a`                      | Delimit the scope of the current continuation          |
 | `shift f`     | `((a -> r) -> Cont r r) -> Cont r a`        | Capture the continuation up to the enclosing `reset`   |
 
-![cont callcc primitive](diagrams/cont-callcc.svg)
+![cont callcc primitive](cont/cont-callcc.svg)
 
 ## Key use cases
 
@@ -82,7 +82,7 @@ pipeline = callCC $ \exit -> do
     return r3
 ```
 
-![cont motivation](diagrams/cont-motivation.svg)
+![cont motivation](cont/cont-motivation.svg)
 
 ## Examples
 
