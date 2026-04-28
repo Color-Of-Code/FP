@@ -36,6 +36,55 @@ function polylineToD(pts: readonly (readonly [number, number])[]): string {
   return `M${x0.toFixed(1)},${y0.toFixed(1)} ${tail}`.trimEnd();
 }
 
+/**
+ * Build the SVG path `d` attribute from a polyline, rounding each interior
+ * corner with a quadratic Bézier fillet.  The fillet radius is clamped to
+ * half the length of the shorter adjacent segment so corners never overshoot.
+ */
+function roundedPolylineToD(
+  pts: readonly (readonly [number, number])[],
+  radius: number,
+): string {
+  if (pts.length === 0) return "";
+  if (pts.length <= 2) return polylineToD(pts);
+
+  const fmt = (n: number) => n.toFixed(1);
+  const [x0, y0] = pts[0];
+  let d = `M${fmt(x0)},${fmt(y0)}`;
+
+  for (let i = 1; i < pts.length - 1; i++) {
+    const [px, py] = pts[i - 1];
+    const [cx, cy] = pts[i];
+    const [nx, ny] = pts[i + 1];
+
+    const inDx = cx - px, inDy = cy - py;
+    const outDx = nx - cx, outDy = ny - cy;
+    const inLen = Math.hypot(inDx, inDy) || 1;
+    const outLen = Math.hypot(outDx, outDy) || 1;
+    const r = Math.min(radius, inLen / 2, outLen / 2);
+
+    // Collinear segment — skip the corner; a straight line through cx,cy is fine.
+    if (Math.abs(inDx * outDy - inDy * outDx) < 0.01) {
+      d += ` L${fmt(cx)},${fmt(cy)}`;
+      continue;
+    }
+
+    const ax = cx - (inDx / inLen) * r;
+    const ay = cy - (inDy / inLen) * r;
+    const bx = cx + (outDx / outLen) * r;
+    const by = cy + (outDy / outLen) * r;
+
+    d += ` L${fmt(ax)},${fmt(ay)} Q${fmt(cx)},${fmt(cy)} ${fmt(bx)},${fmt(by)}`;
+  }
+
+  const [xn, yn] = pts[pts.length - 1];
+  d += ` L${fmt(xn)},${fmt(yn)}`;
+  return d;
+}
+
+/** Default corner-fillet radius in user-space units. */
+const CORNER_RADIUS = 6;
+
 /** Find the midpoint of the longest horizontal-or-vertical segment. */
 function labelAnchor(pts: readonly (readonly [number, number])[]): [number, number] {
   if (pts.length < 2) return [0, 0];
@@ -80,7 +129,7 @@ export function appendGEdge(
   });
 
   const path = appendElement(group, "path", {
-    d: polylineToD(trimmed),
+    d: roundedPolylineToD(trimmed, CORNER_RADIUS),
     fill: "none",
     stroke: edgeCol,
     "stroke-width": 1.5,

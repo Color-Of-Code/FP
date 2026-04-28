@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 628.8000000000001 232" width="628.8000000000001" height="232">
   <defs>
-    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
     </marker>
-    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="#424242" stroke-width="1.25"/>
     </marker>
-    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
   <rect width="628.8000000000001" height="232" fill="white"/>
@@ -20,17 +20,17 @@
       <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
     </g>
     <g class="edge">
-      <path d="M195.6,87.0 L225.1,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M195.6,87.0 L223.6,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M195.6,139.0 L205.6,139.0 L205.6,105.0 L225.1,105.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M195.6,139.0 L200.6,139.0 Q205.6,139.0 205.6,134.0 L205.6,111.0 Q205.6,105.0 211.6,105.0 L223.6,105.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M371.6,87.0 L401.1,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M371.6,87.0 L399.6,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="391.6" y="81" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Right a  →  f(a)</text>
     </g>
     <g class="edge">
-      <path d="M371.6,105.0 L381.6,105.0 L381.6,139.0 L401.1,139.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M371.6,105.0 L376.6,105.0 Q381.6,105.0 381.6,110.0 L381.6,133.0 Q381.6,139.0 387.6,139.0 L399.6,139.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="381.6" y="116" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Left e   →  Left e  (e unchanged, f skipped)</text>
     </g>
     <g class="action-node">

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 833 714" width="833" height="714">
   <defs>
-    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
     </marker>
-    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#424242" stroke-width="1.5"/>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="#424242" stroke-width="1.25"/>
     </marker>
-    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
   <rect width="833" height="714" fill="white"/>
@@ -20,46 +20,46 @@
       <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» fold</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M322.0,106.0 L322.0,116.0 L161.0,116.0 L161.0,135.5" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M322.0,106.0 L322.0,111.0 Q322.0,116.0 317.0,116.0 L167.0,116.0 Q161.0,116.0 161.0,122.0 L161.0,134.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M225.0,106.0 L225.0,135.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M225.0,106.0 L225.0,134.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M101.0,106.0 L101.0,126.0 L193.0,126.0 L193.0,135.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M101.0,106.0 L101.0,120.0 Q101.0,126.0 107.0,126.0 L189.0,126.0 Q193.0,126.0 193.0,130.0 L193.0,134.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M174.0,206.0 L174.0,226.0 L465.0,226.0 L465.0,235.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M174.0,206.0 L174.0,220.0 Q174.0,226.0 180.0,226.0 L461.0,226.0 Q465.0,226.0 465.0,230.0 L465.0,234.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M351.0,106.0 L351.0,216.0 L269.0,216.0 L269.0,294.0 L313.0,294.0 L313.0,313.5" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M351.0,106.0 L351.0,210.0 Q351.0,216.0 345.0,216.0 L275.0,216.0 Q269.0,216.0 269.0,222.0 L269.0,288.0 Q269.0,294.0 275.0,294.0 L307.0,294.0 Q313.0,294.0 313.0,300.0 L313.0,312.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M465.0,284.0 L465.0,294.0 L368.0,294.0 L368.0,313.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M465.0,284.0 L465.0,289.0 Q465.0,294.0 460.0,294.0 L374.0,294.0 Q368.0,294.0 368.0,300.0 L368.0,312.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M341.0,284.0 L341.0,313.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M341.0,284.0 L341.0,312.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M312.0,384.0 L312.0,394.0 L732.0,394.0 L732.0,413.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M312.0,384.0 L312.0,389.0 Q312.0,394.0 317.0,394.0 L726.0,394.0 Q732.0,394.0 732.0,400.0 L732.0,412.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M379.0,106.0 L379.0,116.0 L536.0,116.0 L536.0,491.5" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M379.0,106.0 L379.0,111.0 Q379.0,116.0 384.0,116.0 L530.0,116.0 Q536.0,116.0 536.0,122.0 L536.0,490.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M732.0,462.0 L732.0,482.0 L591.0,482.0 L591.0,491.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M732.0,462.0 L732.0,476.0 Q732.0,482.0 726.0,482.0 L595.0,482.0 Q591.0,482.0 591.0,486.0 L591.0,490.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M608.0,462.0 L608.0,472.0 L564.0,472.0 L564.0,491.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M608.0,462.0 L608.0,467.0 Q608.0,472.0 603.0,472.0 L570.0,472.0 Q564.0,472.0 564.0,478.0 L564.0,490.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M554.0,562.0 L554.0,591.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M554.0,562.0 L554.0,590.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M216.0,198.0 L216.0,304.0 L290.0,304.0 L290.0,321.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M216.0,198.0 L216.0,298.0 Q216.0,304.0 222.0,304.0 L284.0,304.0 Q290.0,304.0 290.0,310.0 L290.0,320.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M354.0,376.0 L354.0,472.0 L513.0,472.0 L513.0,499.5" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M354.0,376.0 L354.0,466.0 Q354.0,472.0 360.0,472.0 L507.0,472.0 Q513.0,472.0 513.0,478.0 L513.0,498.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="action-node">
       <title>Apply f to b0 and a1 → b1</title>

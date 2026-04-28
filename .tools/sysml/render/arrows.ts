@@ -10,9 +10,9 @@ import { COL } from "../types.ts";
 import { appendElement, joinElements, setAttrs, type SvgParent } from "../lib/svg.ts";
 
 const MARKERS = [
-  { id: "arrowFilled", path: "M0,0 L10,5 L0,10 z", fill: COL.edgeStroke, stroke: undefined, strokeWidth: undefined },
-  { id: "arrowOpen",   path: "M0,0 L10,5 L0,10",   fill: "none",        stroke: COL.edgeStroke, strokeWidth: 1.5 },
-  { id: "arrowHof",    path: "M0,0 L10,5 L0,10 z", fill: COL.hofEdge,    stroke: undefined, strokeWidth: undefined },
+  { id: "arrowFilled", path: "M0,1.5 L10,5 L0,8.5 L2.5,5 Z", fill: COL.edgeStroke, stroke: undefined,        strokeWidth: undefined },
+  { id: "arrowOpen",   path: "M0,1.5 L10,5 L0,8.5",         fill: "none",          stroke: COL.edgeStroke, strokeWidth: 1.25 },
+  { id: "arrowHof",    path: "M0,1.5 L10,5 L0,8.5 L2.5,5 Z", fill: COL.hofEdge,     stroke: undefined,        strokeWidth: undefined },
 ] as const;
 
 /** Append the shared marker definitions to the root SVG document. */
@@ -25,8 +25,8 @@ export function appendArrowDefs(svg: SvgParent): void {
       viewBox: "0 0 10 10",
       refX: 0,
       refY: 5,
-      markerWidth: 7,
-      markerHeight: 7,
+      markerWidth: 8,
+      markerHeight: 8,
       orient: "auto-start-reverse",
     });
     appendElement(marker, "path", {

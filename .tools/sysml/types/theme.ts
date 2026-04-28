@@ -36,11 +36,11 @@ export const theme = {
      * Rendered depth of the arrowhead in SVG user-space units.
      *
      * Markers use markerUnits="strokeWidth" (default), strokeWidth=1.5,
-     * markerWidth=7, viewBox="0 0 10 10": scale = 7×1.5/10 = 1.05 u/unit.
-     * Tip is at marker-x=10  → depth = 10 × 1.05 = 10.5.
+     * markerWidth=8, viewBox="0 0 10 10": scale = 8×1.5/10 = 1.2 u/unit.
+     * Tip is at marker-x=10  → depth = 10 × 1.2 = 12.
      * Used with refX="0" so the tip lands exactly on the target boundary.
      */
-    arrowDepth:     10.5,
+    arrowDepth:     12,
   },
   colors: {
     actionFill:  "#e8f5e9", actionStroke:  "#388e3c",
