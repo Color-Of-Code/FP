@@ -98,6 +98,26 @@ export async function layoutGraph(
 
   // Pre-compute which nodes are merges (used for decision-port routing).
   const mergeIds = new Set(nodes.filter(n => n.kind === "merge").map(n => n.id));
+  // Pre-compute which nodes are terminal sinks: object/final nodes with no
+  // outgoing edges.  We pin them to the LAST layer so independent end-points
+  // (e.g. `cityName` on the happy path and `nothing` on the failure path)
+  // align vertically in the same column instead of stretching the canvas.
+  const hasOutgoing = new Set<string>();
+  const hasIncoming = new Set<string>();
+  for (const e of edges) {
+    if (!e.isNoteAttachment) {
+      hasOutgoing.add(e.from);
+      hasIncoming.add(e.to);
+    }
+  }
+  const isTerminalSink = (n: GNode): boolean =>
+    (n.kind === "object" || n.kind === "final") &&
+    hasIncoming.has(n.id) &&
+    !hasOutgoing.has(n.id);
+  const isInitialSource = (n: GNode): boolean =>
+    (n.kind === "object" || n.kind === "initial") &&
+    hasOutgoing.has(n.id) &&
+    !hasIncoming.has(n.id);
   // For each decision/merge node, collect outgoing/incoming edges so we can
   // attach side-hint ports.  Forward outputs exit on `outSide`; outputs that
   // feed a merge exit on `altSide` (forming the perpendicular fail-rail).
@@ -162,7 +182,15 @@ export async function layoutGraph(
       };
     }
     if (n.kind !== "action") {
-      return { id: n.id, width: n.w, height: n.h };
+      const layoutOptions: Record<string, string> = {};
+      if (isTerminalSink(n)) {
+        layoutOptions["elk.layered.layering.layerConstraint"] = "LAST";
+      } else if (isInitialSource(n)) {
+        layoutOptions["elk.layered.layering.layerConstraint"] = "FIRST";
+      }
+      const child: ElkNode = { id: n.id, width: n.w, height: n.h };
+      if (Object.keys(layoutOptions).length > 0) child.layoutOptions = layoutOptions;
+      return child;
     }
     const ports: ElkPort[] = [];
     n.inPins.forEach((pin, i) => {

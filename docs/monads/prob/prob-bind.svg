@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1341 365" width="1341" height="365">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1354.2 324" width="1354.2" height="324">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,243 +11,243 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1341" height="365" fill="white"/>
-  <text x="670.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Prob bind: apply f per outcome, weight by pa, merge</text>
-  <text x="670.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">law of total probability</text>
-  <text x="670.5" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, SelectMany, &gt;&gt;=</text>
+  <rect width="1354.2" height="324" fill="white"/>
+  <text x="677.1" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Prob bind: apply f per outcome, weight by pa, merge</text>
+  <text x="677.1" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">law of total probability</text>
+  <text x="677.1" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, SelectMany, &gt;&gt;=</text>
   <g transform="translate(0,60)">
-    <rect x="0" y="0" width="1341" height="305" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1354.2" height="264" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» bind</text>
     </g>
     <g class="edge">
-      <path d="M164.0,111.0 L169.0,111.0 Q174.0,111.0 174.0,106.0 L174.0,65.0 Q174.0,59.0 180.0,59.0 L212.4,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="174" y="79" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
+      <path d="M164.0,110.0 L178.0,110.0 Q184.0,110.0 184.0,116.0 L184.0,160.0 Q184.0,166.0 190.0,166.0 L221.0,166.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="184" y="132" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
-      <path d="M164.0,111.0 L212.4,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="194.2" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
+      <path d="M164.0,110.0 L178.0,110.0 Q184.0,110.0 184.0,116.0 L184.0,211.0 Q184.0,217.0 190.0,217.0 L222.5,217.0 Q223.0,217.0 223.0,217.5 L223.0,218.0 L223.0,218.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="184" y="157.5" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
-      <path d="M164.0,111.0 L169.0,111.0 Q174.0,111.0 174.0,116.0 L174.0,209.0 Q174.0,215.0 180.0,215.0 L212.4,215.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="174" y="157" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
+      <path d="M164.0,110.0 L178.0,110.0 Q184.0,110.0 184.0,104.0 L184.0,65.0 Q184.0,59.0 190.0,59.0 L221.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="184" y="78.5" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
-      <path d="M164.0,111.0 L169.0,111.0 Q174.0,111.0 174.0,116.0 L174.0,261.0 Q174.0,267.0 180.0,267.0 L212.4,267.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="174" y="183" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
+      <path d="M164.0,110.0 L222.5,110.0 Q223.0,110.0 223.0,110.5 L223.0,111.0 L223.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="193.5" y="104" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
-      <path d="M334.4,59.0 L361.8,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M343.0,166.0 L365.0,166.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M334.4,111.0 L343.8,111.0 Q349.8,111.0 349.8,105.0 L349.8,78.0 Q349.8,72.0 355.8,72.0 L361.8,72.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M343.0,218.0 L348.0,218.0 Q353.0,218.0 353.0,213.0 L353.0,185.0 Q353.0,179.0 359.0,179.0 L365.0,179.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M339.8,163.0 L353.8,163.0 Q359.8,163.0 359.8,157.0 L359.8,86.0 Q359.8,85.0 360.8,85.0 L361.8,85.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M164.0,162.0 L169.0,162.0 Q174.0,162.0 174.0,167.0 L174.0,239.0 Q174.0,245.0 180.0,245.0 L357.0,245.0 Q363.0,245.0 363.0,239.0 L363.0,193.0 Q363.0,192.0 364.0,192.0 L365.0,192.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M501.8,66.0 L509.8,66.0 Q515.8,66.0 515.8,72.0 L515.8,106.0 Q515.8,110.0 519.8,110.0 L523.8,110.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M505.0,173.0 L523.0,173.0 Q529.0,173.0 529.0,179.0 L529.0,191.0 L529.0,191.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M649.4,110.0 L654.4,110.0 Q659.4,110.0 659.4,115.0 L659.4,116.0 Q659.4,122.0 665.4,122.0 L671.4,122.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M652.6,191.0 L657.6,191.0 Q662.6,191.0 662.6,186.0 L662.6,185.5 Q662.6,180.0 668.1,180.0 L674.6,180.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M334.4,111.0 L343.8,111.0 Q349.8,111.0 349.8,117.0 L349.8,131.0 Q349.8,137.0 355.8,137.0 L671.4,137.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M343.0,218.0 L666.6,218.0 Q672.6,218.0 672.6,212.0 L672.6,196.0 Q672.6,195.0 673.6,195.0 L674.6,195.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M811.4,120.0 L829.4,120.0 Q835.4,120.0 835.4,126.0 L835.4,164.0 L835.4,164.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M814.6,178.0 L837.1,178.0 Q838.6,178.0 838.6,176.5 L838.6,176.5 Q838.6,175.0 840.1,175.0 L846.6,175.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M334.4,215.0 L361.8,215.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M343.0,59.0 L365.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M334.4,267.0 L343.8,267.0 Q349.8,267.0 349.8,261.0 L349.8,234.0 Q349.8,228.0 355.8,228.0 L361.8,228.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M343.0,111.0 L357.0,111.0 Q363.0,111.0 363.0,105.0 L363.0,73.0 Q363.0,72.0 364.0,72.0 L365.0,72.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M339.8,163.0 L353.8,163.0 Q359.8,163.0 359.8,169.0 L359.8,240.0 Q359.8,241.0 360.8,241.0 L361.8,241.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M164.0,162.0 L169.0,162.0 Q174.0,162.0 174.0,157.0 L174.0,144.0 Q174.0,138.0 180.0,138.0 L347.0,138.0 Q353.0,138.0 353.0,132.0 L353.0,91.0 Q353.0,85.0 359.0,85.0 L365.0,85.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M501.8,222.0 L519.8,222.0 Q525.8,222.0 525.8,228.0 L525.8,240.0 L525.8,240.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M505.0,66.0 L513.0,66.0 Q519.0,66.0 519.0,72.0 L519.0,106.0 Q519.0,110.0 523.0,110.0 L527.0,110.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M649.4,240.0 L654.4,240.0 Q659.4,240.0 659.4,235.0 L659.4,229.0 Q659.4,223.0 665.4,223.0 L671.4,223.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M652.6,110.0 L657.6,110.0 Q662.6,110.0 662.6,115.0 L662.6,116.0 Q662.6,122.0 668.6,122.0 L674.6,122.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M334.4,267.0 L663.4,267.0 Q669.4,267.0 669.4,261.0 L669.4,239.0 Q669.4,238.0 670.4,238.0 L671.4,238.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M343.0,111.0 L357.0,111.0 Q363.0,111.0 363.0,117.0 L363.0,131.0 Q363.0,137.0 369.0,137.0 L674.6,137.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M811.4,221.0 L833.4,221.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M814.6,120.0 L842.6,120.0 Q848.6,120.0 848.6,126.0 L848.6,227.0 L848.6,227.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M995.0,164.0 L1000.0,164.0 Q1005.0,164.0 1005.0,159.0 L1005.0,152.0 Q1005.0,146.0 1011.0,146.0 L1017.0,146.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M1008.2,175.0 L1013.2,175.0 Q1018.2,175.0 1018.2,170.0 L1018.2,163.0 Q1018.2,157.0 1024.2,157.0 L1030.2,157.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M995.0,221.0 L1009.0,221.0 Q1015.0,221.0 1015.0,215.0 L1015.0,160.0 Q1015.0,159.0 1016.0,159.0 L1017.0,159.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M1008.2,227.0 L1022.2,227.0 Q1028.2,227.0 1028.2,221.0 L1028.2,171.0 Q1028.2,170.0 1029.2,170.0 L1030.2,170.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M1157.0,147.0 L1165.0,147.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M1170.2,158.0 L1178.2,158.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M497.8,82.0 L663.4,82.0 Q669.4,82.0 669.4,88.0 L669.4,108.0 Q669.4,111.0 672.4,111.0 L675.4,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M501.0,189.0 L513.0,189.0 Q519.0,189.0 519.0,183.0 L519.0,169.0 Q519.0,163.0 525.0,163.0 L659.6,163.0 Q662.6,163.0 662.6,166.0 L662.6,166.0 Q662.6,169.0 665.6,169.0 L678.6,169.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M497.8,238.0 L509.8,238.0 Q515.8,238.0 515.8,232.0 L515.8,218.0 Q515.8,212.0 521.8,212.0 L675.4,212.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M501.0,82.0 L666.6,82.0 Q672.6,82.0 672.6,88.0 L672.6,108.0 Q672.6,111.0 675.6,111.0 L678.6,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M807.4,136.0 L1021.0,136.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M810.6,194.0 L822.6,194.0 Q828.6,194.0 828.6,188.0 L828.6,153.0 Q828.6,147.0 834.6,147.0 L1034.2,147.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M807.4,237.0 L819.4,237.0 Q825.4,237.0 825.4,231.0 L825.4,131.0 Q825.4,125.0 831.4,125.0 L1002.0,125.0 Q1005.0,125.0 1005.0,128.0 L1005.0,128.0 Q1005.0,131.0 1008.0,131.0 L1021.0,131.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M810.6,136.0 L1015.2,136.0 Q1018.2,136.0 1018.2,139.0 L1018.2,139.0 Q1018.2,142.0 1021.2,142.0 L1034.2,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="action-node">
       <title>Apply f(a1): get the conditional distribution Prob b given A = a1</title>
-      <rect x="377.8" y="50" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="437.8" y="72" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">branch1</text>
+      <rect x="381" y="157" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="441" y="179" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">branch1</text>
       <g class="pin pin-in">
-        <rect x="373.8" y="57" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="61" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a_val</text>
+        <rect x="377" y="164" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="387" y="168" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a_val</text>
       </g>
       <g class="pin pin-in">
-        <rect x="373.8" y="68" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="72" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
+        <rect x="377" y="175" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="387" y="179" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-in">
-        <rect x="373.8" y="79" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="83" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <rect x="377" y="186" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="387" y="190" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="493.8" y="68" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="491.8" y="72" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
+        <rect x="497" y="175" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="495" y="179" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
       </g>
     </g>
     <g class="action-node">
       <title>Apply f(a2): get the conditional distribution Prob b given A = a2</title>
-      <rect x="377.8" y="206" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="437.8" y="228" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">branch2</text>
+      <rect x="381" y="50" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="441" y="72" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">branch2</text>
       <g class="pin pin-in">
-        <rect x="373.8" y="213" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="217" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a_val</text>
+        <rect x="377" y="57" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="387" y="61" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a_val</text>
       </g>
       <g class="pin pin-in">
-        <rect x="373.8" y="224" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="228" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
+        <rect x="377" y="68" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="387" y="72" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-in">
-        <rect x="373.8" y="235" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="239" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <rect x="377" y="79" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="387" y="83" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="493.8" y="224" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="491.8" y="228" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
+        <rect x="497" y="68" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="495" y="72" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
       </g>
     </g>
     <g class="action-node">
       <title>Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)</title>
-      <rect x="687.4" y="104" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="747.4" y="126" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">weight1</text>
+      <rect x="690.6" y="162" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="750.6" y="184" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">weight1</text>
       <g class="pin pin-in">
-        <rect x="683.4" y="114.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="693.4" y="118.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
+        <rect x="686.6" y="172.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="696.6" y="176.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
       </g>
       <g class="pin pin-in">
-        <rect x="683.4" y="129.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="693.4" y="133.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
+        <rect x="686.6" y="187.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="696.6" y="191.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-out">
-        <rect x="803.4" y="122" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.4" y="126" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">weighted</text>
+        <rect x="806.6" y="180" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="804.6" y="184" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">weighted</text>
       </g>
     </g>
     <g class="action-node">
       <title>Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)</title>
-      <rect x="687.4" y="205" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="747.4" y="227" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">weight2</text>
+      <rect x="690.6" y="104" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="750.6" y="126" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">weight2</text>
       <g class="pin pin-in">
-        <rect x="683.4" y="215.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="693.4" y="219.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
+        <rect x="686.6" y="114.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="696.6" y="118.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
       </g>
       <g class="pin pin-in">
-        <rect x="683.4" y="230.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="693.4" y="234.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
+        <rect x="686.6" y="129.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="696.6" y="133.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-out">
-        <rect x="803.4" y="223" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.4" y="227" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">weighted</text>
+        <rect x="806.6" y="122" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="804.6" y="126" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">weighted</text>
       </g>
     </g>
     <g class="action-node">
       <title>Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B).</title>
-      <rect x="1033" y="125" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="1093" y="147" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">merge</text>
+      <rect x="1046.2" y="136" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="1106.2" y="158" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">merge</text>
       <g class="pin pin-in">
-        <rect x="1029" y="135.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1039" y="139.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">w1</text>
+        <rect x="1042.2" y="146.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1052.2" y="150.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">w1</text>
       </g>
       <g class="pin pin-in">
-        <rect x="1029" y="150.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1039" y="154.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">w2</text>
+        <rect x="1042.2" y="161.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1052.2" y="165.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">w2</text>
       </g>
       <g class="pin pin-out">
-        <rect x="1149" y="143" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1147" y="147" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">dist_b</text>
+        <rect x="1162.2" y="154" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1160.2" y="158" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">dist_b</text>
       </g>
     </g>
     <g class="object-node">
       <title>Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a).</title>
-      <rect x="36" y="92" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="100" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_a : Prob a</text>
+      <rect x="36" y="91" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="100" y="110" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_a : Prob a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b</title>
-      <rect x="218.99999999999997" y="144" width="120.8" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="279.4" y="156" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="279.4" y="170" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Prob b</text>
+      <rect x="43.199999999999996" y="143" width="120.8" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="103.6" y="155" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="103.6" y="169" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Prob b</text>
     </g>
     <g class="object-node">
       <title>Outcome a1 from Prob a</title>
-      <rect x="224.39999999999998" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="279.4" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a1 : a</text>
+      <rect x="233" y="147" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="288" y="166" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a1 : a</text>
     </g>
     <g class="object-node">
       <title>P(A = a1) — probability of outcome a1</title>
-      <rect x="224.39999999999998" y="92" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="279.4" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pa1 : Double</text>
+      <rect x="233" y="199" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="288" y="218" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pa1 : Double</text>
     </g>
     <g class="object-node">
       <title>Outcome a2 from Prob a</title>
-      <rect x="224.39999999999998" y="196" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="279.4" y="215" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a2 : a</text>
+      <rect x="233" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="288" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a2 : a</text>
     </g>
     <g class="object-node">
       <title>P(A = a2) — probability of outcome a2</title>
-      <rect x="224.39999999999998" y="248" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="279.4" y="267" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pa2 : Double</text>
+      <rect x="233" y="92" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="288" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pa2 : Double</text>
     </g>
     <g class="object-node">
       <title>Prob b — conditional distribution for branch a1</title>
-      <rect x="535.8" y="91" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="592.5999999999999" y="110" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sub1 : Prob b</text>
+      <rect x="539" y="172" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="595.8" y="191" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sub1 : Prob b</text>
     </g>
     <g class="object-node">
       <title>Prob b — conditional distribution for branch a2</title>
-      <rect x="535.8" y="221" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="592.5999999999999" y="240" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sub2 : Prob b</text>
+      <rect x="539" y="91" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="595.8" y="110" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sub2 : Prob b</text>
     </g>
     <g class="object-node">
       <title>[(b, pa1·pb)] — weighted outcomes for branch a1</title>
-      <rect x="845.4" y="145" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="920.1999999999999" y="164" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">w1 : [(b, pa1·pb)]</text>
+      <rect x="858.6" y="156" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="933.4" y="175" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">w1 : [(b, pa1·pb)]</text>
     </g>
     <g class="object-node">
       <title>[(b, pa2·pb)] — weighted outcomes for branch a2</title>
-      <rect x="845.4" y="202" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="920.1999999999999" y="221" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">w2 : [(b, pa2·pb)]</text>
+      <rect x="858.6" y="208" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="933.4" y="227" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">w2 : [(b, pa2·pb)]</text>
     </g>
     <g class="object-node">
       <title>Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)</title>
-      <rect x="1177" y="128" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1241" y="147" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_b : Prob b</text>
+      <rect x="1190.2" y="139" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1254.2" y="158" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_b : Prob b</text>
     </g>
   </g>
 </svg>

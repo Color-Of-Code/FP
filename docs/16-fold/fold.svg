@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 434 584" width="434" height="584">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 682 594" width="682" height="594">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,117 +11,117 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="434" height="584" fill="white"/>
-  <text x="217" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List&lt;a&gt; ⟶ b</text>
+  <rect width="682" height="594" fill="white"/>
+  <text x="341" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List&lt;a&gt; ⟶ b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="434" height="556" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="682" height="566" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» fold</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M93.0,78.0 L93.0,83.0 Q93.0,88.0 98.0,88.0 L124.0,88.0 Q130.0,88.0 130.0,94.0 L130.0,100.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M93.0,78.0 L93.0,83.0 Q93.0,88.0 98.0,88.0 L181.0,88.0 Q187.0,88.0 187.0,94.0 L187.0,110.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M343.0,78.0 L343.0,92.0 Q343.0,98.0 337.0,98.0 L195.0,98.0 Q194.0,98.0 194.0,99.0 L194.0,100.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M343.0,78.0 L343.0,83.0 Q343.0,88.0 338.0,88.0 L257.0,88.0 Q251.0,88.0 251.0,94.0 L251.0,110.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M219.0,78.0 L219.0,83.0 Q219.0,88.0 214.0,88.0 L168.0,88.0 Q162.0,88.0 162.0,94.0 L162.0,100.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M219.0,78.0 L219.0,110.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M143.0,164.0 L143.0,182.0 Q143.0,188.0 149.0,188.0 L303.0,188.0 L303.0,188.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M200.0,174.0 L200.0,182.0 Q200.0,188.0 206.0,188.0 L345.0,188.0 Q351.0,188.0 351.0,194.0 L351.0,206.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M93.0,78.0 L93.0,182.0 Q93.0,188.0 99.0,188.0 L109.0,188.0 Q115.0,188.0 115.0,194.0 L115.0,240.0 Q115.0,246.0 121.0,246.0 L138.0,246.0 Q144.0,246.0 144.0,252.0 L144.0,258.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M93.0,78.0 L93.0,83.0 Q93.0,88.0 98.0,88.0 L144.0,88.0 Q150.0,88.0 150.0,94.0 L150.0,202.0 Q150.0,208.0 156.0,208.0 L195.0,208.0 Q201.0,208.0 201.0,214.0 L201.0,268.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M303.0,236.0 L303.0,241.0 Q303.0,246.0 298.0,246.0 L205.0,246.0 Q199.0,246.0 199.0,252.0 L199.0,258.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M351.0,256.0 L351.0,261.0 Q351.0,266.0 346.0,266.0 L257.0,266.0 Q256.0,266.0 256.0,267.0 L256.0,268.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M179.0,236.0 L179.0,242.5 Q179.0,246.0 175.5,246.0 L175.5,246.0 Q172.0,246.0 172.0,249.5 L172.0,258.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M467.0,78.0 L467.0,92.0 Q467.0,98.0 461.0,98.0 L293.0,98.0 Q287.0,98.0 287.0,104.0 L287.0,202.0 Q287.0,208.0 281.0,208.0 L235.0,208.0 Q229.0,208.0 229.0,214.0 L229.0,268.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M143.0,322.0 L143.0,340.0 Q143.0,346.0 149.0,346.0 L281.0,346.0 L281.0,346.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M200.0,332.0 L200.0,360.0 Q200.0,366.0 206.0,366.0 L478.0,366.0 L478.0,366.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M93.0,78.0 L93.0,398.0 Q93.0,404.0 99.0,404.0 L99.0,404.0 Q105.0,404.0 105.0,410.0 L105.0,416.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M93.0,78.0 L93.0,83.0 Q93.0,88.0 98.0,88.0 L144.0,88.0 Q150.0,88.0 150.0,94.0 L150.0,350.0 Q150.0,356.0 156.0,356.0 L156.0,356.0 Q162.0,356.0 162.0,362.0 L162.0,426.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M281.0,394.0 L281.0,408.0 Q281.0,414.0 275.0,414.0 L161.0,414.0 Q160.0,414.0 160.0,415.0 L160.0,416.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M478.0,414.0 L478.0,419.0 Q478.0,424.0 473.0,424.0 L218.0,424.0 Q217.0,424.0 217.0,425.0 L217.0,426.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M157.0,394.0 L157.0,399.0 Q157.0,404.0 152.0,404.0 L139.0,404.0 Q133.0,404.0 133.0,410.0 L133.0,416.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M591.0,78.0 L591.0,102.0 Q591.0,108.0 585.0,108.0 L420.0,108.0 Q414.0,108.0 414.0,114.0 L414.0,350.0 Q414.0,356.0 408.0,356.0 L196.0,356.0 Q190.0,356.0 190.0,362.0 L190.0,426.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M123.0,480.0 L123.0,488.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M180.0,490.0 L180.0,498.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M185.0,160.0 L185.0,172.0 Q185.0,178.0 179.0,178.0 L110.0,178.0 Q104.0,178.0 104.0,184.0 L104.0,250.0 Q104.0,256.0 110.0,256.0 L118.0,256.0 Q121.0,256.0 121.0,259.0 L121.0,262.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M242.0,170.0 L242.0,192.0 Q242.0,198.0 236.0,198.0 L167.0,198.0 Q161.0,198.0 161.0,204.0 L161.0,260.0 Q161.0,266.0 167.0,266.0 L175.0,266.0 Q178.0,266.0 178.0,269.0 L178.0,272.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M185.0,318.0 L185.0,330.0 Q185.0,336.0 179.0,336.0 L88.0,336.0 Q82.0,336.0 82.0,342.0 L82.0,420.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M242.0,328.0 L242.0,340.0 Q242.0,346.0 236.0,346.0 L145.0,346.0 Q139.0,346.0 139.0,352.0 L139.0,430.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="action-node">
       <title>Apply f to b0 and a1 → b1</title>
-      <rect x="102" y="116" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="162" y="138" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1</text>
+      <rect x="159" y="126" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="219" y="148" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1</text>
       <g class="pin pin-in">
-        <rect x="98" y="123" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="108" y="127" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
+        <rect x="155" y="133" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="165" y="137" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
       </g>
       <g class="pin pin-in">
-        <rect x="98" y="134" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="108" y="138" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
+        <rect x="155" y="144" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="165" y="148" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
       </g>
       <g class="pin pin-in">
-        <rect x="98" y="145" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="108" y="149" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <rect x="155" y="155" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="165" y="159" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="218" y="134" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="216" y="138" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
+        <rect x="275" y="144" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="273" y="148" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
       </g>
     </g>
     <g class="action-node">
       <title>Apply f to b1 and a2 → b2</title>
-      <rect x="102" y="274" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="162" y="296" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2</text>
+      <rect x="159" y="284" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="219" y="306" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2</text>
       <g class="pin pin-in">
-        <rect x="98" y="281" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="108" y="285" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
+        <rect x="155" y="291" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="165" y="295" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
       </g>
       <g class="pin pin-in">
-        <rect x="98" y="292" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="108" y="296" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
+        <rect x="155" y="302" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="165" y="306" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
       </g>
       <g class="pin pin-in">
-        <rect x="98" y="303" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="108" y="307" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <rect x="155" y="313" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="165" y="317" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="218" y="292" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="216" y="296" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
+        <rect x="275" y="302" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="273" y="306" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
       </g>
     </g>
     <g class="action-node">
       <title>Apply f to b2 and a3 → b3 (final result)</title>
-      <rect x="63" y="432" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="123" y="454" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3</text>
+      <rect x="120" y="442" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="180" y="464" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3</text>
       <g class="pin pin-in">
-        <rect x="59" y="439" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="69" y="443" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
+        <rect x="116" y="449" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="126" y="453" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
       </g>
       <g class="pin pin-in">
-        <rect x="59" y="450" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="69" y="454" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
+        <rect x="116" y="460" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="126" y="464" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
       </g>
       <g class="pin pin-in">
-        <rect x="59" y="461" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="69" y="465" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <rect x="116" y="471" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="126" y="475" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="179" y="450" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="177" y="454" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
+        <rect x="236" y="460" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="234" y="464" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
       </g>
     </g>
     <g class="object-node hof">
@@ -139,24 +139,24 @@
       <text x="219" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a1 : a</text>
     </g>
     <g class="object-node">
-      <rect x="124" y="198" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="179" y="217" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a2 : a</text>
+      <rect x="412" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="467" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a2 : a</text>
     </g>
     <g class="object-node">
-      <rect x="102" y="356" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="157" y="375" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a3 : a</text>
+      <rect x="536" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="591" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a3 : a</text>
     </g>
     <g class="object-node">
-      <rect x="248" y="198" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="303" y="217" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b1 : b</text>
+      <rect x="296" y="218" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="351" y="237" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b1 : b</text>
     </g>
     <g class="object-node">
-      <rect x="226" y="356" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="281" y="375" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b2 : b</text>
+      <rect x="423" y="376" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="478" y="395" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b2 : b</text>
     </g>
     <g class="object-node">
-      <rect x="68" y="500" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="123" y="519" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b3 : b</text>
+      <rect x="125" y="510" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="180" y="529" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b3 : b</text>
     </g>
   </g>
 </svg>
