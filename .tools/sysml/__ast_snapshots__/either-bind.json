@@ -77,16 +77,6 @@
             },
             {
               "kind": "object",
-              "id": "a0",
-              "type": "a"
-            },
-            {
-              "kind": "object",
-              "id": "e0",
-              "type": "e"
-            },
-            {
-              "kind": "object",
               "id": "ec",
               "type": "Either e b"
             }
@@ -112,13 +102,8 @@
             {
               "kind": "flow",
               "from": "matchEa",
-              "to": "a0",
-              "label": "Right a0"
-            },
-            {
-              "kind": "flow",
-              "from": "a0",
-              "to": "apply_f"
+              "to": "apply_f",
+              "label": "Right a0  (a0 : a)"
             },
             {
               "kind": "flow",
@@ -134,13 +119,8 @@
             {
               "kind": "flow",
               "from": "matchEa",
-              "to": "e0",
-              "label": "Left e0  (f skipped)"
-            },
-            {
-              "kind": "flow",
-              "from": "e0",
-              "to": "widen"
+              "to": "widen",
+              "label": "Left e0  (e0 : e, f skipped)"
             },
             {
               "kind": "flow",
@@ -184,9 +164,7 @@
     "shows": {
       "ea": "type",
       "f": "hof",
-      "a0": "value",
       "apply_f": "function",
-      "e0": "value",
       "widen": "function",
       "ec": "type",
       "shortCircuit": "note",
@@ -196,10 +174,8 @@
     "tooltips": {
       "ea": "Either e a — the input.  Either Right a0 (success carrying a value of type a) or Left e0 (failure carrying an error value of type e).",
       "f": "(a ⟶ Either e b) — the continuation.  Invoked ONLY on the Right branch.  Skipped entirely when ea is Left.",
-      "matchEa": "Pattern match on the sum-type constructor.\\n  Right a0 → a0 : a is available immediately (no separate unwrap step).\\n  Left  e0 → e0 : e is available; the right branch is skipped.\\nExactly one branch fires per invocation; the runtime never executes both.",
-      "a0": "a0 — the unwrapped success payload, extracted by the Right pattern.  Only exists on the Right branch.",
+      "matchEa": "Pattern match on the sum-type constructor.\\n  Right a0 → a0 : a flows directly into f (no separate unwrap step).\\n  Left  e0 → e0 : e flows directly into widen; the right branch is skipped.\\nExactly one branch fires per invocation; the runtime never executes both.",
       "apply_f": "Apply f(a0).  f returns Either e b directly (Right b' or Left e').  bind does NOT inspect f's result — whatever f returned is forwarded unchanged.  This is what makes bind compositional: a Left arising inside f propagates exactly the same way as a Left arising before f.",
-      "e0": "e0 — the unwrapped error payload, extracted by the Left pattern.  Only exists on the Left branch.",
       "widen": "Re-tag the Left constructor: the runtime VALUE Left e0 stays bit-identical, but the static type widens from Left e to Either e b so it unifies with the Right branch's output type at the merge.  No allocation, no transformation — only the type changes.",
       "joinResult": "Merge node — both branches produce a value of the SAME type Either e b.  Exactly one inflow fires per invocation; the merge is a control-flow join, not a runtime choice.",
       "ec": "Either e b — the single result of bind.  Carries either f's output (when ea was Right) or the original error e0 (when ea was Left)."

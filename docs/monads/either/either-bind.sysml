@@ -36,12 +36,10 @@ package EitherBindImpl {
         // pattern match: tests the constructor AND destructures both payloads
         decision matchEa;
 
-        // Right path
-        object a0      : a;
+        // Right path — destructured a0 : a flows directly into f
         action apply_f : ApplyF;
 
-        // Left path
-        object e0       : e;
+        // Left path — destructured e0 : e flows directly into widen
         action widen    : WidenLeft;
 
         // both branches converge here
@@ -53,15 +51,13 @@ package EitherBindImpl {
         // ── main flow ────────────────────────────────────────────
         flow from ea to matchEa;
 
-        // Right branch: destructure a0, apply f, take f's result as-is
-        flow from matchEa to a0       : "Right a0";
-        flow from a0      to apply_f;
+        // Right branch: destructured a0 flows directly into f
+        flow from matchEa to apply_f  : "Right a0  (a0 : a)";
         flow from f       to apply_f;
         flow from apply_f to joinResult : "f(a0) — Right b' or Left e'";
 
-        // Left branch: destructure e0, propagate UNCHANGED (only type widens)
-        flow from matchEa to e0       : "Left e0  (f skipped)";
-        flow from e0      to widen;
+        // Left branch: destructured e0 flows directly into widen (UNCHANGED, only type widens)
+        flow from matchEa to widen    : "Left e0  (e0 : e, f skipped)";
         flow from widen   to joinResult : "Left e0 : Either e b";
 
         // single output
@@ -85,9 +81,7 @@ package EitherBindImpl {
 
     show ea       as type
     show f        as hof
-    show a0       as value
     show apply_f  as function
-    show e0       as value
     show widen    as function
     show ec       as type
     show shortCircuit       as note
@@ -96,10 +90,8 @@ package EitherBindImpl {
 
     tooltip ea         = "Either e a — the input.  Either Right a0 (success carrying a value of type a) or Left e0 (failure carrying an error value of type e)."
     tooltip f          = "(a ⟶ Either e b) — the continuation.  Invoked ONLY on the Right branch.  Skipped entirely when ea is Left."
-    tooltip matchEa    = "Pattern match on the sum-type constructor.\n  Right a0 → a0 : a is available immediately (no separate unwrap step).\n  Left  e0 → e0 : e is available; the right branch is skipped.\nExactly one branch fires per invocation; the runtime never executes both."
-    tooltip a0         = "a0 — the unwrapped success payload, extracted by the Right pattern.  Only exists on the Right branch."
+    tooltip matchEa    = "Pattern match on the sum-type constructor.\n  Right a0 → a0 : a flows directly into f (no separate unwrap step).\n  Left  e0 → e0 : e flows directly into widen; the right branch is skipped.\nExactly one branch fires per invocation; the runtime never executes both."
     tooltip apply_f    = "Apply f(a0).  f returns Either e b directly (Right b' or Left e').  bind does NOT inspect f's result — whatever f returned is forwarded unchanged.  This is what makes bind compositional: a Left arising inside f propagates exactly the same way as a Left arising before f."
-    tooltip e0         = "e0 — the unwrapped error payload, extracted by the Left pattern.  Only exists on the Left branch."
     tooltip widen      = "Re-tag the Left constructor: the runtime VALUE Left e0 stays bit-identical, but the static type widens from Left e to Either e b so it unifies with the Right branch's output type at the merge.  No allocation, no transformation — only the type changes."
     tooltip joinResult = "Merge node — both branches produce a value of the SAME type Either e b.  Exactly one inflow fires per invocation; the merge is a control-flow join, not a runtime choice."
     tooltip ec         = "Either e b — the single result of bind.  Carries either f's output (when ea was Right) or the original error e0 (when ea was Left)."

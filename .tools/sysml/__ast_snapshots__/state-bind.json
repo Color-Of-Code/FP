@@ -129,18 +129,8 @@
             },
             {
               "kind": "object",
-              "id": "a",
-              "type": "a"
-            },
-            {
-              "kind": "object",
               "id": "s1",
               "type": "s"
-            },
-            {
-              "kind": "object",
-              "id": "sb",
-              "type": "State s b"
             },
             {
               "kind": "object",
@@ -169,17 +159,13 @@
             {
               "kind": "flow",
               "from": "run_sa",
-              "to": "a"
+              "to": "apply_f",
+              "label": "a"
             },
             {
               "kind": "flow",
               "from": "run_sa",
               "to": "s1"
-            },
-            {
-              "kind": "flow",
-              "from": "a",
-              "to": "apply_f"
             },
             {
               "kind": "flow",
@@ -189,12 +175,8 @@
             {
               "kind": "flow",
               "from": "apply_f",
-              "to": "sb"
-            },
-            {
-              "kind": "flow",
-              "from": "sb",
-              "to": "run_sb"
+              "to": "run_sb",
+              "label": "State s b"
             },
             {
               "kind": "flow",
@@ -236,10 +218,8 @@
       "f": "hof",
       "s0": "value",
       "run_sa": "function",
-      "a": "value",
       "s1": "value",
       "apply_f": "function",
-      "sb": "type",
       "run_sb": "function",
       "b": "value",
       "s2": "value"
@@ -249,10 +229,8 @@
       "f": "(a ⟶ State s b) — the continuation; given result a, builds the next state computation",
       "s0": "s — the initial state entering the bind. Flows into run_sa.",
       "run_sa": "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1.",
-      "a": "a — the value result of sa(s0). Passed to f.",
       "s1": "s — the state AFTER running sa. This is s1 ≠ s0. It is s1 (not s0) that flows to run_sb. Critical difference from Reader.",
-      "apply_f": "Apply f(a): build the next computation State s b from result a",
-      "sb": "State s b — the second computation, not yet run",
+      "apply_f": "Apply f(a): build the next computation State s b — a function not yet run, applied to s1 by run_sb.",
       "run_sb": "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here.",
       "b": "b — the final value result",
       "s2": "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."

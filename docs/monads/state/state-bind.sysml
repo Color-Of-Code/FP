@@ -29,22 +29,18 @@ package StateBindImpl {
         object f      : "a ⟶ State s b";
         object s0     : s;               // initial state
         action run_sa  : RunSA;
-        object a       : a;
         object s1      : s;              // state after step 1 — NOT s0
         action apply_f : ApplyF;
-        object sb      : "State s b";
         action run_sb  : RunSB;
         object b       : b;
         object s2      : s;              // final state after step 2
 
         flow from sa    to run_sa;
         flow from s0    to run_sa;       // initial state enters
-        flow from run_sa to a;
+        flow from run_sa to apply_f : "a";
         flow from run_sa to s1;          // transformed state exits step 1
-        flow from a     to apply_f;
         flow from f     to apply_f;
-        flow from apply_f to sb;
-        flow from sb    to run_sb;
+        flow from apply_f to run_sb : "State s b";
         flow from s1    to run_sb;       // s1 (NOT s0) flows into step 2
         flow from run_sb to b;
         flow from run_sb to s2;          // further transformed state
@@ -62,10 +58,8 @@ package StateBindImpl {
     show f       as hof
     show s0      as value
     show run_sa  as function
-    show a       as value
     show s1      as value
     show apply_f as function
-    show sb      as type
     show run_sb  as function
     show b       as value
     show s2      as value
@@ -73,10 +67,8 @@ package StateBindImpl {
     tooltip f       = "(a ⟶ State s b) — the continuation; given result a, builds the next state computation"
     tooltip s0      = "s — the initial state entering the bind. Flows into run_sa."
     tooltip run_sa  = "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1."
-    tooltip a       = "a — the value result of sa(s0). Passed to f."
     tooltip s1      = "s — the state AFTER running sa. This is s1 ≠ s0. It is s1 (not s0) that flows to run_sb. Critical difference from Reader."
-    tooltip apply_f = "Apply f(a): build the next computation State s b from result a"
-    tooltip sb      = "State s b — the second computation, not yet run"
+    tooltip apply_f = "Apply f(a): build the next computation State s b — a function not yet run, applied to s1 by run_sb."
     tooltip run_sb  = "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here."
     tooltip b       = "b — the final value result"
     tooltip s2      = "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."

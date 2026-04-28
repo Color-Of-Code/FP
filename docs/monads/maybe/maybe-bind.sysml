@@ -23,8 +23,7 @@ package MaybeBindImpl {
         // Nothing branch → short-circuit directly to output
         decision matchMa;
 
-        // Just path: unwrapped payload available immediately
-        object a0 : a;
+        // Just path: f consumes the unwrapped payload directly — no separate object
         action apply_f : ApplyF;
 
         // merge both paths
@@ -36,9 +35,8 @@ package MaybeBindImpl {
         // main flow
         flow from ma to matchMa;
 
-        // Just branch: decision destructures, a0 is the unwrapped payload
-        flow from matchMa to a0      : "Just a0";
-        flow from a0      to apply_f;
+        // Just branch: decision destructures; the type 'a0 : a' rides on the edge
+        flow from matchMa to apply_f : "Just a0  (a0 : a)";
         flow from f       to apply_f;
         flow from apply_f to joinResult;
 
@@ -57,14 +55,12 @@ package MaybeBindImpl {
     name  = "bind"
     show ma         as type
     show f          as hof
-    show a0         as value
     show apply_f    as function
     show mb         as type
     tooltip ma         = "Maybe a — the input value. Either Just a0 or Nothing."
     tooltip f          = "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0."
-    tooltip matchMa    = "Pattern match: simultaneously tests the constructor and destructures the payload.\nJust a0 → a0 is available (no separate unwrap step)\nNothing → skip f entirely"
-    tooltip a0         = "a0 — the unwrapped payload, extracted by the Just pattern. No separate unwrap action needed."
-    tooltip apply_f    = "Apply f(a). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job."
+    tooltip matchMa    = "Pattern match: simultaneously tests the constructor and destructures the payload.\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\nNothing → skip f entirely."
+    tooltip apply_f    = "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job."
     tooltip joinResult = "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."
     tooltip mb         = "Maybe b — the single result of bind."
 }

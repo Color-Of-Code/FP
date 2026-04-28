@@ -54,11 +54,6 @@
             },
             {
               "kind": "object",
-              "id": "a0",
-              "type": "a"
-            },
-            {
-              "kind": "object",
               "id": "mb",
               "type": "Maybe b"
             }
@@ -84,13 +79,8 @@
             {
               "kind": "flow",
               "from": "matchMa",
-              "to": "a0",
-              "label": "Just a0"
-            },
-            {
-              "kind": "flow",
-              "from": "a0",
-              "to": "apply_f"
+              "to": "apply_f",
+              "label": "Just a0  (a0 : a)"
             },
             {
               "kind": "flow",
@@ -125,16 +115,14 @@
     "shows": {
       "ma": "type",
       "f": "hof",
-      "a0": "value",
       "apply_f": "function",
       "mb": "type"
     },
     "tooltips": {
       "ma": "Maybe a — the input value. Either Just a0 or Nothing.",
       "f": "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0.",
-      "matchMa": "Pattern match: simultaneously tests the constructor and destructures the payload.\\nJust a0 → a0 is available (no separate unwrap step)\\nNothing → skip f entirely",
-      "a0": "a0 — the unwrapped payload, extracted by the Just pattern. No separate unwrap action needed.",
-      "apply_f": "Apply f(a). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.",
+      "matchMa": "Pattern match: simultaneously tests the constructor and destructures the payload.\\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\\nNothing → skip f entirely.",
+      "apply_f": "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.",
       "joinResult": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit).",
       "mb": "Maybe b — the single result of bind."
     },

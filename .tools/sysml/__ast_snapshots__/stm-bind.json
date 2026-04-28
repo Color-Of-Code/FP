@@ -129,16 +129,6 @@
             },
             {
               "kind": "object",
-              "id": "a",
-              "type": "a"
-            },
-            {
-              "kind": "object",
-              "id": "sb",
-              "type": "STM b"
-            },
-            {
-              "kind": "object",
               "id": "b_raw",
               "type": "b"
             },
@@ -164,12 +154,8 @@
             {
               "kind": "flow",
               "from": "run_sa",
-              "to": "a"
-            },
-            {
-              "kind": "flow",
-              "from": "a",
-              "to": "build"
+              "to": "build",
+              "label": "a"
             },
             {
               "kind": "flow",
@@ -179,12 +165,8 @@
             {
               "kind": "flow",
               "from": "build",
-              "to": "sb"
-            },
-            {
-              "kind": "flow",
-              "from": "sb",
-              "to": "run_sb"
+              "to": "run_sb",
+              "label": "STM b"
             },
             {
               "kind": "flow",
@@ -237,9 +219,7 @@
       "sa": "type",
       "f": "hof",
       "run_sa": "function",
-      "a": "value",
       "build": "function",
-      "sb": "type",
       "run_sb": "function",
       "b_raw": "value",
       "commit": "function",
@@ -250,9 +230,7 @@
       "sa": "STM a — an atomic action that reads/writes TVars. Not yet executed.",
       "f": "(a ⟶ STM b) — given result a, builds the next atomic action",
       "run_sa": "Run sa: read/write TVars; result is tentative until atomically commits",
-      "a": "a — the value produced by sa (tentative)",
-      "build": "Apply f(a): build the next atomic action STM b",
-      "sb": "STM b — the next atomic action",
+      "build": "Apply f(a): build the next atomic action STM b — a not-yet-run TVar action",
       "run_sb": "Run f(a): read/write TVars; all writes still tentative",
       "b_raw": "b — the result value (still tentative, not yet committed)",
       "commit": "atomically: check for TVar conflicts.\\n  No conflict  → commit all writes at once; b is visible to other threads\\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa",

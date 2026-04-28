@@ -100,16 +100,6 @@
             },
             {
               "kind": "object",
-              "id": "a",
-              "type": "a"
-            },
-            {
-              "kind": "object",
-              "id": "ib",
-              "type": "IO b"
-            },
-            {
-              "kind": "object",
               "id": "b",
               "type": "b"
             }
@@ -125,12 +115,8 @@
             {
               "kind": "flow",
               "from": "exec_a",
-              "to": "a"
-            },
-            {
-              "kind": "flow",
-              "from": "a",
-              "to": "build"
+              "to": "build",
+              "label": "a"
             },
             {
               "kind": "flow",
@@ -140,12 +126,8 @@
             {
               "kind": "flow",
               "from": "build",
-              "to": "ib"
-            },
-            {
-              "kind": "flow",
-              "from": "ib",
-              "to": "exec_b"
+              "to": "exec_b",
+              "label": "IO b"
             },
             {
               "kind": "flow",
@@ -176,9 +158,7 @@
       "ia": "type",
       "f": "hof",
       "exec_a": "function",
-      "a": "value",
       "build": "function",
-      "ib": "type",
       "exec_b": "function",
       "b": "value"
     },
@@ -186,9 +166,7 @@
       "ia": "IO a — a description (recipe) of a side-effectful computation. Nothing has run yet.",
       "f": "(a ⟶ IO b) — given result a, constructs the next IO action description",
       "exec_a": "Execute ia: the runtime runs the described effect and produces value a. Real I/O happens here.",
-      "a": "a — the value obtained by running ia (e.g. a String read from stdin)",
-      "build": "Apply f(a): build the next IO action description. No effect yet — only the description is created.",
-      "ib": "IO b — the description of the second effect, constructed from a",
+      "build": "Apply f(a): build the next IO action description from a. No effect yet — only the description is created.",
       "exec_b": "Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this.",
       "b": "b — the final result. The sequencing of exec_a before exec_b is the entire bind contract."
     },

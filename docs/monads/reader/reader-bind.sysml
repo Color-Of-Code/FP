@@ -28,7 +28,6 @@ package ReaderBindImpl {
         object f      : "a ⟶ Reader r b";
         object env    : r;              // shared read-only environment
         action run_ra  : RunRA;
-        object a       : a;
         action apply_f : ApplyF;
         object rb      : "Reader r b";
         action run_rb  : RunRB;
@@ -36,8 +35,7 @@ package ReaderBindImpl {
 
         flow from ra    to run_ra;
         flow from env   to run_ra;          // env supplied to first step
-        flow from run_ra to a;
-        flow from a     to apply_f;
+        flow from run_ra to apply_f : "a";
         flow from f     to apply_f;
         flow from apply_f to rb;
         flow from rb    to run_rb;
@@ -57,7 +55,6 @@ package ReaderBindImpl {
     show f       as hof
     show env     as value
     show run_ra  as function
-    show a       as value
     show apply_f as function
     show rb      as type
     show run_rb  as function
@@ -66,7 +63,6 @@ package ReaderBindImpl {
     tooltip f       = "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b"
     tooltip env     = "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified."
     tooltip run_ra  = "Run ra(env): supply env to ra, get result a"
-    tooltip a       = "a — the result of running ra with the environment"
     tooltip apply_f = "Apply f(a): build the next computation Reader r b from result a"
     tooltip rb      = "Reader r b — the second computation (not yet run)"
     tooltip run_rb  = "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State."
