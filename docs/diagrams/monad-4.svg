@@ -27,7 +27,7 @@
       <path d="M166.8,139.0 L171.8,139.0 Q176.8,139.0 176.8,134.0 L176.8,111.0 Q176.8,105.0 182.8,105.0 L198.8,105.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M342.8,96.0 L370.8,96.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M338.8,96.0 L370.8,96.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="362.8" y="90" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">[0..*]</text>
     </g>
     <g class="action-node">

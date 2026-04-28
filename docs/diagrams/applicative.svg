@@ -26,7 +26,7 @@
       <path d="M166.8,139.0 L171.8,139.0 Q176.8,139.0 176.8,134.0 L176.8,111.0 Q176.8,105.0 182.8,105.0 L198.8,105.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M342.8,96.0 L370.8,96.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M338.8,96.0 L370.8,96.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="action-node">
       <title>(&lt;*&gt;) — applies the wrapped function to the wrapped argument</title>

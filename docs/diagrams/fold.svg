@@ -29,7 +29,7 @@
       <path d="M101.0,106.0 L101.0,120.0 Q101.0,126.0 107.0,126.0 L187.0,126.0 Q193.0,126.0 193.0,132.0 L193.0,138.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M174.0,206.0 L174.0,220.0 Q174.0,226.0 180.0,226.0 L461.0,226.0 Q465.0,226.0 465.0,230.0 L465.0,234.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M174.0,202.0 L174.0,220.0 Q174.0,226.0 180.0,226.0 L461.0,226.0 Q465.0,226.0 465.0,230.0 L465.0,234.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
       <path d="M351.0,106.0 L351.0,210.0 Q351.0,216.0 345.0,216.0 L275.0,216.0 Q269.0,216.0 269.0,222.0 L269.0,288.0 Q269.0,294.0 275.0,294.0 L307.0,294.0 Q313.0,294.0 313.0,300.0 L313.0,316.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
@@ -41,7 +41,7 @@
       <path d="M341.0,284.0 L341.0,316.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M312.0,384.0 L312.0,389.0 Q312.0,394.0 317.0,394.0 L726.0,394.0 Q732.0,394.0 732.0,400.0 L732.0,412.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M312.0,380.0 L312.0,388.0 Q312.0,394.0 318.0,394.0 L726.0,394.0 Q732.0,394.0 732.0,400.0 L732.0,412.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
       <path d="M379.0,106.0 L379.0,111.0 Q379.0,116.0 384.0,116.0 L530.0,116.0 Q536.0,116.0 536.0,122.0 L536.0,494.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
@@ -53,7 +53,7 @@
       <path d="M608.0,462.0 L608.0,467.0 Q608.0,472.0 603.0,472.0 L570.0,472.0 Q564.0,472.0 564.0,478.0 L564.0,494.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M554.0,562.0 L554.0,590.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M554.0,558.0 L554.0,590.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M216.0,198.0 L216.0,298.0 Q216.0,304.0 222.0,304.0 L284.0,304.0 Q290.0,304.0 290.0,310.0 L290.0,320.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>

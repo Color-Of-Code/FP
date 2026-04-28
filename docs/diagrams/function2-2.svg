@@ -24,7 +24,7 @@
       <text x="186.8" y="84" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">curry</text>
     </g>
     <g class="edge">
-      <path d="M342.8,84.0 L347.8,84.0 Q352.8,84.0 352.8,89.0 L352.8,130.0 Q352.8,136.0 358.8,136.0 L370.8,136.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M338.8,84.0 L346.8,84.0 Q352.8,84.0 352.8,90.0 L352.8,130.0 Q352.8,136.0 358.8,136.0 L370.8,136.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M554.0,136.0 L559.0,136.0 Q564.0,136.0 564.0,131.0 L564.0,117.0 Q564.0,111.0 570.0,111.0 L586.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
@@ -34,7 +34,7 @@
       <path d="M554.0,188.0 L568.0,188.0 Q574.0,188.0 574.0,182.0 L574.0,132.0 Q574.0,126.0 580.0,126.0 L586.0,126.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M730.0,115.0 L758.0,115.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M726.0,115.0 L758.0,115.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M334.8,100.0 L590.0,100.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>

@@ -28,6 +28,22 @@ function shortenEnd(pts: readonly (readonly [number, number])[], depth: number):
   return out;
 }
 
+/**
+ * Extend the start of a polyline outward by `depth` units along its first
+ * segment.  Used to push the source point onto the outer edge of a pin square
+ * (which sits half-outside the source action body).
+ */
+function extendStart(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
+  const out = pts.map(p => [p[0], p[1]] as [number, number]);
+  if (out.length < 2 || depth <= 0) return out;
+  const [sx, sy] = out[0];
+  const [nx, ny] = out[1];
+  const dx = nx - sx, dy = ny - sy;
+  const len = Math.hypot(dx, dy) || 1;
+  out[0] = [sx - (dx / len) * depth, sy - (dy / len) * depth];
+  return out;
+}
+
 /** Build the SVG path `d` attribute from a polyline. */
 function polylineToD(pts: readonly (readonly [number, number])[]): string {
   if (pts.length === 0) return "";
@@ -122,7 +138,8 @@ export function appendGEdge(
   // straddle that boundary (half outside, half inside).  When the target is a
   // pin, trim less so the arrowhead tip lands on the pin's outer edge.
   const endTrim   = e.dstPin ? ARROW_DEPTH - PIN_SZ / 2 : ARROW_DEPTH;
-  const trimmed   = shortenEnd(pts, endTrim);
+  const startExt  = e.srcPin ? PIN_SZ / 2 : 0;
+  const trimmed   = shortenEnd(extendStart(pts, startExt), endTrim);
   const edgeCol   = e.isHof ? COL.hofEdge : COL.edgeStroke;
   const markerRef = !e.isObjectFlow ? "url(#arrowOpen)"
     : e.isHof ? "url(#arrowHof)"

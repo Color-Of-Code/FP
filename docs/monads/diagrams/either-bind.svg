@@ -26,11 +26,11 @@
       <path d="M195.6,139.0 L200.6,139.0 Q205.6,139.0 205.6,134.0 L205.6,111.0 Q205.6,105.0 211.6,105.0 L227.6,105.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M371.6,87.0 L399.6,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M367.6,87.0 L399.6,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="391.6" y="81" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Right a  →  f(a)</text>
     </g>
     <g class="edge">
-      <path d="M371.6,105.0 L376.6,105.0 Q381.6,105.0 381.6,110.0 L381.6,133.0 Q381.6,139.0 387.6,139.0 L399.6,139.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M367.6,105.0 L375.6,105.0 Q381.6,105.0 381.6,111.0 L381.6,133.0 Q381.6,139.0 387.6,139.0 L399.6,139.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="381.6" y="116" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Left e   →  Left e  (e unchanged, f skipped)</text>
     </g>
     <g class="action-node">
