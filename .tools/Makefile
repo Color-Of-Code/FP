@@ -28,7 +28,7 @@ DIAGRAM_SVG := $(D2_FILES_DOCS:.d2=.svg) \
                $(D2_FILES_MONADS:.d2=.svg) \
                $(D2_FILES_OPTICS:.d2=.svg)
 
-.PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help test test-update typecheck langium-gen
+.PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help test test-update typecheck langium-gen vscode-ext vscode-ext-link
 
 ## Default: show help
 help:
@@ -47,6 +47,8 @@ help:
 	@echo "  test-update Refresh SVG snapshots after intentional changes"
 	@echo "  typecheck   Run tsc --noEmit on the .tools/ TypeScript sources"
 	@echo "  langium-gen Regenerate the SysML parser/AST from sysml.langium"
+	@echo "  vscode-ext  Build the local VS Code extension (highlighting + LSP)"
+	@echo "  vscode-ext-link  Symlink the extension into ~/.vscode/extensions"
 	@echo "  all         svgs + fmt + lint-md"
 	@echo ""
 
@@ -120,6 +122,20 @@ typecheck:
 ## Regenerate the Langium parser from sysml.langium
 langium-gen:
 	cd $(REPO_ROOT)/.tools && npx langium generate
+
+## Build the local VS Code extension (syntax highlighting + LSP server)
+vscode-ext: langium-gen
+	cd $(REPO_ROOT)/.tools/vscode-sysml && npm install --no-audit --no-fund
+	mkdir -p $(REPO_ROOT)/.tools/vscode-sysml/syntaxes
+	cp $(REPO_ROOT)/.tools/sysml/sysml.tmLanguage.json $(REPO_ROOT)/.tools/vscode-sysml/syntaxes/sysml.tmLanguage.json
+	cd $(REPO_ROOT)/.tools/vscode-sysml && npx tsc -p .
+
+## Symlink the built extension into the per-user extensions folder
+vscode-ext-link: vscode-ext
+	mkdir -p $$HOME/.vscode/extensions
+	ln -sfn $(REPO_ROOT)/.tools/vscode-sysml $$HOME/.vscode/extensions/fp-local.sysml-fp-local-0.0.1
+	@echo "  linked $$HOME/.vscode/extensions/fp-local.sysml-fp-local-0.0.1 -> $(REPO_ROOT)/.tools/vscode-sysml"
+	@echo "  reload VS Code window to activate."
 
 ## Run everything
 all: svgs sysml fmt lint-md lint-langs typecheck test

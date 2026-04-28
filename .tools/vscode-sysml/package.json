@@ -1,0 +1,46 @@
+{
+  "name": "sysml-fp-local",
+  "displayName": "SysML (FP repo, local)",
+  "description": "Local syntax highlighting and Langium-based language server for the SysML subset used by this repo.",
+  "publisher": "fp-local",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": ["Programming Languages"],
+  "main": "./dist/vscode-sysml/src/extension.js",
+  "activationEvents": ["onLanguage:sysml"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "sysml",
+        "aliases": ["SysML", "sysml"],
+        "extensions": [".sysml"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "sysml",
+        "scopeName": "source.sysml",
+        "path": "./syntaxes/sysml.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -p . --watch"
+  },
+  "dependencies": {
+    "langium": "^4.2.2",
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/vscode": "^1.94.0",
+    "typescript": "^6.0.3"
+  }
+}

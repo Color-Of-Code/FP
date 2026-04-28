@@ -6,7 +6,7 @@
       "grammar": "sysml/sysml.langium",
       "fileExtensions": [".sysml"],
       "textMate": {
-        "out": "sysml/generated/sysml.tmLanguage.json"
+        "out": "sysml/sysml.tmLanguage.json"
       }
     }
   ],
