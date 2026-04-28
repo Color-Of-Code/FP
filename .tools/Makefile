@@ -17,6 +17,10 @@ SYSML_FILES_MONADS := $(wildcard $(MONAD_DIAG)/*.sysml)
 SYSML_FILES        := $(SYSML_FILES_DOCS) $(SYSML_FILES_MONADS)
 SYSML_SVGS         := $(patsubst %.sysml,%.svg,$(SYSML_FILES))
 
+# Generator tooling: any change here invalidates every SysML SVG.
+# Listed as a glob so adding new generator modules needs no Makefile edit.
+SYSML_TOOL_SRCS := $(shell find $(REPO_ROOT)/.tools/sysml -name '*.ts' -not -path '*/node_modules/*' 2>/dev/null)
+
 # D2 source files in each location
 D2_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.d2)
 D2_FILES_MONADS := $(wildcard $(MONAD_DIAG)/*.d2)
@@ -61,14 +65,14 @@ install:
 ## Transpile SysML v2 sources to SVG
 sysml: $(SYSML_SVGS)
 
-$(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.sysml
+$(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.sysml $(SYSML_TOOL_SRCS)
 	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
 
-$(MONAD_DIAG)/%.svg: $(MONAD_DIAG)/%.sysml
+$(MONAD_DIAG)/%.svg: $(MONAD_DIAG)/%.sysml $(SYSML_TOOL_SRCS)
 	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
 
-## Regenerate all SVG diagrams
-svgs: $(DIAGRAM_SVG)
+## Regenerate all SVG diagrams (D2 + SysML)
+svgs: $(DIAGRAM_SVG) $(SYSML_SVGS)
 
 # Rule for docs/diagrams/ diagrams (depend on styles.d2)
 $(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.d2 $(STYLES)
@@ -140,7 +144,7 @@ vscode-ext-link: vscode-ext
 	@echo "  reload VS Code window to activate."
 
 ## Run everything
-all: svgs sysml fmt lint-md lint-langs typecheck test
+all: svgs fmt lint-md lint-langs typecheck test
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:
