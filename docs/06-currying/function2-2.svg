@@ -21,14 +21,14 @@
     </g>
     <g class="edge hof-edge">
       <path d="M156.8,74.0 L209.8,74.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
-      <text x="187.3" y="68" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">curry</text>
+      <text x="187.3" y="68" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">curry</text>
     </g>
     <g class="edge">
       <path d="M349.8,68.0 L361.8,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M545.0,68.0 L683.0,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="618" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">apply a</text>
+      <text x="618" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">apply a</text>
     </g>
     <g class="edge">
       <path d="M671.0,121.0 L676.0,121.0 Q681.0,121.0 681.0,116.0 L681.0,84.0 Q681.0,83.0 682.0,83.0 L683.0,83.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
@@ -45,11 +45,11 @@
       <text class="action-label" x="285.8" y="74" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">curry</text>
       <g class="pin pin-in">
         <rect x="221.8" y="70" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="231.8" y="74" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f2</text>
+        <text x="231.8" y="74" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f2</text>
       </g>
       <g class="pin pin-out">
         <rect x="341.8" y="70" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="339.8" y="74" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">curried</text>
+        <text x="339.8" y="74" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">curried</text>
       </g>
     </g>
     <g class="action-node">
@@ -58,15 +58,15 @@
       <text class="action-label" x="759" y="72" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">applyA</text>
       <g class="pin pin-in">
         <rect x="695" y="60.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="705" y="64.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">curried</text>
+        <text x="705" y="64.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">curried</text>
       </g>
       <g class="pin pin-in">
         <rect x="695" y="75.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="705" y="79.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+        <text x="705" y="79.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
       </g>
       <g class="pin pin-out">
         <rect x="815" y="68" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="813" y="72" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f1</text>
+        <text x="813" y="72" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f1</text>
       </g>
     </g>
     <g class="object-node hof">

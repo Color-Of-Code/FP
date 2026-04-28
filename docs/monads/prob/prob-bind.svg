@@ -23,19 +23,19 @@
     </g>
     <g class="edge">
       <path d="M164.0,111.0 L169.0,111.0 Q174.0,111.0 174.0,106.0 L174.0,65.0 Q174.0,59.0 180.0,59.0 L212.4,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="174" y="79" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">∀ a</text>
+      <text x="174" y="79" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
       <path d="M164.0,111.0 L212.4,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="194.2" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">∀ a</text>
+      <text x="194.2" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
       <path d="M164.0,111.0 L169.0,111.0 Q174.0,111.0 174.0,116.0 L174.0,209.0 Q174.0,215.0 180.0,215.0 L212.4,215.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="174" y="157" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">∀ a</text>
+      <text x="174" y="157" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
       <path d="M164.0,111.0 L169.0,111.0 Q174.0,111.0 174.0,116.0 L174.0,261.0 Q174.0,267.0 180.0,267.0 L212.4,267.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="174" y="183" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">∀ a</text>
+      <text x="174" y="183" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
       <path d="M334.4,59.0 L361.8,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
@@ -106,19 +106,19 @@
       <text class="action-label" x="437.8" y="72" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">branch1</text>
       <g class="pin pin-in">
         <rect x="373.8" y="57" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="61" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
+        <text x="383.8" y="61" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a_val</text>
       </g>
       <g class="pin pin-in">
         <rect x="373.8" y="68" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="72" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
+        <text x="383.8" y="72" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-in">
         <rect x="373.8" y="79" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="83" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <text x="383.8" y="83" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
         <rect x="493.8" y="68" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="491.8" y="72" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub_b</text>
+        <text x="491.8" y="72" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
       </g>
     </g>
     <g class="action-node">
@@ -127,19 +127,19 @@
       <text class="action-label" x="437.8" y="228" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">branch2</text>
       <g class="pin pin-in">
         <rect x="373.8" y="213" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="217" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
+        <text x="383.8" y="217" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a_val</text>
       </g>
       <g class="pin pin-in">
         <rect x="373.8" y="224" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="228" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
+        <text x="383.8" y="228" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-in">
         <rect x="373.8" y="235" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="383.8" y="239" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <text x="383.8" y="239" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
         <rect x="493.8" y="224" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="491.8" y="228" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub_b</text>
+        <text x="491.8" y="228" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
       </g>
     </g>
     <g class="action-node">
@@ -148,15 +148,15 @@
       <text class="action-label" x="747.4" y="126" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">weight1</text>
       <g class="pin pin-in">
         <rect x="683.4" y="114.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="693.4" y="118.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub_b</text>
+        <text x="693.4" y="118.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
       </g>
       <g class="pin pin-in">
         <rect x="683.4" y="129.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="693.4" y="133.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
+        <text x="693.4" y="133.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-out">
         <rect x="803.4" y="122" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.4" y="126" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">weighted</text>
+        <text x="801.4" y="126" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">weighted</text>
       </g>
     </g>
     <g class="action-node">
@@ -165,15 +165,15 @@
       <text class="action-label" x="747.4" y="227" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">weight2</text>
       <g class="pin pin-in">
         <rect x="683.4" y="215.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="693.4" y="219.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sub_b</text>
+        <text x="693.4" y="219.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sub_b</text>
       </g>
       <g class="pin pin-in">
         <rect x="683.4" y="230.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="693.4" y="234.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
+        <text x="693.4" y="234.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-out">
         <rect x="803.4" y="223" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.4" y="227" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">weighted</text>
+        <text x="801.4" y="227" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">weighted</text>
       </g>
     </g>
     <g class="action-node">
@@ -182,15 +182,15 @@
       <text class="action-label" x="1093" y="147" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">merge</text>
       <g class="pin pin-in">
         <rect x="1029" y="135.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1039" y="139.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w1</text>
+        <text x="1039" y="139.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">w1</text>
       </g>
       <g class="pin pin-in">
         <rect x="1029" y="150.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1039" y="154.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">w2</text>
+        <text x="1039" y="154.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">w2</text>
       </g>
       <g class="pin pin-out">
         <rect x="1149" y="143" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1147" y="147" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">dist_b</text>
+        <text x="1147" y="147" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">dist_b</text>
       </g>
     </g>
     <g class="object-node">

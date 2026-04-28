@@ -81,9 +81,6 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
       "font-family": "sans-serif",
       "dominant-baseline": "middle",
       fill: "#555",
-      stroke: "white",
-      "stroke-width": 2,
-      "paint-order": "stroke fill",
     });
   });
 
@@ -109,9 +106,6 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
       "font-family": "sans-serif",
       "dominant-baseline": "middle",
       fill: "#555",
-      stroke: "white",
-      "stroke-width": 2,
-      "paint-order": "stroke fill",
     });
   });
 }

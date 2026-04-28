@@ -22,7 +22,7 @@
     </g>
     <g class="edge">
       <path d="M160.0,62.0 L228.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="202" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">\\r -&gt; r</text>
+      <text x="202" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">\\r -&gt; r</text>
     </g>
     <g class="action-node">
       <title>Ask: build the function \\r -&gt; r — when run, returns the environment unchanged.</title>
@@ -30,7 +30,7 @@
       <text class="action-label" x="96" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ask</text>
       <g class="pin pin-out">
         <rect x="152" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="150" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ra</text>
+        <text x="150" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">ra</text>
       </g>
     </g>
     <g class="object-node">

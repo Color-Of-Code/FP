@@ -207,9 +207,6 @@ export function appendGEdge(
       "font-size": 9,
       "font-family": "sans-serif",
       fill: "#333",
-      stroke: "white",
-      "stroke-width": 3,
-      "paint-order": "stroke fill",
     });
   }
 }

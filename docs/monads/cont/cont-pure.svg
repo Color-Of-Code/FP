@@ -25,7 +25,7 @@
     </g>
     <g class="edge">
       <path d="M294.0,62.0 L377.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="343.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">\\k -&gt; k a0</text>
+      <text x="343.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">\\k -&gt; k a0</text>
     </g>
     <g class="action-node">
       <title>ApplyK: build the function \\k -&gt; k a0. The continuation k is applied directly to a0 — no extra control flow.</title>
@@ -33,11 +33,11 @@
       <text class="action-label" x="230" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">wrap</text>
       <g class="pin pin-in">
         <rect x="166" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="176" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+        <text x="176" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
       </g>
       <g class="pin pin-out">
         <rect x="286" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="284" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ca</text>
+        <text x="284" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">ca</text>
       </g>
     </g>
     <g class="object-node">

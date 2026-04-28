@@ -55,7 +55,7 @@
     </g>
     <g class="edge">
       <path d="M178.4,59.0 L247.4,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="218.89999999999998" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">f skipped</text>
+      <text x="218.89999999999998" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">f skipped</text>
     </g>
     <g class="edge">
       <path d="M304.8,159.0 L316.8,159.0 Q322.8,159.0 322.8,153.0 L322.8,105.0 Q322.8,99.0 328.8,99.0 L482.0,99.0 Q488.0,99.0 488.0,105.0 L488.0,113.0 Q488.0,116.0 491.0,116.0 L494.0,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
@@ -69,23 +69,23 @@
       <text class="action-label" x="244.8" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_pa</text>
       <g class="pin pin-in">
         <rect x="180.8" y="129.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="190.8" y="133.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pa</text>
+        <text x="190.8" y="133.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pa</text>
       </g>
       <g class="pin pin-in">
         <rect x="180.8" y="144.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="190.8" y="148.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">input</text>
+        <text x="190.8" y="148.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">input</text>
       </g>
       <g class="pin pin-out">
         <rect x="300.8" y="126" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="298.8" y="130" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
+        <text x="298.8" y="130" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a_val</text>
       </g>
       <g class="pin pin-out">
         <rect x="300.8" y="137" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="298.8" y="141" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">rest</text>
+        <text x="298.8" y="141" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">rest</text>
       </g>
       <g class="pin pin-out">
         <rect x="300.8" y="148" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="298.8" y="152" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">fail</text>
+        <text x="298.8" y="152" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">fail</text>
       </g>
     </g>
     <g class="action-node">
@@ -94,15 +94,15 @@
       <text class="action-label" x="566" y="131" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply_f</text>
       <g class="pin pin-in">
         <rect x="502" y="119.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="512" y="123.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a_val</text>
+        <text x="512" y="123.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a_val</text>
       </g>
       <g class="pin pin-in">
         <rect x="502" y="134.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="512" y="138.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <text x="512" y="138.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
         <rect x="622" y="127" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="620" y="131" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pb</text>
+        <text x="620" y="131" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pb</text>
       </g>
     </g>
     <g class="action-node">
@@ -111,19 +111,19 @@
       <text class="action-label" x="855.6" y="173" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_pb</text>
       <g class="pin pin-in">
         <rect x="791.6" y="161.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.6" y="165.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">pb</text>
+        <text x="801.6" y="165.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">pb</text>
       </g>
       <g class="pin pin-in">
         <rect x="791.6" y="176.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.6" y="180.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">rest</text>
+        <text x="801.6" y="180.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">rest</text>
       </g>
       <g class="pin pin-out">
         <rect x="911.6" y="161.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="909.6" y="165.66666666666666" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
+        <text x="909.6" y="165.66666666666666" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
       </g>
       <g class="pin pin-out">
         <rect x="911.6" y="176.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="909.6" y="180.33333333333334" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">rest2</text>
+        <text x="909.6" y="180.33333333333334" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">rest2</text>
       </g>
     </g>
     <g class="object-node">
