@@ -27,10 +27,10 @@
       <text x="253.5" y="112" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Just a0</text>
     </g>
     <g class="edge">
-      <path d="M383.0,118.0 L420.0,118.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M383.0,118.0 L424.0,118.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M392.0,170.0 L397.0,170.0 Q402.0,170.0 402.0,165.0 L402.0,142.0 Q402.0,136.0 408.0,136.0 L420.0,136.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M392.0,170.0 L397.0,170.0 Q402.0,170.0 402.0,165.0 L402.0,142.0 Q402.0,136.0 408.0,136.0 L424.0,136.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
       <path d="M568.0,127.0 L573.0,127.0 Q578.0,127.0 578.0,122.0 L578.0,98.0 Q578.0,92.0 584.0,92.0 L596.0,92.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>

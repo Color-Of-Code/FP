@@ -20,10 +20,10 @@
       <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
     </g>
     <g class="edge">
-      <path d="M195.6,87.0 L223.6,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M195.6,87.0 L227.6,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M195.6,139.0 L200.6,139.0 Q205.6,139.0 205.6,134.0 L205.6,111.0 Q205.6,105.0 211.6,105.0 L223.6,105.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M195.6,139.0 L200.6,139.0 Q205.6,139.0 205.6,134.0 L205.6,111.0 Q205.6,105.0 211.6,105.0 L227.6,105.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
       <path d="M371.6,87.0 L399.6,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>

@@ -6,7 +6,7 @@
  * target node or pin square.
  */
 
-import { type GEdge, ARROW_DEPTH, COL } from "../types.ts";
+import { type GEdge, ARROW_DEPTH, PIN_SZ, COL } from "../types.ts";
 import type { EdgePolyline } from "../layout.ts";
 import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/svg.ts";
 
@@ -118,7 +118,11 @@ export function appendGEdge(
 ): void {
   if (pts.length < 2) return; // routing skipped (e.g. unknown endpoints)
 
-  const trimmed   = shortenEnd(pts, ARROW_DEPTH);
+  // ELK terminates the edge at the action-node body boundary, but action pins
+  // straddle that boundary (half outside, half inside).  When the target is a
+  // pin, trim less so the arrowhead tip lands on the pin's outer edge.
+  const endTrim   = e.dstPin ? ARROW_DEPTH - PIN_SZ / 2 : ARROW_DEPTH;
+  const trimmed   = shortenEnd(pts, endTrim);
   const edgeCol   = e.isHof ? COL.hofEdge : COL.edgeStroke;
   const markerRef = !e.isObjectFlow ? "url(#arrowOpen)"
     : e.isHof ? "url(#arrowHof)"

@@ -20,18 +20,18 @@
       <text x="57.6" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» curry</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M166.8,90.0 L194.8,90.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M166.8,90.0 L198.8,90.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
       <text x="186.8" y="84" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">curry</text>
     </g>
     <g class="edge">
       <path d="M342.8,84.0 L347.8,84.0 Q352.8,84.0 352.8,89.0 L352.8,130.0 Q352.8,136.0 358.8,136.0 L370.8,136.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M554.0,136.0 L559.0,136.0 Q564.0,136.0 564.0,131.0 L564.0,117.0 Q564.0,111.0 570.0,111.0 L582.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M554.0,136.0 L559.0,136.0 Q564.0,136.0 564.0,131.0 L564.0,117.0 Q564.0,111.0 570.0,111.0 L586.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="579" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">apply a</text>
     </g>
     <g class="edge">
-      <path d="M554.0,188.0 L568.0,188.0 Q574.0,188.0 574.0,182.0 L574.0,130.0 Q574.0,126.0 578.0,126.0 L582.0,126.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M554.0,188.0 L568.0,188.0 Q574.0,188.0 574.0,182.0 L574.0,132.0 Q574.0,126.0 580.0,126.0 L586.0,126.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M730.0,115.0 L758.0,115.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
