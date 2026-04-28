@@ -154,7 +154,27 @@
               "to": "ec"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": [
+            {
+              "kind": "note",
+              "id": "shortCircuit",
+              "target": "matchEa",
+              "text": "Pattern match short-circuits:\\nLeft skips f entirely."
+            },
+            {
+              "kind": "note",
+              "id": "errorIdentity",
+              "target": "widen",
+              "text": "Type widens, value preserved bit-identical.\\nThis is what 'error preserved verbatim' means."
+            },
+            {
+              "kind": "note",
+              "id": "fResultPassThrough",
+              "target": "apply_f",
+              "text": "Whatever f returns (Right b' or Left e')\\nis forwarded UNCHANGED — bind never\\ninspects or rewraps f's result."
+            }
+          ]
         }
       ]
     }
@@ -168,7 +188,10 @@
       "apply_f": "function",
       "e0": "value",
       "widen": "function",
-      "ec": "type"
+      "ec": "type",
+      "shortCircuit": "note",
+      "errorIdentity": "note",
+      "fResultPassThrough": "note"
     },
     "tooltips": {
       "ea": "Either e a — the input.  Either Right a0 (success carrying a value of type a) or Left e0 (failure carrying an error value of type e).",
@@ -182,7 +205,7 @@
       "ec": "Either e b — the single result of bind.  Carries either f's output (when ea was Right) or the original error e0 (when ea was Left)."
     },
     "layout": "elk",
-    "title": "Either bind: pattern match — Right a0 → f(a0) | Left e0 → Left e0 (error preserved, f skipped) — also called: andThen / and_then, Bind, flatMap, >>=",
+    "title": "Either bind — also called: andThen / and_then, Bind, flatMap, >>=",
     "name": "bind"
   }
 }

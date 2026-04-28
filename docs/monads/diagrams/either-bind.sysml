@@ -66,13 +66,21 @@ package EitherBindImpl {
 
         // single output
         flow from joinResult to ec;
+
+        // ── notes (UML-style annotations pinned to specific nodes) ──
+        note shortCircuit on matchEa :
+            "Pattern match short-circuits:\nLeft skips f entirely.";
+        note errorIdentity on widen :
+            "Type widens, value preserved bit-identical.\nThis is what 'error preserved verbatim' means.";
+        note fResultPassThrough on apply_f :
+            "Whatever f returns (Right b' or Left e')\nis forwarded UNCHANGED — bind never\ninspects or rewraps f's result.";
     }
 }
 
 #diagram {
     type   = activity
     layout = elk
-    title  = "Either bind: pattern match — Right a0 → f(a0) | Left e0 → Left e0 (error preserved, f skipped) — also called: andThen / and_then, Bind, flatMap, >>="
+    title  = "Either bind — also called: andThen / and_then, Bind, flatMap, >>="
     name   = "bind"
 
     show ea       as type
@@ -82,6 +90,9 @@ package EitherBindImpl {
     show e0       as value
     show widen    as function
     show ec       as type
+    show shortCircuit       as note
+    show errorIdentity      as note
+    show fResultPassThrough as note
 
     tooltip ea         = "Either e a — the input.  Either Right a0 (success carrying a value of type a) or Left e0 (failure carrying an error value of type e)."
     tooltip f          = "(a ⟶ Either e b) — the continuation.  Invoked ONLY on the Right branch.  Skipped entirely when ea is Left."
