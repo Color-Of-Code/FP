@@ -89,36 +89,6 @@
             },
             {
               "kind": "object",
-              "id": "userOrNull",
-              "type": "User | null"
-            },
-            {
-              "kind": "object",
-              "id": "user",
-              "type": "User"
-            },
-            {
-              "kind": "object",
-              "id": "addrOrNull",
-              "type": "Address | null"
-            },
-            {
-              "kind": "object",
-              "id": "addr",
-              "type": "Address"
-            },
-            {
-              "kind": "object",
-              "id": "cityOrNull",
-              "type": "City | null"
-            },
-            {
-              "kind": "object",
-              "id": "city",
-              "type": "City"
-            },
-            {
-              "kind": "object",
               "id": "nothing",
               "type": "null"
             },
@@ -160,12 +130,8 @@
             {
               "kind": "flow",
               "from": "findUser",
-              "to": "userOrNull"
-            },
-            {
-              "kind": "flow",
-              "from": "userOrNull",
-              "to": "checkUser"
+              "to": "checkUser",
+              "label": "User | null"
             },
             {
               "kind": "flow",
@@ -176,23 +142,14 @@
             {
               "kind": "flow",
               "from": "checkUser",
-              "to": "user",
-              "label": "user"
-            },
-            {
-              "kind": "flow",
-              "from": "user",
-              "to": "findAddress"
+              "to": "findAddress",
+              "label": "user : User"
             },
             {
               "kind": "flow",
               "from": "findAddress",
-              "to": "addrOrNull"
-            },
-            {
-              "kind": "flow",
-              "from": "addrOrNull",
-              "to": "checkAddr"
+              "to": "checkAddr",
+              "label": "Address | null"
             },
             {
               "kind": "flow",
@@ -203,23 +160,14 @@
             {
               "kind": "flow",
               "from": "checkAddr",
-              "to": "addr",
-              "label": "address"
-            },
-            {
-              "kind": "flow",
-              "from": "addr",
-              "to": "findCity"
+              "to": "findCity",
+              "label": "address : Address"
             },
             {
               "kind": "flow",
               "from": "findCity",
-              "to": "cityOrNull"
-            },
-            {
-              "kind": "flow",
-              "from": "cityOrNull",
-              "to": "checkCity"
+              "to": "checkCity",
+              "label": "City | null"
             },
             {
               "kind": "flow",
@@ -230,13 +178,8 @@
             {
               "kind": "flow",
               "from": "checkCity",
-              "to": "city",
-              "label": "city"
-            },
-            {
-              "kind": "flow",
-              "from": "city",
-              "to": "cityName"
+              "to": "cityName",
+              "label": "city.name"
             },
             {
               "kind": "flow",
@@ -257,9 +200,6 @@
       "findUser": "function",
       "findAddress": "function",
       "findCity": "function",
-      "user": "value",
-      "addr": "value",
-      "city": "value",
       "nothing": "type",
       "cityName": "value"
     },
@@ -268,10 +208,7 @@
       "findUser": "find_user(id) — may return null if the user does not exist.",
       "findAddress": "find_address(user.address_id) — may return null if no address on file.",
       "findCity": "find_city(address.city_id) — may return null if the city record is missing.",
-      "user": "User — confirmed non-null by guard #1. Now safe to pass to findAddress.",
-      "addr": "Address — confirmed non-null by guard #2. Now safe to pass to findCity.",
-      "city": "City — confirmed non-null by guard #3. Now safe to read city.name.",
-      "checkUser": "Null guard #1: must check after every fallible step — boilerplate.",
+      "checkUser": "Null guard #1: pattern-matches User | null. The non-null branch carries 'user : User' to findAddress; the null branch joins earlyExit.",
       "checkAddr": "Null guard #2: same pattern repeated. Skipping this is a latent bug.",
       "checkCity": "Null guard #3: yet another check. Business logic is buried in guards.",
       "earlyExit": "Any null terminates the chain here — three separate null paths converge.",
