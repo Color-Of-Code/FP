@@ -29,7 +29,7 @@
       <path d="M318.0,68.0 L350.0,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="action-node">
-      <title>&gt;&gt;= (bind): unwraps a from Ma, applies f, returns Mb</title>
+      <title>bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, &gt;&gt;=.</title>
       <rect x="194" y="46" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
       <text class="action-label" x="254" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind</text>
       <g class="pin pin-in">

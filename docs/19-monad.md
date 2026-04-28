@@ -18,6 +18,8 @@ this.
 
 ![bind](diagrams/monad-2.svg)
 
+![pure](diagrams/monad-pure.svg)
+
 ![Maybe monad](diagrams/monad-3.svg)
 
 ![List monad](diagrams/monad-4.svg)
@@ -27,9 +29,11 @@ this.
 ## Operations
 
 - **`pure :: a ⟶ Ma`** — lift a plain value into the monad (inherited from
-  [Applicative](./15-applicative.md)). Also called `return`.
+  [Applicative](./15-applicative.md)). Per-language aliases: `return`, `of`, `unit`, `point`, `Some`
+  / `Just` / `Right` (per concrete monad).
 - **`bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb`** — unwrap `a` from `Ma`, apply `f`, and flatten `M(Mb)` to `Mb`.
-  Also called `flatMap` or `>>=`.
+  Per-language aliases: `flatMap` (Scala, JS, Kotlin), `andThen` / `and_then` (F#, Rust, C++23),
+  `SelectMany` (C#/LINQ), `.then` (JS Promises), `>>=` (Haskell).
 
 Chaining multiple binds produces a pipeline of effectful steps where each step can see the result of
 the previous one.

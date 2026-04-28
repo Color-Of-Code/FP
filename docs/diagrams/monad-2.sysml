@@ -45,6 +45,6 @@ package MonadPureBind {
     show Mb   as type
     tooltip Ma   = "Ma — the monadic value to unwrap"
     tooltip f    = "(a ⟶ Mb) — effectful function, passed as a data token (HOF)"
-    tooltip bind = ">>= (bind): unwraps a from Ma, applies f, returns Mb"
+    tooltip bind = "bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, >>=."
     tooltip Mb   = "Mb — the result of applying the effectful function"
 }
