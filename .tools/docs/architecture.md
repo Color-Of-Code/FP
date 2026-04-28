@@ -28,10 +28,10 @@ choices, see [decisions/](decisions/README.md).
      │  GNode[] + GEdge[]
      ▼
 ┌──────────────────────────────┐
-│ Layout                       │  layout.ts
-│ dagre (default) | elkjs      │
+│ Layout + orthogonal routing  │  layout.ts
+│ elkjs                        │
 └──────────────────────────────┘
-     │  positioned nodes
+     │  positioned nodes + edge polylines
      ▼
 ┌──────────────────────────────┐
 │ SVG synthesis                │  d3 selections + jsdom,
@@ -59,7 +59,7 @@ choices, see [decisions/](decisions/README.md).
 | `sysml/parser.ts`             | Langium-services bootstrap + adapter to the repo AST     |
 | `sysml/types/`                | Repo-internal AST types (kind-discriminated unions)      |
 | `sysml/cli.ts`                | CLI wrapper used by Makefile rules                       |
-| `sysml/layout.ts`             | dagre / elkjs node placement                             |
+| `sysml/layout.ts`             | ELK layered layout + orthogonal edge routing             |
 | `sysml/render/`               | Per-diagram renderers + shared edge/arrow/frame helpers  |
 | `sysml/lib/svg.ts`            | jsdom + d3 + xmlbuilder2 plumbing                        |
 | `sysml/parser.test.ts`        | AST snapshot tests (41 fixtures)                         |
@@ -108,13 +108,17 @@ Detailed table in [tooling spec](../../specs/tooling.md).
 
 ### Layout
 
-- [layout.ts](../sysml/layout.ts) wraps either dagre or elkjs.
-- Engine choice is per-diagram via the `layout = dagre | elk` SysML metadata.
-- Node positions are computed by the engine; **edge geometry is hand-rolled** in
-  [render/edges.ts](../sysml/render/edges.ts) as cubic Béziers, with manual endpoint clipping per
-  node shape. Pin slots on action nodes are honoured by a custom indexer.
-- Known limitations and the proposed redesign are tracked in
-  [decisions/0007-orthogonal-routing.md](decisions/0007-orthogonal-routing.md) (status: _Proposed_).
+- [layout.ts](../sysml/layout.ts) drives ELK with `algorithm: layered` and
+  `edgeRouting: ORTHOGONAL`. ELK is the only engine.
+- Action nodes expose real ELK ports for input/output pins (`portConstraints: FIXED_ORDER`, side
+  derived from the diagram's rank direction). Edges that connect a known pin reference the port id
+  in `sources` / `targets`; other edges connect to node centres.
+- Edge geometry comes from `edge.sections[0]` and is emitted as a polyline (`M x0,y0 L … L xn,yn`)
+  with rounded joins. The final segment is shortened by `ARROW_DEPTH` so the marker tip lands
+  exactly on the target boundary.
+- The `layout = dagre | elk` SysML field is still parsed for backward compat with existing fixtures,
+  but its value is ignored at render time.
+- See [decisions/0007-orthogonal-routing.md](decisions/0007-orthogonal-routing.md).
 
 ### SVG synthesis
 

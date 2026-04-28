@@ -1,156 +1,75 @@
 /**
- * Edge endpoint computation and SVG path rendering.
+ * Edge rendering: emit a polyline (M…L…L…L) from the ELK-routed geometry.
  *
- * Endpoints are clipped to node boundaries (circle, diamond, rectangle) and
- * adjusted for pin squares and the arrowhead depth so visual tips land exactly
- * on boundaries.  Bezier control points produce smooth horizontal-entry curves.
+ * Endpoints are trimmed inward by ARROW_DEPTH so that the arrowhead tip
+ * (markers use `refX="0"`) lands exactly on the visual boundary of the
+ * target node or pin square.
  */
 
-import {
-  type GNode, type GEdge,
-  PIN_SZ, INIT_R, FINAL_R, ARROW_DEPTH,
-  COL,
-} from "../types.ts";
-import { pinSlotY, semanticPinIndex } from "./pin.ts";
+import { type GEdge, ARROW_DEPTH, COL } from "../types.ts";
+import type { EdgePolyline } from "../layout.ts";
 import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/svg.ts";
 
-export type Pt4 = [number, number, number, number];
-
-// ── Boundary clip ──────────────────────────────────────────────────────────
-
-/** Clip a point on a node's boundary in the direction of (tx, ty). */
-function clipPoint(n: GNode, tx: number, ty: number): [number, number] {
-  const dx = tx - n.x;
-  const dy = ty - n.y;
-
-  if (n.kind === "initial" || n.kind === "final") {
-    const r = n.kind === "initial" ? INIT_R : FINAL_R;
-    const d = Math.sqrt(dx * dx + dy * dy) || 1;
-    return [n.x + (dx / d) * r, n.y + (dy / d) * r];
-  }
-
-  if (n.kind === "decision" || n.kind === "merge") {
-    // Diamond boundary: |dx/hw| + |dy/hh| = 1
-    const hw = n.w / 2;
-    const hh = n.h / 2;
-    if (dx === 0 && dy === 0) return [n.x + hw, n.y];
-    const t = 1 / (Math.abs(dx) / hw + Math.abs(dy) / hh);
-    return [n.x + dx * t, n.y + dy * t];
-  }
-
-  // Rectangle
-  const hw = n.w / 2;
-  const hh = n.h / 2;
-  if (dx === 0 && dy === 0) return [n.x + hw, n.y];
-  const sx = dx === 0 ? Infinity : hw / Math.abs(dx);
-  const sy = dy === 0 ? Infinity : hh / Math.abs(dy);
-  const sc = Math.min(sx, sy);
-  return [n.x + dx * sc, n.y + dy * sc];
-}
-
-// ── Endpoint computation ───────────────────────────────────────────────────
+// ── Path utilities ─────────────────────────────────────────────────────────
 
 /**
- * Compute (x1,y1,x2,y2) for every edge.
- *
- * All path endpoints are placed ARROW_DEPTH before the visual boundary so
- * that — with refX="0" on the markers — the arrowhead tip lands exactly on
- * the boundary.
+ * Shorten a polyline by `depth` units along its final segment, preserving the
+ * direction of approach.  This makes room for the arrowhead.
  */
-export function computeEndpoints(
-  edges: GEdge[],
-  nodeMap: Map<string, GNode>,
-): Pt4[] {
-  // Gather per-node incoming/outgoing object-flow edge lists
-  const incoming = new Map<string, GEdge[]>();
-  const outgoing = new Map<string, GEdge[]>();
-  for (const e of edges) {
-    if (!e.isObjectFlow) continue;
-    if (!incoming.has(e.to))   incoming.set(e.to, []);
-    if (!outgoing.has(e.from)) outgoing.set(e.from, []);
-    incoming.get(e.to)!.push(e);
-    outgoing.get(e.from)!.push(e);
-  }
+function shortenEnd(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
+  if (pts.length < 2) return pts.map(p => [p[0], p[1]] as [number, number]);
+  const out = pts.slice(0, -1).map(p => [p[0], p[1]] as [number, number]);
+  const [px, py] = pts[pts.length - 2];
+  const [ex, ey] = pts[pts.length - 1];
+  const dx = ex - px, dy = ey - py;
+  const len = Math.hypot(dx, dy) || 1;
+  const k = Math.max(0, len - depth) / len;
+  out.push([px + dx * k, py + dy * k]);
+  return out;
+}
 
-  // Build semantic pin-slot index maps
-  const inIdx  = new Map<GEdge, [number, number]>();
-  const outIdx = new Map<GEdge, [number, number]>();
-  for (const [id, es] of incoming) {
-    for (const [e, v] of semanticPinIndex(id, es, nodeMap, "in"))  inIdx.set(e, v);
-  }
-  for (const [id, es] of outgoing) {
-    for (const [e, v] of semanticPinIndex(id, es, nodeMap, "out")) outIdx.set(e, v);
-  }
+/** Build the SVG path `d` attribute from a polyline. */
+function polylineToD(pts: readonly (readonly [number, number])[]): string {
+  if (pts.length === 0) return "";
+  const [x0, y0] = pts[0];
+  const tail = pts.slice(1).map(([x, y]) => `L${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+  return `M${x0.toFixed(1)},${y0.toFixed(1)} ${tail}`.trimEnd();
+}
 
-  return edges.map(e => {
-    const from = nodeMap.get(e.from)!;
-    const to   = nodeMap.get(e.to)!;
-    let x1: number, y1: number, x2: number, y2: number;
-
-    // ── Source endpoint ────────────────────────────────────────────────
-    if (from.kind === "action" && e.isObjectFlow) {
-      const [idx, total] = outIdx.get(e) ?? [0, 1];
-      x1 = from.x + from.w / 2 + PIN_SZ / 2;   // outer edge of output-pin square
-      y1 = pinSlotY(from, idx, total);
-    } else if (from.kind === "action") {
-      x1 = from.x + from.w / 2;
-      y1 = from.y;
-    } else {
-      if (from.kind === "decision" && to.kind === "merge") {
-        // Null branch exits from the bottom (SOUTH) vertex of the decision diamond.
-        e.isSouthExit = true;
-        x1 = from.x;
-        y1 = from.y + from.h / 2;
-      } else {
-        // Clip toward the target's exact path endpoint so direction is correct
-        let tgtX = to.x, tgtY = to.y;
-        if (to.kind === "action" && e.isObjectFlow) {
-          const [idx, total] = inIdx.get(e) ?? [0, 1];
-          tgtX = to.x - to.w / 2 - PIN_SZ / 2 - ARROW_DEPTH;
-          tgtY = pinSlotY(to, idx, total);
-        } else if (to.kind === "action") {
-          tgtX = to.x - to.w / 2 - ARROW_DEPTH;
-          tgtY = to.y;
-        }
-        [x1, y1] = clipPoint(from, tgtX, tgtY);
-      }
+/** Find the midpoint of the longest horizontal-or-vertical segment. */
+function labelAnchor(pts: readonly (readonly [number, number])[]): [number, number] {
+  if (pts.length < 2) return [0, 0];
+  let bestLen = -1;
+  let bestMid: [number, number] = [
+    (pts[0][0] + pts[pts.length - 1][0]) / 2,
+    (pts[0][1] + pts[pts.length - 1][1]) / 2,
+  ];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [ax, ay] = pts[i];
+    const [bx, by] = pts[i + 1];
+    const len = Math.hypot(bx - ax, by - ay);
+    if (len > bestLen) {
+      bestLen = len;
+      bestMid = [(ax + bx) / 2, (ay + by) / 2];
     }
-
-    // ── Target endpoint ────────────────────────────────────────────────
-    // Path ends ARROW_DEPTH before the boundary; arrowhead tip lands on it.
-    if (to.kind === "action" && e.isObjectFlow) {
-      const [idx, total] = inIdx.get(e) ?? [0, 1];
-      x2 = to.x - to.w / 2 - PIN_SZ / 2 - ARROW_DEPTH;  // outer edge of input-pin square
-      y2 = pinSlotY(to, idx, total);
-    } else if (to.kind === "action") {
-      x2 = to.x - to.w / 2 - ARROW_DEPTH;
-      y2 = to.y;
-    } else {
-      [x2, y2] = clipPoint(to, x1, y1);
-      x2 -= ARROW_DEPTH;
-    }
-
-    return [x1, y1, x2, y2] as Pt4;
-  });
+  }
+  return bestMid;
 }
 
 // ── Edge renderer ──────────────────────────────────────────────────────────
 
-/** Append one edge as an SVG `<g>` with a cubic Bezier path and optional label. */
-export function appendGEdge(parent: SvgParent, e: GEdge, pt: Pt4): void {
-  const [x1, y1, x2, y2] = pt;
-  const dx = x2 - x1;
-  const dy = y2 - y1;
+/**
+ * Append one edge as an SVG `<g>` containing an orthogonal polyline
+ * (and an optional label) that follows the ELK-routed geometry.
+ */
+export function appendGEdge(
+  parent: SvgParent,
+  e: GEdge,
+  pts: EdgePolyline,
+): void {
+  if (pts.length < 2) return; // routing skipped (e.g. unknown endpoints)
 
-  // South-exit edges (null branch from decision diamond) drop straight down
-  // before curving toward the merge target.
-  const SOUTH_DROP = 32;
-  const cpOff = Math.abs(dy) < 15 ? 0 : Math.abs(dx) * 0.35;
-  const cp1x = e.isSouthExit ? x1                              : x1 + cpOff;
-  const cp1y = e.isSouthExit ? y1 + SOUTH_DROP                : y1;
-  const cp2x = e.isSouthExit ? x2 - Math.max(cpOff, SOUTH_DROP) : x2 - cpOff;
-  const cp2y = y2;
-
+  const trimmed   = shortenEnd(pts, ARROW_DEPTH);
   const edgeCol   = e.isHof ? COL.hofEdge : COL.edgeStroke;
   const markerRef = !e.isObjectFlow ? "url(#arrowOpen)"
     : e.isHof ? "url(#arrowHof)"
@@ -161,21 +80,21 @@ export function appendGEdge(parent: SvgParent, e: GEdge, pt: Pt4): void {
   });
 
   const path = appendElement(group, "path", {
-    d: `M${x1.toFixed(1)},${y1.toFixed(1)} C${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`,
+    d: polylineToD(trimmed),
     fill: "none",
     stroke: edgeCol,
     "stroke-width": 1.5,
+    "stroke-linejoin": "round",
+    "stroke-linecap": "round",
     "marker-end": markerRef,
   });
   if (!e.isObjectFlow) path.attr("stroke-dasharray", "6,4");
 
   if (e.label) {
-    // Offset perpendicular-above the chord midpoint (always screen-upward for LR layouts)
-    const len = Math.sqrt(dx * dx + dy * dy) || 1;
-    const LABEL_OFF = 13;
+    const [lx, ly] = labelAnchor(pts);
     appendText(group, e.label, {
-      x: (x1 + x2) / 2 + (dy / len) * LABEL_OFF,
-      y: (y1 + y2) / 2 - (dx / len) * LABEL_OFF,
+      x: lx,
+      y: ly - 6,
       "text-anchor": "middle",
       "dominant-baseline": "middle",
       "font-size": 9,

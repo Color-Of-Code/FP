@@ -7,7 +7,6 @@
  *   final     — bull's-eye (outer circle + inner filled circle)
  *   decision  — yellow diamond (decision node)
  *   merge     — yellow diamond (merge node)
- *   separator — invisible layout-only spacer (renders nothing)
  */
 
 import {
@@ -233,6 +232,5 @@ export function appendGNode(parent: SvgParent, n: GNode): void {
     case "final":     appendFinalNode(parent, n); return;
     case "decision":  appendDiamondNode(parent, n); return;
     case "merge":     appendDiamondNode(parent, n); return;
-    case "separator": return; // invisible layout-only spacer
   }
 }

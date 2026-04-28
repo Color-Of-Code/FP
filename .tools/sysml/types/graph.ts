@@ -7,7 +7,7 @@ import {
   ACTION_W, ACTION_H,
   OBJECT_W, OBJECT_H,
   INIT_R, FINAL_R,
-  DECISION_SZ, BRANCH_SEP_H,
+  DECISION_SZ,
 } from "./constants.ts";
 
 // ── Graph node ─────────────────────────────────────────────────────────────
@@ -16,7 +16,7 @@ export interface GNode {
   id:         string;
   label:      string;
   stereotype?: string;
-  kind: "action" | "object" | "initial" | "final" | "decision" | "merge" | "separator";
+  kind: "action" | "object" | "initial" | "final" | "decision" | "merge";
   isHof:      boolean;
   tooltip?:   string;
   x: number; y: number;
@@ -33,12 +33,10 @@ export interface GEdge {
   label?:       string;
   isObjectFlow: boolean;
   isHof:        boolean;
-  /** dagre minimum rank distance for this edge (default 1) */
-  minlen?:      number;
-  /** true for invisible layout-only separator edges — not rendered */
-  isSeparator?: boolean;
-  /** true when source is a decision diamond whose null-branch exits SOUTH */
-  isSouthExit?: boolean;
+  /** Output-pin id on `from` (only meaningful when `from` is an action node). */
+  srcPin?:      string;
+  /** Input-pin id on `to` (only meaningful when `to` is an action node). */
+  dstPin?:      string;
 }
 
 // ── Node dimensions ────────────────────────────────────────────────────────
@@ -52,7 +50,6 @@ export function nodeDims(n: GNode): [number, number] {
     return [w, DECISION_SZ];
   }
   if (n.kind === "action")    return [ACTION_W,       ACTION_H];
-  if (n.kind === "separator") return [1,              BRANCH_SEP_H];
   // object node: width scales with label length
   const charW = 7.2;
   const w = Math.max(OBJECT_W, n.label.length * charW + 20);

@@ -1,6 +1,6 @@
 # 0007 — ELK orthogonal routing with real ports
 
-- **Status**: Proposed
+- **Status**: Accepted
 - **Date**: 2026-04-28
 
 ## Context
@@ -72,3 +72,30 @@ Phases:
   back to curved routing).
 
 Related: [0005](0005-diagram-registry.md).
+
+## Implementation
+
+Landed as a single rewrite touching:
+
+- [sysml/layout.ts](../../sysml/layout.ts) — single `layoutGraph(nodes, edges, rankdir)` returning
+  `{ width, height, edgePaths }`. Builds ELK children with action-node ports
+  (`portConstraints: FIXED_ORDER`, side derived from `rankdir`, port id =
+  `<nodeId>__<in|out>__<pinName>`) and ELK edges that reference those port ids when an endpoint is
+  an action with a known pin.
+- [sysml/render/edges.ts](../../sysml/render/edges.ts) — polyline emission from `edge.sections[0]`
+  with `stroke-linejoin/linecap: round`. Final segment shortened by `ARROW_DEPTH` so the marker tip
+  lands exactly on the boundary. Label placed at the midpoint of the longest segment.
+- [sysml/render/pin.ts](../../sysml/render/pin.ts) — replaced slot-index logic with
+  `assignActionPins(edges, nodeMap)` which sets `e.srcPin` / `e.dstPin` to **pin names** matched by
+  shared name, then by object id, then by declaration order.
+- [sysml/render/activity.ts](../../sysml/render/activity.ts) and
+  [sysml/render/ibd.ts](../../sysml/render/ibd.ts) — call `assignActionPins` then await
+  `layoutGraph`; shift node coords and edge polylines by the frame padding.
+- [sysml/types/graph.ts](../../sysml/types/graph.ts) — `GEdge` gained `srcPin?` / `dstPin?`; removed
+  `isSeparator`, `isSouthExit`, `minlen`, and the `"separator"` node kind.
+- Theme: removed `BRANCH_SEP_H`; updated layout-spacing comments to reference ELK.
+- Dropped `@dagrejs/dagre` from `dependencies`.
+- Parser still accepts `layout = dagre|elk` for backward compat with existing SysML fixtures, but
+  the value is ignored at render time.
+
+All 82 snapshots green (41 AST unchanged, 41 SVG refreshed in the same commit).

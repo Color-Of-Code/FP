@@ -1,99 +1,91 @@
 /**
- * Pin geometry: vertical slot positions and semantic edge-to-pin assignment.
+ * Pin assignment: pick a named pin on each action endpoint of every
+ * object-flow edge.  The chosen pin name is stored on the edge as
+ * `srcPin` / `dstPin` and consumed by the layout layer to build a real
+ * ELK port and route the edge to it.
  *
- * Pins are small squares straddling the left (input) or right (output) boundary
- * of an action node.  Slot positions are evenly distributed over the node height.
- * Semantic matching assigns each arriving/departing edge to the named pin that
- * matches by type-flow rather than spatial proximity.
+ * Matching priority for an action endpoint (input side shown; outputs
+ * mirror it):
+ *   1. The opposite endpoint is also an action and shares a pin name.
+ *   2. The opposite endpoint is an object whose `id` matches a pin name.
+ *   3. Otherwise, take the next unused pin in declaration order.
  */
 
-import { type GNode, type GEdge } from "../types.ts";
+import type { GEdge, GNode } from "../types.ts";
 
 /**
- * Vertical centre of pin slot `index` (0-based) out of `total` slots on
- * the left or right edge of action node `n`.
+ * Mutate every object-flow edge in `edges` so it carries `srcPin` and/or
+ * `dstPin` whenever its source / target is an action node.  Other edges
+ * are left untouched.
  */
-export function pinSlotY(n: GNode, index: number, total: number): number {
-  const count = Math.max(total, 1);
-  return n.y - n.h / 2 + (n.h / (count + 1)) * (index + 1);
+export function assignActionPins(
+  edges: GEdge[],
+  nodeMap: Map<string, GNode>,
+): void {
+  // Group edges by the action endpoint that needs a pin.
+  const inGroups  = new Map<string, GEdge[]>();
+  const outGroups = new Map<string, GEdge[]>();
+  for (const e of edges) {
+    if (!e.isObjectFlow) continue;
+    const src = nodeMap.get(e.from);
+    const tgt = nodeMap.get(e.to);
+    if (src?.kind === "action") {
+      if (!outGroups.has(src.id)) outGroups.set(src.id, []);
+      outGroups.get(src.id)!.push(e);
+    }
+    if (tgt?.kind === "action") {
+      if (!inGroups.has(tgt.id)) inGroups.set(tgt.id, []);
+      inGroups.get(tgt.id)!.push(e);
+    }
+  }
+
+  for (const [nodeId, es] of inGroups)  matchSide(nodeId, es, nodeMap, "in");
+  for (const [nodeId, es] of outGroups) matchSide(nodeId, es, nodeMap, "out");
 }
 
-/**
- * Assign each object-flow edge to a named pin slot on an action node using
- * semantic matching so the correct pin is targeted regardless of spatial position.
- *
- * Priority for an incoming edge (src → action dst):
- *   1. src is action  → match src.outPin name to dst.inPin name
- *   2. src is object  → match src.id to dst.inPin name
- *   3. fallback       → assign leftover slots in y-sorted order
- *
- * Symmetric for outgoing (action src → dst):
- *   1. dst is action  → match src.outPin name to dst.inPin name
- *   2. dst is object  → match src.outPin name to dst.id
- *   3. fallback       → y-sorted order
- */
-export function semanticPinIndex(
+function matchSide(
   nodeId: string,
   es: GEdge[],
   nodeMap: Map<string, GNode>,
   side: "in" | "out",
-): Map<GEdge, [number, number]> {
-  const result = new Map<GEdge, [number, number]>();
+): void {
   const node = nodeMap.get(nodeId);
-  const pins = side === "in" ? (node?.inPins ?? []) : (node?.outPins ?? []);
+  if (!node || node.kind !== "action") return;
+  const pins = side === "in" ? node.inPins : node.outPins;
+  if (pins.length === 0) return;
 
-  if (node?.kind !== "action" || pins.length === 0) {
-    // No pin matching — assign positionally in y-sorted order
-    const sorted = [...es].sort((a, b) => {
-      const opp  = side === "in" ? a.from : a.to;
-      const oppB = side === "in" ? b.from : b.to;
-      return (nodeMap.get(opp)?.y ?? 0) - (nodeMap.get(oppB)?.y ?? 0);
-    });
-    sorted.forEach((e, i) => result.set(e, [i, es.length]));
-    return result;
-  }
+  const used = new Set<string>();
+  const setPin = (e: GEdge, pin: string): void => {
+    if (side === "in") e.dstPin = pin;
+    else                e.srcPin = pin;
+    used.add(pin);
+  };
 
-  const assigned  = new Map<GEdge, number>();
-  const usedSlots = new Set<number>();
   const unmatched: GEdge[] = [];
 
   for (const e of es) {
     const otherId = side === "in" ? e.from : e.to;
     const other   = nodeMap.get(otherId);
-    let slotIdx   = -1;
+    let chosen: string | undefined;
 
     if (other?.kind === "action") {
-      // Match by shared pin name between the two action nodes
       const otherPins = side === "in" ? other.outPins : other.inPins;
       for (const p of otherPins) {
-        const idx = pins.findIndex((q, i) => q === p && !usedSlots.has(i));
-        if (idx !== -1) { slotIdx = idx; break; }
+        if (pins.includes(p) && !used.has(p)) { chosen = p; break; }
       }
     }
-    if (slotIdx === -1 && other) {
-      // Match by object node id → pin name
-      const idx = pins.findIndex((q, i) => q === other.id && !usedSlots.has(i));
-      if (idx !== -1) slotIdx = idx;
+    if (!chosen && other && pins.includes(other.id) && !used.has(other.id)) {
+      chosen = other.id;
     }
 
-    if (slotIdx !== -1) {
-      assigned.set(e, slotIdx);
-      usedSlots.add(slotIdx);
-    } else {
-      unmatched.push(e);
-    }
+    if (chosen) setPin(e, chosen);
+    else unmatched.push(e);
   }
 
-  // Assign remaining unmatched edges to unused slots in y-sorted order
-  const unusedSlots    = pins.map((_, i) => i).filter(i => !usedSlots.has(i));
-  const sortedUnmatched = [...unmatched].sort((a, b) => {
-    const opp  = side === "in" ? a.from : a.to;
-    const oppB = side === "in" ? b.from : b.to;
-    return (nodeMap.get(opp)?.y ?? 0) - (nodeMap.get(oppB)?.y ?? 0);
+  // Distribute leftovers in declaration order to keep things deterministic.
+  const free = pins.filter(p => !used.has(p));
+  unmatched.forEach((e, i) => {
+    const pin = free[i] ?? pins[pins.length - 1];
+    setPin(e, pin);
   });
-  sortedUnmatched.forEach((e, i) =>
-    assigned.set(e, unusedSlots[i] ?? pins.length - 1));
-
-  es.forEach(e => result.set(e, [assigned.get(e) ?? 0, pins.length]));
-  return result;
 }

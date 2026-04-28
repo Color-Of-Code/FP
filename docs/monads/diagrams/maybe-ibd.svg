@@ -17,18 +17,18 @@
     <rect x="0" y="0" width="672" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
     <text x="336" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» MaybeBindContext</text>
     <g class="edge">
-      <path d="M236.0,148.9 C236.0,148.9 272.3,142.3 272.3,142.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M246.8,161.0 L256.8,161.0 L256.8,123.0 L276.3,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M246.8,123.1 C246.8,123.1 272.3,127.7 272.3,127.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M246.8,109.0 L276.3,109.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M410.8,135.0 C410.8,135.0 436.3,135.0 436.3,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M406.8,116.0 L436.3,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called.</title>
-      <rect x="100.80000000000001" y="142" width="135.2" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="168.4" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ma_val : Maybe a</text>
+      <rect x="111.60000000000002" y="142" width="135.2" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="179.20000000000002" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ma_val : Maybe a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Maybe b) — called only when ma_val is Just a; may itself return Nothing</title>
@@ -38,13 +38,13 @@
     </g>
     <g class="action-node">
       <title>Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)</title>
-      <rect x="286.8" y="113" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="346.8" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : MaybeBindOp</text>
+      <rect x="286.8" y="94" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="346.8" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : MaybeBindOp</text>
     </g>
     <g class="object-node">
       <title>Maybe b — Just b (if every step succeeded) or Nothing (first failure propagated)</title>
-      <rect x="446.79999999999995" y="116" width="135.2" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="514.4" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb_val : Maybe b</text>
+      <rect x="446.79999999999995" y="97" width="135.2" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="514.4" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb_val : Maybe b</text>
     </g>
   </g>
 </svg>

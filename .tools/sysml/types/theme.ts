@@ -28,10 +28,9 @@ export const theme = {
     frameTabW:      200,
     frameTabH:      22,
 
-    // Layout parameters
-    edgeGap:        40,    // dagre ranksep
-    nodeVgap:       14,    // dagre nodesep
-    branchSepH:     60,    // separator height between decision branches
+    // Layout parameters (ELK)
+    edgeGap:        40,    // ELK spacing.nodeNodeBetweenLayers
+    nodeVgap:       14,    // ELK spacing.nodeNode
 
     /**
      * Rendered depth of the arrowhead in SVG user-space units.
@@ -76,5 +75,4 @@ export const FRAME_TAB_W   = theme.dims.frameTabW;
 export const FRAME_TAB_H   = theme.dims.frameTabH;
 export const EDGE_GAP      = theme.dims.edgeGap;
 export const NODE_VGAP     = theme.dims.nodeVgap;
-export const BRANCH_SEP_H  = theme.dims.branchSepH;
 export const ARROW_DEPTH   = theme.dims.arrowDepth;

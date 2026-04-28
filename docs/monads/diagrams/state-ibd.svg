@@ -17,24 +17,24 @@
     <rect x="0" y="0" width="700.8000000000001" height="322" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
     <text x="350.40000000000003" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» StateBindContext</text>
     <g class="edge">
-      <path d="M227.1,194.0 C248.0,194.0 265.8,172.0 286.7,172.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M261.2,213.0 L271.2,213.0 L271.2,172.0 L290.7,172.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M261.2,161.0 C261.2,161.0 286.7,161.0 286.7,161.0" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M261.2,161.0 L290.7,161.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M227.1,128.0 C248.0,128.0 265.8,150.0 286.7,150.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M261.2,109.0 L271.2,109.0 L271.2,150.0 L290.7,150.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M425.2,168.3 C425.2,168.3 450.7,174.4 450.7,174.4" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M421.2,154.0 L450.7,154.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M425.2,153.7 C425.2,153.7 470.5,144.3 470.5,144.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M421.2,168.0 L431.2,168.0 L431.2,206.0 L450.7,206.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>State s a — a computation: given state s returns (a, s')</title>
-      <rect x="100.80000000000003" y="194" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="175.60000000000002" y="213" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sa_val : State s a</text>
+      <rect x="111.60000000000004" y="194" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="186.40000000000003" y="213" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sa_val : State s a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ State s b) — continuation: given result a, produces a new state computation</title>
@@ -44,8 +44,8 @@
     </g>
     <g class="object-node">
       <title>s — current state entering bind. The value side and the state side are both threaded.</title>
-      <rect x="120.60000000000002" y="90" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="175.60000000000002" y="109" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s_in : s</text>
+      <rect x="151.20000000000002" y="90" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="206.20000000000002" y="109" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s_in : s</text>
     </g>
     <g class="action-node">
       <title>bind sa f = \\s -&gt;\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\n  in  (b, s'')</title>
@@ -54,13 +54,13 @@
     </g>
     <g class="object-node">
       <title>State s b — the composed computation; when run it produces (b, s'')</title>
-      <rect x="461.2" y="168" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="536" y="187" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sb_val : State s b</text>
+      <rect x="461.2" y="135" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="536" y="154" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sb_val : State s b</text>
     </g>
     <g class="object-node">
       <title>s — the transformed state after both sa and f(a) have run. Different from s_in.</title>
-      <rect x="481" y="116" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="536" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s_out : s</text>
+      <rect x="461.20000000000005" y="187" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="516.2" y="206" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s_out : s</text>
     </g>
   </g>
 </svg>

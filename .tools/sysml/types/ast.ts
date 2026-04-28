@@ -121,7 +121,7 @@ export interface DiagramMeta {
   name?: string;
   /** Layout direction: "LR" (default, left→right) or "TB" (top→bottom) */
   direction?: "LR" | "TB";
-  /** Layout engine: "dagre" (default, fast) or "elk" (better edge routing) */
+  /** @deprecated Layout engine selector (parsed for backward compat; ignored — ELK is the only engine). */
   layout?: "dagre" | "elk";
   shows: Record<string, Role>;
   tooltips: Record<string, string>;

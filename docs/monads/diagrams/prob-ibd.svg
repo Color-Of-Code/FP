@@ -17,18 +17,18 @@
     <rect x="0" y="0" width="657.6" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
     <text x="328.8" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» ProbBindContext</text>
     <g class="edge">
-      <path d="M228.8,149.1 C228.8,149.1 265.1,142.3 265.1,142.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M239.6,161.0 L249.6,161.0 L249.6,123.0 L269.1,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M239.6,122.9 C239.6,122.9 265.1,127.7 265.1,127.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M239.6,109.0 L269.1,109.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M403.6,135.0 C403.6,135.0 429.1,135.0 429.1,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M399.6,116.0 L429.1,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1.</title>
-      <rect x="100.80000000000001" y="142" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="164.8" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_a : Prob a</text>
+      <rect x="111.6" y="142" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="175.6" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_a : Prob a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Prob b) — conditional distribution: given outcome a, returns a new distribution over b</title>
@@ -38,13 +38,13 @@
     </g>
     <g class="action-node">
       <title>[(b, pa*pb) | (a, pa) &lt;- dist, (b, pb) &lt;- f a]\nFor each outcome a (probability pa), apply f to get a distribution over b.\nEach (b, pb) gets weight pa * pb — law of total probability.</title>
-      <rect x="279.6" y="113" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="339.6" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : ProbBindOp</text>
+      <rect x="279.6" y="94" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="339.6" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : ProbBindOp</text>
     </g>
     <g class="object-node">
       <title>Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it</title>
-      <rect x="439.6" y="116" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="503.6" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_b : Prob b</text>
+      <rect x="439.6" y="97" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="503.6" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_b : Prob b</text>
     </g>
   </g>
 </svg>

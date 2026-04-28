@@ -2,23 +2,22 @@
  * Activity diagram builder.
  *
  * Converts an ActivityDef + DiagramMeta + ActionDef map into an SVG inner
- * fragment (without the outer SVG shell).  Handles:
- *   - Action, object, decision, merge nodes
- *   - Object flows and control flows (successions)
- *   - Invisible branch-separator nodes that prevent decision branches from
- *     overlapping when dagre places them at the same rank
+ * fragment (without the outer SVG shell).  Layout and routing are delegated
+ * to ELK (`layoutGraph`); pin attachment is encoded as `GEdge.srcPin`
+ * / `GEdge.dstPin` so ELK routes directly to the correct port.
  */
 
 import {
   type ActivityDef, type ActionDef, type DiagramMeta, type GNode, type GEdge,
   ACTION_W, ACTION_H, DECISION_SZ,
-  FRAME_PAD, FRAME_TAB_H, BRANCH_SEP_H,
+  FRAME_PAD, FRAME_TAB_H,
   nodeDims,
 } from "../types.ts";
-import { autoLayout } from "../layout.ts";
+import { layoutGraph } from "../layout.ts";
 import { appendGNode } from "./nodes.ts";
-import { computeEndpoints, appendGEdge } from "./edges.ts";
+import { appendGEdge } from "./edges.ts";
 import { appendActivityFrame } from "./frame.ts";
+import { assignActionPins } from "./pin.ts";
 import type { RenderPlan } from "./title.ts";
 
 /**
@@ -95,58 +94,27 @@ export async function renderActivity(
     edges.push({ from: s.from, to: s.to, label: undefined, isHof: false, isObjectFlow: false });
   }
 
-  // ── Branch separators ──────────────────────────────────────────────────
-  // For each decision, inject an invisible node (width=1, height=BRANCH_SEP_H)
-  // connected decision→sep (minlen=1) and sep→merge (minlen=2).
-  // The tall height forces dagre to give the branches enough vertical room.
-  const mergeIdSet = new Set(actDef.merges.map(m => m.id));
+  // Match each object-flow edge to a named pin on action endpoints.
+  assignActionPins(edges, nodeMap);
 
-  function findMerge(decisionId: string): string | null {
-    const queue   = [decisionId];
-    const visited = new Set<string>();
-    while (queue.length > 0) {
-      const curr = queue.shift()!;
-      if (visited.has(curr)) continue;
-      visited.add(curr);
-      if (curr !== decisionId && mergeIdSet.has(curr)) return curr;
-      for (const e of edges) {
-        if (e.from === curr && !visited.has(e.to)) queue.push(e.to);
-      }
-    }
-    return null;
-  }
-
-  for (const d of actDef.decisions) {
-    const mergeId = findMerge(d.id);
-    if (!mergeId) continue;
-    const sepId   = `_sep_${d.id}`;
-    const sepNode: GNode = {
-      id: sepId, label: "",
-      kind: "separator", isHof: false, tooltip: undefined,
-      x: 0, y: 0, w: 1, h: BRANCH_SEP_H,
-      inPins: [], outPins: [],
-    };
-    nodes.push(sepNode);
-    nodeMap.set(sepId, sepNode);
-    edges.push({ from: d.id,  to: sepId,   label: undefined, isHof: false, isObjectFlow: false, isSeparator: true, minlen: 1 });
-    edges.push({ from: sepId, to: mergeId, label: undefined, isHof: false, isObjectFlow: false, isSeparator: true, minlen: 2 });
-  }
-
-  // ── Layout ─────────────────────────────────────────────────────────────
-  const [innerW, innerH] = await autoLayout(
-    nodes, edges,
-    diagram.layout    ?? "dagre",
-    diagram.direction ?? "LR",
+  // ── Layout + routing via ELK ───────────────────────────────────────────
+  const { width: innerW, height: innerH, edgePaths } = await layoutGraph(
+    nodes, edges, diagram.direction ?? "LR",
   );
+
+  // Shift everything inside the activity frame.
+  const dx = FRAME_PAD;
+  const dy = FRAME_PAD + FRAME_TAB_H;
   for (const n of nodes) {
-    n.x += FRAME_PAD;
-    n.y += FRAME_PAD + FRAME_TAB_H;
+    n.x += dx;
+    n.y += dy;
   }
+  const shiftedPaths = edgePaths.map(pts =>
+    pts.map(([x, y]) => [x + dx, y + dy] as [number, number]),
+  );
 
   const W = innerW + 2 * FRAME_PAD;
   const H = innerH + 2 * FRAME_PAD + FRAME_TAB_H;
-
-  const pts = computeEndpoints(edges, nodeMap);
 
   return {
     width: W,
@@ -154,7 +122,7 @@ export async function renderActivity(
     draw(parent) {
       appendActivityFrame(parent, diagram.name ?? actDef.name, W, H);
       edges.forEach((e, i) => {
-        if (!e.isSeparator) appendGEdge(parent, e, pts[i]);
+        appendGEdge(parent, e, shiftedPaths[i]);
       });
       nodes.forEach(n => appendGNode(parent, n));
     },

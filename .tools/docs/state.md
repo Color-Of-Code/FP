@@ -29,8 +29,11 @@ Two diagram kinds emitted:
 - `ibd` (internal block diagram) — block frame + parts + connections + decorative boundary ports.
 - `activity` — actions, objects, decisions, merges, flows, successions.
 
-Layout engine selectable per diagram (`layout = dagre | elk`). Edge routing is hand-rolled cubic
-Béziers regardless of engine.
+Layout and orthogonal edge routing both come from ELK
+([decisions/0007-orthogonal-routing.md](decisions/0007-orthogonal-routing.md)). Action nodes use
+real ELK ports for input/output pins; edges are emitted as polylines from the routed
+`edge.sections`. The `layout = dagre | elk` field is still parsed for backward compat with existing
+fixtures but is ignored at render time.
 
 ### Tests
 
@@ -64,10 +67,6 @@ Béziers regardless of engine.
 
 ## Known issues / open work
 
-- **Diagram routing** — hand-rolled cubic Béziers + dagre/elk node-only placement give noticeably
-  curvy, occasionally cramped output. Plan to switch to ELK orthogonal routing with real ports
-  captured in [decisions/0007-orthogonal-routing.md](decisions/0007-orthogonal-routing.md)
-  (Proposed).
 - **`lint-langs` skip list** — `.tools/check-lang-order.ts` carries a `SKIP_FILES` set; only
   discussion chapters belong there. See [AGENTS.md](../../AGENTS.md). No tooling change required,
   but the list must be reviewed when chapters are renamed.
@@ -89,7 +88,6 @@ Béziers regardless of engine.
 | Langium     | 4.2.2                                         |
 | langium-cli | 4.2.1                                         |
 | Vitest      | 4.1.5                                         |
-| dagre       | 3.0.x (`@dagrejs/dagre`)                      |
 | elkjs       | 0.11.x                                        |
 | d3          | 7.9.x                                         |
 | jsdom       | 26.1.x                                        |

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 847.2 260" width="847.2" height="260">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 879.2 287" width="879.2" height="287">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
@@ -11,94 +11,94 @@
       <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="847.2" height="260" fill="white"/>
-  <text x="423.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m</text>
+  <rect width="879.2" height="287" fill="white"/>
+  <text x="439.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="847.2" height="232" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="879.2" height="259" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="activity-frame-tab">
       <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M166.7,148.0 C166.7,148.0 206.7,133.7 206.7,133.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M181.2,87.0 L210.7,87.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M166.7,134.0 C166.7,134.0 206.7,148.3 206.7,148.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M181.2,139.0 L191.2,139.0 L191.2,105.0 L210.7,105.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M345.2,141.0 C345.2,141.0 370.7,148.1 370.7,148.1" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M357.2,90.0 L367.2,90.0 L367.2,194.0 L386.7,194.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M489.6,106.0 C489.6,106.0 516.7,115.7 516.7,115.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M507.2,142.0 L517.2,142.0 L517.2,117.0 L536.7,117.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M489.6,140.0 C489.6,140.0 516.7,130.3 516.7,130.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M507.2,194.0 L527.2,194.0 L527.2,132.0 L536.7,132.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M655.2,123.0 C655.2,123.0 680.7,123.0 680.7,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M683.2,121.0 L712.7,121.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M341.2,141.0 C404.0,141.0 457.9,123.0 520.7,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M349.2,106.0 L544.7,106.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="action-node">
       <title>Build inner continuation k2 = \\a -&gt; f(a)(k)\nThis closure captures both f and k.\nWhen called with a, it: runs f(a) to get Cont r b, then runs that with k.</title>
-      <rect x="221.2" y="119" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="281.2" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">compose</text>
+      <rect x="229.2" y="74" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="289.2" y="96" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">compose</text>
       <g class="pin pin-in">
-        <rect x="217.2" y="129.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="227.2" y="133.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <rect x="225.2" y="84.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="235.2" y="88.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
       </g>
       <g class="pin pin-in">
-        <rect x="217.2" y="144.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="227.2" y="148.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">k</text>
+        <rect x="225.2" y="99.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="235.2" y="103.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">k</text>
       </g>
       <g class="pin pin-out">
-        <rect x="337.2" y="137" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="335.2" y="141" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">k2</text>
+        <rect x="345.2" y="92" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="343.2" y="96" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">k2</text>
       </g>
     </g>
     <g class="action-node">
       <title>Run m with k2: m(k2). m runs LAST — this is the inversion of control.\nIf callCC is used, k (the downstream continuation) can be captured as an escape function.</title>
-      <rect x="531.2" y="101" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="591.2" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run</text>
+      <rect x="555.2" y="99" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="615.2" y="121" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run</text>
       <g class="pin pin-in">
-        <rect x="527.2" y="111.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="537.2" y="115.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">m</text>
+        <rect x="551.2" y="109.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="561.2" y="113.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">m</text>
       </g>
       <g class="pin pin-in">
-        <rect x="527.2" y="126.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="537.2" y="130.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">k2</text>
+        <rect x="551.2" y="124.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="561.2" y="128.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">k2</text>
       </g>
       <g class="pin pin-out">
-        <rect x="647.2" y="119" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="645.2" y="123" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">r</text>
+        <rect x="671.2" y="117" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="669.2" y="121" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">r</text>
       </g>
     </g>
     <g class="object-node">
       <title>Cont r a = (a ⟶ r) ⟶ r — m is waiting for its continuation. It does not run yet.</title>
-      <rect x="381.2" y="68" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="436.2" y="87" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">m : Cont r a</text>
+      <rect x="397.2" y="123" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="452.2" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">m : Cont r a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Cont r b) — the continuation step; given a, produces a Cont r b action</title>
-      <rect x="46" y="148" width="135.2" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="113.6" y="160" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="113.6" y="174" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Cont r b</text>
+      <rect x="46" y="68" width="135.2" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="113.6" y="80" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="113.6" y="94" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Cont r b</text>
     </g>
     <g class="object-node">
       <title>(b ⟶ r) — the downstream continuation: what happens after b is produced</title>
-      <rect x="58.599999999999994" y="96" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="113.6" y="115" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">k : b ⟶ r</text>
+      <rect x="71.19999999999999" y="120" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="126.19999999999999" y="139" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">k : b ⟶ r</text>
     </g>
     <g class="object-node">
       <title>(a ⟶ r) — the composed continuation. When m eventually produces a, it calls k2(a), which runs f(a) and then k.</title>
-      <rect x="381.2" y="140" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="436.2" y="159" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">k2 : a ⟶ r</text>
+      <rect x="397.2" y="175" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="452.2" y="194" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">k2 : a ⟶ r</text>
     </g>
     <g class="object-node">
       <title>r — the final result of the entire composed computation</title>
-      <rect x="691.2" y="104" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="746.2" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">r : r</text>
+      <rect x="723.2" y="102" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="778.2" y="121" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">r : r</text>
     </g>
   </g>
 </svg>

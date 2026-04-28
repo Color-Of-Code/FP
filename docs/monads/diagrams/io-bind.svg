@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1132 252" width="1132" height="252">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 281" width="1180" height="281">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
@@ -11,109 +11,109 @@
       <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1132" height="252" fill="white"/>
-  <text x="566" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">IO bind: execute ia, feed a to f to build IO b, execute IO b</text>
+  <rect width="1180" height="281" fill="white"/>
+  <text x="590" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">IO bind: execute ia, feed a to f to build IO b, execute IO b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="1132" height="224" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1180" height="253" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="activity-frame-tab">
       <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
     </g>
     <g class="edge">
-      <path d="M156.0,141.0 C156.0,141.0 181.5,141.0 181.5,141.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M156.0,90.0 L185.5,90.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M320.0,141.0 C320.0,141.0 345.5,148.1 345.5,148.1" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M332.0,84.0 L342.0,84.0 L342.0,136.0 L361.5,136.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M446.3,140.0 C462.1,140.0 475.7,115.7 491.5,115.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M482.0,136.0 L492.0,136.0 L492.0,111.0 L511.5,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M446.3,106.0 C462.1,106.0 475.7,130.3 491.5,130.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M482.0,188.0 L502.0,188.0 L502.0,126.0 L511.5,126.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M630.0,123.0 C630.0,123.0 655.5,130.1 655.5,130.1" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M658.0,109.0 L668.0,109.0 L668.0,161.0 L687.5,161.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M776.0,128.7 C776.0,128.7 801.5,123.0 801.5,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M808.0,161.0 L818.0,161.0 L818.0,141.0 L837.5,141.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M940.0,123.0 C940.0,123.0 965.5,123.0 965.5,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M984.0,135.0 L1013.5,135.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M316.0,141.0 C378.8,141.0 432.7,123.0 495.5,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M324.0,100.0 L519.5,100.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M626.0,123.0 C626.0,123.0 805.5,123.0 805.5,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M650.0,125.0 L845.5,125.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="action-node">
       <title>Execute ia: the runtime runs the described effect and produces value a. Real I/O happens here.</title>
-      <rect x="196" y="119" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="256" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">exec_a</text>
+      <rect x="204" y="68" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="264" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">exec_a</text>
       <g class="pin pin-in">
-        <rect x="192" y="137" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="202" y="141" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ia</text>
+        <rect x="200" y="86" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="210" y="90" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ia</text>
       </g>
       <g class="pin pin-out">
-        <rect x="312" y="137" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="310" y="141" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+        <rect x="320" y="86" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="318" y="90" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
       </g>
     </g>
     <g class="action-node">
       <title>Apply f(a): build the next IO action description. No effect yet — only the description is created.</title>
-      <rect x="506" y="101" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="566" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">build</text>
+      <rect x="530" y="93" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="590" y="115" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">build</text>
       <g class="pin pin-in">
-        <rect x="502" y="111.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="512" y="115.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+        <rect x="526" y="103.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="536" y="107.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
       </g>
       <g class="pin pin-in">
-        <rect x="502" y="126.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="512" y="130.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <rect x="526" y="118.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="536" y="122.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="622" y="119" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="620" y="123" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ib</text>
+        <rect x="646" y="111" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="644" y="115" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ib</text>
       </g>
     </g>
     <g class="action-node">
       <title>Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this.</title>
-      <rect x="816" y="101" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="876" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">exec_b</text>
+      <rect x="856" y="113" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="916" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">exec_b</text>
       <g class="pin pin-in">
-        <rect x="812" y="119" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="822" y="123" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ib</text>
+        <rect x="852" y="131" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="862" y="135" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ib</text>
       </g>
       <g class="pin pin-out">
-        <rect x="932" y="119" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="930" y="123" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
+        <rect x="972" y="131" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="970" y="135" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
       </g>
     </g>
     <g class="object-node">
       <title>IO a — a description (recipe) of a side-effectful computation. Nothing has run yet.</title>
-      <rect x="46" y="122" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="101" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ia : IO a</text>
+      <rect x="46" y="71" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="101" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ia : IO a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ IO b) — given result a, constructs the next IO action description</title>
-      <rect x="356" y="68" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="411" y="80" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="411" y="94" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ IO b</text>
+      <rect x="372" y="169" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="427" y="181" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="427" y="195" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ IO b</text>
     </g>
     <g class="object-node">
       <title>a — the value obtained by running ia (e.g. a String read from stdin)</title>
-      <rect x="356" y="140" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="411" y="159" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a : a</text>
+      <rect x="372" y="117" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="427" y="136" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a : a</text>
     </g>
     <g class="object-node">
       <title>IO b — the description of the second effect, constructed from a</title>
-      <rect x="666" y="122" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="721" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ib : IO b</text>
+      <rect x="698" y="142" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="753" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ib : IO b</text>
     </g>
     <g class="object-node">
       <title>b — the final result. The sequencing of exec_a before exec_b is the entire bind contract.</title>
-      <rect x="976" y="104" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1031" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b : b</text>
+      <rect x="1024" y="116" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1079" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b : b</text>
     </g>
   </g>
 </svg>

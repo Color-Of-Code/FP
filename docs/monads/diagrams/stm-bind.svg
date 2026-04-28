@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1449.1999999999998 252" width="1449.1999999999998" height="252">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1513.1999999999998 291" width="1513.1999999999998" height="291">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
@@ -11,150 +11,150 @@
       <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1449.1999999999998" height="252" fill="white"/>
-  <text x="724.5999999999999" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">STM bind: sequence two TVar actions; atomically commits or retries the whole chain</text>
+  <rect width="1513.1999999999998" height="291" fill="white"/>
+  <text x="756.5999999999999" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">STM bind: sequence two TVar actions; atomically commits or retries the whole chain</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="1449.1999999999998" height="224" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1513.1999999999998" height="263" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="activity-frame-tab">
       <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
     </g>
     <g class="edge">
-      <path d="M156.0,141.0 C156.0,141.0 181.5,141.0 181.5,141.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M156.0,90.0 L185.5,90.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M320.0,141.0 C320.0,141.0 347.3,148.3 347.3,148.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M332.0,84.0 L342.0,84.0 L342.0,136.0 L363.3,136.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M448.9,140.0 C465.1,140.0 478.9,115.7 495.1,115.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M483.8,136.0 L495.6,136.0 L495.6,111.0 L515.1,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M448.9,106.0 C465.1,106.0 478.9,130.3 495.1,130.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M485.6,188.0 L505.6,188.0 L505.6,126.0 L515.1,126.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M633.6,123.0 C633.6,123.0 659.1,130.1 659.1,130.1" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M661.6,109.0 L671.6,109.0 L671.6,161.0 L691.1,161.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M779.6,128.7 C779.6,128.7 805.1,123.0 805.1,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M811.6,161.0 L821.6,161.0 L821.6,141.0 L841.1,141.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M943.6,123.0 C943.6,123.0 969.1,130.1 969.1,130.1" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M987.6,129.0 L997.6,129.0 L997.6,181.0 L1017.1,181.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M1089.6,128.7 C1089.6,128.7 1115.1,123.0 1115.1,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M1137.6,181.0 L1147.6,181.0 L1147.6,161.0 L1167.1,161.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M1253.6,115.7 C1253.6,115.7 1283.0,130.0 1283.0,130.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-      <text x="1273.9982706465998" y="111.14776528035947" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">commit — all writes visible atomically</text>
+      <path d="M1313.6,146.0 L1343.1,146.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1333.6" y="140" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">commit — all writes visible atomically</text>
     </g>
     <g class="edge">
-      <path d="M1253.6,130.3 C1253.6,130.3 1283.0,116.0 1283.0,116.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
-      <text x="1262.6057293534" y="111.48109861369281" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">conflict — discard writes, restart entire chain</text>
+      <path d="M1313.6,164.0 L1323.6,164.0 L1323.6,198.0 L1343.1,198.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1323.6" y="175" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">conflict — discard writes, restart entire chain</text>
     </g>
     <g class="edge">
-      <path d="M316.0,141.0 C380.1,141.0 435.0,123.0 499.1,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M324.0,100.0 L523.1,100.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M629.6,123.0 C629.6,123.0 809.1,123.0 809.1,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M653.6,125.0 L849.1,125.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M939.6,123.0 C939.6,123.0 1119.1,123.0 1119.1,123.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M979.6,145.0 L1175.1,145.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="action-node">
       <title>Run sa: read/write TVars; result is tentative until atomically commits</title>
-      <rect x="196" y="119" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="256" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_sa</text>
+      <rect x="204" y="68" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="264" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_sa</text>
       <g class="pin pin-in">
-        <rect x="192" y="137" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="202" y="141" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sa</text>
+        <rect x="200" y="86" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="210" y="90" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sa</text>
       </g>
       <g class="pin pin-out">
-        <rect x="312" y="137" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="310" y="141" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+        <rect x="320" y="86" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="318" y="90" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
       </g>
     </g>
     <g class="action-node">
       <title>Apply f(a): build the next atomic action STM b</title>
-      <rect x="509.6" y="101" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="569.6" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">build</text>
+      <rect x="533.6" y="93" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="593.6" y="115" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">build</text>
       <g class="pin pin-in">
-        <rect x="505.6" y="111.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="515.6" y="115.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+        <rect x="529.6" y="103.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="539.6" y="107.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
       </g>
       <g class="pin pin-in">
-        <rect x="505.6" y="126.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="515.6" y="130.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <rect x="529.6" y="118.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="539.6" y="122.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="625.6" y="119" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="623.6" y="123" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sb</text>
+        <rect x="649.6" y="111" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="647.6" y="115" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sb</text>
       </g>
     </g>
     <g class="action-node">
       <title>Run f(a): read/write TVars; all writes still tentative</title>
-      <rect x="819.6" y="101" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="879.6" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_sb</text>
+      <rect x="859.6" y="113" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="919.6" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_sb</text>
       <g class="pin pin-in">
-        <rect x="815.6" y="119" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="825.6" y="123" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sb</text>
+        <rect x="855.6" y="131" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="865.6" y="135" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">sb</text>
       </g>
       <g class="pin pin-out">
-        <rect x="935.6" y="119" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="933.6" y="123" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
+        <rect x="975.6" y="131" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="973.6" y="135" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
       </g>
     </g>
     <g class="action-node">
       <title>atomically: check for TVar conflicts.\n  No conflict  → commit all writes at once; b is visible to other threads\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa</title>
-      <rect x="1129.6" y="101" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="1189.6" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">commit</text>
+      <rect x="1185.6" y="133" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="1245.6" y="155" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">commit</text>
       <g class="pin pin-in">
-        <rect x="1125.6" y="119" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1135.6" y="123" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b_in</text>
+        <rect x="1181.6" y="151" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1191.6" y="155" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b_in</text>
       </g>
       <g class="pin pin-out">
-        <rect x="1245.6" y="111.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1243.6" y="115.66666666666667" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b_out</text>
+        <rect x="1301.6" y="143.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1299.6" y="147.66666666666666" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b_out</text>
       </g>
       <g class="pin pin-out">
-        <rect x="1245.6" y="126.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1243.6" y="130.33333333333334" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">retry</text>
+        <rect x="1301.6" y="158.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1299.6" y="162.33333333333334" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">retry</text>
       </g>
     </g>
     <g class="object-node">
       <title>STM a — an atomic action that reads/writes TVars. Not yet executed.</title>
-      <rect x="46" y="122" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="101" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sa : STM a</text>
+      <rect x="46" y="71" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="101" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sa : STM a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ STM b) — given result a, builds the next atomic action</title>
-      <rect x="356" y="68" width="113.60000000000001" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="412.8" y="80" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="412.8" y="94" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ STM b</text>
+      <rect x="372" y="169" width="113.60000000000001" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="428.8" y="181" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="428.8" y="195" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ STM b</text>
     </g>
     <g class="object-node">
       <title>a — the value produced by sa (tentative)</title>
-      <rect x="357.8" y="140" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="412.8" y="159" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a : a</text>
+      <rect x="373.8" y="117" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="428.8" y="136" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a : a</text>
     </g>
     <g class="object-node">
       <title>STM b — the next atomic action</title>
-      <rect x="669.6" y="122" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="724.6" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sb : STM b</text>
+      <rect x="701.6" y="142" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="756.6" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sb : STM b</text>
     </g>
     <g class="object-node">
       <title>b — the result value (still tentative, not yet committed)</title>
-      <rect x="979.5999999999999" y="122" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1034.6" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b_raw : b</text>
+      <rect x="1027.6" y="162" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1082.6" y="181" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b_raw : b</text>
     </g>
     <g class="object-node">
       <title>b — the committed result. All TVar writes from run_sa and run_sb are now atomically visible.</title>
-      <rect x="1291.3999999999999" y="130" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1346.3999999999999" y="149" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b : b</text>
+      <rect x="1353.6" y="127" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1408.6" y="146" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b : b</text>
     </g>
     <g class="object-node">
       <title>Retry path — the entire transaction restarts. No partial state is visible to other threads.</title>
-      <rect x="1289.6" y="78" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1346.3999999999999" y="97" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">retry : STM b</text>
+      <rect x="1353.6" y="179" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1410.3999999999999" y="198" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">retry : STM b</text>
     </g>
   </g>
 </svg>

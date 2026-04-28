@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 643.1999999999999 298" width="643.1999999999999" height="298">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 643.2 298" width="643.2" height="298">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#424242"/>
@@ -11,24 +11,24 @@
       <path d="M0,0 L10,5 L0,10 z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="643.1999999999999" height="298" fill="white"/>
-  <text x="321.59999999999997" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: STM a ⟶ (a ⟶ STM b) ⟶ STM b</text>
+  <rect width="643.2" height="298" fill="white"/>
+  <text x="321.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: STM a ⟶ (a ⟶ STM b) ⟶ STM b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="643.1999999999999" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
-    <text x="321.59999999999997" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» STMBindContext</text>
+    <rect x="0" y="0" width="643.2" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
+    <text x="321.6" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» STMBindContext</text>
     <g class="edge">
-      <path d="M221.6,149.3 C221.6,149.3 257.9,142.3 257.9,142.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M232.4,161.0 L242.4,161.0 L242.4,123.0 L261.9,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M232.4,122.7 C232.4,122.7 257.9,127.7 257.9,127.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M232.4,109.0 L261.9,109.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M396.4,135.0 C396.4,135.0 421.9,135.0 421.9,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M392.4,116.0 L421.9,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>STM a — an atomic action on TVars (transactional variables). Not yet committed.</title>
-      <rect x="100.79999999999998" y="142" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="161.2" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sa_val : STM a</text>
+      <rect x="111.6" y="142" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="172" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sa_val : STM a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ STM b) — given result a of the first action, constructs the next atomic step</title>
@@ -38,13 +38,13 @@
     </g>
     <g class="action-node">
       <title>Sequences two STM actions within ONE transaction:\n1. run sa to get a\n2. pass a to f to get STM b\n3. run that action\nIf any readTVar conflicts → the entire composed transaction retries from scratch.</title>
-      <rect x="272.4" y="113" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="332.4" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : STMBindOp</text>
+      <rect x="272.4" y="94" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="332.4" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : STMBindOp</text>
     </g>
     <g class="object-node">
       <title>STM b — the composed atomic action. Runs inside atomically :: STM a -&gt; IO a.</title>
-      <rect x="432.4" y="116" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="492.79999999999995" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sb_val : STM b</text>
+      <rect x="432.4" y="97" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="492.79999999999995" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sb_val : STM b</text>
     </g>
   </g>
 </svg>

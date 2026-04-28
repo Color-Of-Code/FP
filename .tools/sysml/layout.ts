@@ -1,97 +1,181 @@
 /**
- * Graph layout: dagre (default, sync) and elkjs (async, better edge routing).
- * Both mutate GNode positions in-place and return computed [width, height].
+ * Graph layout: ELK-based layered placement plus orthogonal edge routing.
+ *
+ * `layoutGraph` returns both node positions (mutated in place) AND the
+ * polyline geometry of every routed edge.  Action nodes contribute one ELK
+ * port per pin so edges connect to the correct slot — there is no
+ * post-layout boundary clipping or pin-slot snapping any more.
  */
 
-import dagre from "@dagrejs/dagre";
-import ELK   from "elkjs/lib/elk.bundled.js";
+import ELK from "elkjs/lib/elk.bundled.js";
 import type { GNode, GEdge } from "./types.ts";
-import { nodeDims, EDGE_GAP, NODE_VGAP } from "./types.ts";
+import { nodeDims, EDGE_GAP, NODE_VGAP, PIN_SZ } from "./types.ts";
 
-// ── Dagre (sync) ───────────────────────────────────────────────────────────
+/** A routed polyline.  Always at least two points (start and end). */
+export type EdgePolyline = readonly (readonly [number, number])[];
 
-export function layeredLayout(
-  nodes: GNode[],
-  edges: GEdge[],
-  rankdir: "LR" | "TB" = "LR",
-): [number, number] {
-  if (nodes.length === 0) return [200, 100];
-
-  // Ensure w/h are set from label content
-  for (const n of nodes) { [n.w, n.h] = nodeDims(n); }
-
-  const g = new dagre.graphlib.Graph({ multigraph: true });
-  g.setGraph({
-    rankdir,
-    nodesep: NODE_VGAP,
-    ranksep: EDGE_GAP,
-    marginx: 30,
-    marginy: 30,
-  });
-  g.setDefaultEdgeLabel(() => ({}));
-
-  for (const n of nodes) {
-    g.setNode(n.id, { width: n.w, height: n.h });
-  }
-  edges.forEach((e, i) => {
-    if (g.hasNode(e.from) && g.hasNode(e.to)) {
-      g.setEdge(e.from, e.to, {
-        weight: e.isSeparator ? 0 : 1,
-        minlen: e.minlen ?? 1,
-      }, `e${i}`);
-    }
-  });
-
-  dagre.layout(g);
-
-  for (const n of nodes) {
-    const pos = g.node(n.id);
-    n.x = pos.x;
-    n.y = pos.y;
-  }
-
-  const meta = g.graph();
-  return [meta.width ?? 200, meta.height ?? 100];
+export interface LayoutResult {
+  width:  number;
+  height: number;
+  /** Polyline geometry per edge, in input order.  Empty array for skipped edges. */
+  edgePaths: EdgePolyline[];
 }
-
-// ── ELK (async, better edge routing for HOF inputs) ───────────────────────
 
 const elk = new ELK();
 
-export async function elkLayout(
+// ── ELK graph types (only the bits we use) ────────────────────────────────
+
+interface ElkPort {
+  id: string;
+  width?: number;
+  height?: number;
+  layoutOptions?: Record<string, string>;
+  x?: number; y?: number;
+}
+
+interface ElkNode {
+  id: string;
+  width?: number; height?: number;
+  ports?: ElkPort[];
+  layoutOptions?: Record<string, string>;
+  x?: number; y?: number;
+}
+
+interface ElkPoint { x: number; y: number; }
+interface ElkEdgeSection {
+  startPoint: ElkPoint;
+  endPoint: ElkPoint;
+  bendPoints?: ElkPoint[];
+}
+interface ElkEdgeOut {
+  id: string;
+  sections?: ElkEdgeSection[];
+}
+
+interface ElkResult {
+  width?: number;
+  height?: number;
+  children?: (ElkNode & { x?: number; y?: number; ports?: (ElkPort & { x?: number; y?: number })[] })[];
+  edges?: ElkEdgeOut[];
+}
+
+// ── Public API ─────────────────────────────────────────────────────────────
+
+/**
+ * Run ELK layered + orthogonal routing on the graph.
+ *
+ * Node `x`/`y` are written back as the centre of each node (matching the
+ * existing renderer convention).  The returned `edgePaths[i]` is the routed
+ * polyline for `edges[i]`, in absolute SVG coordinates, including the start
+ * and end points.  Skipped edges (separator / unknown endpoints) get `[]`.
+ */
+export async function layoutGraph(
   nodes: GNode[],
   edges: GEdge[],
   rankdir: "LR" | "TB" = "LR",
-): Promise<[number, number]> {
-  if (nodes.length === 0) return [200, 100];
+): Promise<LayoutResult> {
+  if (nodes.length === 0) {
+    return { width: 200, height: 100, edgePaths: edges.map(() => []) };
+  }
 
+  // Make sure widths/heights are up to date with current label content.
   for (const n of nodes) { [n.w, n.h] = nodeDims(n); }
 
   const direction = rankdir === "TB" ? "DOWN" : "RIGHT";
-  const nodeSet   = new Set(nodes.map(n => n.id));
+  const inSide  = rankdir === "TB" ? "NORTH" : "WEST";
+  const outSide = rankdir === "TB" ? "SOUTH" : "EAST";
+  const nodeIndex = new Map(nodes.map(n => [n.id, n]));
 
+  // ── Build ELK children with per-action ports ─────────────────────────────
+  const portIdOf = (nodeId: string, side: "in" | "out", pin: string): string =>
+    `${nodeId}__${side}__${pin}`;
+
+  const children: ElkNode[] = nodes.map(n => {
+    if (n.kind !== "action") {
+      return { id: n.id, width: n.w, height: n.h };
+    }
+    const ports: ElkPort[] = [];
+    n.inPins.forEach((pin, i) => {
+      ports.push({
+        id: portIdOf(n.id, "in", pin),
+        width: PIN_SZ, height: PIN_SZ,
+        layoutOptions: {
+          "port.side":  inSide,
+          "port.index": String(n.inPins.length - 1 - i),
+        },
+      });
+    });
+    n.outPins.forEach((pin, i) => {
+      ports.push({
+        id: portIdOf(n.id, "out", pin),
+        width: PIN_SZ, height: PIN_SZ,
+        layoutOptions: {
+          "port.side":  outSide,
+          "port.index": String(i),
+        },
+      });
+    });
+    return {
+      id: n.id,
+      width: n.w, height: n.h,
+      ports,
+      layoutOptions: {
+        "portConstraints":            "FIXED_ORDER",
+        "elk.portAlignment.default":  "DISTRIBUTED",
+      },
+    };
+  });
+
+  // ── Build ELK edges ──────────────────────────────────────────────────────
+  type ElkEdgeIn = {
+    id: string;
+    sources: string[];
+    targets: string[];
+  };
+  const elkEdges: ElkEdgeIn[] = [];
+  /** Map from `e<i>` ids back into the original `edges[]` index. */
+  const elkEdgeIdToOrig = new Map<string, number>();
+
+  edges.forEach((e, i) => {
+    const src = nodeIndex.get(e.from);
+    const tgt = nodeIndex.get(e.to);
+    if (!src || !tgt) return;
+
+    const sourceId = src.kind === "action" && e.isObjectFlow && e.srcPin
+      ? portIdOf(src.id, "out", e.srcPin)
+      : src.id;
+    const targetId = tgt.kind === "action" && e.isObjectFlow && e.dstPin
+      ? portIdOf(tgt.id, "in", e.dstPin)
+      : tgt.id;
+
+    const id = `e${i}`;
+    elkEdgeIdToOrig.set(id, i);
+    elkEdges.push({ id, sources: [sourceId], targets: [targetId] });
+  });
+
+  // ── Run ELK ──────────────────────────────────────────────────────────────
   const graph = {
     id: "root",
     layoutOptions: {
-      "elk.algorithm":                              "layered",
-      "elk.direction":                              direction,
-      "elk.layered.spacing.nodeNodeBetweenLayers":  String(EDGE_GAP),
-      "elk.spacing.nodeNode":                       String(NODE_VGAP),
-      "elk.padding":                                "[top=30,left=30,bottom=30,right=30]",
-      "elk.layered.nodePlacement.strategy":         "BRANDES_KOEPF",
+      "elk.algorithm":                                     "layered",
+      "elk.direction":                                     direction,
+      "elk.edgeRouting":                                   "ORTHOGONAL",
+      "elk.layered.spacing.nodeNodeBetweenLayers":         String(EDGE_GAP),
+      "elk.spacing.nodeNode":                              String(NODE_VGAP),
+      "elk.spacing.edgeNode":                              "16",
+      "elk.spacing.edgeEdge":                              "10",
+      "elk.padding":                                       "[top=30,left=30,bottom=30,right=30]",
+      "elk.layered.nodePlacement.strategy":                "NETWORK_SIMPLEX",
+      "elk.layered.crossingMinimization.semiInteractive":  "true",
+      "elk.layered.mergeEdges":                            "false",
     },
-    children: nodes.map(n => ({ id: n.id, width: n.w, height: n.h })),
-    edges: edges
-      .filter(e => !e.isSeparator && nodeSet.has(e.from) && nodeSet.has(e.to))
-      .map((e, i) => ({ id: `e${i}`, sources: [e.from], targets: [e.to] })),
+    children,
+    edges: elkEdges,
   };
 
-  const result = await elk.layout(graph) as {
-    width?: number;
-    height?: number;
-    children?: { id: string; x?: number; y?: number }[];
-  };
+  const result = (await elk.layout(graph as never)) as ElkResult;
 
+  // ── Scatter node positions back ──────────────────────────────────────────
   const childMap = new Map((result.children ?? []).map(c => [c.id, c]));
   for (const n of nodes) {
     const c = childMap.get(n.id);
@@ -101,17 +185,24 @@ export async function elkLayout(
     }
   }
 
-  return [result.width ?? 200, result.height ?? 100];
-}
+  // ── Scatter routed edge polylines back ───────────────────────────────────
+  const edgePaths: EdgePolyline[] = edges.map(() => [] as EdgePolyline);
+  for (const re of result.edges ?? []) {
+    const origIdx = elkEdgeIdToOrig.get(re.id);
+    if (origIdx === undefined) continue;
+    const sec = re.sections?.[0];
+    if (!sec) continue;
+    const pts: [number, number][] = [
+      [sec.startPoint.x, sec.startPoint.y],
+      ...(sec.bendPoints ?? []).map(p => [p.x, p.y] as [number, number]),
+      [sec.endPoint.x, sec.endPoint.y],
+    ];
+    edgePaths[origIdx] = pts;
+  }
 
-// ── Unified async dispatcher ───────────────────────────────────────────────
-
-export async function autoLayout(
-  nodes: GNode[],
-  edges: GEdge[],
-  engine: "dagre" | "elk" = "dagre",
-  rankdir: "LR" | "TB"   = "LR",
-): Promise<[number, number]> {
-  if (engine === "elk") return elkLayout(nodes, edges, rankdir);
-  return Promise.resolve(layeredLayout(nodes, edges, rankdir));
+  return {
+    width:  result.width  ?? 200,
+    height: result.height ?? 100,
+    edgePaths,
+  };
 }

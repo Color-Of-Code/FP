@@ -10,9 +10,10 @@ import {
   type PartDef, type DiagramMeta, type GNode, type GEdge, type PortUsage,
   PIN_SZ, COL, nodeDims,
 } from "../types.ts";
-import { layeredLayout } from "../layout.ts";
+import { layoutGraph } from "../layout.ts";
 import { appendGNode } from "./nodes.ts";
-import { computeEndpoints, appendGEdge } from "./edges.ts";
+import { appendGEdge } from "./edges.ts";
+import { assignActionPins } from "./pin.ts";
 import { appendElement, appendText, joinGroups, setAttrs, type SvgParent } from "../lib/svg.ts";
 import type { RenderPlan } from "./title.ts";
 
@@ -63,10 +64,10 @@ const MARGIN = 60;
 /**
  * Build the render plan for one IBD.
  */
-export function renderIbd(
+export async function renderIbd(
   partDef: PartDef,
   diagram: DiagramMeta,
-): RenderPlan {
+): Promise<RenderPlan> {
   const nodes: GNode[]           = [];
   const nodeMap = new Map<string, GNode>();
 
@@ -90,17 +91,21 @@ export function renderIbd(
     const isHof   = (c.via?.toLowerCase().includes("hof") ?? false) || srcRole === "hof";
     edges.push({ from: c.from, to: c.to, label: c.label, isHof, isObjectFlow: true });
   }
+  assignActionPins(edges, nodeMap);
 
-  const [innerW, innerH] = layeredLayout(nodes, edges, "LR");
-  for (const n of nodes) { n.x += MARGIN; n.y += MARGIN; }
+  const { width: innerW, height: innerH, edgePaths } = await layoutGraph(nodes, edges, "LR");
+  const dx = MARGIN;
+  const dy = MARGIN;
+  for (const n of nodes) { n.x += dx; n.y += dy; }
+  const shiftedPaths = edgePaths.map(pts =>
+    pts.map(([x, y]) => [x + dx, y + dy] as [number, number]),
+  );
 
   const W = innerW + 2 * MARGIN;
   const H = innerH + 2 * MARGIN;
 
   const inPorts  = partDef.ports.filter(p => p.direction === "in"  || p.direction === "inout");
   const outPorts = partDef.ports.filter(p => p.direction === "out");
-
-  const pts = computeEndpoints(edges, nodeMap);
 
   return {
     width: W,
@@ -129,7 +134,7 @@ export function renderIbd(
 
       appendPortSquares(parent, inPorts, "left", W, H);
       appendPortSquares(parent, outPorts, "right", W, H);
-      edges.forEach((e, i) => appendGEdge(parent, e, pts[i]));
+      edges.forEach((e, i) => appendGEdge(parent, e, shiftedPaths[i]));
       nodes.forEach(n => appendGNode(parent, n));
     },
   };

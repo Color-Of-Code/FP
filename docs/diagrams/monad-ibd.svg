@@ -17,18 +17,18 @@
     <rect x="0" y="0" width="610.8" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
     <text x="305.4" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» BindContext</text>
     <g class="edge">
-      <path d="M205.4,149.0 C205.4,149.0 236.3,142.3 236.3,142.3" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M210.8,161.0 L220.8,161.0 L220.8,123.0 L240.3,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M210.8,122.1 C210.8,122.1 236.3,127.7 236.3,127.7" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M210.8,109.0 L240.3,109.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M374.8,135.0 C374.8,135.0 400.3,135.0 400.3,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M370.8,116.0 L400.3,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>Ma — monadic value, provides unwrapped a to the continuation</title>
-      <rect x="95.4" y="142" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="150.4" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ma_val : Ma</text>
+      <rect x="100.80000000000001" y="142" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="155.8" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ma_val : Ma</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Mb) — the continuation: maps each a to a new monadic Mb</title>
@@ -38,13 +38,13 @@
     </g>
     <g class="action-node">
       <title>&gt;&gt;= (bind): sequences two monadic actions, threading the value</title>
-      <rect x="250.8" y="113" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="310.8" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : BindOp</text>
+      <rect x="250.8" y="94" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="310.8" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : BindOp</text>
     </g>
     <g class="object-node">
       <title>Mb — final monadic result</title>
-      <rect x="410.8" y="116" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="465.8" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb_val : Mb</text>
+      <rect x="410.8" y="97" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="465.8" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">mb_val : Mb</text>
     </g>
   </g>
 </svg>

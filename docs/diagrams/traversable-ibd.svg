@@ -17,13 +17,13 @@
     <rect x="0" y="0" width="628.8" height="270" rx="4" fill="#f8f8ff" stroke="#6666c0" stroke-width="2"/>
     <text x="314.4" y="18" text-anchor="middle" font-size="12" font-weight="bold" font-family="sans-serif" fill="#333">«block» TraverseContext</text>
     <g class="edge hof-edge">
-      <path d="M210.8,147.9 C210.8,147.9 236.3,142.3 236.3,142.3" fill="none" stroke="#00796b" stroke-width="1.5" marker-end="url(#arrowHof)"/>
+      <path d="M210.8,161.0 L220.8,161.0 L220.8,123.0 L240.3,123.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M205.4,121.0 C205.4,121.0 236.3,127.7 236.3,127.7" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M210.8,109.0 L240.3,109.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M374.8,135.0 C374.8,135.0 400.3,135.0 400.3,135.0" fill="none" stroke="#424242" stroke-width="1.5" marker-end="url(#arrowFilled)"/>
+      <path d="M370.8,116.0 L400.3,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Fb) — effectful mapper applied to each element</title>
@@ -33,18 +33,18 @@
     </g>
     <g class="object-node">
       <title>Ta — traversable structure containing elements of type a</title>
-      <rect x="95.4" y="90" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="150.4" y="109" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ta_val : Ta</text>
+      <rect x="100.80000000000001" y="90" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="155.8" y="109" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ta_val : Ta</text>
     </g>
     <g class="action-node">
       <title>traverse: map with effects, collecting results into F(Tb)</title>
-      <rect x="250.8" y="113" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="310.8" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">traverse : TraverseOp</text>
+      <rect x="250.8" y="94" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="310.8" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">traverse : TraverseOp</text>
     </g>
     <g class="object-node">
       <title>F(Tb) — effect on the outside, rebuilt structure on the inside</title>
-      <rect x="410.8" y="116" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="474.8" y="135" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ftb_val : F(Tb)</text>
+      <rect x="410.8" y="97" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="474.8" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ftb_val : F(Tb)</text>
     </g>
   </g>
 </svg>
