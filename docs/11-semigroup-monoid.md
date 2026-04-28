@@ -11,7 +11,7 @@
 **Semigroup** and **Monoid** capture the idea of **combining values** of the same type in an
 associative way. They are among the simplest and most widely useful abstractions in FP.
 
-![semigroup and monoid](diagrams/semigroup-monoid.svg)
+![semigroup and monoid](11-semigroup-monoid/semigroup-monoid.svg)
 
 ## Semigroup
 
@@ -92,7 +92,7 @@ mconcat (map Sum [1,2,3,4,5])    -- Sum 15           (Sum Int monoid)
 -- New type becomes usable by passing a Monoid instance, not by rewriting code.
 ```
 
-![semigroup monoid motivation](diagrams/semigroup-monoid-motivation.svg)
+![semigroup monoid motivation](11-semigroup-monoid/semigroup-monoid-motivation.svg)
 
 ## Examples
 

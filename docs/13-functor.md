@@ -10,9 +10,9 @@
 A **functor** `F` is a type constructor that wraps values and supports **`fmap`**, which lifts a
 plain function `f :: a ⟶ b` to work inside the wrapper: `fmap f :: Fa ⟶ Fb`.
 
-![functor](diagrams/functor.svg)
+![functor](13-functor/functor.svg)
 
-![fmap type signature](diagrams/functor-ibd.svg)
+![fmap type signature](13-functor/functor-ibd.svg)
 
 This means you can reuse any ordinary function over any functor without rewriting it — the functor
 handles the "opening and closing" of the wrapper.
@@ -57,7 +57,7 @@ fmap double myTree       -- Tree functor
 -- One function name, any functor.  Laws guarantee consistent behaviour.
 ```
 
-![functor motivation](diagrams/functor-motivation.svg)
+![functor motivation](13-functor/functor-motivation.svg)
 
 ## Examples
 

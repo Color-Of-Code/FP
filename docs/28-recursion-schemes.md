@@ -13,7 +13,7 @@ recursive data structures. Rather than writing explicit recursive functions, you
 This is the generalisation of [16. Fold](./16-fold.md) from lists to arbitrary recursive types, and
 directly builds on [7. Algebraic Data Types](./07-adt.md) and [13. Functor](./13-functor.md).
 
-![recursion schemes](diagrams/recursion-schemes.svg)
+![recursion schemes](28-recursion-schemes/recursion-schemes.svg)
 
 ## The key insight: separate shape from recursion
 
@@ -122,7 +122,7 @@ countNodes = cata countAlg
 -- Adding Neg: add one case to ExprF, update fmap; all algebras stay unchanged.
 ```
 
-![recursion schemes motivation](diagrams/recursion-schemes-motivation.svg)
+![recursion schemes motivation](28-recursion-schemes/recursion-schemes-motivation.svg)
 
 ## Examples
 

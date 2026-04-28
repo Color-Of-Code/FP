@@ -10,7 +10,7 @@ works because pure functions, introduced in [1. Function](./01-function.md), and
 [2. Immutability](./02-immutability.md) together guarantee **referential transparency** — every
 occurrence of a name can be replaced by its definition without changing the meaning of the program.
 
-![equational reasoning](diagrams/equational-reasoning.svg)
+![equational reasoning](03-equational-reasoning/equational-reasoning.svg)
 
 ## Referential transparency
 
@@ -109,7 +109,7 @@ x = v1 + v2              -- x = 3, derivable by substitution alone
                          -- no need to track any mutable variable
 ```
 
-![equational reasoning motivation](diagrams/equational-reasoning-motivation.svg)
+![equational reasoning motivation](03-equational-reasoning/equational-reasoning-motivation.svg)
 
 ## Examples
 

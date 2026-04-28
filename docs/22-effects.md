@@ -11,7 +11,7 @@ so every combination must be addressed explicitly.
 
 This chapter describes the problem and three approaches to solving it.
 
-![composing effects](diagrams/effects.svg)
+![composing effects](22-effects/effects.svg)
 
 ## The problem
 
@@ -54,7 +54,7 @@ can have different semantics: `StateT (ExceptT M)` discards state on failure, wh
 
 ## Approaches at a glance
 
-![effects motivation](diagrams/effects-motivation.svg)
+![effects motivation](22-effects/effects-motivation.svg)
 
 |                           | Monad Transformers                       | Free Monad                                | Algebraic Effects                        |
 | ------------------------- | ---------------------------------------- | ----------------------------------------- | ---------------------------------------- |

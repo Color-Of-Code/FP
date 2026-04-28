@@ -21,7 +21,7 @@ class Arrow arr where
 The plain function arrow `(→)` is the simplest instance: `arr = id`, `>>>` is `(.)`,
 `first f (b, d) = (f b, d)`.
 
-![arrows](diagrams/arrows.svg)
+![arrows](26-arrows/arrows.svg)
 
 ## Laws
 
@@ -64,7 +64,7 @@ feedback loops, enabling stream processors and automata.
 
 ## Motivation
 
-![arrows motivation](diagrams/arrows-motivation.svg)
+![arrows motivation](26-arrows/arrows-motivation.svg)
 
 Monads model effectful computations where each step can choose the next step based on the _value_
 produced. But sometimes you want to analyse or transform the **shape** of a computation statically —

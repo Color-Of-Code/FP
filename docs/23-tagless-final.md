@@ -9,7 +9,7 @@ abstraction where a program is written as a **typeclass-polymorphic function** o
 effect type `F[_]`, rather than as a concrete free monad AST. Different interpreters simply pick
 different `F`.
 
-![tagless final](diagrams/tagless-final.svg)
+![tagless final](23-tagless-final/tagless-final.svg)
 
 The name comes from Carette, Kiselyov & Shan (2009): _initial_ encodings use ADTs/GADTs (tagged
 unions); _final_ encodings use typeclasses. Removing the "tags" (the ADT constructors) gives
@@ -67,7 +67,7 @@ def greet[F[_]: Monad: Console](name: String): F[Unit] =
 
 ## Motivation
 
-![tagless final motivation](diagrams/tagless-final-motivation.svg)
+![tagless final motivation](23-tagless-final/tagless-final-motivation.svg)
 
 Without tagless final, adding a new effect to a concrete implementation touches every call site.
 With tagless final, programs are written once against an algebra; the effect stack is an

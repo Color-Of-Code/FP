@@ -7,13 +7,13 @@
 A **traversable** container `T` generalises the idea of **visiting every element with an effectful
 function** and collecting the results — while preserving the container's shape.
 
-![traversable](diagrams/traversable.svg)
+![traversable](17-traversable/traversable.svg)
 
-![sequence](diagrams/traversable-2.svg)
+![sequence](17-traversable/traversable-2.svg)
 
-![traversable requirements](diagrams/traversable-3.svg)
+![traversable requirements](17-traversable/traversable-3.svg)
 
-![traverse type signature](diagrams/traversable-ibd.svg)
+![traverse type signature](17-traversable/traversable-ibd.svg)
 
 Two core operations:
 
@@ -62,7 +62,7 @@ result = traverse validate xs   -- Maybe [validatedValues]
 -- List (all combinations), etc.  Container or effect changes = zero rewrite.
 ```
 
-![traversable motivation](diagrams/traversable-motivation.svg)
+![traversable motivation](17-traversable/traversable-motivation.svg)
 
 ## Examples
 

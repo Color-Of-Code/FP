@@ -12,7 +12,7 @@ exact dual: defined by **destructors/observations** — how values are _taken ap
 explains why infinite structures such as streams, infinite trees, and comonads are mathematically
 principled, not just a pragmatic trick.
 
-![codata](diagrams/codata.svg)
+![codata](29-codata/codata.svg)
 
 ## The core duality
 
@@ -61,7 +61,7 @@ natsFrom = ana (\n -> n :> (n + 1))   -- seed: n; step: yield n, new seed n+1
 
 See [28. Recursion Schemes](./28-recursion-schemes.md) for `cata`, `ana`, and `hylo` in full detail.
 
-![codata motivation](diagrams/codata-motivation.svg)
+![codata motivation](29-codata/codata-motivation.svg)
 
 ## Why comonads are codata
 

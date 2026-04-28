@@ -12,11 +12,11 @@ means to compute. Functional programming is grounded in the **λ-calculus** (Chu
 Turing machine. That choice has consequences: computation is substitution, not mutation; equational
 reasoning is the default; and types are sets of proofs.
 
-![computation models](diagrams/computation-models.svg)
+![computation models](31-computation-models/computation-models.svg)
 
 ## Three families of computation models
 
-![computation models motivation](diagrams/computation-models-motivation.svg)
+![computation models motivation](31-computation-models/computation-models-motivation.svg)
 
 | Family         | Key models                                                           | FP connection                                               |
 | -------------- | -------------------------------------------------------------------- | ----------------------------------------------------------- |

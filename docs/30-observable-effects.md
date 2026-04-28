@@ -7,7 +7,7 @@ and emits electromagnetic radiation. Most programs can safely ignore these physi
 functional abstraction holds perfectly. Some domains cannot: cryptographic code that leaks timing
 data can allow an attacker to recover a secret key in seconds.
 
-![observable effects](diagrams/observable-effects.svg)
+![observable effects](30-observable-effects/observable-effects.svg)
 
 ## The effect spectrum
 
@@ -77,7 +77,7 @@ history, and memory-bus contention — effects that are invisible to the pure fu
 -- The attacker learns nothing from timing: 256^4 guesses required.
 ```
 
-![observable effects motivation](diagrams/observable-effects-motivation.svg)
+![observable effects motivation](30-observable-effects/observable-effects-motivation.svg)
 
 ## Examples
 

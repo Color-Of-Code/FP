@@ -23,7 +23,7 @@ dimap :: (A' → A)   -- pre-map (contravariant, "input" side)
 The archetypal profunctor is the plain function type `A → B`: given `f :: A' → A` and `g :: B → B'`,
 `dimap f g h = g ∘ h ∘ f`.
 
-![profunctor motivation](diagrams/profunctor-motivation.svg)
+![profunctor motivation](25-profunctor/profunctor-motivation.svg)
 
 ## Laws
 
@@ -51,7 +51,7 @@ Composition is plain function composition `(.)` regardless of optic kind. Becaus
 determines which `P`s are allowed, composing a `Lens` with a `Prism` automatically yields a
 `Traversal` — the most general type that satisfies both constraints.
 
-![profunctor](diagrams/profunctor.svg)
+![profunctor](25-profunctor/profunctor.svg)
 
 ## Typeclass hierarchy
 

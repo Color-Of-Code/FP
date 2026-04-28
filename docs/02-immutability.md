@@ -6,7 +6,7 @@ remains intact. This is the natural consequence of [1. Function](./01-function.m
 function's output depends only on its inputs, it cannot silently alter data that other code still
 holds.
 
-![immutability and structural sharing](diagrams/immutability.svg)
+![immutability and structural sharing](02-immutability/immutability.svg)
 
 ## Core properties
 
@@ -65,7 +65,7 @@ older = { user | age = 31 } -- a new record; user is unchanged
 -- both versions coexist; no coordination needed for safe concurrent reads
 ```
 
-![immutability motivation](diagrams/immutability-motivation.svg)
+![immutability motivation](02-immutability/immutability-motivation.svg)
 
 ## Examples
 

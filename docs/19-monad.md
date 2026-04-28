@@ -14,17 +14,17 @@ computations**.
 itself produces a wrapped value), `fmap` yields `M(Mb)` — an unwanted nested wrapper. Monads solve
 this.
 
-![monad](diagrams/monad.svg)
+![monad](19-monad/monad.svg)
 
-![bind](diagrams/monad-2.svg)
+![bind](19-monad/monad-2.svg)
 
-![pure](diagrams/monad-pure.svg)
+![pure](19-monad/monad-pure.svg)
 
-![Maybe monad](diagrams/monad-3.svg)
+![Maybe monad](19-monad/monad-3.svg)
 
-![List monad](diagrams/monad-4.svg)
+![List monad](19-monad/monad-4.svg)
 
-![bind type signature](diagrams/monad-ibd.svg)
+![bind type signature](19-monad/monad-ibd.svg)
 
 ## Operations
 
@@ -85,7 +85,7 @@ result = Just 10
 -- Flat result at every step; Nothing short-circuits the rest.
 ```
 
-![monad motivation](diagrams/monad-motivation.svg)
+![monad motivation](19-monad/monad-motivation.svg)
 
 ## Examples
 

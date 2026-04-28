@@ -11,7 +11,7 @@ A **comonad** is the categorical dual of a monad. Where a monad injects a value 
 chains computations that _produce_ context, a comonad _extracts_ a focused value from a context and
 chains computations that _consume_ context.
 
-![comonad](diagrams/comonad.svg)
+![comonad](20-comonad/comonad.svg)
 
 ```text
 class Comonad w where
@@ -47,7 +47,7 @@ Classic examples:
 The **Store comonad** is the foundation of Lens (every `Lens s a` is a `Store a s → s`), which is
 why comonads and optics are closely related.
 
-![comonad motivation](diagrams/comonad-motivation.svg)
+![comonad motivation](20-comonad/comonad-motivation.svg)
 
 ## Examples
 

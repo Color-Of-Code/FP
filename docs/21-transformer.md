@@ -8,7 +8,7 @@ A **monad transformer** `T` converts any monad `M` into a new monad `T M` that a
 on top. Stacking several transformers produces a **transformer stack**: a single type that carries
 multiple effects simultaneously.
 
-![transformer stack](diagrams/transformer.svg)
+![transformer stack](21-transformer/transformer.svg)
 
 > Part of the **learning track**. For a comparison of Monad Transformers, Free Monads, and Algebraic
 > Effects side-by-side, see [22. Composing Effects](./22-effects.md).
@@ -125,7 +125,7 @@ process = do
     return r2
 ```
 
-![transformer motivation](diagrams/transformer-motivation.svg)
+![transformer motivation](21-transformer/transformer-motivation.svg)
 
 ## Examples
 

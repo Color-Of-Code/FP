@@ -15,7 +15,7 @@ type `a` — that converts `F a` into `G a` **without inspecting or depending on
 α :: ∀ a. F a → G a
 ```
 
-![natural transformations](diagrams/natural-transformations.svg)
+![natural transformations](14-natural-transformations/natural-transformations.svg)
 
 The defining constraint is the **naturality square**: for every function `f :: a → b`,
 
@@ -34,7 +34,7 @@ on the element type — and that is exactly what the square demands.
 
 This is the **free theorem** (Wadler 1989): parametricity gives you the naturality law for free.
 
-![natural transformations motivation](diagrams/natural-transformations-motivation.svg)
+![natural transformations motivation](14-natural-transformations/natural-transformations-motivation.svg)
 
 ## Common examples
 

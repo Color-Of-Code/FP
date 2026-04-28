@@ -8,7 +8,7 @@ called **eager** (or _strict_) evaluation. Understanding the difference is essen
 exploring [11. Semigroup & Monoid](./11-semigroup-monoid.md) and [16. Fold](./16-fold.md), where
 evaluation order determines whether folds terminate.
 
-![lazy evaluation](diagrams/lazy-evaluation.svg)
+![lazy evaluation](10-lazy-evaluation/lazy-evaluation.svg)
 
 ## Comparison
 
@@ -80,7 +80,7 @@ first5     = take 5 primes  -- forces exactly enough elements to find 5 primes
 -- Works even if the source is infinite.
 ```
 
-![lazy evaluation motivation](diagrams/lazy-evaluation-motivation.svg)
+![lazy evaluation motivation](10-lazy-evaluation/lazy-evaluation-motivation.svg)
 
 ## Examples
 

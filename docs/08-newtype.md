@@ -3,13 +3,13 @@
 A **newtype** is a single-field, single-constructor wrapper that creates a type _distinct_ from its
 underlying type while sharing exactly the same runtime representation.
 
-![newtype motivation](diagrams/newtype-motivation.svg)
+![newtype motivation](08-newtype/newtype-motivation.svg)
 
 The distinction matters at compile time: `Age` and `Year` are different types even when both wrap an
 `Int`. Passing a `Year` where an `Age` is expected is a type error. At runtime, the wrapper
 disappears entirely — no boxing, no indirection, no overhead.
 
-![newtype structure](diagrams/newtype.svg)
+![newtype structure](08-newtype/newtype.svg)
 
 ## Why wrap a type?
 

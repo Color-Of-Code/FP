@@ -8,12 +8,12 @@
 extra argument — the **continuation** `k` — that represents _what to do next with the result_.
 Instead of returning a value, a CPS function calls `k` with it.
 
-![CPS motivation](diagrams/cps-motivation.svg)
+![CPS motivation](18-cps/cps-motivation.svg)
 
 CPS makes control flow explicit and first-class. Early exits, coroutines, generators, exceptions,
 and the `Cont` monad all reduce to the single mechanism of passing and calling continuations.
 
-![CPS structure](diagrams/cps.svg)
+![CPS structure](18-cps/cps.svg)
 
 ## Direct style vs CPS
 

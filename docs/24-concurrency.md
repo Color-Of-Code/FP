@@ -4,7 +4,7 @@ Functional programming changes the concurrency story fundamentally: **immutable 
 between threads without locks**, and **pure functions can be parallelised without coordination**.
 This chapter covers the FP-native approaches to concurrent and parallel programming.
 
-![concurrency](diagrams/concurrency.svg)
+![concurrency](24-concurrency/concurrency.svg)
 
 ## The core insight
 
@@ -19,7 +19,7 @@ problem by default:
 
 ## Four levels of FP concurrency
 
-![concurrency motivation](diagrams/concurrency-motivation.svg)
+![concurrency motivation](24-concurrency/concurrency-motivation.svg)
 
 | Level                | Mechanism                                   | Coordination                          | Best for                               |
 | -------------------- | ------------------------------------------- | ------------------------------------- | -------------------------------------- |

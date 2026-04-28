@@ -6,7 +6,7 @@ established that functions are values, passing them around is no different from 
 Combined with [4. Composition](./04-composition.md), HOFs are the primary mechanism by which
 functional programs build large behaviour from small, reusable pieces.
 
-![higher-order functions](diagrams/higher-order-functions.svg)
+![higher-order functions](05-higher-order-functions/higher-order-functions.svg)
 
 ## Core combinators
 
@@ -73,7 +73,7 @@ sortByScore = sortOn score
 -- the transformation (which key to use) is passed in as a function
 ```
 
-![higher-order functions motivation](diagrams/higher-order-functions-motivation.svg)
+![higher-order functions motivation](05-higher-order-functions/higher-order-functions-motivation.svg)
 
 ## Examples
 

@@ -7,13 +7,13 @@
 An **applicative functor** `F` extends [Functor](./13-functor.md) with two operations that allow
 applying **wrapped functions** to **wrapped values**.
 
-![applicative](diagrams/applicative.svg)
+![applicative](15-applicative/applicative.svg)
 
-![fmap and pure](diagrams/applicative-2.svg)
+![fmap and pure](15-applicative/applicative-2.svg)
 
-![typeclass hierarchy](diagrams/applicative-3.svg)
+![typeclass hierarchy](15-applicative/applicative-3.svg)
 
-![(<*>) type signature](diagrams/applicative-ibd.svg)
+![(<*>) type signature](15-applicative/applicative-ibd.svg)
 
 A plain functor can only lift an unwrapped function: `fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb`. But what if the
 function itself is wrapped inside `F`? Applicative adds:
@@ -76,7 +76,7 @@ result = pure (+) <*> parse input_x <*> parse input_y
 -- n fields = n uses of <*>, no nesting.
 ```
 
-![applicative motivation](diagrams/applicative-motivation.svg)
+![applicative motivation](15-applicative/applicative-motivation.svg)
 
 ## Examples
 

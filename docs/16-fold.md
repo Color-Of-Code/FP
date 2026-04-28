@@ -6,11 +6,11 @@ accumulator.
 
 `fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b`
 
-![fold](diagrams/fold.svg)
+![fold](16-fold/fold.svg)
 
-![fold type signature and derived operations](diagrams/fold-2.svg)
+![fold type signature and derived operations](16-fold/fold-2.svg)
 
-![fold type signature](diagrams/fold-ibd.svg)
+![fold type signature](16-fold/fold-ibd.svg)
 
 `map`, `filter`, `sum`, `product`, `length` and many other operations can all be expressed as a
 fold.
@@ -56,7 +56,7 @@ length  xs = fold (\acc _ -> acc + 1) 0 xs
 -- New aggregation = one line.  The loop is never rewritten.
 ```
 
-![fold motivation](diagrams/fold-motivation.svg)
+![fold motivation](16-fold/fold-motivation.svg)
 
 ## Examples
 

@@ -6,7 +6,7 @@
 A **function** `f :: a ⟶ b` takes a value of type `a` (the domain) and produces a value of type `b`
 (the codomain).
 
-![function](diagrams/function.svg)
+![function](01-function/function.svg)
 
 ## Key distinctions
 
