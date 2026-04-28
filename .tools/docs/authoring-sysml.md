@@ -98,6 +98,44 @@ Tooltips are the place to put the things the picture cannot show:
 - **Per-monad / per-language realisation** when the diagram is generic (`pure` → `Just a`,
   `Right a`, `[a]`, `\s -> (a, s)`, …).
 
+Tooltips are invisible at first glance. For the **most important** clarification — the one you want
+every reader to see without hovering — use a `note` instead (see §6). Use both: a short note pinned
+to the diagram, and a richer tooltip on the same node for readers who hover.
+
+## 6. Notes pin commentary to the right spot
+
+When a clarification is too important to live only in a tooltip, but too long to fit in the title
+or in a node label, use a `note`:
+
+```sysml
+note shortCircuit on matchEa :
+    "Pattern match short-circuits:\nLeft skips f entirely.";
+note errorIdentity on widen :
+    "Type widens, value preserved bit-identical.\nThis is what 'error preserved verbatim' means.";
+```
+
+Notes render as **yellow corner-folded rectangles** (UML convention) connected to their target by a
+dashed grey line. The layout engine treats notes as real nodes, so they reserve space and do not
+overlap. `\n` in the text produces a line break.
+
+When to reach for a note vs. another mechanism:
+
+| Need                                                            | Use                                  |
+| --------------------------------------------------------------- | ------------------------------------ |
+| One-line operation signature read at a glance                   | `title`                              |
+| Per-language alias list                                         | `title` suffix `— also called: …`    |
+| Hover-only deep explanation                                     | `tooltip`                            |
+| Visible callout pinned to a specific node, 1–4 short lines      | `note`                               |
+| Long discursive prose                                           | the surrounding Markdown chapter     |
+
+Anti-patterns:
+
+- A note on every node — clutter equal to the original black box.
+- A note that says something the picture already shows (don't pin "this is the input" on the input).
+- A title so long it gets clipped, when the body of the title belongs in notes anyway.
+
+## 7. Identifiers must not collide with reserved keywords
+
 Do **not** use tooltips to restate the visible label of the node — that adds clutter without
 information.
 

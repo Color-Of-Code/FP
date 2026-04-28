@@ -62,7 +62,8 @@
               "label": "\\\\k -> runCont (f (\\\\a -> \\\\_ -> k a)) k"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         }
       ]
     }

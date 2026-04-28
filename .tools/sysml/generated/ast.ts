@@ -41,7 +41,9 @@ export type SysmlKeywordNames =
     | "layout"
     | "merge"
     | "name"
+    | "note"
     | "object"
+    | "on"
     | "out"
     | "package"
     | "part"
@@ -111,7 +113,7 @@ export function isActivityDef(item: unknown): item is ActivityDef {
     return reflection.isInstance(item, ActivityDef.$type);
 }
 
-export type ActivityMember = ActionUsage | DecisionNode | FlowUsage | MergeNode | ObjectNode | SuccessionUsage;
+export type ActivityMember = ActionUsage | DecisionNode | FlowUsage | MergeNode | NoteUsage | ObjectNode | SuccessionUsage;
 
 export const ActivityMember = {
     $type: 'ActivityMember'
@@ -292,10 +294,29 @@ export function isModel(item: unknown): item is Model {
     return reflection.isInstance(item, Model.$type);
 }
 
-export type Name = 'activity' | 'decision' | 'direction' | 'layout' | 'merge' | 'name' | 'render' | 'title' | 'type' | string;
+export type Name = 'activity' | 'decision' | 'direction' | 'layout' | 'merge' | 'name' | 'note' | 'on' | 'render' | 'title' | 'type' | string;
 
 export function isName(item: unknown): item is Name {
-    return item === 'type' || item === 'name' || item === 'title' || item === 'direction' || item === 'layout' || item === 'render' || item === 'merge' || item === 'decision' || item === 'activity' || (typeof item === 'string' && (/[A-Za-z_][\w]*/.test(item)));
+    return item === 'type' || item === 'name' || item === 'title' || item === 'direction' || item === 'layout' || item === 'render' || item === 'merge' || item === 'decision' || item === 'activity' || item === 'note' || item === 'on' || (typeof item === 'string' && (/[A-Za-z_][\w]*/.test(item)));
+}
+
+export interface NoteUsage extends langium.AstNode {
+    readonly $container: ActivityDef | PartDef;
+    readonly $type: 'NoteUsage';
+    id?: Name;
+    target?: Path;
+    text?: StrOrIdent;
+}
+
+export const NoteUsage = {
+    $type: 'NoteUsage',
+    id: 'id',
+    target: 'target',
+    text: 'text'
+} as const;
+
+export function isNoteUsage(item: unknown): item is NoteUsage {
+    return reflection.isInstance(item, NoteUsage.$type);
 }
 
 export interface ObjectNode extends langium.AstNode {
@@ -359,7 +380,7 @@ export function isPartDef(item: unknown): item is PartDef {
     return reflection.isInstance(item, PartDef.$type);
 }
 
-export type PartDefMember = ConnectionUsage | InlinePort | PartUsage;
+export type PartDefMember = ConnectionUsage | InlinePort | NoteUsage | PartUsage;
 
 export const PartDefMember = {
     $type: 'PartDefMember'
@@ -505,6 +526,7 @@ export type SysmlAstType = {
     KvField: KvField
     MergeNode: MergeNode
     Model: Model
+    NoteUsage: NoteUsage
     ObjectNode: ObjectNode
     Package: Package
     PackageMember: PackageMember
@@ -679,6 +701,21 @@ export class SysmlAstReflection extends langium.AbstractAstReflection {
                 }
             },
             superTypes: []
+        },
+        NoteUsage: {
+            name: NoteUsage.$type,
+            properties: {
+                id: {
+                    name: NoteUsage.id
+                },
+                target: {
+                    name: NoteUsage.target
+                },
+                text: {
+                    name: NoteUsage.text
+                }
+            },
+            superTypes: [ActivityMember.$type, PartDefMember.$type]
         },
         ObjectNode: {
             name: ObjectNode.$type,

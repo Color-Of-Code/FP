@@ -134,6 +134,22 @@ export function appendGEdge(
 ): void {
   if (pts.length < 2) return; // routing skipped (e.g. unknown endpoints)
 
+  // Note attachments are simpler: dashed, no arrowhead, straight from the
+  // edge of the source node to the edge of the target.  No pin trimming.
+  if (e.isNoteAttachment) {
+    const group = appendGroup(parent, { class: "edge note-attachment" });
+    appendElement(group, "path", {
+      d: polylineToD(pts),
+      fill: "none",
+      stroke: "#9e9e9e",
+      "stroke-width": 1,
+      "stroke-dasharray": "3,3",
+      "stroke-linejoin": "round",
+      "stroke-linecap": "round",
+    });
+    return;
+  }
+
   // ELK terminates the edge at the action-node body boundary, but action pins
   // straddle that boundary (half outside, half inside).  When the target is a
   // pin, trim less so the arrowhead tip lands on the pin's outer edge.

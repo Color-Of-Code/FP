@@ -23,6 +23,7 @@ import type {
   PortDef, PortUsage, PartUsage, ConnectionUsage,
   PartDef, ActionDef, ActionUsage, ObjectNode,
   DecisionNode, MergeNode, FlowUsage, SuccessionUsage,
+  NoteUsage,
   ActivityDef, PackageDecl, DiagramMeta, Model,
 } from "./types.ts";
 
@@ -125,12 +126,14 @@ function adaptPartDef(g: G.PartDef): PartDef {
   const parts:       PartUsage[]       = [];
   const ports:       PortUsage[]       = [];
   const connections: ConnectionUsage[] = [];
+  const notes:       NoteUsage[]       = [];
   for (const m of g.members) {
     if (G.isPartUsage(m))            parts.push(adaptPartUsage(m));
     else if (G.isInlinePort(m))      ports.push(adaptInlinePort(m));
     else if (G.isConnectionUsage(m)) connections.push(adaptConnection(m));
+    else if (G.isNoteUsage(m))       notes.push(adaptNote(m));
   }
-  return { kind: "partDef", name: g.name ?? "", parts, ports, connections };
+  return { kind: "partDef", name: g.name ?? "", parts, ports, connections, notes };
 }
 
 function adaptActionDef(g: G.ActionDef): ActionDef {
@@ -180,6 +183,15 @@ function adaptSuccession(g: G.SuccessionUsage): SuccessionUsage {
   return { kind: "succession", from: g.from ?? "", to: g.to ?? "" };
 }
 
+function adaptNote(g: G.NoteUsage): NoteUsage {
+  return {
+    kind:   "note",
+    id:     g.id ?? "",
+    target: g.target ?? "",
+    text:   strOrIdent(g.text),
+  };
+}
+
 function adaptActivityDef(g: G.ActivityDef): ActivityDef {
   const actions:     ActionUsage[]     = [];
   const objects:     ObjectNode[]      = [];
@@ -187,6 +199,7 @@ function adaptActivityDef(g: G.ActivityDef): ActivityDef {
   const merges:      MergeNode[]       = [];
   const flows:       FlowUsage[]       = [];
   const successions: SuccessionUsage[] = [];
+  const notes:       NoteUsage[]       = [];
   for (const m of g.members) {
     if      (G.isActionUsage(m))     actions.push(adaptActionUsage(m));
     else if (G.isObjectNode(m))      objects.push(adaptObjectNode(m));
@@ -194,11 +207,12 @@ function adaptActivityDef(g: G.ActivityDef): ActivityDef {
     else if (G.isMergeNode(m))       merges.push(adaptMergeNode(m));
     else if (G.isFlowUsage(m))       flows.push(adaptFlowUsage(m));
     else if (G.isSuccessionUsage(m)) successions.push(adaptSuccession(m));
+    else if (G.isNoteUsage(m))       notes.push(adaptNote(m));
   }
   return {
     kind: "activityDef",
     name: g.name ?? "",
-    actions, objects, decisions, merges, flows, successions,
+    actions, objects, decisions, merges, flows, successions, notes,
   };
 }
 

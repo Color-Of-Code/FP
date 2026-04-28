@@ -46,7 +46,8 @@
               "label": "block; rollback; re-run on TVar change"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         }
       ]
     }

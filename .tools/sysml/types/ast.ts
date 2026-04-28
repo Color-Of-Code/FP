@@ -7,7 +7,7 @@
 
 // ── Shared ─────────────────────────────────────────────────────────────────
 
-export type Role       = "hof" | "type" | "value" | "function" | "initial" | "final" | "decision" | "merge";
+export type Role       = "hof" | "type" | "value" | "function" | "initial" | "final" | "decision" | "merge" | "note";
 export type DiagramType = "ibd" | "activity";
 
 // ── IBD AST ────────────────────────────────────────────────────────────────
@@ -46,6 +46,7 @@ export interface PartDef {
   parts: PartUsage[];
   ports: PortUsage[];
   connections: ConnectionUsage[];
+  notes: NoteUsage[];
 }
 
 // ── Activity AST ───────────────────────────────────────────────────────────
@@ -93,6 +94,18 @@ export interface SuccessionUsage {
   to: string;
 }
 
+/**
+ * A free-floating annotation pinned to an existing node (UML-style note).
+ * Renders as a yellow corner-folded rectangle with a dashed line to the
+ * target node.  `text` may contain `\n` for line breaks.
+ */
+export interface NoteUsage {
+  kind:   "note";
+  id:     string;
+  target: string;   // id of the node this note is anchored to
+  text:   string;
+}
+
 export interface ActivityDef {
   kind: "activityDef";
   name: string;
@@ -102,6 +115,7 @@ export interface ActivityDef {
   merges: MergeNode[];
   flows: FlowUsage[];
   successions: SuccessionUsage[];
+  notes: NoteUsage[];
 }
 
 // ── Package / Model ────────────────────────────────────────────────────────

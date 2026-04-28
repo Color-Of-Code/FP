@@ -23,7 +23,7 @@ PartDef:
     )?;
 
 PartDefMember:
-    PartUsage | InlinePort | ConnectionUsage;
+    PartUsage | InlinePort | ConnectionUsage | NoteUsage;
 
 PartUsage:
     {infer PartUsage} 'part' id=Name (':' type=StrOrIdent)? (
@@ -60,7 +60,7 @@ ActivityDef:
     )?;
 
 ActivityMember:
-    ActionUsage | ObjectNode | DecisionNode | MergeNode | FlowUsage | SuccessionUsage;
+    ActionUsage | ObjectNode | DecisionNode | MergeNode | FlowUsage | SuccessionUsage | NoteUsage;
 
 ActionUsage:
     {infer ActionUsage} 'action' id=Name (':' type=StrOrIdent)? ';'?;
@@ -79,6 +79,12 @@ FlowUsage:
 
 SuccessionUsage:
     {infer SuccessionUsage} 'succession' from=Path 'then' to=Path ';'?;
+
+// A free-floating note pinned to an existing node (UML-style).
+// Renders as a yellow corner-folded rectangle with a dashed line
+// connecting it to the target node.
+NoteUsage:
+    {infer NoteUsage} 'note' id=Name 'on' target=Path ':' text=StrOrIdent ';'?;
 
 // ── #diagram block ──────────────────────────────────────────────────────────
 
@@ -106,7 +112,7 @@ TooltipField:
 
 Name returns string:
     ID | 'type' | 'name' | 'title' | 'direction' | 'layout' | 'render'
-    | 'merge' | 'decision' | 'activity';
+    | 'merge' | 'decision' | 'activity' | 'note' | 'on';
 
 KvValue returns string:
     STRING | ID | 'ibd' | 'in' | 'out' | 'inout'

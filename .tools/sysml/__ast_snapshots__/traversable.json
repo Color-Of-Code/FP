@@ -95,7 +95,8 @@
               "to": "ftb"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         },
         {
           "kind": "activityDef",
@@ -133,7 +134,8 @@
               "to": "fta"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         }
       ]
     }

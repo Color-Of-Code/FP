@@ -78,7 +78,8 @@
               "label": "\\\\r -> runReader ma (f r)"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         }
       ]
     }

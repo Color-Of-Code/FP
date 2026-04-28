@@ -85,7 +85,8 @@
               "to": "Ma"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         },
         {
           "kind": "activityDef",
@@ -133,7 +134,8 @@
               "to": "Mb"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         }
       ]
     }

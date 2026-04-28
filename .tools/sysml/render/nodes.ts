@@ -232,5 +232,57 @@ export function appendGNode(parent: SvgParent, n: GNode): void {
     case "final":     appendFinalNode(parent, n); return;
     case "decision":  appendDiamondNode(parent, n); return;
     case "merge":     appendDiamondNode(parent, n); return;
+    case "note":      appendNoteNode(parent, n); return;
   }
+}
+
+// ── Note node ─────────────────────────────────────────────────────────────
+// UML-style: a rectangle with the top-right corner folded over.  The fold is
+// a small square at the top-right; the body is a 5-point polygon following
+// the outline minus that corner.
+
+function appendNoteNode(parent: SvgParent, n: GNode): void {
+  const FOLD = 10;
+  const x0 = n.x - n.w / 2;
+  const y0 = n.y - n.h / 2;
+  const x1 = n.x + n.w / 2;
+  const y1 = n.y + n.h / 2;
+
+  const group = appendGroup(parent, { class: "note-node" }, n.tooltip);
+
+  // Body polygon: top-left → just before fold → fold corner down → top-right of fold → bottom-right → bottom-left.
+  const bodyPts =
+    `${x0},${y0} ${x1 - FOLD},${y0} ${x1},${y0 + FOLD} ${x1},${y1} ${x0},${y1}`;
+  appendElement(group, "polygon", {
+    points: bodyPts,
+    fill: "#fffde7",
+    stroke: "#fbc02d",
+    "stroke-width": 1.25,
+  });
+
+  // The folded corner triangle: top-right cut, slightly darker fill.
+  const foldPts =
+    `${x1 - FOLD},${y0} ${x1 - FOLD},${y0 + FOLD} ${x1},${y0 + FOLD}`;
+  appendElement(group, "polygon", {
+    points: foldPts,
+    fill: "#fff59d",
+    stroke: "#fbc02d",
+    "stroke-width": 1.25,
+  });
+
+  const lines = n.noteLines ?? [n.label];
+  const LH = 14;
+  const totalH = lines.length * LH;
+  const startY = n.y - totalH / 2 + LH * 0.7;
+  lines.forEach((line, i) => {
+    appendText(group, line, {
+      x: n.x,
+      y: startY + i * LH,
+      "text-anchor": "middle",
+      "font-size": 10,
+      "font-family": "sans-serif",
+      "dominant-baseline": "middle",
+      fill: "#5d4037",
+    });
+  });
 }

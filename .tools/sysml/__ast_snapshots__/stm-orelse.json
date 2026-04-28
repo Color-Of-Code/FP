@@ -78,7 +78,8 @@
               "label": "run s1; on retry, run s2"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         }
       ]
     }

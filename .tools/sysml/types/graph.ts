@@ -16,13 +16,15 @@ export interface GNode {
   id:         string;
   label:      string;
   stereotype?: string;
-  kind: "action" | "object" | "initial" | "final" | "decision" | "merge";
+  kind: "action" | "object" | "initial" | "final" | "decision" | "merge" | "note";
   isHof:      boolean;
   tooltip?:   string;
   x: number; y: number;
   w: number; h: number;
   inPins:     string[];
   outPins:    string[];
+  /** Multi-line text body for note nodes (split on \n). */
+  noteLines?: string[];
 }
 
 // ── Graph edge ─────────────────────────────────────────────────────────────
@@ -37,6 +39,8 @@ export interface GEdge {
   srcPin?:      string;
   /** Input-pin id on `to` (only meaningful when `to` is an action node). */
   dstPin?:      string;
+  /** Note attachment: dashed, undirected, no arrowhead, lighter weight in layout. */
+  isNoteAttachment?: boolean;
 }
 
 // ── Node dimensions ────────────────────────────────────────────────────────
@@ -50,6 +54,15 @@ export function nodeDims(n: GNode): [number, number] {
     return [w, DECISION_SZ];
   }
   if (n.kind === "action")    return [ACTION_W,       ACTION_H];
+  if (n.kind === "note") {
+    // Width = longest line; height = number of lines × line-height + padding.
+    const lines = n.noteLines ?? [n.label];
+    const longest = lines.reduce((m, l) => Math.max(m, l.length), 0);
+    const charW = 5.7; // 11pt regular sans
+    const w = Math.max(80, Math.ceil(longest * charW) + 18);
+    const h = Math.max(28, lines.length * 14 + 12);
+    return [w, h];
+  }
   // object node: width scales with label length
   const charW = 7.2;
   const w = Math.max(OBJECT_W, n.label.length * charW + 20);

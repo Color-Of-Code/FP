@@ -127,7 +127,8 @@
               "to": "f1b"
             }
           ],
-          "successions": []
+          "successions": [],
+          "notes": []
         },
         {
           "kind": "activityDef",
@@ -203,7 +204,8 @@
               "from": "curry",
               "to": "applyA"
             }
-          ]
+          ],
+          "notes": []
         }
       ]
     }

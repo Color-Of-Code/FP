@@ -10,7 +10,7 @@
     },
     {
       "name": "keyword.control.sysml",
-      "match": "\\b(action|activity|as|connect|connection|decision|def|diagram|direction|flow|from|ibd|in|inout|layout|merge|name|object|out|package|part|port|render|show|succession|then|title|to|tooltip|type|via)\\b"
+      "match": "\\b(action|activity|as|connect|connection|decision|def|diagram|direction|flow|from|ibd|in|inout|layout|merge|name|note|object|on|out|package|part|port|render|show|succession|then|title|to|tooltip|type|via)\\b"
     },
     {
       "name": "string.quoted.double.sysml",

@@ -92,11 +92,34 @@ export async function renderIbd(
     nodes.push(n); nodeMap.set(p.id, n);
   }
 
+  // ── Note nodes (UML-style annotations pinned to a target) ─────────────
+  for (const note of partDef.notes) {
+    const lines = note.text.split(/\\n|\n/);
+    const n: GNode = {
+      id: note.id, label: lines[0] ?? "",
+      kind: "note", isHof: false,
+      tooltip: diagram.tooltips[note.id],
+      x: 0, y: 0, w: 0, h: 0,
+      inPins: [], outPins: [],
+      noteLines: lines,
+    };
+    [n.w, n.h] = nodeDims(n);
+    nodes.push(n); nodeMap.set(note.id, n);
+  }
+
   const edges: GEdge[] = [];
   for (const c of partDef.connections) {
     const srcRole = diagram.shows[c.from] ?? "type";
     const isHof   = (c.via?.toLowerCase().includes("hof") ?? false) || srcRole === "hof";
     edges.push({ from: c.from, to: c.to, label: c.label, isHof, isObjectFlow: true });
+  }
+  for (const note of partDef.notes) {
+    if (!nodeMap.has(note.id) || !nodeMap.has(note.target)) continue;
+    edges.push({
+      from: note.id, to: note.target,
+      label: undefined, isHof: false, isObjectFlow: false,
+      isNoteAttachment: true,
+    });
   }
   assignActionPins(edges, nodeMap);
 

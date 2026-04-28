@@ -82,6 +82,24 @@ export async function renderActivity(
     nodes.push(n); nodeMap.set(m.id, n);
   }
 
+  // ── Note nodes ─────────────────────────────────────────────────────────
+  // A note is a free-floating annotation pinned to an existing node by a
+  // dashed undirected edge.  We materialise it as a graph node so the layout
+  // engine reserves space for it and routes the attachment cleanly.
+  for (const note of actDef.notes) {
+    const lines = note.text.split(/\\n|\n/);
+    const n: GNode = {
+      id: note.id, label: lines[0] ?? "",
+      kind: "note", isHof: false,
+      tooltip: diagram.tooltips[note.id],
+      x: 0, y: 0, w: 0, h: 0,
+      inPins: [], outPins: [],
+      noteLines: lines,
+    };
+    [n.w, n.h] = nodeDims(n);
+    nodes.push(n); nodeMap.set(note.id, n);
+  }
+
   // ── Edges ──────────────────────────────────────────────────────────────
   const edges: GEdge[] = [];
   for (const f of actDef.flows) {
@@ -92,6 +110,15 @@ export async function renderActivity(
   for (const s of actDef.successions) {
     if (!nodeMap.has(s.from) || !nodeMap.has(s.to)) continue;
     edges.push({ from: s.from, to: s.to, label: undefined, isHof: false, isObjectFlow: false });
+  }
+  // Note attachments — undirected dashed connectors from each note to its target.
+  for (const note of actDef.notes) {
+    if (!nodeMap.has(note.id) || !nodeMap.has(note.target)) continue;
+    edges.push({
+      from: note.id, to: note.target,
+      label: undefined, isHof: false, isObjectFlow: false,
+      isNoteAttachment: true,
+    });
   }
 
   // Match each object-flow edge to a named pin on action endpoints.
