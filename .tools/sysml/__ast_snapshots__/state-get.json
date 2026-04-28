@@ -1,0 +1,67 @@
+{
+  "packages": [
+    {
+      "name": "StateGetImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Get",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "gs",
+              "type": "State s s",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "StateGetProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "get",
+              "type": "Get"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "gs",
+              "type": "State s s"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "get",
+              "to": "gs",
+              "label": "\\\\s -> (s, s)"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "get": "function",
+      "gs": "type"
+    },
+    "tooltips": {
+      "get": "Get: build \\\\s -> (s, s) — value and outgoing state are both the incoming state.",
+      "gs": "State s s — a stateful computation that observes s without modifying it."
+    },
+    "title": "get :: State s s   (return the current state as the result; state unchanged) — primitive",
+    "name": "get"
+  }
+}

@@ -1,13 +1,13 @@
 {
   "packages": [
     {
-      "name": "MaybePureImpl",
+      "name": "EitherPureImpl",
       "portDefs": [],
       "partDefs": [],
       "actionDefs": [
         {
           "kind": "actionDef",
-          "name": "WrapInJust",
+          "name": "WrapInRight",
           "pins": [
             {
               "kind": "port",
@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "maybe_a",
-              "type": "Maybe a",
+              "id": "either_a",
+              "type": "Either e a",
               "direction": "out"
             }
           ]
@@ -27,12 +27,12 @@
       "activityDefs": [
         {
           "kind": "activityDef",
-          "name": "MaybePureProcess",
+          "name": "EitherPureProcess",
           "actions": [
             {
               "kind": "action",
               "id": "wrap",
-              "type": "WrapInJust"
+              "type": "WrapInRight"
             }
           ],
           "objects": [
@@ -43,8 +43,8 @@
             },
             {
               "kind": "object",
-              "id": "just_a0",
-              "type": "Maybe a"
+              "id": "right_a0",
+              "type": "Either e a"
             }
           ],
           "decisions": [],
@@ -58,8 +58,8 @@
             {
               "kind": "flow",
               "from": "wrap",
-              "to": "just_a0",
-              "label": "Just a0"
+              "to": "right_a0",
+              "label": "Right a0"
             }
           ],
           "successions": []
@@ -72,14 +72,14 @@
     "shows": {
       "a0": "value",
       "wrap": "function",
-      "just_a0": "type"
+      "right_a0": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to be lifted into the Maybe context.",
-      "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
-      "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+      "a0": "a0 — any plain value to lift into the Either context (the success branch).",
+      "wrap": "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type.",
+      "right_a0": "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."
     },
-    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
+    "title": "pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok",
     "name": "pure"
   }
 }

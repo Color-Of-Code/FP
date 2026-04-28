@@ -1,0 +1,103 @@
+{
+  "packages": [
+    {
+      "name": "ParserAltImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Alt",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "p1",
+              "type": "Parser a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "p2",
+              "type": "Parser a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pr",
+              "type": "Parser a",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ParserAltProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "alt",
+              "type": "Alt"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "p1",
+              "type": "Parser a"
+            },
+            {
+              "kind": "object",
+              "id": "p2",
+              "type": "Parser a"
+            },
+            {
+              "kind": "object",
+              "id": "pr",
+              "type": "Parser a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "p1",
+              "to": "alt"
+            },
+            {
+              "kind": "flow",
+              "from": "p2",
+              "to": "alt"
+            },
+            {
+              "kind": "flow",
+              "from": "alt",
+              "to": "pr",
+              "label": "run p1; on failure, run p2"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "p1": "value",
+      "p2": "value",
+      "alt": "function",
+      "pr": "type"
+    },
+    "tooltips": {
+      "p1": "p1 : Parser a — primary alternative.  If it succeeds (or consumes input then fails, depending on the parser library), its result wins.",
+      "p2": "p2 : Parser a — fallback alternative.  Tried only when p1 fails without commitment.",
+      "alt": "Alt: build \\\\input -> case p1 input of Just r -> Just r; Nothing -> p2 input.",
+      "pr": "Parser a — combined parser that succeeds whenever either branch succeeds.  Used to encode grammar disjunction (rule = a | b)."
+    },
+    "title": "(<|>) :: Parser a ⟶ Parser a ⟶ Parser a   (ordered choice; try p1, on failure try p2) — also called: alt, choice, orElse",
+    "name": "alt"
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "packages": [
+    {
+      "name": "ReaderLocalImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Local",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "r ⟶ r",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Reader r a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "Reader r a",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ReaderLocalProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "lcl",
+              "type": "Local"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "r ⟶ r"
+            },
+            {
+              "kind": "object",
+              "id": "ma",
+              "type": "Reader r a"
+            },
+            {
+              "kind": "object",
+              "id": "mb",
+              "type": "Reader r a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "lcl"
+            },
+            {
+              "kind": "flow",
+              "from": "ma",
+              "to": "lcl"
+            },
+            {
+              "kind": "flow",
+              "from": "lcl",
+              "to": "mb",
+              "label": "\\\\r -> runReader ma (f r)"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "value",
+      "ma": "value",
+      "lcl": "function",
+      "mb": "type"
+    },
+    "tooltips": {
+      "f": "f : r ⟶ r — environment transformer (e.g. add a key, strip a layer, swap config).",
+      "ma": "ma : Reader r a — the inner reader to be run with the transformed environment.",
+      "lcl": "Local: build \\\\r -> runReader ma (f r). The outer caller still supplies the original r; only ma sees f(r).",
+      "mb": "Reader r a — same outer signature, but executions of ma are scoped to the transformed environment."
+    },
+    "title": "local :: (r ⟶ r) ⟶ Reader r a ⟶ Reader r a   (run inner reader with modified environment) — primitive",
+    "name": "local"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "packages": [
+    {
+      "name": "StatePutImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Put",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sNew",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "su",
+              "type": "State s ()",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "StatePutProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "put",
+              "type": "Put"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "sNew",
+              "type": "s"
+            },
+            {
+              "kind": "object",
+              "id": "su",
+              "type": "State s ()"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "sNew",
+              "to": "put"
+            },
+            {
+              "kind": "flow",
+              "from": "put",
+              "to": "su",
+              "label": "\\\\_ -> ((), sNew)"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "sNew": "value",
+      "put": "function",
+      "su": "type"
+    },
+    "tooltips": {
+      "sNew": "sNew — the new state value to install (replaces whatever state was current).",
+      "put": "Put: build \\\\_ -> ((), sNew) — discards incoming state, emits sNew as outgoing state.",
+      "su": "State s () — value is unit, state is now sNew. Subsequent steps see sNew."
+    },
+    "title": "put :: s ⟶ State s ()   (overwrite the state with s'; result is unit) — primitive",
+    "name": "put"
+  }
+}

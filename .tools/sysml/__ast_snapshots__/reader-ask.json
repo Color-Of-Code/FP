@@ -1,0 +1,67 @@
+{
+  "packages": [
+    {
+      "name": "ReaderAskImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Ask",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ra",
+              "type": "Reader r r",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ReaderAskProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "ask",
+              "type": "Ask"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "ra",
+              "type": "Reader r r"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "ask",
+              "to": "ra",
+              "label": "\\\\r -> r"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "ask": "function",
+      "ra": "type"
+    },
+    "tooltips": {
+      "ask": "Ask: build the function \\\\r -> r — when run, returns the environment unchanged.",
+      "ra": "Reader r r — a reader whose result is the environment itself.  Use 'asks f' for a projected field."
+    },
+    "title": "ask :: Reader r r   (return the environment as the result) — primitive",
+    "name": "ask"
+  }
+}

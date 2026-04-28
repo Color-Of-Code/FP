@@ -1,0 +1,85 @@
+{
+  "packages": [
+    {
+      "name": "ContCallCCImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "CallCC",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "(a ⟶ Cont r b) ⟶ Cont r a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "ca",
+              "type": "Cont r a",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ContCallCCProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "cc",
+              "type": "CallCC"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "(a ⟶ Cont r b) ⟶ Cont r a"
+            },
+            {
+              "kind": "object",
+              "id": "ca",
+              "type": "Cont r a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "cc"
+            },
+            {
+              "kind": "flow",
+              "from": "cc",
+              "to": "ca",
+              "label": "\\\\k -> runCont (f (\\\\a -> \\\\_ -> k a)) k"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "value",
+      "cc": "function",
+      "ca": "type"
+    },
+    "tooltips": {
+      "f": "f — user-supplied function that receives the captured escape (a ⟶ Cont r b) and returns the body's continuation.",
+      "cc": "CallCC: pack the outer k so that calling escape(a) bypasses any code following callCC and resumes the outer continuation with a.",
+      "ca": "Cont r a — same outer type as f's result; control flow may exit early via the escape."
+    },
+    "title": "callCC :: ((a ⟶ Cont r b) ⟶ Cont r a) ⟶ Cont r a   (capture the current continuation as an escape) — primitive",
+    "name": "callCC"
+  }
+}

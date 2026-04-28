@@ -1,13 +1,13 @@
 {
   "packages": [
     {
-      "name": "MaybePureImpl",
+      "name": "ReaderPureImpl",
       "portDefs": [],
       "partDefs": [],
       "actionDefs": [
         {
           "kind": "actionDef",
-          "name": "WrapInJust",
+          "name": "ConstReader",
           "pins": [
             {
               "kind": "port",
@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "maybe_a",
-              "type": "Maybe a",
+              "id": "ra",
+              "type": "Reader r a",
               "direction": "out"
             }
           ]
@@ -27,12 +27,12 @@
       "activityDefs": [
         {
           "kind": "activityDef",
-          "name": "MaybePureProcess",
+          "name": "ReaderPureProcess",
           "actions": [
             {
               "kind": "action",
               "id": "wrap",
-              "type": "WrapInJust"
+              "type": "ConstReader"
             }
           ],
           "objects": [
@@ -43,8 +43,8 @@
             },
             {
               "kind": "object",
-              "id": "just_a0",
-              "type": "Maybe a"
+              "id": "ra",
+              "type": "Reader r a"
             }
           ],
           "decisions": [],
@@ -58,8 +58,8 @@
             {
               "kind": "flow",
               "from": "wrap",
-              "to": "just_a0",
-              "label": "Just a0"
+              "to": "ra",
+              "label": "\\\\r -> a0"
             }
           ],
           "successions": []
@@ -72,14 +72,14 @@
     "shows": {
       "a0": "value",
       "wrap": "function",
-      "just_a0": "type"
+      "ra": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to be lifted into the Maybe context.",
-      "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
-      "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+      "a0": "a0 — any plain value.",
+      "wrap": "ConstReader: build the function \\\\r -> a0. The environment is accepted but never inspected.",
+      "ra": "Reader r a = (r ⟶ a). Always returns a0 regardless of which environment is supplied at run time."
     },
-    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
+    "title": "pure :: a ⟶ Reader r a   (constant reader: ignore r, return a0) — also called: return",
     "name": "pure"
   }
 }

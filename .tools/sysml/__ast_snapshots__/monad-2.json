@@ -149,7 +149,7 @@
     "tooltips": {
       "Ma": "Ma — the monadic value to unwrap",
       "f": "(a ⟶ Mb) — effectful function, passed as a data token (HOF)",
-      "bind": ">>= (bind): unwraps a from Ma, applies f, returns Mb",
+      "bind": "bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, >>=.",
       "Mb": "Mb — the result of applying the effectful function"
     },
     "title": "pure :: a ⟶ Ma  |  bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb",

@@ -1,13 +1,13 @@
 {
   "packages": [
     {
-      "name": "MaybePureImpl",
+      "name": "WriterPureImpl",
       "portDefs": [],
       "partDefs": [],
       "actionDefs": [
         {
           "kind": "actionDef",
-          "name": "WrapInJust",
+          "name": "PairWithMempty",
           "pins": [
             {
               "kind": "port",
@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "maybe_a",
-              "type": "Maybe a",
+              "id": "wa",
+              "type": "(a, mempty)",
               "direction": "out"
             }
           ]
@@ -27,12 +27,12 @@
       "activityDefs": [
         {
           "kind": "activityDef",
-          "name": "MaybePureProcess",
+          "name": "WriterPureProcess",
           "actions": [
             {
               "kind": "action",
               "id": "wrap",
-              "type": "WrapInJust"
+              "type": "PairWithMempty"
             }
           ],
           "objects": [
@@ -43,8 +43,8 @@
             },
             {
               "kind": "object",
-              "id": "just_a0",
-              "type": "Maybe a"
+              "id": "wa",
+              "type": "(a, mempty)"
             }
           ],
           "decisions": [],
@@ -58,8 +58,7 @@
             {
               "kind": "flow",
               "from": "wrap",
-              "to": "just_a0",
-              "label": "Just a0"
+              "to": "wa"
             }
           ],
           "successions": []
@@ -72,14 +71,14 @@
     "shows": {
       "a0": "value",
       "wrap": "function",
-      "just_a0": "type"
+      "wa": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to be lifted into the Maybe context.",
-      "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
-      "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+      "a0": "a0 — any plain value.",
+      "wrap": "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log.",
+      "wa": "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."
     },
-    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
+    "title": "pure :: a ⟶ (a, mempty)   (pair with the monoid identity of the log) — also called: return",
     "name": "pure"
   }
 }

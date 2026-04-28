@@ -1,13 +1,13 @@
 {
   "packages": [
     {
-      "name": "MaybePureImpl",
+      "name": "StatePureImpl",
       "portDefs": [],
       "partDefs": [],
       "actionDefs": [
         {
           "kind": "actionDef",
-          "name": "WrapInJust",
+          "name": "IdentityState",
           "pins": [
             {
               "kind": "port",
@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "maybe_a",
-              "type": "Maybe a",
+              "id": "sa",
+              "type": "State s a",
               "direction": "out"
             }
           ]
@@ -27,12 +27,12 @@
       "activityDefs": [
         {
           "kind": "activityDef",
-          "name": "MaybePureProcess",
+          "name": "StatePureProcess",
           "actions": [
             {
               "kind": "action",
               "id": "wrap",
-              "type": "WrapInJust"
+              "type": "IdentityState"
             }
           ],
           "objects": [
@@ -43,8 +43,8 @@
             },
             {
               "kind": "object",
-              "id": "just_a0",
-              "type": "Maybe a"
+              "id": "sa",
+              "type": "State s a"
             }
           ],
           "decisions": [],
@@ -58,8 +58,8 @@
             {
               "kind": "flow",
               "from": "wrap",
-              "to": "just_a0",
-              "label": "Just a0"
+              "to": "sa",
+              "label": "\\\\s -> (a0, s)"
             }
           ],
           "successions": []
@@ -72,14 +72,14 @@
     "shows": {
       "a0": "value",
       "wrap": "function",
-      "just_a0": "type"
+      "sa": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to be lifted into the Maybe context.",
-      "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
-      "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+      "a0": "a0 — any plain value.",
+      "wrap": "IdentityState: build the function \\\\s -> (a0, s). State entering = state leaving; only the value is provided.",
+      "sa": "State s a = (s ⟶ (a, s)). Run this with any state s and you get (a0, s) — the state is preserved exactly."
     },
-    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
+    "title": "pure :: a ⟶ State s a   (identity on state, returns a0) — also called: return",
     "name": "pure"
   }
 }

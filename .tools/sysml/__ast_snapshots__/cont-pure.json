@@ -1,13 +1,13 @@
 {
   "packages": [
     {
-      "name": "MaybePureImpl",
+      "name": "ContPureImpl",
       "portDefs": [],
       "partDefs": [],
       "actionDefs": [
         {
           "kind": "actionDef",
-          "name": "WrapInJust",
+          "name": "ApplyK",
           "pins": [
             {
               "kind": "port",
@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "maybe_a",
-              "type": "Maybe a",
+              "id": "ca",
+              "type": "Cont r a",
               "direction": "out"
             }
           ]
@@ -27,12 +27,12 @@
       "activityDefs": [
         {
           "kind": "activityDef",
-          "name": "MaybePureProcess",
+          "name": "ContPureProcess",
           "actions": [
             {
               "kind": "action",
               "id": "wrap",
-              "type": "WrapInJust"
+              "type": "ApplyK"
             }
           ],
           "objects": [
@@ -43,8 +43,8 @@
             },
             {
               "kind": "object",
-              "id": "just_a0",
-              "type": "Maybe a"
+              "id": "ca",
+              "type": "Cont r a"
             }
           ],
           "decisions": [],
@@ -58,8 +58,8 @@
             {
               "kind": "flow",
               "from": "wrap",
-              "to": "just_a0",
-              "label": "Just a0"
+              "to": "ca",
+              "label": "\\\\k -> k a0"
             }
           ],
           "successions": []
@@ -72,14 +72,14 @@
     "shows": {
       "a0": "value",
       "wrap": "function",
-      "just_a0": "type"
+      "ca": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to be lifted into the Maybe context.",
-      "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
-      "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+      "a0": "a0 — any plain value.",
+      "wrap": "ApplyK: build the function \\\\k -> k a0. The continuation k is applied directly to a0 — no extra control flow.",
+      "ca": "Cont r a = ((a ⟶ r) ⟶ r). When run with consumer k, evaluates k(a0). Identity element for Cont bind."
     },
-    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
+    "title": "pure :: a ⟶ Cont r a   (immediately call the continuation with a0) — also called: return",
     "name": "pure"
   }
 }

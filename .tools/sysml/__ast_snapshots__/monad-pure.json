@@ -1,13 +1,13 @@
 {
   "packages": [
     {
-      "name": "MaybePureImpl",
+      "name": "MonadPureGeneric",
       "portDefs": [],
       "partDefs": [],
       "actionDefs": [
         {
           "kind": "actionDef",
-          "name": "WrapInJust",
+          "name": "Lift",
           "pins": [
             {
               "kind": "port",
@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "maybe_a",
-              "type": "Maybe a",
+              "id": "Ma",
+              "type": "Ma",
               "direction": "out"
             }
           ]
@@ -27,12 +27,12 @@
       "activityDefs": [
         {
           "kind": "activityDef",
-          "name": "MaybePureProcess",
+          "name": "PureFlow",
           "actions": [
             {
               "kind": "action",
-              "id": "wrap",
-              "type": "WrapInJust"
+              "id": "lift",
+              "type": "Lift"
             }
           ],
           "objects": [
@@ -43,8 +43,8 @@
             },
             {
               "kind": "object",
-              "id": "just_a0",
-              "type": "Maybe a"
+              "id": "Ma",
+              "type": "Ma"
             }
           ],
           "decisions": [],
@@ -53,13 +53,12 @@
             {
               "kind": "flow",
               "from": "a0",
-              "to": "wrap"
+              "to": "lift"
             },
             {
               "kind": "flow",
-              "from": "wrap",
-              "to": "just_a0",
-              "label": "Just a0"
+              "from": "lift",
+              "to": "Ma"
             }
           ],
           "successions": []
@@ -71,15 +70,16 @@
     "diagType": "activity",
     "shows": {
       "a0": "value",
-      "wrap": "function",
-      "just_a0": "type"
+      "lift": "function",
+      "Ma": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to be lifted into the Maybe context.",
-      "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
-      "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+      "a0": "a0 — any plain value to be lifted into the monadic context.",
+      "lift": "Embed a0 in the monad with no additional effect.  Per-monad realisation: Just a0 (Maybe), Right a0 (Either), [a0] (List), return a0 (IO), \\\\s -> (a0, s) (State), …",
+      "Ma": "Ma — the same value wrapped in the minimal monadic context.  pure must satisfy the left/right identity laws with bind."
     },
-    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
-    "name": "pure"
+    "title": "pure :: a ⟶ Ma   (lift a plain value into the monad — also called: return, of, unit, point)",
+    "name": "pure",
+    "render": "PureFlow"
   }
 }

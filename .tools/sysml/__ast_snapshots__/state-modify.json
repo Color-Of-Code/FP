@@ -1,0 +1,85 @@
+{
+  "packages": [
+    {
+      "name": "StateModifyImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Modify",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "s ⟶ s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "su",
+              "type": "State s ()",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "StateModifyProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "mdf",
+              "type": "Modify"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "s ⟶ s"
+            },
+            {
+              "kind": "object",
+              "id": "su",
+              "type": "State s ()"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "mdf"
+            },
+            {
+              "kind": "flow",
+              "from": "mdf",
+              "to": "su",
+              "label": "\\\\s -> ((), f s)"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "value",
+      "mdf": "function",
+      "su": "type"
+    },
+    "tooltips": {
+      "f": "f : s ⟶ s — pure state-update function (e.g. (+1), Map.insert k v, addLog).",
+      "mdf": "Modify: build \\\\s -> ((), f s). Equivalent to: do { s <- get; put (f s) }.",
+      "su": "State s () — unit value, new state is f(prev). Reads and writes happen in a single step."
+    },
+    "title": "modify :: (s ⟶ s) ⟶ State s ()   (transform the state in place; result is unit) — primitive",
+    "name": "modify"
+  }
+}

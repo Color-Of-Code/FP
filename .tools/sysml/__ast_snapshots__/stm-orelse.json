@@ -1,0 +1,103 @@
+{
+  "packages": [
+    {
+      "name": "STMOrElseImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "OrElse",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "s1",
+              "type": "STM a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "s2",
+              "type": "STM a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sr",
+              "type": "STM a",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "STMOrElseProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "oe",
+              "type": "OrElse"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "s1",
+              "type": "STM a"
+            },
+            {
+              "kind": "object",
+              "id": "s2",
+              "type": "STM a"
+            },
+            {
+              "kind": "object",
+              "id": "sr",
+              "type": "STM a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "s1",
+              "to": "oe"
+            },
+            {
+              "kind": "flow",
+              "from": "s2",
+              "to": "oe"
+            },
+            {
+              "kind": "flow",
+              "from": "oe",
+              "to": "sr",
+              "label": "run s1; on retry, run s2"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "s1": "value",
+      "s2": "value",
+      "oe": "function",
+      "sr": "type"
+    },
+    "tooltips": {
+      "s1": "s1 : STM a — primary transaction.  If it commits, sr is its result.",
+      "s2": "s2 : STM a — alternative transaction tried only if s1 calls retry.",
+      "oe": "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry.",
+      "sr": "STM a — result of whichever branch commits.  Never blocks unless both branches retry."
+    },
+    "title": "orElse :: STM a ⟶ STM a ⟶ STM a   (try s1; on retry, fall back to s2) — primitive",
+    "name": "orElse"
+  }
+}

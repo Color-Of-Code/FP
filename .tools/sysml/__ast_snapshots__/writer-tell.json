@@ -1,0 +1,85 @@
+{
+  "packages": [
+    {
+      "name": "WriterTellImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Tell",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "w0",
+              "type": "w",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "wu",
+              "type": "Writer w ()",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "WriterTellProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "tell",
+              "type": "Tell"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "w0",
+              "type": "w"
+            },
+            {
+              "kind": "object",
+              "id": "wu",
+              "type": "Writer w ()"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "w0",
+              "to": "tell"
+            },
+            {
+              "kind": "flow",
+              "from": "tell",
+              "to": "wu",
+              "label": "((), w0)"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "w0": "value",
+      "tell": "function",
+      "wu": "type"
+    },
+    "tooltips": {
+      "w0": "w0 — a log fragment of monoid type w (e.g. \"step done\\\\n\", [event], 1).",
+      "tell": "Tell: emit w0 into the Writer log. The value component is unit ().",
+      "wu": "Writer w () = ((), w0). Subsequent bind concatenates this fragment with later logs via the monoid <>."
+    },
+    "title": "tell :: w ⟶ Writer w ()   (append w0 to the log; result is unit) — primitive",
+    "name": "tell"
+  }
+}
