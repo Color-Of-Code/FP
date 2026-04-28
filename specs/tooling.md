@@ -21,7 +21,7 @@ inside `.tools/`.
 
 | Target       | Command(s) invoked                                                   |
 | ------------ | -------------------------------------------------------------------- |
-| `install`    | `npm install` in `.tools/`                                           |
+| `install`    | `pnpm install` in `.tools/` (recursively across the workspace)       |
 | `svgs`       | `d2 --layout=elk <src>.d2 <src>.svg` for every D2 file (incremental) |
 | `fmt-d2`     | `d2 fmt` on all D2 sources and `styles.d2`                           |
 | `fmt-md`     | `prettier --write "**/*.md"` (respects `.prettierrc`)                |

@@ -35,7 +35,7 @@ help:
 	@echo ""
 	@echo "Usage: make -C .tools <target>"
 	@echo ""
-	@echo "  install     Install npm dev dependencies"
+	@echo "  install     Install dev dependencies via pnpm"
 	@echo "  svgs        Regenerate all SVG diagrams from D2 sources"
 	@echo "  fmt-d2      Format all D2 source files"
 	@echo "  fmt-md      Format all Markdown files with prettier"
@@ -52,9 +52,9 @@ help:
 	@echo "  all         svgs + fmt + lint-md"
 	@echo ""
 
-## Install npm dependencies
+## Install dependencies via pnpm (recursively across the workspace)
 install:
-	cd $(REPO_ROOT)/.tools && npm install
+	cd $(REPO_ROOT)/.tools && pnpm install
 
 ## Transpile SysML v2 sources to SVG
 sysml: $(SYSML_SVGS)
@@ -109,26 +109,26 @@ fmt: fmt-d2 fmt-md
 
 ## Run vitest snapshot tests against the SVG corpus
 test:
-	cd $(REPO_ROOT)/.tools && npx vitest run
+	cd $(REPO_ROOT)/.tools && pnpm exec vitest run
 
 ## Refresh SVG snapshots from current renderer output
 test-update:
-	cd $(REPO_ROOT)/.tools && npx vitest run -u
+	cd $(REPO_ROOT)/.tools && pnpm exec vitest run -u
 
 ## Type-check all .tools/ TypeScript sources without emitting
 typecheck:
-	cd $(REPO_ROOT)/.tools && npx tsc --noEmit
+	cd $(REPO_ROOT)/.tools && pnpm exec tsc --noEmit
 
 ## Regenerate the Langium parser from sysml.langium
 langium-gen:
-	cd $(REPO_ROOT)/.tools && npx langium generate
+	cd $(REPO_ROOT)/.tools && pnpm exec langium generate
 
 ## Build the local VS Code extension (syntax highlighting + LSP server)
 vscode-ext: langium-gen
-	cd $(REPO_ROOT)/.tools/vscode-sysml && npm install --no-audit --no-fund
+	cd $(REPO_ROOT)/.tools && pnpm install --filter sysml-fp-local...
 	mkdir -p $(REPO_ROOT)/.tools/vscode-sysml/syntaxes
 	cp $(REPO_ROOT)/.tools/sysml/sysml.tmLanguage.json $(REPO_ROOT)/.tools/vscode-sysml/syntaxes/sysml.tmLanguage.json
-	cd $(REPO_ROOT)/.tools/vscode-sysml && npx tsc -p .
+	cd $(REPO_ROOT)/.tools/vscode-sysml && pnpm exec tsc -p .
 
 ## Symlink the built extension into the per-user extensions folder
 vscode-ext-link: vscode-ext
@@ -142,5 +142,5 @@ all: svgs sysml fmt lint-md lint-langs typecheck test
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:
-	@echo "npm dependencies not installed. Run: make -C .tools install"
+	@echo "Dependencies not installed. Run: make -C .tools install"
 	@exit 1

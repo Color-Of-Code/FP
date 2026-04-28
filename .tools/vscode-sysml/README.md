@@ -35,11 +35,11 @@ rm ~/.vscode/extensions/fp-local.sysml-fp-local-0.0.1
 
 ### Option B — package and install a `.vsix`
 
-Requires `@vscode/vsce` installed locally (`npm i -g @vscode/vsce`):
+Requires `@vscode/vsce` (`pnpm dlx @vscode/vsce package` works without a global install):
 
 ```sh
 cd .tools/vscode-sysml
-vsce package          # produces sysml-fp-local-0.0.1.vsix
+pnpm dlx @vscode/vsce package    # produces sysml-fp-local-0.0.1.vsix
 code --install-extension sysml-fp-local-0.0.1.vsix
 ```
 
