@@ -2,38 +2,29 @@
 # Run from anywhere: make -C .tools <target>
 # Or: cd .tools && make <target>
 
-REPO_ROOT   := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
-DOCS_DIAG   := $(REPO_ROOT)/docs/diagrams
-MONAD_DIAG  := $(REPO_ROOT)/docs/monads/diagrams
-OPTIC_DIAG  := $(REPO_ROOT)/docs/optics/diagrams
-NODE_BIN    := $(REPO_ROOT)/.tools/node_modules/.bin
+REPO_ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
+NODE_BIN  := $(REPO_ROOT)/.tools/node_modules/.bin
 
-# styles.d2 lives alongside the diagrams under docs/
+# styles.d2 lives at the docs root and is shared by every D2 diagram.
 STYLES := $(REPO_ROOT)/docs/styles.d2
 
-# SysML v2 source files (transpile to SVG via sysml/cli.ts)
-SYSML_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.sysml)
-SYSML_FILES_MONADS := $(wildcard $(MONAD_DIAG)/*.sysml)
-SYSML_FILES        := $(SYSML_FILES_DOCS) $(SYSML_FILES_MONADS)
-SYSML_SVGS         := $(patsubst %.sysml,%.svg,$(SYSML_FILES))
+# Diagram sources are discovered recursively under docs/ at depth 2 or 3.
+# Two wildcard patterns cover both the historical layout
+# (docs/diagrams/, docs/monads/diagrams/, docs/optics/diagrams/) and the
+# per-chapter folder convention (docs/<chapter>/, docs/<track>/<chapter>/).
+# Adding a new diagram or chapter folder needs no Makefile edit.
+SYSML_FILES := $(wildcard $(REPO_ROOT)/docs/*/*.sysml $(REPO_ROOT)/docs/*/*/*.sysml)
+SYSML_SVGS  := $(SYSML_FILES:.sysml=.svg)
+
+D2_FILES := $(filter-out $(STYLES),$(wildcard $(REPO_ROOT)/docs/*.d2 $(REPO_ROOT)/docs/*/*.d2 $(REPO_ROOT)/docs/*/*/*.d2))
+D2_SVGS  := $(D2_FILES:.d2=.svg)
 
 # Generator tooling: any change here invalidates every SysML SVG.
 # Two wildcard patterns cover the whole tree (root + one subdir level).
 # Pure make built-in — no shell-out — so it's effectively free.
 SYSML_TOOL_SRCS := $(wildcard $(REPO_ROOT)/.tools/sysml/*.ts $(REPO_ROOT)/.tools/sysml/*/*.ts)
 
-# D2 source files in each location
-D2_FILES_DOCS   := $(wildcard $(DOCS_DIAG)/*.d2)
-D2_FILES_MONADS := $(wildcard $(MONAD_DIAG)/*.d2)
-D2_FILES_OPTICS := $(wildcard $(OPTIC_DIAG)/*.d2)
-
-D2_FILES_ALL := $(D2_FILES_DOCS) $(D2_FILES_MONADS) $(D2_FILES_OPTICS)
-
-DIAGRAM_SVG := $(D2_FILES_DOCS:.d2=.svg) \
-               $(D2_FILES_MONADS:.d2=.svg) \
-               $(D2_FILES_OPTICS:.d2=.svg)
-
-.PHONY: all svgs fmt-d2 fmt-md lint-md lint-langs check-md fmt install help test test-update typecheck langium-gen vscode-ext vscode-ext-link
+.PHONY: all svgs sysml fmt-d2 fmt-md lint-md lint-langs check-md fmt install help test test-update typecheck langium-gen vscode-ext vscode-ext-link
 
 ## Default: show help
 help:
@@ -43,7 +34,7 @@ help:
 	@echo "Architecture, state, and decisions: see .tools/docs/README.md"
 	@echo ""
 	@echo "  install     Install dev dependencies via pnpm"
-	@echo "  svgs        Regenerate all SVG diagrams from D2 sources"
+	@echo "  svgs        Regenerate all SVG diagrams (D2 + SysML)"
 	@echo "  fmt-d2      Format all D2 source files"
 	@echo "  fmt-md      Format all Markdown files with prettier"
 	@echo "  lint-md     Lint all Markdown files with markdownlint-cli2"
@@ -56,43 +47,33 @@ help:
 	@echo "  langium-gen Regenerate the SysML parser/AST from sysml.langium"
 	@echo "  vscode-ext  Build the local VS Code extension (highlighting + LSP)"
 	@echo "  vscode-ext-link  Symlink the extension into ~/.vscode/extensions"
-	@echo "  all         svgs + fmt + lint-md"
+	@echo "  all         svgs + fmt + lint-md + lint-langs + typecheck + test"
 	@echo ""
 
 ## Install dependencies via pnpm (recursively across the workspace)
 install:
 	cd $(REPO_ROOT)/.tools && pnpm install
 
-## Transpile SysML v2 sources to SVG
+## Transpile SysML v2 sources to SVG (each SVG written next to its source)
 sysml: $(SYSML_SVGS)
 
-$(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.sysml $(SYSML_TOOL_SRCS)
-	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
-
-$(MONAD_DIAG)/%.svg: $(MONAD_DIAG)/%.sysml $(SYSML_TOOL_SRCS)
-	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
-
 ## Regenerate all SVG diagrams (D2 + SysML)
-svgs: $(DIAGRAM_SVG) $(SYSML_SVGS)
+svgs: $(D2_SVGS) $(SYSML_SVGS)
 
-# Rule for docs/diagrams/ diagrams (depend on styles.d2)
-$(DOCS_DIAG)/%.svg: $(DOCS_DIAG)/%.d2 $(STYLES)
-	d2 --layout=elk "$<" "$@"
-	@echo "  generated $@"
+# Static pattern rule: each .svg is built from its sibling .sysml.
+# Works regardless of which directory the source lives in.
+$(SYSML_SVGS): %.svg: %.sysml $(SYSML_TOOL_SRCS)
+	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
 
-# Rule for docs/monads/diagrams/ diagrams (depend on styles.d2)
-$(MONAD_DIAG)/%.svg: $(MONAD_DIAG)/%.d2 $(STYLES)
-	d2 --layout=elk "$<" "$@"
-	@echo "  generated $@"
-
-# Rule for docs/optics/diagrams/ diagrams (depend on styles.d2)
-$(OPTIC_DIAG)/%.svg: $(OPTIC_DIAG)/%.d2 $(STYLES)
+# Static pattern rule: each .svg is built from its sibling .d2.
+# All D2 files share docs/styles.d2.
+$(D2_SVGS): %.svg: %.d2 $(STYLES)
 	d2 --layout=elk "$<" "$@"
 	@echo "  generated $@"
 
 ## Format D2 source files (uses d2 fmt built-in)
 fmt-d2:
-	d2 fmt $(D2_FILES_ALL) $(STYLES)
+	d2 fmt $(D2_FILES) $(STYLES)
 	@echo "  formatted D2 files"
 
 ## Format Markdown files
