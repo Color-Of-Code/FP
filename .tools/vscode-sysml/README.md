@@ -24,8 +24,8 @@ make -C .tools vscode-ext-link
 ```
 
 This symlinks `.tools/vscode-sysml/` to `~/.vscode/extensions/fp-local.sysml-fp-local-0.0.1/`.
-Restart VS Code (or run *Developer: Reload Window*). `.sysml` files now have highlighting,
-brackets, and live diagnostics.
+Restart VS Code (or run _Developer: Reload Window_). `.sysml` files now have highlighting, brackets,
+and live diagnostics.
 
 To uninstall, delete the symlink:
 

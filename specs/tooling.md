@@ -1,5 +1,9 @@
 # Tooling Reference
 
+This page is the contributor-facing **reference** for `make -C .tools` targets. For pipeline
+architecture, current state, and the design decisions behind the tooling, see
+[.tools/docs/](../.tools/docs/README.md).
+
 ## Prerequisites
 
 | Tool             | Version   | Location                                              |

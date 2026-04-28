@@ -35,6 +35,8 @@ help:
 	@echo ""
 	@echo "Usage: make -C .tools <target>"
 	@echo ""
+	@echo "Architecture, state, and decisions: see .tools/docs/README.md"
+	@echo ""
 	@echo "  install     Install dev dependencies via pnpm"
 	@echo "  svgs        Regenerate all SVG diagrams from D2 sources"
 	@echo "  fmt-d2      Format all D2 source files"
@@ -94,7 +96,7 @@ fmt-md: $(NODE_BIN)/prettier
 
 ## Lint Markdown files
 lint-md: $(NODE_BIN)/markdownlint-cli2
-	$(NODE_BIN)/markdownlint-cli2 "$(REPO_ROOT)/**/*.md" "!$(REPO_ROOT)/.tools/node_modules/**"
+	$(NODE_BIN)/markdownlint-cli2 --config "$(REPO_ROOT)/.markdownlint.json" "$(REPO_ROOT)/**/*.md" "!$(REPO_ROOT)/.tools/node_modules/**" "!$(REPO_ROOT)/.tools/vscode-sysml/node_modules/**" "!$(REPO_ROOT)/.tools/vscode-sysml/dist/**" "!$(REPO_ROOT)/docs/.next/**"
 
 ## Check language-example sections are complete and in the correct order
 lint-langs:
