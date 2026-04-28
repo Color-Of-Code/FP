@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1255.6 316" width="1255.6" height="316">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1235.6 260" width="1235.6" height="260">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,128 +11,128 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1255.6" height="316" fill="white"/>
-  <text x="627.8" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified</text>
+  <rect width="1235.6" height="260" fill="white"/>
+  <text x="617.8" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="1255.6" height="288" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1235.6" height="232" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
     </g>
     <g class="edge">
-      <path d="M174.0,87.0 L206.0,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M164.0,59.0 L196.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M174.0,217.0 L179.0,217.0 Q184.0,217.0 184.0,212.0 L184.0,111.0 Q184.0,105.0 190.0,105.0 L206.0,105.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M164.0,189.0 L169.0,189.0 Q174.0,189.0 174.0,184.0 L174.0,83.0 Q174.0,77.0 180.0,77.0 L196.0,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M346.0,90.0 L354.0,90.0 Q360.0,90.0 360.0,96.0 L360.0,136.0 Q360.0,142.0 366.0,142.0 L397.8,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M336.0,62.0 L344.0,62.0 Q350.0,62.0 350.0,68.0 L350.0,108.0 Q350.0,114.0 356.0,114.0 L387.8,114.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M519.8,142.0 L548.6,142.0 Q549.6,142.0 549.6,143.0 L549.6,143.0 Q549.6,144.0 550.6,144.0 L571.6,144.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M509.8,114.0 L538.6,114.0 Q539.6,114.0 539.6,115.0 L539.6,115.0 Q539.6,116.0 540.6,116.0 L561.6,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M539.6,194.0 L544.6,194.0 Q549.6,194.0 549.6,189.0 L549.6,165.0 Q549.6,159.0 555.6,159.0 L571.6,159.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M529.6,166.0 L534.6,166.0 Q539.6,166.0 539.6,161.0 L539.6,137.0 Q539.6,131.0 545.6,131.0 L561.6,131.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M711.6,142.0 L719.6,142.0 Q725.6,142.0 725.6,148.0 L725.6,188.0 Q725.6,194.0 731.6,194.0 L743.6,194.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M701.6,114.0 L709.6,114.0 Q715.6,114.0 715.6,120.0 L715.6,160.0 Q715.6,166.0 721.6,166.0 L733.6,166.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M883.6,194.0 L915.6,194.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M873.6,166.0 L905.6,166.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M174.0,229.0 L887.6,229.0 Q893.6,229.0 893.6,223.0 L893.6,215.0 Q893.6,209.0 899.6,209.0 L915.6,209.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M164.0,201.0 L877.6,201.0 Q883.6,201.0 883.6,195.0 L883.6,187.0 Q883.6,181.0 889.6,181.0 L905.6,181.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M1055.6,198.0 L1087.6,198.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M1045.6,170.0 L1077.6,170.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M342.0,106.0 L543.6,106.0 Q549.6,106.0 549.6,112.0 L549.6,127.0 Q549.6,133.0 555.6,133.0 L575.6,133.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M332.0,78.0 L533.6,78.0 Q539.6,78.0 539.6,84.0 L539.6,99.0 Q539.6,105.0 545.6,105.0 L565.6,105.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M707.6,158.0 L887.6,158.0 Q893.6,158.0 893.6,164.0 L893.6,177.0 Q893.6,183.0 899.6,183.0 L919.6,183.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M697.6,130.0 L877.6,130.0 Q883.6,130.0 883.6,136.0 L883.6,149.0 Q883.6,155.0 889.6,155.0 L909.6,155.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="action-node">
       <title>Run ra(env): supply env to ra, get result a</title>
-      <rect x="222" y="74" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="282" y="96" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_ra</text>
+      <rect x="212" y="46" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="272" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_ra</text>
       <g class="pin pin-in">
-        <rect x="218" y="84.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="228" y="88.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ra</text>
+        <rect x="208" y="56.666666666666664" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="218" y="60.666666666666664" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ra</text>
       </g>
       <g class="pin pin-in">
-        <rect x="218" y="99.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="228" y="103.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">env</text>
+        <rect x="208" y="71.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="218" y="75.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">env</text>
       </g>
       <g class="pin pin-out">
-        <rect x="338" y="92" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="336" y="96" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+        <rect x="328" y="64" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="326" y="68" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
       </g>
     </g>
     <g class="action-node">
       <title>Apply f(a): build the next computation Reader r b from result a</title>
-      <rect x="587.6" y="126" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="647.6" y="148" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply_f</text>
+      <rect x="577.6" y="98" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="637.6" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply_f</text>
       <g class="pin pin-in">
-        <rect x="583.6" y="136.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="593.6" y="140.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
+        <rect x="573.6" y="108.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="583.6" y="112.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">a</text>
       </g>
       <g class="pin pin-in">
-        <rect x="583.6" y="151.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="593.6" y="155.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <rect x="573.6" y="123.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="583.6" y="127.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="703.6" y="144" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="701.6" y="148" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">rb</text>
+        <rect x="693.6" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="691.6" y="120" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">rb</text>
       </g>
     </g>
     <g class="action-node">
       <title>Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State.</title>
-      <rect x="931.6" y="176" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="991.6" y="198" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_rb</text>
+      <rect x="921.6" y="148" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="981.6" y="170" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_rb</text>
       <g class="pin pin-in">
-        <rect x="927.6" y="186.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="937.6" y="190.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">rb</text>
+        <rect x="917.6" y="158.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="927.6" y="162.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">rb</text>
       </g>
       <g class="pin pin-in">
-        <rect x="927.6" y="201.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="937.6" y="205.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">env</text>
+        <rect x="917.6" y="173.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="927.6" y="177.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">env</text>
       </g>
       <g class="pin pin-out">
-        <rect x="1047.6" y="194" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1045.6" y="198" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
+        <rect x="1037.6" y="166" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1035.6" y="170" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">b</text>
       </g>
     </g>
     <g class="object-node">
       <title>Reader r a — a suspended computation: a function r ⟶ a, not yet executed</title>
-      <rect x="46" y="68" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="110" y="87" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ra : Reader r a</text>
+      <rect x="36" y="40" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="100" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ra : Reader r a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b</title>
-      <rect x="390" y="175" width="149.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="464.8" y="187" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="464.8" y="201" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Reader r b</text>
+      <rect x="380" y="147" width="149.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="454.8" y="159" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="454.8" y="173" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Reader r b</text>
     </g>
     <g class="object-node">
       <title>r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified.</title>
-      <rect x="64" y="204" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="119" y="223" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">env : r</text>
+      <rect x="54" y="176" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="109" y="195" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">env : r</text>
     </g>
     <g class="object-node">
       <title>a — the result of running ra with the environment</title>
-      <rect x="409.8" y="123" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="464.8" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a : a</text>
+      <rect x="399.8" y="95" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="454.8" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a : a</text>
     </g>
     <g class="object-node">
       <title>Reader r b — the second computation (not yet run)</title>
-      <rect x="755.6" y="175" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="819.6" y="194" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">rb : Reader r b</text>
+      <rect x="745.6" y="147" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="809.6" y="166" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">rb : Reader r b</text>
     </g>
     <g class="object-node">
       <title>b — the final result. The environment was never modified throughout.</title>
-      <rect x="1099.6" y="179" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1154.6" y="198" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b : b</text>
+      <rect x="1089.6" y="151" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1144.6" y="170" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b : b</text>
     </g>
   </g>
 </svg>

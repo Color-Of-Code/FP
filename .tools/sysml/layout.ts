@@ -164,7 +164,7 @@ export async function layoutGraph(
       "elk.spacing.nodeNode":                              String(NODE_VGAP),
       "elk.spacing.edgeNode":                              "16",
       "elk.spacing.edgeEdge":                              "10",
-      "elk.padding":                                       "[top=30,left=30,bottom=30,right=30]",
+      "elk.padding":                                       "[top=12,left=30,bottom=12,right=30]",
       "elk.layered.nodePlacement.strategy":                "NETWORK_SIMPLEX",
       "elk.layered.crossingMinimization.semiInteractive":  "true",
       "elk.layered.mergeEdges":                            "false",

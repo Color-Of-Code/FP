@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 657.6 298" width="657.6" height="298">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 617.6 178" width="617.6" height="178">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,43 +11,43 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="657.6" height="298" fill="white"/>
-  <text x="328.8" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b</text>
+  <rect width="617.6" height="178" fill="white"/>
+  <text x="308.8" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="657.6" height="270" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="617.6" height="150" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L158.6,0 L158.6,12 L148.6,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="79.3" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» ProbBindContext</text>
     </g>
     <g class="edge">
-      <path d="M239.6,161.0 L244.6,161.0 Q249.6,161.0 249.6,156.0 L249.6,129.0 Q249.6,123.0 255.6,123.0 L267.6,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M219.6,101.0 L224.6,101.0 Q229.6,101.0 229.6,96.0 L229.6,69.0 Q229.6,63.0 235.6,63.0 L247.6,63.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M239.6,109.0 L267.6,109.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M219.6,49.0 L247.6,49.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M399.6,116.0 L427.6,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M379.6,56.0 L407.6,56.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1.</title>
-      <rect x="111.6" y="142" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="175.6" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_a : Prob a</text>
+      <rect x="91.6" y="82" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="155.6" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_a : Prob a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Prob b) — conditional distribution: given outcome a, returns a new distribution over b</title>
-      <rect x="90.00000000000001" y="90" width="149.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="164.8" y="102" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="164.8" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f_val : a ⟶ Prob b</text>
+      <rect x="70.00000000000001" y="30" width="149.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="144.8" y="42" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="144.8" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f_val : a ⟶ Prob b</text>
     </g>
     <g class="action-node">
       <title>[(b, pa*pb) | (a, pa) &lt;- dist, (b, pb) &lt;- f a]\nFor each outcome a (probability pa), apply f to get a distribution over b.\nEach (b, pb) gets weight pa * pb — law of total probability.</title>
-      <rect x="279.6" y="94" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="339.6" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : ProbBindOp</text>
+      <rect x="259.6" y="34" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="319.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : ProbBindOp</text>
     </g>
     <g class="object-node">
       <title>Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it</title>
-      <rect x="439.6" y="97" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="503.6" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_b : Prob b</text>
+      <rect x="419.6" y="37" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="483.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">dist_b : Prob b</text>
     </g>
   </g>
 </svg>

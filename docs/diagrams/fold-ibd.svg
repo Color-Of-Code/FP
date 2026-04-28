@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 632.4 350" width="632.4" height="350">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 592.4 230" width="592.4" height="230">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,51 +11,51 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="632.4" height="350" fill="white"/>
-  <text x="316.2" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b</text>
+  <rect width="592.4" height="230" fill="white"/>
+  <text x="296.2" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="632.4" height="322" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="592.4" height="202" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L133.8,0 L133.8,12 L123.80000000000001,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="66.9" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» FoldContext</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M232.4,213.0 L237.4,213.0 Q242.4,213.0 242.4,208.0 L242.4,178.0 Q242.4,172.0 248.4,172.0 L260.4,172.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M212.4,153.0 L217.4,153.0 Q222.4,153.0 222.4,148.0 L222.4,118.0 Q222.4,112.0 228.4,112.0 L240.4,112.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M232.4,161.0 L260.4,161.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M212.4,101.0 L240.4,101.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M232.4,109.0 L237.4,109.0 Q242.4,109.0 242.4,114.0 L242.4,144.0 Q242.4,150.0 248.4,150.0 L260.4,150.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M212.4,49.0 L217.4,49.0 Q222.4,49.0 222.4,54.0 L222.4,84.0 Q222.4,90.0 228.4,90.0 L240.4,90.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M392.4,161.0 L420.4,161.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M372.4,101.0 L400.4,101.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node hof">
       <title>(b ⟶ a ⟶ b) — combining function: takes accumulator and element, returns new accumulator</title>
-      <rect x="89.99999999999999" y="194" width="142.4" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="161.2" y="206" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="161.2" y="220" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f_val : b ⟶ a ⟶ b</text>
+      <rect x="69.99999999999999" y="134" width="142.4" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="141.2" y="146" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="141.2" y="160" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f_val : b ⟶ a ⟶ b</text>
     </g>
     <g class="object-node">
       <title>b — initial accumulator value (the "zero" of the fold)</title>
-      <rect x="122.4" y="142" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="177.4" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">init_val : b</text>
+      <rect x="102.4" y="82" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="157.4" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">init_val : b</text>
     </g>
     <g class="object-node">
       <title>[a] — the input list whose elements are consumed one by one</title>
-      <rect x="111.6" y="90" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="172" y="109" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">list_val : [a]</text>
+      <rect x="91.6" y="30" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="152" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">list_val : [a]</text>
     </g>
     <g class="action-node">
       <title>fold: reduce a list to a single value by repeatedly applying f</title>
-      <rect x="272.4" y="139" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="332.4" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">fold : FoldOp</text>
+      <rect x="252.39999999999998" y="79" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="312.4" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">fold : FoldOp</text>
     </g>
     <g class="object-node">
       <title>b — the final accumulated result</title>
-      <rect x="432.4" y="142" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="487.4" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">result : b</text>
+      <rect x="412.4" y="82" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="467.4" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">result : b</text>
     </g>
   </g>
 </svg>

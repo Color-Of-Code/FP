@@ -60,7 +60,13 @@ function appendPortSquares(
 
 // ── IBD renderer ──────────────────────────────────────────────────────────
 
-const MARGIN = 60;
+/** Outer SVG margin around the ELK-laid graph. The horizontal margin is
+ *  generous so block-boundary port labels (drawn outside the frame edge)
+ *  are not clipped; the vertical margin is just enough for the frame tab
+ *  and a little breathing room. ELK internal padding handles the gap
+ *  between nodes and the frame border. */
+const MARGIN_X = 40;
+const MARGIN_Y = 18;
 
 /**
  * Build the render plan for one IBD.
@@ -95,15 +101,15 @@ export async function renderIbd(
   assignActionPins(edges, nodeMap);
 
   const { width: innerW, height: innerH, edgePaths } = await layoutGraph(nodes, edges, "LR");
-  const dx = MARGIN;
-  const dy = MARGIN;
+  const dx = MARGIN_X;
+  const dy = MARGIN_Y;
   for (const n of nodes) { n.x += dx; n.y += dy; }
   const shiftedPaths = edgePaths.map(pts =>
     pts.map(([x, y]) => [x + dx, y + dy] as [number, number]),
   );
 
-  const W = innerW + 2 * MARGIN;
-  const H = innerH + 2 * MARGIN;
+  const W = innerW + 2 * MARGIN_X;
+  const H = innerH + 2 * MARGIN_Y;
 
   const inPorts  = partDef.ports.filter(p => p.direction === "in"  || p.direction === "inout");
   const outPorts = partDef.ports.filter(p => p.direction === "out");

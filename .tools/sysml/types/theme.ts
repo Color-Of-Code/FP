@@ -23,8 +23,8 @@ export const theme = {
     finalRInner:    6,     // final-node inner (filled) circle radius
     decisionSz:     28,    // diamond bounding box (square rotated 45°)
 
-    // Activity frame geometry
-    framePad:       16,
+    // Diagram frame geometry
+    framePad:       6,
     frameTabW:      200,
     frameTabH:      22,
 

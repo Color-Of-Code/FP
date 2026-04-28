@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 232" width="528" height="232">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508 176" width="508" height="176">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,55 +11,55 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="528" height="232" fill="white"/>
-  <text x="264" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)</text>
+  <rect width="508" height="176" fill="white"/>
+  <text x="254" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="528" height="204" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="508" height="148" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L133.8,0 L133.8,12 L123.80000000000001,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="66.9" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» traverse</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M156.0,87.0 L188.0,87.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M146.0,59.0 L178.0,59.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M156.0,139.0 L161.0,139.0 Q166.0,139.0 166.0,134.0 L166.0,111.0 Q166.0,105.0 172.0,105.0 L188.0,105.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,111.0 L151.0,111.0 Q156.0,111.0 156.0,106.0 L156.0,83.0 Q156.0,77.0 162.0,77.0 L178.0,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M328.0,96.0 L360.0,96.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M318.0,68.0 L350.0,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="action-node">
       <title>traverse: maps each element with f, collects effects into outer F</title>
-      <rect x="204" y="74" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="264" y="96" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">trav</text>
+      <rect x="194" y="46" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="254" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">trav</text>
       <g class="pin pin-in">
-        <rect x="200" y="84.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="210" y="88.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
+        <rect x="190" y="56.666666666666664" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="200" y="60.666666666666664" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">f</text>
       </g>
       <g class="pin pin-in">
-        <rect x="200" y="99.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="210" y="103.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ta</text>
+        <rect x="190" y="71.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="200" y="75.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ta</text>
       </g>
       <g class="pin pin-out">
-        <rect x="320" y="92" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="318" y="96" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ftb</text>
+        <rect x="310" y="64" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="308" y="68" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555" stroke="white" stroke-width="2" paint-order="stroke fill">ftb</text>
       </g>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Fb) — effectful mapping fn, received as a data token (HOF)</title>
-      <rect x="46" y="68" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="101" y="80" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="101" y="94" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Fb</text>
+      <rect x="36" y="40" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="91" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="91" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Fb</text>
     </g>
     <g class="object-node">
       <title>Ta — traversable container of a's</title>
-      <rect x="46" y="120" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="101" y="139" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ta : Ta</text>
+      <rect x="36" y="92" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ta : Ta</text>
     </g>
     <g class="object-node">
       <title>F(Tb) — container shape T preserved; all effects F collected</title>
-      <rect x="372" y="77" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="427" y="96" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ftb : F(Tb)</text>
+      <rect x="362" y="49" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="417" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ftb : F(Tb)</text>
     </g>
   </g>
 </svg>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 664.8 298" width="664.8" height="298">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 624.8 178" width="624.8" height="178">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,43 +11,43 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="664.8" height="298" fill="white"/>
-  <text x="332.4" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b</text>
+  <rect width="624.8" height="178" fill="white"/>
+  <text x="312.4" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b</text>
   <g transform="translate(0,28)">
-    <rect x="0" y="0" width="664.8" height="270" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="624.8" height="150" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L158.6,0 L158.6,12 L148.6,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="79.3" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«block» ContBindContext</text>
     </g>
     <g class="edge">
-      <path d="M254.0,161.0 L259.0,161.0 Q264.0,161.0 264.0,156.0 L264.0,129.0 Q264.0,123.0 270.0,123.0 L282.0,123.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M234.0,101.0 L239.0,101.0 Q244.0,101.0 244.0,96.0 L244.0,69.0 Q244.0,63.0 250.0,63.0 L262.0,63.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M254.0,109.0 L282.0,109.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M234.0,49.0 L262.0,49.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M414.0,116.0 L442.0,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M394.0,56.0 L422.0,56.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation k</title>
-      <rect x="118.80000000000001" y="142" width="135.2" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="186.4" y="161" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">m_val : Cont r a</text>
+      <rect x="98.80000000000001" y="82" width="135.2" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="166.4" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">m_val : Cont r a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Cont r b) — given result a, builds the next continuation-based step</title>
-      <rect x="90" y="90" width="164" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="172" y="102" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="172" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f_val : a ⟶ Cont r b</text>
+      <rect x="70" y="30" width="164" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="152" y="42" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="152" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f_val : a ⟶ Cont r b</text>
     </g>
     <g class="action-node">
       <title>bind m f = \\k -&gt; m (\\a -&gt; f a k)\nGive m a continuation that: feeds a into f, then passes original k to the result.\nThe current step runs last — this is continuation composition.</title>
-      <rect x="294" y="94" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="354" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : ContBindOp</text>
+      <rect x="274" y="34" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="334" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bind : ContBindOp</text>
     </g>
     <g class="object-node">
       <title>Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit</title>
-      <rect x="454" y="97" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="514.4" y="116" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">res : Cont r b</text>
+      <rect x="434" y="37" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="494.4" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">res : Cont r b</text>
     </g>
   </g>
 </svg>
