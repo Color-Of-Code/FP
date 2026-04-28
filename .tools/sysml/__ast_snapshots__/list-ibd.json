@@ -71,7 +71,7 @@
       "bind": "concatMap f: apply f to each element, concatenate all resulting lists.\\nbind [a1,a2,a3] f  =  f(a1) ++ f(a2) ++ f(a3)",
       "mb_val": "List b — all branches expanded and flattened into a single list"
     },
-    "title": "(>>=) :: List a ⟶ (a ⟶ List b) ⟶ List b",
+    "title": "bind :: List a ⟶ (a ⟶ List b) ⟶ List b — also called: flatMap, concatMap, SelectMany, List.collect, >>=",
     "render": "ListBindContext"
   }
 }

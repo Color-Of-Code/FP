@@ -20,7 +20,7 @@ package EitherSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b"
+    title = "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — also called: andThen / and_then, Bind, flatMap, >>="
     render = EitherBindContext
     show ma_val as type
     show f_val  as hof

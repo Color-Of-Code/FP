@@ -61,8 +61,8 @@ package ListBindImpl {
 
 #diagram {
     type  = activity
-    title = "List bind (concatMap): apply f to every element, concatenate all results"
-    name  = ">>="
+    title = "List bind (concatMap): apply f to every element, concatenate all results — also called: flatMap, SelectMany, List.collect, >>="
+    name  = "bind"
     show la      as type
     show f       as hof
     show a1      as value

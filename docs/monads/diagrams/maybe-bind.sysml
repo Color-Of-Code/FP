@@ -53,7 +53,7 @@ package MaybeBindImpl {
 #diagram {
     type   = activity
     layout = elk
-    title = "Maybe bind: pattern match unwraps Just or short-circuits Nothing"
+    title = "Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>="
     name  = "bind"
     show ma         as type
     show f          as hof

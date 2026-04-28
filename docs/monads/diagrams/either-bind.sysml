@@ -27,8 +27,8 @@ package EitherBindImpl {
 
 #diagram {
     type  = activity
-    title = "Either bind: Right a → f(a)  |  Left e → Left e  (error preserved, f skipped)"
-    name  = ">>="
+    title = "Either bind: Right a → f(a)  |  Left e → Left e  (error preserved, f skipped) — also called: andThen / and_then, Bind, flatMap, >>="
+    name  = "bind"
     show ea       as type
     show f        as hof
     show bind     as function

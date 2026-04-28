@@ -256,7 +256,7 @@
       "b": "b — the final value result",
       "s2": "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."
     },
-    "title": "State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2)",
-    "name": ">>="
+    "title": "State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2) — also called: flatMap, >>=",
+    "name": "bind"
   }
 }

@@ -12,12 +12,12 @@
     </marker>
   </defs>
   <rect width="1235.6" height="260" fill="white"/>
-  <text x="617.8" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified</text>
+  <text x="617.8" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, &gt;&gt;=</text>
   <g transform="translate(0,28)">
     <rect x="0" y="0" width="1235.6" height="232" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
-      <path d="M0,0 L102.8,0 L102.8,12 L92.8,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
-      <text x="51.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» &gt;&gt;=</text>
+      <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
+      <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» bind</text>
     </g>
     <g class="edge">
       <path d="M164.0,59.0 L196.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>

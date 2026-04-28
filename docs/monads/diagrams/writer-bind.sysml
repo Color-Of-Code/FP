@@ -55,8 +55,8 @@ package WriterBindImpl {
 
 #diagram {
     type  = activity
-    title = "Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2"
-    name  = ">>="
+    title = "Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2 — also called: flatMap, >>="
+    name  = "bind"
     show wa      as type
     show f       as hof
     show extract as function

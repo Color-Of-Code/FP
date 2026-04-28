@@ -249,7 +249,7 @@
       "combine": "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append",
       "result": "(b, w1<>w2) — the final result: value b and the complete accumulated log"
     },
-    "title": "Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2",
-    "name": ">>="
+    "title": "Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2 — also called: flatMap, >>=",
+    "name": "bind"
   }
 }

@@ -21,7 +21,7 @@ package MaybeSignature {
 
 #diagram {
     type  = ibd
-    title = "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b"
+    title = "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — also called: flatMap, andThen / and_then, SelectMany, chain, >>="
     render = MaybeBindContext
     show ma_val as type
     show f_val  as hof

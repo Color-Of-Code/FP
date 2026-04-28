@@ -46,8 +46,8 @@ package IOBindImpl {
 
 #diagram {
     type  = activity
-    title = "IO bind: execute ia, feed a to f to build IO b, execute IO b"
-    name  = ">>="
+    title = "IO bind: execute ia, feed a to f to build IO b, execute IO b — also called: .then (Promises), >>="
+    name  = "bind"
     show ia     as type
     show f      as hof
     show exec_a as function

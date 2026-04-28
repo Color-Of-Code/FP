@@ -71,7 +71,7 @@
       "bind": "Sequences two STM actions within ONE transaction:\\n1. run sa to get a\\n2. pass a to f to get STM b\\n3. run that action\\nIf any readTVar conflicts → the entire composed transaction retries from scratch.",
       "sb_val": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a."
     },
-    "title": "(>>=) :: STM a ⟶ (a ⟶ STM b) ⟶ STM b",
+    "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — also called: >>=",
     "render": "STMBindContext"
   }
 }

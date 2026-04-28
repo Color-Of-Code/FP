@@ -59,8 +59,8 @@ package STMBindImpl {
 
 #diagram {
     type  = activity
-    title = "STM bind: sequence two TVar actions; atomically commits or retries the whole chain"
-    name  = ">>="
+    title = "STM bind: sequence two TVar actions; atomically commits or retries the whole chain — also called: >>="
+    name  = "bind"
     show sa     as type
     show f      as hof
     show run_sa as function

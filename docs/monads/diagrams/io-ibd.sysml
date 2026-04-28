@@ -22,7 +22,7 @@ package IOSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: IO a ⟶ (a ⟶ IO b) ⟶ IO b"
+    title = "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>="
     render = IOBindContext
     show ia_val as type
     show f_val  as hof

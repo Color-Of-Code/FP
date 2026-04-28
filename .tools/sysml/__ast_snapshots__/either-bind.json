@@ -116,7 +116,7 @@
       "eb_right": "Either e b — the result of f(a). May be Right b (success) or Left e (new failure from f).",
       "eb_left": "Left e — the original error value e propagated UNCHANGED. The error identity is preserved."
     },
-    "title": "Either bind: Right a → f(a)  |  Left e → Left e  (error preserved, f skipped)",
-    "name": ">>="
+    "title": "Either bind: Right a → f(a)  |  Left e → Left e  (error preserved, f skipped) — also called: andThen / and_then, Bind, flatMap, >>=",
+    "name": "bind"
   }
 }

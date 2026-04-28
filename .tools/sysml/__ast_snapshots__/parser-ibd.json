@@ -84,7 +84,7 @@
       "bind": "bind p f = \\\\input ->\\n  case p(input) of\\n    Nothing       -> Nothing        -- propagate failure\\n    Just (a, rest) -> f a rest      -- thread rest into next parser",
       "pb_val": "Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume"
     },
-    "title": "(>>=) :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b",
+    "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — also called: flatMap, Bind, >>=",
     "render": "ParserBindContext"
   }
 }

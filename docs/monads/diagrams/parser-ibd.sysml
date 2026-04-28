@@ -24,7 +24,7 @@ package ParserSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b"
+    title = "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — also called: flatMap, Bind, >>="
     render = ParserBindContext
     show pa_val as type
     show f_val  as hof

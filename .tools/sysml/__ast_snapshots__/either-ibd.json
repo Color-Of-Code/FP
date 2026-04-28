@@ -71,7 +71,7 @@
       "bind": "Right a →  f a          (unwrap, apply, return result)\\nLeft e  →  Left e       (short-circuit: skip f, propagate the error value unchanged)",
       "mb_val": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)"
     },
-    "title": "(>>=) :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b",
+    "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — also called: andThen / and_then, Bind, flatMap, >>=",
     "render": "EitherBindContext"
   }
 }

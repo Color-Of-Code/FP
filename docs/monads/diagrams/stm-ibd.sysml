@@ -22,7 +22,7 @@ package STMSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: STM a ⟶ (a ⟶ STM b) ⟶ STM b"
+    title = "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — also called: >>="
     render = STMBindContext
     show sa_val as type
     show f_val  as hof

@@ -282,7 +282,7 @@
       "fail_in": "Nothing — pa failed. No (a, rest) was produced.",
       "fail_out": "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"
     },
-    "title": "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped)",
-    "name": ">>="
+    "title": "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>=",
+    "name": "bind"
   }
 }

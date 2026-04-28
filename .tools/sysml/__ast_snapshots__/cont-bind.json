@@ -162,7 +162,7 @@
       "run": "Run m with k2: m(k2). m runs LAST — this is the inversion of control.\\nIf callCC is used, k (the downstream continuation) can be captured as an escape function.",
       "r": "r — the final result of the entire composed computation"
     },
-    "title": "Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m",
-    "name": ">>="
+    "title": "Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m — also called: >>=",
+    "name": "bind"
   }
 }

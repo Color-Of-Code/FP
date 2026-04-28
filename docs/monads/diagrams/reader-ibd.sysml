@@ -23,7 +23,7 @@ package ReaderSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b"
+    title = "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>="
     render = ReaderBindContext
     show ra_val as type
     show f_val  as hof

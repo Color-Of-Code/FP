@@ -71,7 +71,7 @@
       "bind": "Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)",
       "mb_val": "Maybe b — Just b (if every step succeeded) or Nothing (first failure propagated)"
     },
-    "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b",
+    "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
     "render": "MaybeBindContext"
   }
 }

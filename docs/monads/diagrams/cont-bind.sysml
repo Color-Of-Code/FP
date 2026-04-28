@@ -44,8 +44,8 @@ package ContBindImpl {
 
 #diagram {
     type  = activity
-    title = "Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m"
-    name  = ">>="
+    title = "Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m — also called: >>="
+    name  = "bind"
     show m       as type
     show f       as hof
     show k       as value

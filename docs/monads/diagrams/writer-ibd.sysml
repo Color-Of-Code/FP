@@ -21,7 +21,7 @@ package WriterSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2)"
+    title = "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — also called: flatMap, >>="
     render = WriterBindContext
     show ma_val as type
     show f_val  as hof

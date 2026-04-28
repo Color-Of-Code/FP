@@ -56,8 +56,8 @@ package StateBindImpl {
 
 #diagram {
     type  = activity
-    title = "State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2)"
-    name  = ">>="
+    title = "State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2) — also called: flatMap, >>="
+    name  = "bind"
     show sa      as type
     show f       as hof
     show s0      as value

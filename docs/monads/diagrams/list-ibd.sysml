@@ -20,7 +20,7 @@ package ListSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: List a ⟶ (a ⟶ List b) ⟶ List b"
+    title = "bind :: List a ⟶ (a ⟶ List b) ⟶ List b — also called: flatMap, concatMap, SelectMany, List.collect, >>="
     render = ListBindContext
     show ma_val as type
     show f_val  as hof

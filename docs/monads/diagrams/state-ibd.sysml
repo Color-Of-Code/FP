@@ -25,7 +25,7 @@ package StateSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: State s a ⟶ (a ⟶ State s b) ⟶ State s b"
+    title = "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, >>="
     render = StateBindContext
     show sa_val as type
     show f_val  as hof

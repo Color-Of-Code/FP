@@ -71,7 +71,7 @@
       "bind": "[(b, pa*pb) | (a, pa) <- dist, (b, pb) <- f a]\\nFor each outcome a (probability pa), apply f to get a distribution over b.\\nEach (b, pb) gets weight pa * pb — law of total probability.",
       "dist_b": "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it"
     },
-    "title": "(>>=) :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b",
+    "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>=",
     "render": "ProbBindContext"
   }
 }

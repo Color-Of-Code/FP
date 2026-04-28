@@ -22,7 +22,7 @@ package ProbSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b"
+    title = "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>="
     render = ProbBindContext
     show dist_a as type
     show f_val  as hof

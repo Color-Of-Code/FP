@@ -77,8 +77,8 @@ package ProbBindImpl {
 
 #diagram {
     type  = activity
-    title = "Prob bind: apply f per outcome, weight by pa, merge — law of total probability"
-    name  = ">>="
+    title = "Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>="
+    name  = "bind"
     show dist_a  as type
     show f       as hof
     show a1      as value

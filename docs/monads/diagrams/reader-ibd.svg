@@ -12,7 +12,7 @@
     </marker>
   </defs>
   <rect width="675.2" height="230" fill="white"/>
-  <text x="337.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">(&gt;&gt;=) :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b</text>
+  <text x="337.6" y="20" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, &gt;&gt;=</text>
   <g transform="translate(0,28)">
     <rect x="0" y="0" width="675.2" height="202" rx="8" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">

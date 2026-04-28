@@ -67,8 +67,8 @@ package ParserBindImpl {
 
 #diagram {
     type  = activity
-    title = "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped)"
-    name  = ">>="
+    title = "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>="
+    name  = "bind"
     show pa       as type
     show f        as hof
     show input    as value

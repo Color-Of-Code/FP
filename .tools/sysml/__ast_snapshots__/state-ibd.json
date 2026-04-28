@@ -97,7 +97,7 @@
       "sb_val": "State s b — the composed computation; when run it produces (b, s'')",
       "s_out": "s — the transformed state after both sa and f(a) have run. Different from s_in."
     },
-    "title": "(>>=) :: State s a ⟶ (a ⟶ State s b) ⟶ State s b",
+    "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, >>=",
     "render": "StateBindContext"
   }
 }

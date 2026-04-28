@@ -21,7 +21,7 @@ package ContSignature {
 
 #diagram {
     type  = ibd
-    title = "(>>=) :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b"
+    title = "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>="
     render = ContBindContext
     show m_val as type
     show f_val as hof

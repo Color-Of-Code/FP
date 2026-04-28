@@ -71,7 +71,7 @@
       "bind": "Build a new IO recipe that, when run by the runtime:\\n1. executes ia to get a\\n2. passes a to f to get IO b\\n3. executes IO b\\nOrder of effects = order of binds.",
       "ib_val": "IO b — the composed recipe. Effects of ia happen before effects of f(a)."
     },
-    "title": "(>>=) :: IO a ⟶ (a ⟶ IO b) ⟶ IO b",
+    "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>=",
     "render": "IOBindContext"
   }
 }

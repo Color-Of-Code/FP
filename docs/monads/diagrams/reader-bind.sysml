@@ -51,8 +51,8 @@ package ReaderBindImpl {
 
 #diagram {
     type  = activity
-    title = "Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified"
-    name  = ">>="
+    title = "Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>="
+    name  = "bind"
     show ra      as type
     show f       as hof
     show env     as value

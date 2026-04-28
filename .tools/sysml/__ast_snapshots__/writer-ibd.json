@@ -71,7 +71,7 @@
       "bind": "extract a from (a, w1)\\napply f(a) to get (b, w2)\\nreturn (b, w1 <> w2)  ← logs combined with monoid append",
       "mb_val": "(b, w1<>w2) — result b with the complete log: w1 from the first step appended with w2 from f"
     },
-    "title": "(>>=) :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2)",
+    "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — also called: flatMap, >>=",
     "render": "WriterBindContext"
   }
 }
