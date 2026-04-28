@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 666 146" width="666" height="146">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 146" width="650" height="146">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,11 +11,11 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="666" height="146" fill="white"/>
-  <text x="333" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">modify :: (s ⟶ s) ⟶ State s ()   (transform the state in place; result is unit)</text>
-  <text x="333" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">primitive</text>
+  <rect width="650" height="146" fill="white"/>
+  <text x="325" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">modify :: (s ⟶ s) ⟶ State s ()   (transform the state in place; result is unit)</text>
+  <text x="325" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">primitive</text>
   <g transform="translate(0,44)">
-    <rect x="0" y="0" width="666" height="102" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="650" height="102" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L121.4,0 L121.4,12 L111.4,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="60.7" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» modify</text>
@@ -24,8 +24,8 @@
       <path d="M146.0,62.0 L178.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M318.0,62.0 L490.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="412" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">\\s -&gt; ((), f s)</text>
+      <path d="M318.0,62.0 L474.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="404" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">\\s -&gt; ((), f s)</text>
     </g>
     <g class="action-node">
       <title>Modify: build \\s -&gt; ((), f s). Equivalent to: do { s &lt;- get; put (f s) }.</title>
@@ -47,8 +47,8 @@
     </g>
     <g class="object-node">
       <title>State s () — unit value, new state is f(prev). Reads and writes happen in a single step.</title>
-      <rect x="502" y="43" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="566" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">su : State s ()</text>
+      <rect x="486" y="43" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="550" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">su : State s ()</text>
     </g>
   </g>
 </svg>

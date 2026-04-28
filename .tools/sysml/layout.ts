@@ -84,13 +84,83 @@ export async function layoutGraph(
   const direction = rankdir === "TB" ? "DOWN" : "RIGHT";
   const inSide  = rankdir === "TB" ? "NORTH" : "WEST";
   const outSide = rankdir === "TB" ? "SOUTH" : "EAST";
+  // Side perpendicular to the layout flow.  In a left-to-right diagram this
+  // is SOUTH; in a top-to-bottom diagram it is EAST.  We use it to route
+  // decision → merge edges so they form a perpendicular "alternate-exit"
+  // rail (UML/SysML convention: forward = primary path, perpendicular =
+  // failure / null path).
+  const altSide = rankdir === "TB" ? "EAST" : "SOUTH";
   const nodeIndex = new Map(nodes.map(n => [n.id, n]));
 
   // ── Build ELK children with per-action ports ─────────────────────────────
   const portIdOf = (nodeId: string, side: "in" | "out", pin: string): string =>
     `${nodeId}__${side}__${pin}`;
 
+  // Pre-compute which nodes are merges (used for decision-port routing).
+  const mergeIds = new Set(nodes.filter(n => n.kind === "merge").map(n => n.id));
+  // For each decision/merge node, collect outgoing/incoming edges so we can
+  // attach side-hint ports.  Forward outputs exit on `outSide`; outputs that
+  // feed a merge exit on `altSide` (forming the perpendicular fail-rail).
+  const decisionPortIdOf = (nodeId: string, role: "in" | "outFwd" | "outAlt", i: number): string =>
+    `${nodeId}__d__${role}__${i}`;
+
+  // edgeIdx → port id, populated for edges that touch decision/merge nodes.
+  const edgeSrcPort = new Map<number, string>();
+  const edgeTgtPort = new Map<number, string>();
+
   const children: ElkNode[] = nodes.map(n => {
+    if (n.kind === "decision" || n.kind === "merge") {
+      // Index the edges in stable order so port ids match what we record.
+      const inEdges:  { edge: GEdge; idx: number }[] = [];
+      const outEdges: { edge: GEdge; idx: number }[] = [];
+      edges.forEach((e, idx) => {
+        if (e.to   === n.id) inEdges .push({ edge: e, idx });
+        if (e.from === n.id) outEdges.push({ edge: e, idx });
+      });
+      const ports: ElkPort[] = [];
+      // Merge nodes: all incoming edges share a single inbound port so ELK
+      // routes them through one converging junction (the "bottom rail" look)
+      // rather than distributing them across distinct points on the WEST side.
+      // Decisions still get one inbound port per edge — they only ever have
+      // one inbound edge in practice but the per-edge mapping is harmless.
+      if (n.kind === "merge" && inEdges.length > 0) {
+        const pid = decisionPortIdOf(n.id, "in", 0);
+        ports.push({
+          id: pid, width: 1, height: 1,
+          layoutOptions: { "port.side": inSide },
+        });
+        inEdges.forEach(({ idx }) => edgeTgtPort.set(idx, pid));
+      } else {
+        inEdges.forEach(({ idx }, i) => {
+          const pid = decisionPortIdOf(n.id, "in", i);
+          ports.push({
+            id: pid, width: 1, height: 1,
+            layoutOptions: { "port.side": inSide },
+          });
+          edgeTgtPort.set(idx, pid);
+        });
+      }
+      outEdges.forEach(({ edge, idx }, i) => {
+        const toMerge = mergeIds.has(edge.to);
+        // Decision → merge exits on the perpendicular side; everything else
+        // continues forward.  Merges always emit forward.
+        const side = (n.kind === "decision" && toMerge) ? altSide : outSide;
+        const role = side === outSide ? "outFwd" : "outAlt";
+        const pid = decisionPortIdOf(n.id, role, i);
+        ports.push({
+          id: pid, width: 1, height: 1,
+          layoutOptions: { "port.side": side },
+        });
+        edgeSrcPort.set(idx, pid);
+      });
+      return {
+        id: n.id, width: n.w, height: n.h, ports,
+        layoutOptions: {
+          "portConstraints":           "FIXED_SIDE",
+          "elk.portAlignment.default": "CENTER",
+        },
+      };
+    }
     if (n.kind !== "action") {
       return { id: n.id, width: n.w, height: n.h };
     }
@@ -148,8 +218,8 @@ export async function layoutGraph(
   /** Map from `e<i>` ids back into the original `edges[]` index. */
   const elkEdgeIdToOrig = new Map<string, number>();
 
-  const EDGE_LABEL_CHAR_W = 5.5;
-  const EDGE_LABEL_PAD    = 12;
+  const EDGE_LABEL_CHAR_W = 5.0;
+  const EDGE_LABEL_PAD    = 4;
   const EDGE_LABEL_H      = 14;
 
   edges.forEach((e, i) => {
@@ -157,12 +227,16 @@ export async function layoutGraph(
     const tgt = nodeIndex.get(e.to);
     if (!src || !tgt) return;
 
-    const sourceId = src.kind === "action" && e.isObjectFlow && e.srcPin
-      ? portIdOf(src.id, "out", e.srcPin)
-      : src.id;
-    const targetId = tgt.kind === "action" && e.isObjectFlow && e.dstPin
-      ? portIdOf(tgt.id, "in", e.dstPin)
-      : tgt.id;
+    const sourceId =
+      edgeSrcPort.get(i) ??
+      (src.kind === "action" && e.isObjectFlow && e.srcPin
+        ? portIdOf(src.id, "out", e.srcPin)
+        : src.id);
+    const targetId =
+      edgeTgtPort.get(i) ??
+      (tgt.kind === "action" && e.isObjectFlow && e.dstPin
+        ? portIdOf(tgt.id, "in", e.dstPin)
+        : tgt.id);
 
     const id = `e${i}`;
     elkEdgeIdToOrig.set(id, i);
@@ -195,7 +269,7 @@ export async function layoutGraph(
       "elk.padding":                                       "[top=12,left=30,bottom=12,right=30]",
       "elk.layered.nodePlacement.strategy":                "NETWORK_SIMPLEX",
       "elk.layered.crossingMinimization.semiInteractive":  "true",
-      "elk.layered.mergeEdges":                            "false",
+      "elk.layered.mergeEdges":                            "true",
     },
     children,
     edges: elkEdges,
