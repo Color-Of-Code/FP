@@ -103,7 +103,7 @@ Short definition sentence.
 
 1. Pick the next `NN` number (do not insert in the middle without renumbering).
 2. Create `docs/NN-kebab-name.md` following the template above.
-3. Create `docs/diagrams/concept.d2` and `docs/diagrams/concept-motivation.d2`.
+3. Create `docs/NN-kebab-name/concept.d2` and `docs/NN-kebab-name/concept-motivation.d2`.
 4. Compile SVGs: `make -C .tools svgs` (or `d2 --layout=elk src.d2 src.svg`).
 5. Add a row to the README learning-track table.
 6. Run `make -C .tools fmt-md lint-md lint-langs` and fix any errors before committing.
@@ -111,7 +111,7 @@ Short definition sentence.
 ## Adding a new monad detail page
 
 1. Create `docs/monads/name.md` following the monad template above.
-2. Create the following diagram sources in `docs/monads/diagrams/`:
+2. Create the following diagram sources in `docs/monads/name/`:
    - `name.d2` — concept overview (type constructors, flow)
    - `name-motivation.d2` — before/after motivation
    - `name-pure.sysml` — activity diagram: `pure :: a ⟶ Maybe a` (wrap into context)
@@ -162,14 +162,14 @@ Short definition sentence. State the optic's position in the hierarchy (stronger
 
 ### Rules
 
-- Diagrams live in `docs/optics/diagrams/` and import `...@../../styles`.
+- Diagrams live in `docs/optics/name/` and import `...@../../styles`.
 - Cross-links to other optic pages use relative paths: `[Lens](lens.md)`.
 - Cross-links from `docs/` use: `[lens.md](optics/lens.md)`.
 
 ## Adding a new optic detail page
 
 1. Create `docs/optics/name.md` following the optic template above.
-2. Create `docs/optics/diagrams/name.d2` and `docs/optics/diagrams/name-motivation.d2`.
+2. Create `docs/optics/name/name.d2` and `docs/optics/name/name-motivation.d2`.
 3. Compile SVGs: `make -C .tools svgs`.
 4. Add a row to the optics catalogue table in `docs/13-optics.md` and in `README.md`.
 5. Run `make -C .tools fmt-md lint-md lint-langs`.

@@ -131,11 +131,13 @@ Detailed table in [tooling spec](../../specs/tooling.md).
 
 ## Tests
 
-- 41 SysML fixtures under `docs/diagrams/`, `docs/monads/diagrams/`, `docs/optics/diagrams/`.
+- 62 SysML fixtures discovered recursively under `docs/` (one per-chapter folder per concept, e.g.
+  `docs/19-monad/`, `docs/monads/maybe/`).
 - Each fixture is exercised twice:
   - [parser.test.ts](../sysml/parser.test.ts) → AST JSON snapshot.
   - [render.test.ts](../sysml/render.test.ts) → SVG file alongside the source.
-- 82 snapshots in total; refreshed with `make -C .tools test-update` after intentional changes.
+- 124 snapshots in total (62 SysML × 2 layers); refreshed with `make -C .tools test-update` after
+  intentional changes.
 - See [decisions/0002-snapshot-tests.md](decisions/0002-snapshot-tests.md).
 
 ## VS Code extension

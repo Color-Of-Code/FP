@@ -97,14 +97,14 @@ The Makefile uses incremental builds (Make's implicit `.d2` → `.svg` rules). I
 rebuild of all SVGs:
 
 ```sh
-touch docs/diagrams/*.d2 docs/monads/diagrams/*.d2
+touch docs/**/*.d2
 make -C .tools svgs
 ```
 
 To compile a single diagram manually:
 
 ```sh
-d2 --layout=elk docs/diagrams/foo.d2 docs/diagrams/foo.svg
+d2 --layout=elk docs/19-monad/monad.d2 docs/19-monad/monad.svg
 ```
 
 SVG files are committed to the repository (they are the rendered artefacts referenced by Markdown

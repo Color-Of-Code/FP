@@ -40,8 +40,12 @@ A learning track through the core concepts of functional programming, each build
 
 ## Diagrams
 
-The `docs/diagrams/` folder contains [D2](https://d2lang.com) source files for each concept diagram.
-Monad-specific diagrams live in `docs/monads/diagrams/`.
+Each chapter's diagrams live in a sibling folder of the same name as the chapter, alongside the
+`.md` page itself. For example, [docs/19-monad.md](docs/19-monad.md) is accompanied by
+[docs/19-monad/](docs/19-monad/) which contains every [D2](https://d2lang.com) and SysML v2 source
+plus the generated SVGs for that chapter. The same convention applies under
+[docs/monads/](docs/monads/) and [docs/optics/](docs/optics/). See
+[specs/diagrams.md](specs/diagrams.md) for the diagram conventions in detail.
 
 ## Monad catalogue
 

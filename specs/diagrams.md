@@ -11,11 +11,18 @@ Both produce `.svg` files that are embedded in Markdown docs identically.
 
 ## File locations
 
-| Doc type              | Diagram source location                    | SVG output location             |
-| --------------------- | ------------------------------------------ | ------------------------------- |
-| `docs/NN-name.md`     | `docs/diagrams/name.d2` or `.sysml`        | `docs/diagrams/name.svg`        |
-| `docs/monads/name.md` | `docs/monads/diagrams/name.d2` or `.sysml` | `docs/monads/diagrams/name.svg` |
-| `docs/optics/name.md` | `docs/optics/diagrams/name.d2`             | `docs/optics/diagrams/name.svg` |
+Diagram sources and the generated SVGs live in a per-chapter folder named after the chapter filename
+stem, sitting next to the Markdown page itself:
+
+| Doc type              | Diagram source location                     | SVG output location              |
+| --------------------- | ------------------------------------------- | -------------------------------- |
+| `docs/NN-name.md`     | `docs/NN-name/<diagram>.d2` or `.sysml`     | `docs/NN-name/<diagram>.svg`     |
+| `docs/monads/name.md` | `docs/monads/name/<diagram>.d2` or `.sysml` | `docs/monads/name/<diagram>.svg` |
+| `docs/optics/name.md` | `docs/optics/name/<diagram>.d2`             | `docs/optics/name/<diagram>.svg` |
+
+Each SVG is committed alongside its source. Adding a new chapter is self-contained: drop the
+`<chapter>.md` and a sibling `<chapter>/` folder with the diagrams in it; the build picks them up
+automatically.
 
 Each concept gets **at minimum two diagrams**:
 
@@ -80,32 +87,32 @@ displays the math notation verbatim.
 
 #### Activity diagrams (behavioral — token flow)
 
-| SysML source                            | SVG output                            | Chapter                   |
-| --------------------------------------- | ------------------------------------- | ------------------------- |
-| `docs/diagrams/fold.sysml`              | `docs/diagrams/fold.svg`              | ch 08 Fold                |
-| `docs/diagrams/applicative.sysml`       | `docs/diagrams/applicative.svg`       | ch 07 Applicative         |
-| `docs/diagrams/applicative-2.sysml`     | `docs/diagrams/applicative-2.svg`     | ch 07 Applicative (fmap)  |
-| `docs/diagrams/traversable.sysml`       | `docs/diagrams/traversable.svg`       | ch 09 Traversable         |
-| `docs/diagrams/traversable-2.sysml`     | `docs/diagrams/traversable-2.svg`     | ch 09 Traversable (seq)   |
-| `docs/diagrams/monad.sysml`             | `docs/diagrams/monad.svg`             | ch 10 Monad (chain)       |
-| `docs/diagrams/monad-2.sysml`           | `docs/diagrams/monad-2.svg`           | ch 10 Monad (bind/pure)   |
-| `docs/diagrams/monad-3.sysml`           | `docs/diagrams/monad-3.svg`           | ch 10 Monad (Maybe)       |
-| `docs/diagrams/monad-4.sysml`           | `docs/diagrams/monad-4.svg`           | ch 10 Monad (List)        |
-| `docs/diagrams/function2.sysml`         | `docs/diagrams/function2.svg`         | ch 03 Currying/partial    |
-| `docs/diagrams/function2-2.sysml`       | `docs/diagrams/function2-2.svg`       | ch 03 Currying            |
-| `docs/monads/diagrams/maybe-pure.sysml` | `docs/monads/diagrams/maybe-pure.svg` | Maybe monad detail (pure) |
-| `docs/monads/diagrams/maybe-bind.sysml` | `docs/monads/diagrams/maybe-bind.svg` | Maybe monad detail (bind) |
+| SysML source                              | SVG output                              | Chapter                   |
+| ----------------------------------------- | --------------------------------------- | ------------------------- |
+| `docs/16-fold/fold.sysml`                 | `docs/16-fold/fold.svg`                 | ch 16 Fold                |
+| `docs/15-applicative/applicative.sysml`   | `docs/15-applicative/applicative.svg`   | ch 15 Applicative         |
+| `docs/15-applicative/applicative-2.sysml` | `docs/15-applicative/applicative-2.svg` | ch 15 Applicative (fmap)  |
+| `docs/17-traversable/traversable.sysml`   | `docs/17-traversable/traversable.svg`   | ch 17 Traversable         |
+| `docs/17-traversable/traversable-2.sysml` | `docs/17-traversable/traversable-2.svg` | ch 17 Traversable (seq)   |
+| `docs/19-monad/monad.sysml`               | `docs/19-monad/monad.svg`               | ch 19 Monad (chain)       |
+| `docs/19-monad/monad-2.sysml`             | `docs/19-monad/monad-2.svg`             | ch 19 Monad (bind/pure)   |
+| `docs/19-monad/monad-3.sysml`             | `docs/19-monad/monad-3.svg`             | ch 19 Monad (Maybe)       |
+| `docs/19-monad/monad-4.sysml`             | `docs/19-monad/monad-4.svg`             | ch 19 Monad (List)        |
+| `docs/06-currying/function2.sysml`        | `docs/06-currying/function2.svg`        | ch 06 Currying/partial    |
+| `docs/06-currying/function2-2.sysml`      | `docs/06-currying/function2-2.svg`      | ch 06 Currying            |
+| `docs/monads/maybe/maybe-pure.sysml`      | `docs/monads/maybe/maybe-pure.svg`      | Maybe monad detail (pure) |
+| `docs/monads/maybe/maybe-bind.sysml`      | `docs/monads/maybe/maybe-bind.svg`      | Maybe monad detail (bind) |
 
 #### IBD diagrams (structural — type signatures)
 
-| SysML source                           | SVG output                           | Chapter                       |
-| -------------------------------------- | ------------------------------------ | ----------------------------- |
-| `docs/diagrams/functor-ibd.sysml`      | `docs/diagrams/functor-ibd.svg`      | ch 06 Functor                 |
-| `docs/diagrams/applicative-ibd.sysml`  | `docs/diagrams/applicative-ibd.svg`  | ch 07 Applicative             |
-| `docs/diagrams/traversable-ibd.sysml`  | `docs/diagrams/traversable-ibd.svg`  | ch 09 Traversable             |
-| `docs/diagrams/monad-ibd.sysml`        | `docs/diagrams/monad-ibd.svg`        | ch 10 Monad                   |
-| `docs/diagrams/fold-ibd.sysml`         | `docs/diagrams/fold-ibd.svg`         | ch 08 Fold                    |
-| `docs/monads/diagrams/maybe-ibd.sysml` | `docs/monads/diagrams/maybe-ibd.svg` | Maybe monad detail (bind sig) |
+| SysML source                                | SVG output                                | Chapter                       |
+| ------------------------------------------- | ----------------------------------------- | ----------------------------- |
+| `docs/13-functor/functor-ibd.sysml`         | `docs/13-functor/functor-ibd.svg`         | ch 13 Functor                 |
+| `docs/15-applicative/applicative-ibd.sysml` | `docs/15-applicative/applicative-ibd.svg` | ch 15 Applicative             |
+| `docs/17-traversable/traversable-ibd.sysml` | `docs/17-traversable/traversable-ibd.svg` | ch 17 Traversable             |
+| `docs/19-monad/monad-ibd.sysml`             | `docs/19-monad/monad-ibd.svg`             | ch 19 Monad                   |
+| `docs/16-fold/fold-ibd.sysml`               | `docs/16-fold/fold-ibd.svg`               | ch 16 Fold                    |
+| `docs/monads/maybe/maybe-ibd.sysml`         | `docs/monads/maybe/maybe-ibd.svg`         | Maybe monad detail (bind sig) |
 
 ### SysML v2 constructs used
 
@@ -285,7 +292,7 @@ A `succession` edge (control flow) renders as a dashed arrow with an open arrowh
 
 ```sh
 # Single file
-node --experimental-strip-types .tools/sysml/cli.ts docs/diagrams/fold.sysml docs/diagrams/fold.svg
+node --experimental-strip-types .tools/sysml/cli.ts docs/16-fold/fold.sysml docs/16-fold/fold.svg
 
 # All SysML sources (activity + IBD)
 make -C .tools sysml
@@ -298,20 +305,21 @@ make -C .tools all
 
 ## D2 source format
 
-(Monad detail pages use the same relative path — `diagrams/` — because the doc sits in
-`docs/monads/` and the SVGs sit in `docs/monads/diagrams/`.)
+(Each diagram source sits in the per-chapter folder next to its `.md` page, e.g.
+`docs/16-fold/fold-ibd.sysml` for `docs/16-fold.md`, and `docs/monads/maybe/maybe-bind.sysml` for
+`docs/monads/maybe.md`.)
 
 Every D2 file must import the shared style sheet as the **first line after any `direction:`
 declaration**:
 
 ```d2
-# From docs/diagrams/
+# From a top-level chapter folder, e.g. docs/19-monad/
 ...@../styles
 
-# From docs/monads/diagrams/
+# From a monad detail folder, e.g. docs/monads/maybe/
 ...@../../styles
 
-# From docs/optics/diagrams/
+# From an optic detail folder, e.g. docs/optics/iso/
 ...@../../styles
 ```
 
@@ -329,7 +337,7 @@ The `make -C .tools svgs` target handles all D2 files automatically. To compile 
 development:
 
 ```sh
-/home/jaap/.local/bin/d2 --layout=elk docs/diagrams/foo.d2 docs/diagrams/foo.svg
+/home/jaap/.local/bin/d2 --layout=elk docs/19-monad/monad.d2 docs/19-monad/monad.svg
 ```
 
 ## Available style classes
