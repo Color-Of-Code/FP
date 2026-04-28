@@ -1,0 +1,159 @@
+{
+  "packages": [
+    {
+      "name": "TraversableActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "TraverseOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Fb",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "ta",
+              "type": "Ta",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "ftb",
+              "type": "F(Tb)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "SequenceOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "tfa",
+              "type": "ContainerFA",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "fta",
+              "type": "EffectContA",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "TraverseProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "trav",
+              "type": "TraverseOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Fb"
+            },
+            {
+              "kind": "object",
+              "id": "ta",
+              "type": "Ta"
+            },
+            {
+              "kind": "object",
+              "id": "ftb",
+              "type": "F(Tb)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "trav"
+            },
+            {
+              "kind": "flow",
+              "from": "ta",
+              "to": "trav"
+            },
+            {
+              "kind": "flow",
+              "from": "trav",
+              "to": "ftb"
+            }
+          ],
+          "successions": []
+        },
+        {
+          "kind": "activityDef",
+          "name": "SequenceProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "seq",
+              "type": "SequenceOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "tfa",
+              "type": "ContainerFA"
+            },
+            {
+              "kind": "object",
+              "id": "fta",
+              "type": "EffectContA"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "tfa",
+              "to": "seq"
+            },
+            {
+              "kind": "flow",
+              "from": "seq",
+              "to": "fta"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "hof",
+      "ta": "type",
+      "trav": "function",
+      "ftb": "type"
+    },
+    "tooltips": {
+      "f": "(a ⟶ Fb) — effectful mapping fn, received as a data token (HOF)",
+      "ta": "Ta — traversable container of a's",
+      "trav": "traverse: maps each element with f, collects effects into outer F",
+      "ftb": "F(Tb) — container shape T preserved; all effects F collected"
+    },
+    "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)",
+    "name": "traverse",
+    "render": "TraverseProcess"
+  }
+}

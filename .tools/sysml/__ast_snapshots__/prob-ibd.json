@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "ProbSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "ProbBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "dist_a",
+              "type": "Prob a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ Prob b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "ProbBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "dist_b",
+              "type": "Prob b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "dist_a",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "dist_b"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "dist_a": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "dist_b": "type"
+    },
+    "tooltips": {
+      "dist_a": "Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1.",
+      "f_val": "(a ⟶ Prob b) — conditional distribution: given outcome a, returns a new distribution over b",
+      "bind": "[(b, pa*pb) | (a, pa) <- dist, (b, pb) <- f a]\\nFor each outcome a (probability pa), apply f to get a distribution over b.\\nEach (b, pb) gets weight pa * pb — law of total probability.",
+      "dist_b": "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it"
+    },
+    "title": "(>>=) :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b",
+    "render": "ProbBindContext"
+  }
+}

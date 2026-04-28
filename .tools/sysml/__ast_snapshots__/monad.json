@@ -1,0 +1,143 @@
+{
+  "packages": [
+    {
+      "name": "MonadActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "BindOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Ma",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Mb",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "Mb",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "MonadChain",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind1",
+              "type": "BindOp"
+            },
+            {
+              "kind": "action",
+              "id": "bind2",
+              "type": "BindOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "Ma",
+              "type": "Ma"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Mb"
+            },
+            {
+              "kind": "object",
+              "id": "g",
+              "type": "b ⟶ Mc"
+            },
+            {
+              "kind": "object",
+              "id": "Mb",
+              "type": "Mb"
+            },
+            {
+              "kind": "object",
+              "id": "Mc",
+              "type": "Mc"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "Ma",
+              "to": "bind1"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "bind1"
+            },
+            {
+              "kind": "flow",
+              "from": "bind1",
+              "to": "Mb"
+            },
+            {
+              "kind": "flow",
+              "from": "Mb",
+              "to": "bind2"
+            },
+            {
+              "kind": "flow",
+              "from": "g",
+              "to": "bind2"
+            },
+            {
+              "kind": "flow",
+              "from": "bind2",
+              "to": "Mc"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "bind1",
+              "to": "bind2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "Ma": "type",
+      "f": "hof",
+      "g": "hof",
+      "bind1": "function",
+      "bind2": "function",
+      "Mb": "type",
+      "Mc": "type"
+    },
+    "tooltips": {
+      "Ma": "Ma — the initial wrapped value",
+      "f": "(a ⟶ Mb) — effectful function, received as a data token (HOF)",
+      "g": "(b ⟶ Mc) — second step function, also a HOF input",
+      "bind1": ">>= : unwraps Ma, applies f, produces Mb",
+      "bind2": ">>= : unwraps Mb, applies g, produces Mc",
+      "Mc": "Mc — final result, effects from all steps collected"
+    },
+    "title": "Monad: Ma >>= (a ⟶ Mb) >>= (b ⟶ Mc)",
+    "name": ">>="
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "packages": [
+    {
+      "name": "ReaderBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunRA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ra",
+              "type": "Reader r a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "env",
+              "type": "r",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplyF",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Reader r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "rb",
+              "type": "Reader r b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "RunRB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "rb",
+              "type": "Reader r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "env",
+              "type": "r",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ReaderBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "run_ra",
+              "type": "RunRA"
+            },
+            {
+              "kind": "action",
+              "id": "apply_f",
+              "type": "ApplyF"
+            },
+            {
+              "kind": "action",
+              "id": "run_rb",
+              "type": "RunRB"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "ra",
+              "type": "Reader r a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Reader r b"
+            },
+            {
+              "kind": "object",
+              "id": "env",
+              "type": "r"
+            },
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "rb",
+              "type": "Reader r b"
+            },
+            {
+              "kind": "object",
+              "id": "b",
+              "type": "b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "ra",
+              "to": "run_ra"
+            },
+            {
+              "kind": "flow",
+              "from": "env",
+              "to": "run_ra"
+            },
+            {
+              "kind": "flow",
+              "from": "run_ra",
+              "to": "a"
+            },
+            {
+              "kind": "flow",
+              "from": "a",
+              "to": "apply_f"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "apply_f"
+            },
+            {
+              "kind": "flow",
+              "from": "apply_f",
+              "to": "rb"
+            },
+            {
+              "kind": "flow",
+              "from": "rb",
+              "to": "run_rb"
+            },
+            {
+              "kind": "flow",
+              "from": "env",
+              "to": "run_rb"
+            },
+            {
+              "kind": "flow",
+              "from": "run_rb",
+              "to": "b"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "run_ra",
+              "to": "apply_f"
+            },
+            {
+              "kind": "succession",
+              "from": "apply_f",
+              "to": "run_rb"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "ra": "type",
+      "f": "hof",
+      "env": "value",
+      "run_ra": "function",
+      "a": "value",
+      "apply_f": "function",
+      "rb": "type",
+      "run_rb": "function",
+      "b": "value"
+    },
+    "tooltips": {
+      "ra": "Reader r a — a suspended computation: a function r ⟶ a, not yet executed",
+      "f": "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b",
+      "env": "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified.",
+      "run_ra": "Run ra(env): supply env to ra, get result a",
+      "a": "a — the result of running ra with the environment",
+      "apply_f": "Apply f(a): build the next computation Reader r b from result a",
+      "rb": "Reader r b — the second computation (not yet run)",
+      "run_rb": "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State.",
+      "b": "b — the final result. The environment was never modified throughout."
+    },
+    "title": "Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified",
+    "name": ">>="
+  }
+}

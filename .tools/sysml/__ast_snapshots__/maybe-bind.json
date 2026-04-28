@@ -1,0 +1,144 @@
+{
+  "packages": [
+    {
+      "name": "MaybeBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ApplyF",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a0",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Maybe b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "Maybe b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "MaybeBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "apply_f",
+              "type": "ApplyF"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "ma",
+              "type": "Maybe a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Maybe b"
+            },
+            {
+              "kind": "object",
+              "id": "a0",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "mb",
+              "type": "Maybe b"
+            }
+          ],
+          "decisions": [
+            {
+              "kind": "decision",
+              "id": "matchMa"
+            }
+          ],
+          "merges": [
+            {
+              "kind": "merge",
+              "id": "joinResult"
+            }
+          ],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "ma",
+              "to": "matchMa"
+            },
+            {
+              "kind": "flow",
+              "from": "matchMa",
+              "to": "a0",
+              "label": "Just a0"
+            },
+            {
+              "kind": "flow",
+              "from": "a0",
+              "to": "apply_f"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "apply_f"
+            },
+            {
+              "kind": "flow",
+              "from": "apply_f",
+              "to": "joinResult"
+            },
+            {
+              "kind": "flow",
+              "from": "matchMa",
+              "to": "joinResult",
+              "label": "Nothing (: Maybe b)"
+            },
+            {
+              "kind": "flow",
+              "from": "joinResult",
+              "to": "mb"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "ma": "type",
+      "f": "hof",
+      "a0": "value",
+      "apply_f": "function",
+      "mb": "type"
+    },
+    "tooltips": {
+      "ma": "Maybe a — the input value. Either Just a0 or Nothing.",
+      "f": "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0.",
+      "matchMa": "Pattern match: simultaneously tests the constructor and destructures the payload.\\nJust a0 → a0 is available (no separate unwrap step)\\nNothing → skip f entirely",
+      "a0": "a0 — the unwrapped payload, extracted by the Just pattern. No separate unwrap action needed.",
+      "apply_f": "Apply f(a). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.",
+      "joinResult": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit).",
+      "mb": "Maybe b — the single result of bind."
+    },
+    "layout": "elk",
+    "title": "Maybe bind: pattern match unwraps Just or short-circuits Nothing",
+    "name": "bind"
+  }
+}

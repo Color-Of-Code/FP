@@ -1,0 +1,262 @@
+{
+  "packages": [
+    {
+      "name": "StateBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunSA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sa",
+              "type": "State s a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "s0",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "s1",
+              "type": "s",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplyF",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ State s b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sb",
+              "type": "State s b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "RunSB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sb",
+              "type": "State s b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "s1",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "s2",
+              "type": "s",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "StateBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "run_sa",
+              "type": "RunSA"
+            },
+            {
+              "kind": "action",
+              "id": "apply_f",
+              "type": "ApplyF"
+            },
+            {
+              "kind": "action",
+              "id": "run_sb",
+              "type": "RunSB"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "sa",
+              "type": "State s a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ State s b"
+            },
+            {
+              "kind": "object",
+              "id": "s0",
+              "type": "s"
+            },
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "s1",
+              "type": "s"
+            },
+            {
+              "kind": "object",
+              "id": "sb",
+              "type": "State s b"
+            },
+            {
+              "kind": "object",
+              "id": "b",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "s2",
+              "type": "s"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "sa",
+              "to": "run_sa"
+            },
+            {
+              "kind": "flow",
+              "from": "s0",
+              "to": "run_sa"
+            },
+            {
+              "kind": "flow",
+              "from": "run_sa",
+              "to": "a"
+            },
+            {
+              "kind": "flow",
+              "from": "run_sa",
+              "to": "s1"
+            },
+            {
+              "kind": "flow",
+              "from": "a",
+              "to": "apply_f"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "apply_f"
+            },
+            {
+              "kind": "flow",
+              "from": "apply_f",
+              "to": "sb"
+            },
+            {
+              "kind": "flow",
+              "from": "sb",
+              "to": "run_sb"
+            },
+            {
+              "kind": "flow",
+              "from": "s1",
+              "to": "run_sb"
+            },
+            {
+              "kind": "flow",
+              "from": "run_sb",
+              "to": "b"
+            },
+            {
+              "kind": "flow",
+              "from": "run_sb",
+              "to": "s2"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "run_sa",
+              "to": "apply_f"
+            },
+            {
+              "kind": "succession",
+              "from": "apply_f",
+              "to": "run_sb"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "sa": "type",
+      "f": "hof",
+      "s0": "value",
+      "run_sa": "function",
+      "a": "value",
+      "s1": "value",
+      "apply_f": "function",
+      "sb": "type",
+      "run_sb": "function",
+      "b": "value",
+      "s2": "value"
+    },
+    "tooltips": {
+      "sa": "State s a — a computation: given state s returns (a, s')",
+      "f": "(a ⟶ State s b) — the continuation; given result a, builds the next state computation",
+      "s0": "s — the initial state entering the bind. Flows into run_sa.",
+      "run_sa": "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1.",
+      "a": "a — the value result of sa(s0). Passed to f.",
+      "s1": "s — the state AFTER running sa. This is s1 ≠ s0. It is s1 (not s0) that flows to run_sb. Critical difference from Reader.",
+      "apply_f": "Apply f(a): build the next computation State s b from result a",
+      "sb": "State s b — the second computation, not yet run",
+      "run_sb": "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here.",
+      "b": "b — the final value result",
+      "s2": "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."
+    },
+    "title": "State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2)",
+    "name": ">>="
+  }
+}

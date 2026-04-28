@@ -1,0 +1,84 @@
+{
+  "packages": [
+    {
+      "name": "TraversableSequence",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "SequenceOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "tfa",
+              "type": "T(Fa)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "fta",
+              "type": "F(Ta)",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "SequenceProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "seq",
+              "type": "SequenceOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "Tfa",
+              "type": "T(Fa)"
+            },
+            {
+              "kind": "object",
+              "id": "Fta",
+              "type": "F(Ta)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "Tfa",
+              "to": "seq"
+            },
+            {
+              "kind": "flow",
+              "from": "seq",
+              "to": "Fta"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "Tfa": "type",
+      "seq": "function",
+      "Fta": "type"
+    },
+    "tooltips": {
+      "Tfa": "T(Fa) — a container of effects (e.g. [Maybe a, Maybe a, ...])",
+      "seq": "sequence: swaps T and F — collects all effects into one outer F",
+      "Fta": "F(Ta) — one effect wrapping the whole container (e.g. Maybe [a, a, ...])"
+    },
+    "title": "sequence :: T(Fa) ⟶ F(Ta)  (= traverse id)",
+    "name": "sequence"
+  }
+}

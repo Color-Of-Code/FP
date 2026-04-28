@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "FunctorSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "FmapContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "fa_val",
+              "type": "Fa",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "fmap",
+              "type": "FmapOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "fb_val",
+              "type": "Fb",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "fmap"
+            },
+            {
+              "kind": "connection",
+              "from": "fa_val",
+              "to": "fmap"
+            },
+            {
+              "kind": "connection",
+              "from": "fmap",
+              "to": "fb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "f_val": "hof",
+      "fa_val": "type",
+      "fmap": "function",
+      "fb_val": "type"
+    },
+    "tooltips": {
+      "f_val": "(a ⟶ b) — plain function, flowing in as a structural argument",
+      "fa_val": "Fa — value inside the functor context",
+      "fmap": "fmap: lifts a plain function to operate inside the functor",
+      "fb_val": "Fb — result inside the same functor context"
+    },
+    "title": "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb",
+    "render": "FmapContext"
+  }
+}

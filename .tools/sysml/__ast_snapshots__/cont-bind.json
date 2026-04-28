@@ -1,0 +1,168 @@
+{
+  "packages": [
+    {
+      "name": "ContBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "BuildInnerK",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Cont r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "k",
+              "type": "b ⟶ r",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "k2",
+              "type": "a ⟶ r",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "RunM",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "m",
+              "type": "Cont r a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "k2",
+              "type": "a ⟶ r",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "r",
+              "type": "r",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ContBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "compose",
+              "type": "BuildInnerK"
+            },
+            {
+              "kind": "action",
+              "id": "run",
+              "type": "RunM"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "m",
+              "type": "Cont r a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Cont r b"
+            },
+            {
+              "kind": "object",
+              "id": "k",
+              "type": "b ⟶ r"
+            },
+            {
+              "kind": "object",
+              "id": "k2",
+              "type": "a ⟶ r"
+            },
+            {
+              "kind": "object",
+              "id": "r",
+              "type": "r"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "compose"
+            },
+            {
+              "kind": "flow",
+              "from": "k",
+              "to": "compose"
+            },
+            {
+              "kind": "flow",
+              "from": "compose",
+              "to": "k2"
+            },
+            {
+              "kind": "flow",
+              "from": "m",
+              "to": "run"
+            },
+            {
+              "kind": "flow",
+              "from": "k2",
+              "to": "run"
+            },
+            {
+              "kind": "flow",
+              "from": "run",
+              "to": "r"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "compose",
+              "to": "run"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "m": "type",
+      "f": "hof",
+      "k": "value",
+      "compose": "function",
+      "k2": "value",
+      "run": "function",
+      "r": "type"
+    },
+    "tooltips": {
+      "m": "Cont r a = (a ⟶ r) ⟶ r — m is waiting for its continuation. It does not run yet.",
+      "f": "(a ⟶ Cont r b) — the continuation step; given a, produces a Cont r b action",
+      "k": "(b ⟶ r) — the downstream continuation: what happens after b is produced",
+      "compose": "Build inner continuation k2 = \\\\a -> f(a)(k)\\nThis closure captures both f and k.\\nWhen called with a, it: runs f(a) to get Cont r b, then runs that with k.",
+      "k2": "(a ⟶ r) — the composed continuation. When m eventually produces a, it calls k2(a), which runs f(a) and then k.",
+      "run": "Run m with k2: m(k2). m runs LAST — this is the inversion of control.\\nIf callCC is used, k (the downstream continuation) can be captured as an escape function.",
+      "r": "r — the final result of the entire composed computation"
+    },
+    "title": "Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m",
+    "name": ">>="
+  }
+}

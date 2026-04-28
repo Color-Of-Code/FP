@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "ApplicativeSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "ApContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "ff_val",
+              "type": "F(a ⟶ b)",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "fa_val",
+              "type": "Fa",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "ap",
+              "type": "ApOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "fb_val",
+              "type": "Fb",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ff_val",
+              "to": "ap"
+            },
+            {
+              "kind": "connection",
+              "from": "fa_val",
+              "to": "ap"
+            },
+            {
+              "kind": "connection",
+              "from": "ap",
+              "to": "fb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "ff_val": "hof",
+      "fa_val": "type",
+      "ap": "function",
+      "fb_val": "type"
+    },
+    "tooltips": {
+      "ff_val": "F(a ⟶ b) — a function already lifted into the applicative context",
+      "fa_val": "Fa — value inside the same context F",
+      "ap": "<*>: applies a wrapped function to a wrapped value",
+      "fb_val": "Fb — result in context F"
+    },
+    "title": "(<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb",
+    "render": "ApContext"
+  }
+}

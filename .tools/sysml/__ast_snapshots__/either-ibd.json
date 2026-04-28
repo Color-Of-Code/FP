@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "EitherSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "EitherBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "ma_val",
+              "type": "Either e a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ Either e b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "EitherBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "mb_val",
+              "type": "Either e b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ma_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "mb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "ma_val": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "mb_val": "type"
+    },
+    "tooltips": {
+      "ma_val": "Either e a — Right a (carry a) or Left e (carry error e). Unlike Maybe, the error value is preserved.",
+      "f_val": "(a ⟶ Either e b) — called only when ma_val is Right a; may itself return Left e",
+      "bind": "Right a →  f a          (unwrap, apply, return result)\\nLeft e  →  Left e       (short-circuit: skip f, propagate the error value unchanged)",
+      "mb_val": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)"
+    },
+    "title": "(>>=) :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b",
+    "render": "EitherBindContext"
+  }
+}

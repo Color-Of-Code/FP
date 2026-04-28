@@ -1,0 +1,90 @@
+{
+  "packages": [
+    {
+      "name": "ParserSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "ParserBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "pa_val",
+              "type": "Parser a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ Parser b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "rest",
+              "type": "String",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "ParserBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "pb_val",
+              "type": "Parser b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "pa_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "rest",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "pb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "pa_val": "type",
+      "f_val": "hof",
+      "rest": "value",
+      "bind": "function",
+      "pb_val": "type"
+    },
+    "tooltips": {
+      "pa_val": "Parser a = String ⟶ Maybe (a, String) — run on input; succeeds with (a, rest) or fails with Nothing",
+      "f_val": "(a ⟶ Parser b) — given parsed value a, constructs the next parser (runs on the remaining input)",
+      "rest": "String — the unconsumed remainder after pa_val runs. bind threads it into f(a). Nothing short-circuits (like Maybe).",
+      "bind": "bind p f = \\\\input ->\\n  case p(input) of\\n    Nothing       -> Nothing        -- propagate failure\\n    Just (a, rest) -> f a rest      -- thread rest into next parser",
+      "pb_val": "Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume"
+    },
+    "title": "(>>=) :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b",
+    "render": "ParserBindContext"
+  }
+}

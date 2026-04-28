@@ -1,0 +1,355 @@
+{
+  "packages": [
+    {
+      "name": "ProbBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ApplyBranch",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a_val",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pa",
+              "type": "Double",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Prob b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sub_b",
+              "type": "Prob b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "WeightBranch",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sub_b",
+              "type": "Prob b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pa",
+              "type": "Double",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "weighted",
+              "type": "[(b, pa·pb)]",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Merge",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "w1",
+              "type": "[(b, pa·pb)]",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "w2",
+              "type": "[(b, pa·pb)]",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "dist_b",
+              "type": "Prob b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ProbBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "branch1",
+              "type": "ApplyBranch"
+            },
+            {
+              "kind": "action",
+              "id": "branch2",
+              "type": "ApplyBranch"
+            },
+            {
+              "kind": "action",
+              "id": "weight1",
+              "type": "WeightBranch"
+            },
+            {
+              "kind": "action",
+              "id": "weight2",
+              "type": "WeightBranch"
+            },
+            {
+              "kind": "action",
+              "id": "merge",
+              "type": "Merge"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "dist_a",
+              "type": "Prob a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Prob b"
+            },
+            {
+              "kind": "object",
+              "id": "a1",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "pa1",
+              "type": "Double"
+            },
+            {
+              "kind": "object",
+              "id": "a2",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "pa2",
+              "type": "Double"
+            },
+            {
+              "kind": "object",
+              "id": "sub1",
+              "type": "Prob b"
+            },
+            {
+              "kind": "object",
+              "id": "sub2",
+              "type": "Prob b"
+            },
+            {
+              "kind": "object",
+              "id": "w1",
+              "type": "[(b, pa1·pb)]"
+            },
+            {
+              "kind": "object",
+              "id": "w2",
+              "type": "[(b, pa2·pb)]"
+            },
+            {
+              "kind": "object",
+              "id": "dist_b",
+              "type": "Prob b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "dist_a",
+              "to": "a1",
+              "label": "∀ a"
+            },
+            {
+              "kind": "flow",
+              "from": "dist_a",
+              "to": "pa1",
+              "label": "∀ a"
+            },
+            {
+              "kind": "flow",
+              "from": "dist_a",
+              "to": "a2",
+              "label": "∀ a"
+            },
+            {
+              "kind": "flow",
+              "from": "dist_a",
+              "to": "pa2",
+              "label": "∀ a"
+            },
+            {
+              "kind": "flow",
+              "from": "a1",
+              "to": "branch1"
+            },
+            {
+              "kind": "flow",
+              "from": "pa1",
+              "to": "branch1"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "branch1"
+            },
+            {
+              "kind": "flow",
+              "from": "branch1",
+              "to": "sub1"
+            },
+            {
+              "kind": "flow",
+              "from": "sub1",
+              "to": "weight1"
+            },
+            {
+              "kind": "flow",
+              "from": "pa1",
+              "to": "weight1"
+            },
+            {
+              "kind": "flow",
+              "from": "weight1",
+              "to": "w1"
+            },
+            {
+              "kind": "flow",
+              "from": "a2",
+              "to": "branch2"
+            },
+            {
+              "kind": "flow",
+              "from": "pa2",
+              "to": "branch2"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "branch2"
+            },
+            {
+              "kind": "flow",
+              "from": "branch2",
+              "to": "sub2"
+            },
+            {
+              "kind": "flow",
+              "from": "sub2",
+              "to": "weight2"
+            },
+            {
+              "kind": "flow",
+              "from": "pa2",
+              "to": "weight2"
+            },
+            {
+              "kind": "flow",
+              "from": "weight2",
+              "to": "w2"
+            },
+            {
+              "kind": "flow",
+              "from": "w1",
+              "to": "merge"
+            },
+            {
+              "kind": "flow",
+              "from": "w2",
+              "to": "merge"
+            },
+            {
+              "kind": "flow",
+              "from": "merge",
+              "to": "dist_b"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "branch1",
+              "to": "weight1"
+            },
+            {
+              "kind": "succession",
+              "from": "branch2",
+              "to": "weight2"
+            },
+            {
+              "kind": "succession",
+              "from": "weight1",
+              "to": "merge"
+            },
+            {
+              "kind": "succession",
+              "from": "weight2",
+              "to": "merge"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "dist_a": "type",
+      "f": "hof",
+      "a1": "value",
+      "pa1": "value",
+      "a2": "value",
+      "pa2": "value",
+      "branch1": "function",
+      "branch2": "function",
+      "sub1": "type",
+      "sub2": "type",
+      "weight1": "function",
+      "weight2": "function",
+      "w1": "value",
+      "w2": "value",
+      "merge": "function",
+      "dist_b": "type"
+    },
+    "tooltips": {
+      "dist_a": "Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a).",
+      "f": "(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b",
+      "a1": "Outcome a1 from Prob a",
+      "pa1": "P(A = a1) — probability of outcome a1",
+      "a2": "Outcome a2 from Prob a",
+      "pa2": "P(A = a2) — probability of outcome a2",
+      "branch1": "Apply f(a1): get the conditional distribution Prob b given A = a1",
+      "branch2": "Apply f(a2): get the conditional distribution Prob b given A = a2",
+      "sub1": "Prob b — conditional distribution for branch a1",
+      "sub2": "Prob b — conditional distribution for branch a2",
+      "weight1": "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)",
+      "weight2": "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)",
+      "w1": "[(b, pa1·pb)] — weighted outcomes for branch a1",
+      "w2": "[(b, pa2·pb)] — weighted outcomes for branch a2",
+      "merge": "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B).",
+      "dist_b": "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"
+    },
+    "title": "Prob bind: apply f per outcome, weight by pa, merge — law of total probability",
+    "name": ">>="
+  }
+}

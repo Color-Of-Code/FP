@@ -1,0 +1,159 @@
+{
+  "packages": [
+    {
+      "name": "MonadPureBind",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "PureLift",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "Ma",
+              "type": "Ma",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BindStep",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Ma",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Mb",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "Mb",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "PureProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "pur",
+              "type": "PureLift"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "Ma",
+              "type": "Ma"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "a",
+              "to": "pur"
+            },
+            {
+              "kind": "flow",
+              "from": "pur",
+              "to": "Ma"
+            }
+          ],
+          "successions": []
+        },
+        {
+          "kind": "activityDef",
+          "name": "BindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind",
+              "type": "BindStep"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "Ma",
+              "type": "Ma"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Mb"
+            },
+            {
+              "kind": "object",
+              "id": "Mb",
+              "type": "Mb"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "Ma",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "Mb"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "Ma": "type",
+      "f": "hof",
+      "bind": "function",
+      "Mb": "type"
+    },
+    "tooltips": {
+      "Ma": "Ma — the monadic value to unwrap",
+      "f": "(a ⟶ Mb) — effectful function, passed as a data token (HOF)",
+      "bind": ">>= (bind): unwraps a from Ma, applies f, returns Mb",
+      "Mb": "Mb — the result of applying the effectful function"
+    },
+    "title": "pure :: a ⟶ Ma  |  bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb",
+    "name": "bind",
+    "render": "BindProcess"
+  }
+}

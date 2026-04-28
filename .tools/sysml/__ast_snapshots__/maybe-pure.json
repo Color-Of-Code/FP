@@ -1,0 +1,85 @@
+{
+  "packages": [
+    {
+      "name": "MaybePureImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "WrapInJust",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "maybe_a",
+              "type": "Maybe a",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "MaybePureProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "wrap",
+              "type": "WrapInJust"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "a0",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "just_a0",
+              "type": "Maybe a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "a0",
+              "to": "wrap"
+            },
+            {
+              "kind": "flow",
+              "from": "wrap",
+              "to": "just_a0",
+              "label": "Just a0"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "a0": "value",
+      "wrap": "function",
+      "just_a0": "type"
+    },
+    "tooltips": {
+      "a0": "a0 — any plain value to be lifted into the Maybe context.",
+      "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
+      "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+    },
+    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing)",
+    "name": "pure"
+  }
+}

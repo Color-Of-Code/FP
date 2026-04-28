@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "ContSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "ContBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "m_val",
+              "type": "Cont r a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ Cont r b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "ContBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "res",
+              "type": "Cont r b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "m_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "res"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "m_val": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "res": "type"
+    },
+    "tooltips": {
+      "m_val": "Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation k",
+      "f_val": "(a ⟶ Cont r b) — given result a, builds the next continuation-based step",
+      "bind": "bind m f = \\\\k -> m (\\\\a -> f a k)\\nGive m a continuation that: feeds a into f, then passes original k to the result.\\nThe current step runs last — this is continuation composition.",
+      "res": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"
+    },
+    "title": "(>>=) :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b",
+    "render": "ContBindContext"
+  }
+}

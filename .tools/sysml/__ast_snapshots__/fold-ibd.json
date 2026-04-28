@@ -1,0 +1,90 @@
+{
+  "packages": [
+    {
+      "name": "FoldSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "FoldContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "b ⟶ a ⟶ b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "init_val",
+              "type": "b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "list_val",
+              "type": "[a]",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "fold",
+              "type": "FoldOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "result",
+              "type": "b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "fold"
+            },
+            {
+              "kind": "connection",
+              "from": "init_val",
+              "to": "fold"
+            },
+            {
+              "kind": "connection",
+              "from": "list_val",
+              "to": "fold"
+            },
+            {
+              "kind": "connection",
+              "from": "fold",
+              "to": "result"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "f_val": "hof",
+      "init_val": "value",
+      "list_val": "type",
+      "fold": "function",
+      "result": "value"
+    },
+    "tooltips": {
+      "f_val": "(b ⟶ a ⟶ b) — combining function: takes accumulator and element, returns new accumulator",
+      "init_val": "b — initial accumulator value (the \"zero\" of the fold)",
+      "list_val": "[a] — the input list whose elements are consumed one by one",
+      "fold": "fold: reduce a list to a single value by repeatedly applying f",
+      "result": "b — the final accumulated result"
+    },
+    "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b",
+    "render": "FoldContext"
+  }
+}

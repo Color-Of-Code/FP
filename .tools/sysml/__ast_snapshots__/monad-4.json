@@ -1,0 +1,104 @@
+{
+  "packages": [
+    {
+      "name": "ListMonadExample",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ListBindOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "la",
+              "type": "List a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ List b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "lb",
+              "type": "List b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ListBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind",
+              "type": "ListBindOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "La",
+              "type": "List a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ List b"
+            },
+            {
+              "kind": "object",
+              "id": "Lb",
+              "type": "List b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "La",
+              "to": "bind",
+              "label": "∀ a"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "Lb",
+              "label": "[0..*]"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "La": "type",
+      "f": "hof",
+      "bind": "function",
+      "Lb": "type"
+    },
+    "tooltips": {
+      "La": "List a — each element processed by f (∀ a)",
+      "f": "(a ⟶ List b) — applied to every element, producing a list per element",
+      "bind": ">>= (concatMap): apply f to every element, flatten all resulting lists",
+      "Lb": "List b — the concatenation of all result lists [0..*]"
+    },
+    "title": "List Monad: bind :: List a ⟶ (a ⟶ List b) ⟶ List b",
+    "name": "bind"
+  }
+}

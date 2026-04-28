@@ -1,0 +1,197 @@
+{
+  "packages": [
+    {
+      "name": "IOBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ExecA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ia",
+              "type": "IO a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BuildNext",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ IO b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "ib",
+              "type": "IO b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ExecB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ib",
+              "type": "IO b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "IOBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "exec_a",
+              "type": "ExecA"
+            },
+            {
+              "kind": "action",
+              "id": "build",
+              "type": "BuildNext"
+            },
+            {
+              "kind": "action",
+              "id": "exec_b",
+              "type": "ExecB"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "ia",
+              "type": "IO a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ IO b"
+            },
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "ib",
+              "type": "IO b"
+            },
+            {
+              "kind": "object",
+              "id": "b",
+              "type": "b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "ia",
+              "to": "exec_a"
+            },
+            {
+              "kind": "flow",
+              "from": "exec_a",
+              "to": "a"
+            },
+            {
+              "kind": "flow",
+              "from": "a",
+              "to": "build"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "build"
+            },
+            {
+              "kind": "flow",
+              "from": "build",
+              "to": "ib"
+            },
+            {
+              "kind": "flow",
+              "from": "ib",
+              "to": "exec_b"
+            },
+            {
+              "kind": "flow",
+              "from": "exec_b",
+              "to": "b"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "exec_a",
+              "to": "build"
+            },
+            {
+              "kind": "succession",
+              "from": "build",
+              "to": "exec_b"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "ia": "type",
+      "f": "hof",
+      "exec_a": "function",
+      "a": "value",
+      "build": "function",
+      "ib": "type",
+      "exec_b": "function",
+      "b": "value"
+    },
+    "tooltips": {
+      "ia": "IO a — a description (recipe) of a side-effectful computation. Nothing has run yet.",
+      "f": "(a ⟶ IO b) — given result a, constructs the next IO action description",
+      "exec_a": "Execute ia: the runtime runs the described effect and produces value a. Real I/O happens here.",
+      "a": "a — the value obtained by running ia (e.g. a String read from stdin)",
+      "build": "Apply f(a): build the next IO action description. No effect yet — only the description is created.",
+      "ib": "IO b — the description of the second effect, constructed from a",
+      "exec_b": "Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this.",
+      "b": "b — the final result. The sequencing of exec_a before exec_b is the entire bind contract."
+    },
+    "title": "IO bind: execute ia, feed a to f to build IO b, execute IO b",
+    "name": ">>="
+  }
+}

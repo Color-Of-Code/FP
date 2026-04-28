@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "MonadSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "BindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "ma_val",
+              "type": "Ma",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ Mb",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "BindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "mb_val",
+              "type": "Mb",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ma_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "mb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "ma_val": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "mb_val": "type"
+    },
+    "tooltips": {
+      "ma_val": "Ma — monadic value, provides unwrapped a to the continuation",
+      "f_val": "(a ⟶ Mb) — the continuation: maps each a to a new monadic Mb",
+      "bind": ">>= (bind): sequences two monadic actions, threading the value",
+      "mb_val": "Mb — final monadic result"
+    },
+    "title": "(>>=) :: Ma ⟶ (a ⟶ Mb) ⟶ Mb",
+    "render": "BindContext"
+  }
+}

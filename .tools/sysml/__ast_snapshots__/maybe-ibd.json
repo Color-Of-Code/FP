@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "MaybeSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "MaybeBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "ma_val",
+              "type": "Maybe a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ Maybe b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "MaybeBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "mb_val",
+              "type": "Maybe b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ma_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "mb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "ma_val": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "mb_val": "type"
+    },
+    "tooltips": {
+      "ma_val": "Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called.",
+      "f_val": "(a ⟶ Maybe b) — called only when ma_val is Just a; may itself return Nothing",
+      "bind": "Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)",
+      "mb_val": "Maybe b — Just b (if every step succeeded) or Nothing (first failure propagated)"
+    },
+    "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b",
+    "render": "MaybeBindContext"
+  }
+}

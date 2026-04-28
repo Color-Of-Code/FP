@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "TraversableSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "TraverseContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ Fb",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "ta_val",
+              "type": "Ta",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "traverse",
+              "type": "TraverseOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "ftb_val",
+              "type": "F(Tb)",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "traverse"
+            },
+            {
+              "kind": "connection",
+              "from": "ta_val",
+              "to": "traverse"
+            },
+            {
+              "kind": "connection",
+              "from": "traverse",
+              "to": "ftb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "f_val": "hof",
+      "ta_val": "type",
+      "traverse": "function",
+      "ftb_val": "type"
+    },
+    "tooltips": {
+      "f_val": "(a ⟶ Fb) — effectful mapper applied to each element",
+      "ta_val": "Ta — traversable structure containing elements of type a",
+      "traverse": "traverse: map with effects, collecting results into F(Tb)",
+      "ftb_val": "F(Tb) — effect on the outside, rebuilt structure on the inside"
+    },
+    "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)",
+    "render": "TraverseContext"
+  }
+}

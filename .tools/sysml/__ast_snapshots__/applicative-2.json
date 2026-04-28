@@ -1,0 +1,159 @@
+{
+  "packages": [
+    {
+      "name": "ApplicativeFmapPure",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "FmapOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "fa",
+              "type": "Fa",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "fb",
+              "type": "Fb",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "PureOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "fa",
+              "type": "Fa",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "FmapProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "fmapF",
+              "type": "FmapOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ b"
+            },
+            {
+              "kind": "object",
+              "id": "Fa",
+              "type": "Fa"
+            },
+            {
+              "kind": "object",
+              "id": "Fb",
+              "type": "Fb"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "fmapF"
+            },
+            {
+              "kind": "flow",
+              "from": "Fa",
+              "to": "fmapF"
+            },
+            {
+              "kind": "flow",
+              "from": "fmapF",
+              "to": "Fb"
+            }
+          ],
+          "successions": []
+        },
+        {
+          "kind": "activityDef",
+          "name": "PureProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "pur",
+              "type": "PureOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "Fa",
+              "type": "Fa"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "pur"
+            },
+            {
+              "kind": "flow",
+              "from": "pur",
+              "to": "Fa"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "hof",
+      "Fa": "type",
+      "fmapF": "function",
+      "Fb": "type"
+    },
+    "tooltips": {
+      "f": "(a ⟶ b) — a plain function (contrast: Applicative wraps the function too)",
+      "Fa": "Fa — value inside context F",
+      "fmapF": "fmap: lifts a plain function into the functor",
+      "Fb": "Fb — result inside context F"
+    },
+    "title": "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb  |  pure :: a ⟶ Fa",
+    "name": "fmap",
+    "render": "FmapProcess"
+  }
+}

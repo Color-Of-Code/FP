@@ -1,0 +1,284 @@
+{
+  "packages": [
+    {
+      "name": "MaybeMotivationWithout",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "FindUser",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "userId",
+              "type": "UserId",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "User | null",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "FindAddress",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "user",
+              "type": "User",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Address | null",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "FindCity",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "address",
+              "type": "Address",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "City | null",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "LookupUserCityWithout",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "findUser",
+              "type": "FindUser"
+            },
+            {
+              "kind": "action",
+              "id": "findAddress",
+              "type": "FindAddress"
+            },
+            {
+              "kind": "action",
+              "id": "findCity",
+              "type": "FindCity"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "userId",
+              "type": "UserId"
+            },
+            {
+              "kind": "object",
+              "id": "userOrNull",
+              "type": "User | null"
+            },
+            {
+              "kind": "object",
+              "id": "user",
+              "type": "User"
+            },
+            {
+              "kind": "object",
+              "id": "addrOrNull",
+              "type": "Address | null"
+            },
+            {
+              "kind": "object",
+              "id": "addr",
+              "type": "Address"
+            },
+            {
+              "kind": "object",
+              "id": "cityOrNull",
+              "type": "City | null"
+            },
+            {
+              "kind": "object",
+              "id": "city",
+              "type": "City"
+            },
+            {
+              "kind": "object",
+              "id": "nothing",
+              "type": "null"
+            },
+            {
+              "kind": "object",
+              "id": "cityName",
+              "type": "String"
+            }
+          ],
+          "decisions": [
+            {
+              "kind": "decision",
+              "id": "checkUser",
+              "label": "null?"
+            },
+            {
+              "kind": "decision",
+              "id": "checkAddr",
+              "label": "null?"
+            },
+            {
+              "kind": "decision",
+              "id": "checkCity",
+              "label": "null?"
+            }
+          ],
+          "merges": [
+            {
+              "kind": "merge",
+              "id": "earlyExit"
+            }
+          ],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "userId",
+              "to": "findUser"
+            },
+            {
+              "kind": "flow",
+              "from": "findUser",
+              "to": "userOrNull"
+            },
+            {
+              "kind": "flow",
+              "from": "userOrNull",
+              "to": "checkUser"
+            },
+            {
+              "kind": "flow",
+              "from": "checkUser",
+              "to": "earlyExit",
+              "label": "null"
+            },
+            {
+              "kind": "flow",
+              "from": "checkUser",
+              "to": "user",
+              "label": "user"
+            },
+            {
+              "kind": "flow",
+              "from": "user",
+              "to": "findAddress"
+            },
+            {
+              "kind": "flow",
+              "from": "findAddress",
+              "to": "addrOrNull"
+            },
+            {
+              "kind": "flow",
+              "from": "addrOrNull",
+              "to": "checkAddr"
+            },
+            {
+              "kind": "flow",
+              "from": "checkAddr",
+              "to": "earlyExit",
+              "label": "null"
+            },
+            {
+              "kind": "flow",
+              "from": "checkAddr",
+              "to": "addr",
+              "label": "address"
+            },
+            {
+              "kind": "flow",
+              "from": "addr",
+              "to": "findCity"
+            },
+            {
+              "kind": "flow",
+              "from": "findCity",
+              "to": "cityOrNull"
+            },
+            {
+              "kind": "flow",
+              "from": "cityOrNull",
+              "to": "checkCity"
+            },
+            {
+              "kind": "flow",
+              "from": "checkCity",
+              "to": "earlyExit",
+              "label": "null"
+            },
+            {
+              "kind": "flow",
+              "from": "checkCity",
+              "to": "city",
+              "label": "city"
+            },
+            {
+              "kind": "flow",
+              "from": "city",
+              "to": "cityName"
+            },
+            {
+              "kind": "flow",
+              "from": "earlyExit",
+              "to": "nothing"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "userId": "value",
+      "findUser": "function",
+      "findAddress": "function",
+      "findCity": "function",
+      "user": "value",
+      "addr": "value",
+      "city": "value",
+      "nothing": "type",
+      "cityName": "value"
+    },
+    "tooltips": {
+      "userId": "The input: a user ID to look up.",
+      "findUser": "find_user(id) — may return null if the user does not exist.",
+      "findAddress": "find_address(user.address_id) — may return null if no address on file.",
+      "findCity": "find_city(address.city_id) — may return null if the city record is missing.",
+      "user": "User — confirmed non-null by guard #1. Now safe to pass to findAddress.",
+      "addr": "Address — confirmed non-null by guard #2. Now safe to pass to findCity.",
+      "city": "City — confirmed non-null by guard #3. Now safe to read city.name.",
+      "checkUser": "Null guard #1: must check after every fallible step — boilerplate.",
+      "checkAddr": "Null guard #2: same pattern repeated. Skipping this is a latent bug.",
+      "checkCity": "Null guard #3: yet another check. Business logic is buried in guards.",
+      "earlyExit": "Any null terminates the chain here — three separate null paths converge.",
+      "nothing": "null — returned when any step failed. Caller must also guard against this.",
+      "cityName": "city.name — the happy-path result, reached only when all three checks pass."
+    },
+    "layout": "elk",
+    "title": "Without Maybe: explicit null guard at every step",
+    "name": "lookupUserCity"
+  }
+}

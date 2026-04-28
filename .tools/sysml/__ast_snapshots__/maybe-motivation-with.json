@@ -1,0 +1,213 @@
+{
+  "packages": [
+    {
+      "name": "MaybeMotivationWith",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "FindUser",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "userId",
+              "type": "UserId",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe User",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "FindAddress",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "user",
+              "type": "User",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe Address",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "FindCity",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "address",
+              "type": "Address",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe City",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "LiftName",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "city",
+              "type": "City",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe String",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "LookupUserCityWith",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "findUser",
+              "type": "FindUser"
+            },
+            {
+              "kind": "action",
+              "id": "findAddress",
+              "type": "FindAddress"
+            },
+            {
+              "kind": "action",
+              "id": "findCity",
+              "type": "FindCity"
+            },
+            {
+              "kind": "action",
+              "id": "liftName",
+              "type": "LiftName"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "userId",
+              "type": "UserId"
+            },
+            {
+              "kind": "object",
+              "id": "maybeUser",
+              "type": "Maybe User"
+            },
+            {
+              "kind": "object",
+              "id": "maybeAddr",
+              "type": "Maybe Address"
+            },
+            {
+              "kind": "object",
+              "id": "maybeCity",
+              "type": "Maybe City"
+            },
+            {
+              "kind": "object",
+              "id": "cityName",
+              "type": "Maybe String"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "userId",
+              "to": "findUser"
+            },
+            {
+              "kind": "flow",
+              "from": "findUser",
+              "to": "maybeUser"
+            },
+            {
+              "kind": "flow",
+              "from": "maybeUser",
+              "to": "findAddress",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "findAddress",
+              "to": "maybeAddr"
+            },
+            {
+              "kind": "flow",
+              "from": "maybeAddr",
+              "to": "findCity",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "findCity",
+              "to": "maybeCity"
+            },
+            {
+              "kind": "flow",
+              "from": "maybeCity",
+              "to": "liftName",
+              "label": ">>= bind"
+            },
+            {
+              "kind": "flow",
+              "from": "liftName",
+              "to": "cityName"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "userId": "value",
+      "findUser": "function",
+      "findAddress": "function",
+      "findCity": "function",
+      "liftName": "function",
+      "maybeUser": "type",
+      "maybeAddr": "type",
+      "maybeCity": "type",
+      "cityName": "type"
+    },
+    "tooltips": {
+      "userId": "The input: a user ID to look up.",
+      "findUser": "find_user(id) → Maybe User.  Returns Just user or Nothing.",
+      "findAddress": "find_address(user.address_id) → Maybe Address.\\nbind skips this entirely if findUser returned Nothing.",
+      "findCity": "find_city(address.city_id) → Maybe City.\\nbind skips this if any earlier step was Nothing.",
+      "liftName": "pure(city.name) → Maybe String.  Lifts the plain String into Maybe.",
+      "maybeUser": "Maybe User — Just the user record, or Nothing.",
+      "maybeAddr": "Maybe Address — Just the address, or Nothing propagated from above.",
+      "maybeCity": "Maybe City — Just the city, or Nothing propagated from above.",
+      "cityName": "Maybe String — Just city.name on success; Nothing if any step failed.\\nNo explicit null checks anywhere in this chain."
+    },
+    "title": "With Maybe: bind short-circuits on Nothing automatically",
+    "name": "lookupUserCity"
+  }
+}

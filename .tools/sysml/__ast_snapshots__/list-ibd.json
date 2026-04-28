@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "ListSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "ListBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "ma_val",
+              "type": "List a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ List b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "ListBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "mb_val",
+              "type": "List b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ma_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "mb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "ma_val": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "mb_val": "type"
+    },
+    "tooltips": {
+      "ma_val": "List a — zero or more possible values. An empty list short-circuits (no elements to process).",
+      "f_val": "(a ⟶ List b) — applied to EVERY element; each call may return zero, one, or many results",
+      "bind": "concatMap f: apply f to each element, concatenate all resulting lists.\\nbind [a1,a2,a3] f  =  f(a1) ++ f(a2) ++ f(a3)",
+      "mb_val": "List b — all branches expanded and flattened into a single list"
+    },
+    "title": "(>>=) :: List a ⟶ (a ⟶ List b) ⟶ List b",
+    "render": "ListBindContext"
+  }
+}

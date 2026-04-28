@@ -1,0 +1,207 @@
+{
+  "packages": [
+    {
+      "name": "FoldActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ApplyStep",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "b ⟶ a ⟶ b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "bOut",
+              "type": "B",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "FoldProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "step1",
+              "type": "ApplyStep"
+            },
+            {
+              "kind": "action",
+              "id": "step2",
+              "type": "ApplyStep"
+            },
+            {
+              "kind": "action",
+              "id": "step3",
+              "type": "ApplyStep"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "b ⟶ a ⟶ b"
+            },
+            {
+              "kind": "object",
+              "id": "b0",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "a1",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "a2",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "a3",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "b1",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "b2",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "b3",
+              "type": "b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "step1"
+            },
+            {
+              "kind": "flow",
+              "from": "b0",
+              "to": "step1"
+            },
+            {
+              "kind": "flow",
+              "from": "a1",
+              "to": "step1"
+            },
+            {
+              "kind": "flow",
+              "from": "step1",
+              "to": "b1"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "step2"
+            },
+            {
+              "kind": "flow",
+              "from": "b1",
+              "to": "step2"
+            },
+            {
+              "kind": "flow",
+              "from": "a2",
+              "to": "step2"
+            },
+            {
+              "kind": "flow",
+              "from": "step2",
+              "to": "b2"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "step3"
+            },
+            {
+              "kind": "flow",
+              "from": "b2",
+              "to": "step3"
+            },
+            {
+              "kind": "flow",
+              "from": "a3",
+              "to": "step3"
+            },
+            {
+              "kind": "flow",
+              "from": "step3",
+              "to": "b3"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "step1",
+              "to": "step2"
+            },
+            {
+              "kind": "succession",
+              "from": "step2",
+              "to": "step3"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "hof",
+      "b0": "value",
+      "a1": "value",
+      "a2": "value",
+      "a3": "value",
+      "b1": "value",
+      "b2": "value",
+      "b3": "value",
+      "step1": "function",
+      "step2": "function",
+      "step3": "function"
+    },
+    "tooltips": {
+      "f": "(b ⟶ a ⟶ b) — the combining function, passed as a token (HOF input)",
+      "step1": "Apply f to b0 and a1 → b1",
+      "step2": "Apply f to b1 and a2 → b2",
+      "step3": "Apply f to b2 and a3 → b3 (final result)"
+    },
+    "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b",
+    "name": "fold",
+    "direction": "TB"
+  }
+}

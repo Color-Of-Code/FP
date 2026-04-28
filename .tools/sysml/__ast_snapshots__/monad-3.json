@@ -1,0 +1,102 @@
+{
+  "packages": [
+    {
+      "name": "MaybeMonadExample",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "MaybeBindOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "MaybeA",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Maybe b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "MaybeB",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "MaybeBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind",
+              "type": "MaybeBindOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "Ma",
+              "type": "MaybeA"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Maybe b"
+            },
+            {
+              "kind": "object",
+              "id": "Mb",
+              "type": "MaybeB"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "Ma",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "Mb"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "Ma": "type",
+      "f": "hof",
+      "bind": "function",
+      "Mb": "type"
+    },
+    "tooltips": {
+      "Ma": "Maybe<a> — Nothing propagates automatically (short-circuit)",
+      "f": "(a ⟶ Maybe<b>) — effectful function, applied only if Ma is Just",
+      "bind": ">>= : Nothing → Nothing ; Just a → f a",
+      "Mb": "Maybe<b> — Nothing or Just (result of f a)"
+    },
+    "title": "Maybe Monad: bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b",
+    "name": "bind"
+  }
+}

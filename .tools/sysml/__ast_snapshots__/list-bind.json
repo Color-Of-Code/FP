@@ -1,0 +1,279 @@
+{
+  "packages": [
+    {
+      "name": "ListBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ApplyToElem",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a_val",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ List b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sub_b",
+              "type": "List b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Flatten",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sub1",
+              "type": "List b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sub2",
+              "type": "List b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sub3",
+              "type": "List b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "flat",
+              "type": "List b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ListBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "app1",
+              "type": "ApplyToElem"
+            },
+            {
+              "kind": "action",
+              "id": "app2",
+              "type": "ApplyToElem"
+            },
+            {
+              "kind": "action",
+              "id": "app3",
+              "type": "ApplyToElem"
+            },
+            {
+              "kind": "action",
+              "id": "flatten",
+              "type": "Flatten"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "la",
+              "type": "List a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ List b"
+            },
+            {
+              "kind": "object",
+              "id": "a1",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "a2",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "a3",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "sub1",
+              "type": "List b"
+            },
+            {
+              "kind": "object",
+              "id": "sub2",
+              "type": "List b"
+            },
+            {
+              "kind": "object",
+              "id": "sub3",
+              "type": "List b"
+            },
+            {
+              "kind": "object",
+              "id": "lb",
+              "type": "List b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "la",
+              "to": "a1",
+              "label": "∀ a"
+            },
+            {
+              "kind": "flow",
+              "from": "la",
+              "to": "a2",
+              "label": "∀ a"
+            },
+            {
+              "kind": "flow",
+              "from": "la",
+              "to": "a3",
+              "label": "∀ a"
+            },
+            {
+              "kind": "flow",
+              "from": "a1",
+              "to": "app1"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "app1"
+            },
+            {
+              "kind": "flow",
+              "from": "app1",
+              "to": "sub1"
+            },
+            {
+              "kind": "flow",
+              "from": "a2",
+              "to": "app2"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "app2"
+            },
+            {
+              "kind": "flow",
+              "from": "app2",
+              "to": "sub2"
+            },
+            {
+              "kind": "flow",
+              "from": "a3",
+              "to": "app3"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "app3"
+            },
+            {
+              "kind": "flow",
+              "from": "app3",
+              "to": "sub3"
+            },
+            {
+              "kind": "flow",
+              "from": "sub1",
+              "to": "flatten"
+            },
+            {
+              "kind": "flow",
+              "from": "sub2",
+              "to": "flatten"
+            },
+            {
+              "kind": "flow",
+              "from": "sub3",
+              "to": "flatten"
+            },
+            {
+              "kind": "flow",
+              "from": "flatten",
+              "to": "lb"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "app1",
+              "to": "app2"
+            },
+            {
+              "kind": "succession",
+              "from": "app2",
+              "to": "app3"
+            },
+            {
+              "kind": "succession",
+              "from": "app3",
+              "to": "flatten"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "la": "type",
+      "f": "hof",
+      "a1": "value",
+      "a2": "value",
+      "a3": "value",
+      "app1": "function",
+      "app2": "function",
+      "app3": "function",
+      "sub1": "type",
+      "sub2": "type",
+      "sub3": "type",
+      "flatten": "function",
+      "lb": "type"
+    },
+    "tooltips": {
+      "la": "List a — every element is independently processed. Empty list short-circuits: no elements, no calls.",
+      "f": "(a ⟶ List b) — called for EVERY element. Each call may return [], [b], or [b1, b2, ...] — any size.",
+      "a1": "First element of List a",
+      "a2": "Second element of List a",
+      "a3": "Third element of List a",
+      "app1": "f(a1) — sub-list of b values for the first element (0 or more results)",
+      "app2": "f(a2) — sub-list of b values for the second element (0 or more results)",
+      "app3": "f(a3) — sub-list of b values for the third element (0 or more results)",
+      "sub1": "List b — all b values produced for a1. May be empty.",
+      "sub2": "List b — all b values produced for a2. May be empty.",
+      "sub3": "List b — all b values produced for a3. May be empty.",
+      "flatten": "Concatenate: sub1 ++ sub2 ++ sub3. This is the key step: all branches merged into one flat List b.",
+      "lb": "List b — the complete output: sub1 ++ sub2 ++ sub3. Non-determinism is preserved as multiple values."
+    },
+    "title": "List bind (concatMap): apply f to every element, concatenate all results",
+    "name": ">>="
+  }
+}

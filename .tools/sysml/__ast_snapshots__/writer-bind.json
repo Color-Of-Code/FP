@@ -1,0 +1,255 @@
+{
+  "packages": [
+    {
+      "name": "WriterBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ExtractPair",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "wa",
+              "type": "(a, w1)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a_val",
+              "type": "a",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "w1",
+              "type": "w",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplyF",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a_val",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ (b, w2)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b_val",
+              "type": "b",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "w2",
+              "type": "w",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CombineLogs",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "b_val",
+              "type": "b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "w1",
+              "type": "w",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "w2",
+              "type": "w",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "(b, w1<>w2)",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "WriterBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "extract",
+              "type": "ExtractPair"
+            },
+            {
+              "kind": "action",
+              "id": "apply",
+              "type": "ApplyF"
+            },
+            {
+              "kind": "action",
+              "id": "combine",
+              "type": "CombineLogs"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "wa",
+              "type": "(a, w1)"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ (b, w2)"
+            },
+            {
+              "kind": "object",
+              "id": "a_val",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "w1",
+              "type": "w"
+            },
+            {
+              "kind": "object",
+              "id": "b_val",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "w2",
+              "type": "w"
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "(b, w1<>w2)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "wa",
+              "to": "extract"
+            },
+            {
+              "kind": "flow",
+              "from": "extract",
+              "to": "a_val"
+            },
+            {
+              "kind": "flow",
+              "from": "extract",
+              "to": "w1"
+            },
+            {
+              "kind": "flow",
+              "from": "a_val",
+              "to": "apply"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "apply"
+            },
+            {
+              "kind": "flow",
+              "from": "apply",
+              "to": "b_val"
+            },
+            {
+              "kind": "flow",
+              "from": "apply",
+              "to": "w2"
+            },
+            {
+              "kind": "flow",
+              "from": "b_val",
+              "to": "combine"
+            },
+            {
+              "kind": "flow",
+              "from": "w1",
+              "to": "combine"
+            },
+            {
+              "kind": "flow",
+              "from": "w2",
+              "to": "combine"
+            },
+            {
+              "kind": "flow",
+              "from": "combine",
+              "to": "result"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "extract",
+              "to": "apply"
+            },
+            {
+              "kind": "succession",
+              "from": "apply",
+              "to": "combine"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "wa": "type",
+      "f": "hof",
+      "extract": "function",
+      "a_val": "value",
+      "w1": "value",
+      "apply": "function",
+      "b_val": "value",
+      "w2": "value",
+      "combine": "function",
+      "result": "type"
+    },
+    "tooltips": {
+      "wa": "(a, w1) — result a paired with the first log fragment w1",
+      "f": "(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2",
+      "extract": "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)",
+      "a_val": "a — the value to pass to f",
+      "w1": "w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped.",
+      "apply": "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2",
+      "b_val": "b — the result value from f(a)",
+      "w2": "w — the second log fragment, produced by f(a). Combined with w1 from the first step.",
+      "combine": "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append",
+      "result": "(b, w1<>w2) — the final result: value b and the complete accumulated log"
+    },
+    "title": "Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2",
+    "name": ">>="
+  }
+}

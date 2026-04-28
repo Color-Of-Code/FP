@@ -1,0 +1,231 @@
+{
+  "packages": [
+    {
+      "name": "Function2Activity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "PartialApply",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "(a,b) ⟶ c",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f1",
+              "type": "b ⟶ c",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CurryOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f2",
+              "type": "(a,b) ⟶ c",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "curried",
+              "type": "a ⟶ (b ⟶ c)",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "PartialApplication",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "applyA",
+              "type": "PartialApply"
+            },
+            {
+              "kind": "action",
+              "id": "applyB",
+              "type": "PartialApply"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "(a,b) ⟶ c"
+            },
+            {
+              "kind": "object",
+              "id": "xa",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "xb",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "f1a",
+              "type": "b ⟶ c"
+            },
+            {
+              "kind": "object",
+              "id": "f1b",
+              "type": "a ⟶ c"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "applyA",
+              "label": "apply a"
+            },
+            {
+              "kind": "flow",
+              "from": "xa",
+              "to": "applyA"
+            },
+            {
+              "kind": "flow",
+              "from": "applyA",
+              "to": "f1a"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "applyB",
+              "label": "apply b"
+            },
+            {
+              "kind": "flow",
+              "from": "xb",
+              "to": "applyB"
+            },
+            {
+              "kind": "flow",
+              "from": "applyB",
+              "to": "f1b"
+            }
+          ],
+          "successions": []
+        },
+        {
+          "kind": "activityDef",
+          "name": "Currying",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "curry",
+              "type": "CurryOp"
+            },
+            {
+              "kind": "action",
+              "id": "applyA",
+              "type": "PartialApply"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f2",
+              "type": "(a,b) ⟶ c"
+            },
+            {
+              "kind": "object",
+              "id": "curried",
+              "type": "a ⟶ (b ⟶ c)"
+            },
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "f1a",
+              "type": "b ⟶ c"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f2",
+              "to": "curry",
+              "label": "curry"
+            },
+            {
+              "kind": "flow",
+              "from": "curry",
+              "to": "curried"
+            },
+            {
+              "kind": "flow",
+              "from": "curried",
+              "to": "applyA",
+              "label": "apply a"
+            },
+            {
+              "kind": "flow",
+              "from": "a",
+              "to": "applyA"
+            },
+            {
+              "kind": "flow",
+              "from": "applyA",
+              "to": "f1a"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "curry",
+              "to": "applyA"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "hof",
+      "applyA": "function",
+      "applyB": "function",
+      "f1a": "function",
+      "f1b": "function"
+    },
+    "tooltips": {
+      "f": "f2 :: (a,b) ⟶ c — original function, flowing in as a data token (HOF)",
+      "applyA": "Partially apply a — captures a, returns b ⟶ c",
+      "applyB": "Partially apply b — captures b, returns a ⟶ c",
+      "f1a": "f1a :: b ⟶ c — specialised function",
+      "f1b": "f1b :: a ⟶ c — specialised function"
+    },
+    "title": "Partial application and currying",
+    "name": "partial apply",
+    "render": "PartialApplication"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "WriterSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "WriterBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "ma_val",
+              "type": "(a, w1)",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ (b, w2)",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "WriterBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "mb_val",
+              "type": "(b, w1<>w2)",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ma_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "mb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "ma_val": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "mb_val": "type"
+    },
+    "tooltips": {
+      "ma_val": "(a, w1) — a result value a paired with a log fragment w1",
+      "f_val": "(a ⟶ (b, w2)) — given a, produces result b alongside a new log fragment w2",
+      "bind": "extract a from (a, w1)\\napply f(a) to get (b, w2)\\nreturn (b, w1 <> w2)  ← logs combined with monoid append",
+      "mb_val": "(b, w1<>w2) — result b with the complete log: w1 from the first step appended with w2 from f"
+    },
+    "title": "(>>=) :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2)",
+    "render": "WriterBindContext"
+  }
+}

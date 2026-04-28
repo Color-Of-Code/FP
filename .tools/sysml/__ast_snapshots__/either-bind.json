@@ -1,0 +1,122 @@
+{
+  "packages": [
+    {
+      "name": "EitherBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "EitherBindOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ea",
+              "type": "Either e a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Either e b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "eb_right",
+              "type": "Either e b",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "eb_left",
+              "type": "Left e",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "EitherBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind",
+              "type": "EitherBindOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "ea",
+              "type": "Either e a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Either e b"
+            },
+            {
+              "kind": "object",
+              "id": "eb_right",
+              "type": "Either e b"
+            },
+            {
+              "kind": "object",
+              "id": "eb_left",
+              "type": "Left e"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "ea",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "eb_right",
+              "label": "Right a  →  f(a)"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "eb_left",
+              "label": "Left e   →  Left e  (e unchanged, f skipped)"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "ea": "type",
+      "f": "hof",
+      "bind": "function",
+      "eb_right": "type",
+      "eb_left": "type"
+    },
+    "tooltips": {
+      "ea": "Either e a — Right a (success, has a value) or Left e (failure, carries error value e)",
+      "f": "(a ⟶ Either e b) — the continuation. Only invoked when ea is Right a.",
+      "bind": "Pattern match on ea:\\n  Right a → unwrap a, call f(a), return its result\\n  Left e  → return Left e immediately — f is never called\\nKey difference from Maybe: e carries the reason for failure, not just its presence.",
+      "eb_right": "Either e b — the result of f(a). May be Right b (success) or Left e (new failure from f).",
+      "eb_left": "Left e — the original error value e propagated UNCHANGED. The error identity is preserved."
+    },
+    "title": "Either bind: Right a → f(a)  |  Left e → Left e  (error preserved, f skipped)",
+    "name": ">>="
+  }
+}

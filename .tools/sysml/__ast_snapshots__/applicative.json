@@ -1,0 +1,159 @@
+{
+  "packages": [
+    {
+      "name": "ApplicativeActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ApplyWrapped",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "fff",
+              "type": "F(a ⟶ b)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "fa",
+              "type": "Fa",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "fb",
+              "type": "Fb",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "PureOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "fa",
+              "type": "Fa",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ApplicativeProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "apStar",
+              "type": "ApplyWrapped"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "fff",
+              "type": "F(a ⟶ b)"
+            },
+            {
+              "kind": "object",
+              "id": "fa",
+              "type": "Fa"
+            },
+            {
+              "kind": "object",
+              "id": "fb",
+              "type": "Fb"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "fff",
+              "to": "apStar"
+            },
+            {
+              "kind": "flow",
+              "from": "fa",
+              "to": "apStar"
+            },
+            {
+              "kind": "flow",
+              "from": "apStar",
+              "to": "fb"
+            }
+          ],
+          "successions": []
+        },
+        {
+          "kind": "activityDef",
+          "name": "PureProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "pur",
+              "type": "PureOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "fa",
+              "type": "Fa"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "pur"
+            },
+            {
+              "kind": "flow",
+              "from": "pur",
+              "to": "fa"
+            }
+          ],
+          "successions": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "fff": "hof",
+      "fa": "type",
+      "apStar": "function",
+      "fb": "type"
+    },
+    "tooltips": {
+      "fff": "F(a ⟶ b) — a function wrapped in context F, flowing in as a value (HOF)",
+      "fa": "Fa — the argument value, also wrapped in the same context F",
+      "apStar": "(<*>) — applies the wrapped function to the wrapped argument",
+      "fb": "Fb — result in context F; same context shape as input"
+    },
+    "title": "Applicative: (<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb",
+    "name": "<*>",
+    "render": "ApplicativeProcess"
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "packages": [
+    {
+      "name": "ParserBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunPA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "pa",
+              "type": "Parser a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "input",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a_val",
+              "type": "a",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "rest",
+              "type": "String",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "fail",
+              "type": "Nothing",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplyF",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a_val",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Parser b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pb",
+              "type": "Parser b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "RunPB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "pb",
+              "type": "Parser b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "rest",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "rest2",
+              "type": "String",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ParserBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "run_pa",
+              "type": "RunPA"
+            },
+            {
+              "kind": "action",
+              "id": "apply_f",
+              "type": "ApplyF"
+            },
+            {
+              "kind": "action",
+              "id": "run_pb",
+              "type": "RunPB"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "pa",
+              "type": "Parser a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ Parser b"
+            },
+            {
+              "kind": "object",
+              "id": "input",
+              "type": "String"
+            },
+            {
+              "kind": "object",
+              "id": "a_val",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "rest",
+              "type": "String"
+            },
+            {
+              "kind": "object",
+              "id": "pb",
+              "type": "Parser b"
+            },
+            {
+              "kind": "object",
+              "id": "b",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "rest2",
+              "type": "String"
+            },
+            {
+              "kind": "object",
+              "id": "fail_in",
+              "type": "Nothing"
+            },
+            {
+              "kind": "object",
+              "id": "fail_out",
+              "type": "Nothing"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "pa",
+              "to": "run_pa"
+            },
+            {
+              "kind": "flow",
+              "from": "input",
+              "to": "run_pa"
+            },
+            {
+              "kind": "flow",
+              "from": "run_pa",
+              "to": "a_val"
+            },
+            {
+              "kind": "flow",
+              "from": "run_pa",
+              "to": "rest"
+            },
+            {
+              "kind": "flow",
+              "from": "a_val",
+              "to": "apply_f"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "apply_f"
+            },
+            {
+              "kind": "flow",
+              "from": "apply_f",
+              "to": "pb"
+            },
+            {
+              "kind": "flow",
+              "from": "pb",
+              "to": "run_pb"
+            },
+            {
+              "kind": "flow",
+              "from": "rest",
+              "to": "run_pb"
+            },
+            {
+              "kind": "flow",
+              "from": "run_pb",
+              "to": "b"
+            },
+            {
+              "kind": "flow",
+              "from": "run_pb",
+              "to": "rest2"
+            },
+            {
+              "kind": "flow",
+              "from": "fail_in",
+              "to": "fail_out",
+              "label": "f skipped"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "run_pa",
+              "to": "apply_f"
+            },
+            {
+              "kind": "succession",
+              "from": "apply_f",
+              "to": "run_pb"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "pa": "type",
+      "f": "hof",
+      "input": "value",
+      "run_pa": "function",
+      "a_val": "value",
+      "rest": "value",
+      "apply_f": "function",
+      "pb": "type",
+      "run_pb": "function",
+      "b": "value",
+      "rest2": "value",
+      "fail_in": "type",
+      "fail_out": "type"
+    },
+    "tooltips": {
+      "pa": "Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing",
+      "f": "(a ⟶ Parser b) — the next parser, built from the parsed value a",
+      "input": "String — the full input. pa consumes a prefix; rest is passed forward (like State monad).",
+      "run_pa": "Run pa(input): on success produces (a, rest); on failure produces Nothing",
+      "a_val": "a — the parsed value. Passed to f to build the next parser.",
+      "rest": "String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading.",
+      "apply_f": "Apply f(a): build Parser b from the parsed value a",
+      "pb": "Parser b — the second parser",
+      "run_pb": "Run pb(rest): parse b from the REMAINING input, not from the original input",
+      "b": "b — the final parsed value",
+      "rest2": "String — input still unconsumed after both parsers ran",
+      "fail_in": "Nothing — pa failed. No (a, rest) was produced.",
+      "fail_out": "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"
+    },
+    "title": "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped)",
+    "name": ">>="
+  }
+}

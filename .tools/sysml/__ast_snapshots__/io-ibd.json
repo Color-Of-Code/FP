@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "IOSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "IOBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "ia_val",
+              "type": "IO a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ IO b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "IOBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "ib_val",
+              "type": "IO b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ia_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "ib_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "ia_val": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "ib_val": "type"
+    },
+    "tooltips": {
+      "ia_val": "IO a — a description of a side-effectful computation. Nothing runs yet.",
+      "f_val": "(a ⟶ IO b) — given the result of running ia, produces the next IO action to run",
+      "bind": "Build a new IO recipe that, when run by the runtime:\\n1. executes ia to get a\\n2. passes a to f to get IO b\\n3. executes IO b\\nOrder of effects = order of binds.",
+      "ib_val": "IO b — the composed recipe. Effects of ia happen before effects of f(a)."
+    },
+    "title": "(>>=) :: IO a ⟶ (a ⟶ IO b) ⟶ IO b",
+    "render": "IOBindContext"
+  }
+}

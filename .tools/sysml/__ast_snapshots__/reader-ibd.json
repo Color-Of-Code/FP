@@ -1,0 +1,90 @@
+{
+  "packages": [
+    {
+      "name": "ReaderSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "ReaderBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "ra_val",
+              "type": "Reader r a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ Reader r b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "r_env",
+              "type": "r",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "ReaderBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "rb_val",
+              "type": "Reader r b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ra_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "r_env",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "rb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "ra_val": "type",
+      "f_val": "hof",
+      "r_env": "value",
+      "bind": "function",
+      "rb_val": "type"
+    },
+    "tooltips": {
+      "ra_val": "Reader r a — a computation waiting for env r; when run with r it produces a",
+      "f_val": "(a ⟶ Reader r b) — continuation: given a, produces a new computation waiting for r",
+      "r_env": "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified.",
+      "bind": "bind ra f = \\\\r -> f (ra r) r\\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r.",
+      "rb_val": "Reader r b — the composed computation; when run with r it produces b"
+    },
+    "title": "(>>=) :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b",
+    "render": "ReaderBindContext"
+  }
+}

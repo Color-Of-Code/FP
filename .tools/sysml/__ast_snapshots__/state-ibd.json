@@ -1,0 +1,103 @@
+{
+  "packages": [
+    {
+      "name": "StateSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "StateBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "sa_val",
+              "type": "State s a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ State s b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "s_in",
+              "type": "s",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "StateBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "sb_val",
+              "type": "State s b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "s_out",
+              "type": "s",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "sa_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "s_in",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "sb_val"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "s_out"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "sa_val": "type",
+      "f_val": "hof",
+      "s_in": "value",
+      "bind": "function",
+      "sb_val": "type",
+      "s_out": "value"
+    },
+    "tooltips": {
+      "sa_val": "State s a — a computation: given state s returns (a, s')",
+      "f_val": "(a ⟶ State s b) — continuation: given result a, produces a new state computation",
+      "s_in": "s — current state entering bind. The value side and the state side are both threaded.",
+      "bind": "bind sa f = \\\\s ->\\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\\n  in  (b, s'')",
+      "sb_val": "State s b — the composed computation; when run it produces (b, s'')",
+      "s_out": "s — the transformed state after both sa and f(a) have run. Different from s_in."
+    },
+    "title": "(>>=) :: State s a ⟶ (a ⟶ State s b) ⟶ State s b",
+    "render": "StateBindContext"
+  }
+}

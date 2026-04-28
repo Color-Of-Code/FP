@@ -1,0 +1,77 @@
+{
+  "packages": [
+    {
+      "name": "STMSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "STMBindContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "sa_val",
+              "type": "STM a",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f_val",
+              "type": "a ⟶ STM b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "bind",
+              "type": "STMBindOp",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "sb_val",
+              "type": "STM b",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "sa_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "f_val",
+              "to": "bind"
+            },
+            {
+              "kind": "connection",
+              "from": "bind",
+              "to": "sb_val"
+            }
+          ]
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": []
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "shows": {
+      "sa_val": "type",
+      "f_val": "hof",
+      "bind": "function",
+      "sb_val": "type"
+    },
+    "tooltips": {
+      "sa_val": "STM a — an atomic action on TVars (transactional variables). Not yet committed.",
+      "f_val": "(a ⟶ STM b) — given result a of the first action, constructs the next atomic step",
+      "bind": "Sequences two STM actions within ONE transaction:\\n1. run sa to get a\\n2. pass a to f to get STM b\\n3. run that action\\nIf any readTVar conflicts → the entire composed transaction retries from scratch.",
+      "sb_val": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a."
+    },
+    "title": "(>>=) :: STM a ⟶ (a ⟶ STM b) ⟶ STM b",
+    "render": "STMBindContext"
+  }
+}

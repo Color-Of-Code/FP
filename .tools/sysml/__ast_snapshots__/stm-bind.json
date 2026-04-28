@@ -1,0 +1,264 @@
+{
+  "packages": [
+    {
+      "name": "STMBindImpl",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunSA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sa",
+              "type": "STM a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BuildNext",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ STM b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sb",
+              "type": "STM b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "RunSB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "sb",
+              "type": "STM b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Atomically",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "b_in",
+              "type": "b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b_out",
+              "type": "b",
+              "direction": "out"
+            },
+            {
+              "kind": "port",
+              "id": "retry",
+              "type": "STM b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "STMBindProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "run_sa",
+              "type": "RunSA"
+            },
+            {
+              "kind": "action",
+              "id": "build",
+              "type": "BuildNext"
+            },
+            {
+              "kind": "action",
+              "id": "run_sb",
+              "type": "RunSB"
+            },
+            {
+              "kind": "action",
+              "id": "commit",
+              "type": "Atomically"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "sa",
+              "type": "STM a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a ⟶ STM b"
+            },
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "sb",
+              "type": "STM b"
+            },
+            {
+              "kind": "object",
+              "id": "b_raw",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "b",
+              "type": "b"
+            },
+            {
+              "kind": "object",
+              "id": "retry",
+              "type": "STM b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "sa",
+              "to": "run_sa"
+            },
+            {
+              "kind": "flow",
+              "from": "run_sa",
+              "to": "a"
+            },
+            {
+              "kind": "flow",
+              "from": "a",
+              "to": "build"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "build"
+            },
+            {
+              "kind": "flow",
+              "from": "build",
+              "to": "sb"
+            },
+            {
+              "kind": "flow",
+              "from": "sb",
+              "to": "run_sb"
+            },
+            {
+              "kind": "flow",
+              "from": "run_sb",
+              "to": "b_raw"
+            },
+            {
+              "kind": "flow",
+              "from": "b_raw",
+              "to": "commit"
+            },
+            {
+              "kind": "flow",
+              "from": "commit",
+              "to": "b",
+              "label": "commit — all writes visible atomically"
+            },
+            {
+              "kind": "flow",
+              "from": "commit",
+              "to": "retry",
+              "label": "conflict — discard writes, restart entire chain"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "run_sa",
+              "to": "build"
+            },
+            {
+              "kind": "succession",
+              "from": "build",
+              "to": "run_sb"
+            },
+            {
+              "kind": "succession",
+              "from": "run_sb",
+              "to": "commit"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "sa": "type",
+      "f": "hof",
+      "run_sa": "function",
+      "a": "value",
+      "build": "function",
+      "sb": "type",
+      "run_sb": "function",
+      "b_raw": "value",
+      "commit": "function",
+      "b": "value",
+      "retry": "type"
+    },
+    "tooltips": {
+      "sa": "STM a — an atomic action that reads/writes TVars. Not yet executed.",
+      "f": "(a ⟶ STM b) — given result a, builds the next atomic action",
+      "run_sa": "Run sa: read/write TVars; result is tentative until atomically commits",
+      "a": "a — the value produced by sa (tentative)",
+      "build": "Apply f(a): build the next atomic action STM b",
+      "sb": "STM b — the next atomic action",
+      "run_sb": "Run f(a): read/write TVars; all writes still tentative",
+      "b_raw": "b — the result value (still tentative, not yet committed)",
+      "commit": "atomically: check for TVar conflicts.\\n  No conflict  → commit all writes at once; b is visible to other threads\\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa",
+      "b": "b — the committed result. All TVar writes from run_sa and run_sb are now atomically visible.",
+      "retry": "Retry path — the entire transaction restarts. No partial state is visible to other threads."
+    },
+    "title": "STM bind: sequence two TVar actions; atomically commits or retries the whole chain",
+    "name": ">>="
+  }
+}
