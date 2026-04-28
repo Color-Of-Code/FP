@@ -41,6 +41,13 @@ export interface GEdge {
   dstPin?:      string;
   /** Note attachment: dashed, undirected, no arrowhead, lighter weight in layout. */
   isNoteAttachment?: boolean;
+  /**
+   * Place this edge's label on its first segment (typically near the source)
+   * rather than at the longest-segment midpoint.  Used for alt-exit edges
+   * (e.g. decision → merge) where labels in the middle of the rail clutter
+   * the routing.
+   */
+  labelNearSource?: boolean;
 }
 
 // ── Node dimensions ────────────────────────────────────────────────────────

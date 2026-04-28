@@ -27,8 +27,8 @@
       <text x="409.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">User | null</text>
     </g>
     <g class="edge">
-      <path d="M503.0,77.0 L503.0,130.0 Q503.0,136.0 509.0,136.0 L1414.5,136.0 Q1418.0,136.0 1418.0,132.5 L1418.0,132.5 Q1418.0,129.0 1421.5,129.0 L1669.2,129.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="960.5" y="130" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
+      <path d="M503.0,77.0 L503.0,123.0 Q503.0,129.0 509.0,129.0 L1669.2,129.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="507" y="103" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
     </g>
     <g class="edge">
       <path d="M527.0,62.0 L658.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
@@ -39,8 +39,8 @@
       <text x="879" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">Address | null</text>
     </g>
     <g class="edge">
-      <path d="M980.0,77.0 L980.0,94.0 Q980.0,100.0 986.0,100.0 L1412.0,100.0 Q1418.0,100.0 1418.0,106.0 L1418.0,123.0 Q1418.0,129.0 1424.0,129.0 L1669.2,129.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1199" y="94" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
+      <path d="M980.0,77.0 L980.0,123.0 Q980.0,129.0 986.0,129.0 L1669.2,129.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="984" y="103" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
     </g>
     <g class="edge">
       <path d="M1004.0,62.0 L1165.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
@@ -51,8 +51,8 @@
       <text x="1378.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">City | null</text>
     </g>
     <g class="edge">
-      <path d="M1472.0,77.0 L1472.0,87.0 Q1472.0,93.0 1478.0,93.0 L1589.0,93.0 Q1595.0,93.0 1595.0,99.0 L1595.0,123.0 Q1595.0,129.0 1601.0,129.0 L1669.2,129.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1533.5" y="87" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
+      <path d="M1472.0,77.0 L1472.0,123.0 Q1472.0,129.0 1478.0,129.0 L1669.2,129.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1476" y="103" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333" stroke="white" stroke-width="3" paint-order="stroke fill">null</text>
     </g>
     <g class="edge">
       <path d="M1496.0,62.0 L1613.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>

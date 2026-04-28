@@ -121,6 +121,16 @@ function labelAnchor(pts: readonly (readonly [number, number])[]): [number, numb
   return bestMid;
 }
 
+/** Midpoint of the first segment — used for "near source" label placement. */
+function firstSegmentMidpoint(
+  pts: readonly (readonly [number, number])[],
+): [number, number] {
+  if (pts.length < 2) return [0, 0];
+  const [ax, ay] = pts[0];
+  const [bx, by] = pts[1];
+  return [(ax + bx) / 2, (ay + by) / 2];
+}
+
 // ── Edge renderer ──────────────────────────────────────────────────────────
 
 /**
@@ -177,11 +187,22 @@ export function appendGEdge(
   if (!e.isObjectFlow) path.attr("stroke-dasharray", "6,4");
 
   if (e.label) {
-    const [lx, ly] = labelAnchor(pts);
+    const [lx, ly] = e.labelNearSource
+      ? firstSegmentMidpoint(pts)
+      : labelAnchor(pts);
+    // For a vertical first segment the label sits *beside* the line (east),
+    // not above it, so it does not collide with parallel rails below.
+    const verticalFirst =
+      e.labelNearSource &&
+      pts.length >= 2 &&
+      Math.abs(pts[0][0] - pts[1][0]) < 0.5;
+    const tx = verticalFirst ? lx + 4 : lx;
+    const ty = verticalFirst ? ly     : ly - 6;
+    const anchor = verticalFirst ? "start" : "middle";
     appendText(group, e.label, {
-      x: lx,
-      y: ly - 6,
-      "text-anchor": "middle",
+      x: tx,
+      y: ty,
+      "text-anchor": anchor,
       "dominant-baseline": "middle",
       "font-size": 9,
       "font-family": "sans-serif",

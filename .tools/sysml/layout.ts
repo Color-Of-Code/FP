@@ -302,6 +302,40 @@ export async function layoutGraph(
     edgePaths[origIdx] = pts;
   }
 
+  // ── Snap decision → merge polylines onto a single shared rail ────────────
+  // ELK routes every alt-exit independently and pushes them to distinct
+  // y-rails to avoid edge-edge overlap, producing visual zig-zags.  For the
+  // "failure rail" idiom we *want* them on the same horizontal line; the
+  // resulting overlap reads as one trunk being joined by tributaries.  Each
+  // such edge is rewritten to a clean 2-bend L:  drop straight from the
+  // source's exit port to the merge's inbound y, then run perpendicular into
+  // the merge.  Also flag the edge so the renderer puts the label on the
+  // short vertical (drop) segment near the decision, out of the rail.
+  for (let i = 0; i < edges.length; i++) {
+    const e = edges[i];
+    const src = nodeIndex.get(e.from);
+    const tgt = nodeIndex.get(e.to);
+    if (!src || !tgt) continue;
+    if (src.kind !== "decision" || tgt.kind !== "merge") continue;
+    const path = edgePaths[i];
+    if (path.length < 2) continue;
+    const [sx, sy] = path[0];
+    const [, ty] = path[path.length - 1];
+    const tx = path[path.length - 1][0];
+    if (rankdir === "LR") {
+      // Drop south, then run east into the merge (or west if merge is left).
+      edgePaths[i] = sx === tx
+        ? [[sx, sy], [tx, ty]]
+        : [[sx, sy], [sx, ty], [tx, ty]];
+    } else {
+      // TB layout: shift east, then run south into the merge.
+      edgePaths[i] = sy === ty
+        ? [[sx, sy], [tx, ty]]
+        : [[sx, sy], [tx, sy], [tx, ty]];
+    }
+    e.labelNearSource = true;
+  }
+
   return {
     width:  result.width  ?? 200,
     height: result.height ?? 100,
