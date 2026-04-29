@@ -2,19 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: Maybe<a> = Just a | Nothing {
-  explanation: |md
-    # Maybe\<a\>
-
-    Represents an **optional** value — a computation that either produces a result or fails silently.
-
-    **bind (>>=)** behaviour:
-    - `Just a` → unwrap `a`, apply `f`, return the result
-    - `Nothing` → skip `f`, propagate `Nothing` immediately
-  |
-  explanation.class: [comment]
-}
-
 example: safeDivide 10 then 0 then 1 {
   j10 -> div2
   div2 -> j5

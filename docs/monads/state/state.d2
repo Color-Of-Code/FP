@@ -2,20 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: State s a = s ⟶ (a, s) {
-  explanation: |md
-    # State s a
-
-    A state computation is a **function** from an input state `s`
-    to a result `a` paired with a new output state `s`.
-
-    **bind (>>=)** threads the state: the output state of each step
-    becomes the input state of the next.
-    The result value of each step is passed to the next function.
-  |
-  explanation.class: [comment]
-}
-
 example: integer counter {
   step1: get (read state) {
     s_in -> op

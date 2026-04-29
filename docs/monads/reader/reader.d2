@@ -2,19 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: Reader r a = r ⟶ a {
-  explanation: |md
-    # Reader r a
-
-    A reader computation is a **function** from a shared read-only environment `r` to a result `a`.
-
-    **bind (>>=)** threads the same environment through every step —
-    each step receives the identical `r`, and the result of each step is passed to the next function.
-    The environment is never modified.
-  |
-  explanation.class: [comment]
-}
-
 primitives: primitive operations {
   ask: ask :: Reader r r {
     r -> op

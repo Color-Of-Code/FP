@@ -2,23 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: "Prob a = [(a, Double)]" {
-  explanation: ||md
-    # Prob a
-
-    A `Prob a` value is a list of **(outcome, probability)** pairs.
-    The probabilities should sum to 1.
-
-    **pure x** = `[(x, 1.0)]` — the certain distribution.
-
-    **bind dist f** = `[(b, pa*pb) | (a,pa) <- dist, (b,pb) <- f a]`
-
-    This is the law of total probability / conditional probability:
-    `P(B = b) = sum over a of P(B = b | A = a) * P(A = a)`
-  ||
-  explanation.class: [comment]
-}
-
 primitives: primitive operations {
   uniform: "uniform xs -> Prob a" {
     xs -> op -> out

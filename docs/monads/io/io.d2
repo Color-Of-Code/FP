@@ -2,22 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: IO a — a description of an effectful computation {
-  explanation: |md
-    # IO a
-
-    An `IO a` value is a **description** of a side-effectful computation that,
-    when executed, produces a value of type `a`.
-
-    Nothing runs until the runtime executes it (at `main`).
-
-    **bind (>>=)** sequences two IO actions:
-    run the first, feed its result to the second.
-    The order of bind determines the order of effects.
-  |
-  explanation.class: [comment]
-}
-
 example: greet the user {
   read -> bind1
   bind1 -> greet

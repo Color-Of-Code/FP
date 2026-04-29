@@ -2,20 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: Writer w a = (a, w) {
-  explanation: |md
-    # Writer w a
-
-    A writer computation produces a result `a` **paired with a log** `w`.
-    `w` must be a **monoid** (has an empty value and an append operation)
-    so that logs from successive steps can be combined.
-
-    **bind (>>=)** runs each step, collecting the result value and
-    **accumulating** all log entries with `mappend` (`<>`).
-  |
-  explanation.class: [comment]
-}
-
 primitives: primitive operations {
   tell: tell :: w ⟶ Writer w () {
     w -> op

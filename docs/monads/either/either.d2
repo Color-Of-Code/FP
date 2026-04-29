@@ -2,20 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: Either<e, a> = Left e | Right a {
-  explanation: |md
-    # Either\<e, a\>
-
-    Represents a computation that either succeeds with a value `Right a`
-    or fails with an error `Left e`.
-
-    **bind (>>=)** behaviour:
-    - `Right a` → unwrap `a`, apply `f`, return the result
-    - `Left e` → skip `f`, propagate the error unchanged
-  |
-  explanation.class: [comment]
-}
-
 example: parse and validate an age {
   input1 -> parse1
   parse1 -> r42

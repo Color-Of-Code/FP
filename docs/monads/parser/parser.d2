@@ -2,19 +2,3 @@ direction: right
 
 ...@../../styles
 
-type_def: "Parser a = String -> Maybe (a, String)" {
-  explanation: |md
-    # Parser a
-
-    A parser is a **function from input string to an optional (value, rest) pair**.
-
-    - **Succeeds**: returns `Just (a, rest)` where `a` is the parsed value
-      and `rest` is the unconsumed input.
-    - **Fails**: returns `Nothing`.
-
-    **bind (>>=)** behaviour:
-    - `Just (a, rest)` → pass `rest` to `f a`; return whatever `f a` produces
-    - `Nothing` → skip `f`; propagate failure (like Maybe monad)
-  |
-  explanation.class: [comment]
-}

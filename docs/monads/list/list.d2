@@ -2,19 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: List<a> as a monad {
-  explanation: |md
-    # List\<a\> — non-determinism
-
-    Models computations with **multiple possible results**.
-    Each element independently goes through the next step, and all results are flattened.
-
-    **bind (>>=)** = `flatMap` / `concatMap`:
-    apply `f` to every element, then flatten all resulting lists into one.
-  |
-  explanation.class: [comment]
-}
-
 example: expand each x to x and x*10 {
   input -> e1
   input -> e2

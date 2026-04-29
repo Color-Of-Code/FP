@@ -2,24 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: "STM a — atomic transactional action" {
-  explanation: |md
-    # STM a
-
-    An `STM a` action reads and writes **TVars** (transactional variables) atomically.
-
-    - **`atomically`** executes an `STM` action in `IO`, committing all writes at once
-      or retrying the whole transaction if a conflict is detected.
-    - **`retry`** blocks the current transaction and re-runs it when any `TVar` it
-      read has been changed by another thread.
-    - **`orElse`** tries the first action; if it calls `retry`, runs the second.
-
-    Unlike locks, STM actions compose with `>>=` and `orElse` without the risk of
-    deadlock from incorrect lock ordering.
-  |
-  explanation.class: [comment]
-}
-
 tvar: "TVar a — shared mutable cell" {
   read -> tvar
   tvar -> write

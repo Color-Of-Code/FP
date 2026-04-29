@@ -2,24 +2,6 @@ direction: right
 
 ...@../../styles
 
-type_def: "Cont r a = (a -> r) -> r" {
-  explanation: |md
-    # Cont r a
-
-    A `Cont r a` value is a **function that takes a continuation** `k :: a -> r`
-    and returns the final result `r`.
-
-    **pure x** = `\k -> k x` — pass `x` directly to the continuation.
-
-    **bind m f** = `\k -> m (\a -> f a k)` — give `m` a continuation that
-    first runs `f a`, which is then given the original `k`.
-
-    **callCC** captures the current continuation as an escape function,
-    enabling early exit, exceptions, and coroutines as pure values.
-  |
-  explanation.class: [comment]
-}
-
 callCC_def: "callCC :: ((a -> Cont r b) -> Cont r a) -> Cont r a" {
   f -> callCC
   callCC -> result
