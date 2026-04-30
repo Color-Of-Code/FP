@@ -13,7 +13,7 @@
   </defs>
   <rect width="1033" height="164" fill="white"/>
   <text x="516.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With callCC: the escape function jumps directly to the runCont call site</text>
-  <g transform="translate(0,28)">
+  <g transform="translate(0,28) scale(1)">
     <rect x="0" y="0" width="1033" height="136" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L140,0 L140,12 L130,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>

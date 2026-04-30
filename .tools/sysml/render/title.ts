@@ -78,7 +78,8 @@ export function createSvgDocument(title: string, W: number, H: number): SvgDocum
   const titleH    = totalTitleHeight(lines);
   const titleNeed = Math.max(0, ...lines.map(lineWidth));
   const canvasW   = Math.max(W, titleNeed);
-  const totalH    = H + titleH;
+  const contentScale = W > 0 ? canvasW / W : 1;
+  const totalH    = Math.ceil(H * contentScale) + titleH;
 
   const root = createSvgRoot(canvasW, totalH);
   const svg  = root.svg;
@@ -105,11 +106,8 @@ export function createSvgDocument(title: string, W: number, H: number): SvgDocum
     y += lh + TITLE_LINE_GAP;
   }
 
-  // The diagram content is left-aligned; if we widened the canvas to fit the
-  // title, centre the original content within the wider canvas.
-  const contentDx = Math.max(0, Math.round((canvasW - W) / 2));
   const content   = appendElement(svg, "g", {
-    transform: `translate(${contentDx},${titleH})`,
+    transform: `translate(0,${titleH}) scale(${contentScale})`,
   });
 
   return {

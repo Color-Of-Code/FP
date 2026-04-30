@@ -13,7 +13,7 @@
   </defs>
   <rect width="660" height="197" fill="white"/>
   <text x="330" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without Reader: config passed into every function</text>
-  <g transform="translate(0,28)">
+  <g transform="translate(0,28) scale(1)">
     <rect x="0" y="0" width="660" height="169" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L133.8,0 L133.8,12 L123.80000000000001,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>

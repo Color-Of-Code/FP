@@ -15,7 +15,7 @@
   <text x="677.1" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Prob bind: apply f per outcome, weight by pa, merge</text>
   <text x="677.1" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">law of total probability</text>
   <text x="677.1" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, SelectMany, &gt;&gt;=</text>
-  <g transform="translate(0,60)">
+  <g transform="translate(0,60) scale(1)">
     <rect x="0" y="0" width="1354.2" height="264" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>

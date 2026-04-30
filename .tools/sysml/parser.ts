@@ -16,8 +16,8 @@ import {
   type CstNode, type GrammarAST, type ValueType,
 } from "langium";
 import { createDefaultCoreModule, createDefaultSharedCoreModule } from "langium";
-import { SysmlGeneratedModule, SysmlGeneratedSharedModule } from "./generated/module.js";
-import * as G from "./generated/ast.js";
+import { SysmlGeneratedModule, SysmlGeneratedSharedModule } from "./generated/module.ts";
+import * as G from "./generated/ast.ts";
 import type {
   Role, DiagramType,
   PortDef, PortUsage, PartUsage, ConnectionUsage,

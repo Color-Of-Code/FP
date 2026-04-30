@@ -14,7 +14,7 @@
   <rect width="1119.6000000000001" height="338" fill="white"/>
   <text x="559.8000000000001" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped)</text>
   <text x="559.8000000000001" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, Bind, &gt;&gt;=</text>
-  <g transform="translate(0,44)">
+  <g transform="translate(0,44) scale(1)">
     <rect x="0" y="0" width="1119.6000000000001" height="294" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>

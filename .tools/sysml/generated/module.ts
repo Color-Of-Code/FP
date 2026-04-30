@@ -4,8 +4,8 @@
  ******************************************************************************/
 
 import type { LangiumSharedCoreServices, LangiumCoreServices, LangiumGeneratedCoreServices, LangiumGeneratedSharedCoreServices, LanguageMetaData, Module } from 'langium';
-import { SysmlAstReflection } from './ast.js';
-import { SysmlGrammar } from './grammar.js';
+import { SysmlAstReflection } from './ast.ts';
+import { SysmlGrammar } from './grammar.ts';
 
 export const SysmlLanguageMetaData = {
     languageId: 'sysml',
