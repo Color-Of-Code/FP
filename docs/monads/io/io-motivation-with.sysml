@@ -1,63 +1,94 @@
-// SysML v2 — IO motivation: WITH the IO monad
+// SysML v2 — IO motivation: WITH the IO monad (bind + pure)
 //
-// Effects appear in the type signature.  compute :: Int → IO Int says
-// out loud what the function actually does: it touches the file system
-// and the log.  bind orders the effects deterministically — no surprise
-// reorderings, no callers caught off-guard.
+// The effectful functions DO NOT COMPOSE naturally:
+//   readFile   : FilePath → IO Config
+//   logMessage : Config   → IO ()        ← expects Config, not IO Config
+//   compute    : Config   → IO Int       ← expects Config, not IO ()
+//
+// (The chain re-uses cfg between logMessage and compute via a let;
+//  bind threads it through together with effect-ordering.)
+//
+// Two combinators do all the work:
+//   pure  : a → IO a                          — describe a no-effect computation
+//   (>>=) : IO a → (a → IO b) → IO b
+//
+// pure lifts the plain FilePath into IO.  Each bind sequences effects
+// deterministically: no surprise reorderings, no callers caught off
+// guard.  IO appears in every signature so callers cannot ignore it.
 
 package IOMotivationWith {
 
     action def ReadFile {
-        in  path  : "FilePath";
-        out result : "IO Config";
+        in  path : "FilePath";
+        out _    : "IO Config";
     }
 
-    action def LogMessage {
-        in  cfg   : Config;
-        out result : "IO ()";
+    action def LogAndCompute {
+        in  cfg  : Config;
+        out _    : "IO Int";
     }
 
-    action def Compute {
-        in  cfg   : Config;
-        out result : "IO Int";
+    // pure : a → IO a
+    action def Pure {
+        in  a : a;
+        out _ : "IO a";
+    }
+
+    // bind : IO a → (a → IO b) → IO b
+    action def Bind {
+        in  ma : "IO a";
+        in  f  : "a ⟶ IO b";
+        out _  : "IO b";
     }
 
     activity def ComputeWith {
-        object x          : Int;
-        action readFile    : ReadFile;
-        object ioCfg       : "IO Config";
+        // input
+        object path        : "FilePath";
 
-        action logMessage  : LogMessage;
-        object ioUnit      : "IO ()";
+        // lift the plain path into IO — entry point of the chain
+        action purePath    : Pure;
 
-        action compute     : Compute;
+        // bind in readFile
+        object readFileFn  : "FilePath ⟶ IO Config";
+        action bindRead    : Bind;
+
+        // bind in the log-then-compute continuation (a single function
+        // because both effects need cfg in scope)
+        object logCompFn   : "Config ⟶ IO Int";
+        action bindLogComp : Bind;
+
+        // output
         object ioResult    : "IO Int";
 
-        flow from x          to readFile;
-        flow from readFile   to ioCfg;
-        flow from ioCfg      to logMessage : ">>= bind";
-        flow from logMessage to ioUnit;
-        flow from ioUnit     to compute    : ">>= bind";
-        flow from compute    to ioResult;
+        // main flow runs through the bind nodes
+        flow from path        to purePath;
+        flow from purePath    to bindRead    : "IO FilePath";
+        flow from bindRead    to bindLogComp : "IO Config";
+        flow from bindLogComp to ioResult    : "IO Int";
+
+        // each effectful function is supplied to its bind as the f argument
+        flow from readFileFn  to bindRead;
+        flow from logCompFn   to bindLogComp;
     }
 }
 
 #diagram {
     type  = activity
-    title = "With IO: effects explicit in the return type, ordered by bind"
+    title = "With pure + bind: effects in the type, sequenced explicitly through bind"
     name  = "compute"
-    show x          as value
-    show readFile   as function
-    show logMessage as function
-    show compute    as function
-    show ioCfg      as type
-    show ioUnit     as type
-    show ioResult   as type
-    tooltip x          = "x : Int — the plain input.  Pure callers see only this in the API."
-    tooltip readFile   = "readFile(path) → IO Config.  IO in the type warns callers: this touches the file system."
-    tooltip logMessage = "logMessage(cfg) → IO ().  IO in the type warns callers: this writes a side log."
-    tooltip compute    = "compute(cfg) → IO Int.  Effects are sequenced by bind — never reordered or duplicated."
-    tooltip ioCfg      = "IO Config — a description of the effect that produces the config.  Not yet executed."
-    tooltip ioUnit     = "IO () — a description of the log-write effect.  Sequenced after readFile by bind."
-    tooltip ioResult   = "IO Int — the final described program.  The runtime (main) is the only thing that actually executes it."
+    show path        as value
+    show purePath    as function
+    show bindRead    as function
+    show bindLogComp as function
+    show readFileFn  as hof
+    show logCompFn   as hof
+    show ioResult    as type
+    tooltip path        = "FilePath — plain input. Pure callers see only this in the API."
+    tooltip purePath    = "pure : FilePath → IO FilePath. Lifts the plain path so the chain can start uniformly with bind."
+    tooltip bindRead    = ">>= : sequences readFile after pure. The runtime guarantees this effect happens before the next bind."
+    tooltip bindLogComp = ">>= : sequences the (logMessage cfg >> compute cfg) continuation. Effect order is deterministic."
+    tooltip readFileFn  = "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow."
+    tooltip logCompFn   = "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg."
+    tooltip ioResult    = "IO Int — the final described program. The runtime (main) is the only thing that actually executes it."
 }
+

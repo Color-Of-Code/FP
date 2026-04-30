@@ -17,7 +17,7 @@
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Either e Parsed",
               "direction": "out"
             }
@@ -35,7 +35,7 @@
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Either e Valid",
               "direction": "out"
             }
@@ -53,8 +53,50 @@
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Either e Saved",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Pure",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Either e a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Either e a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Either e b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Either e b",
               "direction": "out"
             }
           ]
@@ -67,18 +109,23 @@
           "actions": [
             {
               "kind": "action",
-              "id": "parse",
-              "type": "Parse"
+              "id": "pureRaw",
+              "type": "Pure"
             },
             {
               "kind": "action",
-              "id": "validate",
-              "type": "Validate"
+              "id": "bindParse",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "save",
-              "type": "Save"
+              "id": "bindValidate",
+              "type": "Bind"
+            },
+            {
+              "kind": "action",
+              "id": "bindSave",
+              "type": "Bind"
             }
           ],
           "objects": [
@@ -89,13 +136,18 @@
             },
             {
               "kind": "object",
-              "id": "eParsed",
-              "type": "Either e Parsed"
+              "id": "parseFn",
+              "type": "String ⟶ Either e Parsed"
             },
             {
               "kind": "object",
-              "id": "eValid",
-              "type": "Either e Valid"
+              "id": "validateFn",
+              "type": "Parsed ⟶ Either e Valid"
+            },
+            {
+              "kind": "object",
+              "id": "saveFn",
+              "type": "Valid ⟶ Either e Saved"
             },
             {
               "kind": "object",
@@ -109,34 +161,46 @@
             {
               "kind": "flow",
               "from": "raw",
-              "to": "parse"
+              "to": "pureRaw"
             },
             {
               "kind": "flow",
-              "from": "parse",
-              "to": "eParsed"
+              "from": "pureRaw",
+              "to": "bindParse",
+              "label": "Either e String"
             },
             {
               "kind": "flow",
-              "from": "eParsed",
-              "to": "validate",
-              "label": ">>= bind"
+              "from": "bindParse",
+              "to": "bindValidate",
+              "label": "Either e Parsed"
             },
             {
               "kind": "flow",
-              "from": "validate",
-              "to": "eValid"
+              "from": "bindValidate",
+              "to": "bindSave",
+              "label": "Either e Valid"
             },
             {
               "kind": "flow",
-              "from": "eValid",
-              "to": "save",
-              "label": ">>= bind"
+              "from": "bindSave",
+              "to": "eSaved",
+              "label": "Either e Saved"
             },
             {
               "kind": "flow",
-              "from": "save",
-              "to": "eSaved"
+              "from": "parseFn",
+              "to": "bindParse"
+            },
+            {
+              "kind": "flow",
+              "from": "validateFn",
+              "to": "bindValidate"
+            },
+            {
+              "kind": "flow",
+              "from": "saveFn",
+              "to": "bindSave"
             }
           ],
           "successions": [],
@@ -149,23 +213,27 @@
     "diagType": "activity",
     "shows": {
       "raw": "value",
-      "parse": "function",
-      "validate": "function",
-      "save": "function",
-      "eParsed": "type",
-      "eValid": "type",
+      "pureRaw": "function",
+      "bindParse": "function",
+      "bindValidate": "function",
+      "bindSave": "function",
+      "parseFn": "hof",
+      "validateFn": "hof",
+      "saveFn": "hof",
       "eSaved": "type"
     },
     "tooltips": {
-      "raw": "The raw input — for example a request body or untrusted user data.",
-      "parse": "parse(raw) → Either e Parsed.  Returns Right parsed on success or Left e on a parse error.",
-      "validate": "validate(parsed) → Either e Valid.\\nbind skips this step entirely if parse returned Left — the original error flows through unchanged.",
-      "save": "save(valid) → Either e Saved.\\nbind skips this if any earlier step returned Left.",
-      "eParsed": "Either e Parsed — Right parsed or Left propagated from parse.",
-      "eValid": "Either e Valid — Right valid or Left propagated from any earlier step.",
-      "eSaved": "Either e Saved — final outcome.  Right on the happy path; the very first Left otherwise."
+      "raw": "Raw input — for example a request body or untrusted user data.",
+      "pureRaw": "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind.",
+      "bindParse": ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates.",
+      "bindValidate": ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern.",
+      "bindSave": ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern.",
+      "parseFn": "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow.",
+      "validateFn": "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation.",
+      "saveFn": "save : Valid → Either e Saved. Same: supplied to bind as the continuation.",
+      "eSaved": "Either e Saved — Right on the happy path; the very first Left otherwise."
     },
-    "title": "With Either: bind propagates Left automatically",
+    "title": "With pure + bind: Left propagates automatically; every step has the same shape",
     "name": "parseValidateSave"
   }
 }

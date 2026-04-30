@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "Writer w r1",
+              "id": "_",
+              "type": "Writer w R1",
               "direction": "out"
             }
           ]
@@ -35,8 +35,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "Writer w r2",
+              "id": "_",
+              "type": "Writer w R2",
               "direction": "out"
             }
           ]
@@ -53,8 +53,50 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "Writer w r3",
+              "id": "_",
+              "type": "Writer w R3",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Pure",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Writer w a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Writer w a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Writer w b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Writer w b",
               "direction": "out"
             }
           ]
@@ -67,25 +109,50 @@
           "actions": [
             {
               "kind": "action",
-              "id": "step1",
-              "type": "Step1"
+              "id": "pureX",
+              "type": "Pure"
             },
             {
               "kind": "action",
-              "id": "step2",
-              "type": "Step2"
+              "id": "bindStep1",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "step3",
-              "type": "Step3"
+              "id": "bindStep2",
+              "type": "Bind"
+            },
+            {
+              "kind": "action",
+              "id": "bindStep3",
+              "type": "Bind"
             }
           ],
           "objects": [
             {
               "kind": "object",
+              "id": "x",
+              "type": "A"
+            },
+            {
+              "kind": "object",
+              "id": "step1Fn",
+              "type": "A ⟶ Writer w R1"
+            },
+            {
+              "kind": "object",
+              "id": "step2Fn",
+              "type": "R1 ⟶ Writer w R2"
+            },
+            {
+              "kind": "object",
+              "id": "step3Fn",
+              "type": "R2 ⟶ Writer w R3"
+            },
+            {
+              "kind": "object",
               "id": "outResult",
-              "type": "(r3, log123)"
+              "type": "(R3, log123)"
             }
           ],
           "decisions": [],
@@ -93,21 +160,47 @@
           "flows": [
             {
               "kind": "flow",
-              "from": "step1",
-              "to": "step2",
-              "label": ">>= bind"
+              "from": "x",
+              "to": "pureX"
             },
             {
               "kind": "flow",
-              "from": "step2",
-              "to": "step3",
-              "label": ">>= bind"
+              "from": "pureX",
+              "to": "bindStep1",
+              "label": "Writer w A"
             },
             {
               "kind": "flow",
-              "from": "step3",
+              "from": "bindStep1",
+              "to": "bindStep2",
+              "label": "Writer w R1"
+            },
+            {
+              "kind": "flow",
+              "from": "bindStep2",
+              "to": "bindStep3",
+              "label": "Writer w R2"
+            },
+            {
+              "kind": "flow",
+              "from": "bindStep3",
               "to": "outResult",
               "label": "runWriter"
+            },
+            {
+              "kind": "flow",
+              "from": "step1Fn",
+              "to": "bindStep1"
+            },
+            {
+              "kind": "flow",
+              "from": "step2Fn",
+              "to": "bindStep2"
+            },
+            {
+              "kind": "flow",
+              "from": "step3Fn",
+              "to": "bindStep3"
             }
           ],
           "successions": [],
@@ -119,18 +212,28 @@
   "diagram": {
     "diagType": "activity",
     "shows": {
-      "step1": "function",
-      "step2": "function",
-      "step3": "function",
+      "x": "value",
+      "pureX": "function",
+      "bindStep1": "function",
+      "bindStep2": "function",
+      "bindStep3": "function",
+      "step1Fn": "hof",
+      "step2Fn": "hof",
+      "step3Fn": "hof",
       "outResult": "type"
     },
     "tooltips": {
-      "step1": "step1 :: A → Writer w R1.  Step appends to the log via tell; the log itself is never visible in the user code.",
-      "step2": "step2 :: R1 → Writer w R2.  bind concatenates this step's log onto step1's automatically.",
-      "step3": "step3 :: R2 → Writer w R3.  Same again — the log just accumulates.",
-      "outResult": "runWriter returns the final value and the combined log in order.  Drops are impossible by construction."
+      "x": "Plain input value of type A.",
+      "pureX": "pure : A → Writer w A. Lifts the plain value with mempty (empty log).",
+      "bindStep1": ">>= : runs step1 on the unwrapped value; concatenates the existing log with step1's log.",
+      "bindStep2": ">>= : runs step2; concatenates its log onto the running total. Drops are impossible.",
+      "bindStep3": ">>= : runs step3; concatenates its log onto the running total.",
+      "step1Fn": "step1 : A → Writer w R1. HOF argument — its input is A, not Writer w A, so it cannot sit on the main flow.",
+      "step2Fn": "step2 : R1 → Writer w R2. Same: supplied to bind as the continuation.",
+      "step3Fn": "step3 : R2 → Writer w R3. Same: supplied to bind as the continuation.",
+      "outResult": "runWriter returns the final value and the combined log."
     },
-    "title": "With Writer: log accumulation is automatic",
+    "title": "With pure + bind: log accumulation is automatic via the Monoid for w",
     "name": "writerChain"
   }
 }

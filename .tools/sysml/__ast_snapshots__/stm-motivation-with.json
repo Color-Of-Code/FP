@@ -11,21 +11,9 @@
           "pins": [
             {
               "kind": "port",
-              "id": "value",
-              "type": "Int",
+              "id": "_",
+              "type": "STM Int",
               "direction": "out"
-            }
-          ]
-        },
-        {
-          "kind": "actionDef",
-          "name": "WriteA",
-          "pins": [
-            {
-              "kind": "port",
-              "id": "delta",
-              "type": "Int",
-              "direction": "in"
             }
           ]
         },
@@ -35,21 +23,33 @@
           "pins": [
             {
               "kind": "port",
-              "id": "value",
-              "type": "Int",
+              "id": "_",
+              "type": "STM Int",
               "direction": "out"
             }
           ]
         },
         {
           "kind": "actionDef",
-          "name": "WriteB",
+          "name": "Bind",
           "pins": [
             {
               "kind": "port",
-              "id": "delta",
-              "type": "Int",
+              "id": "ma",
+              "type": "STM a",
               "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ STM b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "STM b",
+              "direction": "out"
             }
           ]
         }
@@ -66,21 +66,26 @@
             },
             {
               "kind": "action",
-              "id": "writeA",
-              "type": "WriteA"
+              "id": "bindWriteA",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "readB",
-              "type": "ReadB"
-            },
-            {
-              "kind": "action",
-              "id": "writeB",
-              "type": "WriteB"
+              "id": "bindWriteB",
+              "type": "Bind"
             }
           ],
           "objects": [
+            {
+              "kind": "object",
+              "id": "writeAThenFn",
+              "type": "Int ⟶ STM Int"
+            },
+            {
+              "kind": "object",
+              "id": "writeBFn",
+              "type": "Int ⟶ STM ()"
+            },
             {
               "kind": "object",
               "id": "commit",
@@ -93,26 +98,30 @@
             {
               "kind": "flow",
               "from": "readA",
-              "to": "writeA",
-              "label": ">>= bind"
+              "to": "bindWriteA",
+              "label": "STM Int"
             },
             {
               "kind": "flow",
-              "from": "writeA",
-              "to": "readB",
-              "label": ">>= bind"
+              "from": "bindWriteA",
+              "to": "bindWriteB",
+              "label": "STM Int"
             },
             {
               "kind": "flow",
-              "from": "readB",
-              "to": "writeB",
-              "label": ">>= bind"
-            },
-            {
-              "kind": "flow",
-              "from": "writeB",
+              "from": "bindWriteB",
               "to": "commit",
               "label": "atomically"
+            },
+            {
+              "kind": "flow",
+              "from": "writeAThenFn",
+              "to": "bindWriteA"
+            },
+            {
+              "kind": "flow",
+              "from": "writeBFn",
+              "to": "bindWriteB"
             }
           ],
           "successions": [],
@@ -125,19 +134,21 @@
     "diagType": "activity",
     "shows": {
       "readA": "function",
-      "writeA": "function",
-      "readB": "function",
-      "writeB": "function",
+      "bindWriteA": "function",
+      "bindWriteB": "function",
+      "writeAThenFn": "hof",
+      "writeBFn": "hof",
       "commit": "type"
     },
     "tooltips": {
-      "readA": "readTVar accountA — STM action.  Reads are tracked, never committed alone.",
-      "writeA": "writeTVar accountA — STM action.  No lock involved; the runtime decides what is consistent.",
-      "readB": "readTVar accountB — composes via bind like any other STM action.",
-      "writeB": "writeTVar accountB — composes via bind.",
-      "commit": "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict.  No deadlock possible."
+      "readA": "readTVar accountA : STM Int — STM action. Read tracked, not committed alone.",
+      "bindWriteA": ">>= : sequences writeA(-delta) and the readB step. Reads/writes accumulate in the transaction.",
+      "bindWriteB": ">>= : sequences writeB(+delta). Final step before commit.",
+      "writeAThenFn": "λaVal. writeTVar accountA (aVal - delta) >> readTVar accountB. HOF argument — captures aVal in scope.",
+      "writeBFn": "λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal.",
+      "commit": "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible."
     },
-    "title": "With STM: compose reads and writes freely — runtime prevents conflicts",
+    "title": "With pure + bind: STM actions compose freely; runtime commits atomically or retries",
     "name": "transfer"
   }
 }

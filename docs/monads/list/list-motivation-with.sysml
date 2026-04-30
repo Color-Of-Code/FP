@@ -1,59 +1,89 @@
-// SysML v2 — List motivation: WITH the List monad
+// SysML v2 — List motivation: WITH the List monad (bind + pure)
 //
-// Each dimension is one bind step.  Adding a third axis is one new
-// line, not a new nested loop level.  pure (or return) lifts the
-// final tuple back into a list.
+// In the list monad, bind is flatMap:
+//   pure  : a → [a]                     — singleton list
+//   (>>=) : [a] → (a → [b]) → [b]       — apply f to each element, concatenate
+//
+// A two-axis Cartesian product is naturally TWO nested binds plus a
+// pure at the bottom:
+//   xs >>= \x ->
+//     ys >>= \y ->
+//       pure (x, y)
+//
+// Adding a third axis is one new bind line — not a new nested loop
+// level.  In the diagram each bind is its own action node and the
+// per-element continuation is an HOF side-input.  The inner bind +
+// pure live inside outerFn (annotated below).
 
 package ListMotivationWith {
 
-    action def BindX {
-        in  xs : "[A]";
-        out x  : A;
+    // pure : a → [a]
+    action def Pure {
+        in  a : a;
+        out _ : "[a]";
     }
 
-    action def BindY {
-        in  ys : "[B]";
-        out y  : B;
-    }
-
-    action def Pair {
-        in  x      : A;
-        in  y      : B;
-        out result : "(A, B)";
+    // bind : [a] → (a → [b]) → [b]
+    action def Bind {
+        in  ma : "[a]";
+        in  f  : "a ⟶ [b]";
+        out _  : "[b]";
     }
 
     activity def CartesianWith {
-        object xs : "[A]";
-        object ys : "[B]";
+        // inputs
+        object xs        : "[A]";
+        object ys        : "[B]";
 
-        action bindX : BindX;
-        action bindY : BindY;
-        action pair  : Pair;
+        // outer bind: xs >>= outerFn
+        // outerFn = λx. ys >>= λy. pure (x, y)
+        object outerFn   : "A ⟶ [(A, B)]";
+        action bindOuter : Bind;
 
-        object result : "[(A, B)]";
+        // outerFn is itself built from an inner bind and pure;
+        // shown here as side actions referenced by outerFn.
+        action bindInner : Bind;
+        object innerFn   : "B ⟶ [(A, B)]";
+        action purePair  : Pure;
 
-        flow from xs    to bindX;
-        flow from bindX to bindY : ">>= x ->";
-        flow from ys    to bindY;
-        flow from bindY to pair  : ">>= y ->";
-        flow from pair  to result : "pure (x, y)";
+        // output
+        object result    : "[(A, B)]";
+
+        // main flow: the only thing on the linear path is xs → bindOuter → result
+        flow from xs        to bindOuter : "[A]";
+        flow from outerFn   to bindOuter;
+        flow from bindOuter to result    : "[(A, B)]";
+
+        // outerFn's body: ys >>= innerFn   (innerFn = λy. pure (x, y))
+        flow from ys        to bindInner : "[B]";
+        flow from innerFn   to bindInner;
+
+        // innerFn's body: pure (x, y)
+        flow from purePair  to result    : "(via inner bind)";
     }
 }
 
 #diagram {
-    type  = activity
-    title = "With List: one bind per dimension — flat pipeline"
+    type   = activity
+    layout = elk
+    title = "With pure + bind: nested binds = nested loops; one bind per Cartesian axis"
     name  = "cartesian"
-    show xs     as value
-    show ys     as value
-    show bindX  as function
-    show bindY  as function
-    show pair   as function
-    show result as type
-    tooltip xs     = "xs : [A] — the first list."
-    tooltip ys     = "ys : [B] — the second list."
-    tooltip bindX  = "xs >>= \\x -> ...  Iterates over xs, binding each element to the local name x."
-    tooltip bindY  = "ys >>= \\y -> ...  Iterates over ys for each x, binding to y."
-    tooltip pair   = "pure (x, y) — lifts a single pair back into the list monad."
-    tooltip result = "[(A, B)] — the Cartesian product as a flat list.  Each new dimension is one more >>= line."
+    show xs        as value
+    show ys        as value
+    show bindOuter as function
+    show bindInner as function
+    show purePair  as function
+    show outerFn   as hof
+    show innerFn   as hof
+    show result    as type
+    tooltip xs        = "[A] — first list. Outer iteration."
+    tooltip ys        = "[B] — second list. Inner iteration (under each x)."
+    tooltip bindOuter = ">>= : applies outerFn to every element of xs and concatenates the results."
+    tooltip bindInner = ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys."
+    tooltip purePair  = "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list."
+    tooltip outerFn   = "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A]."
+    tooltip innerFn   = "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope."
+    tooltip result    = "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."
 }
+
+

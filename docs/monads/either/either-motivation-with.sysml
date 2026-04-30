@@ -1,63 +1,104 @@
-// SysML v2 — Either motivation: WITH the Either monad
+// SysML v2 — Either motivation: WITH the Either monad (bind + pure)
 //
-// Each step returns Either e a.  bind (>>=) inspects the constructor: a
-// Left short-circuits the whole chain unchanged; only Right values feed
-// the next step.  No explicit error checks anywhere in the pipeline.
+// The fallible functions DO NOT COMPOSE naturally:
+//   parse    : String → Either e Parsed
+//   validate : Parsed → Either e Valid     ← expects Parsed, not Either e Parsed
+//   save     : Valid  → Either e Saved     ← expects Valid,  not Either e Valid
+//
+// Two combinators do all the work:
+//   pure  : a → Either e a                          — lift a plain value
+//   (>>=) : Either e a → (a → Either e b) → Either e b
+//
+// pure starts the chain by lifting the raw String into Either.  Every
+// subsequent step is bind applied to an Either value and the next
+// fallible function (passed in as an HOF argument).  All steps have
+// the same shape; Left short-circuits the whole chain unchanged.
 
 package EitherMotivationWith {
 
     action def Parse {
-        in  raw  : String;
-        out result : "Either e Parsed";
+        in  raw    : String;
+        out _      : "Either e Parsed";
     }
 
     action def Validate {
         in  parsed : Parsed;
-        out result : "Either e Valid";
+        out _      : "Either e Valid";
     }
 
     action def Save {
-        in  valid : Valid;
-        out result : "Either e Saved";
+        in  valid  : Valid;
+        out _      : "Either e Saved";
+    }
+
+    // pure : a → Either e a
+    action def Pure {
+        in  a : a;
+        out _ : "Either e a";
+    }
+
+    // bind : Either e a → (a → Either e b) → Either e b
+    action def Bind {
+        in  ma : "Either e a";
+        in  f  : "a ⟶ Either e b";
+        out _  : "Either e b";
     }
 
     activity def ParseValidateSaveWith {
-        object raw     : String;
+        // input
+        object raw          : String;
 
-        action parse    : Parse;
-        object eParsed  : "Either e Parsed";
+        // lift the plain String into Either — entry point of the chain
+        action pureRaw      : Pure;
 
-        action validate : Validate;
-        object eValid   : "Either e Valid";
+        // each subsequent step is bind + a fallible function (HOF argument)
+        object parseFn      : "String ⟶ Either e Parsed";
+        action bindParse    : Bind;
 
-        action save     : Save;
-        object eSaved   : "Either e Saved";
+        object validateFn   : "Parsed ⟶ Either e Valid";
+        action bindValidate : Bind;
 
-        flow from raw       to parse;
-        flow from parse     to eParsed;
-        flow from eParsed   to validate : ">>= bind";
-        flow from validate  to eValid;
-        flow from eValid    to save     : ">>= bind";
-        flow from save      to eSaved;
+        object saveFn       : "Valid ⟶ Either e Saved";
+        action bindSave     : Bind;
+
+        // output
+        object eSaved       : "Either e Saved";
+
+        // main flow runs through the bind nodes
+        flow from raw          to pureRaw;
+        flow from pureRaw      to bindParse    : "Either e String";
+        flow from bindParse    to bindValidate : "Either e Parsed";
+        flow from bindValidate to bindSave     : "Either e Valid";
+        flow from bindSave     to eSaved       : "Either e Saved";
+
+        // each fallible function is supplied to its bind as the f argument
+        flow from parseFn      to bindParse;
+        flow from validateFn   to bindValidate;
+        flow from saveFn       to bindSave;
     }
 }
 
 #diagram {
     type  = activity
-    title = "With Either: bind propagates Left automatically"
+    title = "With pure + bind: Left propagates automatically; every step has the same shape"
     name  = "parseValidateSave"
-    show raw      as value
-    show parse    as function
-    show validate as function
-    show save     as function
-    show eParsed  as type
-    show eValid   as type
-    show eSaved   as type
-    tooltip raw      = "The raw input — for example a request body or untrusted user data."
-    tooltip parse    = "parse(raw) → Either e Parsed.  Returns Right parsed on success or Left e on a parse error."
-    tooltip validate = "validate(parsed) → Either e Valid.\nbind skips this step entirely if parse returned Left — the original error flows through unchanged."
-    tooltip save     = "save(valid) → Either e Saved.\nbind skips this if any earlier step returned Left."
-    tooltip eParsed  = "Either e Parsed — Right parsed or Left propagated from parse."
-    tooltip eValid   = "Either e Valid — Right valid or Left propagated from any earlier step."
-    tooltip eSaved   = "Either e Saved — final outcome.  Right on the happy path; the very first Left otherwise."
+    show raw          as value
+    show pureRaw      as function
+    show bindParse    as function
+    show bindValidate as function
+    show bindSave     as function
+    show parseFn      as hof
+    show validateFn   as hof
+    show saveFn       as hof
+    show eSaved       as type
+    tooltip raw          = "Raw input — for example a request body or untrusted user data."
+    tooltip pureRaw      = "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind."
+    tooltip bindParse    = ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates."
+    tooltip bindValidate = ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern."
+    tooltip bindSave     = ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern."
+    tooltip parseFn      = "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow."
+    tooltip validateFn   = "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation."
+    tooltip saveFn       = "save : Valid → Either e Saved. Same: supplied to bind as the continuation."
+    tooltip eSaved       = "Either e Saved — Right on the happy path; the very first Left otherwise."
 }
+

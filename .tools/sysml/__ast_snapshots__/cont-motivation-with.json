@@ -12,12 +12,12 @@
             {
               "kind": "port",
               "id": "body",
-              "type": "(b -> r) -> Cont r b",
+              "type": "(b ⟶ Cont r b) ⟶ Cont r b",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "cont",
+              "id": "_",
               "type": "Cont r b",
               "direction": "out"
             }
@@ -29,13 +29,13 @@
           "pins": [
             {
               "kind": "port",
-              "id": "cont",
-              "type": "Cont r b",
+              "id": "a",
+              "type": "a",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "next",
+              "id": "_",
               "type": "Cont r b",
               "direction": "out"
             }
@@ -47,14 +47,14 @@
           "pins": [
             {
               "kind": "port",
-              "id": "cont",
-              "type": "Cont r b",
+              "id": "b",
+              "type": "b",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "next",
-              "type": "Cont r b",
+              "id": "_",
+              "type": "Cont r c",
               "direction": "out"
             }
           ]
@@ -65,13 +65,37 @@
           "pins": [
             {
               "kind": "port",
-              "id": "cont",
-              "type": "Cont r b",
+              "id": "c",
+              "type": "c",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "next",
+              "id": "_",
+              "type": "Cont r d",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Cont r a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Cont r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
               "type": "Cont r b",
               "direction": "out"
             }
@@ -90,21 +114,36 @@
             },
             {
               "kind": "action",
-              "id": "step1",
-              "type": "Step1"
+              "id": "bindStep1",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "step2",
-              "type": "Step2"
+              "id": "bindStep2",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "step3",
-              "type": "Step3"
+              "id": "bindStep3",
+              "type": "Bind"
             }
           ],
           "objects": [
+            {
+              "kind": "object",
+              "id": "step1Fn",
+              "type": "b ⟶ Cont r c"
+            },
+            {
+              "kind": "object",
+              "id": "step2Fn",
+              "type": "c ⟶ Cont r d"
+            },
+            {
+              "kind": "object",
+              "id": "step3Fn",
+              "type": "d ⟶ Cont r e"
+            },
             {
               "kind": "object",
               "id": "outVal",
@@ -117,32 +156,47 @@
             {
               "kind": "flow",
               "from": "callCC",
-              "to": "step1",
-              "label": ">>= bind"
+              "to": "bindStep1",
+              "label": "Cont r b"
             },
             {
               "kind": "flow",
-              "from": "step1",
-              "to": "step2",
-              "label": ">>= bind"
+              "from": "bindStep1",
+              "to": "bindStep2",
+              "label": "Cont r c"
             },
             {
               "kind": "flow",
-              "from": "step2",
-              "to": "step3",
-              "label": ">>= bind"
+              "from": "bindStep2",
+              "to": "bindStep3",
+              "label": "Cont r d"
             },
             {
               "kind": "flow",
-              "from": "step3",
+              "from": "bindStep3",
               "to": "outVal",
               "label": "runCont"
             },
             {
               "kind": "flow",
+              "from": "step1Fn",
+              "to": "bindStep1"
+            },
+            {
+              "kind": "flow",
+              "from": "step2Fn",
+              "to": "bindStep2"
+            },
+            {
+              "kind": "flow",
+              "from": "step3Fn",
+              "to": "bindStep3"
+            },
+            {
+              "kind": "flow",
               "from": "callCC",
               "to": "outVal",
-              "label": "exit a — direct jump"
+              "label": "exit a — direct jump (skips all binds)"
             }
           ],
           "successions": [],
@@ -155,19 +209,26 @@
     "diagType": "activity",
     "shows": {
       "callCC": "function",
-      "step1": "function",
-      "step2": "function",
-      "step3": "function",
+      "bindStep1": "function",
+      "bindStep2": "function",
+      "bindStep3": "function",
+      "step1Fn": "hof",
+      "step2Fn": "hof",
+      "step3Fn": "hof",
       "outVal": "type"
     },
     "tooltips": {
-      "callCC": "callCC \\\\exit -> ...  Captures the current continuation and binds it to exit.  Inside the body, calling exit a aborts the chain and returns a immediately.",
-      "step1": "step1 — runs only if no earlier exit has fired.  Composes via bind like any other Cont.",
-      "step2": "step2 — likewise.  No knowledge of the escape path is required.",
-      "step3": "step3 — likewise.",
-      "outVal": "r — the final continuation result.  Reached either by completing the chain or by the exit shortcut from callCC."
+      "callCC": "callCC : ((b → Cont r b) → Cont r b) → Cont r b. Captures the current continuation as exit and seeds the chain.",
+      "bindStep1": ">>= : sequences step1 after callCC. Skipped if exit was already called.",
+      "bindStep2": ">>= : sequences step2. Same pattern.",
+      "bindStep3": ">>= : sequences step3. Same pattern.",
+      "step1Fn": "step1 : b → Cont r c. HOF argument — input is b, not Cont r b.",
+      "step2Fn": "step2 : c → Cont r d. HOF argument.",
+      "step3Fn": "step3 : d → Cont r e. HOF argument.",
+      "outVal": "r — the final continuation result. Reached either by completing the chain or by the exit shortcut."
     },
-    "title": "With callCC: the escape function jumps directly to the runCont call site",
+    "layout": "elk",
+    "title": "With callCC + bind: linear steps via bind; exit short-circuits straight to runCont",
     "name": "contChain"
   }
 }

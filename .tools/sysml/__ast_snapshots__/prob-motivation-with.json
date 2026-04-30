@@ -11,7 +11,7 @@
           "pins": [
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Prob CoinFace",
               "direction": "out"
             }
@@ -29,8 +29,32 @@
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Prob Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Prob a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Prob b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Prob b",
               "direction": "out"
             }
           ]
@@ -48,11 +72,16 @@
             },
             {
               "kind": "action",
-              "id": "rollDie",
-              "type": "RollDie"
+              "id": "bindRoll",
+              "type": "Bind"
             }
           ],
           "objects": [
+            {
+              "kind": "object",
+              "id": "rollDieFn",
+              "type": "CoinFace ⟶ Prob Int"
+            },
             {
               "kind": "object",
               "id": "outResult",
@@ -65,14 +94,19 @@
             {
               "kind": "flow",
               "from": "biasedCoin",
-              "to": "rollDie",
-              "label": ">>= bind"
+              "to": "bindRoll",
+              "label": "Prob CoinFace"
             },
             {
               "kind": "flow",
-              "from": "rollDie",
+              "from": "bindRoll",
               "to": "outResult",
               "label": "runProb"
+            },
+            {
+              "kind": "flow",
+              "from": "rollDieFn",
+              "to": "bindRoll"
             }
           ],
           "successions": [],
@@ -85,15 +119,17 @@
     "diagType": "activity",
     "shows": {
       "biasedCoin": "function",
-      "rollDie": "function",
+      "bindRoll": "function",
+      "rollDieFn": "hof",
       "outResult": "type"
     },
     "tooltips": {
-      "biasedCoin": "biasedCoin :: Prob CoinFace — distribution over the coin outcomes.",
-      "rollDie": "rollDie :: CoinFace -> Prob Int — conditional distribution over die outcomes given the coin face.  bind applies this to every branch.",
-      "outResult": "Prob Int — the joint distribution.  bind has multiplied probabilities and flattened the nested list automatically."
+      "biasedCoin": "biasedCoin : Prob CoinFace — distribution over the coin outcomes.",
+      "bindRoll": ">>= : applies the conditional distribution to every branch; multiplies probabilities and flattens.",
+      "rollDieFn": "rollDie : CoinFace → Prob Int. HOF argument — its input is CoinFace, not Prob CoinFace.",
+      "outResult": "Prob Int — the joint distribution. bind has multiplied probabilities and flattened the nested list automatically."
     },
-    "title": "With Prob: bind multiplies probabilities and flattens the joint distribution",
+    "title": "With pure + bind: bind multiplies probabilities and flattens the joint distribution",
     "name": "coinThenDie"
   }
 }

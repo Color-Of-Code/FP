@@ -11,14 +11,8 @@
           "pins": [
             {
               "kind": "port",
-              "id": "env",
-              "type": "Config",
-              "direction": "in"
-            },
-            {
-              "kind": "port",
-              "id": "host",
-              "type": "String",
+              "id": "_",
+              "type": "Reader Config String",
               "direction": "out"
             }
           ]
@@ -29,14 +23,8 @@
           "pins": [
             {
               "kind": "port",
-              "id": "env",
-              "type": "Config",
-              "direction": "in"
-            },
-            {
-              "kind": "port",
-              "id": "portNum",
-              "type": "Int",
+              "id": "_",
+              "type": "Reader Config Int",
               "direction": "out"
             }
           ]
@@ -59,8 +47,50 @@
             },
             {
               "kind": "port",
-              "id": "url",
+              "id": "_",
               "type": "URL",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Pure",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Reader r a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Reader r a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Reader r b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Reader r b",
               "direction": "out"
             }
           ]
@@ -78,16 +108,26 @@
             },
             {
               "kind": "action",
-              "id": "asksPort",
-              "type": "AsksPort"
+              "id": "bindHost",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "buildUrl",
-              "type": "BuildUrl"
+              "id": "bindPair",
+              "type": "Bind"
             }
           ],
           "objects": [
+            {
+              "kind": "object",
+              "id": "readPortFn",
+              "type": "String ⟶ Reader Config (String, Int)"
+            },
+            {
+              "kind": "object",
+              "id": "pureUrlFn",
+              "type": "(String, Int) ⟶ Reader Config URL"
+            },
             {
               "kind": "object",
               "id": "url",
@@ -100,20 +140,30 @@
             {
               "kind": "flow",
               "from": "asksHost",
-              "to": "asksPort",
-              "label": ">>= bind"
+              "to": "bindHost",
+              "label": "Reader Config String"
             },
             {
               "kind": "flow",
-              "from": "asksPort",
-              "to": "buildUrl",
-              "label": ">>= bind"
+              "from": "bindHost",
+              "to": "bindPair",
+              "label": "Reader Config (String, Int)"
             },
             {
               "kind": "flow",
-              "from": "buildUrl",
+              "from": "bindPair",
               "to": "url",
               "label": "runReader env"
+            },
+            {
+              "kind": "flow",
+              "from": "readPortFn",
+              "to": "bindHost"
+            },
+            {
+              "kind": "flow",
+              "from": "pureUrlFn",
+              "to": "bindPair"
             }
           ],
           "successions": [],
@@ -126,17 +176,22 @@
     "diagType": "activity",
     "shows": {
       "asksHost": "function",
-      "asksPort": "function",
-      "buildUrl": "function",
+      "bindHost": "function",
+      "bindPair": "function",
+      "readPortFn": "hof",
+      "pureUrlFn": "hof",
       "url": "type"
     },
     "tooltips": {
-      "asksHost": "asks (.host) — projects the host field out of the implicit Config environment.",
-      "asksPort": "asks (.port) — projects the port field out of the implicit Config environment.  bind chains it after asksHost without rethreading the config.",
-      "buildUrl": "buildUrl(host, port) — pure assembly of the URL.  No need to receive the environment at all.",
-      "url": "URL — final value.  runReader env supplies the environment exactly once at the top of the chain."
+      "asksHost": "asks (.host) : Reader Config String — projects host out of the implicit env.",
+      "bindHost": ">>= : runs asksHost with env, then runs the continuation (which itself returns a Reader) with the SAME env.",
+      "bindPair": ">>= : final bind — turns the (host, port) pair into the URL via build, lifted with pure.",
+      "readPortFn": "λhost. asksPort >>= λport. pure (host, port). HOF argument — captures host in scope while running asksPort under the same env.",
+      "pureUrlFn": "λ(host, port). pure (build host port). HOF argument — wraps the pure URL back into Reader.",
+      "url": "URL — final value. runReader env supplies the environment exactly once at the top of the chain."
     },
-    "title": "With Reader: environment supplied once at the top",
+    "layout": "elk",
+    "title": "With pure + bind: env supplied once at the top; bind feeds it to every step",
     "name": "buildUrl"
   }
 }

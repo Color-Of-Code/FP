@@ -7,60 +7,42 @@
       "actionDefs": [
         {
           "kind": "actionDef",
-          "name": "BindX",
+          "name": "Pure",
           "pins": [
             {
               "kind": "port",
-              "id": "xs",
-              "type": "[A]",
+              "id": "a",
+              "type": "a",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "x",
-              "type": "A",
+              "id": "_",
+              "type": "[a]",
               "direction": "out"
             }
           ]
         },
         {
           "kind": "actionDef",
-          "name": "BindY",
+          "name": "Bind",
           "pins": [
             {
               "kind": "port",
-              "id": "ys",
-              "type": "[B]",
+              "id": "ma",
+              "type": "[a]",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "y",
-              "type": "B",
-              "direction": "out"
-            }
-          ]
-        },
-        {
-          "kind": "actionDef",
-          "name": "Pair",
-          "pins": [
-            {
-              "kind": "port",
-              "id": "x",
-              "type": "A",
+              "id": "f",
+              "type": "a ⟶ [b]",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "y",
-              "type": "B",
-              "direction": "in"
-            },
-            {
-              "kind": "port",
-              "id": "result",
-              "type": "(A, B)",
+              "id": "_",
+              "type": "[b]",
               "direction": "out"
             }
           ]
@@ -73,18 +55,18 @@
           "actions": [
             {
               "kind": "action",
-              "id": "bindX",
-              "type": "BindX"
+              "id": "bindOuter",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "bindY",
-              "type": "BindY"
+              "id": "bindInner",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "pair",
-              "type": "Pair"
+              "id": "purePair",
+              "type": "Pure"
             }
           ],
           "objects": [
@@ -100,6 +82,16 @@
             },
             {
               "kind": "object",
+              "id": "outerFn",
+              "type": "A ⟶ [(A, B)]"
+            },
+            {
+              "kind": "object",
+              "id": "innerFn",
+              "type": "B ⟶ [(A, B)]"
+            },
+            {
+              "kind": "object",
               "id": "result",
               "type": "[(A, B)]"
             }
@@ -110,30 +102,36 @@
             {
               "kind": "flow",
               "from": "xs",
-              "to": "bindX"
+              "to": "bindOuter",
+              "label": "[A]"
             },
             {
               "kind": "flow",
-              "from": "bindX",
-              "to": "bindY",
-              "label": ">>= x ->"
+              "from": "outerFn",
+              "to": "bindOuter"
+            },
+            {
+              "kind": "flow",
+              "from": "bindOuter",
+              "to": "result",
+              "label": "[(A, B)]"
             },
             {
               "kind": "flow",
               "from": "ys",
-              "to": "bindY"
+              "to": "bindInner",
+              "label": "[B]"
             },
             {
               "kind": "flow",
-              "from": "bindY",
-              "to": "pair",
-              "label": ">>= y ->"
+              "from": "innerFn",
+              "to": "bindInner"
             },
             {
               "kind": "flow",
-              "from": "pair",
+              "from": "purePair",
               "to": "result",
-              "label": "pure (x, y)"
+              "label": "(via inner bind)"
             }
           ],
           "successions": [],
@@ -147,20 +145,25 @@
     "shows": {
       "xs": "value",
       "ys": "value",
-      "bindX": "function",
-      "bindY": "function",
-      "pair": "function",
+      "bindOuter": "function",
+      "bindInner": "function",
+      "purePair": "function",
+      "outerFn": "hof",
+      "innerFn": "hof",
       "result": "type"
     },
     "tooltips": {
-      "xs": "xs : [A] — the first list.",
-      "ys": "ys : [B] — the second list.",
-      "bindX": "xs >>= \\\\x -> ...  Iterates over xs, binding each element to the local name x.",
-      "bindY": "ys >>= \\\\y -> ...  Iterates over ys for each x, binding to y.",
-      "pair": "pure (x, y) — lifts a single pair back into the list monad.",
-      "result": "[(A, B)] — the Cartesian product as a flat list.  Each new dimension is one more >>= line."
+      "xs": "[A] — first list. Outer iteration.",
+      "ys": "[B] — second list. Inner iteration (under each x).",
+      "bindOuter": ">>= : applies outerFn to every element of xs and concatenates the results.",
+      "bindInner": ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys.",
+      "purePair": "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list.",
+      "outerFn": "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A].",
+      "innerFn": "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.",
+      "result": "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."
     },
-    "title": "With List: one bind per dimension — flat pipeline",
+    "layout": "elk",
+    "title": "With pure + bind: nested binds = nested loops; one bind per Cartesian axis",
     "name": "cartesian"
   }
 }

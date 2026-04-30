@@ -11,14 +11,14 @@
           "pins": [
             {
               "kind": "port",
-              "id": "sIn",
-              "type": "s",
+              "id": "a",
+              "type": "A",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "pair",
-              "type": "(a, s)",
+              "id": "_",
+              "type": "State s B",
               "direction": "out"
             }
           ]
@@ -29,14 +29,14 @@
           "pins": [
             {
               "kind": "port",
-              "id": "sIn",
-              "type": "s",
+              "id": "b",
+              "type": "B",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "pair",
-              "type": "(b, s)",
+              "id": "_",
+              "type": "State s C",
               "direction": "out"
             }
           ]
@@ -47,14 +47,56 @@
           "pins": [
             {
               "kind": "port",
-              "id": "sIn",
-              "type": "s",
+              "id": "c",
+              "type": "C",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "pair",
-              "type": "(c, s)",
+              "id": "_",
+              "type": "State s D",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Pure",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "State s a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "State s a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ State s b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "State s b",
               "direction": "out"
             }
           ]
@@ -67,25 +109,50 @@
           "actions": [
             {
               "kind": "action",
-              "id": "step1",
-              "type": "Step1"
+              "id": "pureA",
+              "type": "Pure"
             },
             {
               "kind": "action",
-              "id": "step2",
-              "type": "Step2"
+              "id": "bindStep1",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "step3",
-              "type": "Step3"
+              "id": "bindStep2",
+              "type": "Bind"
+            },
+            {
+              "kind": "action",
+              "id": "bindStep3",
+              "type": "Bind"
             }
           ],
           "objects": [
             {
               "kind": "object",
+              "id": "initial",
+              "type": "A"
+            },
+            {
+              "kind": "object",
+              "id": "step1Fn",
+              "type": "A ⟶ State s B"
+            },
+            {
+              "kind": "object",
+              "id": "step2Fn",
+              "type": "B ⟶ State s C"
+            },
+            {
+              "kind": "object",
+              "id": "step3Fn",
+              "type": "C ⟶ State s D"
+            },
+            {
+              "kind": "object",
               "id": "outResult",
-              "type": "((a, b, c), sFinal)"
+              "type": "(D, sFinal)"
             }
           ],
           "decisions": [],
@@ -93,21 +160,47 @@
           "flows": [
             {
               "kind": "flow",
-              "from": "step1",
-              "to": "step2",
-              "label": ">>= bind"
+              "from": "initial",
+              "to": "pureA"
             },
             {
               "kind": "flow",
-              "from": "step2",
-              "to": "step3",
-              "label": ">>= bind"
+              "from": "pureA",
+              "to": "bindStep1",
+              "label": "State s A"
             },
             {
               "kind": "flow",
-              "from": "step3",
+              "from": "bindStep1",
+              "to": "bindStep2",
+              "label": "State s B"
+            },
+            {
+              "kind": "flow",
+              "from": "bindStep2",
+              "to": "bindStep3",
+              "label": "State s C"
+            },
+            {
+              "kind": "flow",
+              "from": "bindStep3",
               "to": "outResult",
               "label": "runState s0"
+            },
+            {
+              "kind": "flow",
+              "from": "step1Fn",
+              "to": "bindStep1"
+            },
+            {
+              "kind": "flow",
+              "from": "step2Fn",
+              "to": "bindStep2"
+            },
+            {
+              "kind": "flow",
+              "from": "step3Fn",
+              "to": "bindStep3"
             }
           ],
           "successions": [],
@@ -119,18 +212,28 @@
   "diagram": {
     "diagType": "activity",
     "shows": {
-      "step1": "function",
-      "step2": "function",
-      "step3": "function",
+      "initial": "value",
+      "pureA": "function",
+      "bindStep1": "function",
+      "bindStep2": "function",
+      "bindStep3": "function",
+      "step1Fn": "hof",
+      "step2Fn": "hof",
+      "step3Fn": "hof",
       "outResult": "type"
     },
     "tooltips": {
-      "step1": "step1 :: State s a — receives the implicit state, returns (a, s').",
-      "step2": "step2 :: State s b — bind passes the s' from step1 in automatically.  No way to use the wrong state.",
-      "step3": "step3 :: State s c — same deal: bind threads the latest state for free.",
-      "outResult": "runState s0 supplies the initial state and returns the final value alongside the final state.  Threading is mechanical."
+      "initial": "Plain input value of type A — does not include the state.",
+      "pureA": "pure : A → State s A. Returns (a, s) — leaves s untouched.",
+      "bindStep1": ">>= : runs the State action, threads s' into step1, returns step1's (b, s'').",
+      "bindStep2": ">>= : threads the latest state into step2 automatically. No way to supply the wrong state.",
+      "bindStep3": ">>= : threads the latest state into step3 automatically.",
+      "step1Fn": "step1 : A → State s B. HOF argument — its input is A, not State s A.",
+      "step2Fn": "step2 : B → State s C. Same: supplied to bind as the continuation.",
+      "step3Fn": "step3 : C → State s D. Same: supplied to bind as the continuation.",
+      "outResult": "runState s0 supplies the initial state and returns the final value alongside the final state."
     },
-    "title": "With State: state flows automatically through bind",
+    "title": "With pure + bind: state threads automatically; using a stale state is impossible",
     "name": "stateChain"
   }
 }
