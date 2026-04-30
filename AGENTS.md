@@ -60,3 +60,20 @@ make -C .tools <target>
      `> Mathematical background: [CT concept](../ct/concept.md) — one-line description`
    - The `ct/README.md` catalog table must be updated whenever a new `ct/` page is added.
    - Run `make -C .tools fmt-md lint-md` after editing `ct/` pages (not `lint-langs`).
+
+## SysML activity diagrams — conventions
+
+1. **Pins represent typed values** (a slot where a value flows). The type constrains what flows; the
+   name labels the value. Type information belongs on the flow edge, not duplicated on the pin.
+
+2. **Anonymous pins**: use `_` as the pin name to render the pin square without a text label. Use
+   this when the pin's purpose is already obvious from the flow-edge type annotation (e.g., output
+   pins whose type like `"Maybe User"` is on the outgoing edge).
+
+3. **Motivation-pair consistency**: "without" and "with" diagrams for the same monad should use
+   **identical type names** (e.g., `Maybe User` in both). This makes the structural parallel
+   immediately visible — the difference is in _handling_ (manual guards vs. automatic bind), not in
+   the types themselves.
+
+4. **Minimize label noise**: if information is already carried on a flow edge, do not repeat it on a
+   pin label. Prefer fewer, meaningful labels over exhaustive annotation.
