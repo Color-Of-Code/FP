@@ -11,7 +11,7 @@
           "pins": [
             {
               "kind": "port",
-              "id": "token",
+              "id": "_",
               "type": "Lock",
               "direction": "out"
             }
@@ -23,7 +23,7 @@
           "pins": [
             {
               "kind": "port",
-              "id": "token",
+              "id": "_",
               "type": "Lock",
               "direction": "out"
             }
@@ -164,12 +164,13 @@
     },
     "tooltips": {
       "lockA": "lock(accountA) — must be acquired in a globally agreed order.",
-      "lockB": "lock(accountB) — second lock.  A thread that takes B before A can deadlock against this one.",
+      "lockB": "lock(accountB) — second lock. A thread that takes B before A can deadlock against this one.",
       "updateA": "accountA -= amount — only safe inside both locks.",
       "updateB": "accountB += amount — likewise.",
       "unlockB": "unlock(accountB) — release in reverse order; forgetting is a leak.",
       "unlockA": "unlock(accountA) — also reverse-order; ordering is contract, not type."
     },
+    "layout": "elk",
     "title": "Without STM: explicit locks require careful ordering to avoid deadlock",
     "name": "transfer"
   }

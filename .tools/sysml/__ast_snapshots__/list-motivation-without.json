@@ -17,7 +17,7 @@
             },
             {
               "kind": "port",
-              "id": "x",
+              "id": "_",
               "type": "A",
               "direction": "out"
             }
@@ -35,7 +35,7 @@
             },
             {
               "kind": "port",
-              "id": "y",
+              "id": "_",
               "type": "B",
               "direction": "out"
             }
@@ -59,8 +59,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "result : [(A, B)]",
+              "id": "_",
+              "type": "[(A, B)]",
               "direction": "out"
             }
           ]
@@ -157,10 +157,11 @@
       "ys": "ys : [B] — the second list, iterated by the inner loop for every x.",
       "outer": "for x in xs — outer loop opens scope for x.",
       "inner": "for y in ys — inner loop nested inside; each extra dimension means one more nesting level.",
-      "append": "result.append((x, y)) — manual mutation of a shared accumulator.  Easy to forget; easy to break.",
-      "result": "[(A, B)] — the result list built by side effect.  Adding a 3rd dimension means rewriting the whole structure."
+      "append": "result.append((x, y)) — manual mutation of a shared accumulator. Easy to forget; easy to break.",
+      "result": "[(A, B)] — the result list built by side effect. Adding a 3rd dimension means rewriting the whole structure."
     },
-    "title": "Without List: one nested loop level per dimension",
+    "layout": "elk",
+    "title": "Without bind: one nested loop level per Cartesian dimension",
     "name": "cartesian"
   }
 }

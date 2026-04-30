@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "Parsed | Error",
+              "id": "_",
+              "type": "Either e Parsed",
               "direction": "out"
             }
           ]
@@ -35,8 +35,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "Valid | Error",
+              "id": "_",
+              "type": "Either e Valid",
               "direction": "out"
             }
           ]
@@ -53,8 +53,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "Saved | Error",
+              "id": "_",
+              "type": "Either e Saved",
               "direction": "out"
             }
           ]
@@ -90,29 +90,29 @@
             {
               "kind": "object",
               "id": "errOut",
-              "type": "Error"
+              "type": "Left e"
             },
             {
               "kind": "object",
               "id": "saved",
-              "type": "Saved"
+              "type": "Right Saved"
             }
           ],
           "decisions": [
             {
               "kind": "decision",
               "id": "checkParse",
-              "label": "err?"
+              "label": "Left?"
             },
             {
               "kind": "decision",
               "id": "checkValidate",
-              "label": "err?"
+              "label": "Left?"
             },
             {
               "kind": "decision",
               "id": "checkSave",
-              "label": "err?"
+              "label": "Left?"
             }
           ],
           "merges": [
@@ -131,55 +131,55 @@
               "kind": "flow",
               "from": "parse",
               "to": "checkParse",
-              "label": "Parsed | Error"
+              "label": "Either e Parsed"
             },
             {
               "kind": "flow",
               "from": "checkParse",
               "to": "errorRail",
-              "label": "Error"
+              "label": "Left e"
             },
             {
               "kind": "flow",
               "from": "checkParse",
               "to": "validate",
-              "label": "parsed : Parsed"
+              "label": "Right parsed"
             },
             {
               "kind": "flow",
               "from": "validate",
               "to": "checkValidate",
-              "label": "Valid | Error"
+              "label": "Either e Valid"
             },
             {
               "kind": "flow",
               "from": "checkValidate",
               "to": "errorRail",
-              "label": "Error"
+              "label": "Left e"
             },
             {
               "kind": "flow",
               "from": "checkValidate",
               "to": "save",
-              "label": "valid : Valid"
+              "label": "Right valid"
             },
             {
               "kind": "flow",
               "from": "save",
               "to": "checkSave",
-              "label": "Saved | Error"
+              "label": "Either e Saved"
             },
             {
               "kind": "flow",
               "from": "checkSave",
               "to": "errorRail",
-              "label": "Error"
+              "label": "Left e"
             },
             {
               "kind": "flow",
               "from": "checkSave",
               "to": "saved",
-              "label": "saved : Saved"
+              "label": "Right saved"
             },
             {
               "kind": "flow",
@@ -204,18 +204,19 @@
       "saved": "value"
     },
     "tooltips": {
-      "raw": "The raw input — for example a request body or untrusted user data.",
-      "parse": "parse(raw) — may return Error if the input is malformed.",
-      "validate": "validate(parsed) — may return Error if a business rule is violated.",
-      "save": "save(valid) — may return Error on a database / IO failure.",
-      "checkParse": "Error guard #1: pattern-matches Parsed | Error.  The error branch joins errorRail; the value branch carries 'parsed : Parsed' to validate.",
-      "checkValidate": "Error guard #2: same pattern repeated.  Skipping this is a latent bug.",
-      "checkSave": "Error guard #3: yet another check.  Business logic is buried in guards.",
-      "errorRail": "Any Error terminates the chain here — three separate error paths converge.",
-      "errOut": "Error — returned when any step failed.  Caller must also inspect this and decide what to do.",
-      "saved": "Saved — the happy-path result, reached only when all three checks pass."
+      "raw": "Raw input — for example a request body or untrusted user data.",
+      "parse": "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error.",
+      "validate": "validate(parsed) → Either e Valid. May return Left if a business rule is violated.",
+      "save": "save(valid) → Either e Saved. May return Left on a database / IO failure.",
+      "checkParse": "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail.",
+      "checkValidate": "Guard #2: same pattern repeated. Skipping this is a latent bug.",
+      "checkSave": "Guard #3: yet another check. Business logic is buried in guards.",
+      "errorRail": "Any Left terminates the chain here — three separate failure paths converge.",
+      "errOut": "Left e — returned when any step failed. Caller must also inspect this.",
+      "saved": "Right Saved — the happy-path result, reached only when all three checks pass."
     },
-    "title": "Without Either: explicit error guard at every step",
+    "layout": "elk",
+    "title": "Without bind: explicit Left guard at every step",
     "name": "parseValidateSave"
   }
 }

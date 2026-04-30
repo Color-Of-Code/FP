@@ -17,7 +17,7 @@
             },
             {
               "kind": "port",
-              "id": "face",
+              "id": "_",
               "type": "(CoinFace, p_coin)",
               "direction": "out"
             }
@@ -41,7 +41,7 @@
             },
             {
               "kind": "port",
-              "id": "joint",
+              "id": "_",
               "type": "Float",
               "direction": "out"
             }
@@ -59,7 +59,7 @@
             },
             {
               "kind": "port",
-              "id": "flat",
+              "id": "_",
               "type": "[(Int, Float)]",
               "direction": "out"
             }
@@ -143,11 +143,12 @@
     "tooltips": {
       "coin": "Prob CoinFace — the coin distribution as a list of (face, probability) pairs.",
       "outer": "for (face, p_coin) in coin — opens an outer loop; the inner loop over the die's conditional distribution is implied inside multiply.",
-      "multiply": "p_coin * p_score — multiply marginal × conditional by hand.  Off-by-one here is invisible until totals don't sum to one.",
+      "multiply": "p_coin * p_score — multiply marginal × conditional by hand. Off-by-one here is invisible until totals don't sum to one.",
       "flatten": "Flatten the nested [[ (Int, Float) ]] back into a single distribution.",
       "outResult": "[(Int, Float)] — the joint distribution, hand-built."
     },
-    "title": "Without Prob: manual nested loop and probability arithmetic",
+    "layout": "elk",
+    "title": "Without bind: manual nested loop and probability arithmetic",
     "name": "coinThenDie"
   }
 }

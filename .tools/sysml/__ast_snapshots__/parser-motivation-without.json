@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "(Char, String) | null",
+              "id": "_",
+              "type": "Maybe (Char, String)",
               "direction": "out"
             }
           ]
@@ -29,14 +29,14 @@
           "pins": [
             {
               "kind": "port",
-              "id": "input",
+              "id": "rest",
               "type": "String",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "(Char, String) | null",
+              "id": "_",
+              "type": "Maybe (Char, String)",
               "direction": "out"
             }
           ]
@@ -72,19 +72,19 @@
             {
               "kind": "object",
               "id": "failed",
-              "type": "null"
+              "type": "Nothing"
             }
           ],
           "decisions": [
             {
               "kind": "decision",
               "id": "check1",
-              "label": "null?"
+              "label": "Nothing?"
             },
             {
               "kind": "decision",
               "id": "check2",
-              "label": "null?"
+              "label": "Nothing?"
             }
           ],
           "merges": [
@@ -103,37 +103,37 @@
               "kind": "flow",
               "from": "parseDigit",
               "to": "check1",
-              "label": "(Char, String) | null"
+              "label": "Maybe (Char, String)"
             },
             {
               "kind": "flow",
               "from": "check1",
               "to": "failRail",
-              "label": "null"
+              "label": "Nothing"
             },
             {
               "kind": "flow",
               "from": "check1",
               "to": "parseLetter",
-              "label": "(d, rest1)"
+              "label": "Just (d, rest1) — pass rest1"
             },
             {
               "kind": "flow",
               "from": "parseLetter",
               "to": "check2",
-              "label": "(Char, String) | null"
+              "label": "Maybe (Char, String)"
             },
             {
               "kind": "flow",
               "from": "check2",
               "to": "failRail",
-              "label": "null"
+              "label": "Nothing"
             },
             {
               "kind": "flow",
               "from": "check2",
               "to": "outResult",
-              "label": "((d, l), rest2)"
+              "label": "Just (l, rest2)"
             },
             {
               "kind": "flow",
@@ -158,15 +158,16 @@
     },
     "tooltips": {
       "input": "input : String — the full input string, threaded through the whole chain.",
-      "parseDigit": "parseDigit(input) → (Char, String) or null.  Returns the consumed character and the leftover.",
-      "parseLetter": "parseLetter(rest1) → (Char, String) or null.  Must be called with the leftover from parseDigit, never the original input.",
-      "check1": "Null guard #1: skip and you'll feed null to parseLetter.",
-      "check2": "Null guard #2: skip and you'll return garbage.",
-      "failRail": "Any null short-circuits the whole chain.",
+      "parseDigit": "parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing.",
+      "parseLetter": "parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input.",
+      "check1": "Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug.",
+      "check2": "Guard #2: same pattern repeated. Skip and you'll return garbage.",
+      "failRail": "Any Nothing short-circuits the whole chain — both failure paths converge here.",
       "outResult": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.",
-      "failed": "null — a plausible parse failure value indistinguishable from a real returned value of null."
+      "failed": "Nothing — a parse failure, indistinguishable from any other Nothing."
     },
-    "title": "Without Parser: remaining input threaded by hand",
+    "layout": "elk",
+    "title": "Without bind: leftover threaded by hand; one Nothing guard per step",
     "name": "digitLetter"
   }
 }

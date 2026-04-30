@@ -11,13 +11,13 @@
           "pins": [
             {
               "kind": "port",
-              "id": "x",
+              "id": "a",
               "type": "A",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "B | ABORT",
               "direction": "out"
             }
@@ -29,13 +29,13 @@
           "pins": [
             {
               "kind": "port",
-              "id": "x",
+              "id": "b",
               "type": "B",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "C | ABORT",
               "direction": "out"
             }
@@ -47,13 +47,13 @@
           "pins": [
             {
               "kind": "port",
-              "id": "x",
+              "id": "c",
               "type": "C",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "D | ABORT",
               "direction": "out"
             }
@@ -102,17 +102,17 @@
             {
               "kind": "decision",
               "id": "check1",
-              "label": "== ABORT?"
+              "label": "ABORT?"
             },
             {
               "kind": "decision",
               "id": "check2",
-              "label": "== ABORT?"
+              "label": "ABORT?"
             },
             {
               "kind": "decision",
               "id": "check3",
-              "label": "== ABORT?"
+              "label": "ABORT?"
             }
           ],
           "merges": [
@@ -205,15 +205,16 @@
     },
     "tooltips": {
       "x": "x : A — the input to the chain.",
-      "step1": "step1 — may return ABORT.  Caller must check.",
-      "step2": "step2 — same protocol.  Skipping the check feeds ABORT into a function expecting B.",
-      "step3": "step3 — yet another check.  The same boilerplate, three times.",
-      "check1": "Sentinel guard #1 — pattern-matches on ABORT.  Error branch joins abortRail.",
+      "step1": "step1 — may return ABORT. Caller must check.",
+      "step2": "step2 — same protocol. Skipping the check feeds ABORT into a function expecting B.",
+      "step3": "step3 — yet another check. The same boilerplate, three times.",
+      "check1": "Sentinel guard #1 — pattern-matches on ABORT. The non-ABORT branch carries b to step2; ABORT joins abortRail.",
       "check2": "Sentinel guard #2 — same shape, different step.",
       "check3": "Sentinel guard #3 — yet another by-hand check.",
       "aborted": "ABORT — produced by any step that wished to short-circuit and re-emitted by every subsequent caller.",
       "final": "D — the happy-path output; reached only when no step aborted."
     },
+    "layout": "elk",
     "title": "Without callCC: every caller must propagate the ABORT sentinel",
     "name": "contChain"
   }

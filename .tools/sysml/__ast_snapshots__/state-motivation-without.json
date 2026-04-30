@@ -11,14 +11,20 @@
           "pins": [
             {
               "kind": "port",
-              "id": "sIn",
-              "type": "s0",
+              "id": "a",
+              "type": "A",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "pair",
-              "type": "(a, s1)",
+              "id": "sIn",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "(B, s)",
               "direction": "out"
             }
           ]
@@ -29,14 +35,20 @@
           "pins": [
             {
               "kind": "port",
-              "id": "sIn",
-              "type": "s1",
+              "id": "b",
+              "type": "B",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "pair",
-              "type": "(b, s2)",
+              "id": "sIn",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "(C, s)",
               "direction": "out"
             }
           ]
@@ -47,14 +59,20 @@
           "pins": [
             {
               "kind": "port",
-              "id": "sIn",
-              "type": "s2",
+              "id": "c",
+              "type": "C",
               "direction": "in"
             },
             {
               "kind": "port",
-              "id": "pair",
-              "type": "(c, s3)",
+              "id": "sIn",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "(D, s)",
               "direction": "out"
             }
           ]
@@ -84,8 +102,13 @@
           "objects": [
             {
               "kind": "object",
+              "id": "a0",
+              "type": "A"
+            },
+            {
+              "kind": "object",
               "id": "s0",
-              "type": "s0 (input)"
+              "type": "s0 (initial)"
             },
             {
               "kind": "object",
@@ -99,13 +122,23 @@
             },
             {
               "kind": "object",
-              "id": "s3",
+              "id": "sFinal",
               "type": "s3 (final)"
+            },
+            {
+              "kind": "object",
+              "id": "outResult",
+              "type": "(D, sFinal)"
             }
           ],
           "decisions": [],
           "merges": [],
           "flows": [
+            {
+              "kind": "flow",
+              "from": "a0",
+              "to": "step1"
+            },
             {
               "kind": "flow",
               "from": "s0",
@@ -114,7 +147,8 @@
             {
               "kind": "flow",
               "from": "step1",
-              "to": "s1"
+              "to": "s1",
+              "label": "(b, s1)"
             },
             {
               "kind": "flow",
@@ -124,7 +158,8 @@
             {
               "kind": "flow",
               "from": "step2",
-              "to": "s2"
+              "to": "s2",
+              "label": "(c, s2)"
             },
             {
               "kind": "flow",
@@ -134,7 +169,13 @@
             {
               "kind": "flow",
               "from": "step3",
-              "to": "s3"
+              "to": "sFinal",
+              "label": "(d, sFinal)"
+            },
+            {
+              "kind": "flow",
+              "from": "step3",
+              "to": "outResult"
             }
           ],
           "successions": [],
@@ -146,24 +187,29 @@
   "diagram": {
     "diagType": "activity",
     "shows": {
+      "a0": "value",
       "s0": "type",
       "s1": "type",
       "s2": "type",
-      "s3": "type",
+      "sFinal": "type",
       "step1": "function",
       "step2": "function",
-      "step3": "function"
+      "step3": "function",
+      "outResult": "type"
     },
     "tooltips": {
+      "a0": "Plain input value of type A.",
       "s0": "Initial state, passed in by the caller.",
       "s1": "Intermediate state — must be threaded into step2 by hand.",
       "s2": "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug.",
-      "s3": "Final state — caller is also responsible for receiving and forwarding it.",
-      "step1": "step1(s0) → (a, s1).  Returns a new state alongside the value.",
-      "step2": "step2(s1) → (b, s2).  Must be called with the freshest state — easy to get wrong.",
-      "step3": "step3(s2) → (c, s3).  Same plumbing, repeated."
+      "sFinal": "Final state — caller is also responsible for receiving and forwarding it.",
+      "step1": "step1(a, s0) → (b, s1). Returns a new state alongside the value.",
+      "step2": "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong.",
+      "step3": "step3(c, s2) → (d, s3). Same plumbing, repeated.",
+      "outResult": "(d, sFinal) — caller unpacks both."
     },
-    "title": "Without State: state threaded as explicit variables",
+    "layout": "elk",
+    "title": "Without bind: state threaded as explicit s0/s1/s2/s3 variables",
     "name": "stateChain"
   }
 }

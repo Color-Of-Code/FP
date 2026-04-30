@@ -34,7 +34,7 @@
       <text x="338" y="166" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">hidden</text>
     </g>
     <g class="action-node">
-      <title>compute :: Int → Int — the type promises a pure function.  The implementation breaks that promise.</title>
+      <title>compute :: Int → Int — the type promises a pure function. The implementation breaks that promise.</title>
       <rect x="170" y="92" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
       <text class="action-label" x="230" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">compute</text>
       <g class="pin pin-in">
@@ -43,16 +43,15 @@
       </g>
       <g class="pin pin-out">
         <rect x="286" y="110" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="284" y="114" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">result</text>
       </g>
     </g>
     <g class="action-node">
-      <title>Hidden effect: reads config.txt during execution.  Not visible in the type.</title>
+      <title>Hidden effect: reads config.txt during execution. Not visible in the type.</title>
       <rect x="368" y="92" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
       <text class="action-label" x="428" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">hiddenReadConfig</text>
     </g>
     <g class="action-node">
-      <title>Hidden effect: writes to a log during execution.  Not visible in the type.</title>
+      <title>Hidden effect: writes to a log during execution. Not visible in the type.</title>
       <rect x="368" y="150" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
       <text class="action-label" x="428" y="172" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">hiddenWriteLog</text>
     </g>

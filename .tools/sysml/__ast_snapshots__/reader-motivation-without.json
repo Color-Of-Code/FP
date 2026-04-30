@@ -17,7 +17,7 @@
             },
             {
               "kind": "port",
-              "id": "host",
+              "id": "_",
               "type": "String",
               "direction": "out"
             }
@@ -35,7 +35,7 @@
             },
             {
               "kind": "port",
-              "id": "portNum",
+              "id": "_",
               "type": "Int",
               "direction": "out"
             }
@@ -65,7 +65,7 @@
             },
             {
               "kind": "port",
-              "id": "url",
+              "id": "_",
               "type": "URL",
               "direction": "out"
             }
@@ -127,13 +127,13 @@
               "kind": "flow",
               "from": "getHost",
               "to": "buildUrl",
-              "label": "host"
+              "label": "host : String"
             },
             {
               "kind": "flow",
               "from": "getPort",
               "to": "buildUrl",
-              "label": "port"
+              "label": "port : Int"
             },
             {
               "kind": "flow",
@@ -157,13 +157,14 @@
       "url": "type"
     },
     "tooltips": {
-      "cfg": "Config — the environment record.  Every helper requires it as an argument.",
+      "cfg": "Config — the environment record. Every helper requires it as an argument.",
       "getHost": "getHost(config) — needs only config.host but takes the whole record.",
       "getPort": "getPort(config) — needs only config.port but still receives the whole record.",
-      "buildUrl": "buildUrl(config, host, port) — receives config a third time.  Adding a new helper repeats the plumbing.",
-      "url": "URL — the result.  Most of the signatures involved were boilerplate."
+      "buildUrl": "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing.",
+      "url": "URL — the result. Most of the signatures involved were boilerplate."
     },
-    "title": "Without Reader: config passed into every function",
+    "layout": "elk",
+    "title": "Without bind: config passed into every function explicitly",
     "name": "buildUrl"
   }
 }

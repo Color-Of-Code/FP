@@ -1,33 +1,33 @@
-// SysML v2 — Either motivation: WITHOUT the Either monad
+// SysML v2 — Either motivation: WITHOUT the Either monad (bind)
 //
-// Every step may return an error code (or throw, or return a tagged
-// union the caller must inspect).  After every call the caller writes
-// the same conditional "is this an error?" boilerplate; one missed
-// check silently feeds garbage into the next step.  Three checks
-// converge on a shared error-return rail.
+// Every step in the chain returns Either e X.  The caller must insert
+// an explicit Left-guard decision after each step; one missed guard
+// silently feeds garbage into the next step.  All three failure paths
+// converge on a shared error rail.
 //
-// Style: the action's output type and the decision branch label carry
-// the type information directly on the flow edges; no intermediate
-// object boxes for the tagged result.
+// We use "Either e X" here (same as the with-monad diagram) to
+// highlight that the type is identical — what differs is HOW you
+// handle it: manual case/match vs. automatic bind short-circuiting.
 
 package EitherMotivationWithout {
 
     action def Parse {
         in  raw    : String;
-        out result : "Parsed | Error";
+        out _      : "Either e Parsed";
     }
 
     action def Validate {
         in  parsed : Parsed;
-        out result : "Valid | Error";
+        out _      : "Either e Valid";
     }
 
     action def Save {
         in  valid  : Valid;
-        out result : "Saved | Error";
+        out _      : "Either e Saved";
     }
 
     activity def ParseValidateSaveWithout {
+        // input
         object raw : String;
 
         // three fallible steps
@@ -35,39 +35,40 @@ package EitherMotivationWithout {
         action validate : Validate;
         action save     : Save;
 
-        // one error-guard per step — each is the pattern-match
-        decision checkParse    : "err?";
-        decision checkValidate : "err?";
-        decision checkSave     : "err?";
+        // one Left-guard per step — each pattern-matches its predecessor's output
+        decision checkParse    : "Left?";
+        decision checkValidate : "Left?";
+        decision checkSave     : "Left?";
 
-        // all error branches converge here
+        // all Left branches converge here
         merge errorRail;
 
         // outputs
-        object errOut : "Error";
-        object saved  : "Saved";
+        object errOut : "Left e";
+        object saved  : "Right Saved";
 
         // happy path
-        flow from raw          to parse;
-        flow from parse        to checkParse    : "Parsed | Error";
-        flow from checkParse   to errorRail     : "Error";
-        flow from checkParse   to validate      : "parsed : Parsed";
+        flow from raw           to parse;
+        flow from parse         to checkParse    : "Either e Parsed";
+        flow from checkParse    to errorRail     : "Left e";
+        flow from checkParse    to validate      : "Right parsed";
 
-        flow from validate     to checkValidate : "Valid | Error";
-        flow from checkValidate to errorRail    : "Error";
-        flow from checkValidate to save         : "valid : Valid";
+        flow from validate      to checkValidate : "Either e Valid";
+        flow from checkValidate to errorRail     : "Left e";
+        flow from checkValidate to save          : "Right valid";
 
-        flow from save         to checkSave     : "Saved | Error";
-        flow from checkSave    to errorRail     : "Error";
-        flow from checkSave    to saved         : "saved : Saved";
+        flow from save          to checkSave     : "Either e Saved";
+        flow from checkSave     to errorRail     : "Left e";
+        flow from checkSave     to saved         : "Right saved";
 
-        flow from errorRail    to errOut;
+        flow from errorRail     to errOut;
     }
 }
 
 #diagram {
-    type  = activity
-    title = "Without Either: explicit error guard at every step"
+    type   = activity
+    layout = elk
+    title = "Without bind: explicit Left guard at every step"
     name  = "parseValidateSave"
     show raw      as value
     show parse    as function
@@ -75,14 +76,15 @@ package EitherMotivationWithout {
     show save     as function
     show errOut   as type
     show saved    as value
-    tooltip raw            = "The raw input — for example a request body or untrusted user data."
-    tooltip parse          = "parse(raw) — may return Error if the input is malformed."
-    tooltip validate       = "validate(parsed) — may return Error if a business rule is violated."
-    tooltip save           = "save(valid) — may return Error on a database / IO failure."
-    tooltip checkParse     = "Error guard #1: pattern-matches Parsed | Error.  The error branch joins errorRail; the value branch carries 'parsed : Parsed' to validate."
-    tooltip checkValidate  = "Error guard #2: same pattern repeated.  Skipping this is a latent bug."
-    tooltip checkSave      = "Error guard #3: yet another check.  Business logic is buried in guards."
-    tooltip errorRail      = "Any Error terminates the chain here — three separate error paths converge."
-    tooltip errOut         = "Error — returned when any step failed.  Caller must also inspect this and decide what to do."
-    tooltip saved          = "Saved — the happy-path result, reached only when all three checks pass."
+    tooltip raw            = "Raw input — for example a request body or untrusted user data."
+    tooltip parse          = "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error."
+    tooltip validate       = "validate(parsed) → Either e Valid. May return Left if a business rule is violated."
+    tooltip save           = "save(valid) → Either e Saved. May return Left on a database / IO failure."
+    tooltip checkParse     = "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail."
+    tooltip checkValidate  = "Guard #2: same pattern repeated. Skipping this is a latent bug."
+    tooltip checkSave      = "Guard #3: yet another check. Business logic is buried in guards."
+    tooltip errorRail      = "Any Left terminates the chain here — three separate failure paths converge."
+    tooltip errOut         = "Left e — returned when any step failed. Caller must also inspect this."
+    tooltip saved          = "Right Saved — the happy-path result, reached only when all three checks pass."
 }
+

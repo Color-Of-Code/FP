@@ -1,6 +1,6 @@
-// SysML v2 — IO motivation: WITHOUT the IO monad
+// SysML v2 — IO motivation: WITHOUT the IO monad (bind)
 //
-// compute :: Int → Int looks pure.  The type system says: takes an Int,
+// compute :: Int → Int LOOKS pure.  The type system says: takes an Int,
 // returns an Int, no side effects.  The body lies — it reads
 // config.txt and writes to the log.  Callers cannot tell from the
 // signature, equational reasoning is broken, and order of evaluation
@@ -9,13 +9,18 @@
 package IOMotivationWithout {
 
     action def Compute {
-        in  x      : Int;
-        out result : Int;
+        in  x : Int;
+        out _ : Int;
     }
 
     activity def ComputeWithout {
-        object x       : Int;
+        // input
+        object x : Int;
+
+        // single "pure-looking" function
         action compute : Compute;
+
+        // output
         object result  : Int;
 
         // hidden side effects — same compute action, but its body
@@ -31,7 +36,8 @@ package IOMotivationWithout {
 }
 
 #diagram {
-    type  = activity
+    type   = activity
+    layout = elk
     title = "Without IO: side effects hidden inside a pure-looking type"
     name  = "compute"
     show x                as value
@@ -40,8 +46,9 @@ package IOMotivationWithout {
     show hiddenReadConfig as function
     show hiddenWriteLog   as function
     tooltip x                = "x : Int — the only input the caller sees."
-    tooltip compute          = "compute :: Int → Int — the type promises a pure function.  The implementation breaks that promise."
+    tooltip compute          = "compute :: Int → Int — the type promises a pure function. The implementation breaks that promise."
     tooltip result           = "result : Int — looks like a pure return, but its computation depended on a file and a log call."
-    tooltip hiddenReadConfig = "Hidden effect: reads config.txt during execution.  Not visible in the type."
-    tooltip hiddenWriteLog   = "Hidden effect: writes to a log during execution.  Not visible in the type."
+    tooltip hiddenReadConfig = "Hidden effect: reads config.txt during execution. Not visible in the type."
+    tooltip hiddenWriteLog   = "Hidden effect: writes to a log during execution. Not visible in the type."
 }
+
