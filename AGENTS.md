@@ -77,3 +77,17 @@ make -C .tools <target>
 
 4. **Minimize label noise**: if information is already carried on a flow edge, do not repeat it on a
    pin label. Prefer fewer, meaningful labels over exhaustive annotation.
+
+5. **Show monadic combinators as real nodes, not edge labels**. A function `f : a → m b` cannot
+   compose directly with `g : b → m c` — the types do not line up. The combinator (`bind`/`>>=`,
+   `ap`/`<*>`, `fmap`, etc.) is a real operation with its own type signature, not just notation.
+   - Render the combinator as an `action` node on the main flow.
+   - Pass the chained function in as a side **HOF input** (rendered with `show … as hof`), typed
+     `a ⟶ m b` (or whatever its signature is). It must not sit on the main flow, because its input
+     type does not match the `m a` flowing through.
+   - Edge labels on the main flow carry the monadic types (`Maybe User`, `Maybe Address`, …).
+   - This makes the central insight visible: the chain runs through the combinator nodes; the
+     fallible/effectful functions are arguments to those combinators.
+
+6. **Anonymous combinator output pins**: `bind`, `ap`, etc. typically have one output. Use
+   `out _ : "Maybe b"` (or similar) so the pin square is rendered without a noisy `result` label.

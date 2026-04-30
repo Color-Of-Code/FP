@@ -17,7 +17,7 @@
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Maybe User",
               "direction": "out"
             }
@@ -35,7 +35,7 @@
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Maybe Address",
               "direction": "out"
             }
@@ -53,7 +53,7 @@
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Maybe City",
               "direction": "out"
             }
@@ -71,8 +71,50 @@
             },
             {
               "kind": "port",
-              "id": "result",
+              "id": "_",
               "type": "Maybe String",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Pure",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Maybe a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Maybe a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Maybe b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Maybe b",
               "direction": "out"
             }
           ]
@@ -85,23 +127,28 @@
           "actions": [
             {
               "kind": "action",
-              "id": "findUser",
-              "type": "FindUser"
+              "id": "pureId",
+              "type": "Pure"
             },
             {
               "kind": "action",
-              "id": "findAddress",
-              "type": "FindAddress"
+              "id": "bindUser",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "findCity",
-              "type": "FindCity"
+              "id": "bindAddr",
+              "type": "Bind"
             },
             {
               "kind": "action",
-              "id": "liftName",
-              "type": "LiftName"
+              "id": "bindCity",
+              "type": "Bind"
+            },
+            {
+              "kind": "action",
+              "id": "bindName",
+              "type": "Bind"
             }
           ],
           "objects": [
@@ -112,18 +159,23 @@
             },
             {
               "kind": "object",
-              "id": "maybeUser",
-              "type": "Maybe User"
+              "id": "findUserFn",
+              "type": "UserId ⟶ Maybe User"
             },
             {
               "kind": "object",
-              "id": "maybeAddr",
-              "type": "Maybe Address"
+              "id": "findAddrFn",
+              "type": "User ⟶ Maybe Address"
             },
             {
               "kind": "object",
-              "id": "maybeCity",
-              "type": "Maybe City"
+              "id": "findCityFn",
+              "type": "Address ⟶ Maybe City"
+            },
+            {
+              "kind": "object",
+              "id": "liftNameFn",
+              "type": "City ⟶ Maybe String"
             },
             {
               "kind": "object",
@@ -137,45 +189,57 @@
             {
               "kind": "flow",
               "from": "userId",
-              "to": "findUser"
+              "to": "pureId"
             },
             {
               "kind": "flow",
-              "from": "findUser",
-              "to": "maybeUser"
+              "from": "pureId",
+              "to": "bindUser",
+              "label": "Maybe UserId"
             },
             {
               "kind": "flow",
-              "from": "maybeUser",
-              "to": "findAddress",
-              "label": ">>= bind"
+              "from": "bindUser",
+              "to": "bindAddr",
+              "label": "Maybe User"
             },
             {
               "kind": "flow",
-              "from": "findAddress",
-              "to": "maybeAddr"
+              "from": "bindAddr",
+              "to": "bindCity",
+              "label": "Maybe Address"
             },
             {
               "kind": "flow",
-              "from": "maybeAddr",
-              "to": "findCity",
-              "label": ">>= bind"
+              "from": "bindCity",
+              "to": "bindName",
+              "label": "Maybe City"
             },
             {
               "kind": "flow",
-              "from": "findCity",
-              "to": "maybeCity"
+              "from": "bindName",
+              "to": "cityName",
+              "label": "Maybe String"
             },
             {
               "kind": "flow",
-              "from": "maybeCity",
-              "to": "liftName",
-              "label": ">>= bind"
+              "from": "findUserFn",
+              "to": "bindUser"
             },
             {
               "kind": "flow",
-              "from": "liftName",
-              "to": "cityName"
+              "from": "findAddrFn",
+              "to": "bindAddr"
+            },
+            {
+              "kind": "flow",
+              "from": "findCityFn",
+              "to": "bindCity"
+            },
+            {
+              "kind": "flow",
+              "from": "liftNameFn",
+              "to": "bindName"
             }
           ],
           "successions": [],
@@ -188,27 +252,31 @@
     "diagType": "activity",
     "shows": {
       "userId": "value",
-      "findUser": "function",
-      "findAddress": "function",
-      "findCity": "function",
-      "liftName": "function",
-      "maybeUser": "type",
-      "maybeAddr": "type",
-      "maybeCity": "type",
+      "pureId": "function",
+      "bindUser": "function",
+      "bindAddr": "function",
+      "bindCity": "function",
+      "bindName": "function",
+      "findUserFn": "hof",
+      "findAddrFn": "hof",
+      "findCityFn": "hof",
+      "liftNameFn": "hof",
       "cityName": "type"
     },
     "tooltips": {
-      "userId": "The input: a user ID to look up.",
-      "findUser": "find_user(id) → Maybe User.  Returns Just user or Nothing.",
-      "findAddress": "find_address(user.address_id) → Maybe Address.\\nbind skips this entirely if findUser returned Nothing.",
-      "findCity": "find_city(address.city_id) → Maybe City.\\nbind skips this if any earlier step was Nothing.",
-      "liftName": "pure(city.name) → Maybe String.  Lifts the plain String into Maybe.",
-      "maybeUser": "Maybe User — Just the user record, or Nothing.",
-      "maybeAddr": "Maybe Address — Just the address, or Nothing propagated from above.",
-      "maybeCity": "Maybe City — Just the city, or Nothing propagated from above.",
-      "cityName": "Maybe String — Just city.name on success; Nothing if any step failed.\\nNo explicit null checks anywhere in this chain."
+      "userId": "The input: a plain UserId.",
+      "pureId": "pure : UserId → Maybe UserId. Lifts the plain value into Maybe so the chain can start uniformly with bind.",
+      "bindUser": ">>= : takes Maybe UserId and (UserId → Maybe User). Unwraps Just id and applies findUser; propagates Nothing.",
+      "bindAddr": ">>= : takes Maybe User and (User → Maybe Address). Same pattern.",
+      "bindCity": ">>= : takes Maybe Address and (Address → Maybe City). Same pattern.",
+      "bindName": ">>= : takes Maybe City and (City → Maybe String). Same pattern.",
+      "findUserFn": "find_user : UserId → Maybe User. Passed as an argument to bind — its input type is UserId, not Maybe UserId, so it cannot sit on the main flow.",
+      "findAddrFn": "find_address : User → Maybe Address. Same: supplied to bind as the continuation.",
+      "findCityFn": "find_city : Address → Maybe City. Same: supplied to bind as the continuation.",
+      "liftNameFn": "lift_name : City → Maybe String (= pure ∘ .name). Lifts the plain String back into Maybe.",
+      "cityName": "Maybe String — Just city.name on success; Nothing if any step failed.\\nNo explicit null checks anywhere in this chain; pure starts it, bind drives it."
     },
-    "title": "With Maybe: bind short-circuits on Nothing automatically",
+    "title": "With pure + bind: every step has the same shape; bind is the glue",
     "name": "lookupUserCity"
   }
 }
