@@ -73,7 +73,7 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
       stroke: COL.pinStroke,
       "stroke-width": 1,
     });
-    appendText(pinGroup, pin, {
+    if (pin !== "_") appendText(pinGroup, pin, {
       x: px + PIN_SZ + 2,
       y: py,
       "text-anchor": "start",
@@ -98,7 +98,7 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
       stroke: COL.pinStroke,
       "stroke-width": 1,
     });
-    appendText(pinGroup, pin, {
+    if (pin !== "_") appendText(pinGroup, pin, {
       x: px - 2,
       y: py,
       "text-anchor": "end",

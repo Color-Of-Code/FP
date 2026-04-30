@@ -17,8 +17,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "User | null",
+              "id": "_",
+              "type": "Maybe User",
               "direction": "out"
             }
           ]
@@ -35,8 +35,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "Address | null",
+              "id": "_",
+              "type": "Maybe Address",
               "direction": "out"
             }
           ]
@@ -53,8 +53,8 @@
             },
             {
               "kind": "port",
-              "id": "result",
-              "type": "City | null",
+              "id": "_",
+              "type": "Maybe City",
               "direction": "out"
             }
           ]
@@ -90,7 +90,7 @@
             {
               "kind": "object",
               "id": "nothing",
-              "type": "null"
+              "type": "Nothing"
             },
             {
               "kind": "object",
@@ -102,17 +102,17 @@
             {
               "kind": "decision",
               "id": "checkUser",
-              "label": "null?"
+              "label": "Nothing?"
             },
             {
               "kind": "decision",
               "id": "checkAddr",
-              "label": "null?"
+              "label": "Nothing?"
             },
             {
               "kind": "decision",
               "id": "checkCity",
-              "label": "null?"
+              "label": "Nothing?"
             }
           ],
           "merges": [
@@ -131,55 +131,55 @@
               "kind": "flow",
               "from": "findUser",
               "to": "checkUser",
-              "label": "User | null"
+              "label": "Maybe User"
             },
             {
               "kind": "flow",
               "from": "checkUser",
               "to": "earlyExit",
-              "label": "null"
+              "label": "Nothing"
             },
             {
               "kind": "flow",
               "from": "checkUser",
               "to": "findAddress",
-              "label": "user : User"
+              "label": "Just user"
             },
             {
               "kind": "flow",
               "from": "findAddress",
               "to": "checkAddr",
-              "label": "Address | null"
+              "label": "Maybe Address"
             },
             {
               "kind": "flow",
               "from": "checkAddr",
               "to": "earlyExit",
-              "label": "null"
+              "label": "Nothing"
             },
             {
               "kind": "flow",
               "from": "checkAddr",
               "to": "findCity",
-              "label": "address : Address"
+              "label": "Just address"
             },
             {
               "kind": "flow",
               "from": "findCity",
               "to": "checkCity",
-              "label": "City | null"
+              "label": "Maybe City"
             },
             {
               "kind": "flow",
               "from": "checkCity",
               "to": "earlyExit",
-              "label": "null"
+              "label": "Nothing"
             },
             {
               "kind": "flow",
               "from": "checkCity",
               "to": "cityName",
-              "label": "city.name"
+              "label": "Just city → name"
             },
             {
               "kind": "flow",
@@ -205,18 +205,18 @@
     },
     "tooltips": {
       "userId": "The input: a user ID to look up.",
-      "findUser": "find_user(id) — may return null if the user does not exist.",
-      "findAddress": "find_address(user.address_id) — may return null if no address on file.",
-      "findCity": "find_city(address.city_id) — may return null if the city record is missing.",
-      "checkUser": "Null guard #1: pattern-matches User | null. The non-null branch carries 'user : User' to findAddress; the null branch joins earlyExit.",
-      "checkAddr": "Null guard #2: same pattern repeated. Skipping this is a latent bug.",
-      "checkCity": "Null guard #3: yet another check. Business logic is buried in guards.",
-      "earlyExit": "Any null terminates the chain here — three separate null paths converge.",
-      "nothing": "null — returned when any step failed. Caller must also guard against this.",
+      "findUser": "find_user(id) → Maybe User. May return Nothing if the user does not exist.",
+      "findAddress": "find_address(user.address_id) → Maybe Address. May return Nothing if no address on file.",
+      "findCity": "find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing.",
+      "checkUser": "Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit.",
+      "checkAddr": "Guard #2: same pattern repeated. Skipping this is a latent bug.",
+      "checkCity": "Guard #3: yet another check. Business logic is buried in guards.",
+      "earlyExit": "Any Nothing terminates the chain here — three separate failure paths converge.",
+      "nothing": "Nothing — returned when any step failed. Caller must also guard against this.",
       "cityName": "city.name — the happy-path result, reached only when all three checks pass."
     },
     "layout": "elk",
-    "title": "Without Maybe: explicit null guard at every step",
+    "title": "Without bind: explicit Nothing guard at every step",
     "name": "lookupUserCity"
   }
 }
