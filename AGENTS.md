@@ -91,3 +91,37 @@ make -C .tools <target>
 
 6. **Anonymous combinator output pins**: `bind`, `ap`, etc. typically have one output. Use
    `out _ : "Maybe b"` (or similar) so the pin square is rendered without a noisy `result` label.
+
+7. **Swimlanes (`lane` blocks)** in `*-motivation-with.sysml` files split plain-value land from
+   monadic land. Conventions:
+   - Top lane is `lane plain : "Plain values & functions" = …` and lists raw input, all HOF argument
+     objects, and the final output object.
+   - Bottom lane is `lane monad : "<Name> monad" = …` and lists the chain entry (`pureX`) and the
+     bind/ap/fmap action nodes.
+   - **Member order matters**: list members left-to-right in the order they should appear along the
+     chain. The layout engine column-aligns each cross-lane HOF object to its target action's x —
+     the natural "HOF dropping straight down into its bind" reading depends on the declaration order
+     matching the flow order.
+   - Lanes are decoration only. Do not try to encode flow direction or semantics through lanes.
+
+## Lessons learned — do not repeat
+
+- **Generated Langium imports** (`.tools/sysml/generated/module.ts`): after running
+  `make -C .tools langium-gen`, the generated `import './ast.js'` / `import './grammar.js'` lines
+  must be patched to `.ts` because the SysML CLI runs via `node --experimental-strip-types`. See
+  `/memories/repo/sysml-cli-imports.md`.
+- **ELK + lanes layout**: anchoring lane-row y-coordinates only works with
+  `elk.layered.nodePlacement.strategy = INTERACTIVE`. Mixing lane anchors with `mergeEdges = true`
+  causes straight horizontal chain edges to detour up through the inter-row routing channel; keep
+  `mergeEdges = false` and post-process same-lane horizontal edges into pure straight segments
+  (already implemented in `.tools/sysml/layout.ts`).
+- **HOF column alignment**: do not try to use `elk.layered.layering.layerChoiceConstraint` to pin
+  HOFs above their binds — it conflicts with the topological layering and produces compressed
+  columns. Instead, post-layout shift each cross-lane HOF object's `x` to match its target action's
+  `x` (one HOF → one bind), then rewrite the edge polyline to a clean vertical drop.
+- **Snapshots**: after any change to `.tools/sysml/` layout, parser, or render code, run
+  `make -C .tools test-update` to refresh the JSON / SVG snapshots, then `make -C .tools test` to
+  confirm. The snapshot suite is the regression net for the SysML pipeline.
+- **`isInitialSource` excludes HOFs**: a HOF object node has `n.isHof === true` and must not be
+  treated as a chain entry point even when it has no incoming edges. Otherwise ELK pins it to the
+  first layer and the chain entry node loses its FIRST-layer slot.
