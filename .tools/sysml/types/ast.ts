@@ -106,6 +106,20 @@ export interface NoteUsage {
   text:   string;
 }
 
+/**
+ * A swimlane: a labelled horizontal band that visually groups a set of
+ * nodes.  Lanes are decoration only — they draw a titled rectangle behind
+ * their members but do not themselves participate in flow.  Cross-lane
+ * edges (e.g. an HOF in the top lane feeding into a `bind` in the bottom
+ * lane) are routed normally by the layout engine.
+ */
+export interface LaneBlock {
+  kind:    "lane";
+  id:      string;
+  label?:  string;
+  members: string[];
+}
+
 export interface ActivityDef {
   kind: "activityDef";
   name: string;
@@ -116,6 +130,7 @@ export interface ActivityDef {
   flows: FlowUsage[];
   successions: SuccessionUsage[];
   notes: NoteUsage[];
+  lanes: LaneBlock[];
 }
 
 // ── Package / Model ────────────────────────────────────────────────────────

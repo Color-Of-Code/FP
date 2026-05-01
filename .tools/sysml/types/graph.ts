@@ -23,6 +23,13 @@ export interface GNode {
   w: number; h: number;
   inPins:     string[];
   outPins:    string[];
+  /**
+   * Optional per-pin side override (action nodes only).  When set, the pin
+   * is rendered on the named edge of the node instead of the default
+   * (in pins on west, out pins on east in LR layout).  Values are the
+   * compass-style sides used by ELK: "N", "S", "E", "W".
+   */
+  pinSides?:  Record<string, "N" | "S" | "E" | "W">;
   /** Multi-line text body for note nodes (split on \n). */
   noteLines?: string[];
 }

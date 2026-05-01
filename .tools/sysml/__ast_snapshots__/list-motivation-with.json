@@ -135,7 +135,31 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "xs",
+                "ys",
+                "outerFn",
+                "innerFn",
+                "result"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "List monad",
+              "members": [
+                "bindOuter",
+                "bindInner",
+                "purePair"
+              ]
+            }
+          ]
         }
       ]
     }

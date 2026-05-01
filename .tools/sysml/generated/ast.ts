@@ -18,6 +18,7 @@ export type SysmlTerminalNames = keyof typeof SysmlTerminals;
 
 export type SysmlKeywordNames =
     | "#"
+    | ","
     | "."
     | ":"
     | ";"
@@ -38,6 +39,7 @@ export type SysmlKeywordNames =
     | "ibd"
     | "in"
     | "inout"
+    | "lane"
     | "layout"
     | "merge"
     | "name"
@@ -113,7 +115,7 @@ export function isActivityDef(item: unknown): item is ActivityDef {
     return reflection.isInstance(item, ActivityDef.$type);
 }
 
-export type ActivityMember = ActionUsage | DecisionNode | FlowUsage | MergeNode | NoteUsage | ObjectNode | SuccessionUsage;
+export type ActivityMember = ActionUsage | DecisionNode | FlowUsage | LaneBlock | MergeNode | NoteUsage | ObjectNode | SuccessionUsage;
 
 export const ActivityMember = {
     $type: 'ActivityMember'
@@ -261,6 +263,25 @@ export function isKvValue(item: unknown): item is KvValue {
     return item === 'ibd' || item === 'in' || item === 'out' || item === 'inout' || item === 'type' || item === 'title' || item === 'name' || item === 'direction' || item === 'layout' || item === 'render' || item === 'activity' || item === 'merge' || item === 'decision' || (typeof item === 'string' && (/"(?:[^"\\]|\\.)*"/.test(item) || /[A-Za-z_][\w]*/.test(item)));
 }
 
+export interface LaneBlock extends langium.AstNode {
+    readonly $container: ActivityDef;
+    readonly $type: 'LaneBlock';
+    id?: Name;
+    label?: StrOrIdent;
+    members: Array<Path>;
+}
+
+export const LaneBlock = {
+    $type: 'LaneBlock',
+    id: 'id',
+    label: 'label',
+    members: 'members'
+} as const;
+
+export function isLaneBlock(item: unknown): item is LaneBlock {
+    return reflection.isInstance(item, LaneBlock.$type);
+}
+
 export interface MergeNode extends langium.AstNode {
     readonly $container: ActivityDef;
     readonly $type: 'MergeNode';
@@ -294,10 +315,10 @@ export function isModel(item: unknown): item is Model {
     return reflection.isInstance(item, Model.$type);
 }
 
-export type Name = 'activity' | 'decision' | 'direction' | 'layout' | 'merge' | 'name' | 'note' | 'on' | 'render' | 'title' | 'type' | string;
+export type Name = 'activity' | 'decision' | 'direction' | 'lane' | 'layout' | 'merge' | 'name' | 'note' | 'on' | 'render' | 'title' | 'type' | string;
 
 export function isName(item: unknown): item is Name {
-    return item === 'type' || item === 'name' || item === 'title' || item === 'direction' || item === 'layout' || item === 'render' || item === 'merge' || item === 'decision' || item === 'activity' || item === 'note' || item === 'on' || (typeof item === 'string' && (/[A-Za-z_][\w]*/.test(item)));
+    return item === 'type' || item === 'name' || item === 'title' || item === 'direction' || item === 'layout' || item === 'render' || item === 'merge' || item === 'decision' || item === 'activity' || item === 'note' || item === 'on' || item === 'lane' || (typeof item === 'string' && (/[A-Za-z_][\w]*/.test(item)));
 }
 
 export interface NoteUsage extends langium.AstNode {
@@ -524,6 +545,7 @@ export type SysmlAstType = {
     FlowUsage: FlowUsage
     InlinePort: InlinePort
     KvField: KvField
+    LaneBlock: LaneBlock
     MergeNode: MergeNode
     Model: Model
     NoteUsage: NoteUsage
@@ -676,6 +698,22 @@ export class SysmlAstReflection extends langium.AbstractAstReflection {
                 }
             },
             superTypes: [DiagramField.$type]
+        },
+        LaneBlock: {
+            name: LaneBlock.$type,
+            properties: {
+                id: {
+                    name: LaneBlock.id
+                },
+                label: {
+                    name: LaneBlock.label
+                },
+                members: {
+                    name: LaneBlock.members,
+                    defaultValue: []
+                }
+            },
+            superTypes: [ActivityMember.$type]
         },
         MergeNode: {
             name: MergeNode.$type,

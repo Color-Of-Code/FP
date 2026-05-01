@@ -167,7 +167,29 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "readPortFn",
+                "pureUrlFn",
+                "url"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "Reader monad",
+              "members": [
+                "asksHost",
+                "bindHost",
+                "bindPair"
+              ]
+            }
+          ]
         }
       ]
     }

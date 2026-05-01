@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1546.8 280" width="1546.8" height="280">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1952.8 210" width="1952.8" height="210">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,129 +11,139 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1546.8" height="280" fill="white"/>
-  <text x="773.4" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With pure + bind: Left propagates automatically; every step has the same shape</text>
+  <rect width="1952.8" height="210" fill="white"/>
+  <text x="976.4" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With pure + bind: Left propagates automatically; every step has the same shape</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="1546.8" height="252" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1952.8" height="182" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L189.6,0 L189.6,12 L179.6,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="94.8" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» parseValidateSave</text>
     </g>
-    <g class="edge">
-      <path d="M315.2,59.0 L320.2,59.0 Q325.2,59.0 325.2,64.0 L325.2,80.0 Q325.2,81.0 326.2,81.0 L327.2,81.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    <g class="swimlane lane-plain">
+      <rect x="6" y="28" width="1940.8" height="71" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="28" width="1940.8" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <text x="16" y="38" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">Plain values &amp; functions</text>
+    </g>
+    <g class="swimlane lane-monad">
+      <rect x="6" y="99" width="1940.8" height="77" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="99" width="1940.8" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <text x="16" y="109" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">Either monad</text>
     </g>
     <g class="edge">
-      <path d="M467.2,81.0 L570.2,81.0 Q576.2,81.0 576.2,87.0 L576.2,92.0 Q576.2,93.0 577.2,93.0 L578.2,93.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="523.7" y="75" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Either e String</text>
+      <path d="M146.0,59.0 L151.0,59.0 Q156.0,59.0 156.0,64.0 L156.0,141.0 Q156.0,142.0 157.0,142.0 L158.0,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M718.2,102.0 L821.2,102.0 Q827.2,102.0 827.2,108.0 L827.2,144.0 Q827.2,145.0 828.2,145.0 L829.2,145.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="774.7" y="96" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Either e Parsed</text>
+      <path d="M298.0,142.0 L598.8,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="454.4" y="136" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Either e String</text>
     </g>
     <g class="edge">
-      <path d="M969.2,154.0 L1072.2,154.0 Q1073.2,154.0 1073.2,155.0 L1073.2,155.0 Q1073.2,156.0 1074.2,156.0 L1075.2,156.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1023.2" y="148" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Either e Valid</text>
+      <path d="M738.8,142.0 L1054.0,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="902.4" y="136" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Either e Parsed</text>
     </g>
     <g class="edge">
-      <path d="M1215.2,165.0 L1313.2,165.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1272.2" y="159" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Either e Saved</text>
+      <path d="M1194.0,142.0 L1473.2,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1339.6" y="136" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Either e Valid</text>
+    </g>
+    <g class="edge">
+      <path d="M1613.2,142.0 L1621.2,142.0 Q1627.2,142.0 1627.2,136.0 L1627.2,60.0 Q1627.2,54.0 1633.2,54.0 L1718.7,54.0 Q1721.2,54.0 1721.2,56.5 L1721.2,59.0 L1721.2,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1674.2" y="48" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Either e Saved</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M315.2,111.0 L578.2,111.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M674.8,79.0 L674.8,104.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M315.2,163.0 L829.2,163.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M1130.0,79.0 L1130.0,104.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M315.2,215.0 L320.2,215.0 Q325.2,215.0 325.2,210.0 L325.2,190.0 Q325.2,184.0 331.2,184.0 L1068.2,184.0 Q1073.2,184.0 1073.2,179.0 L1073.2,175.0 Q1073.2,174.0 1074.2,174.0 L1075.2,174.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M1549.2,79.0 L1549.2,104.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="action-node">
       <title>pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind.</title>
-      <rect x="343.2" y="59" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="403.2" y="81" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pureRaw</text>
+      <rect x="174" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="234" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pureRaw</text>
       <g class="pin pin-in">
-        <rect x="339.2" y="77" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="349.2" y="81" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
+        <rect x="170" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="180" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a</text>
       </g>
       <g class="pin pin-out">
-        <rect x="459.2" y="77" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="290" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates.</title>
-      <rect x="594.2" y="80" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="654.2" y="102" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindParse</text>
+      <rect x="614.8" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="674.8" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindParse</text>
       <g class="pin pin-in">
-        <rect x="590.2" y="90.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="600.2" y="94.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">ma</text>
+        <rect x="610.8" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="620.8" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ma</text>
       </g>
       <g class="pin pin-in">
-        <rect x="590.2" y="105.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="600.2" y="109.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <rect x="670.8" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="674.8" y="114" text-anchor="middle" dominant-baseline="alphabetic" font-size="8" font-family="sans-serif" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="710.2" y="98" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="730.8" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern.</title>
-      <rect x="845.2" y="132" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="905.2" y="154" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindValidate</text>
+      <rect x="1070" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="1130" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindValidate</text>
       <g class="pin pin-in">
-        <rect x="841.2" y="142.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="851.2" y="146.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">ma</text>
+        <rect x="1066" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1076" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ma</text>
       </g>
       <g class="pin pin-in">
-        <rect x="841.2" y="157.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="851.2" y="161.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <rect x="1126" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1130" y="114" text-anchor="middle" dominant-baseline="alphabetic" font-size="8" font-family="sans-serif" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="961.2" y="150" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="1186" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : takes Either e Valid and (Valid → Either e Saved). Same pattern.</title>
-      <rect x="1091.2" y="143" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="1151.2" y="165" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindSave</text>
+      <rect x="1489.2" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="1549.2" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindSave</text>
       <g class="pin pin-in">
-        <rect x="1087.2" y="153.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1097.2" y="157.66666666666666" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">ma</text>
+        <rect x="1485.2" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1495.2" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ma</text>
       </g>
       <g class="pin pin-in">
-        <rect x="1087.2" y="168.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1097.2" y="172.33333333333334" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <rect x="1545.2" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="1549.2" y="114" text-anchor="middle" dominant-baseline="alphabetic" font-size="8" font-family="sans-serif" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="1207.2" y="161" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="1605.2" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="object-node">
       <title>Raw input — for example a request body or untrusted user data.</title>
-      <rect x="205.2" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="260.2" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">raw : String</text>
+      <rect x="36" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">raw : String</text>
     </g>
     <g class="object-node hof">
       <title>parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow.</title>
-      <rect x="50.39999999999998" y="92" width="264.8" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="182.79999999999998" y="104" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="182.79999999999998" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">parseFn : String ⟶ Either e Parsed</text>
+      <rect x="542.4" y="40" width="264.8" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="674.8" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="674.8" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">parseFn : String ⟶ Either e Parsed</text>
     </g>
     <g class="object-node hof">
       <title>validate : Parsed → Either e Valid. Same: supplied to bind as the continuation.</title>
-      <rect x="36" y="144" width="279.2" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="175.6" y="156" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="175.6" y="170" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">validateFn : Parsed ⟶ Either e Valid</text>
+      <rect x="990.4" y="40" width="279.2" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="1130" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="1130" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">validateFn : Parsed ⟶ Either e Valid</text>
     </g>
     <g class="object-node hof">
       <title>save : Valid → Either e Saved. Same: supplied to bind as the continuation.</title>
-      <rect x="71.99999999999996" y="196" width="243.20000000000002" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="193.59999999999997" y="208" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="193.59999999999997" y="222" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">saveFn : Valid ⟶ Either e Saved</text>
+      <rect x="1427.6000000000001" y="40" width="243.20000000000002" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="1549.2" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="1549.2" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">saveFn : Valid ⟶ Either e Saved</text>
     </g>
     <g class="object-node">
       <title>Either e Saved — Right on the happy path; the very first Left otherwise.</title>
-      <rect x="1325.2" y="146" width="185.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1418" y="165" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">eSaved : Either e Saved</text>
+      <rect x="1731.2" y="40" width="185.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1824" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">eSaved : Either e Saved</text>
     </g>
   </g>
 </svg>

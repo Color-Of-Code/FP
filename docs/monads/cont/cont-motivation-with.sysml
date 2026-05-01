@@ -72,6 +72,12 @@ package ContMotivationWith {
         flow from step2Fn   to bindStep2;
         flow from step3Fn   to bindStep3;
 
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            step1Fn, step2Fn, step3Fn, outVal;
+        lane monad : "Cont monad" =
+            callCC, bindStep1, bindStep2, bindStep3;
+
         // captured continuation: calling exit a inside any step jumps
         // directly to the runCont call site, bypassing every bind
         flow from callCC    to outVal    : "exit a — direct jump (skips all binds)";

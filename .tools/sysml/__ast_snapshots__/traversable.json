@@ -96,7 +96,8 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": []
         },
         {
           "kind": "activityDef",
@@ -135,7 +136,8 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": []
         }
       ]
     }

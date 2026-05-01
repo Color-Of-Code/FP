@@ -67,6 +67,12 @@ package ReaderMotivationWith {
         // each Reader-producing function is supplied to its bind as the f argument
         flow from readPortFn to bindHost;
         flow from pureUrlFn  to bindPair;
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            readPortFn, pureUrlFn, url;
+        lane monad : "Reader monad" =
+            asksHost, bindHost, bindPair;
     }
 }
 

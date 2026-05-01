@@ -23,7 +23,7 @@ import type {
   PortDef, PortUsage, PartUsage, ConnectionUsage,
   PartDef, ActionDef, ActionUsage, ObjectNode,
   DecisionNode, MergeNode, FlowUsage, SuccessionUsage,
-  NoteUsage,
+  NoteUsage, LaneBlock,
   ActivityDef, PackageDecl, DiagramMeta, Model,
 } from "./types.ts";
 
@@ -192,6 +192,15 @@ function adaptNote(g: G.NoteUsage): NoteUsage {
   };
 }
 
+function adaptLaneBlock(g: G.LaneBlock): LaneBlock {
+  return {
+    kind:    "lane",
+    id:      g.id ?? "",
+    label:   g.label !== undefined ? strOrIdent(g.label) : undefined,
+    members: (g.members ?? []).map(m => strOrIdent(m as unknown as string)),
+  };
+}
+
 function adaptActivityDef(g: G.ActivityDef): ActivityDef {
   const actions:     ActionUsage[]     = [];
   const objects:     ObjectNode[]      = [];
@@ -200,6 +209,7 @@ function adaptActivityDef(g: G.ActivityDef): ActivityDef {
   const flows:       FlowUsage[]       = [];
   const successions: SuccessionUsage[] = [];
   const notes:       NoteUsage[]       = [];
+  const lanes:       LaneBlock[]       = [];
   for (const m of g.members) {
     if      (G.isActionUsage(m))     actions.push(adaptActionUsage(m));
     else if (G.isObjectNode(m))      objects.push(adaptObjectNode(m));
@@ -208,11 +218,12 @@ function adaptActivityDef(g: G.ActivityDef): ActivityDef {
     else if (G.isFlowUsage(m))       flows.push(adaptFlowUsage(m));
     else if (G.isSuccessionUsage(m)) successions.push(adaptSuccession(m));
     else if (G.isNoteUsage(m))       notes.push(adaptNote(m));
+    else if (G.isLaneBlock(m))       lanes.push(adaptLaneBlock(m));
   }
   return {
     kind: "activityDef",
     name: g.name ?? "",
-    actions, objects, decisions, merges, flows, successions, notes,
+    actions, objects, decisions, merges, flows, successions, notes, lanes,
   };
 }
 

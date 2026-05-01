@@ -51,6 +51,12 @@ package ParserMotivationWith {
 
         // the parsing continuation is supplied as the f argument
         flow from letterFn    to bindLetter;
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            letterFn, outResult;
+        lane monad : "Parser monad" =
+            digit, bindLetter;
     }
 }
 

@@ -13,10 +13,11 @@ import {
   FRAME_PAD, FRAME_TAB_H,
   nodeDims,
 } from "../types.ts";
-import { layoutGraph } from "../layout.ts";
+import { layoutGraph, type LaneSpec, type LaneGeom } from "../layout.ts";
 import { appendGNode } from "./nodes.ts";
 import { appendGEdge } from "./edges.ts";
 import { appendActivityFrame } from "./frame.ts";
+import { appendLaneBand } from "./lane.ts";
 import { assignActionPins } from "./pin.ts";
 import type { RenderPlan } from "./title.ts";
 
@@ -124,9 +125,16 @@ export async function renderActivity(
   // Match each object-flow edge to a named pin on action endpoints.
   assignActionPins(edges, nodeMap);
 
+  // ── Lanes (swimlane decoration) ─────────────────────────────────────────
+  const laneSpecs: LaneSpec[] = (actDef.lanes ?? []).map(l => ({
+    id:      l.id,
+    label:   l.label,
+    members: l.members,
+  }));
+
   // ── Layout + routing via ELK ───────────────────────────────────────────
-  const { width: innerW, height: innerH, edgePaths } = await layoutGraph(
-    nodes, edges, diagram.direction ?? "LR",
+  const { width: innerW, height: innerH, edgePaths, lanes: laneGeoms } = await layoutGraph(
+    nodes, edges, diagram.direction ?? "LR", laneSpecs,
   );
 
   // Shift everything inside the activity frame.
@@ -139,6 +147,11 @@ export async function renderActivity(
   const shiftedPaths = edgePaths.map(pts =>
     pts.map(([x, y]) => [x + dx, y + dy] as [number, number]),
   );
+  const shiftedLanes: LaneGeom[] = laneGeoms.map(l => ({
+    ...l,
+    x: l.x + dx,
+    y: l.y + dy,
+  }));
 
   const W = innerW + 2 * FRAME_PAD;
   const H = innerH + 2 * FRAME_PAD + FRAME_TAB_H;
@@ -148,6 +161,9 @@ export async function renderActivity(
     height: H,
     draw(parent) {
       appendActivityFrame(parent, diagram.name ?? actDef.name, W, H);
+      // Lane bands sit between the frame and the edges so they read as
+      // background scenery without occluding flows or nodes.
+      shiftedLanes.forEach(l => appendLaneBand(parent, l));
       edges.forEach((e, i) => {
         appendGEdge(parent, e, shiftedPaths[i]);
       });

@@ -48,6 +48,12 @@ package ProbMotivationWith {
 
         // the conditional distribution is supplied as the f argument
         flow from rollDieFn  to bindRoll;
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            rollDieFn, outResult;
+        lane monad : "Prob monad" =
+            biasedCoin, bindRoll;
     }
 }
 

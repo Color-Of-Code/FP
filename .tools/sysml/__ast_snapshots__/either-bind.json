@@ -154,7 +154,8 @@
               "target": "apply_f",
               "text": "Whatever f returns (Right b' or Left e')\\nis forwarded UNCHANGED — bind never\\ninspects or rewraps f's result."
             }
-          ]
+          ],
+          "lanes": []
         }
       ]
     }

@@ -204,7 +204,32 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "raw",
+                "parseFn",
+                "validateFn",
+                "saveFn",
+                "eSaved"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "Either monad",
+              "members": [
+                "pureRaw",
+                "bindParse",
+                "bindValidate",
+                "bindSave"
+              ]
+            }
+          ]
         }
       ]
     }

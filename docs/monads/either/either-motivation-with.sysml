@@ -75,6 +75,16 @@ package EitherMotivationWith {
         flow from parseFn      to bindParse;
         flow from validateFn   to bindValidate;
         flow from saveFn       to bindSave;
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        // Top lane: raw input, final output, and the user-supplied fallible
+        // functions all live in plain-value land.
+        // Bottom lane: pure (entry into the monad) and the bind chain — the
+        // operations that work on the elevated values.
+        lane plain : "Plain values & functions" =
+            raw, parseFn, validateFn, saveFn, eSaved;
+        lane monad : "Either monad" =
+            pureRaw, bindParse, bindValidate, bindSave;
     }
 }
 

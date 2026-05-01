@@ -165,7 +165,30 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "path",
+                "readFileFn",
+                "logCompFn",
+                "ioResult"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "IO monad",
+              "members": [
+                "purePath",
+                "bindRead",
+                "bindLogComp"
+              ]
+            }
+          ]
         }
       ]
     }

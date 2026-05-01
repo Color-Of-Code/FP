@@ -69,6 +69,12 @@ package IOMotivationWith {
         // each effectful function is supplied to its bind as the f argument
         flow from readFileFn  to bindRead;
         flow from logCompFn   to bindLogComp;
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            path, readFileFn, logCompFn, ioResult;
+        lane monad : "IO monad" =
+            purePath, bindRead, bindLogComp;
     }
 }
 

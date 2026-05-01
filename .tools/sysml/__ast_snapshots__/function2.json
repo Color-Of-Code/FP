@@ -128,7 +128,8 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": []
         },
         {
           "kind": "activityDef",
@@ -205,7 +206,8 @@
               "to": "applyA"
             }
           ],
-          "notes": []
+          "notes": [],
+          "lanes": []
         }
       ]
     }

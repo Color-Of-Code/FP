@@ -110,7 +110,27 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "letterFn",
+                "outResult"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "Parser monad",
+              "members": [
+                "digit",
+                "bindLetter"
+              ]
+            }
+          ]
         }
       ]
     }

@@ -60,7 +60,16 @@ ActivityDef:
     )?;
 
 ActivityMember:
-    ActionUsage | ObjectNode | DecisionNode | MergeNode | FlowUsage | SuccessionUsage | NoteUsage;
+    ActionUsage | ObjectNode | DecisionNode | MergeNode | FlowUsage | SuccessionUsage | NoteUsage | LaneBlock;
+
+// A swimlane: a labelled horizontal band that groups a set of nodes.
+// Lanes are a purely visual grouping — they decorate the rendered diagram
+// with a titled rectangle around their members.  In a layout with `direction
+// = TB` (top→bottom) the lanes stack vertically and each lane's members lay
+// out horizontally inside their band.
+LaneBlock:
+    {infer LaneBlock} 'lane' id=Name (':' label=StrOrIdent)? '='
+        members+=Path (',' members+=Path)* ';'?;
 
 ActionUsage:
     {infer ActionUsage} 'action' id=Name (':' type=StrOrIdent)? ';'?;
@@ -112,7 +121,7 @@ TooltipField:
 
 Name returns string:
     ID | 'type' | 'name' | 'title' | 'direction' | 'layout' | 'render'
-    | 'merge' | 'decision' | 'activity' | 'note' | 'on';
+    | 'merge' | 'decision' | 'activity' | 'note' | 'on' | 'lane';
 
 KvValue returns string:
     STRING | ID | 'ibd' | 'in' | 'out' | 'inout'

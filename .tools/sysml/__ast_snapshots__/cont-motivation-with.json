@@ -200,7 +200,31 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "step1Fn",
+                "step2Fn",
+                "step3Fn",
+                "outVal"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "Cont monad",
+              "members": [
+                "callCC",
+                "bindStep1",
+                "bindStep2",
+                "bindStep3"
+              ]
+            }
+          ]
         }
       ]
     }

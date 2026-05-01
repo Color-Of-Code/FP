@@ -54,6 +54,12 @@ package STMMotivationWith {
         // each STM continuation is supplied as the f argument
         flow from writeAThenFn to bindWriteA;
         flow from writeBFn     to bindWriteB;
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            writeAThenFn, writeBFn, commit;
+        lane monad : "STM monad" =
+            readA, bindWriteA, bindWriteB;
     }
 }
 

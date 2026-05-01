@@ -33,11 +33,11 @@
       <text class="action-label" x="348.8" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cc</text>
       <g class="pin pin-in">
         <rect x="284.8" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="294.8" y="62" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <text x="294.8" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
         <rect x="404.8" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="402.8" y="62" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">ca</text>
+        <text x="402.8" y="62" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ca</text>
       </g>
     </g>
     <g class="object-node">

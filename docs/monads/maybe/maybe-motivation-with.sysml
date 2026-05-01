@@ -87,6 +87,12 @@ package MaybeMotivationWith {
         flow from findAddrFn  to bindAddr;
         flow from findCityFn  to bindCity;
         flow from liftNameFn  to bindName;
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            userId, findUserFn, findAddrFn, findCityFn, liftNameFn, cityName;
+        lane monad : "Maybe monad" =
+            pureId, bindUser, bindAddr, bindCity, bindName;
     }
 }
 

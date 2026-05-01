@@ -75,6 +75,12 @@ package WriterMotivationWith {
         flow from step1Fn   to bindStep1;
         flow from step2Fn   to bindStep2;
         flow from step3Fn   to bindStep3;
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            x, step1Fn, step2Fn, step3Fn, outResult;
+        lane monad : "Writer monad" =
+            pureX, bindStep1, bindStep2, bindStep3;
     }
 }
 

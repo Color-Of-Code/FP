@@ -67,19 +67,19 @@
       <text class="action-label" x="219" y="148" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1</text>
       <g class="pin pin-in">
         <rect x="155" y="133" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="165" y="137" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
+        <text x="165" y="137" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">b</text>
       </g>
       <g class="pin pin-in">
         <rect x="155" y="144" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="165" y="148" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
+        <text x="165" y="148" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a</text>
       </g>
       <g class="pin pin-in">
         <rect x="155" y="155" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="165" y="159" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <text x="165" y="159" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
         <rect x="275" y="144" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="273" y="148" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
+        <text x="273" y="148" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">bOut</text>
       </g>
     </g>
     <g class="action-node">
@@ -88,19 +88,19 @@
       <text class="action-label" x="219" y="306" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2</text>
       <g class="pin pin-in">
         <rect x="155" y="291" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="165" y="295" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
+        <text x="165" y="295" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">b</text>
       </g>
       <g class="pin pin-in">
         <rect x="155" y="302" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="165" y="306" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
+        <text x="165" y="306" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a</text>
       </g>
       <g class="pin pin-in">
         <rect x="155" y="313" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="165" y="317" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <text x="165" y="317" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
         <rect x="275" y="302" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="273" y="306" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
+        <text x="273" y="306" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">bOut</text>
       </g>
     </g>
     <g class="action-node">
@@ -109,19 +109,19 @@
       <text class="action-label" x="180" y="464" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3</text>
       <g class="pin pin-in">
         <rect x="116" y="449" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="126" y="453" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
+        <text x="126" y="453" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">b</text>
       </g>
       <g class="pin pin-in">
         <rect x="116" y="460" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="126" y="464" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
+        <text x="126" y="464" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a</text>
       </g>
       <g class="pin pin-in">
         <rect x="116" y="471" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="126" y="475" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">f</text>
+        <text x="126" y="475" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
         <rect x="236" y="460" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="234" y="464" text-anchor="end" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">bOut</text>
+        <text x="234" y="464" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">bOut</text>
       </g>
     </g>
     <g class="object-node hof">

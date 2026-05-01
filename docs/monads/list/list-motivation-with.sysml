@@ -60,6 +60,12 @@ package ListMotivationWith {
 
         // innerFn's body: pure (x, y)
         flow from purePair  to result    : "(via inner bind)";
+
+        // ── Swimlanes ───────────────────────────────────────────────────────
+        lane plain : "Plain values & functions" =
+            xs, ys, outerFn, innerFn, result;
+        lane monad : "List monad" =
+            bindOuter, bindInner, purePair;
     }
 }
 

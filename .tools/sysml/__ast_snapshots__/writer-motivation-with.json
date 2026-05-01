@@ -204,7 +204,32 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "x",
+                "step1Fn",
+                "step2Fn",
+                "step3Fn",
+                "outResult"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "Writer monad",
+              "members": [
+                "pureX",
+                "bindStep1",
+                "bindStep2",
+                "bindStep3"
+              ]
+            }
+          ]
         }
       ]
     }

@@ -52,11 +52,11 @@
       <text class="action-label" x="266.4" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1</text>
       <g class="pin pin-in">
         <rect x="202.39999999999998" y="56.666666666666664" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="212.39999999999998" y="60.666666666666664" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">a</text>
+        <text x="212.39999999999998" y="60.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a</text>
       </g>
       <g class="pin pin-in">
         <rect x="202.39999999999998" y="71.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="212.39999999999998" y="75.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sIn</text>
+        <text x="212.39999999999998" y="75.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
       </g>
       <g class="pin pin-out">
         <rect x="322.4" y="64" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
@@ -68,11 +68,11 @@
       <text class="action-label" x="599.4" y="77" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2</text>
       <g class="pin pin-in">
         <rect x="535.4" y="65.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="545.4" y="69.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">b</text>
+        <text x="545.4" y="69.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">b</text>
       </g>
       <g class="pin pin-in">
         <rect x="535.4" y="80.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="545.4" y="84.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sIn</text>
+        <text x="545.4" y="84.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
       </g>
       <g class="pin pin-out">
         <rect x="655.4" y="73" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
@@ -84,11 +84,11 @@
       <text class="action-label" x="932.4" y="86" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3</text>
       <g class="pin pin-in">
         <rect x="868.4" y="74.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="878.4" y="78.66666666666667" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">c</text>
+        <text x="878.4" y="78.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">c</text>
       </g>
       <g class="pin pin-in">
         <rect x="868.4" y="89.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="878.4" y="93.33333333333333" text-anchor="start" font-size="8" font-family="sans-serif" dominant-baseline="middle" fill="#555">sIn</text>
+        <text x="878.4" y="93.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
       </g>
       <g class="pin pin-out">
         <rect x="988.4" y="82" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>

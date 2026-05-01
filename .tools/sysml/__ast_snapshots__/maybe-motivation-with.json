@@ -243,7 +243,34 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "userId",
+                "findUserFn",
+                "findAddrFn",
+                "findCityFn",
+                "liftNameFn",
+                "cityName"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "Maybe monad",
+              "members": [
+                "pureId",
+                "bindUser",
+                "bindAddr",
+                "bindCity",
+                "bindName"
+              ]
+            }
+          ]
         }
       ]
     }

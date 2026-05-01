@@ -125,7 +125,29 @@
             }
           ],
           "successions": [],
-          "notes": []
+          "notes": [],
+          "lanes": [
+            {
+              "kind": "lane",
+              "id": "plain",
+              "label": "Plain values & functions",
+              "members": [
+                "writeAThenFn",
+                "writeBFn",
+                "commit"
+              ]
+            },
+            {
+              "kind": "lane",
+              "id": "monad",
+              "label": "STM monad",
+              "members": [
+                "readA",
+                "bindWriteA",
+                "bindWriteB"
+              ]
+            }
+          ]
         }
       ]
     }
