@@ -31,6 +31,7 @@ export async function renderActivity(
 ): Promise<RenderPlan> {
   const nodes: GNode[]           = [];
   const nodeMap = new Map<string, GNode>();
+  const hideInPinLabels = (actDef.lanes?.length ?? 0) > 0;
 
   // ── Action nodes ───────────────────────────────────────────────────────
   for (const a of actDef.actions) {
@@ -40,6 +41,7 @@ export async function renderActivity(
     const n: GNode = {
       id: a.id, label: a.id, stereotype: a.type,
       kind: "action", isHof: false,
+      hideInPinLabels,
       tooltip: diagram.tooltips[a.id],
       x: 0, y: 0, w: ACTION_W, h: ACTION_H,
       inPins, outPins,

@@ -155,7 +155,7 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
       stroke: COL.pinStroke,
       "stroke-width": 1,
     });
-    if (pin !== "_") appendText(pinGroup, pin, {
+    if (pin !== "_" && !n.hideInPinLabels) appendText(pinGroup, pin, {
       ...labelAttrs,
       "font-size": 8,
       "font-family": "sans-serif",

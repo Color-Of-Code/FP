@@ -155,15 +155,16 @@ export async function layoutGraph(
   const edgeSrcPort = new Map<number, string>();
   const edgeTgtPort = new Map<number, string>();
 
-  // ── Cross-lane HOF pin override ──────────────────────────────────────────
-  // When a HOF object in one lane feeds into an action in another lane, we
-  // want the destination pin on the perpendicular side (the side that faces
-  // the source's lane), so the connecting edge becomes a clean vertical
-  // drop (LR layout) or sideways shift (TB).  Without this, ELK still
-  // attaches the pin on the WEST/NORTH side and routes a long detour back.
-  // We also add a single port on the HOF object's matching side so the
-  // edge originates from the bottom (LR) / right (TB) of the HOF instead
-  // of its west/east edge.
+  // ── Cross-lane object → action pin override ──────────────────────────────
+  // When an object in one lane feeds into an action in another lane, we want
+  // the destination pin on the perpendicular side (the side that faces the
+  // source's lane), so the connecting edge becomes a clean vertical drop
+  // (LR layout) or sideways shift (TB).  Without this, ELK still attaches
+  // the pin on the WEST/NORTH side and routes a detour back into the node.
+  // We also add a single port on the source object on the matching side so
+  // the edge originates from the bottom (LR) / right (TB) of the object
+  // instead of its west/east edge.  This applies both to HOF objects feeding
+  // binds and to plain input objects feeding `pure`.
   //
   // Sides per leaf direction:
   //   LR layout: source above  → action pin NORTH, HOF port SOUTH.
@@ -181,10 +182,10 @@ export async function layoutGraph(
     const laneRankFor = new Map<string, number>();
     lanes.forEach((l, i) => l.members.forEach(m => laneRankFor.set(m, i)));
     edges.forEach((e, idx) => {
-      if (!e.isObjectFlow || !e.isHof || !e.dstPin) return;
+      if (!e.isObjectFlow || !e.dstPin) return;
       const src = nodeIndex.get(e.from);
       const tgt = nodeIndex.get(e.to);
-      if (!src || !tgt || tgt.kind !== "action") return;
+      if (!src || !tgt || src.kind !== "object" || tgt.kind !== "action") return;
       const sr = laneRankFor.get(src.id);
       const tr = laneRankFor.get(tgt.id);
       if (sr === undefined || tr === undefined || sr === tr) return;
@@ -201,7 +202,7 @@ export async function layoutGraph(
       const compass = actSide[0] as "N" | "S" | "E" | "W";
       tgt.pinSides = { ...(tgt.pinSides ?? {}), [e.dstPin]: compass };
 
-      // Reserve a single port on the HOF object node on the matching side.
+      // Reserve a single port on the source object node on the matching side.
       const portId = objectPortIdOf(src.id, objSide);
       const list = objectPorts.get(src.id) ?? [];
       if (!list.find(p => p.portId === portId)) list.push({ side: objSide, portId });
@@ -393,16 +394,12 @@ export async function layoutGraph(
   if (useLanes) {
     const laneRankFor = new Map<string, number>();
     lanes.forEach((l, i) => l.members.forEach(m => laneRankFor.set(m, i)));
-    const LANE_ROW = 80;
+    const LANE_TOP = 14;
+    const LANE_ROW = 74;
     for (const c of children) {
       const r = laneRankFor.get(c.id);
       if (r === undefined) continue;
-      // Skip HOF nodes — ELK already places them on the source side based
-      // on their feeding edges, and giving them an anchor here can pull
-      // them into the chain row.
-      const n = nodeIndex.get(c.id);
-      if (n?.isHof) continue;
-      c.y = r * LANE_ROW;
+      c.y = LANE_TOP + r * LANE_ROW;
     }
   }
 
@@ -424,6 +421,7 @@ export async function layoutGraph(
     "elk.layered.mergeEdges":                            "true",
   };
   if (useLanes) {
+    rootLayoutOptions["elk.layered.spacing.nodeNodeBetweenLayers"] = String(Math.max(34, Math.floor(EDGE_GAP * 0.6)));
     rootLayoutOptions["elk.layered.nodePlacement.strategy"] = "INTERACTIVE";
     rootLayoutOptions["elk.layered.mergeEdges"]              = "false";
     rootLayoutOptions["elk.edgeLabels.inline"]               = "true";
@@ -451,33 +449,118 @@ export async function layoutGraph(
     }
   }
 
-  // ── Column-align cross-lane HOFs above their target bind ─────────────────
-  // For each cross-lane object→action HOF edge, snap the HOF object's
-  // x-centre to the action's x-centre so the connecting arrow becomes a
-  // clean vertical drop.  Only nodes that participate in exactly one HOF
-  // edge are realigned, and only when the shift does not collide with
-  // another lane member at the same y (the HOFs are already roughly
-  // strung out left-to-right so collisions are rare in practice).
+  // ── Column-align cross-lane objects above their target action ────────────
+  // For each cross-lane object→action edge, snap the object's x-centre to
+  // the action's x-centre so the connecting arrow becomes a clean vertical
+  // drop.  This handles both HOF objects feeding binds and plain entry
+  // objects feeding `pure`.
   if (useLanes) {
-    // Map node id → set of cross-lane HOF target ids it feeds.
-    const hofTargets = new Map<string, string[]>();
+    const objectTargets = new Map<string, string[]>();
     const laneOf = new Map<string, string>();
     lanes.forEach(l => l.members.forEach(m => laneOf.set(m, l.id)));
     for (const e of edges) {
-      if (!e.isObjectFlow || !e.isHof) continue;
+      if (!e.isObjectFlow) continue;
+      const src = nodeIndex.get(e.from);
+      const tgt = nodeIndex.get(e.to);
+      if (!src || !tgt || src.kind !== "object" || tgt.kind !== "action") continue;
       const sLane = laneOf.get(e.from);
       const tLane = laneOf.get(e.to);
       if (!sLane || !tLane || sLane === tLane) continue;
-      const list = hofTargets.get(e.from) ?? [];
+      const list = objectTargets.get(e.from) ?? [];
       list.push(e.to);
-      hofTargets.set(e.from, list);
+      objectTargets.set(e.from, list);
     }
-    for (const [hofId, targets] of hofTargets) {
+    for (const [objectId, targets] of objectTargets) {
       if (targets.length !== 1) continue;
-      const hof    = nodeIndex.get(hofId);
+      const obj    = nodeIndex.get(objectId);
       const target = nodeIndex.get(targets[0]);
-      if (!hof || !target) continue;
-      hof.x = target.x;
+      if (!obj || !target) continue;
+      obj.x = target.x;
+    }
+  }
+
+  // ── Compact lower lanes horizontally ────────────────────────────────────
+  // ELK still tends to keep layer gaps much wider than necessary once the
+  // plain-lane HOFs are involved.  For lane diagrams we compact each lower
+  // lane member sequence after layout, using only what must remain legible:
+  // the node boxes themselves, the same-lane edge label between neighbours,
+  // and enough room that aligned HOF boxes above adjacent binds do not
+  // overlap.  This keeps the bind chain visibly tighter without sacrificing
+  // the top-lane alignment.
+  if (useLanes) {
+    const laneIndexOf = new Map<string, number>();
+    const incomingHofWidth = new Map<string, number>();
+    lanes.forEach((lane, laneIdx) => lane.members.forEach(member => laneIndexOf.set(member, laneIdx)));
+    for (const e of edges) {
+      if (!e.isObjectFlow || !e.isHof) continue;
+      const src = nodeIndex.get(e.from);
+      const tgt = nodeIndex.get(e.to);
+      if (!src || !tgt) continue;
+      const srcLane = laneIndexOf.get(src.id);
+      const tgtLane = laneIndexOf.get(tgt.id);
+      if (srcLane === undefined || tgtLane === undefined || srcLane === tgtLane) continue;
+      incomingHofWidth.set(tgt.id, Math.max(incomingHofWidth.get(tgt.id) ?? 0, src.w));
+    }
+    for (let laneIdx = 1; laneIdx < lanes.length; laneIdx++) {
+      const members = lanes[laneIdx].members
+        .map(id => nodeIndex.get(id))
+        .filter((node): node is GNode => Boolean(node));
+      for (let i = 1; i < members.length; i++) {
+        const prev = members[i - 1];
+        const cur = members[i];
+        const edge = edges.find(e => e.from === prev.id && e.to === cur.id);
+        const labelSpan = edge?.label
+          ? Math.ceil(edge.label.length * EDGE_LABEL_CHAR_W) + EDGE_LABEL_PAD + 24
+          : 40;
+        const nodeDistance = prev.w / 2 + cur.w / 2 + labelSpan;
+        const hofDistance = (incomingHofWidth.get(prev.id) ?? 0) / 2
+          + (incomingHofWidth.get(cur.id) ?? 0) / 2
+          + 24;
+        const desiredX = prev.x + Math.max(nodeDistance, hofDistance);
+        if (cur.x > desiredX) cur.x = desiredX;
+      }
+    }
+    for (const e of edges) {
+      if (!e.isObjectFlow || !e.isHof) continue;
+      const src = nodeIndex.get(e.from);
+      const tgt = nodeIndex.get(e.to);
+      if (!src || !tgt) continue;
+      const srcLane = laneIndexOf.get(src.id);
+      const tgtLane = laneIndexOf.get(tgt.id);
+      if (srcLane === undefined || tgtLane === undefined || srcLane === tgtLane) continue;
+      src.x = tgt.x;
+    }
+
+    // Pull terminal top-lane sinks back toward the action that produces them.
+    // Without this, ELK leaves the final object at the original wide canvas
+    // extent even after the bind chain has been compacted.
+    for (const e of edges) {
+      if (!e.isObjectFlow || e.isHof) continue;
+      const src = nodeIndex.get(e.from);
+      const tgt = nodeIndex.get(e.to);
+      if (!src || !tgt || src.kind !== "action" || tgt.kind !== "object") continue;
+      const srcLane = laneIndexOf.get(src.id);
+      const tgtLane = laneIndexOf.get(tgt.id);
+      if (srcLane === undefined || tgtLane === undefined || srcLane <= tgtLane) continue;
+      if (hasOutgoing.has(tgt.id)) continue;
+      const desiredX = src.x + src.w / 2 + tgt.w / 2 + 72;
+      if (tgt.x > desiredX) tgt.x = desiredX;
+    }
+
+    const TOP_LANE_NODE_SHIFT = 8;
+    for (const member of lanes[0]?.members ?? []) {
+      const node = nodeIndex.get(member);
+      if (!node) continue;
+      node.y += TOP_LANE_NODE_SHIFT;
+    }
+
+    const LOWER_LANE_NODE_SHIFT = 14;
+    for (let laneIdx = 1; laneIdx < lanes.length; laneIdx++) {
+      for (const member of lanes[laneIdx].members) {
+        const node = nodeIndex.get(member);
+        if (!node) continue;
+        node.y += LOWER_LANE_NODE_SHIFT;
+      }
     }
   }
 
@@ -485,18 +568,23 @@ export async function layoutGraph(
   // Lanes are decoration: their bounding box is the union of member-node
   // bounding boxes, padded out to span the full diagram width and aligned
   // with neighbouring lanes so the bands stack flush.
-  const totalW = result.width  ?? 200;
-  const totalH = result.height ?? 100;
+  const totalW = useLanes
+    ? Math.max(200, ...nodes.map(n => n.x + n.w / 2)) + 30
+    : (result.width ?? 200);
+  const totalH = useLanes
+    ? Math.max(100, ...nodes.map(n => n.y + n.h / 2)) + 12
+    : (result.height ?? 100);
   const LANE_PAD_Y = 12;
   const LANE_HEADER_H = 18;
+  const TOP_LANE_CLEARANCE = 10;
   const laneBoxes: { id: string; label?: string; minY: number; maxY: number }[] = [];
   for (const l of lanes) {
     let minY = Infinity, maxY = -Infinity;
     for (const m of l.members) {
-      const c = childMap.get(m);
-      if (!c) continue;
-      minY = Math.min(minY, c.y);
-      maxY = Math.max(maxY, c.y + c.h);
+      const n = nodeIndex.get(m);
+      if (!n) continue;
+      minY = Math.min(minY, n.y - n.h / 2);
+      maxY = Math.max(maxY, n.y + n.h / 2);
     }
     if (minY === Infinity) { minY = 0; maxY = 0; }
     laneBoxes.push({ id: l.id, label: l.label, minY, maxY });
@@ -518,7 +606,7 @@ export async function layoutGraph(
     const nextRaw = k + 1 < laneOrder.length ? rawExtents[k + 1] : null;
     const top = prevRaw
       ? (prevRaw.maxY + curRaw.minY) / 2
-      : Math.max(0, curRaw.minY - LANE_PAD_Y - LANE_HEADER_H);
+      : Math.max(0, curRaw.minY - LANE_PAD_Y - LANE_HEADER_H - TOP_LANE_CLEARANCE);
     const bot = nextRaw
       ? (curRaw.maxY + nextRaw.minY) / 2
       : Math.min(totalH, curRaw.maxY + LANE_PAD_Y);
@@ -562,36 +650,67 @@ export async function layoutGraph(
     lanes.forEach(l => l.members.forEach(m => laneOf.set(m, l.id)));
     for (let i = 0; i < edges.length; i++) {
       const e = edges[i];
+      const src = nodeIndex.get(e.from);
+      const tgt = nodeIndex.get(e.to);
+      if (!src || !tgt) continue;
       const path = edgePaths[i];
       if (path.length < 2) continue;
       const sLane = laneOf.get(e.from);
       const tLane = laneOf.get(e.to);
       // Same-lane horizontal: collapse to a straight line on shared y.
-      if (sLane && sLane === tLane) {
-        const [sx, sy] = path[0];
-        const [tx, ty] = path[path.length - 1];
-        if (Math.abs(sy - ty) <= 0.5) {
-          edgePaths[i] = [[sx, sy], [tx, ty]];
+      if (sLane && sLane === tLane && src.kind === "action" && tgt.kind === "action") {
+        if (Math.abs(src.y - tgt.y) <= 0.5) {
+          edgePaths[i] = [[src.x + src.w / 2, src.y], [tgt.x - tgt.w / 2, tgt.y]];
         }
         continue;
       }
-      // Cross-lane HOF (object → action): route as a clean vertical drop
-      // from the source HOF's bottom (or top) edge straight down (or up)
-      // to the target action's pin.  We use the *current* HOF x (which
-      // may have been shifted by the column-align pass) and the original
-      // path's start/end y to preserve the port y-offsets.
-      if (sLane && tLane && sLane !== tLane && e.isObjectFlow && e.isHof) {
-        const hof    = nodeIndex.get(e.from);
-        const target = nodeIndex.get(e.to);
-        const [, sy] = path[0];
-        const [tx, ty] = path[path.length - 1];
-        const sx = hof ? hof.x : path[0][0];
-        // Align target x too — bindParse's f-pin is centred on the action.
-        const fx = target ? target.x : tx;
+      // Cross-lane object → action: route as a clean vertical drop from the
+      // source object's bottom (or top) edge straight to the action's top
+      // pin.  This covers both HOF-to-bind edges and plain input-to-pure.
+      if (sLane && tLane && sLane !== tLane && e.isObjectFlow && src.kind === "object" && tgt.kind === "action") {
+        const sx = src.x;
+        const sy = src.y + src.h / 2;
+        const fx = tgt.x;
+        const ty = tgt.y - tgt.h / 2 - PIN_SZ / 2;
         if (Math.abs(sx - fx) <= 0.5) {
           edgePaths[i] = [[sx, sy], [fx, ty]];
         } else {
           edgePaths[i] = [[sx, sy], [sx, ty], [fx, ty]];
+        }
+        continue;
+      }
+      // Final action → top-lane object: leave the action via its east pin,
+      // then rise into the object's underside.  This keeps the last leg
+      // simple and avoids the long high horizontal rail.
+      if (
+        sLane && tLane && sLane !== tLane && e.isObjectFlow && !e.isHof &&
+        src.kind === "action" && tgt.kind === "object" &&
+        (laneOf.get(src.id) === lanes[1]?.id) && (laneOf.get(tgt.id) === lanes[0]?.id) &&
+        !hasOutgoing.has(tgt.id)
+      ) {
+        const sx = src.x + src.w / 2;
+        const sy = src.y;
+        const tx = tgt.x;
+        const ty = tgt.y + tgt.h / 2;
+        edgePaths[i] = [[sx, sy], [tx, sy], [tx, ty]];
+        continue;
+      }
+      // Other cross-lane object/action edges (entry and final result) are
+      // rebuilt from the current node positions so post-layout compaction
+      // cannot leave them attached to stale x-coordinates.
+      if (sLane && tLane && sLane !== tLane && e.isObjectFlow) {
+        const sx = src.kind === "action"
+          ? src.x + src.w / 2
+          : (src.x <= tgt.x ? src.x + src.w / 2 : src.x - src.w / 2);
+        const sy = src.y;
+        const tx = tgt.kind === "action"
+          ? tgt.x - tgt.w / 2
+          : (sx <= tgt.x ? tgt.x - tgt.w / 2 : tgt.x + tgt.w / 2);
+        const ty = tgt.y;
+        if (Math.abs(sx - tx) <= 0.5 || Math.abs(sy - ty) <= 0.5) {
+          edgePaths[i] = [[sx, sy], [tx, ty]];
+        } else {
+          edgePaths[i] = [[sx, sy], [sx, ty], [tx, ty]];
         }
       }
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1707.3999999999999 210" width="1707.3999999999999" height="210">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1825.3999999999999 210" width="1825.3999999999999" height="210">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,139 +11,132 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1707.3999999999999" height="210" fill="white"/>
-  <text x="853.6999999999999" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With pure + bind: state threads automatically; using a stale state is impossible</text>
+  <rect width="1825.3999999999999" height="210" fill="white"/>
+  <text x="912.6999999999999" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With pure + bind: state threads automatically; using a stale state is impossible</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="1707.3999999999999" height="182" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1825.3999999999999" height="182" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L146.20000000000002,0 L146.20000000000002,12 L136.20000000000002,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="73.10000000000001" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» stateChain</text>
     </g>
     <g class="swimlane lane-plain">
-      <rect x="6" y="28" width="1695.3999999999999" height="71" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
-      <rect x="6" y="28" width="1695.3999999999999" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="28" width="1193.8" height="85" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="28" width="1193.8" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
       <text x="16" y="38" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">Plain values &amp; functions</text>
     </g>
     <g class="swimlane lane-monad">
-      <rect x="6" y="99" width="1695.3999999999999" height="77" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
-      <rect x="6" y="99" width="1695.3999999999999" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
-      <text x="16" y="109" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">State monad</text>
+      <rect x="6" y="113" width="1193.8" height="77" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="113" width="1193.8" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <text x="16" y="123" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">State monad</text>
     </g>
     <g class="edge">
-      <path d="M146.0,59.0 L151.0,59.0 Q156.0,59.0 156.0,64.0 L156.0,141.0 Q156.0,142.0 157.0,142.0 L158.0,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M240.0,92.0 L240.0,122.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M298.0,142.0 L519.6,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="414.8" y="136" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">State s A</text>
+      <path d="M296.0,156.0 L365.0,156.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="336.5" y="150" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">State s A</text>
     </g>
     <g class="edge">
-      <path d="M659.6,142.0 L881.2,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="776.4000000000001" y="136" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">State s B</text>
+      <path d="M489.0,156.0 L574.6,156.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="537.8" y="150" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">State s B</text>
     </g>
     <g class="edge">
-      <path d="M1021.2,142.0 L1242.8,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1138" y="136" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">State s C</text>
+      <path d="M698.6,156.0 L784.2,156.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="747.4000000000001" y="150" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">State s C</text>
     </g>
     <g class="edge">
-      <path d="M1382.8,142.0 L1390.8,142.0 Q1396.8,142.0 1396.8,136.0 L1396.8,60.0 Q1396.8,54.0 1402.8,54.0 L1473.3,54.0 Q1475.8,54.0 1475.8,56.5 L1475.8,59.0 L1475.8,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1396.8" y="92" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">runState s0</text>
+      <path d="M908.2,156.0 L1071.0,156.0 Q1077.0,156.0 1077.0,150.0 L1077.0,104.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="994.6" y="150" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">runState s0</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M595.6,79.0 L595.6,104.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M433.0,92.0 L433.0,122.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M957.2,79.0 L957.2,104.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M642.6,92.0 L642.6,122.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M1318.8,79.0 L1318.8,104.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M852.2,92.0 L852.2,122.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="action-node">
       <title>pure : A → State s A. Returns (a, s) — leaves s untouched.</title>
-      <rect x="174" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="234" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pureA</text>
+      <rect x="180" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="240" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pureA</text>
       <g class="pin pin-in">
-        <rect x="170" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="180" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a</text>
+        <rect x="236" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="290" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="296" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : runs the State action, threads s' into step1, returns step1's (b, s'').</title>
-      <rect x="535.6" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="595.6" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindStep1</text>
+      <rect x="373" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="433" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindStep1</text>
       <g class="pin pin-in">
-        <rect x="531.6" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="541.6" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ma</text>
+        <rect x="369" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="591.6" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="595.6" y="114" text-anchor="middle" dominant-baseline="alphabetic" font-size="8" font-family="sans-serif" fill="#555">f</text>
+        <rect x="429" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="651.6" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="489" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : threads the latest state into step2 automatically. No way to supply the wrong state.</title>
-      <rect x="897.2" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="957.2" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindStep2</text>
+      <rect x="582.6" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="642.6" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindStep2</text>
       <g class="pin pin-in">
-        <rect x="893.2" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="903.2" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ma</text>
+        <rect x="578.6" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="953.2" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="957.2" y="114" text-anchor="middle" dominant-baseline="alphabetic" font-size="8" font-family="sans-serif" fill="#555">f</text>
+        <rect x="638.6" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="1013.2" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="698.6" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : threads the latest state into step3 automatically.</title>
-      <rect x="1258.8" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="1318.8" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindStep3</text>
+      <rect x="792.2" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="852.2" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindStep3</text>
       <g class="pin pin-in">
-        <rect x="1254.8" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1264.8" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ma</text>
+        <rect x="788.2" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="1314.8" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="1318.8" y="114" text-anchor="middle" dominant-baseline="alphabetic" font-size="8" font-family="sans-serif" fill="#555">f</text>
+        <rect x="848.2" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="1374.8" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="908.2" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="object-node">
       <title>Plain input value of type A — does not include the state.</title>
-      <rect x="36" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">initial : A</text>
+      <rect x="185" y="54" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="240" y="73" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">initial : A</text>
     </g>
     <g class="object-node hof">
       <title>step1 : A → State s B. HOF argument — its input is A, not State s A.</title>
-      <rect x="502.8" y="40" width="185.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="595.6" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="595.6" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1Fn : A ⟶ State s B</text>
+      <rect x="340.2" y="54" width="185.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="433" y="66" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="433" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1Fn : A ⟶ State s B</text>
     </g>
     <g class="object-node hof">
       <title>step2 : B → State s C. Same: supplied to bind as the continuation.</title>
-      <rect x="864.4000000000001" y="40" width="185.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="957.2" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="957.2" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2Fn : B ⟶ State s C</text>
+      <rect x="549.8000000000001" y="54" width="185.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="642.6" y="66" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="642.6" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2Fn : B ⟶ State s C</text>
     </g>
     <g class="object-node hof">
       <title>step3 : C → State s D. Same: supplied to bind as the continuation.</title>
-      <rect x="1226" y="40" width="185.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="1318.8" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="1318.8" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3Fn : C ⟶ State s D</text>
+      <rect x="759.4000000000001" y="54" width="185.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="852.2" y="66" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="852.2" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3Fn : C ⟶ State s D</text>
     </g>
     <g class="object-node">
       <title>runState s0 supplies the initial state and returns the final value alongside the final state.</title>
-      <rect x="1485.8" y="40" width="185.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1578.6" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">outResult : (D, sFinal)</text>
+      <rect x="984.2" y="54" width="185.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1077" y="73" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">outResult : (D, sFinal)</text>
     </g>
   </g>
 </svg>

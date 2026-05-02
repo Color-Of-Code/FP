@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1174 210" width="1174" height="210">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1258 210" width="1258" height="210">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,98 +11,94 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1174" height="210" fill="white"/>
-  <text x="587" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With pure + bind: STM actions compose freely; runtime commits atomically or retries</text>
+  <rect width="1258" height="210" fill="white"/>
+  <text x="629" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With pure + bind: STM actions compose freely; runtime commits atomically or retries</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="1174" height="182" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1258" height="182" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L133.8,0 L133.8,12 L123.80000000000001,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="66.9" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» transfer</text>
     </g>
     <g class="swimlane lane-plain">
-      <rect x="6" y="28" width="1162" height="71" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
-      <rect x="6" y="28" width="1162" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="28" width="783.4" height="85" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="28" width="783.4" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
       <text x="16" y="38" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">Plain values &amp; functions</text>
     </g>
     <g class="swimlane lane-monad">
-      <rect x="6" y="99" width="1162" height="77" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
-      <rect x="6" y="99" width="1162" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
-      <text x="16" y="109" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">STM monad</text>
+      <rect x="6" y="113" width="783.4" height="77" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="113" width="783.4" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <text x="16" y="123" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">STM monad</text>
     </g>
     <g class="edge">
-      <path d="M160.0,142.0 L417.6,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="294.8" y="136" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">STM Int</text>
+      <path d="M152.0,156.0 L211.0,156.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="187.5" y="150" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">STM Int</text>
     </g>
     <g class="edge">
-      <path d="M557.6,142.0 L779.2,142.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="674.4000000000001" y="136" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">STM Int</text>
+      <path d="M335.0,156.0 L438.6,156.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="392.8" y="150" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">STM Int</text>
     </g>
     <g class="edge">
-      <path d="M919.2,142.0 L927.2,142.0 Q933.2,142.0 933.2,136.0 L933.2,60.0 Q933.2,54.0 939.2,54.0 L1004.7,54.0 Q1007.2,54.0 1007.2,56.5 L1007.2,59.0 L1007.2,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="933.2" y="92" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">atomically</text>
+      <path d="M562.6,156.0 L693.0,156.0 Q699.0,156.0 699.0,150.0 L699.0,104.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="632.8" y="150" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">atomically</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M493.6,79.0 L493.6,104.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M279.0,92.0 L279.0,122.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M855.2,79.0 L855.2,104.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M506.6,92.0 L506.6,122.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="action-node">
       <title>readTVar accountA : STM Int — STM action. Read tracked, not committed alone.</title>
-      <rect x="36" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="96" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">readA</text>
+      <rect x="36" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="96" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">readA</text>
       <g class="pin pin-out">
-        <rect x="152" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="152" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : sequences writeA(-delta) and the readB step. Reads/writes accumulate in the transaction.</title>
-      <rect x="433.6" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="493.6" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindWriteA</text>
+      <rect x="219" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="279" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindWriteA</text>
       <g class="pin pin-in">
-        <rect x="429.6" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="439.6" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ma</text>
+        <rect x="215" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="489.6" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="493.6" y="114" text-anchor="middle" dominant-baseline="alphabetic" font-size="8" font-family="sans-serif" fill="#555">f</text>
+        <rect x="275" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="549.6" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="335" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : sequences writeB(+delta). Final step before commit.</title>
-      <rect x="795.2" y="120" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="855.2" y="142" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindWriteB</text>
+      <rect x="446.6" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="506.6" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindWriteB</text>
       <g class="pin pin-in">
-        <rect x="791.2" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.2" y="142" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">ma</text>
+        <rect x="442.6" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="851.2" y="116" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="855.2" y="114" text-anchor="middle" dominant-baseline="alphabetic" font-size="8" font-family="sans-serif" fill="#555">f</text>
+        <rect x="502.6" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="911.2" y="138" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="562.6" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="object-node hof">
       <title>λaVal. writeTVar accountA (aVal - delta) &gt;&gt; readTVar accountB. HOF argument — captures aVal in scope.</title>
-      <rect x="382.8" y="40" width="221.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="493.6" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="493.6" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">writeAThenFn : Int ⟶ STM Int</text>
+      <rect x="168.2" y="54" width="221.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="279" y="66" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="279" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">writeAThenFn : Int ⟶ STM Int</text>
     </g>
     <g class="object-node hof">
       <title>λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal.</title>
-      <rect x="762.4000000000001" y="40" width="185.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="855.2" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="855.2" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">writeBFn : Int ⟶ STM ()</text>
+      <rect x="413.8" y="54" width="185.6" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="506.6" y="66" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="506.6" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">writeBFn : Int ⟶ STM ()</text>
     </g>
     <g class="object-node">
       <title>atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible.</title>
-      <rect x="1017.2000000000002" y="40" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1077.6000000000001" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">commit : IO ()</text>
+      <rect x="638.6" y="54" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="699" y="73" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">commit : IO ()</text>
     </g>
   </g>
 </svg>

@@ -18,6 +18,8 @@ export interface GNode {
   stereotype?: string;
   kind: "action" | "object" | "initial" | "final" | "decision" | "merge" | "note";
   isHof:      boolean;
+  /** Lane-style activity diagrams suppress noisy input-pin captions. */
+  hideInPinLabels?: boolean;
   tooltip?:   string;
   x: number; y: number;
   w: number; h: number;
