@@ -58,12 +58,12 @@
     <g class="object-node">
       <title>x : Int — the only input the caller sees.</title>
       <rect x="36" y="95" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">x : Int</text>
+      <text x="91" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Int</text>
     </g>
     <g class="object-node">
       <title>result : Int — looks like a pure return, but its computation depended on a file and a log call.</title>
       <rect x="368" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="423" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">result : Int</text>
+      <text x="423" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Int</text>
     </g>
   </g>
 </svg>

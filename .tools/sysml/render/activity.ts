@@ -53,7 +53,7 @@ export async function renderActivity(
   for (const o of actDef.objects) {
     const role  = diagram.shows[o.id] ?? "type";
     const n: GNode = {
-      id: o.id, label: `${o.id} : ${o.type}`,
+      id: o.id, label: o.type ?? o.id,
       kind: "object", isHof: role === "hof",
       tooltip: diagram.tooltips[o.id],
       x: 0, y: 0, w: 0, h: 0,

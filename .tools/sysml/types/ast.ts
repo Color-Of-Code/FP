@@ -66,7 +66,7 @@ export interface ActionUsage {
 export interface ObjectNode {
   kind: "object";
   id: string;
-  type: string;
+  type?: string;
 }
 
 export interface DecisionNode {

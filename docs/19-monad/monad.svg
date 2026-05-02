@@ -77,28 +77,28 @@
     <g class="object-node">
       <title>Ma — the initial wrapped value</title>
       <rect x="36" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Ma : Ma</text>
+      <text x="91" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Ma</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Mb) — effectful function, received as a data token (HOF)</title>
       <rect x="36" y="92" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
       <text x="91" y="104" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="91" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Mb</text>
+      <text x="91" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a ⟶ Mb</text>
     </g>
     <g class="object-node hof">
       <title>(b ⟶ Mc) — second step function, also a HOF input</title>
       <rect x="322" y="139" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
       <text x="377" y="151" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="377" y="165" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">g : b ⟶ Mc</text>
+      <text x="377" y="165" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b ⟶ Mc</text>
     </g>
     <g class="object-node">
       <rect x="322" y="87" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="377" y="106" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Mb : Mb</text>
+      <text x="377" y="106" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Mb</text>
     </g>
     <g class="object-node">
       <title>Mc — final result, effects from all steps collected</title>
       <rect x="614" y="74" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="669" y="93" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Mc : Mc</text>
+      <text x="669" y="93" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Mc</text>
     </g>
   </g>
 </svg>

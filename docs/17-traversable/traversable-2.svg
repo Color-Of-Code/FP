@@ -41,12 +41,12 @@
     <g class="object-node">
       <title>T(Fa) — a container of effects (e.g. [Maybe a, Maybe a, ...])</title>
       <rect x="36" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Tfa : T(Fa)</text>
+      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">T(Fa)</text>
     </g>
     <g class="object-node">
       <title>F(Ta) — one effect wrapping the whole container (e.g. Maybe [a, a, ...])</title>
       <rect x="314" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="369" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Fta : F(Ta)</text>
+      <text x="369" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">F(Ta)</text>
     </g>
   </g>
 </svg>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1436.2 186" width="1436.2" height="186">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1339 186" width="1339" height="186">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,96 +11,96 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1436.2" height="186" fill="white"/>
-  <text x="718.1" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without bind: leftover threaded by hand; one Nothing guard per step</text>
+  <rect width="1339" height="186" fill="white"/>
+  <text x="669.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without bind: leftover threaded by hand; one Nothing guard per step</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="1436.2" height="158" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1339" height="158" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L152.4,0 L152.4,12 L142.4,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="76.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» digitLetter</text>
     </g>
     <g class="edge">
-      <path d="M156.8,62.0 L160.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,62.0 L150.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M304.8,62.0 L432.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="376.8" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe (Char, String)</text>
+      <path d="M294.0,62.0 L422.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="366" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe (Char, String)</text>
     </g>
     <g class="edge">
-      <path d="M477.8,77.0 L477.8,108.0 Q477.8,114.0 483.8,114.0 L1127.8,114.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="481.8" y="95.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
+      <path d="M467.0,77.0 L467.0,108.0 Q467.0,114.0 473.0,114.0 L1117.0,114.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="471" y="95.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
     </g>
     <g class="edge">
-      <path d="M510.8,62.0 L674.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="598.8" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just (d, rest1) — pass rest1</text>
+      <path d="M500.0,62.0 L664.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="588" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just (d, rest1) — pass rest1</text>
     </g>
     <g class="edge">
-      <path d="M818.8,62.0 L946.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="890.8" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe (Char, String)</text>
+      <path d="M808.0,62.0 L936.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="880" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe (Char, String)</text>
     </g>
     <g class="edge">
-      <path d="M991.8,77.0 L991.8,108.0 Q991.8,114.0 997.8,114.0 L1127.8,114.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="995.8" y="95.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
+      <path d="M981.0,77.0 L981.0,108.0 Q981.0,114.0 987.0,114.0 L1117.0,114.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="985" y="95.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
     </g>
     <g class="edge">
-      <path d="M1024.8,62.0 L1173.8,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1105.3" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just (l, rest2)</text>
+      <path d="M1014.0,62.0 L1163.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1094.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just (l, rest2)</text>
     </g>
     <g class="edge">
-      <path d="M1169.8,114.0 L1173.8,114.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M1159.0,114.0 L1163.0,114.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="action-node">
       <title>parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing.</title>
-      <rect x="180.8" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="240.8" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">parseDigit</text>
+      <rect x="170" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="230" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">parseDigit</text>
       <g class="pin pin-in">
-        <rect x="176.8" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="186.8" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">input</text>
+        <rect x="166" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="176" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">input</text>
       </g>
       <g class="pin pin-out">
-        <rect x="296.8" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="286" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input.</title>
-      <rect x="694.8" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="754.8" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">parseLetter</text>
+      <rect x="684" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="744" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">parseLetter</text>
       <g class="pin pin-in">
-        <rect x="690.8" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="700.8" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">rest</text>
+        <rect x="680" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="690" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">rest</text>
       </g>
       <g class="pin pin-out">
-        <rect x="810.8" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="800" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="object-node">
       <title>input : String — the full input string, threaded through the whole chain.</title>
-      <rect x="36.00000000000001" y="43" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="96.4" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">input : String</text>
+      <rect x="36" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">String</text>
     </g>
     <g class="object-node">
       <title>((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.</title>
-      <rect x="1185.8" y="43" width="214.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1293" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">outResult : ((d, l), rest2)</text>
+      <rect x="1175" y="43" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1239" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">((d, l), rest2)</text>
     </g>
     <g class="object-node">
       <title>Nothing — a parse failure, indistinguishable from any other Nothing.</title>
-      <rect x="1185.8" y="95" width="135.2" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1253.3999999999999" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">failed : Nothing</text>
+      <rect x="1175" y="95" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1230" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Nothing</text>
     </g>
     <g class="decision-node">
       <title>Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug.</title>
-      <polygon points="477.8,48 509.8,62 477.8,76 445.8,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-      <text x="477.8" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
+      <polygon points="467,48 499,62 467,76 435,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="467" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
     </g>
     <g class="decision-node">
       <title>Guard #2: same pattern repeated. Skip and you'll return garbage.</title>
-      <polygon points="991.8,48 1023.8,62 991.8,76 959.8,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-      <text x="991.8" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
+      <polygon points="981,48 1013,62 981,76 949,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="981" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
     </g>
     <g class="merge-node">
       <title>Any Nothing short-circuits the whole chain — both failure paths converge here.</title>
-      <polygon points="1154.8,100 1168.8,114 1154.8,128 1140.8,114" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <polygon points="1144,100 1158,114 1144,128 1130,114" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
     </g>
   </g>
 </svg>

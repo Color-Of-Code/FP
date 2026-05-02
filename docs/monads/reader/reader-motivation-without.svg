@@ -86,12 +86,12 @@
     <g class="object-node">
       <title>Config — the environment record. Every helper requires it as an argument.</title>
       <rect x="36" y="52" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="71" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cfg : Config</text>
+      <text x="91" y="71" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Config</text>
     </g>
     <g class="object-node">
       <title>URL — the result. Most of the signatures involved were boilerplate.</title>
       <rect x="559" y="52" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="614" y="71" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">url : URL</text>
+      <text x="614" y="71" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">URL</text>
     </g>
   </g>
 </svg>

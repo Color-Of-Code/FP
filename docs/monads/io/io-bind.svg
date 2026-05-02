@@ -89,18 +89,18 @@
     <g class="object-node">
       <title>IO a — a description (recipe) of a side-effectful computation. Nothing has run yet.</title>
       <rect x="36" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ia : IO a</text>
+      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">IO a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ IO b) — given result a, constructs the next IO action description</title>
       <rect x="318" y="115" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
       <text x="373" y="127" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="373" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ IO b</text>
+      <text x="373" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a ⟶ IO b</text>
     </g>
     <g class="object-node">
       <title>b — the final result. The sequencing of exec_a before exec_b is the entire bind contract.</title>
       <rect x="806" y="81" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="861" y="100" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b : b</text>
+      <text x="861" y="100" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b</text>
     </g>
   </g>
 </svg>

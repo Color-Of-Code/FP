@@ -151,7 +151,7 @@ function adaptActionUsage(g: G.ActionUsage): ActionUsage {
 
 function adaptObjectNode(g: G.ObjectNode): ObjectNode {
   const id = g.id ?? "";
-  return { kind: "object", id, type: g.type !== undefined ? strOrIdent(g.type) : id };
+  return { kind: "object", id, type: g.type !== undefined ? strOrIdent(g.type) : undefined };
 }
 
 function adaptDecisionNode(g: G.DecisionNode): DecisionNode {

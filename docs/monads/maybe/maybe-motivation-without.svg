@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584.4 186" width="1584.4" height="186">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1534 186" width="1534" height="186">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,125 +11,125 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1584.4" height="186" fill="white"/>
-  <text x="792.2" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without bind: explicit Nothing guard at every step</text>
+  <rect width="1534" height="186" fill="white"/>
+  <text x="767" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without bind: explicit Nothing guard at every step</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="1584.4" height="158" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1534" height="158" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L171,0 L171,12 L161,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="85.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» lookupUserCity</text>
     </g>
     <g class="edge">
-      <path d="M164.0,62.0 L168.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,62.0 L150.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M312.0,62.0 L390.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="359" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe User</text>
+      <path d="M294.0,62.0 L372.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="341" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe User</text>
     </g>
     <g class="edge">
-      <path d="M435.0,77.0 L435.0,114.0 Q435.0,120.0 441.0,120.0 L1348.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="439" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
+      <path d="M417.0,77.0 L417.0,114.0 Q417.0,120.0 423.0,120.0 L1330.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="421" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
     </g>
     <g class="edge">
-      <path d="M468.0,62.0 L537.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="508.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just user</text>
+      <path d="M450.0,62.0 L519.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="490.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just user</text>
     </g>
     <g class="edge">
-      <path d="M681.0,62.0 L774.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="735.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe Address</text>
+      <path d="M663.0,62.0 L756.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="717.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe Address</text>
     </g>
     <g class="edge">
-      <path d="M819.0,77.0 L819.0,114.0 Q819.0,120.0 825.0,120.0 L1348.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="823" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
+      <path d="M801.0,77.0 L801.0,114.0 Q801.0,120.0 807.0,120.0 L1330.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="805" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
     </g>
     <g class="edge">
-      <path d="M852.0,62.0 L936.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="900" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just address</text>
+      <path d="M834.0,62.0 L918.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="882" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just address</text>
     </g>
     <g class="edge">
-      <path d="M1080.0,62.0 L1162.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1129" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe City</text>
+      <path d="M1062.0,62.0 L1144.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1111" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Maybe City</text>
     </g>
     <g class="edge">
-      <path d="M1207.0,77.0 L1207.0,114.0 Q1207.0,120.0 1213.0,120.0 L1348.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1211" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
+      <path d="M1189.0,77.0 L1189.0,114.0 Q1189.0,120.0 1195.0,120.0 L1330.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1193" y="98.5" text-anchor="start" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Nothing</text>
     </g>
     <g class="edge">
-      <path d="M1240.0,62.0 L1394.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1323" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just city → name</text>
+      <path d="M1222.0,62.0 L1376.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1305" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Just city → name</text>
     </g>
     <g class="edge">
-      <path d="M1390.0,120.0 L1394.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M1372.0,120.0 L1376.0,120.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="action-node">
       <title>find_user(id) → Maybe User. May return Nothing if the user does not exist.</title>
-      <rect x="188" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="248" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findUser</text>
+      <rect x="170" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="230" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findUser</text>
       <g class="pin pin-in">
-        <rect x="184" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="194" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">userId</text>
+        <rect x="166" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="176" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">userId</text>
       </g>
       <g class="pin pin-out">
-        <rect x="304" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="286" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>find_address(user.address_id) → Maybe Address. May return Nothing if no address on file.</title>
-      <rect x="557" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="617" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findAddress</text>
+      <rect x="539" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="599" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findAddress</text>
       <g class="pin pin-in">
-        <rect x="553" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="563" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">user</text>
+        <rect x="535" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="545" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">user</text>
       </g>
       <g class="pin pin-out">
-        <rect x="673" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="655" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing.</title>
-      <rect x="956" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="1016" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findCity</text>
+      <rect x="938" y="40" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="998" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">findCity</text>
       <g class="pin pin-in">
-        <rect x="952" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="962" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">address</text>
+        <rect x="934" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="944" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">address</text>
       </g>
       <g class="pin pin-out">
-        <rect x="1072" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="1054" y="58" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="object-node">
       <title>The input: a user ID to look up.</title>
-      <rect x="36" y="43" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="100" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">userId : UserId</text>
+      <rect x="36" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">UserId</text>
     </g>
     <g class="object-node">
       <title>Nothing — returned when any step failed. Caller must also guard against this.</title>
-      <rect x="1406" y="101" width="142.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1477.2" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">nothing : Nothing</text>
+      <rect x="1388" y="101" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1443" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Nothing</text>
     </g>
     <g class="object-node">
       <title>city.name — the happy-path result, reached only when all three checks pass.</title>
-      <rect x="1406" y="43" width="142.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1477.2" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">cityName : String</text>
+      <rect x="1388" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1443" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">String</text>
     </g>
     <g class="decision-node">
       <title>Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit.</title>
-      <polygon points="435,48 467,62 435,76 403,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-      <text x="435" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
+      <polygon points="417,48 449,62 417,76 385,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="417" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
     </g>
     <g class="decision-node">
       <title>Guard #2: same pattern repeated. Skipping this is a latent bug.</title>
-      <polygon points="819,48 851,62 819,76 787,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-      <text x="819" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
+      <polygon points="801,48 833,62 801,76 769,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="801" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
     </g>
     <g class="decision-node">
       <title>Guard #3: yet another check. Business logic is buried in guards.</title>
-      <polygon points="1207,48 1239,62 1207,76 1175,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
-      <text x="1207" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
+      <polygon points="1189,48 1221,62 1189,76 1157,62" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <text x="1189" y="62" text-anchor="middle" font-size="9" font-family="sans-serif" dominant-baseline="middle" fill="#5d4037">Nothing?</text>
     </g>
     <g class="merge-node">
       <title>Any Nothing terminates the chain here — three separate failure paths converge.</title>
-      <polygon points="1375,106 1389,120 1375,134 1361,120" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+      <polygon points="1357,106 1371,120 1357,134 1343,120" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
     </g>
   </g>
 </svg>

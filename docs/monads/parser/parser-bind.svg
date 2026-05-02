@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100.4 297" width="1100.4" height="297">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 297" width="1050" height="297">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,171 +11,171 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1100.4" height="297" fill="white"/>
-  <text x="550.2" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped)</text>
-  <text x="550.2" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, Bind, &gt;&gt;=</text>
+  <rect width="1050" height="297" fill="white"/>
+  <text x="525" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped)</text>
+  <text x="525" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="#555">also called: flatMap, Bind, &gt;&gt;=</text>
   <g transform="translate(0,44) scale(1)">
-    <rect x="0" y="0" width="1100.4" height="253" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1050" height="253" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» bind</text>
     </g>
     <g class="edge">
-      <path d="M156.8,132.0 L164.8,132.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,132.0 L154.0,132.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M156.8,184.0 L161.8,184.0 Q166.8,184.0 166.8,179.0 L166.8,150.0 L166.8,150.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,184.0 L151.0,184.0 Q156.0,184.0 156.0,179.0 L156.0,150.0 L156.0,150.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M308.8,127.0 L343.4,127.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M298.0,127.0 L320.0,127.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M308.8,139.0 L326.8,139.0 Q332.8,139.0 332.8,145.0 L332.8,200.0 Q332.8,206.0 338.8,206.0 L483.0,206.0 Q488.0,206.0 488.0,201.0 L488.0,200.6 Q488.0,196.0 492.6,196.0 L497.2,196.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M298.0,139.0 L316.0,139.0 Q322.0,139.0 322.0,145.0 L322.0,200.0 Q322.0,206.0 328.0,206.0 L447.0,206.0 Q452.0,206.0 452.0,201.0 L452.0,201.0 Q452.0,196.0 457.0,196.0 L463.0,196.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M465.4,127.0 L486.0,127.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M442.0,127.0 L450.0,127.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M478.0,179.0 L483.0,179.0 Q488.0,179.0 488.0,174.0 L488.0,142.0 L488.0,142.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M442.0,179.0 L447.0,179.0 Q452.0,179.0 452.0,174.0 L452.0,142.0 L452.0,142.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M630.0,125.0 L638.0,125.0 Q644.0,125.0 644.0,131.0 L644.0,169.0 L644.0,169.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M594.0,125.0 L602.0,125.0 Q608.0,125.0 608.0,131.0 L608.0,169.0 L608.0,169.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M767.6,169.0 L775.6,169.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M728.0,169.0 L736.0,169.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M622.8,196.0 L771.6,196.0 Q777.6,196.0 777.6,190.0 L777.6,184.0 L777.6,184.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M585.0,196.0 L732.0,196.0 Q738.0,196.0 738.0,190.0 L738.0,184.0 L738.0,184.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M919.6,164.0 L931.6,164.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M880.0,164.0 L892.0,164.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M919.6,182.0 L927.6,182.0 Q933.6,182.0 933.6,188.0 L933.6,216.0 L933.6,216.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M880.0,182.0 L888.0,182.0 Q894.0,182.0 894.0,188.0 L894.0,216.0 L894.0,216.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M178.4,59.0 L247.4,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="218.89999999999998" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">f skipped</text>
+      <path d="M146.0,59.0 L215.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="186.5" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">f skipped</text>
     </g>
     <g class="edge">
-      <path d="M304.8,159.0 L316.8,159.0 Q322.8,159.0 322.8,153.0 L322.8,105.0 Q322.8,99.0 328.8,99.0 L482.0,99.0 Q488.0,99.0 488.0,105.0 L488.0,113.0 Q488.0,116.0 491.0,116.0 L494.0,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M294.0,159.0 L306.0,159.0 Q312.0,159.0 312.0,153.0 L312.0,105.0 Q312.0,99.0 318.0,99.0 L446.0,99.0 Q452.0,99.0 452.0,105.0 L452.0,113.0 Q452.0,116.0 455.0,116.0 L458.0,116.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="edge">
-      <path d="M626.0,141.0 L771.6,141.0 Q777.6,141.0 777.6,147.0 L777.6,155.0 Q777.6,158.0 780.6,158.0 L783.6,158.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+      <path d="M590.0,141.0 L732.0,141.0 Q738.0,141.0 738.0,147.0 L738.0,155.0 Q738.0,158.0 741.0,158.0 L744.0,158.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
     </g>
     <g class="action-node">
       <title>Run pa(input): on success produces (a, rest); on failure produces Nothing</title>
-      <rect x="184.8" y="119" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="244.8" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_pa</text>
+      <rect x="174" y="119" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="234" y="141" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_pa</text>
       <g class="pin pin-in">
-        <rect x="180.8" y="129.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="190.8" y="133.66666666666666" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">pa</text>
+        <rect x="170" y="129.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="180" y="133.66666666666666" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">pa</text>
       </g>
       <g class="pin pin-in">
-        <rect x="180.8" y="144.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="190.8" y="148.33333333333334" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">input</text>
+        <rect x="170" y="144.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="180" y="148.33333333333334" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">input</text>
       </g>
       <g class="pin pin-out">
-        <rect x="300.8" y="126" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="298.8" y="130" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a_val</text>
+        <rect x="290" y="126" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="288" y="130" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a_val</text>
       </g>
       <g class="pin pin-out">
-        <rect x="300.8" y="137" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="298.8" y="141" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">rest</text>
+        <rect x="290" y="137" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="288" y="141" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">rest</text>
       </g>
       <g class="pin pin-out">
-        <rect x="300.8" y="148" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="298.8" y="152" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">fail</text>
+        <rect x="290" y="148" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="288" y="152" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">fail</text>
       </g>
     </g>
     <g class="action-node">
       <title>Apply f(a): build Parser b from the parsed value a</title>
-      <rect x="506" y="109" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="566" y="131" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply_f</text>
+      <rect x="470" y="109" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="530" y="131" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">apply_f</text>
       <g class="pin pin-in">
-        <rect x="502" y="119.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="512" y="123.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a_val</text>
+        <rect x="466" y="119.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="476" y="123.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a_val</text>
       </g>
       <g class="pin pin-in">
-        <rect x="502" y="134.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="512" y="138.33333333333334" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">f</text>
+        <rect x="466" y="134.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="476" y="138.33333333333334" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">f</text>
       </g>
       <g class="pin pin-out">
-        <rect x="622" y="127" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="620" y="131" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">pb</text>
+        <rect x="586" y="127" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="584" y="131" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">pb</text>
       </g>
     </g>
     <g class="action-node">
       <title>Run pb(rest): parse b from the REMAINING input, not from the original input</title>
-      <rect x="795.6" y="151" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="855.6" y="173" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_pb</text>
+      <rect x="756" y="151" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="816" y="173" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">run_pb</text>
       <g class="pin pin-in">
-        <rect x="791.6" y="161.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.6" y="165.66666666666666" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">pb</text>
+        <rect x="752" y="161.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="762" y="165.66666666666666" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">pb</text>
       </g>
       <g class="pin pin-in">
-        <rect x="791.6" y="176.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="801.6" y="180.33333333333334" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">rest</text>
+        <rect x="752" y="176.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="762" y="180.33333333333334" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">rest</text>
       </g>
       <g class="pin pin-out">
-        <rect x="911.6" y="161.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="909.6" y="165.66666666666666" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">b</text>
+        <rect x="872" y="161.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="870" y="165.66666666666666" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">b</text>
       </g>
       <g class="pin pin-out">
-        <rect x="911.6" y="176.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="909.6" y="180.33333333333334" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">rest2</text>
+        <rect x="872" y="176.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="870" y="180.33333333333334" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">rest2</text>
       </g>
     </g>
     <g class="object-node">
       <title>Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing</title>
-      <rect x="43.199999999999996" y="113" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="100" y="132" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pa : Parser a</text>
+      <rect x="36" y="113" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="132" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Parser a</text>
     </g>
     <g class="object-node hof">
       <title>(a ⟶ Parser b) — the next parser, built from the parsed value a</title>
-      <rect x="342.79999999999995" y="160" width="135.2" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="410.4" y="172" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="410.4" y="186" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Parser b</text>
+      <rect x="332" y="160" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="387" y="172" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="387" y="186" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a ⟶ Parser b</text>
     </g>
     <g class="object-node">
       <title>String — the full input. pa consumes a prefix; rest is passed forward (like State monad).</title>
-      <rect x="36.00000000000001" y="165" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="96.4" y="184" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">input : String</text>
+      <rect x="36" y="165" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="184" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">String</text>
     </g>
     <g class="object-node">
       <title>a — the parsed value. Passed to f to build the next parser.</title>
-      <rect x="355.4" y="108" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="410.4" y="127" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a_val : a</text>
+      <rect x="332" y="108" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="387" y="127" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a</text>
     </g>
     <g class="object-node">
       <title>String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading.</title>
-      <rect x="509.2" y="177" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="566" y="196" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">rest : String</text>
+      <rect x="475" y="177" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="530" y="196" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">String</text>
     </g>
     <g class="object-node">
       <title>Parser b — the second parser</title>
-      <rect x="654" y="150" width="113.60000000000001" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="710.8" y="169" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">pb : Parser b</text>
+      <rect x="618" y="150" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="673" y="169" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Parser b</text>
     </g>
     <g class="object-node">
       <title>b — the final parsed value</title>
-      <rect x="943.6" y="145" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="998.6" y="164" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b : b</text>
+      <rect x="904" y="145" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="959" y="164" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">b</text>
     </g>
     <g class="object-node">
       <title>String — input still unconsumed after both parsers ran</title>
-      <rect x="943.6" y="197" width="120.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1004" y="216" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">rest2 : String</text>
+      <rect x="904" y="197" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="959" y="216" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">String</text>
     </g>
     <g class="object-node">
       <title>Nothing — pa failed. No (a, rest) was produced.</title>
-      <rect x="36" y="40" width="142.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="107.2" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">fail_in : Nothing</text>
+      <rect x="36" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Nothing</text>
     </g>
     <g class="object-node">
       <title>Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)</title>
-      <rect x="259.4" y="40" width="149.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="334.2" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">fail_out : Nothing</text>
+      <rect x="227" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="282" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Nothing</text>
     </g>
   </g>
 </svg>

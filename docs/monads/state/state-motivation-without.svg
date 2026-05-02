@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1317 203" width="1317" height="203">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1209 203" width="1209" height="203">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,118 +11,118 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1317" height="203" fill="white"/>
-  <text x="658.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without bind: state threaded as explicit s0/s1/s2/s3 variables</text>
+  <rect width="1209" height="203" fill="white"/>
+  <text x="604.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without bind: state threaded as explicit s0/s1/s2/s3 variables</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="1317" height="175" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1209" height="175" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L146.20000000000002,0 L146.20000000000002,12 L136.20000000000002,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="73.10000000000001" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» stateChain</text>
     </g>
     <g class="edge">
-      <path d="M178.4,59.0 L186.4,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,59.0 L154.0,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M178.4,111.0 L183.4,111.0 Q188.4,111.0 188.4,106.0 L188.4,77.0 L188.4,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,111.0 L151.0,111.0 Q156.0,111.0 156.0,106.0 L156.0,77.0 L156.0,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M330.4,68.0 L393.4,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="369.9" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(b, s1)</text>
+      <path d="M298.0,68.0 L361.0,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="337.5" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(b, s1)</text>
     </g>
     <g class="edge">
-      <path d="M515.4,68.0 L519.4,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M483.0,68.0 L487.0,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M663.4,77.0 L726.4,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="702.9" y="71" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(c, s2)</text>
+      <path d="M631.0,77.0 L694.0,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="670.5" y="71" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(c, s2)</text>
     </g>
     <g class="edge">
-      <path d="M848.4,77.0 L852.4,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M816.0,77.0 L820.0,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M996.4,86.0 L1083.4,86.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="1047.9" y="80" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(d, sFinal)</text>
+      <path d="M964.0,86.0 L1051.0,86.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="1015.5" y="80" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(d, sFinal)</text>
     </g>
     <g class="edge">
-      <path d="M996.4,86.0 L1004.4,86.0 Q1010.4,86.0 1010.4,92.0 L1010.4,132.0 Q1010.4,138.0 1016.4,138.0 L1083.4,138.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M964.0,86.0 L972.0,86.0 Q978.0,86.0 978.0,92.0 L978.0,132.0 Q978.0,138.0 984.0,138.0 L1051.0,138.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="action-node">
       <title>step1(a, s0) → (b, s1). Returns a new state alongside the value.</title>
-      <rect x="206.39999999999998" y="46" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="266.4" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1</text>
+      <rect x="174" y="46" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="234" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step1</text>
       <g class="pin pin-in">
-        <rect x="202.39999999999998" y="56.666666666666664" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="212.39999999999998" y="60.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a</text>
+        <rect x="170" y="56.666666666666664" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="180" y="60.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">a</text>
       </g>
       <g class="pin pin-in">
-        <rect x="202.39999999999998" y="71.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="212.39999999999998" y="75.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
+        <rect x="170" y="71.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="180" y="75.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
       </g>
       <g class="pin pin-out">
-        <rect x="322.4" y="64" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="290" y="64" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong.</title>
-      <rect x="539.4" y="55" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="599.4" y="77" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2</text>
+      <rect x="507" y="55" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="567" y="77" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step2</text>
       <g class="pin pin-in">
-        <rect x="535.4" y="65.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="545.4" y="69.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">b</text>
+        <rect x="503" y="65.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="513" y="69.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">b</text>
       </g>
       <g class="pin pin-in">
-        <rect x="535.4" y="80.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="545.4" y="84.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
+        <rect x="503" y="80.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="513" y="84.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
       </g>
       <g class="pin pin-out">
-        <rect x="655.4" y="73" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="623" y="73" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>step3(c, s2) → (d, s3). Same plumbing, repeated.</title>
-      <rect x="872.4" y="64" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="932.4" y="86" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3</text>
+      <rect x="840" y="64" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="900" y="86" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">step3</text>
       <g class="pin pin-in">
-        <rect x="868.4" y="74.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="878.4" y="78.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">c</text>
+        <rect x="836" y="74.66666666666667" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="846" y="78.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">c</text>
       </g>
       <g class="pin pin-in">
-        <rect x="868.4" y="89.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
-        <text x="878.4" y="93.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
+        <rect x="836" y="89.33333333333333" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <text x="846" y="93.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="#555">sIn</text>
       </g>
       <g class="pin pin-out">
-        <rect x="988.4" y="82" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="956" y="82" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="object-node">
       <title>Plain input value of type A.</title>
-      <rect x="68.4" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="123.4" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a0 : A</text>
+      <rect x="36" y="40" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">A</text>
     </g>
     <g class="object-node">
       <title>Initial state, passed in by the caller.</title>
-      <rect x="36" y="92" width="142.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="107.2" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s0 : s0 (initial)</text>
+      <rect x="36" y="92" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="91" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s0 (initial)</text>
     </g>
     <g class="object-node">
       <title>Intermediate state — must be threaded into step2 by hand.</title>
-      <rect x="405.4" y="49" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="460.4" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s1 : s1</text>
+      <rect x="373" y="49" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="428" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s1</text>
     </g>
     <g class="object-node">
       <title>Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug.</title>
-      <rect x="738.4" y="58" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="793.4" y="77" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s2 : s2</text>
+      <rect x="706" y="58" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="761" y="77" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s2</text>
     </g>
     <g class="object-node">
       <title>Final state — caller is also responsible for receiving and forwarding it.</title>
-      <rect x="1095.4" y="67" width="156.8" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1173.8000000000002" y="86" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">sFinal : s3 (final)</text>
+      <rect x="1063" y="67" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1118" y="86" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">s3 (final)</text>
     </g>
     <g class="object-node">
       <title>(d, sFinal) — caller unpacks both.</title>
-      <rect x="1095.4" y="119" width="185.6" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1188.2" y="138" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">outResult : (D, sFinal)</text>
+      <rect x="1063" y="119" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1118" y="138" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">(D, sFinal)</text>
     </g>
   </g>
 </svg>

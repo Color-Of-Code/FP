@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 858.8 426" width="858.8" height="426">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 758 426" width="758" height="426">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,111 +11,111 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="858.8" height="426" fill="white"/>
-  <text x="429.4" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With pure + bind: nested binds = nested loops; one bind per Cartesian axis</text>
+  <rect width="758" height="426" fill="white"/>
+  <text x="379" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">With pure + bind: nested binds = nested loops; one bind per Cartesian axis</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="858.8" height="398" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="758" height="398" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L140,0 L140,12 L130,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="70" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» cartesian</text>
     </g>
     <g class="swimlane lane-plain">
-      <rect x="6" y="28" width="758.8000000000001" height="171" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
-      <rect x="6" y="28" width="758.8000000000001" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="28" width="658" height="171" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="28" width="658" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
       <text x="16" y="38" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">Plain values &amp; functions</text>
     </g>
     <g class="swimlane lane-monad">
-      <rect x="6" y="199" width="758.8000000000001" height="207" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
-      <rect x="6" y="199" width="758.8000000000001" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="199" width="658" height="207" fill="#f7f9fc" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
+      <rect x="6" y="199" width="658" height="18" fill="#e9eef5" stroke="#bbbbbb" stroke-width="1" rx="4" ry="4"/>
       <text x="16" y="209" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">List monad</text>
     </g>
     <g class="edge">
-      <path d="M460.4,230.0 L460.4,334.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="460.4" y="282" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[A]</text>
+      <path d="M392.0,230.0 L392.0,334.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="392" y="282" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[A]</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M460.4,264.0 L460.4,334.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M392.0,264.0 L392.0,334.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M516.4,372.0 L657.6,372.0 Q663.6,372.0 663.6,366.0 L663.6,242.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="592" y="366" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[(A, B)]</text>
+      <path d="M448.0,372.0 L573.0,372.0 Q579.0,372.0 579.0,366.0 L579.0,242.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="579" y="295" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[(A, B)]</text>
     </g>
     <g class="edge">
-      <path d="M452.4,92.0 L452.4,118.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="452.4" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[B]</text>
+      <path d="M384.0,92.0 L384.0,118.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="384" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[B]</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M452.4,92.0 L452.4,118.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M384.0,92.0 L384.0,118.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M516.4,294.0 L657.6,294.0 Q663.6,294.0 663.6,288.0 L663.6,242.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="592" y="288" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(via inner bind)</text>
+      <path d="M448.0,294.0 L573.0,294.0 Q579.0,294.0 579.0,288.0 L579.0,242.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="515.5" y="288" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(via inner bind)</text>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : applies outerFn to every element of xs and concatenates the results.</title>
-      <rect x="400.4" y="350" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="460.4" y="372" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindOuter</text>
+      <rect x="332" y="350" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="392" y="372" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindOuter</text>
       <g class="pin pin-in">
-        <rect x="436.4" y="346" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="368" y="346" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="476.4" y="346" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="408" y="346" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="516.4" y="368" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="448" y="368" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>&gt;&gt;= : the inner bind that lives inside outerFn — applies innerFn to every element of ys.</title>
-      <rect x="392.4" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="452.4" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindInner</text>
+      <rect x="324" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="384" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindInner</text>
       <g class="pin pin-in">
-        <rect x="428.4" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="360" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="468.4" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="400" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="508.4" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="440" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="action-node">
       <title>pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list.</title>
-      <rect x="400.4" y="272" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
-      <text class="action-label" x="460.4" y="294" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">purePair</text>
+      <rect x="332" y="272" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+      <text class="action-label" x="392" y="294" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">purePair</text>
       <g class="pin pin-in">
-        <rect x="396.4" y="290" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="328" y="290" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
-        <rect x="516.4" y="290" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="448" y="290" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
     </g>
     <g class="object-node">
       <title>[A] — first list. Outer iteration.</title>
-      <rect x="405.4" y="192" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="460.4" y="211" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">xs : [A]</text>
+      <rect x="337" y="192" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="392" y="211" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">[A]</text>
     </g>
     <g class="object-node">
       <title>[B] — second list. Inner iteration (under each x).</title>
-      <rect x="397.4" y="54" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="452.4" y="73" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ys : [B]</text>
+      <rect x="329" y="54" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="384" y="73" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">[B]</text>
     </g>
     <g class="object-node hof">
       <title>λx. ys &gt;&gt;= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A].</title>
-      <rect x="371.2" y="226" width="178.4" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="460.4" y="238" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="460.4" y="252" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">outerFn : A ⟶ [(A, B)]</text>
+      <rect x="337" y="226" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="392" y="238" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="392" y="252" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">A ⟶ [(A, B)]</text>
     </g>
     <g class="object-node hof">
       <title>λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.</title>
-      <rect x="363.2" y="54" width="178.4" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
-      <text x="452.4" y="66" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="452.4" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">innerFn : B ⟶ [(A, B)]</text>
+      <rect x="329" y="54" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+      <text x="384" y="66" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
+      <text x="384" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">B ⟶ [(A, B)]</text>
     </g>
     <g class="object-node">
       <title>[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line.</title>
-      <rect x="592.4" y="192" width="142.4" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="663.6" y="211" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">result : [(A, B)]</text>
+      <rect x="524" y="192" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="579" y="211" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">[(A, B)]</text>
     </g>
   </g>
 </svg>

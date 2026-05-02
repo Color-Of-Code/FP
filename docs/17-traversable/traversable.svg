@@ -49,17 +49,17 @@
       <title>(a ⟶ Fb) — effectful mapping fn, received as a data token (HOF)</title>
       <rect x="36" y="40" width="110" height="38" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
       <text x="91" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="#00796b">«function»</text>
-      <text x="91" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">f : a ⟶ Fb</text>
+      <text x="91" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">a ⟶ Fb</text>
     </g>
     <g class="object-node">
       <title>Ta — traversable container of a's</title>
       <rect x="36" y="92" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ta : Ta</text>
+      <text x="91" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">Ta</text>
     </g>
     <g class="object-node">
       <title>F(Tb) — container shape T preserved; all effects F collected</title>
       <rect x="318" y="49" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="373" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ftb : F(Tb)</text>
+      <text x="373" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">F(Tb)</text>
     </g>
   </g>
 </svg>

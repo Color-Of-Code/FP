@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1376 186" width="1376" height="186">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1358 186" width="1358" height="186">
   <defs>
     <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#424242"/>
@@ -11,10 +11,10 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="#00796b"/>
     </marker>
   </defs>
-  <rect width="1376" height="186" fill="white"/>
-  <text x="688" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without callCC: every caller must propagate the ABORT sentinel</text>
+  <rect width="1358" height="186" fill="white"/>
+  <text x="679" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="#222">Without callCC: every caller must propagate the ABORT sentinel</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="1376" height="158" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="1358" height="158" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-activity">
       <path d="M0,0 L140,0 L140,12 L130,22 L0,22 Z" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
       <text x="70" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» contChain</text>
@@ -100,17 +100,17 @@
     <g class="object-node">
       <title>x : A — the input to the chain.</title>
       <rect x="36" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">x : A</text>
+      <text x="91" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">A</text>
     </g>
     <g class="object-node">
       <title>ABORT — produced by any step that wished to short-circuit and re-emitted by every subsequent caller.</title>
-      <rect x="1212" y="101" width="128" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1276" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">aborted : ABORT</text>
+      <rect x="1212" y="101" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
+      <text x="1267" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">ABORT</text>
     </g>
     <g class="object-node">
       <title>D — the happy-path output; reached only when no step aborted.</title>
       <rect x="1212" y="43" width="110" height="38" fill="#f5f5f5" stroke="#616161" stroke-width="1.5"/>
-      <text x="1267" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">final : D</text>
+      <text x="1267" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">D</text>
     </g>
     <g class="decision-node">
       <title>Sentinel guard #1 — pattern-matches on ABORT. The non-ABORT branch carries b to step2; ABORT joins abortRail.</title>
