@@ -160,10 +160,12 @@ export function appendGEdge(
     return;
   }
 
-  // ELK terminates the edge at the action-node body boundary, but action pins
-  // straddle that boundary (half outside, half inside).  When the target is a
-  // pin, trim less so the arrowhead tip lands on the pin's outer edge.
-  const endTrim   = e.dstPin ? ARROW_DEPTH - PIN_SZ / 2 : ARROW_DEPTH;
+  // Pin-targeted paths in this renderer already end on the pin's *outer*
+  // boundary (either directly from ELK's fixed-side port or from the
+  // post-processed lane routes).  Because the marker places its back edge at
+  // the path endpoint (`refX=0`), we must always pull the endpoint back by
+  // the full marker depth so the visual tip lands exactly on that boundary.
+  const endTrim   = ARROW_DEPTH;
   const startExt  = e.srcPin ? PIN_SZ / 2 : 0;
   const trimmed   = shortenEnd(extendStart(pts, startExt), endTrim);
   const edgeCol   = e.isHof ? COL.hofEdge : COL.edgeStroke;

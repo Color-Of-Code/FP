@@ -660,7 +660,9 @@ export async function layoutGraph(
       // Same-lane horizontal: collapse to a straight line on shared y.
       if (sLane && sLane === tLane && src.kind === "action" && tgt.kind === "action") {
         if (Math.abs(src.y - tgt.y) <= 0.5) {
-          edgePaths[i] = [[src.x + src.w / 2, src.y], [tgt.x - tgt.w / 2, tgt.y]];
+          const sx = src.x + src.w / 2 + (e.srcPin ? PIN_SZ / 2 : 0);
+          const tx = tgt.x - tgt.w / 2 - (e.dstPin ? PIN_SZ / 2 : 0);
+          edgePaths[i] = [[sx, src.y], [tx, tgt.y]];
         }
         continue;
       }

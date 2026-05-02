@@ -20,17 +20,17 @@
       <text x="70" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» cartesian</text>
     </g>
     <g class="edge">
-      <path d="M146.0,111.0 L158.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,111.0 L154.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M298.0,111.0 L389.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M298.0,111.0 L385.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="349.5" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">for x in xs</text>
     </g>
     <g class="edge">
-      <path d="M146.0,59.0 L151.0,59.0 Q156.0,59.0 156.0,64.0 L156.0,74.0 Q156.0,80.0 162.0,80.0 L381.0,80.0 Q387.0,80.0 387.0,86.0 L387.0,110.0 Q387.0,111.0 388.0,111.0 L389.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,59.0 L151.0,59.0 Q156.0,59.0 156.0,64.0 L156.0,74.0 Q156.0,80.0 162.0,80.0 L381.0,80.0 Q387.0,80.0 387.0,86.0 L387.0,111.0 L387.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M529.0,111.0 L616.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M529.0,111.0 L612.0,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="578.5" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">for y in ys</text>
     </g>
     <g class="edge">

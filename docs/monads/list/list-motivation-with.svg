@@ -30,22 +30,22 @@
       <text x="16" y="209" text-anchor="start" font-size="10" font-weight="bold" font-family="sans-serif" dominant-baseline="middle" fill="#333">List monad</text>
     </g>
     <g class="edge">
-      <path d="M460.4,230.0 L460.4,338.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M460.4,230.0 L460.4,334.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="460.4" y="282" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[A]</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M460.4,264.0 L460.4,338.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M460.4,264.0 L460.4,334.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
       <path d="M516.4,372.0 L657.6,372.0 Q663.6,372.0 663.6,366.0 L663.6,242.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="592" y="366" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[(A, B)]</text>
     </g>
     <g class="edge">
-      <path d="M452.4,92.0 L452.4,122.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M452.4,92.0 L452.4,118.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="452.4" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">[B]</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M452.4,92.0 L452.4,122.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M452.4,92.0 L452.4,118.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
       <path d="M516.4,294.0 L657.6,294.0 Q663.6,294.0 663.6,288.0 L663.6,242.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>

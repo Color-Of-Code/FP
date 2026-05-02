@@ -33,40 +33,40 @@
       <text x="243.9" y="168" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">∀ a</text>
     </g>
     <g class="edge">
-      <path d="M316.4,89.0 L325.8,89.0 Q331.8,89.0 331.8,83.0 L331.8,62.0 Q331.8,56.0 337.8,56.0 L353.8,56.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M316.4,89.0 L325.8,89.0 Q331.8,89.0 331.8,83.0 L331.8,62.0 Q331.8,56.0 337.8,56.0 L349.8,56.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M321.8,147.0 L335.8,147.0 Q341.8,147.0 341.8,141.0 L341.8,80.0 Q341.8,74.0 347.8,74.0 L353.8,74.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M321.8,147.0 L335.8,147.0 Q341.8,147.0 341.8,141.0 L341.8,78.0 Q341.8,74.0 345.8,74.0 L349.8,74.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
       <path d="M493.8,59.0 L827.8,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M484.8,120.0 L504.3,120.0 Q507.8,120.0 507.8,116.5 L507.8,114.0 Q507.8,113.0 508.8,113.0 L509.8,113.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M484.8,120.0 L504.3,120.0 Q507.8,120.0 507.8,116.5 L507.8,113.0 L507.8,113.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M321.8,147.0 L501.8,147.0 Q507.8,147.0 507.8,141.0 L507.8,129.0 Q507.8,128.0 508.8,128.0 L509.8,128.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M321.8,147.0 L501.8,147.0 Q507.8,147.0 507.8,141.0 L507.8,128.0 L507.8,128.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
       <path d="M649.8,111.0 L657.8,111.0 Q663.8,111.0 663.8,105.0 L663.8,93.0 Q663.8,87.0 669.8,87.0 L683.0,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M484.8,175.0 L501.8,175.0 Q507.8,175.0 507.8,169.0 L507.8,164.0 Q507.8,158.0 513.8,158.0 L657.8,158.0 Q663.8,158.0 663.8,152.0 L663.8,144.0 Q663.8,138.0 669.8,138.0 L675.8,138.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M484.8,175.0 L501.8,175.0 Q507.8,175.0 507.8,169.0 L507.8,164.0 Q507.8,158.0 513.8,158.0 L657.8,158.0 Q663.8,158.0 663.8,152.0 L663.8,142.0 Q663.8,138.0 667.8,138.0 L671.8,138.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M321.8,147.0 L670.8,147.0 Q673.8,147.0 673.8,150.0 L673.8,152.0 Q673.8,153.0 674.8,153.0 L675.8,153.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M321.8,147.0 L670.8,147.0 Q673.8,147.0 673.8,150.0 L673.8,153.0 L673.8,153.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
       <path d="M815.8,136.0 L823.8,136.0 Q829.8,136.0 829.8,130.0 L829.8,115.0 L829.8,115.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M953.4,59.0 L967.4,59.0 Q973.4,59.0 973.4,65.0 L973.4,74.0 Q973.4,75.0 974.4,75.0 L975.4,75.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M953.4,59.0 L967.4,59.0 Q973.4,59.0 973.4,65.0 L973.4,75.0 L973.4,75.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M808.6,87.0 L975.4,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M808.6,87.0 L971.4,87.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M953.4,115.0 L967.4,115.0 Q973.4,115.0 973.4,109.0 L973.4,100.0 Q973.4,99.0 974.4,99.0 L975.4,99.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M953.4,115.0 L967.4,115.0 Q973.4,115.0 973.4,109.0 L973.4,99.0 L973.4,99.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M1115.4,85.0 L1123.4,85.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>

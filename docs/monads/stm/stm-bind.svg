@@ -21,24 +21,24 @@
       <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» bind</text>
     </g>
     <g class="edge">
-      <path d="M146.0,62.0 L154.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M146.0,62.0 L150.0,62.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M294.0,56.0 L302.0,56.0 Q308.0,56.0 308.0,62.0 L308.0,75.0 Q308.0,81.0 314.0,81.0 L440.6,81.0 Q441.6,81.0 441.6,82.0 L441.6,82.0 Q441.6,83.0 442.6,83.0 L443.6,83.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M294.0,56.0 L302.0,56.0 Q308.0,56.0 308.0,62.0 L308.0,75.0 Q308.0,81.0 314.0,81.0 L440.6,81.0 Q441.6,81.0 441.6,82.0 L441.6,83.0 L441.6,83.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="374.8" y="75" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">a</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M431.6,134.0 L436.6,134.0 Q441.6,134.0 441.6,129.0 L441.6,99.0 Q441.6,98.0 442.6,98.0 L443.6,98.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M431.6,134.0 L436.6,134.0 Q441.6,134.0 441.6,129.0 L441.6,98.0 L441.6,98.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
-      <path d="M583.6,81.0 L601.6,81.0 Q607.6,81.0 607.6,87.0 L607.6,100.0 Q607.6,106.0 613.6,106.0 L654.6,106.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M583.6,81.0 L601.6,81.0 Q607.6,81.0 607.6,87.0 L607.6,100.0 Q607.6,106.0 613.6,106.0 L650.6,106.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="635.1" y="100" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">STM b</text>
     </g>
     <g class="edge">
       <path d="M794.6,94.0 L802.6,94.0 Q808.6,94.0 808.6,100.0 L808.6,138.0 L808.6,138.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M928.6,138.0 L933.6,138.0 Q938.6,138.0 938.6,133.0 L938.6,127.0 Q938.6,126.0 939.6,126.0 L940.6,126.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M928.6,138.0 L933.6,138.0 Q938.6,138.0 938.6,133.0 L938.6,126.0 L938.6,126.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M1080.6,111.0 L1347.6,111.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>

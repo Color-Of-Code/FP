@@ -24,18 +24,18 @@
       <path d="M220.0,161.0 L225.0,161.0 Q230.0,161.0 230.0,156.0 L230.0,119.0 L230.0,119.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M270.0,108.0 L583.0,108.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M270.0,108.0 L579.0,108.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="430.5" y="102" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Right a0  (a0 : a)</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M571.0,161.0 L576.0,161.0 Q581.0,161.0 581.0,156.0 L581.0,124.0 Q581.0,123.0 582.0,123.0 L583.0,123.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M571.0,161.0 L576.0,161.0 Q581.0,161.0 581.0,156.0 L581.0,123.0 L581.0,123.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
     </g>
     <g class="edge">
       <path d="M723.0,112.0 L890.0,112.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="814.5" y="106" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">f(a0) — Right b' or Left e'</text>
     </g>
     <g class="edge">
-      <path d="M270.0,119.0 L275.0,119.0 Q280.0,119.0 280.0,124.0 L280.0,242.0 Q280.0,248.0 286.0,248.0 L575.0,248.0 Q581.0,248.0 581.0,242.0 L581.0,231.0 Q581.0,230.0 582.0,230.0 L583.0,230.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M270.0,119.0 L275.0,119.0 Q280.0,119.0 280.0,124.0 L280.0,242.0 Q280.0,248.0 286.0,248.0 L575.0,248.0 Q581.0,248.0 581.0,242.0 L581.0,230.0 L581.0,230.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="430.5" y="242" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">Left e0  (e0 : e, f skipped)</text>
     </g>
     <g class="edge">

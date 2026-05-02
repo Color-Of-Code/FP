@@ -20,24 +20,24 @@
       <text x="73.10000000000001" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» stateChain</text>
     </g>
     <g class="edge">
-      <path d="M178.4,59.0 L190.4,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M178.4,59.0 L186.4,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M178.4,111.0 L183.4,111.0 Q188.4,111.0 188.4,106.0 L188.4,78.0 Q188.4,77.0 189.4,77.0 L190.4,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M178.4,111.0 L183.4,111.0 Q188.4,111.0 188.4,106.0 L188.4,77.0 L188.4,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M330.4,68.0 L393.4,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="369.9" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(b, s1)</text>
     </g>
     <g class="edge">
-      <path d="M515.4,68.0 L523.4,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M515.4,68.0 L519.4,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M663.4,77.0 L726.4,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="702.9" y="71" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(c, s2)</text>
     </g>
     <g class="edge">
-      <path d="M848.4,77.0 L856.4,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M848.4,77.0 L852.4,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M996.4,86.0 L1083.4,86.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>

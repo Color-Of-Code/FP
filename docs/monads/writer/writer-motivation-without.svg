@@ -20,17 +20,17 @@
       <text x="76.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» writerChain</text>
     </g>
     <g class="edge">
-      <path d="M192.8,59.0 L204.8,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M192.8,59.0 L200.8,59.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M192.8,111.0 L197.8,111.0 Q202.8,111.0 202.8,106.0 L202.8,78.0 Q202.8,77.0 203.8,77.0 L204.8,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M192.8,111.0 L197.8,111.0 Q202.8,111.0 202.8,106.0 L202.8,77.0 L202.8,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M344.8,68.0 L426.8,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M344.8,68.0 L422.8,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="391.8" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(r1, log1)</text>
     </g>
     <g class="edge">
-      <path d="M566.8,77.0 L648.8,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M566.8,77.0 L644.8,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="613.8" y="71" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">(r2, log2)</text>
     </g>
     <g class="edge">

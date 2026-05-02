@@ -20,21 +20,21 @@
       <text x="82.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="#333">«activity» partial apply</text>
     </g>
     <g class="edge hof-edge">
-      <path d="M149.6,59.0 L163.6,59.0 Q169.6,59.0 169.6,65.0 L169.6,111.0 Q169.6,117.0 175.6,117.0 L230.6,117.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M149.6,59.0 L163.6,59.0 Q169.6,59.0 169.6,65.0 L169.6,111.0 Q169.6,117.0 175.6,117.0 L226.6,117.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
       <text x="204.10000000000002" y="111" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">apply a</text>
     </g>
     <g class="edge">
-      <path d="M149.6,163.0 L222.6,163.0 Q228.6,163.0 228.6,157.0 L228.6,136.0 Q228.6,135.0 229.6,135.0 L230.6,135.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M149.6,163.0 L222.6,163.0 Q228.6,163.0 228.6,157.0 L228.6,135.0 L228.6,135.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M370.6,126.0 L378.6,126.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge hof-edge">
-      <path d="M149.6,59.0 L230.6,59.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <path d="M149.6,59.0 L226.6,59.0" fill="none" stroke="#00796b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
       <text x="194.10000000000002" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="#333">apply b</text>
     </g>
     <g class="edge">
-      <path d="M149.6,111.0 L154.6,111.0 Q159.6,111.0 159.6,106.0 L159.6,104.0 Q159.6,98.0 165.6,98.0 L222.6,98.0 Q228.6,98.0 228.6,92.0 L228.6,78.0 Q228.6,77.0 229.6,77.0 L230.6,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M149.6,111.0 L154.6,111.0 Q159.6,111.0 159.6,106.0 L159.6,104.0 Q159.6,98.0 165.6,98.0 L222.6,98.0 Q228.6,98.0 228.6,92.0 L228.6,77.0 L228.6,77.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M370.6,68.0 L378.6,68.0" fill="none" stroke="#424242" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
