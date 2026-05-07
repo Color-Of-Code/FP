@@ -11,11 +11,10 @@ import {
   PIN_SZ, COL, nodeDims,
 } from "../types.ts";
 import { layoutGraph } from "../layout.ts";
-import { appendGNode } from "./nodes.ts";
-import { appendGEdge } from "./edges.ts";
 import { appendDiagramFrame } from "./frame.ts";
 import { assignActionPins } from "./pin.ts";
 import { buildNodeMap, buildNotes, shiftCoordinates } from "./build-graph.ts";
+import { appendDiagramElements } from "./diagram.ts";
 import { appendElement, appendText, joinGroups, setAttrs, type SvgParent } from "../lib/svg.ts";
 import type { RenderPlan } from "./title.ts";
 
@@ -123,8 +122,7 @@ export async function renderIbd(
       appendDiagramFrame(parent, "block", partDef.name, W, H);
       appendPortSquares(parent, inPorts,  "left",  W, H);
       appendPortSquares(parent, outPorts, "right", W, H);
-      pinnedEdges.forEach((e, i) => appendGEdge(parent, e, shiftedPaths[i]));
-      shiftedNodes.forEach(n => appendGNode(parent, n));
+      appendDiagramElements(parent, shiftedNodes, pinnedEdges, shiftedPaths, []);
     },
   };
 }

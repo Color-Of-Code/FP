@@ -14,12 +14,10 @@ import {
   nodeDims,
 } from "../types.ts";
 import { layoutGraph, type LaneSpec } from "../layout.ts";
-import { appendGNode } from "./nodes.ts";
-import { appendGEdge } from "./edges.ts";
 import { appendDiagramFrame } from "./frame.ts";
-import { appendLaneBand } from "./lane.ts";
 import { assignActionPins } from "./pin.ts";
 import { buildNodeMap, buildNotes, filterEdges, shiftCoordinates } from "./build-graph.ts";
+import { appendDiagramElements } from "./diagram.ts";
 import { pipe, A } from "../lib/fp.ts";
 import type { RenderPlan } from "./title.ts";
 
@@ -128,9 +126,7 @@ export async function renderActivity(
     height: H,
     draw(parent) {
       appendDiagramFrame(parent, "activity", diagram.name ?? actDef.name, W, H);
-      shiftedLanes.forEach(l => appendLaneBand(parent, l));
-      pinnedEdges.forEach((e, i) => appendGEdge(parent, e, shiftedPaths[i]));
-      shiftedNodes.forEach(n => appendGNode(parent, n));
+      appendDiagramElements(parent, shiftedNodes, pinnedEdges, shiftedPaths, shiftedLanes);
     },
   };
 }
