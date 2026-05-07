@@ -1,0 +1,55 @@
+{
+  "packages": [
+    {
+      "name": "FunctionTypeActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "TypeConcept",
+          "actions": [],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "values",
+              "type": "{a0, a1, ...}"
+            },
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "type a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "values",
+              "to": "a",
+              "label": "all possible values"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "values": "value",
+      "a": "type"
+    },
+    "tooltips": {
+      "values": "A type can be seen as the set of values that may inhabit it.",
+      "a": "type a — used to describe the domain or codomain of a function."
+    },
+    "title": "Type a",
+    "name": "type"
+  }
+}

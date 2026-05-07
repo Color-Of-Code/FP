@@ -148,7 +148,6 @@
       "flatten": "Flatten the nested [[ (Int, Float) ]] back into a single distribution.",
       "outResult": "[(Int, Float)] — the joint distribution, hand-built."
     },
-    "layout": "elk",
     "title": "Without bind: manual nested loop and probability arithmetic",
     "name": "coinThenDie"
   }

@@ -81,7 +81,7 @@ export function checkFile(content: string, relPath: string): string[] {
   if (missing.length === 0 && duplicates.length === 0) {
     const presentInRequired = REQUIRED.filter(l => counts.has(l));
     const presentInFound = found.filter(l =>
-      (REQUIRED as readonly string[]).includes(l),
+      (REQUIRED).includes(l),
     );
     const isOutOfOrder = presentInFound.some((l, i) => l !== presentInRequired[i]);
     if (isOutOfOrder) {
@@ -107,33 +107,37 @@ function collectFiles(dirs: string[]): string[] {
     .sort();
 }
 
-// ── CLI entry point ─────────────────────────────────────────────────────────
+// ── CLI entry point (only when run directly) ────────────────────────────────
 
-const repoRoot: string = path.resolve(import.meta.dirname, "..");
-const docDirs: string[] = [
-  path.join(repoRoot, "docs"),
-  path.join(repoRoot, "docs", "monads"),
-  path.join(repoRoot, "docs", "optics"),
-];
+const isCli = process.argv[1]?.endsWith("check-lang-order.ts") ?? false;
 
-const allErrors = collectFiles(docDirs)
-  .filter(file => !SKIP_FILES.has(path.basename(file)))
-  .flatMap(file => {
-    const content = fs.readFileSync(file, "utf8");
-    const rel = path.relative(repoRoot, file);
-    return checkFile(content, rel);
-  });
+if (isCli) {
+  const repoRoot: string = path.resolve(import.meta.dirname, "..");
+  const docDirs: string[] = [
+    path.join(repoRoot, "docs"),
+    path.join(repoRoot, "docs", "monads"),
+    path.join(repoRoot, "docs", "optics"),
+  ];
 
-for (const err of allErrors) {
-  console.error(err);
-}
+  const allErrors = collectFiles(docDirs)
+    .filter(file => !SKIP_FILES.has(path.basename(file)))
+    .flatMap(file => {
+      const content = fs.readFileSync(file, "utf8");
+      const rel = path.relative(repoRoot, file);
+      return checkFile(content, rel);
+    });
 
-if (allErrors.length === 0) {
-  console.log(
-    "check-lang-order: all files OK (languages complete and in order)",
-  );
-  process.exit(0);
-} else {
-  console.error(`check-lang-order: ${allErrors.length} error(s) found`);
-  process.exit(1);
+  for (const err of allErrors) {
+    console.error(err);
+  }
+
+  if (allErrors.length === 0) {
+    console.log(
+      "check-lang-order: all files OK (languages complete and in order)",
+    );
+    process.exit(0);
+  } else {
+    console.error(`check-lang-order: ${allErrors.length} error(s) found`);
+    process.exit(1);
+  }
 }

@@ -212,7 +212,6 @@
       "pureUrlFn": "λ(host, port). pure (build host port). HOF argument — wraps the pure URL back into Reader.",
       "url": "URL — final value. runReader env supplies the environment exactly once at the top of the chain."
     },
-    "layout": "elk",
     "title": "With pure + bind: env supplied once at the top; bind feeds it to every step",
     "name": "buildUrl"
   }

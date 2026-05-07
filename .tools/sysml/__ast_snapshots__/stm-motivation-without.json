@@ -171,7 +171,6 @@
       "unlockB": "unlock(accountB) — release in reverse order; forgetting is a leak.",
       "unlockA": "unlock(accountA) — also reverse-order; ordering is contract, not type."
     },
-    "layout": "elk",
     "title": "Without STM: explicit locks require careful ordering to avoid deadlock",
     "name": "transfer"
   }

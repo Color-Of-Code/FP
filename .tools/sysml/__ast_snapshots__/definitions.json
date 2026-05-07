@@ -1,0 +1,81 @@
+{
+  "packages": [
+    {
+      "name": "FunctionDefinitionsActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "TotalityConcept",
+          "actions": [],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "f :: a ⟶ b"
+            },
+            {
+              "kind": "object",
+              "id": "safe",
+              "type": "total"
+            },
+            {
+              "kind": "object",
+              "id": "partial",
+              "type": "partial"
+            }
+          ],
+          "decisions": [
+            {
+              "kind": "decision",
+              "id": "total",
+              "label": "defined for every a?"
+            }
+          ],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "total"
+            },
+            {
+              "kind": "flow",
+              "from": "total",
+              "to": "safe",
+              "label": "yes"
+            },
+            {
+              "kind": "flow",
+              "from": "total",
+              "to": "partial",
+              "label": "no"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "function",
+      "total": "decision",
+      "safe": "value",
+      "partial": "value"
+    },
+    "tooltips": {
+      "f": "A function under discussion.",
+      "total": "A total function returns a result for every input in the domain.",
+      "safe": "Total — defined for all values of type a.",
+      "partial": "Partial — undefined for some values of type a."
+    },
+    "title": "Total vs partial",
+    "name": "totality"
+  }
+}

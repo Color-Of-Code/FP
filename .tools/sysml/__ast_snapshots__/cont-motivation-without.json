@@ -215,7 +215,6 @@
       "aborted": "ABORT — produced by any step that wished to short-circuit and re-emitted by every subsequent caller.",
       "final": "D — the happy-path output; reached only when no step aborted."
     },
-    "layout": "elk",
     "title": "Without callCC: every caller must propagate the ABORT sentinel",
     "name": "contChain"
   }

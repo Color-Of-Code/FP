@@ -24,7 +24,7 @@ function serializeSvg(svg: SVGSVGElement): string {
   // Round-trip through xmlbuilder2 to get a stable, pretty-printed
   // serialization.  jsdom's XMLSerializer emits a minified single-line
   // string; xmlbuilder2 then re-formats it with consistent indentation.
-  const raw = new (svg.ownerDocument!.defaultView as any).XMLSerializer()
+  const raw = new (svg.ownerDocument.defaultView as any).XMLSerializer()
     .serializeToString(svg);
   return create(raw).end({ prettyPrint: true, headless: true, indent: "  " });
 }
@@ -114,7 +114,7 @@ export function joinElements<T>(
     .join(tagName);
 
   joined.each(function eachJoined(this: BaseType, datum: T, index: number) {
-    const child = select(this as BaseType) as SvgParent;
+    const child = select(this) as SvgParent;
     child.selectAll("*").remove();
     child.text(null);
     render(child, datum, index);

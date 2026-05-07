@@ -1,0 +1,84 @@
+{
+  "packages": [
+    {
+      "name": "FunctionApplicationActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ApplyOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ApplicationConcept",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "f",
+              "type": "ApplyOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "a0"
+            },
+            {
+              "kind": "object",
+              "id": "b0"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "a0",
+              "to": "f"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "b0"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "a0": "value",
+      "f": "function",
+      "b0": "value"
+    },
+    "tooltips": {
+      "a0": "a0 — a concrete input value of type a",
+      "f": "Apply f to the input value",
+      "b0": "b0 — the resulting value of type b"
+    },
+    "title": "Application f(a0) = b0",
+    "name": "apply"
+  }
+}

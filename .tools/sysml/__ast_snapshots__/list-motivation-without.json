@@ -161,7 +161,6 @@
       "append": "result.append((x, y)) — manual mutation of a shared accumulator. Easy to forget; easy to break.",
       "result": "[(A, B)] — the result list built by side effect. Adding a 3rd dimension means rewriting the whole structure."
     },
-    "layout": "elk",
     "title": "Without bind: one nested loop level per Cartesian dimension",
     "name": "cartesian"
   }

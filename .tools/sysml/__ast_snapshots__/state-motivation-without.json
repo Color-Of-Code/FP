@@ -209,7 +209,6 @@
       "step3": "step3(c, s2) → (d, s3). Same plumbing, repeated.",
       "outResult": "(d, sFinal) — caller unpacks both."
     },
-    "layout": "elk",
     "title": "Without bind: state threaded as explicit s0/s1/s2/s3 variables",
     "name": "stateChain"
   }

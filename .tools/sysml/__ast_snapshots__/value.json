@@ -1,0 +1,55 @@
+{
+  "packages": [
+    {
+      "name": "FunctionValueActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ValueConcept",
+          "actions": [],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "a0",
+              "type": "a0 : a"
+            },
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "type a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "a0",
+              "to": "a",
+              "label": "inhabits"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "a0": "value",
+      "a": "type"
+    },
+    "tooltips": {
+      "a0": "a0 — one concrete representative, or witness, of type a.",
+      "a": "type a — the classification that a0 belongs to."
+    },
+    "title": "Value a0 of type a",
+    "name": "value"
+  }
+}

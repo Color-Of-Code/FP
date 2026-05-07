@@ -337,12 +337,12 @@ export async function layoutGraph(
     width: number;
     height: number;
   }
-  type ElkEdgeIn = {
+  interface ElkEdgeIn {
     id: string;
     sources: string[];
     targets: string[];
     labels?: ElkLabelIn[];
-  };
+  }
   const elkEdges: ElkEdgeIn[] = [];
   /** Map from `e<i>` ids back into the original `edges[]` index. */
   const elkEdgeIdToOrig = new Map<string, number>();

@@ -127,7 +127,6 @@
       "joinResult": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit).",
       "mb": "Maybe b — the single result of bind."
     },
-    "layout": "elk",
     "title": "Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
     "name": "bind"
   }

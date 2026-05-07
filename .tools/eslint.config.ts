@@ -1,16 +1,18 @@
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 import functional from "eslint-plugin-functional";
 
-// Phase-0 baseline — warning count will be tracked and ratcheted down.
+// Phase-0 baseline: 37 warnings, 0 errors (after auto-fix).
 // After each refactoring phase, tighten rules and reduce --max-warnings.
 
-export default tseslint.config(
+export default defineConfig(
   // ── Global ignores ──────────────────────────────────────────────────────
   {
     ignores: [
       "node_modules/**",
       "sysml/generated/**",
       "vscode-sysml/**",
+      "coverage/**",
     ],
   },
 
@@ -47,6 +49,9 @@ export default tseslint.config(
       // Prefer const, no param reassign (props will be tightened later).
       "prefer-const": "warn",
       "no-param-reassign": ["warn", { props: false }],
+
+      // Flag usage of deprecated APIs as errors so they are caught early.
+      "@typescript-eslint/no-deprecated": "error",
     },
   },
 

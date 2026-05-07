@@ -216,7 +216,6 @@
       "nothing": "Nothing — returned when any step failed. Caller must also guard against this.",
       "cityName": "city.name — the happy-path result, reached only when all three checks pass."
     },
-    "layout": "elk",
     "title": "Without bind: explicit Nothing guard at every step",
     "name": "lookupUserCity"
   }

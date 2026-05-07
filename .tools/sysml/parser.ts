@@ -58,8 +58,8 @@ function createSysmlServices(): { Sysml: { parser: { LangiumParser: any } } } {
     SysmlGeneratedModule,
     { parser: { ValueConverter: () => new SysmlValueConverter() } },
   );
-  shared.ServiceRegistry.register(Sysml as unknown as LangiumServices);
-  return { Sysml: Sysml as any };
+  shared.ServiceRegistry.register(Sysml);
+  return { Sysml: Sysml };
 }
 
 const { Sysml } = createSysmlServices();
@@ -68,7 +68,7 @@ const langiumParser = Sysml.parser.LangiumParser;
 // ── Adapter helpers ─────────────────────────────────────────────────────────
 
 const stripQuotes = (s: string | undefined): string =>
-  s && s.startsWith('"') ? s.slice(1, -1).replace(/\\"/g, '"') : (s ?? "");
+  s?.startsWith('"') ? s.slice(1, -1).replace(/\\"/g, '"') : (s ?? "");
 
 // `StrOrIdent` is a string in the generated AST: either a quoted literal
 // (with the surrounding quotes preserved by the data-type rule) or a bare
@@ -197,7 +197,7 @@ function adaptLaneBlock(g: G.LaneBlock): LaneBlock {
     kind:    "lane",
     id:      g.id ?? "",
     label:   g.label !== undefined ? strOrIdent(g.label) : undefined,
-    members: (g.members ?? []).map(m => strOrIdent(m as unknown as string)),
+    members: (g.members ?? []).map(m => strOrIdent(m)),
   };
 }
 
@@ -246,13 +246,12 @@ function adaptDiagramMeta(g: G.DiagramMeta | undefined): DiagramMeta {
   if (!g) return out;
   for (const f of g.fields) {
     if (G.isKvField(f)) {
-      const value = strOrIdent(f.value as unknown as string);
+      const value = strOrIdent(f.value);
       switch (f.key) {
         case "type":      out.diagType  = value as DiagramType; break;
         case "title":     out.title     = value;                break;
         case "name":      out.name      = value;                break;
         case "direction": out.direction = value as "LR" | "TB"; break;
-        case "layout":    out.layout    = value as "dagre" | "elk"; break;
         case "render":    out.render    = value;                break;
       }
     } else if (G.isShowField(f)) {
@@ -271,10 +270,10 @@ function adaptDiagramMeta(g: G.DiagramMeta | undefined): DiagramMeta {
  * Throws on lexer or parser errors.
  */
 export function parse(src: string): Model {
-  const result = (langiumParser as any).parse(src) as {
+  const result = (langiumParser).parse(src) as {
     value: G.Model;
-    lexerErrors: Array<{ line?: number; column?: number; message: string }>;
-    parserErrors: Array<{ message: string; token?: { image: string } }>;
+    lexerErrors: { line?: number; column?: number; message: string }[];
+    parserErrors: { message: string; token?: { image: string } }[];
   };
   if (result.lexerErrors.length > 0) {
     const e = result.lexerErrors[0];

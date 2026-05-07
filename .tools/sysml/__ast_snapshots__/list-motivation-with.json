@@ -186,7 +186,6 @@
       "innerFn": "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.",
       "result": "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."
     },
-    "layout": "elk",
     "title": "With pure + bind: nested binds = nested loops; one bind per Cartesian axis",
     "name": "cartesian"
   }

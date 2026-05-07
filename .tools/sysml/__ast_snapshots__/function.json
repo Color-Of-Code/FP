@@ -1,0 +1,88 @@
+{
+  "packages": [
+    {
+      "name": "FunctionActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "FunctionOp",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "FunctionConcept",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "f",
+              "type": "FunctionOp"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "type a"
+            },
+            {
+              "kind": "object",
+              "id": "b",
+              "type": "type b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "a",
+              "to": "f",
+              "label": "domain"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "b",
+              "label": "codomain"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "a": "type",
+      "f": "function",
+      "b": "type"
+    },
+    "tooltips": {
+      "a": "type a — the domain of f",
+      "f": "f consumes a value of type a and produces a value of type b",
+      "b": "type b — the codomain of f"
+    },
+    "title": "Function f :: a ⟶ b",
+    "name": "function"
+  }
+}

@@ -85,7 +85,7 @@ fmt-md: $(NODE_BIN)/prettier
 
 ## Lint Markdown files
 lint-md: $(NODE_BIN)/markdownlint-cli2
-	$(NODE_BIN)/markdownlint-cli2 --config "$(REPO_ROOT)/.markdownlint.json" "$(REPO_ROOT)/**/*.md" "!$(REPO_ROOT)/.tools/node_modules/**" "!$(REPO_ROOT)/.tools/vscode-sysml/node_modules/**" "!$(REPO_ROOT)/.tools/vscode-sysml/dist/**" "!$(REPO_ROOT)/docs/.next/**"
+	cd $(REPO_ROOT) && $(NODE_BIN)/markdownlint-cli2 --config .markdownlint.json "docs/**/*.md" "ct/**/*.md" "specs/**/*.md" "README.md" "AGENTS.md" "#docs/.next/**"
 
 ## Check language-example sections are complete and in the correct order
 lint-langs:

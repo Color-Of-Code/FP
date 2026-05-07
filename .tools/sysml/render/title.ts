@@ -113,7 +113,7 @@ export function createSvgDocument(title: string, W: number, H: number): SvgDocum
   return {
     svg,
     content,
-    serialize: root.serialize,
+    serialize: () => root.serialize(),
   };
 }
 

@@ -106,7 +106,6 @@
       "hiddenReadConfig": "Hidden effect: reads config.txt during execution. Not visible in the type.",
       "hiddenWriteLog": "Hidden effect: writes to a log during execution. Not visible in the type."
     },
-    "layout": "elk",
     "title": "Without IO: side effects hidden inside a pure-looking type",
     "name": "compute"
   }

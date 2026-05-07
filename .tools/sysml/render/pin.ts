@@ -50,7 +50,7 @@ function matchSide(
   side: "in" | "out",
 ): void {
   const node = nodeMap.get(nodeId);
-  if (!node || node.kind !== "action") return;
+  if (node?.kind !== "action") return;
   const pins = side === "in" ? node.inPins : node.outPins;
   if (pins.length === 0) return;
 

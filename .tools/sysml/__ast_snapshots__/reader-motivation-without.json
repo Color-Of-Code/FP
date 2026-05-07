@@ -164,7 +164,6 @@
       "buildUrl": "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing.",
       "url": "URL — the result. Most of the signatures involved were boilerplate."
     },
-    "layout": "elk",
     "title": "Without bind: config passed into every function explicitly",
     "name": "buildUrl"
   }

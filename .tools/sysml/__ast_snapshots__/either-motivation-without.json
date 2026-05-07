@@ -216,7 +216,6 @@
       "errOut": "Left e — returned when any step failed. Caller must also inspect this.",
       "saved": "Right Saved — the happy-path result, reached only when all three checks pass."
     },
-    "layout": "elk",
     "title": "Without bind: explicit Left guard at every step",
     "name": "parseValidateSave"
   }

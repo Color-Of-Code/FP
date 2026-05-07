@@ -167,7 +167,6 @@
       "outResult": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.",
       "failed": "Nothing — a parse failure, indistinguishable from any other Nothing."
     },
-    "layout": "elk",
     "title": "Without bind: leftover threaded by hand; one Nothing guard per step",
     "name": "digitLetter"
   }

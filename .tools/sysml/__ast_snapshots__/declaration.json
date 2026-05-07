@@ -1,0 +1,60 @@
+{
+  "packages": [
+    {
+      "name": "FunctionDeclarationActivity",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "DeclaredFunction",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "out"
+            }
+          ]
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "DeclarationConcept",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "f",
+              "type": "DeclaredFunction"
+            }
+          ],
+          "objects": [],
+          "decisions": [],
+          "merges": [],
+          "flows": [],
+          "successions": [],
+          "notes": [],
+          "lanes": []
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "shows": {
+      "f": "function"
+    },
+    "tooltips": {
+      "f": "The function identified by the declaration f :: a ⟶ b."
+    },
+    "title": "Declaration f :: a ⟶ b",
+    "name": "declaration"
+  }
+}
