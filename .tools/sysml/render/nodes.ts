@@ -25,6 +25,79 @@ import {
   type SvgParent,
 } from "../lib/svg.ts";
 
+// ── Pin positioning (shared by in-pins and out-pins) ───────────────────────
+
+type Side = "N" | "S" | "E" | "W";
+
+interface PinPos {
+  px: number;
+  py: number;
+  labelAttrs: Record<string, string | number>;
+}
+
+/** Compute the x/y origin and label-placement attrs for a single pin. */
+export function pinPosition(
+  side: Side,
+  i: number,
+  total: number,
+  n: { x: number; y: number; w: number; h: number },
+): PinPos {
+  switch (side) {
+    case "N": {
+      const inset = (n.w / (total + 1)) * (i + 1);
+      return {
+        px: n.x - n.w / 2 + inset - PIN_SZ / 2,
+        py: n.y - n.h / 2 - PIN_SZ / 2,
+        labelAttrs: {
+          x: n.x - n.w / 2 + inset,
+          y: n.y - n.h / 2 - PIN_SZ / 2 - 2,
+          "text-anchor": "middle",
+          "dominant-baseline": "alphabetic",
+        },
+      };
+    }
+    case "S": {
+      const inset = (n.w / (total + 1)) * (i + 1);
+      return {
+        px: n.x - n.w / 2 + inset - PIN_SZ / 2,
+        py: n.y + n.h / 2 - PIN_SZ / 2,
+        labelAttrs: {
+          x: n.x - n.w / 2 + inset,
+          y: n.y + n.h / 2 - PIN_SZ / 2 + PIN_SZ + 2,
+          "text-anchor": "middle",
+          "dominant-baseline": "hanging",
+        },
+      };
+    }
+    case "W": {
+      const py = n.y - n.h / 2 + (n.h / (total + 1)) * (i + 1) - PIN_SZ / 2;
+      return {
+        px: n.x - n.w / 2 - PIN_SZ / 2,
+        py,
+        labelAttrs: {
+          x: n.x - n.w / 2 - PIN_SZ / 2 + PIN_SZ + 2,
+          y: py + PIN_SZ / 2,
+          "text-anchor": "start",
+          "dominant-baseline": "middle",
+        },
+      };
+    }
+    default: { // "E"
+      const py = n.y - n.h / 2 + (n.h / (total + 1)) * (i + 1) - PIN_SZ / 2;
+      return {
+        px: n.x + n.w / 2 - PIN_SZ / 2,
+        py,
+        labelAttrs: {
+          x: n.x + n.w / 2 - PIN_SZ / 2 - 2,
+          y: py + PIN_SZ / 2,
+          "text-anchor": "end",
+          "dominant-baseline": "middle",
+        },
+      };
+    }
+  }
+}
+
 // ── Action node ────────────────────────────────────────────────────────────
 
 function appendActionNode(parent: SvgParent, n: GNode): void {
@@ -64,9 +137,9 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
   // same side are spaced evenly).
   const groupBySide = (
     pins: string[],
-    defaultSide: "N" | "S" | "E" | "W",
-  ): Map<"N" | "S" | "E" | "W", { pin: string; idxInSide: number; total: number }[]> => {
-    const out = new Map<"N" | "S" | "E" | "W", { pin: string; idxInSide: number; total: number }[]>();
+    defaultSide: Side,
+  ): Map<Side, { pin: string; idxInSide: number; total: number }[]> => {
+    const out = new Map<Side, { pin: string; idxInSide: number; total: number }[]>();
     for (const p of pins) {
       const s = n.pinSides?.[p] ?? defaultSide;
       const list = out.get(s) ?? [];
@@ -81,8 +154,8 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
 
   const inSideGroups  = groupBySide(n.inPins,  "W");
   const outSideGroups = groupBySide(n.outPins, "E");
-  const lookupSide = <S extends "N" | "S" | "E" | "W">(
-    groups: Map<S, { pin: string; idxInSide: number; total: number }[]>,
+  const lookupSide = (
+    groups: Map<Side, { pin: string; idxInSide: number; total: number }[]>,
     pin: string,
   ): { i: number; total: number } => {
     for (const list of groups.values()) {
@@ -92,60 +165,16 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
     return { i: 0, total: 1 };
   };
 
-  joinGroups(group, "g.pin-in", n.inPins, (pinGroup, pin) => {
-    const side = n.pinSides?.[pin] ?? "W";
-    const { i, total } = lookupSide(inSideGroups as any, pin);
-    let px: number, py: number;
-    let labelAttrs: Record<string, string | number>;
-    switch (side) {
-      case "N": {
-        const inset = (n.w / (total + 1)) * (i + 1);
-        px = n.x - n.w / 2 + inset - PIN_SZ / 2;
-        py = n.y - n.h / 2 - PIN_SZ / 2;
-        labelAttrs = {
-          x: px + PIN_SZ / 2,
-          y: py - 2,
-          "text-anchor": "middle",
-          "dominant-baseline": "alphabetic",
-        };
-        break;
-      }
-      case "S": {
-        const inset = (n.w / (total + 1)) * (i + 1);
-        px = n.x - n.w / 2 + inset - PIN_SZ / 2;
-        py = n.y + n.h / 2 - PIN_SZ / 2;
-        labelAttrs = {
-          x: px + PIN_SZ / 2,
-          y: py + PIN_SZ + 2,
-          "text-anchor": "middle",
-          "dominant-baseline": "hanging",
-        };
-        break;
-      }
-      case "E": {
-        py = n.y - n.h / 2 + (n.h / (total + 1)) * (i + 1) - PIN_SZ / 2;
-        px = n.x + n.w / 2 - PIN_SZ / 2;
-        labelAttrs = {
-          x: px - 2,
-          y: py + PIN_SZ / 2,
-          "text-anchor": "end",
-          "dominant-baseline": "middle",
-        };
-        break;
-      }
-      default: { // "W"
-        py = n.y - n.h / 2 + (n.h / (total + 1)) * (i + 1) - PIN_SZ / 2;
-        px = n.x - n.w / 2 - PIN_SZ / 2;
-        labelAttrs = {
-          x: px + PIN_SZ + 2,
-          y: py + PIN_SZ / 2,
-          "text-anchor": "start",
-          "dominant-baseline": "middle",
-        };
-        break;
-      }
-    }
-    setAttrs(pinGroup, { class: "pin pin-in" });
+  const appendPin = (
+    pinGroup: SvgParent,
+    pin: string,
+    side: Side,
+    sideInfo: { i: number; total: number },
+    cssClass: string,
+    showLabel: boolean,
+  ): void => {
+    const { px, py, labelAttrs } = pinPosition(side, sideInfo.i, sideInfo.total, n);
+    setAttrs(pinGroup, { class: cssClass });
     appendElement(pinGroup, "rect", {
       x: px,
       y: py,
@@ -155,83 +184,22 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
       stroke: COL.pinStroke,
       "stroke-width": 1,
     });
-    if (pin !== "_" && !n.hideInPinLabels) appendText(pinGroup, pin, {
+    if (showLabel && pin !== "_") appendText(pinGroup, pin, {
       ...labelAttrs,
       "font-size": 8,
       "font-family": "sans-serif",
       fill: "#555",
     });
+  };
+
+  joinGroups(group, "g.pin-in", n.inPins, (pinGroup, pin) => {
+    const side = n.pinSides?.[pin] ?? "W";
+    appendPin(pinGroup, pin, side, lookupSide(inSideGroups, pin), "pin pin-in", !n.hideInPinLabels);
   });
 
   joinGroups(group, "g.pin-out", n.outPins, (pinGroup, pin) => {
     const side = n.pinSides?.[pin] ?? "E";
-    const { i, total } = lookupSide(outSideGroups as any, pin);
-    let px: number, py: number;
-    let labelAttrs: Record<string, string | number>;
-    switch (side) {
-      case "N": {
-        const inset = (n.w / (total + 1)) * (i + 1);
-        px = n.x - n.w / 2 + inset - PIN_SZ / 2;
-        py = n.y - n.h / 2 - PIN_SZ / 2;
-        labelAttrs = {
-          x: px + PIN_SZ / 2,
-          y: py - 2,
-          "text-anchor": "middle",
-          "dominant-baseline": "alphabetic",
-        };
-        break;
-      }
-      case "S": {
-        const inset = (n.w / (total + 1)) * (i + 1);
-        px = n.x - n.w / 2 + inset - PIN_SZ / 2;
-        py = n.y + n.h / 2 - PIN_SZ / 2;
-        labelAttrs = {
-          x: px + PIN_SZ / 2,
-          y: py + PIN_SZ + 2,
-          "text-anchor": "middle",
-          "dominant-baseline": "hanging",
-        };
-        break;
-      }
-      case "W": {
-        py = n.y - n.h / 2 + (n.h / (total + 1)) * (i + 1) - PIN_SZ / 2;
-        px = n.x - n.w / 2 - PIN_SZ / 2;
-        labelAttrs = {
-          x: px + PIN_SZ + 2,
-          y: py + PIN_SZ / 2,
-          "text-anchor": "start",
-          "dominant-baseline": "middle",
-        };
-        break;
-      }
-      default: { // "E"
-        py = n.y - n.h / 2 + (n.h / (total + 1)) * (i + 1) - PIN_SZ / 2;
-        px = n.x + n.w / 2 - PIN_SZ / 2;
-        labelAttrs = {
-          x: px - 2,
-          y: py + PIN_SZ / 2,
-          "text-anchor": "end",
-          "dominant-baseline": "middle",
-        };
-        break;
-      }
-    }
-    setAttrs(pinGroup, { class: "pin pin-out" });
-    appendElement(pinGroup, "rect", {
-      x: px,
-      y: py,
-      width: PIN_SZ,
-      height: PIN_SZ,
-      fill: COL.pinFill,
-      stroke: COL.pinStroke,
-      "stroke-width": 1,
-    });
-    if (pin !== "_") appendText(pinGroup, pin, {
-      ...labelAttrs,
-      "font-size": 8,
-      "font-family": "sans-serif",
-      fill: "#555",
-    });
+    appendPin(pinGroup, pin, side, lookupSide(outSideGroups, pin), "pin pin-out", true);
   });
 }
 

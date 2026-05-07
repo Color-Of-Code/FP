@@ -13,12 +13,13 @@ import {
   FRAME_PAD, FRAME_TAB_H,
   nodeDims,
 } from "../types.ts";
-import { layoutGraph, type LaneSpec, type LaneGeom } from "../layout.ts";
+import { layoutGraph, type LaneSpec } from "../layout.ts";
 import { appendGNode } from "./nodes.ts";
 import { appendGEdge } from "./edges.ts";
 import { appendDiagramFrame } from "./frame.ts";
 import { appendLaneBand } from "./lane.ts";
 import { assignActionPins } from "./pin.ts";
+import { shiftCoordinates, buildNoteNode } from "./build-graph.ts";
 import type { RenderPlan } from "./title.ts";
 
 /**
@@ -86,20 +87,8 @@ export async function renderActivity(
   }
 
   // ── Note nodes ─────────────────────────────────────────────────────────
-  // A note is a free-floating annotation pinned to an existing node by a
-  // dashed undirected edge.  We materialise it as a graph node so the layout
-  // engine reserves space for it and routes the attachment cleanly.
   for (const note of actDef.notes) {
-    const lines = note.text.split(/\\n|\n/);
-    const n: GNode = {
-      id: note.id, label: lines[0] ?? "",
-      kind: "note", isHof: false,
-      tooltip: diagram.tooltips[note.id],
-      x: 0, y: 0, w: 0, h: 0,
-      inPins: [], outPins: [],
-      noteLines: lines,
-    };
-    [n.w, n.h] = nodeDims(n);
+    const { node: n } = buildNoteNode(note, diagram.tooltips);
     nodes.push(n); nodeMap.set(note.id, n);
   }
 
@@ -114,14 +103,9 @@ export async function renderActivity(
     if (!nodeMap.has(s.from) || !nodeMap.has(s.to)) continue;
     edges.push({ from: s.from, to: s.to, label: undefined, isHof: false, isObjectFlow: false });
   }
-  // Note attachments — undirected dashed connectors from each note to its target.
   for (const note of actDef.notes) {
-    if (!nodeMap.has(note.id) || !nodeMap.has(note.target)) continue;
-    edges.push({
-      from: note.id, to: note.target,
-      label: undefined, isHof: false, isObjectFlow: false,
-      isNoteAttachment: true,
-    });
+    const { edge } = buildNoteNode(note, diagram.tooltips);
+    if (edge && nodeMap.has(note.id) && nodeMap.has(note.target)) edges.push(edge);
   }
 
   // Match each object-flow edge to a named pin on action endpoints.
@@ -139,21 +123,9 @@ export async function renderActivity(
     nodes, edges, diagram.direction ?? "LR", laneSpecs,
   );
 
-  // Shift everything inside the activity frame.
   const dx = FRAME_PAD;
   const dy = FRAME_PAD + FRAME_TAB_H;
-  for (const n of nodes) {
-    n.x += dx;
-    n.y += dy;
-  }
-  const shiftedPaths = edgePaths.map(pts =>
-    pts.map(([x, y]) => [x + dx, y + dy] as [number, number]),
-  );
-  const shiftedLanes: LaneGeom[] = laneGeoms.map(l => ({
-    ...l,
-    x: l.x + dx,
-    y: l.y + dy,
-  }));
+  const { shiftedPaths, shiftedLanes } = shiftCoordinates(nodes, edgePaths, laneGeoms, dx, dy);
 
   const W = innerW + 2 * FRAME_PAD;
   const H = innerH + 2 * FRAME_PAD + FRAME_TAB_H;
@@ -163,8 +135,6 @@ export async function renderActivity(
     height: H,
     draw(parent) {
       appendDiagramFrame(parent, "activity", diagram.name ?? actDef.name, W, H);
-      // Lane bands sit between the frame and the edges so they read as
-      // background scenery without occluding flows or nodes.
       shiftedLanes.forEach(l => appendLaneBand(parent, l));
       edges.forEach((e, i) => {
         appendGEdge(parent, e, shiftedPaths[i]);

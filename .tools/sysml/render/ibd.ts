@@ -15,6 +15,7 @@ import { appendGNode } from "./nodes.ts";
 import { appendGEdge } from "./edges.ts";
 import { appendDiagramFrame } from "./frame.ts";
 import { assignActionPins } from "./pin.ts";
+import { shiftCoordinates, buildNoteNode } from "./build-graph.ts";
 import { appendElement, appendText, joinGroups, setAttrs, type SvgParent } from "../lib/svg.ts";
 import type { RenderPlan } from "./title.ts";
 
@@ -94,16 +95,7 @@ export async function renderIbd(
 
   // ── Note nodes (UML-style annotations pinned to a target) ─────────────
   for (const note of partDef.notes) {
-    const lines = note.text.split(/\\n|\n/);
-    const n: GNode = {
-      id: note.id, label: lines[0] ?? "",
-      kind: "note", isHof: false,
-      tooltip: diagram.tooltips[note.id],
-      x: 0, y: 0, w: 0, h: 0,
-      inPins: [], outPins: [],
-      noteLines: lines,
-    };
-    [n.w, n.h] = nodeDims(n);
+    const { node: n } = buildNoteNode(note, diagram.tooltips);
     nodes.push(n); nodeMap.set(note.id, n);
   }
 
@@ -114,22 +106,15 @@ export async function renderIbd(
     edges.push({ from: c.from, to: c.to, label: c.label, isHof, isObjectFlow: true });
   }
   for (const note of partDef.notes) {
-    if (!nodeMap.has(note.id) || !nodeMap.has(note.target)) continue;
-    edges.push({
-      from: note.id, to: note.target,
-      label: undefined, isHof: false, isObjectFlow: false,
-      isNoteAttachment: true,
-    });
+    const { edge } = buildNoteNode(note, diagram.tooltips);
+    if (edge && nodeMap.has(note.id) && nodeMap.has(note.target)) edges.push(edge);
   }
   assignActionPins(edges, nodeMap);
 
   const { width: innerW, height: innerH, edgePaths } = await layoutGraph(nodes, edges, "LR");
   const dx = MARGIN_X;
   const dy = MARGIN_Y;
-  for (const n of nodes) { n.x += dx; n.y += dy; }
-  const shiftedPaths = edgePaths.map(pts =>
-    pts.map(([x, y]) => [x + dx, y + dy] as [number, number]),
-  );
+  const { shiftedPaths } = shiftCoordinates(nodes, edgePaths, [], dx, dy);
 
   const W = innerW + 2 * MARGIN_X;
   const H = innerH + 2 * MARGIN_Y;
