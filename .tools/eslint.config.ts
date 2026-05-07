@@ -3,6 +3,7 @@ import tseslint from "typescript-eslint";
 import functional from "eslint-plugin-functional";
 
 // Phase-0 baseline: 37 warnings, 0 errors (after auto-fix).
+// Phase-2: 22 warnings, 0 errors.
 // After each refactoring phase, tighten rules and reduce --max-warnings.
 
 export default defineConfig(
