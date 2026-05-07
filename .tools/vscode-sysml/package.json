@@ -9,15 +9,23 @@
   "engines": {
     "vscode": "^1.94.0"
   },
-  "categories": ["Programming Languages"],
+  "categories": [
+    "Programming Languages"
+  ],
   "main": "./dist/vscode-sysml/src/extension.js",
-  "activationEvents": ["onLanguage:sysml"],
+  "activationEvents": [
+  ],
   "contributes": {
     "languages": [
       {
         "id": "sysml",
-        "aliases": ["SysML", "sysml"],
-        "extensions": [".sysml"],
+        "aliases": [
+          "SysML",
+          "sysml"
+        ],
+        "extensions": [
+          ".sysml"
+        ],
         "configuration": "./language-configuration.json"
       }
     ],

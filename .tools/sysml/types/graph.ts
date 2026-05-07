@@ -8,7 +8,7 @@ import {
   OBJECT_W, OBJECT_H,
   INIT_R, FINAL_R,
   DECISION_SZ,
-} from "./constants.ts";
+} from "./theme.ts";
 
 // ── Graph node ─────────────────────────────────────────────────────────────
 

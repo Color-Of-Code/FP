@@ -17,6 +17,8 @@
   "include": [
     "sysml/**/*.ts",
     "check-lang-order.ts",
-    "vitest.config.ts"
+    "check-lang-order.test.ts",
+    "vitest.config.ts",
+    "eslint.config.ts"
   ]
 }

@@ -24,7 +24,7 @@ D2_SVGS  := $(D2_FILES:.d2=.svg)
 # Pure make built-in — no shell-out — so it's effectively free.
 SYSML_TOOL_SRCS := $(wildcard $(REPO_ROOT)/.tools/sysml/*.ts $(REPO_ROOT)/.tools/sysml/*/*.ts)
 
-.PHONY: all svgs sysml fmt-d2 fmt-md lint-md lint-langs check-md fmt install help test test-update typecheck langium-gen vscode-ext vscode-ext-link
+.PHONY: all svgs sysml fmt-d2 fmt-md lint-md lint-langs lint lint-fix check-md fmt install help test test-update coverage typecheck langium-gen vscode-ext vscode-ext-link
 
 ## Default: show help
 help:
@@ -41,13 +41,16 @@ help:
 	@echo "  lint-langs  Check language-example completeness and order"
 	@echo "  check-md    Check Markdown formatting without writing (CI-friendly)"
 	@echo "  fmt         Format both D2 and Markdown"
+	@echo "  lint        Lint TypeScript sources with ESLint"
+	@echo "  lint-fix    Lint and auto-fix TypeScript sources"
 	@echo "  test        Run vitest snapshot tests for the SysML pipeline"
 	@echo "  test-update Refresh SVG snapshots after intentional changes"
+	@echo "  coverage    Run tests with V8 code coverage report"
 	@echo "  typecheck   Run tsc --noEmit on the .tools/ TypeScript sources"
 	@echo "  langium-gen Regenerate the SysML parser/AST from sysml.langium"
 	@echo "  vscode-ext  Build the local VS Code extension (highlighting + LSP)"
 	@echo "  vscode-ext-link  Symlink the extension into ~/.vscode/extensions"
-	@echo "  all         svgs + fmt + lint-md + lint-langs + typecheck + test"
+	@echo "  all         svgs + fmt + lint-md + lint-langs + lint + typecheck + test"
 	@echo ""
 
 ## Install dependencies via pnpm (recursively across the workspace)
@@ -125,8 +128,20 @@ vscode-ext-link: vscode-ext
 	@echo "  linked $$HOME/.vscode/extensions/fp-local.sysml-fp-local-0.0.1 -> $(REPO_ROOT)/.tools/vscode-sysml"
 	@echo "  reload VS Code window to activate."
 
+## Lint TypeScript sources with ESLint
+lint:
+	cd $(REPO_ROOT)/.tools && pnpm exec eslint .
+
+## Lint and auto-fix TypeScript sources
+lint-fix:
+	cd $(REPO_ROOT)/.tools && pnpm exec eslint . --fix
+
+## Run tests with V8 code coverage
+coverage:
+	cd $(REPO_ROOT)/.tools && pnpm exec vitest run --coverage
+
 ## Run everything
-all: svgs fmt lint-md lint-langs typecheck test
+all: svgs fmt lint-md lint-langs lint typecheck test
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:
