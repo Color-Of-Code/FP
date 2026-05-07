@@ -15,7 +15,7 @@ import { appendGNode } from "./nodes.ts";
 import { appendGEdge } from "./edges.ts";
 import { appendDiagramFrame } from "./frame.ts";
 import { assignActionPins } from "./pin.ts";
-import { shiftCoordinates, buildNoteNode } from "./build-graph.ts";
+import { buildNodeMap, buildNotes, shiftCoordinates } from "./build-graph.ts";
 import { appendElement, appendText, joinGroups, setAttrs, type SvgParent } from "../lib/svg.ts";
 import type { RenderPlan } from "./title.ts";
 
@@ -76,11 +76,9 @@ export async function renderIbd(
   partDef: PartDef,
   diagram: DiagramMeta,
 ): Promise<RenderPlan> {
-  const addToMap = (acc: Map<string, GNode>, n: GNode): Map<string, GNode> =>
-    new Map([...acc, [n.id, n]]);
-
+  // ── Nodes ──────────────────────────────────────────────────────────────
   const partNodes: GNode[] = partDef.parts.map(p => {
-    const role  = diagram.shows[p.id] ?? "type";
+    const role = diagram.shows[p.id] ?? "type";
     const base: GNode = {
       id: p.id, label: `${p.id} : ${p.type}`, stereotype: undefined,
       kind: role === "function" ? "action" : "object",
@@ -92,34 +90,30 @@ export async function renderIbd(
     const [w, h] = nodeDims(base);
     return { ...base, w, h };
   });
+  const { noteNodes, noteEdgesOf } = buildNotes(partDef.notes, diagram.tooltips);
 
-  // ── Note nodes (UML-style annotations pinned to a target) ─────────────
-  const noteNodes: GNode[] = partDef.notes.map(note => buildNoteNode(note, diagram.tooltips).node);
+  const nodes   = [...partNodes, ...noteNodes];
+  const nodeMap = buildNodeMap(nodes);
 
-  const nodes: GNode[] = [...partNodes, ...noteNodes];
-  const nodeMap = nodes.reduce(addToMap, new Map<string, GNode>());
-
+  // ── Edges ──────────────────────────────────────────────────────────────
   const connEdges: GEdge[] = partDef.connections.map(c => {
     const srcRole = diagram.shows[c.from] ?? "type";
     const isHof   = (c.via?.toLowerCase().includes("hof") ?? false) || srcRole === "hof";
     return { from: c.from, to: c.to, label: c.label, isHof, isObjectFlow: true };
   });
-  const noteEdges: GEdge[] = partDef.notes
-    .map(note => ({ note, edge: buildNoteNode(note, diagram.tooltips).edge }))
-    .filter(({ note, edge }) => edge != null && nodeMap.has(note.id) && nodeMap.has(note.target))
-    .map(({ edge }) => edge!);
-  const edges: GEdge[] = [...connEdges, ...noteEdges];
+  const edges       = [...connEdges, ...noteEdgesOf(nodeMap)];
   const pinnedEdges = assignActionPins(edges, nodeMap);
 
-  const { width: innerW, height: innerH, nodes: positioned, edgePaths } = await layoutGraph(nodes, pinnedEdges, "LR");
-  const dx = MARGIN_X;
-  const dy = MARGIN_Y;
-  const { shiftedNodes, shiftedPaths } = shiftCoordinates(positioned, edgePaths, [], dx, dy);
+  // ── Layout ─────────────────────────────────────────────────────────────
+  const { width: innerW, height: innerH, nodes: positioned, edgePaths } =
+    await layoutGraph(nodes, pinnedEdges, "LR");
+  const { shiftedNodes, shiftedPaths } =
+    shiftCoordinates(positioned, edgePaths, [], MARGIN_X, MARGIN_Y);
 
   const W = innerW + 2 * MARGIN_X;
   const H = innerH + 2 * MARGIN_Y;
 
-  const inPorts  = partDef.ports.filter(p => p.direction === "in"  || p.direction === "inout");
+  const inPorts  = partDef.ports.filter(p => p.direction === "in" || p.direction === "inout");
   const outPorts = partDef.ports.filter(p => p.direction === "out");
 
   return {
@@ -127,8 +121,7 @@ export async function renderIbd(
     height: H,
     draw(parent) {
       appendDiagramFrame(parent, "block", partDef.name, W, H);
-
-      appendPortSquares(parent, inPorts, "left", W, H);
+      appendPortSquares(parent, inPorts,  "left",  W, H);
       appendPortSquares(parent, outPorts, "right", W, H);
       pinnedEdges.forEach((e, i) => appendGEdge(parent, e, shiftedPaths[i]));
       shiftedNodes.forEach(n => appendGNode(parent, n));

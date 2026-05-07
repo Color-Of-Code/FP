@@ -474,138 +474,199 @@ export function applyElkPositions(
  * lower-lane compaction, HOF re-alignment, terminal sink pull-back,
  * and vertical lane-member shifts.
  *
- * Returns a new node array with adjusted positions.
+ * Each pass is a pure function that consumes the current node array and
+ * returns a Map of id→{x?,y?} patches.  The final result threads the five
+ * passes through `applyPatches` in order.
+ *
  * Only called when `ctx.useLanes` is true.
  */
+
+// ── Patch helpers (private, shared across passes) ─────────────────────────
+
+type NodePatch = Partial<Pick<GNode, "x" | "y">>;
+type PatchMap  = ReadonlyMap<string, NodePatch>;
+
+const emptyPatchMap: PatchMap = new Map();
+
+const indexNodes = (ns: readonly GNode[]): ReadonlyMap<string, GNode> =>
+  new Map(ns.map(n => [n.id, n]));
+
+const applyPatches = (ns: readonly GNode[], patches: PatchMap): GNode[] =>
+  ns.map(n => {
+    const p = patches.get(n.id);
+    return p ? { ...n, ...p } : n;
+  });
+
+/** Run a sequence of pass functions, threading the node array through each. */
+const runPasses = (
+  initial: readonly GNode[],
+  passes: readonly ((ns: readonly GNode[]) => PatchMap)[],
+): GNode[] =>
+  passes.reduce<GNode[]>(
+    (acc, pass) => applyPatches(acc, pass(acc)),
+    [...initial],
+  );
+
+// ── Individual passes ─────────────────────────────────────────────────────
+
+/** Pass 1: column-align cross-lane object→action edges with a single target. */
+function alignCrossLaneObjects(
+  edges: readonly GEdge[],
+  ctx: LayoutContext,
+) {
+  const { laneOf } = ctx;
+  return (nodes: readonly GNode[]): PatchMap => {
+    const nix = indexNodes(nodes);
+    const objectTargets = edges
+      .filter(e => e.isObjectFlow)
+      .reduce<ReadonlyMap<string, readonly string[]>>((acc, e) => {
+        const src = nix.get(e.from);
+        const tgt = nix.get(e.to);
+        if (!src || !tgt || src.kind !== "object" || tgt.kind !== "action") return acc;
+        const sLane = laneOf.get(e.from);
+        const tLane = laneOf.get(e.to);
+        if (!sLane || !tLane || sLane === tLane) return acc;
+        return new Map([...acc, [e.from, [...(acc.get(e.from) ?? []), e.to]]]);
+      }, new Map());
+
+    return new Map(
+      [...objectTargets.entries()]
+        .filter(([, targets]) => targets.length === 1)
+        .flatMap(([objectId, targets]) => {
+          const target = nix.get(targets[0]);
+          return target ? [[objectId, { x: target.x }] as const] : [];
+        }),
+    );
+  };
+}
+
+/** Pass 2: compact lower lanes horizontally so each member sits next to its predecessor. */
+function compactLowerLanes(
+  edges: readonly GEdge[],
+  ctx: LayoutContext,
+) {
+  const { lanes, laneRankOf } = ctx;
+  return (nodes: readonly GNode[]): PatchMap => {
+    const nix = indexNodes(nodes);
+    const incomingHofWidth = edges.reduce<ReadonlyMap<string, number>>((acc, e) => {
+      if (!e.isObjectFlow || !e.isHof) return acc;
+      const src = nix.get(e.from);
+      const tgt = nix.get(e.to);
+      if (!src || !tgt) return acc;
+      const srcLane = laneRankOf.get(src.id);
+      const tgtLane = laneRankOf.get(tgt.id);
+      if (srcLane === undefined || tgtLane === undefined || srcLane === tgtLane) return acc;
+      return new Map([...acc, [tgt.id, Math.max(acc.get(tgt.id) ?? 0, src.w)]]);
+    }, new Map());
+
+    // Compaction must apply patches as it goes (each member depends on the
+    // previously-clamped predecessor), so we fold across patched node arrays.
+    const compacted = lanes.slice(1).reduce<GNode[]>((accNodes, lane) => {
+      const members = lane.members
+        .map(id => indexNodes(accNodes).get(id))
+        // eslint-disable-next-line functional/prefer-tacit -- type-guard annotation requires wrapper
+        .filter((node): node is GNode => Boolean(node));
+      return members.slice(1).reduce((innerNodes, cur, i) => {
+        const inner = indexNodes(innerNodes);
+        const prev  = inner.get(members[i].id)!;
+        const edge  = edges.find(e => e.from === prev.id && e.to === cur.id);
+        const labelSpan = edge?.label
+          ? Math.ceil(edge.label.length * EDGE_LABEL_CHAR_W) + EDGE_LABEL_PAD + 24
+          : 40;
+        const nodeDistance = prev.w / 2 + cur.w / 2 + labelSpan;
+        const hofDistance  = (incomingHofWidth.get(prev.id) ?? 0) / 2
+          + (incomingHofWidth.get(cur.id) ?? 0) / 2
+          + 24;
+        const desiredX = prev.x + Math.max(nodeDistance, hofDistance);
+        const currentX = inner.get(cur.id)!.x;
+        return currentX > desiredX
+          ? applyPatches(innerNodes, new Map([[cur.id, { x: desiredX }]]))
+          : innerNodes;
+      }, accNodes);
+    }, [...nodes]);
+
+    // Diff compacted vs original to produce the patch map for this pass.
+    return new Map(
+      compacted.flatMap(c => {
+        const orig = nix.get(c.id);
+        return orig && orig.x !== c.x ? [[c.id, { x: c.x }] as const] : [];
+      }),
+    );
+  };
+}
+
+/** Pass 3: re-align HOF objects above their target after compaction. */
+function realignHofs(
+  edges: readonly GEdge[],
+  ctx: LayoutContext,
+) {
+  const { laneRankOf } = ctx;
+  return (nodes: readonly GNode[]): PatchMap => {
+    const nix = indexNodes(nodes);
+    return edges.reduce<ReadonlyMap<string, NodePatch>>((acc, e) => {
+      if (!e.isObjectFlow || !e.isHof) return acc;
+      const src = nix.get(e.from);
+      const tgt = nix.get(e.to);
+      if (!src || !tgt) return acc;
+      const srcLane = laneRankOf.get(src.id);
+      const tgtLane = laneRankOf.get(tgt.id);
+      if (srcLane === undefined || tgtLane === undefined || srcLane === tgtLane) return acc;
+      return new Map([...acc, [src.id, { x: tgt.x }]]);
+    }, emptyPatchMap);
+  };
+}
+
+/** Pass 4: pull terminal top-lane object sinks toward their producing action. */
+function pullTerminalSinks(
+  edges: readonly GEdge[],
+  ctx: LayoutContext,
+) {
+  const { laneRankOf, hasOutgoing } = ctx;
+  return (nodes: readonly GNode[]): PatchMap => {
+    const nix = indexNodes(nodes);
+    return edges.reduce<ReadonlyMap<string, NodePatch>>((acc, e) => {
+      if (!e.isObjectFlow || e.isHof) return acc;
+      const src = nix.get(e.from);
+      const tgt = nix.get(e.to);
+      if (!src || !tgt || src.kind !== "action" || tgt.kind !== "object") return acc;
+      const srcLane = laneRankOf.get(src.id);
+      const tgtLane = laneRankOf.get(tgt.id);
+      if (srcLane === undefined || tgtLane === undefined || srcLane <= tgtLane) return acc;
+      if (hasOutgoing.has(tgt.id)) return acc;
+      const desiredX = src.x + src.w / 2 + tgt.w / 2 + 72;
+      return tgt.x > desiredX ? new Map([...acc, [tgt.id, { x: desiredX }]]) : acc;
+    }, emptyPatchMap);
+  };
+}
+
+/** Pass 5: shift lane members vertically (top lane vs lower lanes). */
+function shiftLaneMembersVertically(ctx: LayoutContext) {
+  const { lanes } = ctx;
+  return (nodes: readonly GNode[]): PatchMap => {
+    const nix = indexNodes(nodes);
+    const shiftMembers = (members: readonly string[], dy: number) =>
+      members
+        .filter(m => nix.has(m))
+        .map(m => [m, { y: nix.get(m)!.y + dy }] as const);
+    return new Map([
+      ...shiftMembers(lanes[0]?.members ?? [], TOP_LANE_NODE_SHIFT),
+      ...lanes.slice(1).flatMap(l => shiftMembers(l.members, LOWER_LANE_NODE_SHIFT)),
+    ]);
+  };
+}
+
 export function adjustLanePositions(
   nodes: readonly GNode[],
   edges: readonly GEdge[],
   ctx: LayoutContext,
 ): GNode[] {
-  const { laneOf, lanes, hasOutgoing } = ctx;
-  const laneIndexOf = ctx.laneRankOf;
-
-  // Helper: apply a Map of id→{x?,y?} patches to nodes
-  const applyPatches = (
-    ns: readonly GNode[],
-    patches: ReadonlyMap<string, Partial<Pick<GNode, "x" | "y">>>,
-  ): GNode[] =>
-    ns.map(n => {
-      const p = patches.get(n.id);
-      return p ? { ...n, ...p } : n;
-    });
-
-  // Helper: build an index from nodes
-  const idx = (ns: readonly GNode[]): ReadonlyMap<string, GNode> =>
-    new Map(ns.map(n => [n.id, n]));
-
-  // ── Pass 1: Column-align cross-lane objects above their target action ─
-  const objectTargets = edges
-    .filter(e => e.isObjectFlow)
-    .reduce<ReadonlyMap<string, readonly string[]>>((acc, e) => {
-      const nix = idx(nodes);
-      const src = nix.get(e.from);
-      const tgt = nix.get(e.to);
-      if (!src || !tgt || src.kind !== "object" || tgt.kind !== "action") return acc;
-      const sLane = laneOf.get(e.from);
-      const tLane = laneOf.get(e.to);
-      if (!sLane || !tLane || sLane === tLane) return acc;
-      return new Map([...acc, [e.from, [...(acc.get(e.from) ?? []), e.to]]]);
-    }, new Map());
-
-  const pass1Patches = new Map(
-    [...objectTargets.entries()]
-      .filter(([, targets]) => targets.length === 1)
-      .flatMap(([objectId, targets]) => {
-        const nix = idx(nodes);
-        const target = nix.get(targets[0]);
-        return target ? [[objectId, { x: target.x }] as const] : [];
-      }),
-  );
-  const nodes1 = applyPatches(nodes, pass1Patches);
-
-  // ── Pass 2: Compact lower lanes horizontally ──────────────────────────
-  const nix1 = idx(nodes1);
-  const incomingHofWidth = edges.reduce<ReadonlyMap<string, number>>((acc, e) => {
-    if (!e.isObjectFlow || !e.isHof) return acc;
-    const src = nix1.get(e.from);
-    const tgt = nix1.get(e.to);
-    if (!src || !tgt) return acc;
-    const srcLane = laneIndexOf.get(src.id);
-    const tgtLane = laneIndexOf.get(tgt.id);
-    if (srcLane === undefined || tgtLane === undefined || srcLane === tgtLane) return acc;
-    return new Map([...acc, [tgt.id, Math.max(acc.get(tgt.id) ?? 0, src.w)]]);
-  }, new Map());
-
-  // Compact: for each lower lane, clamp each member toward its predecessor
-  const nodes2 = lanes.slice(1).reduce((accNodes, lane) => {
-    const members = lane.members
-      .map(id => idx(accNodes).get(id))
-      // eslint-disable-next-line functional/prefer-tacit -- type-guard annotation requires wrapper
-      .filter((node): node is GNode => Boolean(node));
-    return members.slice(1).reduce((innerNodes, cur, i) => {
-      const nix2 = idx(innerNodes);
-      const prev = nix2.get(members[i].id)!;
-      const edge = edges.find(e => e.from === prev.id && e.to === cur.id);
-      const labelSpan = edge?.label
-        ? Math.ceil(edge.label.length * EDGE_LABEL_CHAR_W) + EDGE_LABEL_PAD + 24
-        : 40;
-      const nodeDistance = prev.w / 2 + cur.w / 2 + labelSpan;
-      const hofDistance = (incomingHofWidth.get(prev.id) ?? 0) / 2
-        + (incomingHofWidth.get(cur.id) ?? 0) / 2
-        + 24;
-      const desiredX = prev.x + Math.max(nodeDistance, hofDistance);
-      const currentX = nix2.get(cur.id)!.x;
-      return currentX > desiredX
-        ? applyPatches(innerNodes, new Map([[cur.id, { x: desiredX }]]))
-        : innerNodes;
-    }, accNodes);
-  }, nodes1);
-
-  // ── Pass 3: Re-align HOFs after compaction ────────────────────────────
-  const hofPatches = edges.reduce<ReadonlyMap<string, { x: number }>>((acc, e) => {
-    if (!e.isObjectFlow || !e.isHof) return acc;
-    const nix3 = idx(nodes2);
-    const src = nix3.get(e.from);
-    const tgt = nix3.get(e.to);
-    if (!src || !tgt) return acc;
-    const srcLane = laneIndexOf.get(src.id);
-    const tgtLane = laneIndexOf.get(tgt.id);
-    if (srcLane === undefined || tgtLane === undefined || srcLane === tgtLane) return acc;
-    return new Map([...acc, [src.id, { x: tgt.x }]]);
-  }, new Map());
-  const nodes3 = applyPatches(nodes2, hofPatches);
-
-  // ── Pass 4: Pull terminal top-lane sinks toward producing action ──────
-  const sinkPatches = edges.reduce<ReadonlyMap<string, { x: number }>>((acc, e) => {
-    if (!e.isObjectFlow || e.isHof) return acc;
-    const nix4 = idx(nodes3);
-    const src = nix4.get(e.from);
-    const tgt = nix4.get(e.to);
-    if (!src || !tgt || src.kind !== "action" || tgt.kind !== "object") return acc;
-    const srcLane = laneIndexOf.get(src.id);
-    const tgtLane = laneIndexOf.get(tgt.id);
-    if (srcLane === undefined || tgtLane === undefined || srcLane <= tgtLane) return acc;
-    if (hasOutgoing.has(tgt.id)) return acc;
-    const desiredX = src.x + src.w / 2 + tgt.w / 2 + 72;
-    return tgt.x > desiredX ? new Map([...acc, [tgt.id, { x: desiredX }]]) : acc;
-  }, new Map());
-  const nodes4 = applyPatches(nodes3, sinkPatches);
-
-  // ── Pass 5: Shift lane members vertically ─────────────────────────────
-  const topLaneShifts = new Map(
-    (lanes[0]?.members ?? [])
-      .filter(m => idx(nodes4).has(m))
-      .map(m => [m, { y: idx(nodes4).get(m)!.y + TOP_LANE_NODE_SHIFT }] as const),
-  );
-  const lowerLaneShifts = new Map(
-    lanes.slice(1).flatMap(l =>
-      l.members
-        .filter(m => idx(nodes4).has(m))
-        .map(m => [m, { y: idx(nodes4).get(m)!.y + LOWER_LANE_NODE_SHIFT }] as const),
-    ),
-  );
-  return applyPatches(nodes4, new Map([...topLaneShifts, ...lowerLaneShifts]));
+  return runPasses(nodes, [
+    alignCrossLaneObjects(edges, ctx),
+    compactLowerLanes(edges, ctx),
+    realignHofs(edges, ctx),
+    pullTerminalSinks(edges, ctx),
+    shiftLaneMembersVertically(ctx),
+  ]);
 }
 
 // ── Canvas size & lane geometry ───────────────────────────────────────────

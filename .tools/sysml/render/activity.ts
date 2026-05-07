@@ -19,8 +19,63 @@ import { appendGEdge } from "./edges.ts";
 import { appendDiagramFrame } from "./frame.ts";
 import { appendLaneBand } from "./lane.ts";
 import { assignActionPins } from "./pin.ts";
-import { shiftCoordinates, buildNoteNode } from "./build-graph.ts";
+import { buildNodeMap, buildNotes, filterEdges, shiftCoordinates } from "./build-graph.ts";
+import { pipe, A } from "../lib/fp.ts";
 import type { RenderPlan } from "./title.ts";
+
+// ── Node builders (one per AST kind) ──────────────────────────────────────
+
+const buildActionNode = (
+  actionDefs: Map<string, ActionDef>,
+  diagram: DiagramMeta,
+  hideInPinLabels: boolean,
+) => (a: ActivityDef["actions"][number]): GNode => {
+  const ad      = actionDefs.get(a.type);
+  const pinIds  = (dir: "in" | "out") =>
+    ad ? ad.pins.filter(p => p.direction === dir).map(p => p.id) : [];
+  return {
+    id: a.id, label: a.id, stereotype: a.type,
+    kind: "action", isHof: false,
+    hideInPinLabels,
+    tooltip: diagram.tooltips[a.id],
+    x: 0, y: 0, w: ACTION_W, h: ACTION_H,
+    inPins: pinIds("in"), outPins: pinIds("out"),
+  };
+};
+
+const buildObjectNode = (diagram: DiagramMeta) =>
+  (o: ActivityDef["objects"][number]): GNode => {
+    const role: GNode = {
+      id: o.id, label: o.type ?? o.id,
+      kind: "object", isHof: (diagram.shows[o.id] ?? "type") === "hof",
+      tooltip: diagram.tooltips[o.id],
+      x: 0, y: 0, w: 0, h: 0,
+      inPins: [], outPins: [],
+    };
+    const [w, h] = nodeDims(role);
+    return { ...role, w, h };
+  };
+
+const buildDiamondNode = (kind: "decision" | "merge", diagram: DiagramMeta) =>
+  (d: { id: string; label?: string }): GNode => ({
+    id: d.id, label: d.label ?? "",
+    kind, isHof: false,
+    tooltip: diagram.tooltips[d.id],
+    x: 0, y: 0, w: DECISION_SZ, h: DECISION_SZ,
+    inPins: [], outPins: [],
+  });
+
+// ── Edge builders ─────────────────────────────────────────────────────────
+
+const buildFlowEdge = (nodeMap: ReadonlyMap<string, GNode>) =>
+  (f: ActivityDef["flows"][number]): GEdge => ({
+    from: f.from, to: f.to, label: f.label,
+    isHof: nodeMap.get(f.from)!.isHof, isObjectFlow: true,
+  });
+
+const buildSuccEdge = (s: ActivityDef["successions"][number]): GEdge => ({
+  from: s.from, to: s.to, label: undefined, isHof: false, isObjectFlow: false,
+});
 
 /**
  * Build the render plan for one activity diagram.
@@ -32,98 +87,38 @@ export async function renderActivity(
 ): Promise<RenderPlan> {
   const hideInPinLabels = (actDef.lanes?.length ?? 0) > 0;
 
-  // ── Helper: register a node and derive its map entry ───────────────────
-  const addToMap = (acc: Map<string, GNode>, n: GNode): Map<string, GNode> =>
-    new Map([...acc, [n.id, n]]);
+  // ── Nodes ──────────────────────────────────────────────────────────────
+  const actionNodes   = actDef.actions.map(buildActionNode(actionDefs, diagram, hideInPinLabels));
+  const objectNodes   = actDef.objects.map(buildObjectNode(diagram));
+  const decisionNodes = actDef.decisions.map(buildDiamondNode("decision", diagram));
+  const mergeNodes    = actDef.merges.map(buildDiamondNode("merge", diagram));
+  const { noteNodes, noteEdgesOf } = buildNotes(actDef.notes, diagram.tooltips);
 
-  // ── Action nodes ───────────────────────────────────────────────────────
-  const actionNodes: GNode[] = actDef.actions.map(a => {
-    const ad     = actionDefs.get(a.type);
-    const inPins  = ad ? ad.pins.filter(p => p.direction === "in").map(p => p.id)  : [];
-    const outPins = ad ? ad.pins.filter(p => p.direction === "out").map(p => p.id) : [];
-    return {
-      id: a.id, label: a.id, stereotype: a.type,
-      kind: "action" as const, isHof: false,
-      hideInPinLabels,
-      tooltip: diagram.tooltips[a.id],
-      x: 0, y: 0, w: ACTION_W, h: ACTION_H,
-      inPins, outPins,
-    };
-  });
-
-  // ── Object nodes ───────────────────────────────────────────────────────
-  const objectNodes: GNode[] = actDef.objects.map(o => {
-    const role  = diagram.shows[o.id] ?? "type";
-    const base: GNode = {
-      id: o.id, label: o.type ?? o.id,
-      kind: "object", isHof: role === "hof",
-      tooltip: diagram.tooltips[o.id],
-      x: 0, y: 0, w: 0, h: 0,
-      inPins: [], outPins: [],
-    };
-    const [w, h] = nodeDims(base);
-    return { ...base, w, h };
-  });
-
-  // ── Decision / Merge nodes ─────────────────────────────────────────────
-  const decisionNodes: GNode[] = actDef.decisions.map(d => ({
-    id: d.id, label: d.label ?? "",
-    kind: "decision" as const, isHof: false,
-    tooltip: diagram.tooltips[d.id],
-    x: 0, y: 0, w: DECISION_SZ, h: DECISION_SZ,
-    inPins: [], outPins: [],
-  }));
-  const mergeNodes: GNode[] = actDef.merges.map(m => ({
-    id: m.id, label: m.label ?? "",
-    kind: "merge" as const, isHof: false,
-    tooltip: diagram.tooltips[m.id],
-    x: 0, y: 0, w: DECISION_SZ, h: DECISION_SZ,
-    inPins: [], outPins: [],
-  }));
-
-  // ── Note nodes ─────────────────────────────────────────────────────────
-  const noteNodes: GNode[] = actDef.notes.map(note => buildNoteNode(note, diagram.tooltips).node);
-
-  // ── Combine ────────────────────────────────────────────────────────────
-  const nodes: GNode[] = [...actionNodes, ...objectNodes, ...decisionNodes, ...mergeNodes, ...noteNodes];
-  const nodeMap = nodes.reduce(addToMap, new Map<string, GNode>());
+  const nodes   = [...actionNodes, ...objectNodes, ...decisionNodes, ...mergeNodes, ...noteNodes];
+  const nodeMap = buildNodeMap(nodes);
 
   // ── Edges ──────────────────────────────────────────────────────────────
-  const flowEdges: GEdge[] = actDef.flows
-    .filter(f => nodeMap.has(f.from) && nodeMap.has(f.to))
-    .map(f => ({
-      from: f.from, to: f.to, label: f.label,
-      isHof: nodeMap.get(f.from)!.isHof, isObjectFlow: true,
-    }));
-  const succEdges: GEdge[] = actDef.successions
-    .filter(s => nodeMap.has(s.from) && nodeMap.has(s.to))
-    .map(s => ({
-      from: s.from, to: s.to, label: undefined, isHof: false, isObjectFlow: false,
-    }));
-  const noteEdges: GEdge[] = actDef.notes
-    .map(note => ({ note, edge: buildNoteNode(note, diagram.tooltips).edge }))
-    .filter(({ note, edge }) => edge != null && nodeMap.has(note.id) && nodeMap.has(note.target))
-    .map(({ edge }) => edge!);
-  const edges: GEdge[] = [...flowEdges, ...succEdges, ...noteEdges];
+  const flowEdges = pipe(actDef.flows,       filterEdges(nodeMap), A.map(buildFlowEdge(nodeMap)));
+  const succEdges = pipe(actDef.successions, filterEdges(nodeMap), A.map(buildSuccEdge));
+  const noteEdges = noteEdgesOf(nodeMap);
+  const edges     = [...flowEdges, ...succEdges, ...noteEdges];
 
   // Match each object-flow edge to a named pin on action endpoints.
   const pinnedEdges = assignActionPins(edges, nodeMap);
 
   // ── Lanes (swimlane decoration) ─────────────────────────────────────────
   const laneSpecs: LaneSpec[] = (actDef.lanes ?? []).map(l => ({
-    id:      l.id,
-    label:   l.label,
-    members: l.members,
+    id: l.id, label: l.label, members: l.members,
   }));
 
   // ── Layout + routing via ELK ───────────────────────────────────────────
-  const { width: innerW, height: innerH, nodes: positioned, edgePaths, lanes: laneGeoms } = await layoutGraph(
-    nodes, pinnedEdges, diagram.direction ?? "LR", laneSpecs,
-  );
+  const { width: innerW, height: innerH, nodes: positioned, edgePaths, lanes: laneGeoms } =
+    await layoutGraph(nodes, pinnedEdges, diagram.direction ?? "LR", laneSpecs);
 
   const dx = FRAME_PAD;
   const dy = FRAME_PAD + FRAME_TAB_H;
-  const { shiftedNodes, shiftedPaths, shiftedLanes } = shiftCoordinates(positioned, edgePaths, laneGeoms, dx, dy);
+  const { shiftedNodes, shiftedPaths, shiftedLanes } =
+    shiftCoordinates(positioned, edgePaths, laneGeoms, dx, dy);
 
   const W = innerW + 2 * FRAME_PAD;
   const H = innerH + 2 * FRAME_PAD + FRAME_TAB_H;
@@ -134,9 +129,7 @@ export async function renderActivity(
     draw(parent) {
       appendDiagramFrame(parent, "activity", diagram.name ?? actDef.name, W, H);
       shiftedLanes.forEach(l => appendLaneBand(parent, l));
-      pinnedEdges.forEach((e, i) => {
-        appendGEdge(parent, e, shiftedPaths[i]);
-      });
+      pinnedEdges.forEach((e, i) => appendGEdge(parent, e, shiftedPaths[i]));
       shiftedNodes.forEach(n => appendGNode(parent, n));
     },
   };

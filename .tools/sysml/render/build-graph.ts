@@ -8,6 +8,23 @@
 import type { GNode, GEdge } from "../types.ts";
 import { nodeDims } from "../types.ts";
 import type { EdgePolyline, LaneGeom } from "../layout.ts";
+import { indexBy, bothInMap, pipe, A, O } from "../lib/fp.ts";
+
+// ── Node-map builder (used by every renderer) ─────────────────────────────
+
+/** Build an id→node lookup map from a flat node list. */
+export const buildNodeMap = (nodes: readonly GNode[]): Map<string, GNode> =>
+  indexBy(nodes, n => n.id);
+
+// ── Edge filtering ────────────────────────────────────────────────────────
+
+/**
+ * Keep only edges whose `from` and `to` exist in the node map.
+ * Curried for `pipe` use: `pipe(edges, filterEdges(nodeMap))`.
+ */
+export const filterEdges = <V, E extends { from: string; to: string }>(
+  nodeMap: ReadonlyMap<string, V>,
+) => (edges: readonly E[]): E[] => edges.filter(bothInMap(nodeMap));
 
 // ── shiftCoordinates ──────────────────────────────────────────────────────
 
@@ -39,7 +56,7 @@ export function buildNoteNode(
   tooltips: Record<string, string>,
 ): { node: GNode; edge: GEdge | null } {
   const lines = note.text.split(/\\n|\n/);
-  const n: GNode = {
+  const base: GNode = {
     id: note.id,
     label: lines[0] ?? "",
     kind: "note",
@@ -49,7 +66,8 @@ export function buildNoteNode(
     inPins: [], outPins: [],
     noteLines: lines,
   };
-  [n.w, n.h] = nodeDims(n);
+  const [w, h] = nodeDims(base);
+  const node: GNode = { ...base, w, h };
   const edge: GEdge | null = note.target
     ? {
         from: note.id,
@@ -60,5 +78,26 @@ export function buildNoteNode(
         isNoteAttachment: true,
       }
     : null;
-  return { node: n, edge };
+  return { node, edge };
 }
+
+/**
+ * Build note nodes and the matching attachment edges, dropping any edges
+ * whose endpoints are missing from the node map.  Used by both renderers.
+ */
+export const buildNotes = (
+  notes: readonly { id: string; text: string; target: string }[],
+  tooltips: Record<string, string>,
+): { noteNodes: GNode[]; noteEdgesOf: (nodeMap: ReadonlyMap<string, GNode>) => GEdge[] } => {
+  const built = notes.map(note => buildNoteNode(note, tooltips));
+  const noteNodes = built.map(b => b.node);
+  const noteEdgesOf = (nodeMap: ReadonlyMap<string, GNode>): GEdge[] =>
+    pipe(
+      built,
+      A.filterMap(b => b.edge && nodeMap.has(b.edge.from) && nodeMap.has(b.edge.to)
+        ? O.some(b.edge)
+        : O.none),
+    );
+  return { noteNodes, noteEdgesOf };
+};
+
