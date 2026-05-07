@@ -86,6 +86,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Maybe Monad: bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b",
+    "name": "bind",
     "shows": {
       "Ma": "type",
       "f": "hof",
@@ -97,8 +99,6 @@
       "f": "(a ⟶ Maybe<b>) — effectful function, applied only if Ma is Just",
       "bind": ">>= : Nothing → Nothing ; Just a → f a",
       "Mb": "Maybe<b> — Nothing or Just (result of f a)"
-    },
-    "title": "Maybe Monad: bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b",
-    "name": "bind"
+    }
   }
 }

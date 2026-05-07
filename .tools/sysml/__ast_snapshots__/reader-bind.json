@@ -191,6 +191,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>=",
+    "name": "bind",
     "shows": {
       "ra": "type",
       "f": "hof",
@@ -210,8 +212,6 @@
       "rb": "Reader r b — the second computation (not yet run)",
       "run_rb": "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State.",
       "b": "b — the final result. The environment was never modified throughout."
-    },
-    "title": "Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>=",
-    "name": "bind"
+    }
   }
 }

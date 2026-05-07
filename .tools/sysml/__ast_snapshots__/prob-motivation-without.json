@@ -134,6 +134,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without bind: manual nested loop and probability arithmetic",
+    "name": "coinThenDie",
     "shows": {
       "coin": "type",
       "outer": "function",
@@ -147,8 +149,6 @@
       "multiply": "p_coin * p_score — multiply marginal × conditional by hand. Off-by-one here is invisible until totals don't sum to one.",
       "flatten": "Flatten the nested [[ (Int, Float) ]] back into a single distribution.",
       "outResult": "[(Int, Float)] — the joint distribution, hand-built."
-    },
-    "title": "Without bind: manual nested loop and probability arithmetic",
-    "name": "coinThenDie"
+    }
   }
 }

@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb",
+    "render": "FmapContext",
     "shows": {
       "f_val": "hof",
       "fa_val": "type",
@@ -71,8 +73,6 @@
       "fa_val": "Fa — value inside the functor context",
       "fmap": "fmap: lifts a plain function to operate inside the functor",
       "fb_val": "Fb — result inside the same functor context"
-    },
-    "title": "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb",
-    "render": "FmapContext"
+    }
   }
 }

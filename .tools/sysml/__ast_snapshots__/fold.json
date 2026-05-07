@@ -183,6 +183,9 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b",
+    "name": "fold",
+    "direction": "TB",
     "shows": {
       "f": "hof",
       "b0": "value",
@@ -201,9 +204,6 @@
       "step1": "Apply f to b0 and a1 → b1",
       "step2": "Apply f to b1 and a2 → b2",
       "step3": "Apply f to b2 and a3 → b3 (final result)"
-    },
-    "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b",
-    "name": "fold",
-    "direction": "TB"
+    }
   }
 }

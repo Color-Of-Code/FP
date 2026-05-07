@@ -14,7 +14,12 @@ export default defineConfig({
         "sysml/**/*.test.ts",
         "sysml/test-utils/**",
       ],
-      // Thresholds will be enforced starting in phase 5.
+      thresholds: {
+        statements: 80,
+        branches: 70,
+        functions: 85,
+        lines: 80,
+      },
     },
   },
 });

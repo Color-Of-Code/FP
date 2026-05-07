@@ -196,6 +196,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without callCC: every caller must propagate the ABORT sentinel",
+    "name": "contChain",
     "shows": {
       "x": "value",
       "step1": "function",
@@ -214,8 +216,6 @@
       "check3": "Sentinel guard #3 — yet another by-hand check.",
       "aborted": "ABORT — produced by any step that wished to short-circuit and re-emitted by every subsequent caller.",
       "final": "D — the happy-path output; reached only when no step aborted."
-    },
-    "title": "Without callCC: every caller must propagate the ABORT sentinel",
-    "name": "contChain"
+    }
   }
 }

@@ -157,6 +157,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without bind: log threaded as an explicit second parameter at every step",
+    "name": "writerChain",
     "shows": {
       "x": "value",
       "emptyLog": "type",
@@ -172,8 +174,6 @@
       "step2": "step2(r1, log1) → (r2, log1 ++ entries2). Passing log0 instead of log1 silently drops entries.",
       "step3": "step3(r2, log2) → (r3, log2 ++ entries3). Same plumbing repeated. Adding a step means adding two more parameters everywhere it is called from.",
       "outResult": "(r3, log123) — caller unpacks both."
-    },
-    "title": "Without bind: log threaded as an explicit second parameter at every step",
-    "name": "writerChain"
+    }
   }
 }

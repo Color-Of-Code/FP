@@ -41,6 +41,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Type a",
+    "name": "type",
     "shows": {
       "values": "value",
       "a": "type"
@@ -48,8 +50,6 @@
     "tooltips": {
       "values": "A type can be seen as the set of values that may inhabit it.",
       "a": "type a — used to describe the domain or codomain of a function."
-    },
-    "title": "Type a",
-    "name": "type"
+    }
   }
 }

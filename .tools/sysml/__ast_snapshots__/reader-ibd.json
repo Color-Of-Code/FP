@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>=",
+    "render": "ReaderBindContext",
     "shows": {
       "ra_val": "type",
       "f_val": "hof",
@@ -84,8 +86,6 @@
       "r_env": "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified.",
       "bind": "bind ra f = \\\\r -> f (ra r) r\\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r.",
       "rb_val": "Reader r b — the composed computation; when run with r it produces b"
-    },
-    "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>=",
-    "render": "ReaderBindContext"
+    }
   }
 }

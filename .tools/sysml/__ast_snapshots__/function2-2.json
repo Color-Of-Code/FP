@@ -132,6 +132,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)",
+    "name": "curry",
     "shows": {
       "f2": "hof",
       "curry": "function",
@@ -145,8 +147,6 @@
       "curried": "a ⟶ (b ⟶ c) — the curried form, itself a function",
       "applyA": "Apply the first argument a, yielding the specialised function",
       "f1": "b ⟶ c — the specialised function with a already applied"
-    },
-    "title": "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)",
-    "name": "curry"
+    }
   }
 }

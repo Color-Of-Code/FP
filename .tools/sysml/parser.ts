@@ -41,6 +41,7 @@ class SysmlValueConverter extends DefaultValueConverter {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Langium service container types are deeply nested generics
 function createSysmlServices(): { Sysml: { parser: { LangiumParser: any } } } {
   const shared = inject(
     createDefaultSharedCoreModule(EmptyFileSystem),

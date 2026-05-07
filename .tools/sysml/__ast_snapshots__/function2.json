@@ -214,6 +214,9 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Partial application and currying",
+    "name": "partial apply",
+    "render": "PartialApplication",
     "shows": {
       "f": "hof",
       "applyA": "function",
@@ -227,9 +230,6 @@
       "applyB": "Partially apply b — captures b, returns a ⟶ c",
       "f1a": "f1a :: b ⟶ c — specialised function",
       "f1b": "f1b :: a ⟶ c — specialised function"
-    },
-    "title": "Partial application and currying",
-    "name": "partial apply",
-    "render": "PartialApplication"
+    }
   }
 }

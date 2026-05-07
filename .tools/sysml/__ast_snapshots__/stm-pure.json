@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "pure :: a ⟶ STM a   (no-read, no-write transaction yielding a0) — also called: return",
+    "name": "pure",
     "shows": {
       "a0": "value",
       "wrap": "function",
@@ -80,8 +82,6 @@
       "a0": "a0 — any plain value.",
       "wrap": "WrapAsSTM: build a transaction that touches no TVar. Empty read set, empty write set — always commits.",
       "sa": "STM a — a transaction whose only effect is producing a0. Combines with other STM actions via bind / orElse without conflict."
-    },
-    "title": "pure :: a ⟶ STM a   (no-read, no-write transaction yielding a0) — also called: return",
-    "name": "pure"
+    }
   }
 }

@@ -231,6 +231,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With callCC + bind: linear steps via bind; exit short-circuits straight to runCont",
+    "name": "contChain",
     "shows": {
       "callCC": "function",
       "bindStep1": "function",
@@ -250,8 +252,6 @@
       "step2Fn": "step2 : c → Cont r d. HOF argument.",
       "step3Fn": "step3 : d → Cont r e. HOF argument.",
       "outVal": "r — the final continuation result. Reached either by completing the chain or by the exit shortcut."
-    },
-    "title": "With callCC + bind: linear steps via bind; exit short-circuits straight to runCont",
-    "name": "contChain"
+    }
   }
 }

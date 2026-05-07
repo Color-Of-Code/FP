@@ -113,6 +113,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
+    "name": "bind",
     "shows": {
       "ma": "type",
       "f": "hof",
@@ -126,8 +128,6 @@
       "apply_f": "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.",
       "joinResult": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit).",
       "mb": "Maybe b — the single result of bind."
-    },
-    "title": "Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
-    "name": "bind"
+    }
   }
 }

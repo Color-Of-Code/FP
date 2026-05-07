@@ -236,6 +236,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: state threads automatically; using a stale state is impossible",
+    "name": "stateChain",
     "shows": {
       "initial": "value",
       "pureA": "function",
@@ -257,8 +259,6 @@
       "step2Fn": "step2 : B → State s C. Same: supplied to bind as the continuation.",
       "step3Fn": "step3 : C → State s D. Same: supplied to bind as the continuation.",
       "outResult": "runState s0 supplies the initial state and returns the final value alongside the final state."
-    },
-    "title": "With pure + bind: state threads automatically; using a stale state is impossible",
-    "name": "stateChain"
+    }
   }
 }

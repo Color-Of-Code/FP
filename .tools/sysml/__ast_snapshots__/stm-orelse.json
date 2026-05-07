@@ -87,6 +87,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "orElse :: STM a ⟶ STM a ⟶ STM a   (try s1; on retry, fall back to s2) — primitive",
+    "name": "orElse",
     "shows": {
       "s1": "value",
       "s2": "value",
@@ -98,8 +100,6 @@
       "s2": "s2 : STM a — alternative transaction tried only if s1 calls retry.",
       "oe": "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry.",
       "sr": "STM a — result of whichever branch commits.  Never blocks unless both branches retry."
-    },
-    "title": "orElse :: STM a ⟶ STM a ⟶ STM a   (try s1; on retry, fall back to s2) — primitive",
-    "name": "orElse"
+    }
   }
 }

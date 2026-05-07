@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "pure :: a ⟶ IO a   (effect-free description that yields a0) — also called: return, IO.pure",
+    "name": "pure",
     "shows": {
       "a0": "value",
       "wrap": "function",
@@ -80,8 +82,6 @@
       "a0": "a0 — any plain value.",
       "wrap": "WrapAsIO: build a no-op IO description that, when executed, returns a0. No real I/O happens at construction OR execution.",
       "ia": "IO a — a description carrying a0. Sequencing with bind preserves a0 unchanged (left identity)."
-    },
-    "title": "pure :: a ⟶ IO a   (effect-free description that yields a0) — also called: return, IO.pure",
-    "name": "pure"
+    }
   }
 }

@@ -236,6 +236,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: log accumulation is automatic via the Monoid for w",
+    "name": "writerChain",
     "shows": {
       "x": "value",
       "pureX": "function",
@@ -257,8 +259,6 @@
       "step2Fn": "step2 : R1 → Writer w R2. Same: supplied to bind as the continuation.",
       "step3Fn": "step3 : R2 → Writer w R3. Same: supplied to bind as the continuation.",
       "outResult": "runWriter returns the final value and the combined log."
-    },
-    "title": "With pure + bind: log accumulation is automatic via the Monoid for w",
-    "name": "writerChain"
+    }
   }
 }

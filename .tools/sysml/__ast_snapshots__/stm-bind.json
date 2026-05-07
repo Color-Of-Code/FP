@@ -216,6 +216,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "STM bind: sequence two TVar actions; atomically commits or retries the whole chain — also called: >>=",
+    "name": "bind",
     "shows": {
       "sa": "type",
       "f": "hof",
@@ -237,8 +239,6 @@
       "commit": "atomically: check for TVar conflicts.\\n  No conflict  → commit all writes at once; b is visible to other threads\\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa",
       "b": "b — the committed result. All TVar writes from run_sa and run_sb are now atomically visible.",
       "retry": "Retry path — the entire transaction restarts. No partial state is visible to other threads."
-    },
-    "title": "STM bind: sequence two TVar actions; atomically commits or retries the whole chain — also called: >>=",
-    "name": "bind"
+    }
   }
 }

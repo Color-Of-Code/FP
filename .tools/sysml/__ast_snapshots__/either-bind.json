@@ -162,6 +162,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Either bind — also called: andThen / and_then, Bind, flatMap, >>=",
+    "name": "bind",
     "shows": {
       "ea": "type",
       "f": "hof",
@@ -180,8 +182,6 @@
       "widen": "Re-tag the Left constructor: the runtime VALUE Left e0 stays bit-identical, but the static type widens from Left e to Either e b so it unifies with the Right branch's output type at the merge.  No allocation, no transformation — only the type changes.",
       "joinResult": "Merge node — both branches produce a value of the SAME type Either e b.  Exactly one inflow fires per invocation; the merge is a control-flow join, not a runtime choice.",
       "ec": "Either e b — the single result of bind.  Carries either f's output (when ea was Right) or the original error e0 (when ea was Left)."
-    },
-    "title": "Either bind — also called: andThen / and_then, Bind, flatMap, >>=",
-    "name": "bind"
+    }
   }
 }

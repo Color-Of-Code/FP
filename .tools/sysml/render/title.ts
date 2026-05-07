@@ -64,12 +64,9 @@ function lineHeight(line: TitleLine): number {
 }
 
 function totalTitleHeight(lines: TitleLine[]): number {
-  let h = TITLE_PAD_TOP;
-  for (let i = 0; i < lines.length; i++) {
-    h += lineHeight(lines[i]);
-    if (i < lines.length - 1) h += TITLE_LINE_GAP;
-  }
-  return h + TITLE_PAD_BOTTOM;
+  const bodyH = lines.reduce((acc, line, i) =>
+    acc + lineHeight(line) + (i < lines.length - 1 ? TITLE_LINE_GAP : 0), 0);
+  return TITLE_PAD_TOP + bodyH + TITLE_PAD_BOTTOM;
 }
 
 /** Create a standalone SVG document shell and translated diagram content group. */
@@ -89,10 +86,8 @@ export function createSvgDocument(title: string, W: number, H: number): SvgDocum
   appendElement(svg, "rect", { width: canvasW, height: totalH, fill: "white" });
 
   // Render each title line in its own <text> element, vertically stacked.
-  let y = TITLE_PAD_TOP;
-  for (const line of lines) {
+  lines.reduce((y, line) => {
     const lh = lineHeight(line);
-    // Place the baseline near the bottom of the line box.
     const baselineY = y + Math.round(lh * 0.78);
     appendText(svg, line.text, {
       x: canvasW / 2,
@@ -103,8 +98,8 @@ export function createSvgDocument(title: string, W: number, H: number): SvgDocum
       "font-family": "sans-serif",
       fill:          line.primary ? "#222" : "#555",
     });
-    y += lh + TITLE_LINE_GAP;
-  }
+    return y + lh + TITLE_LINE_GAP;
+  }, TITLE_PAD_TOP);
 
   const content   = appendElement(svg, "g", {
     transform: `translate(0,${titleH}) scale(${contentScale})`,

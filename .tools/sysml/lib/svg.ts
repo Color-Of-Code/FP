@@ -11,7 +11,7 @@ import { JSDOM } from "jsdom";
 import { select, type BaseType, type Selection } from "d3";
 import { create } from "xmlbuilder2";
 
-export type SvgParent = Selection<any, unknown, any, any>;
+export type SvgParent = Selection<BaseType, unknown, BaseType, unknown>;
 export type SvgAttrValue = string | number | boolean | null | undefined;
 export type SvgAttrs = Record<string, SvgAttrValue>;
 
@@ -24,7 +24,7 @@ function serializeSvg(svg: SVGSVGElement): string {
   // Round-trip through xmlbuilder2 to get a stable, pretty-printed
   // serialization.  jsdom's XMLSerializer emits a minified single-line
   // string; xmlbuilder2 then re-formats it with consistent indentation.
-  const raw = new (svg.ownerDocument.defaultView as any).XMLSerializer()
+  const raw = new (svg.ownerDocument.defaultView as unknown as { XMLSerializer: new () => XMLSerializer }).XMLSerializer()
     .serializeToString(svg);
   return create(raw).end({ prettyPrint: true, headless: true, indent: "  " });
 }
@@ -41,8 +41,9 @@ export function createSvgRoot(width: number, height: number): SvgRoot {
 
   return {
     svg,
-    serialize: () =>
-      `<?xml version="1.0" encoding="UTF-8"?>\n${serializeSvg(svg.node() as SVGSVGElement)}\n`,
+    serialize: () => {
+      return `<?xml version="1.0" encoding="UTF-8"?>\n${serializeSvg(svg.node() as SVGSVGElement)}\n`;
+    },
   };
 }
 
@@ -64,7 +65,7 @@ export function appendElement(
   tagName: string,
   attrs: SvgAttrs = {},
 ): SvgParent {
-  const child = parent.append(tagName) as SvgParent;
+  const child = parent.append(tagName);
   return setAttrs(child, attrs);
 }
 

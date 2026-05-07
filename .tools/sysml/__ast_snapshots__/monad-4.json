@@ -88,6 +88,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "List Monad: bind :: List a ⟶ (a ⟶ List b) ⟶ List b",
+    "name": "bind",
     "shows": {
       "La": "type",
       "f": "hof",
@@ -99,8 +101,6 @@
       "f": "(a ⟶ List b) — applied to every element, producing a list per element",
       "bind": ">>= (concatMap): apply f to every element, flatten all resulting lists",
       "Lb": "List b — the concatenation of all result lists [0..*]"
-    },
-    "title": "List Monad: bind :: List a ⟶ (a ⟶ List b) ⟶ List b",
-    "name": "bind"
+    }
   }
 }

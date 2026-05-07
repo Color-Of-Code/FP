@@ -155,6 +155,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without STM: explicit locks require careful ordering to avoid deadlock",
+    "name": "transfer",
     "shows": {
       "lockA": "function",
       "lockB": "function",
@@ -170,8 +172,6 @@
       "updateB": "accountB += amount — likewise.",
       "unlockB": "unlock(accountB) — release in reverse order; forgetting is a leak.",
       "unlockA": "unlock(accountA) — also reverse-order; ordering is contract, not type."
-    },
-    "title": "Without STM: explicit locks require careful ordering to avoid deadlock",
-    "name": "transfer"
+    }
   }
 }

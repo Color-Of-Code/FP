@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "callCC :: ((a ⟶ Cont r b) ⟶ Cont r a) ⟶ Cont r a   (capture the current continuation as an escape) — primitive",
+    "name": "callCC",
     "shows": {
       "f": "value",
       "cc": "function",
@@ -80,8 +82,6 @@
       "f": "f — user-supplied function that receives the captured escape (a ⟶ Cont r b) and returns the body's continuation.",
       "cc": "CallCC: pack the outer k so that calling escape(a) bypasses any code following callCC and resumes the outer continuation with a.",
       "ca": "Cont r a — same outer type as f's result; control flow may exit early via the escape."
-    },
-    "title": "callCC :: ((a ⟶ Cont r b) ⟶ Cont r a) ⟶ Cont r a   (capture the current continuation as an escape) — primitive",
-    "name": "callCC"
+    }
   }
 }

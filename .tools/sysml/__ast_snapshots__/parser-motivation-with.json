@@ -137,6 +137,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: bind threads the remaining input and short-circuits failure",
+    "name": "digitLetter",
     "shows": {
       "digit": "function",
       "bindLetter": "function",
@@ -148,8 +150,6 @@
       "bindLetter": ">>= : runs letter on the input that digit left behind. Failure in either step short-circuits.",
       "letterFn": "λd. letter >>= λl. pure (d, l). HOF argument — captures d and produces a Parser (Char, Char).",
       "outResult": "runParser supplies the input string and returns (value, rest) — or Nothing if any step failed."
-    },
-    "title": "With pure + bind: bind threads the remaining input and short-circuits failure",
-    "name": "digitLetter"
+    }
   }
 }

@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "tell :: w ⟶ Writer w ()   (append w0 to the log; result is unit) — primitive",
+    "name": "tell",
     "shows": {
       "w0": "value",
       "tell": "function",
@@ -80,8 +82,6 @@
       "w0": "w0 — a log fragment of monoid type w (e.g. \"step done\\\\n\", [event], 1).",
       "tell": "Tell: emit w0 into the Writer log. The value component is unit ().",
       "wu": "Writer w () = ((), w0). Subsequent bind concatenates this fragment with later logs via the monoid <>."
-    },
-    "title": "tell :: w ⟶ Writer w ()   (append w0 to the log; result is unit) — primitive",
-    "name": "tell"
+    }
   }
 }

@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "pure :: a ⟶ Parser a   (succeed with a0, consume nothing) — also called: return, succeed",
+    "name": "pure",
     "shows": {
       "a0": "value",
       "wrap": "function",
@@ -80,8 +82,6 @@
       "a0": "a0 — any plain value.",
       "wrap": "NullParse: build the parser \\\\input -> Just (a0, input). Always succeeds; remainder = input.",
       "pa": "Parser a — a parser that matches the empty prefix. Combined with bind, it threads the same remainder forward."
-    },
-    "title": "pure :: a ⟶ Parser a   (succeed with a0, consume nothing) — also called: return, succeed",
-    "name": "pure"
+    }
   }
 }

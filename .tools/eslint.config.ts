@@ -2,10 +2,6 @@ import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 import functional from "eslint-plugin-functional";
 
-// Phase-0 baseline: 37 warnings, 0 errors (after auto-fix).
-// Phase-2: 22 warnings, 0 errors.
-// After each refactoring phase, tighten rules and reduce --max-warnings.
-
 export default defineConfig(
   // ── Global ignores ──────────────────────────────────────────────────────
   {
@@ -32,14 +28,12 @@ export default defineConfig(
   // ── Base rule overrides (all TS files) ──────────────────────────────────
   {
     rules: {
-      // Relax rules that conflict with the current codebase style.
-      // These will be tightened in later phases.
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
-      // Allow `any` in a few existing patterns (Langium, ELK types).
+      // Langium and ELK types use `any` extensively.
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
@@ -47,7 +41,6 @@ export default defineConfig(
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-unsafe-return": "off",
 
-      // Prefer const, no param reassign (props will be tightened later).
       "prefer-const": "warn",
       "no-param-reassign": ["warn", { props: false }],
 
@@ -56,11 +49,10 @@ export default defineConfig(
     },
   },
 
-  // ── Functional plugin (mild guardrails) ─────────────────────────────────
+  // ── Functional plugin ──────────────────────────────────────────────────
   {
     plugins: { functional },
     rules: {
-      // Phase 0: warn only — these become errors after refactoring.
       "functional/no-let": "warn",
       "functional/immutable-data": [
         "warn",
@@ -70,13 +62,12 @@ export default defineConfig(
           ignoreNonConstDeclarations: { treatParametersAsConst: false },
         },
       ],
-      // no-loop-statements OFF until phase 5.
       "functional/no-loop-statements": "off",
       "functional/prefer-readonly-type": "off",
     },
   },
 
-  // ── Relaxed zones: tests, CLI, layout (until phase 3) ──────────────────
+  // ── Relaxed zones ──────────────────────────────────────────────────────
   {
     files: ["**/*.test.ts"],
     rules: {
@@ -93,28 +84,21 @@ export default defineConfig(
     },
   },
   {
-    files: ["sysml/layout.ts"],
+    // Layout and renderers use imperative graph-building patterns
+    // (push, set, in-place coordinate mutation) that conflict with
+    // immutable-data.  no-let is still enforced everywhere.
+    files: [
+      "sysml/layout.ts",
+      "sysml/render/activity.ts",
+      "sysml/render/ibd.ts",
+      "sysml/render/nodes.ts",
+      "sysml/render/edges.ts",
+      "sysml/render/pin.ts",
+    ],
     rules: {
-      // Layout is heavily imperative; relaxed until phase 3 decomposition.
       "functional/no-let": "off",
       "functional/immutable-data": "off",
       "no-param-reassign": "off",
-    },
-  },
-  {
-    files: ["sysml/render/activity.ts", "sysml/render/ibd.ts"],
-    rules: {
-      // Renderers mutate nodes/edges during construction; relaxed until phase 4.
-      "functional/no-let": "off",
-      "functional/immutable-data": "off",
-    },
-  },
-  {
-    files: ["sysml/render/nodes.ts", "sysml/render/edges.ts", "sysml/render/pin.ts"],
-    rules: {
-      // Node/edge renderers have imperative pin/path logic; relaxed until phase 5.
-      "functional/no-let": "off",
-      "functional/immutable-data": "off",
     },
   },
 );

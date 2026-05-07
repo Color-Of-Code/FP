@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "modify :: (s ⟶ s) ⟶ State s ()   (transform the state in place; result is unit) — primitive",
+    "name": "modify",
     "shows": {
       "f": "value",
       "mdf": "function",
@@ -80,8 +82,6 @@
       "f": "f : s ⟶ s — pure state-update function (e.g. (+1), Map.insert k v, addLog).",
       "mdf": "Modify: build \\\\s -> ((), f s). Equivalent to: do { s <- get; put (f s) }.",
       "su": "State s () — unit value, new state is f(prev). Reads and writes happen in a single step."
-    },
-    "title": "modify :: (s ⟶ s) ⟶ State s ()   (transform the state in place; result is unit) — primitive",
-    "name": "modify"
+    }
   }
 }

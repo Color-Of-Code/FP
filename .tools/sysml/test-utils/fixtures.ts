@@ -21,15 +21,14 @@ export { repoRoot, docsRoot };
  * historical flat layout.
  */
 export function findSysmlFiles(): string[] {
-  const out: string[] = [];
-  function walk(dir: string): void {
-    for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (ent.name === "node_modules" || ent.name === ".next") continue;
+  function walk(dir: string): readonly string[] {
+    if (!fs.existsSync(dir)) return [];
+    return fs.readdirSync(dir, { withFileTypes: true }).flatMap(ent => {
+      if (ent.name === "node_modules" || ent.name === ".next") return [];
       const full = path.join(dir, ent.name);
-      if (ent.isDirectory()) walk(full);
-      else if (ent.isFile() && ent.name.endsWith(".sysml")) out.push(full);
-    }
+      if (ent.isDirectory()) return walk(full);
+      return ent.isFile() && ent.name.endsWith(".sysml") ? [full] : [];
+    });
   }
-  if (fs.existsSync(docsRoot)) walk(docsRoot);
-  return out.sort();
+  return [...walk(docsRoot)].sort();
 }

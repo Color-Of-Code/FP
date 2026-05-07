@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>=",
+    "render": "IOBindContext",
     "shows": {
       "ia_val": "type",
       "f_val": "hof",
@@ -71,8 +73,6 @@
       "f_val": "(a ⟶ IO b) — given the result of running ia, produces the next IO action to run",
       "bind": "Build a new IO recipe that, when run by the runtime:\\n1. executes ia to get a\\n2. passes a to f to get IO b\\n3. executes IO b\\nOrder of effects = order of binds.",
       "ib_val": "IO b — the composed recipe. Effects of ia happen before effects of f(a)."
-    },
-    "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>=",
-    "render": "IOBindContext"
+    }
   }
 }

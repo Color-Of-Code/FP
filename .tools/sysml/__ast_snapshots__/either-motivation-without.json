@@ -196,6 +196,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without bind: explicit Left guard at every step",
+    "name": "parseValidateSave",
     "shows": {
       "raw": "value",
       "parse": "function",
@@ -215,8 +217,6 @@
       "errorRail": "Any Left terminates the chain here — three separate failure paths converge.",
       "errOut": "Left e — returned when any step failed. Caller must also inspect this.",
       "saved": "Right Saved — the happy-path result, reached only when all three checks pass."
-    },
-    "title": "Without bind: explicit Left guard at every step",
-    "name": "parseValidateSave"
+    }
   }
 }

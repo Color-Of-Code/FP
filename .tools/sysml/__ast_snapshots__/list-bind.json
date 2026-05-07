@@ -245,6 +245,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "List bind (concatMap): apply f to every element, concatenate all results — also called: flatMap, SelectMany, List.collect, >>=",
+    "name": "bind",
     "shows": {
       "la": "type",
       "f": "hof",
@@ -274,8 +276,6 @@
       "sub3": "List b — all b values produced for a3. May be empty.",
       "flatten": "Concatenate: sub1 ++ sub2 ++ sub3. This is the key step: all branches merged into one flat List b.",
       "lb": "List b — the complete output: sub1 ++ sub2 ++ sub3. Non-determinism is preserved as multiple values."
-    },
-    "title": "List bind (concatMap): apply f to every element, concatenate all results — also called: flatMap, SelectMany, List.collect, >>=",
-    "name": "bind"
+    }
   }
 }

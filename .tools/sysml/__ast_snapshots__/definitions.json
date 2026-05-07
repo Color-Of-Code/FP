@@ -63,6 +63,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Total vs partial",
+    "name": "totality",
     "shows": {
       "f": "function",
       "total": "decision",
@@ -74,8 +76,6 @@
       "total": "A total function returns a result for every input in the domain.",
       "safe": "Total — defined for all values of type a.",
       "partial": "Partial — undefined for some values of type a."
-    },
-    "title": "Total vs partial",
-    "name": "totality"
+    }
   }
 }

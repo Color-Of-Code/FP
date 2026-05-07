@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "put :: s ⟶ State s ()   (overwrite the state with s'; result is unit) — primitive",
+    "name": "put",
     "shows": {
       "sNew": "value",
       "put": "function",
@@ -80,8 +82,6 @@
       "sNew": "sNew — the new state value to install (replaces whatever state was current).",
       "put": "Put: build \\\\_ -> ((), sNew) — discards incoming state, emits sNew as outgoing state.",
       "su": "State s () — value is unit, state is now sNew. Subsequent steps see sNew."
-    },
-    "title": "put :: s ⟶ State s ()   (overwrite the state with s'; result is unit) — primitive",
-    "name": "put"
+    }
   }
 }

@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — also called: flatMap, Bind, >>=",
+    "render": "ParserBindContext",
     "shows": {
       "pa_val": "type",
       "f_val": "hof",
@@ -84,8 +86,6 @@
       "rest": "String — the unconsumed remainder after pa_val runs. bind threads it into f(a). Nothing short-circuits (like Maybe).",
       "bind": "bind p f = \\\\input ->\\n  case p(input) of\\n    Nothing       -> Nothing        -- propagate failure\\n    Just (a, rest) -> f a rest      -- thread rest into next parser",
       "pb_val": "Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume"
-    },
-    "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — also called: flatMap, Bind, >>=",
-    "render": "ParserBindContext"
+    }
   }
 }

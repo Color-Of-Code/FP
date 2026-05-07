@@ -150,6 +150,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without bind: leftover threaded by hand; one Nothing guard per step",
+    "name": "digitLetter",
     "shows": {
       "input": "value",
       "parseDigit": "function",
@@ -166,8 +168,6 @@
       "failRail": "Any Nothing short-circuits the whole chain — both failure paths converge here.",
       "outResult": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.",
       "failed": "Nothing — a parse failure, indistinguishable from any other Nothing."
-    },
-    "title": "Without bind: leftover threaded by hand; one Nothing guard per step",
-    "name": "digitLetter"
+    }
   }
 }

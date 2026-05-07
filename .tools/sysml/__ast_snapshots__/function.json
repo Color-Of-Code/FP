@@ -72,6 +72,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Function f :: a ⟶ b",
+    "name": "function",
     "shows": {
       "a": "type",
       "f": "function",
@@ -81,8 +83,6 @@
       "a": "type a — the domain of f",
       "f": "f consumes a value of type a and produces a value of type b",
       "b": "type b — the codomain of f"
-    },
-    "title": "Function f :: a ⟶ b",
-    "name": "function"
+    }
   }
 }

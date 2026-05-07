@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>=",
+    "render": "ContBindContext",
     "shows": {
       "m_val": "type",
       "f_val": "hof",
@@ -71,8 +73,6 @@
       "f_val": "(a ⟶ Cont r b) — given result a, builds the next continuation-based step",
       "bind": "bind m f = \\\\k -> m (\\\\a -> f a k)\\nGive m a continuation that: feeds a into f, then passes original k to the result.\\nThe current step runs last — this is continuation composition.",
       "res": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"
-    },
-    "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>=",
-    "render": "ContBindContext"
+    }
   }
 }

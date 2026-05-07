@@ -254,6 +254,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>=",
+    "name": "bind",
     "shows": {
       "pa": "type",
       "f": "hof",
@@ -283,8 +285,6 @@
       "rest2": "String — input still unconsumed after both parsers ran",
       "fail_in": "Nothing — pa failed. No (a, rest) was produced.",
       "fail_out": "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"
-    },
-    "title": "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>=",
-    "name": "bind"
+    }
   }
 }

@@ -236,6 +236,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: Left propagates automatically; every step has the same shape",
+    "name": "parseValidateSave",
     "shows": {
       "raw": "value",
       "pureRaw": "function",
@@ -257,8 +259,6 @@
       "validateFn": "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation.",
       "saveFn": "save : Valid → Either e Saved. Same: supplied to bind as the continuation.",
       "eSaved": "Either e Saved — Right on the happy path; the very first Left otherwise."
-    },
-    "title": "With pure + bind: Left propagates automatically; every step has the same shape",
-    "name": "parseValidateSave"
+    }
   }
 }

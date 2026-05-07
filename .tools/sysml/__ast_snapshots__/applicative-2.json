@@ -144,6 +144,9 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb  |  pure :: a ⟶ Fa",
+    "name": "fmap",
+    "render": "FmapProcess",
     "shows": {
       "f": "hof",
       "Fa": "type",
@@ -155,9 +158,6 @@
       "Fa": "Fa — value inside context F",
       "fmapF": "fmap: lifts a plain function into the functor",
       "Fb": "Fb — result inside context F"
-    },
-    "title": "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb  |  pure :: a ⟶ Fa",
-    "name": "fmap",
-    "render": "FmapProcess"
+    }
   }
 }

@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b",
+    "render": "FoldContext",
     "shows": {
       "f_val": "hof",
       "init_val": "value",
@@ -84,8 +86,6 @@
       "list_val": "[a] — the input list whose elements are consumed one by one",
       "fold": "fold: reduce a list to a single value by repeatedly applying f",
       "result": "b — the final accumulated result"
-    },
-    "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b",
-    "render": "FoldContext"
+    }
   }
 }

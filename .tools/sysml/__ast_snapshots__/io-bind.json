@@ -155,6 +155,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "IO bind: execute ia, feed a to f to build IO b, execute IO b — also called: .then (Promises), >>=",
+    "name": "bind",
     "shows": {
       "ia": "type",
       "f": "hof",
@@ -170,8 +172,6 @@
       "build": "Apply f(a): build the next IO action description from a. No effect yet — only the description is created.",
       "exec_b": "Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this.",
       "b": "b — the final result. The sequencing of exec_a before exec_b is the entire bind contract."
-    },
-    "title": "IO bind: execute ia, feed a to f to build IO b, execute IO b — also called: .then (Promises), >>=",
-    "name": "bind"
+    }
   }
 }

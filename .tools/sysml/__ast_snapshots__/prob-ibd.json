@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>=",
+    "render": "ProbBindContext",
     "shows": {
       "dist_a": "type",
       "f_val": "hof",
@@ -71,8 +73,6 @@
       "f_val": "(a ⟶ Prob b) — conditional distribution: given outcome a, returns a new distribution over b",
       "bind": "[(b, pa*pb) | (a, pa) <- dist, (b, pb) <- f a]\\nFor each outcome a (probability pa), apply f to get a distribution over b.\\nEach (b, pb) gets weight pa * pb — law of total probability.",
       "dist_b": "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it"
-    },
-    "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>=",
-    "render": "ProbBindContext"
+    }
   }
 }

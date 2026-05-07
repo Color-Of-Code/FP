@@ -87,6 +87,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "(<|>) :: Parser a ⟶ Parser a ⟶ Parser a   (ordered choice; try p1, on failure try p2) — also called: alt, choice, orElse",
+    "name": "alt",
     "shows": {
       "p1": "value",
       "p2": "value",
@@ -98,8 +100,6 @@
       "p2": "p2 : Parser a — fallback alternative.  Tried only when p1 fails without commitment.",
       "alt": "Alt: build \\\\input -> case p1 input of Just r -> Just r; Nothing -> p2 input.",
       "pr": "Parser a — combined parser that succeeds whenever either branch succeeds.  Used to encode grammar disjunction (rule = a | b)."
-    },
-    "title": "(<|>) :: Parser a ⟶ Parser a ⟶ Parser a   (ordered choice; try p1, on failure try p2) — also called: alt, choice, orElse",
-    "name": "alt"
+    }
   }
 }

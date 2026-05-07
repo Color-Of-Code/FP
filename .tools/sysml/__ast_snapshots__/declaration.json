@@ -48,13 +48,13 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Declaration f :: a ⟶ b",
+    "name": "declaration",
     "shows": {
       "f": "function"
     },
     "tooltips": {
       "f": "The function identified by the declaration f :: a ⟶ b."
-    },
-    "title": "Declaration f :: a ⟶ b",
-    "name": "declaration"
+    }
   }
 }

@@ -150,6 +150,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without bind: config passed into every function explicitly",
+    "name": "buildUrl",
     "shows": {
       "cfg": "type",
       "getHost": "function",
@@ -163,8 +165,6 @@
       "getPort": "getPort(config) — needs only config.port but still receives the whole record.",
       "buildUrl": "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing.",
       "url": "URL — the result. Most of the signatures involved were boilerplate."
-    },
-    "title": "Without bind: config passed into every function explicitly",
-    "name": "buildUrl"
+    }
   }
 }

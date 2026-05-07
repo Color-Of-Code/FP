@@ -122,6 +122,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Monad: Ma >>= (a ⟶ Mb) >>= (b ⟶ Mc)",
+    "name": ">>=",
     "shows": {
       "Ma": "type",
       "f": "hof",
@@ -138,8 +140,6 @@
       "bind1": ">>= : unwraps Ma, applies f, produces Mb",
       "bind2": ">>= : unwraps Mb, applies g, produces Mc",
       "Mc": "Mc — final result, effects from all steps collected"
-    },
-    "title": "Monad: Ma >>= (a ⟶ Mb) >>= (b ⟶ Mc)",
-    "name": ">>="
+    }
   }
 }

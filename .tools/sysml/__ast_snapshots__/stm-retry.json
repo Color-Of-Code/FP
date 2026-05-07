@@ -55,6 +55,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "retry :: STM a   (abort + block until a watched TVar changes; then restart) — primitive",
+    "name": "retry",
     "shows": {
       "retry": "function",
       "sa": "type"
@@ -62,8 +64,6 @@
     "tooltips": {
       "retry": "Retry: discard the transaction's pending writes, suspend the thread, wake when any TVar in the read set is written by another thread.",
       "sa": "STM a — type-polymorphic in a because retry never returns through the value channel; the runtime handles the resumption."
-    },
-    "title": "retry :: STM a   (abort + block until a watched TVar changes; then restart) — primitive",
-    "name": "retry"
+    }
   }
 }

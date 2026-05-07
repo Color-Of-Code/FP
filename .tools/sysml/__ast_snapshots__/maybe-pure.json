@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
+    "name": "pure",
     "shows": {
       "a0": "value",
       "wrap": "function",
@@ -80,8 +82,6 @@
       "a0": "a0 — any plain value to be lifted into the Maybe context.",
       "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
       "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
-    },
-    "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
-    "name": "pure"
+    }
   }
 }

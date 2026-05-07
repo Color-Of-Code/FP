@@ -277,6 +277,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: every step has the same shape; bind is the glue",
+    "name": "lookupUserCity",
     "shows": {
       "userId": "value",
       "pureId": "function",
@@ -302,8 +304,6 @@
       "findCityFn": "find_city : Address → Maybe City. Same: supplied to bind as the continuation.",
       "liftNameFn": "lift_name : City → Maybe String (= pure ∘ .name). Lifts the plain String back into Maybe.",
       "cityName": "Maybe String — Just city.name on success; Nothing if any step failed.\\nNo explicit null checks anywhere in this chain; pure starts it, bind drives it."
-    },
-    "title": "With pure + bind: every step has the same shape; bind is the glue",
-    "name": "lookupUserCity"
+    }
   }
 }

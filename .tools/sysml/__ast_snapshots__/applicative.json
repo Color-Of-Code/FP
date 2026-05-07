@@ -144,6 +144,9 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Applicative: (<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb",
+    "name": "<*>",
+    "render": "ApplicativeProcess",
     "shows": {
       "fff": "hof",
       "fa": "type",
@@ -155,9 +158,6 @@
       "fa": "Fa — the argument value, also wrapped in the same context F",
       "apStar": "(<*>) — applies the wrapped function to the wrapped argument",
       "fb": "Fb — result in context F; same context shape as input"
-    },
-    "title": "Applicative: (<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb",
-    "name": "<*>",
-    "render": "ApplicativeProcess"
+    }
   }
 }

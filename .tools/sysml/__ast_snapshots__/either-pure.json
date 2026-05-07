@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok",
+    "name": "pure",
     "shows": {
       "a0": "value",
       "wrap": "function",
@@ -80,8 +82,6 @@
       "a0": "a0 — any plain value to lift into the Either context (the success branch).",
       "wrap": "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type.",
       "right_a0": "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."
-    },
-    "title": "pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok",
-    "name": "pure"
+    }
   }
 }

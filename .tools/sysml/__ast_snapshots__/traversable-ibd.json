@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)",
+    "render": "TraverseContext",
     "shows": {
       "f_val": "hof",
       "ta_val": "type",
@@ -71,8 +73,6 @@
       "ta_val": "Ta — traversable structure containing elements of type a",
       "traverse": "traverse: map with effects, collecting results into F(Tb)",
       "ftb_val": "F(Tb) — effect on the outside, rebuilt structure on the inside"
-    },
-    "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)",
-    "render": "TraverseContext"
+    }
   }
 }

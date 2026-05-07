@@ -195,6 +195,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: effects in the type, sequenced explicitly through bind",
+    "name": "compute",
     "shows": {
       "path": "value",
       "purePath": "function",
@@ -212,8 +214,6 @@
       "readFileFn": "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow.",
       "logCompFn": "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg.",
       "ioResult": "IO Int — the final described program. The runtime (main) is the only thing that actually executes it."
-    },
-    "title": "With pure + bind: effects in the type, sequenced explicitly through bind",
-    "name": "compute"
+    }
   }
 }

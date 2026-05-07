@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "(>>=) :: Ma ⟶ (a ⟶ Mb) ⟶ Mb",
+    "render": "BindContext",
     "shows": {
       "ma_val": "type",
       "f_val": "hof",
@@ -71,8 +73,6 @@
       "f_val": "(a ⟶ Mb) — the continuation: maps each a to a new monadic Mb",
       "bind": ">>= (bind): sequences two monadic actions, threading the value",
       "mb_val": "Mb — final monadic result"
-    },
-    "title": "(>>=) :: Ma ⟶ (a ⟶ Mb) ⟶ Mb",
-    "render": "BindContext"
+    }
   }
 }

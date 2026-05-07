@@ -166,6 +166,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: nested binds = nested loops; one bind per Cartesian axis",
+    "name": "cartesian",
     "shows": {
       "xs": "value",
       "ys": "value",
@@ -185,8 +187,6 @@
       "outerFn": "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A].",
       "innerFn": "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.",
       "result": "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."
-    },
-    "title": "With pure + bind: nested binds = nested loops; one bind per Cartesian axis",
-    "name": "cartesian"
+    }
   }
 }

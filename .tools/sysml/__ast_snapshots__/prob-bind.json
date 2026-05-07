@@ -315,6 +315,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>=",
+    "name": "bind",
     "shows": {
       "dist_a": "type",
       "f": "hof",
@@ -350,8 +352,6 @@
       "w2": "[(b, pa2·pb)] — weighted outcomes for branch a2",
       "merge": "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B).",
       "dist_b": "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"
-    },
-    "title": "Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>=",
-    "name": "bind"
+    }
   }
 }

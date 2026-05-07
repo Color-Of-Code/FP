@@ -187,6 +187,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without bind: state threaded as explicit s0/s1/s2/s3 variables",
+    "name": "stateChain",
     "shows": {
       "a0": "value",
       "s0": "type",
@@ -208,8 +210,6 @@
       "step2": "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong.",
       "step3": "step3(c, s2) → (d, s3). Same plumbing, repeated.",
       "outResult": "(d, sFinal) — caller unpacks both."
-    },
-    "title": "Without bind: state threaded as explicit s0/s1/s2/s3 variables",
-    "name": "stateChain"
+    }
   }
 }

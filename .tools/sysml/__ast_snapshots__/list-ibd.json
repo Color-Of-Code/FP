@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "bind :: List a ⟶ (a ⟶ List b) ⟶ List b — also called: flatMap, concatMap, SelectMany, List.collect, >>=",
+    "render": "ListBindContext",
     "shows": {
       "ma_val": "type",
       "f_val": "hof",
@@ -71,8 +73,6 @@
       "f_val": "(a ⟶ List b) — applied to EVERY element; each call may return zero, one, or many results",
       "bind": "concatMap f: apply f to each element, concatenate all resulting lists.\\nbind [a1,a2,a3] f  =  f(a1) ++ f(a2) ++ f(a3)",
       "mb_val": "List b — all branches expanded and flattened into a single list"
-    },
-    "title": "bind :: List a ⟶ (a ⟶ List b) ⟶ List b — also called: flatMap, concatMap, SelectMany, List.collect, >>=",
-    "render": "ListBindContext"
+    }
   }
 }

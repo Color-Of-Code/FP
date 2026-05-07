@@ -146,6 +146,7 @@ function adaptLaneBlock(g: G.LaneBlock): LaneBlock {
 /**
  * A dispatch table entry: a type guard paired with its adapter function.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- type erasure needed for heterogeneous dispatch
 type DispatchEntry<M, T> = readonly [(m: M) => m is M & object, (m: any) => T];
 
 /**
@@ -160,14 +161,11 @@ function partitionByKind<M, R extends readonly DispatchEntry<M, unknown>[]>(
   members: readonly M[],
   ...dispatch: R
 ): { [K in keyof R]: R[K] extends DispatchEntry<M, infer T> ? T[] : never } {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mapped-tuple cast unavoidable
   const result = dispatch.map(() => [] as unknown[]) as any;
   for (const m of members) {
-    for (let i = 0; i < dispatch.length; i++) {
-      if (dispatch[i][0](m)) {
-        result[i].push(dispatch[i][1](m));
-        break;
-      }
-    }
+    const idx = dispatch.findIndex(d => d[0](m));
+    if (idx >= 0) result[idx].push(dispatch[idx][1](m));
   }
   return result;
 }
@@ -217,23 +215,26 @@ export function adaptPackage(g: G.Package): PackageDecl {
 }
 
 export function adaptDiagramMeta(g: G.DiagramMeta | undefined): DiagramMeta {
-  const out: DiagramMeta = { diagType: "activity", shows: {}, tooltips: {} };
-  if (!g) return out;
-  for (const f of g.fields) {
-    if (G.isKvField(f)) {
-      const value = strOrIdent(f.value);
-      switch (f.key) {
-        case "type":      out.diagType  = value as DiagramType; break;
-        case "title":     out.title     = value;                break;
-        case "name":      out.name      = value;                break;
-        case "direction": out.direction = value as "LR" | "TB"; break;
-        case "render":    out.render    = value;                break;
-      }
-    } else if (G.isShowField(f)) {
-      out.shows[f.id ?? ""] = (f.role ?? "") as Role;
-    } else if (G.isTooltipField(f)) {
-      out.tooltips[f.id ?? ""] = strOrIdent(f.text);
-    }
-  }
-  return out;
+  if (!g) return { diagType: "activity", shows: {}, tooltips: {} };
+
+  const kvFields = g.fields.filter(G.isKvField);
+  const kvByKey = Object.fromEntries(
+    kvFields.map(f => [f.key, strOrIdent(f.value)]),
+  );
+  const shows = Object.fromEntries(
+    g.fields.filter(G.isShowField).map(f => [f.id ?? "", (f.role ?? "") as Role]),
+  );
+  const tooltips = Object.fromEntries(
+    g.fields.filter(G.isTooltipField).map(f => [f.id ?? "", strOrIdent(f.text)]),
+  );
+
+  return {
+    diagType:  (kvByKey.type ?? "activity") as DiagramType,
+    title:     kvByKey.title,
+    name:      kvByKey.name,
+    direction: kvByKey.direction as "LR" | "TB" | undefined,
+    render:    kvByKey.render,
+    shows,
+    tooltips,
+  };
 }

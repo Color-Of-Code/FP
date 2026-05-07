@@ -12,6 +12,7 @@
  */
 
 import type { GEdge, GNode } from "../types.ts";
+import { groupBy } from "../lib/fp.ts";
 
 /**
  * Mutate every object-flow edge in `edges` so it carries `srcPin` and/or
@@ -22,25 +23,55 @@ export function assignActionPins(
   edges: GEdge[],
   nodeMap: Map<string, GNode>,
 ): void {
-  // Group edges by the action endpoint that needs a pin.
-  const inGroups  = new Map<string, GEdge[]>();
-  const outGroups = new Map<string, GEdge[]>();
-  for (const e of edges) {
-    if (!e.isObjectFlow) continue;
-    const src = nodeMap.get(e.from);
-    const tgt = nodeMap.get(e.to);
-    if (src?.kind === "action") {
-      if (!outGroups.has(src.id)) outGroups.set(src.id, []);
-      outGroups.get(src.id)!.push(e);
-    }
-    if (tgt?.kind === "action") {
-      if (!inGroups.has(tgt.id)) inGroups.set(tgt.id, []);
-      inGroups.get(tgt.id)!.push(e);
-    }
-  }
+  const objectFlows = edges.filter(e => e.isObjectFlow);
 
-  for (const [nodeId, es] of inGroups)  matchSide(nodeId, es, nodeMap, "in");
-  for (const [nodeId, es] of outGroups) matchSide(nodeId, es, nodeMap, "out");
+  // Group edges by the action endpoint that needs a pin.
+  const outByAction = groupBy(
+    objectFlows.filter(e => nodeMap.get(e.from)?.kind === "action"),
+    e => e.from,
+  );
+  const inByAction = groupBy(
+    objectFlows.filter(e => nodeMap.get(e.to)?.kind === "action"),
+    e => e.to,
+  );
+
+  for (const [nodeId, es] of Object.entries(inByAction))  matchSide(nodeId, es, nodeMap, "in");
+  for (const [nodeId, es] of Object.entries(outByAction)) matchSide(nodeId, es, nodeMap, "out");
+}
+
+/**
+ * Try to match a pin by shared name with the opposite action endpoint.
+ * Returns the chosen pin name or undefined.
+ */
+export function chooseSharedPin(
+  e: GEdge, side: "in" | "out",
+  pins: readonly string[], used: ReadonlySet<string>,
+  nodeMap: Map<string, GNode>,
+): string | undefined {
+  const otherId = side === "in" ? e.from : e.to;
+  const other   = nodeMap.get(otherId);
+  if (other?.kind === "action") {
+    const otherPins = side === "in" ? other.outPins : other.inPins;
+    return otherPins.find(p => pins.includes(p) && !used.has(p));
+  }
+  return undefined;
+}
+
+/**
+ * Try to match a pin whose name equals the opposite object node's id.
+ * Returns the chosen pin name or undefined.
+ */
+export function chooseObjectIdPin(
+  e: GEdge, side: "in" | "out",
+  pins: readonly string[], used: ReadonlySet<string>,
+  nodeMap: Map<string, GNode>,
+): string | undefined {
+  const otherId = side === "in" ? e.from : e.to;
+  const other   = nodeMap.get(otherId);
+  if (other && pins.includes(other.id) && !used.has(other.id)) {
+    return other.id;
+  }
+  return undefined;
 }
 
 function matchSide(
@@ -64,20 +95,8 @@ function matchSide(
   const unmatched: GEdge[] = [];
 
   for (const e of es) {
-    const otherId = side === "in" ? e.from : e.to;
-    const other   = nodeMap.get(otherId);
-    let chosen: string | undefined;
-
-    if (other?.kind === "action") {
-      const otherPins = side === "in" ? other.outPins : other.inPins;
-      for (const p of otherPins) {
-        if (pins.includes(p) && !used.has(p)) { chosen = p; break; }
-      }
-    }
-    if (!chosen && other && pins.includes(other.id) && !used.has(other.id)) {
-      chosen = other.id;
-    }
-
+    const chosen = chooseSharedPin(e, side, pins, used, nodeMap)
+                ?? chooseObjectIdPin(e, side, pins, used, nodeMap);
     if (chosen) setPin(e, chosen);
     else unmatched.push(e);
   }

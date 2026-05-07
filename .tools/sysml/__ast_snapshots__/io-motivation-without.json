@@ -92,6 +92,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without IO: side effects hidden inside a pure-looking type",
+    "name": "compute",
     "shows": {
       "x": "value",
       "compute": "function",
@@ -105,8 +107,6 @@
       "result": "result : Int — looks like a pure return, but its computation depended on a file and a log call.",
       "hiddenReadConfig": "Hidden effect: reads config.txt during execution. Not visible in the type.",
       "hiddenWriteLog": "Hidden effect: writes to a log during execution. Not visible in the type."
-    },
-    "title": "Without IO: side effects hidden inside a pure-looking type",
-    "name": "compute"
+    }
   }
 }

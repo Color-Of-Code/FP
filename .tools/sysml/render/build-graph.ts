@@ -19,10 +19,8 @@ export function shiftCoordinates(
   dx: number,
   dy: number,
 ): { shiftedPaths: EdgePolyline[]; shiftedLanes: LaneGeom[] } {
-  for (const n of nodes) {
-    n.x += dx;
-    n.y += dy;
-  }
+  // eslint-disable-next-line functional/immutable-data -- intentional in-place shift
+  for (const n of nodes) { n.x += dx; n.y += dy; }
   const shiftedPaths = edgePaths.map(pts =>
     pts.map(([x, y]) => [x + dx, y + dy] as [number, number]),
   );

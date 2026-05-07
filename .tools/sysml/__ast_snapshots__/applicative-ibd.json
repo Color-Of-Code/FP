@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "(<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb",
+    "render": "ApContext",
     "shows": {
       "ff_val": "hof",
       "fa_val": "type",
@@ -71,8 +73,6 @@
       "fa_val": "Fa — value inside the same context F",
       "ap": "<*>: applies a wrapped function to a wrapped value",
       "fb_val": "Fb — result in context F"
-    },
-    "title": "(<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb",
-    "render": "ApContext"
+    }
   }
 }

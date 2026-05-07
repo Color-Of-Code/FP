@@ -55,6 +55,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "get :: State s s   (return the current state as the result; state unchanged) — primitive",
+    "name": "get",
     "shows": {
       "get": "function",
       "gs": "type"
@@ -62,8 +64,6 @@
     "tooltips": {
       "get": "Get: build \\\\s -> (s, s) — value and outgoing state are both the incoming state.",
       "gs": "State s s — a stateful computation that observes s without modifying it."
-    },
-    "title": "get :: State s s   (return the current state as the result; state unchanged) — primitive",
-    "name": "get"
+    }
   }
 }

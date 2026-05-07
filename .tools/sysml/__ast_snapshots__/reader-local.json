@@ -87,6 +87,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "local :: (r ⟶ r) ⟶ Reader r a ⟶ Reader r a   (run inner reader with modified environment) — primitive",
+    "name": "local",
     "shows": {
       "f": "value",
       "ma": "value",
@@ -98,8 +100,6 @@
       "ma": "ma : Reader r a — the inner reader to be run with the transformed environment.",
       "lcl": "Local: build \\\\r -> runReader ma (f r). The outer caller still supplies the original r; only ma sees f(r).",
       "mb": "Reader r a — same outer signature, but executions of ma are scoped to the transformed environment."
-    },
-    "title": "local :: (r ⟶ r) ⟶ Reader r a ⟶ Reader r a   (run inner reader with modified environment) — primitive",
-    "name": "local"
+    }
   }
 }

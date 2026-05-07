@@ -60,6 +60,8 @@
   ],
   "diagram": {
     "diagType": "ibd",
+    "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — also called: andThen / and_then, Bind, flatMap, >>=",
+    "render": "EitherBindContext",
     "shows": {
       "ma_val": "type",
       "f_val": "hof",
@@ -71,8 +73,6 @@
       "f_val": "(a ⟶ Either e b) — called only when ma_val is Right a; may itself return Left e",
       "bind": "Right a →  f a          (unwrap, apply, return result)\\nLeft e  →  Left e       (short-circuit: skip f, propagate the error value unchanged)",
       "mb_val": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)"
-    },
-    "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — also called: andThen / and_then, Bind, flatMap, >>=",
-    "render": "EitherBindContext"
+    }
   }
 }

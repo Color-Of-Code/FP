@@ -70,6 +70,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "pure :: a ⟶ (a, mempty)   (pair with the monoid identity of the log) — also called: return",
+    "name": "pure",
     "shows": {
       "a0": "value",
       "wrap": "function",
@@ -79,8 +81,6 @@
       "a0": "a0 — any plain value.",
       "wrap": "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log.",
       "wa": "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."
-    },
-    "title": "pure :: a ⟶ (a, mempty)   (pair with the monoid identity of the log) — also called: return",
-    "name": "pure"
+    }
   }
 }

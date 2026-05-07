@@ -137,6 +137,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: bind multiplies probabilities and flattens the joint distribution",
+    "name": "coinThenDie",
     "shows": {
       "biasedCoin": "function",
       "bindRoll": "function",
@@ -148,8 +150,6 @@
       "bindRoll": ">>= : applies the conditional distribution to every branch; multiplies probabilities and flattens.",
       "rollDieFn": "rollDie : CoinFace → Prob Int. HOF argument — its input is CoinFace, not Prob CoinFace.",
       "outResult": "Prob Int — the joint distribution. bind has multiplied probabilities and flattened the nested list automatically."
-    },
-    "title": "With pure + bind: bind multiplies probabilities and flattens the joint distribution",
-    "name": "coinThenDie"
+    }
   }
 }

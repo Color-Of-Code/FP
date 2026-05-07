@@ -16,7 +16,7 @@ import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/s
  * Shorten a polyline by `depth` units along its final segment, preserving the
  * direction of approach.  This makes room for the arrowhead.
  */
-function shortenEnd(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
+export function shortenEnd(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
   if (pts.length < 2) return pts.map(p => [p[0], p[1]] as [number, number]);
   const out = pts.slice(0, -1).map(p => [p[0], p[1]] as [number, number]);
   const [px, py] = pts[pts.length - 2];
@@ -33,7 +33,7 @@ function shortenEnd(pts: readonly (readonly [number, number])[], depth: number):
  * segment.  Used to push the source point onto the outer edge of a pin square
  * (which sits half-outside the source action body).
  */
-function extendStart(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
+export function extendStart(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
   const out = pts.map(p => [p[0], p[1]] as [number, number]);
   if (out.length < 2 || depth <= 0) return out;
   const [sx, sy] = out[0];
@@ -45,7 +45,7 @@ function extendStart(pts: readonly (readonly [number, number])[], depth: number)
 }
 
 /** Build the SVG path `d` attribute from a polyline. */
-function polylineToD(pts: readonly (readonly [number, number])[]): string {
+export function polylineToD(pts: readonly (readonly [number, number])[]): string {
   if (pts.length === 0) return "";
   const [x0, y0] = pts[0];
   const tail = pts.slice(1).map(([x, y]) => `L${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
@@ -57,7 +57,7 @@ function polylineToD(pts: readonly (readonly [number, number])[]): string {
  * corner with a quadratic Bézier fillet.  The fillet radius is clamped to
  * half the length of the shorter adjacent segment so corners never overshoot.
  */
-function roundedPolylineToD(
+export function roundedPolylineToD(
   pts: readonly (readonly [number, number])[],
   radius: number,
 ): string {
@@ -66,9 +66,9 @@ function roundedPolylineToD(
 
   const fmt = (n: number) => n.toFixed(1);
   const [x0, y0] = pts[0];
-  let d = `M${fmt(x0)},${fmt(y0)}`;
 
-  for (let i = 1; i < pts.length - 1; i++) {
+  const corners = Array.from({ length: pts.length - 2 }, (_, idx) => {
+    const i = idx + 1;
     const [px, py] = pts[i - 1];
     const [cx, cy] = pts[i];
     const [nx, ny] = pts[i + 1];
@@ -81,8 +81,7 @@ function roundedPolylineToD(
 
     // Collinear segment — skip the corner; a straight line through cx,cy is fine.
     if (Math.abs(inDx * outDy - inDy * outDx) < 0.01) {
-      d += ` L${fmt(cx)},${fmt(cy)}`;
-      continue;
+      return ` L${fmt(cx)},${fmt(cy)}`;
     }
 
     const ax = cx - (inDx / inLen) * r;
@@ -90,39 +89,30 @@ function roundedPolylineToD(
     const bx = cx + (outDx / outLen) * r;
     const by = cy + (outDy / outLen) * r;
 
-    d += ` L${fmt(ax)},${fmt(ay)} Q${fmt(cx)},${fmt(cy)} ${fmt(bx)},${fmt(by)}`;
-  }
+    return ` L${fmt(ax)},${fmt(ay)} Q${fmt(cx)},${fmt(cy)} ${fmt(bx)},${fmt(by)}`;
+  });
 
   const [xn, yn] = pts[pts.length - 1];
-  d += ` L${fmt(xn)},${fmt(yn)}`;
-  return d;
+  return `M${fmt(x0)},${fmt(y0)}${corners.join("")} L${fmt(xn)},${fmt(yn)}`;
 }
 
 /** Default corner-fillet radius in user-space units. */
 const CORNER_RADIUS = 6;
 
-/** Find the midpoint of the longest horizontal-or-vertical segment. */
-function labelAnchor(pts: readonly (readonly [number, number])[]): [number, number] {
+/** Find the midpoint of the longest segment. */
+export function labelAnchor(pts: readonly (readonly [number, number])[]): [number, number] {
   if (pts.length < 2) return [0, 0];
-  let bestLen = -1;
-  let bestMid: [number, number] = [
-    (pts[0][0] + pts[pts.length - 1][0]) / 2,
-    (pts[0][1] + pts[pts.length - 1][1]) / 2,
-  ];
-  for (let i = 0; i < pts.length - 1; i++) {
+  const segments = Array.from({ length: pts.length - 1 }, (_, i) => {
     const [ax, ay] = pts[i];
     const [bx, by] = pts[i + 1];
-    const len = Math.hypot(bx - ax, by - ay);
-    if (len > bestLen) {
-      bestLen = len;
-      bestMid = [(ax + bx) / 2, (ay + by) / 2];
-    }
-  }
-  return bestMid;
+    return { len: Math.hypot(bx - ax, by - ay), mid: [(ax + bx) / 2, (ay + by) / 2] as [number, number] };
+  });
+  const best = segments.reduce((a, b) => (b.len > a.len ? b : a));
+  return best.mid;
 }
 
 /** Midpoint of the first segment — used for "near source" label placement. */
-function firstSegmentMidpoint(
+export function firstSegmentMidpoint(
   pts: readonly (readonly [number, number])[],
 ): [number, number] {
   if (pts.length < 2) return [0, 0];

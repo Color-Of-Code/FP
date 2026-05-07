@@ -154,6 +154,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "With pure + bind: STM actions compose freely; runtime commits atomically or retries",
+    "name": "transfer",
     "shows": {
       "readA": "function",
       "bindWriteA": "function",
@@ -169,8 +171,6 @@
       "writeAThenFn": "λaVal. writeTVar accountA (aVal - delta) >> readTVar accountB. HOF argument — captures aVal in scope.",
       "writeBFn": "λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal.",
       "commit": "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible."
-    },
-    "title": "With pure + bind: STM actions compose freely; runtime commits atomically or retries",
-    "name": "transfer"
+    }
   }
 }

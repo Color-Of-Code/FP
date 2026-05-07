@@ -71,6 +71,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "pure :: a ⟶ State s a   (identity on state, returns a0) — also called: return",
+    "name": "pure",
     "shows": {
       "a0": "value",
       "wrap": "function",
@@ -80,8 +82,6 @@
       "a0": "a0 — any plain value.",
       "wrap": "IdentityState: build the function \\\\s -> (a0, s). State entering = state leaving; only the value is provided.",
       "sa": "State s a = (s ⟶ (a, s)). Run this with any state s and you get (a0, s) — the state is preserved exactly."
-    },
-    "title": "pure :: a ⟶ State s a   (identity on state, returns a0) — also called: return",
-    "name": "pure"
+    }
   }
 }

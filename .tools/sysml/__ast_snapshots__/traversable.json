@@ -144,6 +144,9 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)",
+    "name": "traverse",
+    "render": "TraverseProcess",
     "shows": {
       "f": "hof",
       "ta": "type",
@@ -155,9 +158,6 @@
       "ta": "Ta — traversable container of a's",
       "trav": "traverse: maps each element with f, collects effects into outer F",
       "ftb": "F(Tb) — container shape T preserved; all effects F collected"
-    },
-    "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)",
-    "name": "traverse",
-    "render": "TraverseProcess"
+    }
   }
 }

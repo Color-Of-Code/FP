@@ -196,6 +196,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Without bind: explicit Nothing guard at every step",
+    "name": "lookupUserCity",
     "shows": {
       "userId": "value",
       "findUser": "function",
@@ -215,8 +217,6 @@
       "earlyExit": "Any Nothing terminates the chain here — three separate failure paths converge.",
       "nothing": "Nothing — returned when any step failed. Caller must also guard against this.",
       "cityName": "city.name — the happy-path result, reached only when all three checks pass."
-    },
-    "title": "Without bind: explicit Nothing guard at every step",
-    "name": "lookupUserCity"
+    }
   }
 }

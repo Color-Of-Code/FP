@@ -68,6 +68,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Application f(a0) = b0",
+    "name": "apply",
     "shows": {
       "a0": "value",
       "f": "function",
@@ -77,8 +79,6 @@
       "a0": "a0 — a concrete input value of type a",
       "f": "Apply f to the input value",
       "b0": "b0 — the resulting value of type b"
-    },
-    "title": "Application f(a0) = b0",
-    "name": "apply"
+    }
   }
 }

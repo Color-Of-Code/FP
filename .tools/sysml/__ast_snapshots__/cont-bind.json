@@ -146,6 +146,8 @@
   ],
   "diagram": {
     "diagType": "activity",
+    "title": "Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m — also called: >>=",
+    "name": "bind",
     "shows": {
       "m": "type",
       "f": "hof",
@@ -163,8 +165,6 @@
       "k2": "(a ⟶ r) — the composed continuation. When m eventually produces a, it calls k2(a), which runs f(a) and then k.",
       "run": "Run m with k2: m(k2). m runs LAST — this is the inversion of control.\\nIf callCC is used, k (the downstream continuation) can be captured as an escape function.",
       "r": "r — the final result of the entire composed computation"
-    },
-    "title": "Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m — also called: >>=",
-    "name": "bind"
+    }
   }
 }
