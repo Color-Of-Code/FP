@@ -16,7 +16,7 @@ import {
 import { layoutGraph, type LaneSpec, type LaneGeom } from "../layout.ts";
 import { appendGNode } from "./nodes.ts";
 import { appendGEdge } from "./edges.ts";
-import { appendActivityFrame } from "./frame.ts";
+import { appendDiagramFrame } from "./frame.ts";
 import { appendLaneBand } from "./lane.ts";
 import { assignActionPins } from "./pin.ts";
 import type { RenderPlan } from "./title.ts";
@@ -162,7 +162,7 @@ export async function renderActivity(
     width: W,
     height: H,
     draw(parent) {
-      appendActivityFrame(parent, diagram.name ?? actDef.name, W, H);
+      appendDiagramFrame(parent, "activity", diagram.name ?? actDef.name, W, H);
       // Lane bands sit between the frame and the edges so they read as
       // background scenery without occluding flows or nodes.
       shiftedLanes.forEach(l => appendLaneBand(parent, l));

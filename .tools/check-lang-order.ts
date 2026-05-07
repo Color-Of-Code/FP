@@ -15,7 +15,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 // Languages in required order
-const REQUIRED: readonly string[] = [
+export const REQUIRED: readonly string[] = [
   "C#",
   "F#",
   "Ruby",
@@ -29,32 +29,13 @@ const REQUIRED: readonly string[] = [
 
 // Files that deliberately have no language-example sections
 // (discussion/comparison chapters rather than 9-language tutorials)
-const SKIP_FILES: ReadonlySet<string> = new Set([
+export const SKIP_FILES: ReadonlySet<string> = new Set([
   "01-function.md",
   "22-effects.md",
 ]);
 
-const repoRoot: string = path.resolve(import.meta.dirname, "..");
-const docDirs: string[] = [
-  path.join(repoRoot, "docs"),
-  path.join(repoRoot, "docs", "monads"),
-  path.join(repoRoot, "docs", "optics"),
-];
-
-/** Collect all .md files under the given directories (non-recursive). */
-function collectFiles(dirs: string[]): string[] {
-  const files: string[] = [];
-  for (const dir of dirs) {
-    if (!fs.existsSync(dir)) continue;
-    for (const entry of fs.readdirSync(dir)) {
-      if (entry.endsWith(".md")) files.push(path.join(dir, entry));
-    }
-  }
-  return files.sort();
-}
-
 /** Return the language key if the heading line matches one of REQUIRED, else null. */
-function matchLang(line: string): string | null {
+export function matchLang(line: string): string | null {
   // Normalise markdown-escaped special chars (e.g. "C\#" → "C#", "C\+\+" → "C++")
   const normalised = line.replace(/\\([#+()\[\]{}*!])/g, "$1");
   for (const lang of REQUIRED) {
@@ -66,15 +47,11 @@ function matchLang(line: string): string | null {
   return null;
 }
 
-let errors = 0;
-
-for (const file of collectFiles(docDirs)) {
-  const basename = path.basename(file);
-  if (SKIP_FILES.has(basename)) continue;
-
-  const lines = fs.readFileSync(file, "utf8").split("\n");
-  const found: string[] = []; // langs in the order they appear
-  const counts = new Map<string, number>(); // how many times each lang appears
+/** Check a single file's content for language section errors. Returns error messages. */
+export function checkFile(content: string, relPath: string): string[] {
+  const lines = content.split("\n");
+  const found: string[] = [];
+  const counts = new Map<string, number>();
 
   for (const line of lines) {
     const lang = matchLang(line);
@@ -84,55 +61,79 @@ for (const file of collectFiles(docDirs)) {
     }
   }
 
-  const rel = path.relative(repoRoot, file);
-  let fileErrors = 0;
+  const errors: string[] = [];
 
   // 1. Missing languages
-  for (const lang of REQUIRED) {
-    if (!counts.has(lang)) {
-      console.error(`${rel}: missing "### ${lang}" section`);
-      fileErrors++;
-    }
+  const missing = REQUIRED.filter(lang => !counts.has(lang));
+  for (const lang of missing) {
+    errors.push(`${relPath}: missing "### ${lang}" section`);
   }
 
   // 2. Duplicate languages
-  for (const lang of REQUIRED) {
-    const count = counts.get(lang) ?? 0;
-    if (count > 1) {
-      console.error(
-        `${rel}: "### ${lang}" appears ${count} times (expected 1)`
-      );
-      fileErrors++;
-    }
-  }
-
-  // 3. Wrong order (only check if all are present and no duplicates)
-  if (fileErrors === 0) {
-    const presentInRequired = REQUIRED.filter((l) => counts.has(l));
-    const presentInFound = found.filter((l) =>
-      (REQUIRED as string[]).includes(l)
+  const duplicates = REQUIRED.filter(lang => (counts.get(lang) ?? 0) > 1);
+  for (const lang of duplicates) {
+    errors.push(
+      `${relPath}: "### ${lang}" appears ${counts.get(lang)} times (expected 1)`,
     );
-    for (let i = 0; i < presentInFound.length; i++) {
-      if (presentInFound[i] !== presentInRequired[i]) {
-        console.error(
-          `${rel}: wrong language order — got [${presentInFound.join(", ")}]` +
-            `, want [${REQUIRED.join(", ")}]`
-        );
-        fileErrors++;
-        break;
-      }
+  }
+
+  // 3. Wrong order (only check if no missing/duplicate errors)
+  if (missing.length === 0 && duplicates.length === 0) {
+    const presentInRequired = REQUIRED.filter(l => counts.has(l));
+    const presentInFound = found.filter(l =>
+      (REQUIRED as readonly string[]).includes(l),
+    );
+    const isOutOfOrder = presentInFound.some((l, i) => l !== presentInRequired[i]);
+    if (isOutOfOrder) {
+      errors.push(
+        `${relPath}: wrong language order — got [${presentInFound.join(", ")}]` +
+          `, want [${REQUIRED.join(", ")}]`,
+      );
     }
   }
 
-  errors += fileErrors;
+  return errors;
 }
 
-if (errors === 0) {
+/** Collect all .md files under the given directories (non-recursive). */
+function collectFiles(dirs: string[]): string[] {
+  return dirs
+    .filter(dir => fs.existsSync(dir))
+    .flatMap(dir =>
+      fs.readdirSync(dir)
+        .filter(entry => entry.endsWith(".md"))
+        .map(entry => path.join(dir, entry)),
+    )
+    .sort();
+}
+
+// ── CLI entry point ─────────────────────────────────────────────────────────
+
+const repoRoot: string = path.resolve(import.meta.dirname, "..");
+const docDirs: string[] = [
+  path.join(repoRoot, "docs"),
+  path.join(repoRoot, "docs", "monads"),
+  path.join(repoRoot, "docs", "optics"),
+];
+
+const allErrors = collectFiles(docDirs)
+  .filter(file => !SKIP_FILES.has(path.basename(file)))
+  .flatMap(file => {
+    const content = fs.readFileSync(file, "utf8");
+    const rel = path.relative(repoRoot, file);
+    return checkFile(content, rel);
+  });
+
+for (const err of allErrors) {
+  console.error(err);
+}
+
+if (allErrors.length === 0) {
   console.log(
-    "check-lang-order: all files OK (languages complete and in order)"
+    "check-lang-order: all files OK (languages complete and in order)",
   );
   process.exit(0);
 } else {
-  console.error(`check-lang-order: ${errors} error(s) found`);
+  console.error(`check-lang-order: ${allErrors.length} error(s) found`);
   process.exit(1);
 }

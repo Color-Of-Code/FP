@@ -56,8 +56,3 @@ export function appendDiagramFrame(
     fill: COL.labelFill,
   });
 }
-
-/** Back-compat alias: activity is just a frame with the "activity" stereotype. */
-export function appendActivityFrame(parent: SvgParent, name: string, W: number, H: number): void {
-  appendDiagramFrame(parent, "activity", name, W, H);
-}
