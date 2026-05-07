@@ -5,7 +5,7 @@
  * that the layout and renderer code uses instead of plain-object maps.
  */
 
-export { groupBy, keyBy, mapValues, maxBy, partition } from "lodash-es";
+export { forEach, fromPairs, groupBy, keyBy, mapValues, maxBy, partition, sortBy, times } from "lodash-es";
 
 /** Index items by a key into a `Map`.  Like `keyBy` but returns a `Map`. */
 export function indexBy<T>(

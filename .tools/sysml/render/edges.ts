@@ -8,6 +8,7 @@
 
 import { type GEdge, ARROW_DEPTH, PIN_SZ, COL } from "../types.ts";
 import type { EdgePolyline } from "../layout.ts";
+import { maxBy, times } from "../lib/fp.ts";
 import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/svg.ts";
 
 // ── Path utilities ─────────────────────────────────────────────────────────
@@ -18,14 +19,15 @@ import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/s
  */
 export function shortenEnd(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
   if (pts.length < 2) return pts.map(p => [p[0], p[1]] as [number, number]);
-  const out = pts.slice(0, -1).map(p => [p[0], p[1]] as [number, number]);
   const [px, py] = pts[pts.length - 2];
   const [ex, ey] = pts[pts.length - 1];
   const dx = ex - px, dy = ey - py;
   const len = Math.hypot(dx, dy) || 1;
   const k = Math.max(0, len - depth) / len;
-  out.push([px + dx * k, py + dy * k]);
-  return out;
+  return [
+    ...pts.slice(0, -1).map(p => [p[0], p[1]] as [number, number]),
+    [px + dx * k, py + dy * k],
+  ];
 }
 
 /**
@@ -40,8 +42,10 @@ export function extendStart(pts: readonly (readonly [number, number])[], depth: 
   const [nx, ny] = out[1];
   const dx = nx - sx, dy = ny - sy;
   const len = Math.hypot(dx, dy) || 1;
-  out[0] = [sx - (dx / len) * depth, sy - (dy / len) * depth];
-  return out;
+  return [
+    [sx - (dx / len) * depth, sy - (dy / len) * depth],
+    ...out.slice(1),
+  ];
 }
 
 /** Build the SVG path `d` attribute from a polyline. */
@@ -67,7 +71,7 @@ export function roundedPolylineToD(
   const fmt = (n: number) => n.toFixed(1);
   const [x0, y0] = pts[0];
 
-  const corners = Array.from({ length: pts.length - 2 }, (_, idx) => {
+  const corners = times(pts.length - 2, idx => {
     const i = idx + 1;
     const [px, py] = pts[i - 1];
     const [cx, cy] = pts[i];
@@ -102,12 +106,12 @@ const CORNER_RADIUS = 6;
 /** Find the midpoint of the longest segment. */
 export function labelAnchor(pts: readonly (readonly [number, number])[]): [number, number] {
   if (pts.length < 2) return [0, 0];
-  const segments = Array.from({ length: pts.length - 1 }, (_, i) => {
+  const segments = times(pts.length - 1, i => {
     const [ax, ay] = pts[i];
     const [bx, by] = pts[i + 1];
     return { len: Math.hypot(bx - ax, by - ay), mid: [(ax + bx) / 2, (ay + by) / 2] as [number, number] };
   });
-  const best = segments.reduce((a, b) => (b.len > a.len ? b : a));
+  const best = maxBy(segments, s => s.len)!;
   return best.mid;
 }
 

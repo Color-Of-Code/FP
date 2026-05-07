@@ -15,6 +15,7 @@
     "types": ["node", "d3", "jsdom"]
   },
   "include": [
+    "*.d.ts",
     "sysml/**/*.ts",
     "check-lang-order.ts",
     "check-lang-order.test.ts",

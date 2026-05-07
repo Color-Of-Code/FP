@@ -46,8 +46,7 @@ describe("checkFile", () => {
   });
 
   it("reports duplicate languages", () => {
-    const lines = REQUIRED.map(l => `### ${l}`);
-    lines.push("### Rust"); // duplicate
+    const lines = [...REQUIRED.map(l => `### ${l}`), "### Rust"]; // duplicate
     const content = lines.join("\n\n");
     const errors = checkFile(content, "test.md");
     expect(errors).toHaveLength(1);

@@ -134,11 +134,11 @@ describe("snapDecisionMergeEdges", () => {
     const edgePaths: (readonly (readonly [number, number])[])[] = [
       [[100, 50], [120, 60], [180, 90], [200, 100]],
     ];
-    snapDecisionMergeEdges(edges, edgePaths, ctx);
+    const { snappedEdges, snappedPaths } = snapDecisionMergeEdges(edges, edgePaths, ctx);
 
     // Should be rewritten to: drop to ty, then run to tx
-    expect(edgePaths[0]).toEqual([[100, 50], [100, 100], [200, 100]]);
-    expect(edges[0].labelNearSource).toBe(true);
+    expect(snappedPaths[0]).toEqual([[100, 50], [100, 100], [200, 100]]);
+    expect(snappedEdges[0].labelNearSource).toBe(true);
   });
 
   it("rewrites to straight line when x matches in LR mode", () => {
@@ -150,8 +150,8 @@ describe("snapDecisionMergeEdges", () => {
     const edgePaths: (readonly (readonly [number, number])[])[] = [
       [[100, 50], [100, 100]],
     ];
-    snapDecisionMergeEdges(edges, edgePaths, ctx);
-    expect(edgePaths[0]).toEqual([[100, 50], [100, 100]]);
+    const { snappedPaths } = snapDecisionMergeEdges(edges, edgePaths, ctx);
+    expect(snappedPaths[0]).toEqual([[100, 50], [100, 100]]);
   });
 
   it("does not touch non-decision→merge edges", () => {
@@ -162,8 +162,8 @@ describe("snapDecisionMergeEdges", () => {
 
     const original: [number, number][] = [[0, 0], [50, 25], [100, 50]];
     const edgePaths: (readonly (readonly [number, number])[])[] = [original];
-    snapDecisionMergeEdges(edges, edgePaths, ctx);
-    expect(edgePaths[0]).toBe(original);
+    const { snappedPaths } = snapDecisionMergeEdges(edges, edgePaths, ctx);
+    expect(snappedPaths[0]).toBe(original);
   });
 });
 
@@ -229,9 +229,9 @@ describe("straightenLaneEdges", () => {
     const edgePaths: (readonly (readonly [number, number])[])[] = [
       [[70, 50], [70, 30], [130, 30], [130, 50]],
     ];
-    straightenLaneEdges(edges, edgePaths, ctx);
+    const result = straightenLaneEdges(edges, edgePaths, ctx);
     // Should be simplified to a straight horizontal line
-    expect(edgePaths[0]).toEqual([[70, 50], [130, 50]]);
+    expect(result[0]).toEqual([[70, 50], [130, 50]]);
   });
 
   it("does not straighten when nodes are at different y", () => {
@@ -243,8 +243,8 @@ describe("straightenLaneEdges", () => {
 
     const original: [number, number][] = [[70, 50], [130, 80]];
     const edgePaths: (readonly (readonly [number, number])[])[] = [original];
-    straightenLaneEdges(edges, edgePaths, ctx);
-    expect(edgePaths[0]).toBe(original); // unchanged
+    const result = straightenLaneEdges(edges, edgePaths, ctx);
+    expect(result[0]).toBe(original); // unchanged
   });
 
   it("rewrites cross-lane object→action as vertical drop", () => {
@@ -260,10 +260,10 @@ describe("straightenLaneEdges", () => {
     const edgePaths: (readonly (readonly [number, number])[])[] = [
       [[100, 40], [80, 50], [80, 60], [100, 65]],
     ];
-    straightenLaneEdges(edges, edgePaths, ctx);
+    const result = straightenLaneEdges(edges, edgePaths, ctx);
     // Should be a clean vertical drop: [obj bottom] → [act top - PIN_SZ/2]
     // ty = act.y - act.h/2 - PIN_SZ/2 = 80 - 15 - 4 = 61
-    expect(edgePaths[0]).toEqual([[100, 40], [100, 61]]);
+    expect(result[0]).toEqual([[100, 40], [100, 61]]);
   });
 });
 
@@ -277,8 +277,8 @@ describe("adjustLanePositions", () => {
       { id: "bot", members: [] },
     ];
     const ctx = buildContext([a], [], "LR", lanes);
-    adjustLanePositions([a], [], ctx);
-    expect(a.y).toBe(38); // 30 + 8
+    const result = adjustLanePositions([a], [], ctx);
+    expect(result.find(n => n.id === "a")!.y).toBe(38); // 30 + 8
   });
 
   it("shifts lower-lane members down by 14", () => {
@@ -288,8 +288,8 @@ describe("adjustLanePositions", () => {
       { id: "bot", members: ["b"] },
     ];
     const ctx = buildContext([b], [], "LR", lanes);
-    adjustLanePositions([b], [], ctx);
-    expect(b.y).toBe(94); // 80 + 14
+    const result = adjustLanePositions([b], [], ctx);
+    expect(result.find(n => n.id === "b")!.y).toBe(94); // 80 + 14
   });
 
   it("aligns cross-lane object to single target action x", () => {
@@ -301,7 +301,7 @@ describe("adjustLanePositions", () => {
       { id: "bot", members: ["act"] },
     ];
     const ctx = buildContext([obj, act], edges, "LR", lanes);
-    adjustLanePositions([obj, act], edges, ctx);
-    expect(obj.x).toBe(150); // aligned to action's x
+    const result = adjustLanePositions([obj, act], edges, ctx);
+    expect(result.find(n => n.id === "obj")!.x).toBe(150); // aligned to action's x
   });
 });

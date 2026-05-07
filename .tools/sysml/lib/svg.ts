@@ -10,6 +10,7 @@
 import { JSDOM } from "jsdom";
 import { select, type BaseType, type Selection } from "d3";
 import { create } from "xmlbuilder2";
+import { isNil } from "lodash-es";
 
 export type SvgParent = Selection<BaseType, unknown, BaseType, unknown>;
 export type SvgAttrValue = string | number | boolean | null | undefined;
@@ -52,10 +53,9 @@ export function setAttrs<T extends BaseType, D, P extends BaseType, PD>(
   selection: Selection<T, D, P, PD>,
   attrs: SvgAttrs,
 ): Selection<T, D, P, PD> {
-  for (const [name, value] of Object.entries(attrs)) {
-    if (value === undefined || value === null) continue;
-    selection.attr(name, String(value));
-  }
+  Object.entries(attrs)
+    .filter(([, value]) => !isNil(value))
+    .forEach(([name, value]) => selection.attr(name, String(value)));
   return selection;
 }
 

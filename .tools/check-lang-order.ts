@@ -38,65 +38,51 @@ export const SKIP_FILES: ReadonlySet<string> = new Set([
 export function matchLang(line: string): string | null {
   // Normalise markdown-escaped special chars (e.g. "C\#" → "C#", "C\+\+" → "C++")
   const normalised = line.replace(/\\([#+()\[\]{}*!])/g, "$1");
-  for (const lang of REQUIRED) {
-    // Escape special regex chars in lang name (C# → C\#, C++ → C\+\+)
+  const match = REQUIRED.find(lang => {
     const escaped = lang.replace(/[+#]/g, "\\$&");
     const re = new RegExp(`^###\\s+${escaped}(\\s|$)`);
-    if (re.test(normalised)) return lang;
-  }
-  return null;
+    return re.test(normalised);
+  });
+  return match ?? null;
 }
 
 /** Check a single file's content for language section errors. Returns error messages. */
 export function checkFile(content: string, relPath: string): string[] {
   const lines = content.split("\n");
-  const found: string[] = [];
-  const counts = new Map<string, number>();
-
-  for (const line of lines) {
-    const lang = matchLang(line);
-    if (lang) {
-      found.push(lang);
-      counts.set(lang, (counts.get(lang) ?? 0) + 1);
-    }
-  }
-
-  const errors: string[] = [];
+  const found = lines.map(matchLang).filter((l): l is string => l !== null);
+  const counts = found.reduce<ReadonlyMap<string, number>>(
+    (acc, lang) => new Map([...acc, [lang, (acc.get(lang) ?? 0) + 1]]),
+    new Map<string, number>(),
+  );
 
   // 1. Missing languages
   const missing = REQUIRED.filter(lang => !counts.has(lang));
-  for (const lang of missing) {
-    errors.push(`${relPath}: missing "### ${lang}" section`);
-  }
+  const missingErrors = missing.map(lang => `${relPath}: missing "### ${lang}" section`);
 
   // 2. Duplicate languages
   const duplicates = REQUIRED.filter(lang => (counts.get(lang) ?? 0) > 1);
-  for (const lang of duplicates) {
-    errors.push(
-      `${relPath}: "### ${lang}" appears ${counts.get(lang)} times (expected 1)`,
-    );
-  }
+  const dupErrors = duplicates.map(lang =>
+    `${relPath}: "### ${lang}" appears ${counts.get(lang)} times (expected 1)`,
+  );
 
   // 3. Wrong order (only check if no missing/duplicate errors)
-  if (missing.length === 0 && duplicates.length === 0) {
-    const presentInRequired = REQUIRED.filter(l => counts.has(l));
-    const presentInFound = found.filter(l =>
-      (REQUIRED).includes(l),
-    );
-    const isOutOfOrder = presentInFound.some((l, i) => l !== presentInRequired[i]);
-    if (isOutOfOrder) {
-      errors.push(
-        `${relPath}: wrong language order — got [${presentInFound.join(", ")}]` +
-          `, want [${REQUIRED.join(", ")}]`,
-      );
-    }
-  }
+  const orderErrors = (missing.length === 0 && duplicates.length === 0)
+    ? (() => {
+        const presentInRequired = REQUIRED.filter(l => counts.has(l));
+        const presentInFound = found.filter(l => REQUIRED.includes(l));
+        const isOutOfOrder = presentInFound.some((l, i) => l !== presentInRequired[i]);
+        return isOutOfOrder
+          ? [`${relPath}: wrong language order — got [${presentInFound.join(", ")}]` +
+             `, want [${REQUIRED.join(", ")}]`]
+          : [];
+      })()
+    : [];
 
-  return errors;
+  return [...missingErrors, ...dupErrors, ...orderErrors];
 }
 
 /** Collect all .md files under the given directories (non-recursive). */
-function collectFiles(dirs: string[]): string[] {
+function collectFiles(dirs: readonly string[]): string[] {
   return dirs
     .filter(dir => fs.existsSync(dir))
     .flatMap(dir =>
@@ -104,7 +90,7 @@ function collectFiles(dirs: string[]): string[] {
         .filter(entry => entry.endsWith(".md"))
         .map(entry => path.join(dir, entry)),
     )
-    .sort();
+    .toSorted();
 }
 
 // ── CLI entry point (only when run directly) ────────────────────────────────
@@ -127,9 +113,7 @@ if (isCli) {
       return checkFile(content, rel);
     });
 
-  for (const err of allErrors) {
-    console.error(err);
-  }
+  allErrors.forEach(err => console.error(err));
 
   if (allErrors.length === 0) {
     console.log(

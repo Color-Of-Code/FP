@@ -33,12 +33,12 @@ describe("SysML → SVG snapshots", () => {
     return;
   }
 
-  for (const file of files) {
+  files.forEach(file => {
     const rel = path.relative(repoRoot, file);
     it(rel, async () => {
       const svg = await render(file);
       const snapshotPath = file.replace(/\.sysml$/, ".svg");
       await expect(svg).toMatchFileSnapshot(snapshotPath);
     });
-  }
+  });
 });

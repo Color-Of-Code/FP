@@ -1,6 +1,7 @@
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 import functional from "eslint-plugin-functional";
+import lodash from "eslint-plugin-lodash";
 
 export default defineConfig(
   // ── Global ignores ──────────────────────────────────────────────────────
@@ -41,10 +42,9 @@ export default defineConfig(
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-unsafe-return": "off",
 
-      "prefer-const": "warn",
-      "no-param-reassign": ["warn", { props: false }],
+      "prefer-const": "error",
+      "no-param-reassign": ["error", { props: true }],
 
-      // Flag usage of deprecated APIs as errors so they are caught early.
       "@typescript-eslint/no-deprecated": "error",
     },
   },
@@ -53,52 +53,31 @@ export default defineConfig(
   {
     plugins: { functional },
     rules: {
-      "functional/no-let": "warn",
+      "functional/no-let": "error",
       "functional/immutable-data": [
-        "warn",
+        "error",
         {
           ignoreClasses: true,
           ignoreImmediateMutation: true,
           ignoreNonConstDeclarations: { treatParametersAsConst: false },
         },
       ],
-      "functional/no-loop-statements": "off",
+      "functional/no-loop-statements": "warn",
+      "functional/prefer-tacit": "warn",
       "functional/prefer-readonly-type": "off",
     },
   },
 
-  // ── Relaxed zones ──────────────────────────────────────────────────────
+  // ── Lodash plugin ─────────────────────────────────────────────────────
   {
-    files: ["**/*.test.ts"],
+    plugins: { lodash },
+    settings: { lodash: { pragma: "_", version: 4 } },
     rules: {
-      "functional/no-let": "off",
-      "functional/immutable-data": "off",
-      "@typescript-eslint/no-explicit-any": "off",
-    },
-  },
-  {
-    files: ["sysml/cli.ts", "check-lang-order.ts"],
-    rules: {
-      "functional/no-let": "off",
-      "functional/immutable-data": "off",
-    },
-  },
-  {
-    // Layout and renderers use imperative graph-building patterns
-    // (push, set, in-place coordinate mutation) that conflict with
-    // immutable-data.  no-let is still enforced everywhere.
-    files: [
-      "sysml/layout.ts",
-      "sysml/render/activity.ts",
-      "sysml/render/ibd.ts",
-      "sysml/render/nodes.ts",
-      "sysml/render/edges.ts",
-      "sysml/render/pin.ts",
-    ],
-    rules: {
-      "functional/no-let": "off",
-      "functional/immutable-data": "off",
-      "no-param-reassign": "off",
+      "lodash/import-scope": ["error", "member"],
+      "lodash/prefer-immutable-method": "warn",
+      "lodash/prefer-noop": "warn",
+      "lodash/prefer-constant": "warn",
+      "lodash/prefer-is-nil": "warn",
     },
   },
 );

@@ -80,9 +80,9 @@ describe("assignActionPins", () => {
     const a2 = makeAction("a2", ["shared"], ["y"]);
     const nodeMap = new Map<string, GNode>([["a1", a1], ["a2", a2]]);
     const edges = [makeEdge("a1", "a2")];
-    assignActionPins(edges, nodeMap);
-    expect(edges[0].srcPin).toBe("shared");
-    expect(edges[0].dstPin).toBe("shared");
+    const result = assignActionPins(edges, nodeMap);
+    expect(result[0].srcPin).toBe("shared");
+    expect(result[0].dstPin).toBe("shared");
   });
 
   it("assigns pin by object id match", () => {
@@ -90,8 +90,8 @@ describe("assignActionPins", () => {
     const act = makeAction("act", ["input", "other"], []);
     const nodeMap = new Map<string, GNode>([["input", obj], ["act", act]]);
     const edges = [makeEdge("input", "act")];
-    assignActionPins(edges, nodeMap);
-    expect(edges[0].dstPin).toBe("input");
+    const result = assignActionPins(edges, nodeMap);
+    expect(result[0].dstPin).toBe("input");
   });
 
   it("distributes leftover edges to remaining pins", () => {
@@ -100,9 +100,9 @@ describe("assignActionPins", () => {
     const act = makeAction("act", ["p1", "p2"], []);
     const nodeMap = new Map<string, GNode>([["x", obj1], ["y", obj2], ["act", act]]);
     const edges = [makeEdge("x", "act"), makeEdge("y", "act")];
-    assignActionPins(edges, nodeMap);
-    expect(edges[0].dstPin).toBe("p1");
-    expect(edges[1].dstPin).toBe("p2");
+    const result = assignActionPins(edges, nodeMap);
+    expect(result[0].dstPin).toBe("p1");
+    expect(result[1].dstPin).toBe("p2");
   });
 
   it("skips non-object-flow edges", () => {
@@ -110,8 +110,8 @@ describe("assignActionPins", () => {
     const a2 = makeAction("a2", [], ["y"]);
     const nodeMap = new Map<string, GNode>([["a1", a1], ["a2", a2]]);
     const edges: GEdge[] = [{ from: "a1", to: "a2", label: undefined, isHof: false, isObjectFlow: false }];
-    assignActionPins(edges, nodeMap);
-    expect(edges[0].srcPin).toBeUndefined();
-    expect(edges[0].dstPin).toBeUndefined();
+    const result = assignActionPins(edges, nodeMap);
+    expect(result[0].srcPin).toBeUndefined();
+    expect(result[0].dstPin).toBeUndefined();
   });
 });

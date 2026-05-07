@@ -8,6 +8,7 @@
  */
 
 import * as G from "../generated/ast.ts";
+import { fromPairs } from "../lib/fp.ts";
 import type {
   Role, DiagramType,
   PortDef, PortUsage, PartUsage, ConnectionUsage,
@@ -23,9 +24,7 @@ const stripQuotes = (s: string | undefined): string =>
   s?.startsWith('"') ? s.slice(1, -1).replace(/\\"/g, '"') : (s ?? "");
 
 /** Normalise a `StrOrIdent` value (quoted string or bare identifier) to plain text. */
-export function strOrIdent(value: string | undefined): string {
-  return stripQuotes(value);
-}
+export const strOrIdent: (value: string | undefined) => string = stripQuotes;
 
 /**
  * `strOrIdent` with an optional fallback when the input is `undefined`.
@@ -137,7 +136,7 @@ function adaptLaneBlock(g: G.LaneBlock): LaneBlock {
     kind:    "lane",
     id:      g.id ?? "",
     label:   optionalStrOrIdent(g.label),
-    members: (g.members ?? []).map(m => strOrIdent(m)),
+    members: (g.members ?? []).map(strOrIdent),
   };
 }
 
@@ -163,10 +162,10 @@ function partitionByKind<M, R extends readonly DispatchEntry<M, unknown>[]>(
 ): { [K in keyof R]: R[K] extends DispatchEntry<M, infer T> ? T[] : never } {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mapped-tuple cast unavoidable
   const result = dispatch.map(() => [] as unknown[]) as any;
-  for (const m of members) {
+  members.forEach(m => {
     const idx = dispatch.findIndex(d => d[0](m));
     if (idx >= 0) result[idx].push(dispatch[idx][1](m));
-  }
+  });
   return result;
 }
 
@@ -218,13 +217,13 @@ export function adaptDiagramMeta(g: G.DiagramMeta | undefined): DiagramMeta {
   if (!g) return { diagType: "activity", shows: {}, tooltips: {} };
 
   const kvFields = g.fields.filter(G.isKvField);
-  const kvByKey = Object.fromEntries(
+  const kvByKey = fromPairs(
     kvFields.map(f => [f.key, strOrIdent(f.value)]),
   );
-  const shows = Object.fromEntries(
+  const shows = fromPairs(
     g.fields.filter(G.isShowField).map(f => [f.id ?? "", (f.role ?? "") as Role]),
   );
-  const tooltips = Object.fromEntries(
+  const tooltips = fromPairs(
     g.fields.filter(G.isTooltipField).map(f => [f.id ?? "", strOrIdent(f.text)]),
   );
 

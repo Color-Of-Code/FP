@@ -12,17 +12,17 @@
  */
 
 import type { GEdge, GNode } from "../types.ts";
-import { groupBy } from "../lib/fp.ts";
+import { forEach, groupBy } from "../lib/fp.ts";
 
 /**
- * Mutate every object-flow edge in `edges` so it carries `srcPin` and/or
- * `dstPin` whenever its source / target is an action node.  Other edges
- * are left untouched.
+ * Return a copy of `edges` where every object-flow edge carries `srcPin`
+ * and/or `dstPin` whenever its source / target is an action node.
+ * Other edges are returned unchanged.
  */
 export function assignActionPins(
-  edges: GEdge[],
-  nodeMap: Map<string, GNode>,
-): void {
+  edges: readonly GEdge[],
+  nodeMap: ReadonlyMap<string, GNode>,
+): GEdge[] {
   const objectFlows = edges.filter(e => e.isObjectFlow);
 
   // Group edges by the action endpoint that needs a pin.
@@ -35,8 +35,21 @@ export function assignActionPins(
     e => e.to,
   );
 
-  for (const [nodeId, es] of Object.entries(inByAction))  matchSide(nodeId, es, nodeMap, "in");
-  for (const [nodeId, es] of Object.entries(outByAction)) matchSide(nodeId, es, nodeMap, "out");
+  // Collect pin assignments as a Map<edge, { srcPin?, dstPin? }>
+  const assignments = new Map<GEdge, { srcPin?: string; dstPin?: string }>();
+  const assign = (e: GEdge, side: "in" | "out", pin: string): void => {
+    const existing = assignments.get(e) ?? {};
+    // eslint-disable-next-line functional/immutable-data -- local accumulator for pure return
+    assignments.set(e, side === "in" ? { ...existing, dstPin: pin } : { ...existing, srcPin: pin });
+  };
+
+  forEach(inByAction,  (es, nodeId) => matchSide(nodeId, es, nodeMap, "in",  assign));
+  forEach(outByAction, (es, nodeId) => matchSide(nodeId, es, nodeMap, "out", assign));
+
+  return edges.map(e => {
+    const patch = assignments.get(e);
+    return patch ? { ...e, ...patch } : e;
+  });
 }
 
 /**
@@ -76,35 +89,34 @@ export function chooseObjectIdPin(
 
 function matchSide(
   nodeId: string,
-  es: GEdge[],
-  nodeMap: Map<string, GNode>,
+  es: readonly GEdge[],
+  nodeMap: ReadonlyMap<string, GNode>,
   side: "in" | "out",
+  assign: (e: GEdge, side: "in" | "out", pin: string) => void,
 ): void {
   const node = nodeMap.get(nodeId);
   if (node?.kind !== "action") return;
   const pins = side === "in" ? node.inPins : node.outPins;
   if (pins.length === 0) return;
 
-  const used = new Set<string>();
-  const setPin = (e: GEdge, pin: string): void => {
-    if (side === "in") e.dstPin = pin;
-    else                e.srcPin = pin;
-    used.add(pin);
-  };
+  // First pass: match by shared pin or object-id, tracking used pins.
+  const { used, unmatched } = es.reduce<{ used: ReadonlySet<string>; unmatched: readonly GEdge[] }>(
+    (acc, e) => {
+      const chosen = chooseSharedPin(e, side, pins, acc.used, nodeMap)
+                  ?? chooseObjectIdPin(e, side, pins, acc.used, nodeMap);
+      if (chosen) {
+        assign(e, side, chosen);
+        return { used: new Set([...acc.used, chosen]), unmatched: acc.unmatched };
+      }
+      return { used: acc.used, unmatched: [...acc.unmatched, e] };
+    },
+    { used: new Set<string>(), unmatched: [] as readonly GEdge[] },
+  );
 
-  const unmatched: GEdge[] = [];
-
-  for (const e of es) {
-    const chosen = chooseSharedPin(e, side, pins, used, nodeMap)
-                ?? chooseObjectIdPin(e, side, pins, used, nodeMap);
-    if (chosen) setPin(e, chosen);
-    else unmatched.push(e);
-  }
-
-  // Distribute leftovers in declaration order to keep things deterministic.
+  // Second pass: distribute leftovers in declaration order.
   const free = pins.filter(p => !used.has(p));
   unmatched.forEach((e, i) => {
     const pin = free[i] ?? pins[pins.length - 1];
-    setPin(e, pin);
+    assign(e, side, pin);
   });
 }

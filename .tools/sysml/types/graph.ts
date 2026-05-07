@@ -9,6 +9,7 @@ import {
   INIT_R, FINAL_R,
   DECISION_SZ,
 } from "./theme.ts";
+import { maxBy } from "../lib/fp.ts";
 
 // ── Graph node ─────────────────────────────────────────────────────────────
 
@@ -73,7 +74,7 @@ export function nodeDims(n: GNode): [number, number] {
   if (n.kind === "note") {
     // Width = longest line; height = number of lines × line-height + padding.
     const lines = n.noteLines ?? [n.label];
-    const longest = lines.reduce((m, l) => Math.max(m, l.length), 0);
+    const longest = maxBy(lines, l => l.length)?.length ?? 0;
     const charW = 5.7; // 11pt regular sans
     const w = Math.max(80, Math.ceil(longest * charW) + 18);
     const h = Math.max(28, lines.length * 14 + 12);

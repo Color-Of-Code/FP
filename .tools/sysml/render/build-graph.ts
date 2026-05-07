@@ -11,16 +11,15 @@ import type { EdgePolyline, LaneGeom } from "../layout.ts";
 
 // ── shiftCoordinates ──────────────────────────────────────────────────────
 
-/** Shift all node positions, edge polylines, and lane geometries in-place. */
+/** Shift all node positions, edge polylines, and lane geometries immutably. */
 export function shiftCoordinates(
-  nodes: GNode[],
-  edgePaths: EdgePolyline[],
-  lanes: LaneGeom[],
+  nodes: readonly GNode[],
+  edgePaths: readonly EdgePolyline[],
+  lanes: readonly LaneGeom[],
   dx: number,
   dy: number,
-): { shiftedPaths: EdgePolyline[]; shiftedLanes: LaneGeom[] } {
-  // eslint-disable-next-line functional/immutable-data -- intentional in-place shift
-  for (const n of nodes) { n.x += dx; n.y += dy; }
+): { shiftedNodes: GNode[]; shiftedPaths: EdgePolyline[]; shiftedLanes: LaneGeom[] } {
+  const shiftedNodes = nodes.map(n => ({ ...n, x: n.x + dx, y: n.y + dy }));
   const shiftedPaths = edgePaths.map(pts =>
     pts.map(([x, y]) => [x + dx, y + dy] as [number, number]),
   );
@@ -29,7 +28,7 @@ export function shiftCoordinates(
     x: l.x + dx,
     y: l.y + dy,
   }));
-  return { shiftedPaths, shiftedLanes };
+  return { shiftedNodes, shiftedPaths, shiftedLanes };
 }
 
 // ── Note node helper ──────────────────────────────────────────────────────

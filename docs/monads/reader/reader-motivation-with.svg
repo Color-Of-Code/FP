@@ -60,10 +60,10 @@
       <rect x="284" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
       <text class="action-label" x="344" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindHost</text>
       <g class="pin pin-in">
-        <rect x="280" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="280" y="144.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="340" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="280" y="159.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
         <rect x="400" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
@@ -74,10 +74,10 @@
       <rect x="576.4" y="134" width="120" height="44" rx="12" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
       <text class="action-label" x="636.4" y="156" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="#333">bindPair</text>
       <g class="pin pin-in">
-        <rect x="572.4" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="572.4" y="144.66666666666666" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-in">
-        <rect x="632.4" y="130" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
+        <rect x="572.4" y="159.33333333333334" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>
       </g>
       <g class="pin pin-out">
         <rect x="692.4" y="152" width="8" height="8" fill="#e0e0e0" stroke="#424242" stroke-width="1"/>

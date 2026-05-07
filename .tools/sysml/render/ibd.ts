@@ -76,12 +76,12 @@ export async function renderIbd(
   partDef: PartDef,
   diagram: DiagramMeta,
 ): Promise<RenderPlan> {
-  const nodes: GNode[]           = [];
-  const nodeMap = new Map<string, GNode>();
+  const addToMap = (acc: Map<string, GNode>, n: GNode): Map<string, GNode> =>
+    new Map([...acc, [n.id, n]]);
 
-  for (const p of partDef.parts) {
+  const partNodes: GNode[] = partDef.parts.map(p => {
     const role  = diagram.shows[p.id] ?? "type";
-    const n: GNode = {
+    const base: GNode = {
       id: p.id, label: `${p.id} : ${p.type}`, stereotype: undefined,
       kind: role === "function" ? "action" : "object",
       isHof: role === "hof",
@@ -89,32 +89,32 @@ export async function renderIbd(
       x: 0, y: 0, w: 0, h: 0,
       inPins: [], outPins: [],
     };
-    [n.w, n.h] = nodeDims(n);
-    nodes.push(n); nodeMap.set(p.id, n);
-  }
+    const [w, h] = nodeDims(base);
+    return { ...base, w, h };
+  });
 
   // ── Note nodes (UML-style annotations pinned to a target) ─────────────
-  for (const note of partDef.notes) {
-    const { node: n } = buildNoteNode(note, diagram.tooltips);
-    nodes.push(n); nodeMap.set(note.id, n);
-  }
+  const noteNodes: GNode[] = partDef.notes.map(note => buildNoteNode(note, diagram.tooltips).node);
 
-  const edges: GEdge[] = [];
-  for (const c of partDef.connections) {
+  const nodes: GNode[] = [...partNodes, ...noteNodes];
+  const nodeMap = nodes.reduce(addToMap, new Map<string, GNode>());
+
+  const connEdges: GEdge[] = partDef.connections.map(c => {
     const srcRole = diagram.shows[c.from] ?? "type";
     const isHof   = (c.via?.toLowerCase().includes("hof") ?? false) || srcRole === "hof";
-    edges.push({ from: c.from, to: c.to, label: c.label, isHof, isObjectFlow: true });
-  }
-  for (const note of partDef.notes) {
-    const { edge } = buildNoteNode(note, diagram.tooltips);
-    if (edge && nodeMap.has(note.id) && nodeMap.has(note.target)) edges.push(edge);
-  }
-  assignActionPins(edges, nodeMap);
+    return { from: c.from, to: c.to, label: c.label, isHof, isObjectFlow: true };
+  });
+  const noteEdges: GEdge[] = partDef.notes
+    .map(note => ({ note, edge: buildNoteNode(note, diagram.tooltips).edge }))
+    .filter(({ note, edge }) => edge != null && nodeMap.has(note.id) && nodeMap.has(note.target))
+    .map(({ edge }) => edge!);
+  const edges: GEdge[] = [...connEdges, ...noteEdges];
+  const pinnedEdges = assignActionPins(edges, nodeMap);
 
-  const { width: innerW, height: innerH, edgePaths } = await layoutGraph(nodes, edges, "LR");
+  const { width: innerW, height: innerH, nodes: positioned, edgePaths } = await layoutGraph(nodes, pinnedEdges, "LR");
   const dx = MARGIN_X;
   const dy = MARGIN_Y;
-  const { shiftedPaths } = shiftCoordinates(nodes, edgePaths, [], dx, dy);
+  const { shiftedNodes, shiftedPaths } = shiftCoordinates(positioned, edgePaths, [], dx, dy);
 
   const W = innerW + 2 * MARGIN_X;
   const H = innerH + 2 * MARGIN_Y;
@@ -130,8 +130,8 @@ export async function renderIbd(
 
       appendPortSquares(parent, inPorts, "left", W, H);
       appendPortSquares(parent, outPorts, "right", W, H);
-      edges.forEach((e, i) => appendGEdge(parent, e, shiftedPaths[i]));
-      nodes.forEach(n => appendGNode(parent, n));
+      pinnedEdges.forEach((e, i) => appendGEdge(parent, e, shiftedPaths[i]));
+      shiftedNodes.forEach(n => appendGNode(parent, n));
     },
   };
 }

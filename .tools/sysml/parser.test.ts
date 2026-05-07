@@ -26,7 +26,7 @@ describe("SysML → AST snapshots", () => {
     return;
   }
 
-  for (const file of files) {
+  files.forEach(file => {
     const rel = path.relative(repoRoot, file);
     it(rel, async () => {
       const src   = fs.readFileSync(file, "utf8");
@@ -35,5 +35,5 @@ describe("SysML → AST snapshots", () => {
       const base  = path.basename(file, ".sysml");
       await expect(json).toMatchFileSnapshot(path.join(snapshotDir, `${base}.json`));
     });
-  }
+  });
 });

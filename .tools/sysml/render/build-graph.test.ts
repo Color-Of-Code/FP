@@ -7,13 +7,16 @@ import type { LaneGeom } from "../layout.ts";
 // ── shiftCoordinates ──────────────────────────────────────────────────────
 
 describe("shiftCoordinates", () => {
-  it("shifts node positions in-place", () => {
+  it("returns shifted node positions", () => {
     const nodes: GNode[] = [
       { id: "a", label: "", kind: "action", isHof: false, x: 10, y: 20, w: 50, h: 30, inPins: [], outPins: [] },
     ];
-    shiftCoordinates(nodes, [], [], 5, 7);
-    expect(nodes[0].x).toBe(15);
-    expect(nodes[0].y).toBe(27);
+    const { shiftedNodes } = shiftCoordinates(nodes, [], [], 5, 7);
+    expect(shiftedNodes[0].x).toBe(15);
+    expect(shiftedNodes[0].y).toBe(27);
+    // Original is unchanged
+    expect(nodes[0].x).toBe(10);
+    expect(nodes[0].y).toBe(20);
   });
 
   it("returns shifted edge polylines", () => {

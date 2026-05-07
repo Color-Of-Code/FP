@@ -136,20 +136,20 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
   // pins independently (one pin alone on a side is centred; two on the
   // same side are spaced evenly).
   const groupBySide = (
-    pins: string[],
+    pins: readonly string[],
     defaultSide: Side,
   ): Map<Side, { pin: string; idxInSide: number; total: number }[]> => {
-    const out = new Map<Side, { pin: string; idxInSide: number; total: number }[]>();
-    for (const p of pins) {
+    const grouped = pins.reduce<Map<Side, string[]>>((acc, p) => {
       const s = n.pinSides?.[p] ?? defaultSide;
-      const list = out.get(s) ?? [];
-      list.push({ pin: p, idxInSide: list.length, total: 0 });
-      out.set(s, list);
-    }
-    for (const list of out.values()) {
-      for (const e of list) e.total = list.length;
-    }
-    return out;
+      const list = acc.get(s) ?? [];
+      return new Map([...acc, [s, [...list, p]]]);
+    }, new Map<Side, string[]>());
+
+    return new Map(
+      [...grouped.entries()].map(([side, list]) =>
+        [side, list.map((pin, i) => ({ pin, idxInSide: i, total: list.length }))] as const,
+      ),
+    );
   };
 
   const inSideGroups  = groupBySide(n.inPins,  "W");
@@ -158,11 +158,10 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
     groups: Map<Side, { pin: string; idxInSide: number; total: number }[]>,
     pin: string,
   ): { i: number; total: number } => {
-    for (const list of groups.values()) {
-      const e = list.find(x => x.pin === pin);
-      if (e) return { i: e.idxInSide, total: e.total };
-    }
-    return { i: 0, total: 1 };
+    const found = [...groups.values()]
+      .flatMap(list => list)
+      .find(x => x.pin === pin);
+    return found ? { i: found.idxInSide, total: found.total } : { i: 0, total: 1 };
   };
 
   const appendPin = (

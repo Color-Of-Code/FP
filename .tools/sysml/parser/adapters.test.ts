@@ -56,7 +56,7 @@ const stub = <T>(type: string, props: Record<string, unknown> = {}): T =>
 describe("adaptPackage", () => {
   it("partitions empty members", () => {
     const pkg = stub("Package", { name: "P", members: [] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     expect(result).toEqual({
       name: "P",
       portDefs: [],
@@ -69,7 +69,7 @@ describe("adaptPackage", () => {
   it("adapts a PortDef member", () => {
     const portDef = stub("PortDef", { name: "Eth" });
     const pkg = stub("Package", { name: "P", members: [portDef] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     expect(result.portDefs).toEqual([{ kind: "portDef", name: "Eth" }]);
   });
 
@@ -77,7 +77,7 @@ describe("adaptPackage", () => {
     const pin = stub("PinDecl", { id: "x", type: '"Int"', direction: "in" });
     const actionDef = stub("ActionDef", { name: "add", pins: [pin] });
     const pkg = stub("Package", { name: "P", members: [actionDef] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     expect(result.actionDefs).toEqual([{
       kind: "actionDef",
       name: "add",
@@ -92,7 +92,7 @@ describe("adaptPackage", () => {
     const note = stub("NoteUsage", { id: "n1", target: "cpu", text: "note" });
     const partDef = stub("PartDef", { name: "Board", members: [port, part, conn, note] });
     const pkg = stub("Package", { name: "P", members: [partDef] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     const pd = result.partDefs[0];
     expect(pd.ports).toHaveLength(1);
     expect(pd.parts).toHaveLength(1);
@@ -114,7 +114,7 @@ describe("adaptPackage", () => {
       members: [action, obj, decision, merge, flow, succ, note, lane],
     });
     const pkg = stub("Package", { name: "P", members: [actDef] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     const ad = result.activityDefs[0];
     expect(ad.kind).toBe("activityDef");
     expect(ad.name).toBe("myAct");
@@ -134,7 +134,7 @@ describe("adaptPackage", () => {
     const action = stub("ActionUsage", { id: "doStuff" });
     const actDef = stub("ActivityDef", { name: "A", members: [action] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     expect(result.activityDefs[0].actions[0].type).toBe("doStuff");
   });
 
@@ -142,7 +142,7 @@ describe("adaptPackage", () => {
     const action = stub("ActionUsage", { id: "a", type: '"MyAction"' });
     const actDef = stub("ActivityDef", { name: "A", members: [action] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     expect(result.activityDefs[0].actions[0].type).toBe("MyAction");
   });
 
@@ -150,7 +150,7 @@ describe("adaptPackage", () => {
     const obj = stub("ObjectNode", { id: "o" });
     const actDef = stub("ActivityDef", { name: "A", members: [obj] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     expect(result.activityDefs[0].objects[0].type).toBeUndefined();
   });
 
@@ -160,7 +160,7 @@ describe("adaptPackage", () => {
     });
     const partDef = stub("PartDef", { name: "X", members: [conn] });
     const pkg = stub("Package", { name: "P", members: [partDef] });
-    const result = adaptPackage(pkg as any);
+    const result = adaptPackage(pkg as never);
     const c = result.partDefs[0].connections[0];
     expect(c.id).toBe("c1");
     expect(c.via).toBe("p");
@@ -184,7 +184,7 @@ describe("adaptDiagramMeta", () => {
       stub("KvField", { key: "direction", value: "TB" }),
     ];
     const meta = stub("DiagramMeta", { fields });
-    const result = adaptDiagramMeta(meta as any);
+    const result = adaptDiagramMeta(meta as never);
     expect(result.diagType).toBe("ibd");
     expect(result.title).toBe("My Title");
     expect(result.name).toBe("traverse");
@@ -196,7 +196,7 @@ describe("adaptDiagramMeta", () => {
       stub("ShowField", { id: "bind1", role: "hof" }),
     ];
     const meta = stub("DiagramMeta", { fields });
-    const result = adaptDiagramMeta(meta as any);
+    const result = adaptDiagramMeta(meta as never);
     expect(result.shows).toEqual({ bind1: "hof" });
   });
 
@@ -205,7 +205,7 @@ describe("adaptDiagramMeta", () => {
       stub("TooltipField", { id: "a1", text: '"some tip"' }),
     ];
     const meta = stub("DiagramMeta", { fields });
-    const result = adaptDiagramMeta(meta as any);
+    const result = adaptDiagramMeta(meta as never);
     expect(result.tooltips).toEqual({ a1: "some tip" });
   });
 });
