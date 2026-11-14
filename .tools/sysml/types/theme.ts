@@ -117,8 +117,8 @@ export const theme = {
   },
 } as const;
 
-type Palette = typeof theme.palette.light;
-type ColorName = keyof Palette;
+type ColorName = keyof typeof theme.palette.light;
+type Palette = Record<ColorName, string>;
 
 const cssVariableName = (name: string): string =>
   `--fp-${name.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}`;

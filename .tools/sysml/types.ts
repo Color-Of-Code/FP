@@ -5,7 +5,7 @@
  * Sub-modules:
  *   types/ast.ts       — SysML v2 parser AST types
  *   types/graph.ts     — GNode, GEdge, nodeDims
- *   types/theme.ts     — `theme` object (dims + colours) and flat aliases
+ *   types/theme.ts     — shared dimensions, light/dark palette, and SVG defaults
  */
 
 export * from "./types/ast.ts";
