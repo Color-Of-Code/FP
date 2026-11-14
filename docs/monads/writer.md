@@ -5,11 +5,11 @@ any other monoidal side output such as metrics, warnings, or a list of events).
 
 ![writer monad](writer/writer.svg)
 
-![bind type signature](writer/writer-ibd.svg)
+![bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — also called: flatMap, >>=](writer/writer-ibd.svg)
 
-![bind implementation](writer/writer-bind.svg)
+![Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2 — also called: flatMap, >>=](writer/writer-bind.svg)
 
-![pure implementation](writer/writer-pure.svg)
+![pure :: a ⟶ (a, mempty)   (pair with the monoid identity of the log) — also called: return](writer/writer-pure.svg)
 
 ## Type
 
@@ -41,7 +41,7 @@ Each step produces its own log fragment; `bind` concatenates them in order.
 | `listen`        | `Writer w a ⟶ Writer w (a, w)` | expose the accumulated log as part of the result    |
 | `runWriter`     | `Writer w a ⟶ (a, w)`          | execute and return the result-log pair              |
 
-![writer tell primitive](writer/writer-tell.svg)
+![tell :: w ⟶ Writer w ()   (append w0 to the log; result is unit) — primitive](writer/writer-tell.svg)
 
 ## Key use cases
 
@@ -77,9 +77,9 @@ pipeline = do
 -- runWriter returns (r3, combinedLog) with all fragments in order.
 ```
 
-![writer motivation: without Writer monad](writer/writer-motivation-without.svg)
+![Without bind: log threaded as an explicit second parameter at every step](writer/writer-motivation-without.svg)
 
-![writer motivation: with Writer monad](writer/writer-motivation-with.svg)
+![With pure + bind: log accumulation is automatic via the Monoid for w](writer/writer-motivation-with.svg)
 
 ## Examples
 

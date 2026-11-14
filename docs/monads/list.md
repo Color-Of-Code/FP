@@ -5,11 +5,11 @@ many results simultaneously.
 
 ![list monad](list/list.svg)
 
-![bind type signature](list/list-ibd.svg)
+![bind :: List a ⟶ (a ⟶ List b) ⟶ List b — also called: flatMap, concatMap, SelectMany, List.collect, >>=](list/list-ibd.svg)
 
-![bind implementation](list/list-bind.svg)
+![List bind (concatMap): apply f to every element, concatenate all results — also called: flatMap, SelectMany, List.collect, >>=](list/list-bind.svg)
 
-![pure implementation](list/list-pure.svg)
+![pure :: a ⟶ List a   (singleton list \[a0\], not the empty list) — also called: return, of, single](list/list-pure.svg)
 
 ## Type
 
@@ -70,9 +70,9 @@ cartesian(xs, ys, zs) =
 -- Adding a dimension is one more >>= line, not a new loop level.
 ```
 
-![list motivation: without List monad](list/list-motivation-without.svg)
+![Without bind: one nested loop level per Cartesian dimension](list/list-motivation-without.svg)
 
-![list motivation: with List monad](list/list-motivation-with.svg)
+![With pure + bind: nested binds = nested loops; one bind per Cartesian axis](list/list-motivation-with.svg)
 
 ## Examples
 

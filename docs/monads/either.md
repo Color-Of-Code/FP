@@ -5,11 +5,11 @@ value** — carrying a description of what went wrong.
 
 ![either monad](either/either.svg)
 
-![bind type signature](either/either-ibd.svg)
+![bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — also called: andThen / and_then, Bind, flatMap, >>=](either/either-ibd.svg)
 
-![bind implementation](either/either-bind.svg)
+![Either bind — also called: andThen / and_then, Bind, flatMap, >>=](either/either-bind.svg)
 
-![pure implementation](either/either-pure.svg)
+![pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok](either/either-pure.svg)
 
 ## Type
 
@@ -63,9 +63,9 @@ process(input) =
     >>= save_to_db
 ```
 
-![either motivation: without Either monad](either/either-motivation-without.svg)
+![Without bind: explicit Left guard at every step](either/either-motivation-without.svg)
 
-![either motivation: with Either monad](either/either-motivation-with.svg)
+![With pure + bind: Left propagates automatically; every step has the same shape](either/either-motivation-with.svg)
 
 ## Examples
 

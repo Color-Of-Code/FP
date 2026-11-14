@@ -5,11 +5,11 @@ actually using mutable variables — state is threaded explicitly as a function 
 
 ![state monad](state/state.svg)
 
-![bind type signature](state/state-ibd.svg)
+![bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, >>=](state/state-ibd.svg)
 
-![bind implementation](state/state-bind.svg)
+![State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2) — also called: flatMap, >>=](state/state-bind.svg)
 
-![pure implementation](state/state-pure.svg)
+![pure :: a ⟶ State s a   (identity on state, returns a0) — also called: return](state/state-pure.svg)
 
 ## Type
 
@@ -41,11 +41,11 @@ The result value flows down; the state flows sideways through every step.
 | `modify f` | `State s ()` | apply `f` to the current state         |
 | `return a` | `State s a`  | produce `a` without touching the state |
 
-![state get primitive](state/state-get.svg)
+![get :: State s s   (return the current state as the result; state unchanged) — primitive](state/state-get.svg)
 
-![state put primitive](state/state-put.svg)
+![put :: s ⟶ State s ()   (overwrite the state with s'; result is unit) — primitive](state/state-put.svg)
 
-![state modify primitive](state/state-modify.svg)
+![modify :: (s ⟶ s) ⟶ State s ()   (transform the state in place; result is unit) — primitive](state/state-modify.svg)
 
 ## Key use cases
 
@@ -84,9 +84,9 @@ pipeline(input) = do
 -- No state variables at call sites; the monad threads them correctly.
 ```
 
-![state motivation: without State monad](state/state-motivation-without.svg)
+![Without bind: state threaded as explicit s0/s1/s2/s3 variables](state/state-motivation-without.svg)
 
-![state motivation: with State monad](state/state-motivation-with.svg)
+![With pure + bind: state threads automatically; using a stale state is impossible](state/state-motivation-with.svg)
 
 ## Examples
 

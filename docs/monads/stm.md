@@ -6,11 +6,11 @@ once — or retries from the beginning if another thread modified a value it rea
 
 ![STM monad](stm/stm.svg)
 
-![bind type signature](stm/stm-ibd.svg)
+![bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — also called: >>=](stm/stm-ibd.svg)
 
-![bind implementation](stm/stm-bind.svg)
+![STM bind: sequence two TVar actions; atomically commits or retries the whole chain — also called: >>=](stm/stm-bind.svg)
 
-![pure implementation](stm/stm-pure.svg)
+![pure :: a ⟶ STM a   (no-read, no-write transaction yielding a0) — also called: return](stm/stm-pure.svg)
 
 ## Type
 
@@ -32,9 +32,9 @@ TVar a    -- a mutable cell readable and writable inside STM
 | `retry`            | `STM a`        | Block; retry the whole transaction when any read `TVar` changes |
 | `orElse stm1 stm2` | `STM a`        | Try `stm1`; if it calls `retry`, run `stm2` instead             |
 
-![stm retry primitive](stm/stm-retry.svg)
+![retry :: STM a   (abort + block until a watched TVar changes; then restart) — primitive](stm/stm-retry.svg)
 
-![stm orelse primitive](stm/stm-orelse.svg)
+![orElse :: STM a ⟶ STM a ⟶ STM a   (try s1; on retry, fall back to s2) — primitive](stm/stm-orelse.svg)
 
 ## What makes STM unique
 
@@ -77,9 +77,9 @@ transfer from to amount = atomically $ do
 -- Runtime retries automatically if another transaction conflicts; no deadlock possible.
 ```
 
-![STM motivation: without STM](stm/stm-motivation-without.svg)
+![Without STM: explicit locks require careful ordering to avoid deadlock](stm/stm-motivation-without.svg)
 
-![STM motivation: with STM](stm/stm-motivation-with.svg)
+![With pure + bind: STM actions compose freely; runtime commits atomically or retries](stm/stm-motivation-with.svg)
 
 ## Examples
 

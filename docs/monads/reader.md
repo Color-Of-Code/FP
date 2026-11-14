@@ -6,11 +6,11 @@ should modify.
 
 ![reader monad](reader/reader.svg)
 
-![bind type signature](reader/reader-ibd.svg)
+![bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>=](reader/reader-ibd.svg)
 
-![bind implementation](reader/reader-bind.svg)
+![Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>=](reader/reader-bind.svg)
 
-![pure implementation](reader/reader-pure.svg)
+![pure :: a ⟶ Reader r a   (constant reader: ignore r, return a0) — also called: return](reader/reader-pure.svg)
 
 ## Type
 
@@ -41,9 +41,9 @@ The environment is **never modified** — every step sees the identical `r`.
 | `local f`   | `(r ⟶ r) ⟶ Reader r a ⟶ Reader r a` | run a sub-computation with a modified environment |
 | `runReader` | `Reader r a ⟶ r ⟶ a`                | supply the environment and execute                |
 
-![reader ask primitive](reader/reader-ask.svg)
+![ask :: Reader r r   (return the environment as the result) — primitive](reader/reader-ask.svg)
 
-![reader local primitive](reader/reader-local.svg)
+![local :: (r ⟶ r) ⟶ Reader r a ⟶ Reader r a   (run inner reader with modified environment) — primitive](reader/reader-local.svg)
 
 ## Key use cases
 
@@ -81,9 +81,9 @@ build_url = do
 -- No config parameter in sight; runReader supplies it once at the top.
 ```
 
-![reader motivation: without Reader monad](reader/reader-motivation-without.svg)
+![Without bind: config passed into every function explicitly](reader/reader-motivation-without.svg)
 
-![reader motivation: with Reader monad](reader/reader-motivation-with.svg)
+![With pure + bind: env supplied once at the top; bind feeds it to every step](reader/reader-motivation-with.svg)
 
 ## Examples
 

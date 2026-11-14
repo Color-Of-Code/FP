@@ -6,11 +6,11 @@ conditional probability — weighting each outcome by the probability of reachin
 
 ![prob monad](prob/prob.svg)
 
-![bind type signature](prob/prob-ibd.svg)
+![bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>=](prob/prob-ibd.svg)
 
-![bind implementation](prob/prob-bind.svg)
+![Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>=](prob/prob-bind.svg)
 
-![pure implementation](prob/prob-pure.svg)
+![pure :: a ⟶ Dist a   (Dirac distribution: a0 with probability 1) — also called: return, certainly](prob/prob-pure.svg)
 
 ## Type
 
@@ -76,9 +76,9 @@ score = do
     return score
 ```
 
-![prob motivation: without Prob monad](prob/prob-motivation-without.svg)
+![Without bind: manual nested loop and probability arithmetic](prob/prob-motivation-without.svg)
 
-![prob motivation: with Prob monad](prob/prob-motivation-with.svg)
+![With pure + bind: bind multiplies probabilities and flattens the joint distribution](prob/prob-motivation-with.svg)
 
 ## Examples
 

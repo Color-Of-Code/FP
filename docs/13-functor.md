@@ -12,7 +12,7 @@ plain function `f :: a ⟶ b` to work inside the wrapper: `fmap f :: Fa ⟶ Fb`.
 
 ![functor](13-functor/functor.svg)
 
-![fmap type signature](13-functor/functor-ibd.svg)
+![fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb](13-functor/functor-ibd.svg)
 
 This means you can reuse any ordinary function over any functor without rewriting it — the functor
 handles the "opening and closing" of the wrapper.

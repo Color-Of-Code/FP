@@ -6,11 +6,11 @@ explicit gives first-class control over the flow of a program.
 
 ![cont monad](cont/cont.svg)
 
-![bind type signature](cont/cont-ibd.svg)
+![bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>=](cont/cont-ibd.svg)
 
-![bind implementation](cont/cont-bind.svg)
+![Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m — also called: >>=](cont/cont-bind.svg)
 
-![pure implementation](cont/cont-pure.svg)
+![pure :: a ⟶ Cont r a   (immediately call the continuation with a0) — also called: return](cont/cont-pure.svg)
 
 ## Type
 
@@ -43,7 +43,7 @@ early exit and other non-local control flows.
 | `reset m`     | `Cont a a -> Cont r a`                      | Delimit the scope of the current continuation          |
 | `shift f`     | `((a -> r) -> Cont r r) -> Cont r a`        | Capture the continuation up to the enclosing `reset`   |
 
-![cont callcc primitive](cont/cont-callcc.svg)
+![callCC :: ((a ⟶ Cont r b) ⟶ Cont r a) ⟶ Cont r a   (capture the current continuation as an escape) — primitive](cont/cont-callcc.svg)
 
 ## Key use cases
 
@@ -82,9 +82,9 @@ pipeline = callCC $ \exit -> do
     return r3
 ```
 
-![cont motivation: without callCC](cont/cont-motivation-without.svg)
+![Without callCC: every caller must propagate the ABORT sentinel](cont/cont-motivation-without.svg)
 
-![cont motivation: with callCC](cont/cont-motivation-with.svg)
+![With callCC + bind: linear steps via bind; exit short-circuits straight to runCont](cont/cont-motivation-with.svg)
 
 ## Examples
 

@@ -6,11 +6,11 @@
 A **function** `f :: a ⟶ b` takes a value of type `a` (the domain) and produces a value of type `b`
 (the codomain).
 
-![type](01-function/type.svg)
+![Type a](01-function/type.svg)
 
-![value](01-function/value.svg)
+![Value a0 of type a](01-function/value.svg)
 
-![function](01-function/function.svg)
+![Function f :: a ⟶ b](01-function/function.svg)
 
 ## Key distinctions
 
@@ -28,14 +28,14 @@ A **total function** produces a result for every value in the domain.
 
 A **partial function** is undefined on some inputs (e.g. division by zero, head of an empty list).
 
-![totality](01-function/definitions.svg)
+![Total vs partial](01-function/definitions.svg)
 
 ## Declaration and application
 
 - **Declaration**: `f :: a ⟶ b` — `f` maps any value of type `a` to a value of type `b`.
 
-![declaration](01-function/declaration.svg)
+![Declaration f :: a ⟶ b](01-function/declaration.svg)
 
 - **Application**: `f(a0) = b0` — applying `f` to a specific value `a0 :: a` yields `b0 :: b`.
 
-![application](01-function/application.svg)
+![Application f(a0) = b0](01-function/application.svg)

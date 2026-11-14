@@ -14,17 +14,17 @@ computations**.
 itself produces a wrapped value), `fmap` yields `M(Mb)` — an unwanted nested wrapper. Monads solve
 this.
 
-![monad](19-monad/monad.svg)
+![Monad: Ma >>= (a ⟶ Mb) >>= (b ⟶ Mc)](19-monad/monad.svg)
 
-![bind](19-monad/monad-2.svg)
+![pure :: a ⟶ Ma  |  bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb](19-monad/monad-2.svg)
 
-![pure](19-monad/monad-pure.svg)
+![pure :: a ⟶ Ma   (lift a plain value into the monad — also called: return, of, unit, point)](19-monad/monad-pure.svg)
 
-![Maybe monad](19-monad/monad-3.svg)
+![Maybe Monad: bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b](19-monad/monad-3.svg)
 
-![List monad](19-monad/monad-4.svg)
+![List Monad: bind :: List a ⟶ (a ⟶ List b) ⟶ List b](19-monad/monad-4.svg)
 
-![bind type signature](19-monad/monad-ibd.svg)
+![(>>=) :: Ma ⟶ (a ⟶ Mb) ⟶ Mb](19-monad/monad-ibd.svg)
 
 ## Operations
 

@@ -7,13 +7,13 @@
 A **traversable** container `T` generalises the idea of **visiting every element with an effectful
 function** and collecting the results — while preserving the container's shape.
 
-![traversable](17-traversable/traversable.svg)
+![traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)](17-traversable/traversable.svg)
 
-![sequence](17-traversable/traversable-2.svg)
+![sequence :: T(Fa) ⟶ F(Ta)  (= traverse id)](17-traversable/traversable-2.svg)
 
 ![traversable requirements](17-traversable/traversable-3.svg)
 
-![traverse type signature](17-traversable/traversable-ibd.svg)
+![traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)](17-traversable/traversable-ibd.svg)
 
 Two core operations:
 

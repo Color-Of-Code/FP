@@ -5,11 +5,11 @@ producing either a value or nothing at all.
 
 ![maybe monad](maybe/maybe.svg)
 
-![bind type signature](maybe/maybe-ibd.svg)
+![bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — also called: flatMap, andThen / and_then, SelectMany, chain, >>=](maybe/maybe-ibd.svg)
 
-![pure implementation](maybe/maybe-pure.svg)
+![pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just](maybe/maybe-pure.svg)
 
-![bind implementation](maybe/maybe-bind.svg)
+![Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>=](maybe/maybe-bind.svg)
 
 ## Type
 
@@ -61,9 +61,9 @@ lookup_user_city(id) =
         .bind(city    -> pure(city.name))
 ```
 
-![maybe motivation: without Maybe monad](maybe/maybe-motivation-without.svg)
+![Without bind: explicit Nothing guard at every step](maybe/maybe-motivation-without.svg)
 
-![maybe motivation: with Maybe monad](maybe/maybe-motivation-with.svg)
+![With pure + bind: every step has the same shape; bind is the glue](maybe/maybe-motivation-with.svg)
 
 ## Examples
 

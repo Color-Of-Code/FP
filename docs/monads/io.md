@@ -5,11 +5,11 @@ files, clocks, or any interaction with the outside world.
 
 ![IO monad](io/io.svg)
 
-![bind type signature](io/io-ibd.svg)
+![bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>=](io/io-ibd.svg)
 
-![bind implementation](io/io-bind.svg)
+![IO bind: execute ia, feed a to f to build IO b, execute IO b — also called: .then (Promises), >>=](io/io-bind.svg)
 
-![pure implementation](io/io-pure.svg)
+![pure :: a ⟶ IO a   (effect-free description that yields a0) — also called: return, IO.pure](io/io-pure.svg)
 
 ## Type
 
@@ -68,9 +68,9 @@ compute x = do
 -- The runtime executes effects in the exact order bind specifies.
 ```
 
-![IO motivation: without IO monad](io/io-motivation-without.svg)
+![Without IO: side effects hidden inside a pure-looking type](io/io-motivation-without.svg)
 
-![IO motivation: with IO monad](io/io-motivation-with.svg)
+![With pure + bind: effects in the type, sequenced explicitly through bind](io/io-motivation-with.svg)
 
 ## Examples
 

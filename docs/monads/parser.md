@@ -5,11 +5,11 @@ The **Parser monad** models computations that **consume a sequence of input** �
 
 ![parser monad](parser/parser.svg)
 
-![bind type signature](parser/parser-ibd.svg)
+![bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — also called: flatMap, Bind, >>=](parser/parser-ibd.svg)
 
-![bind implementation](parser/parser-bind.svg)
+![Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>=](parser/parser-bind.svg)
 
-![pure implementation](parser/parser-pure.svg)
+![pure :: a ⟶ Parser a   (succeed with a0, consume nothing) — also called: return, succeed](parser/parser-pure.svg)
 
 ## Type
 
@@ -44,7 +44,7 @@ immediately — exactly like the [Maybe monad](./maybe.md).
 | `p <\|> q`     | Try `p`; on failure without consuming input, try `q` (alternative) |
 | `chainl1 p op` | Parse `p` separated by binary operator `op`; left-associative      |
 
-![parser alt primitive](parser/parser-alt.svg)
+![(<|>) :: Parser a ⟶ Parser a ⟶ Parser a   (ordered choice; try p1, on failure try p2) — also called: alt, choice, orElse](parser/parser-alt.svg)
 
 ## Key use cases
 
@@ -80,9 +80,9 @@ natural = do
     return (combine d1 d2)
 ```
 
-![parser motivation: without Parser monad](parser/parser-motivation-without.svg)
+![Without bind: leftover threaded by hand; one Nothing guard per step](parser/parser-motivation-without.svg)
 
-![parser motivation: with Parser monad](parser/parser-motivation-with.svg)
+![With pure + bind: bind threads the remaining input and short-circuits failure](parser/parser-motivation-with.svg)
 
 ## Examples
 

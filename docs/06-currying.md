@@ -10,9 +10,9 @@
 These two techniques are closely related but distinct. Both build on functions being first-class
 values.
 
-![currying and partial application](06-currying/function2.svg)
+![Partial application and currying](06-currying/function2.svg)
 
-![currying](06-currying/function2-2.svg)
+![Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)](06-currying/function2-2.svg)
 
 ## Partial application
 
