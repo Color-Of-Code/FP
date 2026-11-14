@@ -19,8 +19,8 @@ $$\mathcal{C}(A, -)(X) = \mathrm{Hom}(A, X) \qquad \mathcal{C}(A, -)(f) = f \cir
 
 ### Yoneda lemma (covariant)
 
-For any locally small category $\mathcal{C}$, any object $A$, and any functor
-$F : \mathcal{C} \to \mathbf{Set}$:
+For any locally small category $\mathcal{C}$, any object $A$, and any functor $F : \mathcal{C} \to
+\mathbf{Set}$:
 
 $$\mathrm{Nat}(\mathcal{C}(A, -),\; F) \;\cong\; F A$$
 
@@ -29,10 +29,10 @@ the elements of $F A$.
 
 The bijection is:
 
-- **Forward** $\Phi$ : given $\alpha : \mathcal{C}(A, -) \Rightarrow F$, take
-  $\Phi(\alpha) = \alpha_A(\mathrm{id}_A) \in F A$
-- **Backward** $\Psi$ : given $x \in F A$, define $\Psi(x)_X : \mathcal{C}(A, X) \to F X$ by
-  $f \mapsto F f(x)$
+- **Forward** $\Phi$ : given $\alpha : \mathcal{C}(A, -) \Rightarrow F$, take $\Phi(\alpha) =
+  \alpha_A(\mathrm{id}_A) \in F A$
+- **Backward** $\Psi$ : given $x \in F A$, define $\Psi(x)_X : \mathcal{C}(A, X) \to F X$ by $f
+  \mapsto F f(x)$
 
 ### Yoneda embedding
 
@@ -107,8 +107,8 @@ by one representative.
 → FP track: [25. Profunctor](../docs/25-profunctor.md) — profunctor optics use Yoneda over
 `Profunctor` | [27. Lens / Optics](../docs/27-optics.md) — van Laarhoven encoding is Yoneda |
 [14. Natural Transformations](../docs/14-natural-transformations.md) |
-[31. Computation Models](../docs/31-computation-models.md) — Church numerals are Yoneda with
-$F = \mathrm{Id}$
+[31. Computation Models](../docs/31-computation-models.md) — Church numerals are Yoneda with $F =
+\mathrm{Id}$
 
 ## CTFP Reference
 
@@ -122,8 +122,8 @@ $F = \mathrm{Id}$
 ## See Also
 
 - [Functor](./functor.md) — $F$ and $\mathcal{C}(A,-)$ in the Yoneda lemma are functors
-- [Natural Transformation](./natural-transformation.md) — the LHS
-  $\mathrm{Nat}(\mathcal{C}(A,-), F)$ is a set of natural transformations
+- [Natural Transformation](./natural-transformation.md) — the LHS $\mathrm{Nat}(\mathcal{C}(A,-),
+  F)$ is a set of natural transformations
 - [Adjunction](./adjunction.md) — the Yoneda embedding is the unit of the "free" adjunction;
   representable functors arise from adjunctions
 - [Lambda Calculus](./lambda-calculus.md) — Church encodings are Yoneda with the identity functor

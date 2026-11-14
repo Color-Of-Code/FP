@@ -9,10 +9,10 @@ precisely because they are free.
 
 ### Universal property
 
-A **free monoid** on a set $S$ is a monoid $(M^*, \cdot, \varepsilon)$ together with a function
-$\eta : S \to M^*$ (the **inclusion** / generator map) such that: for every monoid $(M, \cdot, e)$
-and every function $f : S \to M$, there exists a **unique monoid homomorphism**
-$\bar{f} : M^* \to M$ making the diagram commute:
+A **free monoid** on a set $S$ is a monoid $(M^_, \cdot, \varepsilon)$ together with a function
+$\eta : S \to M^_$ (the **inclusion** / generator map) such that: for every monoid $(M, \cdot, e)$
+and every function $f : S \to M$, there exists a **unique monoid homomorphism** $\bar{f} : M^* \to
+M$ making the diagram commute:
 
 $$f = \bar{f} \circ \eta$$
 
@@ -28,9 +28,8 @@ the empty list $\varepsilon$.
 
 ### Adjunction
 
-The free monoid construction is the left adjoint to the **forgetful functor**
-$U :
-\mathbf{Mon} \to \mathbf{Set}$ that strips the monoid structure:
+The free monoid construction is the left adjoint to the **forgetful functor** $U : \mathbf{Mon} \to
+\mathbf{Set}$ that strips the monoid structure:
 
 $$F : \mathbf{Set} \rightleftharpoons \mathbf{Mon} : U \qquad F \dashv U$$
 

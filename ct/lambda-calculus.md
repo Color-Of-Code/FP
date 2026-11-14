@@ -17,8 +17,8 @@ $$
 - **Application** $e_1\; e_2$ — apply function $e_1$ to argument $e_2$
 
 Application is left-associative: $f\,g\,h = (f\,g)\,h$.  
-Abstraction extends as far right as possible:
-$\lambda x.\,\lambda y.\,e = \lambda x.(\lambda y.\,e)$.
+Abstraction extends as far right as possible: $\lambda x.\,\lambda y.\,e = \lambda x.(\lambda
+y.\,e)$.
 
 ### Free and bound variables
 
@@ -156,6 +156,5 @@ sugar. Haskell's core language (GHC Core / System FC) is a typed λ-calculus.
 - [Types & Functions](./types-functions.md) — the FP interpretation of the typed λ-calculus
 - [Adjunction](./adjunction.md) — currying ($A \times B \to C \;\cong\; A \to (B \to C)$) is the
   canonical adjunction; it _is_ the λ-calculus abstraction/application duality
-- [F-Algebra](./f-algebra.md) — the fixed-point interpretation of the Y combinator;
-  $Y f = \mu
+- [F-Algebra](./f-algebra.md) — the fixed-point interpretation of the Y combinator; $Y f = \mu
   (\lambda x. f\,x)$

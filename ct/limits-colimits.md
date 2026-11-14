@@ -12,8 +12,8 @@ satisfying a shape constraint.
 A **diagram** of shape $J$ in $\mathcal{C}$ is a functor $D : J \to \mathcal{C}$ (a selection of
 objects and morphisms indexed by the small category $J$).
 
-A **cone** over $D$ with apex $N$ is an object $N \in \mathcal{C}$ together with morphisms
-$\psi_j : N \to D(j)$ for every $j \in J$, such that for every $f : j \to k$ in $J$:
+A **cone** over $D$ with apex $N$ is an object $N \in \mathcal{C}$ together with morphisms $\psi_j :
+N \to D(j)$ for every $j \in J$, such that for every $f : j \to k$ in $J$:
 
 $$D(f) \circ \psi_j = \psi_k$$
 

@@ -22,8 +22,8 @@ Equivalently, a monad is $(M, \mathrm{return}, \mathtt{>>=})$ where:
 - $\mathrm{return} : A \to M A$ lifts a pure value
 - $\mathtt{>>=} : M A \to (A \to M B) \to M B$ sequences computations (bind)
 
-The two presentations are related by $\mathtt{join} = \mu$ and
-$m \mathtt{>>=} f = \mu \circ M f(m)$.
+The two presentations are related by $\mathtt{join} = \mu$ and $m \mathtt{>>=} f = \mu \circ M
+f(m)$.
 
 ### Kleisli category
 
@@ -31,8 +31,8 @@ For a monad $M$, the **Kleisli category** $\mathcal{C}_M$ has:
 
 - The same objects as $\mathcal{C}$
 - Morphisms $A \to B$ in $\mathcal{C}_M$ are morphisms $A \to M B$ in $\mathcal{C}$ (Kleisli arrows)
-- Composition of $f : A \to M B$ and $g : B \to M C$ is
-  $g \mathbin{\star} f = \mu_C \circ M g \circ f$
+- Composition of $f : A \to M B$ and $g : B \to M C$ is $g \mathbin{\star} f = \mu_C \circ M g \circ
+  f$
 - Identity: $\mathrm{return}_A : A \to M A$
 
 ## Laws

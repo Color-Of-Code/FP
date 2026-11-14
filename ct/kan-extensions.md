@@ -48,8 +48,8 @@ $$(\mathrm{Lan}_K F)(b) \;=\; \int^a \mathcal{B}(K a, b) \times F a$$
 
 $$\varepsilon : \mathrm{Ran}_K F \circ K \Rightarrow F \qquad \eta : F \Rightarrow \mathrm{Lan}_K F \circ K$$
 
-are natural transformations witnessing the universal property. Any natural transformation
-$G \circ K \Rightarrow F$ factors uniquely through $\varepsilon$.
+are natural transformations witnessing the universal property. Any natural transformation $G \circ K
+\Rightarrow F$ factors uniquely through $\varepsilon$.
 
 ## FP Analog
 

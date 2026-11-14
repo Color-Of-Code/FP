@@ -27,9 +27,8 @@ F-algebras and their morphisms form a category $F\text{-}\mathbf{Alg}$.
 ### Initial algebra
 
 The **initial F-algebra** $(\mu F, \mathrm{in})$ — if it exists — is an F-algebra with a unique
-morphism to every other F-algebra. By **Lambek's lemma** the structure map
-$\mathrm{in} : F(\mu F) \to \mu F$ is an isomorphism, so $\mu F \cong F(\mu F)$: the carrier is a
-fixed point of $F$.
+morphism to every other F-algebra. By **Lambek's lemma** the structure map $\mathrm{in} : F(\mu F)
+\to \mu F$ is an isomorphism, so $\mu F \cong F(\mu F)$: the carrier is a fixed point of $F$.
 
 ### F-coalgebra and anamorphism
 

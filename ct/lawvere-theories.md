@@ -1,9 +1,9 @@
 # Lawvere Theories
 
 A **Lawvere theory** is a categorical presentation of an algebraic theory (like monoid, group, ring,
-or module): a small category $\mathbb{T}$ with finite products whose objects are natural numbers
-$0, 1, 2, \ldots$ and where $n$ is the $n$-fold product of the object $1$. A **model** of the theory
-is a product-preserving functor $\mathbb{T} \to \mathbf{Set}$. In programming, Lawvere theories
+or module): a small category $\mathbb{T}$ with finite products whose objects are natural numbers $0,
+1, 2, \ldots$ and where $n$ is the $n$-fold product of the object $1$. A **model** of the theory is
+a product-preserving functor $\mathbb{T} \to \mathbf{Set}$. In programming, Lawvere theories
 formalise what type classes do: they specify the operations and equations, and instances are the
 models.
 

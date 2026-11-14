@@ -5,9 +5,8 @@ object in the source category — that commute with every morphism in that categ
 
 ## Definition
 
-Let $F, G : \mathcal{C} \to \mathcal{D}$ be functors. A **natural transformation**
-$\eta : F \Rightarrow G$ assigns to every object $A \in \mathcal{C}$ a morphism (the **component**
-at $A$)
+Let $F, G : \mathcal{C} \to \mathcal{D}$ be functors. A **natural transformation** $\eta : F
+\Rightarrow G$ assigns to every object $A \in \mathcal{C}$ a morphism (the **component** at $A$)
 
 $$\eta_A : F A \to G A$$
 
@@ -27,14 +26,13 @@ $$
 
 ## Composition of natural transformations
 
-**Vertical composition** — stacking $\eta : F \Rightarrow G$ and $\mu : G \Rightarrow H$ gives
-$\mu \circ \eta : F \Rightarrow H$ with components $(\mu \circ \eta)_A = \mu_A \circ \eta_A$.
+**Vertical composition** — stacking $\eta : F \Rightarrow G$ and $\mu : G \Rightarrow H$ gives $\mu
+\circ \eta : F \Rightarrow H$ with components $(\mu \circ \eta)_A = \mu_A \circ \eta_A$.
 
-**Horizontal composition** — for $\eta : F \Rightarrow G$ between functors
-$\mathcal{C} \to \mathcal{D}$ and $\epsilon : H \Rightarrow K$ between functors
-$\mathcal{D} \to \mathcal{E}$, the horizontal composite
-$\epsilon * \eta : H \circ F \Rightarrow K \circ G$ captures how NTs interact under functor
-composition.
+**Horizontal composition** — for $\eta : F \Rightarrow G$ between functors $\mathcal{C} \to
+\mathcal{D}$ and $\epsilon : H \Rightarrow K$ between functors $\mathcal{D} \to \mathcal{E}$, the
+horizontal composite $\epsilon * \eta : H \circ F \Rightarrow K \circ G$ captures how NTs interact
+under functor composition.
 
 ## Laws
 

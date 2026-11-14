@@ -45,9 +45,8 @@ Kleisli composition is associative and has units because $\mathcal{C}_M$ is a va
 
 **Right unit:** $(\eta_B \mathbin{\star} f) = f \qquad$ i.e. `f >>= return = f`
 
-**Associativity:**
-$h \mathbin{\star} (g \mathbin{\star} f) = (h \mathbin{\star} g) \mathbin{\star} f \qquad$ i.e.
-`(f >>= g) >>= h = f >>= (g >=> h)`
+**Associativity:** $h \mathbin{\star} (g \mathbin{\star} f) = (h \mathbin{\star} g) \mathbin{\star}
+f \qquad$ i.e. `(f >>= g) >>= h = f >>= (g >=> h)`
 
 These are precisely the **monad laws** expressed as category-theoretic axioms for $\mathcal{C}_M$.
 

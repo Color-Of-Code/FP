@@ -9,8 +9,8 @@ this means a container is representable if it can be indexed by some fixed key t
 
 ### Representable functor
 
-A functor $F : \mathcal{C} \to \mathbf{Set}$ is **representable** if there exists an object
-$A \in \mathcal{C}$ and a natural isomorphism:
+A functor $F : \mathcal{C} \to \mathbf{Set}$ is **representable** if there exists an object $A \in
+\mathcal{C}$ and a natural isomorphism:
 
 $$\alpha : \mathcal{C}(A, -) \xrightarrow{\;\sim\;} F$$
 

@@ -12,9 +12,8 @@ together with projection morphisms
 
 $$\pi_1 : A \times B \to A \qquad \pi_2 : A \times B \to B$$
 
-satisfying the **universal property**: for any object $C$ and morphisms $f : C \to A$,
-$g : C \to B$, there exists a **unique** morphism $\langle f, g \rangle : C \to A \times B$ such
-that
+satisfying the **universal property**: for any object $C$ and morphisms $f : C \to A$, $g : C \to
+B$, there exists a **unique** morphism $\langle f, g \rangle : C \to A \times B$ such that
 
 $$\pi_1 \circ \langle f, g \rangle = f \qquad \pi_2 \circ \langle f, g \rangle = g$$
 

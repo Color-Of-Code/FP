@@ -9,8 +9,8 @@ Let $\mathcal{C}$ and $\mathcal{D}$ be categories. A **functor** $F : \mathcal{C
 consists of:
 
 - An **object map**: for every object $A \in \mathcal{C}$, an object $F A \in \mathcal{D}$
-- A **morphism map**: for every morphism $f : A \to B$ in $\mathcal{C}$, a morphism
-  $F f : F A \to F B$ in $\mathcal{D}$
+- A **morphism map**: for every morphism $f : A \to B$ in $\mathcal{C}$, a morphism $F f : F A \to F
+  B$ in $\mathcal{D}$
 
 ### Endofunctor
 

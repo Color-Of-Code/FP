@@ -1,7 +1,7 @@
 # Adjunction
 
-An **adjunction** $F \dashv G$ is a universal relationship between two functors: every morphism
-$F A \to B$ corresponds bijectively and naturally to a morphism $A \to G B$. Adjunctions are the
+An **adjunction** $F \dashv G$ is a universal relationship between two functors: every morphism $F A
+\to B$ corresponds bijectively and naturally to a morphism $A \to G B$. Adjunctions are the
 categorical origin of most monads.
 
 ## Definition
@@ -15,8 +15,8 @@ for all objects $A \in \mathcal{C}$ and $B \in \mathcal{D}$.
 
 The bijection is given by two natural transformations:
 
-- **Unit**: $\eta : \mathrm{Id}_{\mathcal{C}} \Rightarrow G \circ F$ with components
-  $\eta_A : A \to G(FA)$
+- **Unit**: $\eta : \mathrm{Id}_{\mathcal{C}} \Rightarrow G \circ F$ with components $\eta_A : A \to
+  G(FA)$
 - **Counit**: $\varepsilon : F \circ G \Rightarrow \mathrm{Id}_{\mathcal{D}}$ with components
   $\varepsilon_B : F(GB) \to B$
 
