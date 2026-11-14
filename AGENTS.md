@@ -1,7 +1,8 @@
 # Agent Guidelines — FP Learning Track
 
 This repo is a multi-language FP learning track. Every document explains one concept through prose,
-a D2 diagram, motivation, and code examples in **all nine languages in a fixed order**.
+diagrams, motivation, and code examples in **all nine languages in a fixed order**. Diagram sources
+are transitioning from D2 to SysML; see [`plan.md`](plan.md).
 
 See `specs/` for detailed specifications.
 
@@ -18,13 +19,17 @@ make -C .tools <target>
 | `fmt-md`     | Format all Markdown with prettier                    |
 | `lint-md`    | Lint all Markdown with markdownlint-cli2             |
 | `lint-langs` | Check 9-language completeness and order in every doc |
-| `svgs`       | Compile all D2 sources to SVG                        |
+| `svgs`       | Compile D2 and SysML sources to SVG                  |
 | `fmt`        | `fmt-md` + D2 formatter                              |
 | `all`        | `svgs` + `fmt` + `lint-md` + `lint-langs`            |
 
 **After every edit run at minimum:** `make -C .tools fmt-md lint-md lint-langs`
 
 **After adding or editing any diagram:** also run `make -C .tools svgs`
+
+**D2 migration freeze:** do not add or modify `.d2` files. New and updated diagrams must use the
+existing SysML pipeline; migrate a D2 diagram rather than adding to it. `make -C .tools all` checks
+that the D2 inventory only shrinks.
 
 ## Key constraints — read before touching anything
 

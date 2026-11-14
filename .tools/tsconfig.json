@@ -16,6 +16,7 @@
   },
   "include": [
     "*.d.ts",
+    "check-d2-ratchet.ts",
     "sysml/**/*.ts",
     "check-lang-order.ts",
     "check-lang-order.test.ts",

@@ -24,7 +24,7 @@ D2_SVGS  := $(D2_FILES:.d2=.svg)
 # Pure make built-in — no shell-out — so it's effectively free.
 SYSML_TOOL_SRCS := $(wildcard $(REPO_ROOT)/.tools/sysml/*.ts $(REPO_ROOT)/.tools/sysml/*/*.ts)
 
-.PHONY: all svgs sysml fmt-d2 fmt-md lint-md lint-langs lint lint-fix check-md fmt install help test test-update coverage typecheck langium-gen vscode-ext vscode-ext-link
+.PHONY: all svgs sysml check-d2-ratchet fmt-d2 fmt-md lint-md lint-langs lint lint-fix check-md fmt install help test test-update coverage typecheck langium-gen vscode-ext vscode-ext-link
 
 ## Default: show help
 help:
@@ -35,6 +35,7 @@ help:
 	@echo ""
 	@echo "  install     Install dev dependencies via pnpm"
 	@echo "  svgs        Regenerate all SVG diagrams (D2 + SysML)"
+	@echo "  check-d2-ratchet  Fail if a D2 source is added beyond the migration baseline"
 	@echo "  fmt-d2      Format all D2 source files"
 	@echo "  fmt-md      Format all Markdown files with prettier"
 	@echo "  lint-md     Lint all Markdown files with markdownlint-cli2"
@@ -50,7 +51,7 @@ help:
 	@echo "  langium-gen Regenerate the SysML parser/AST from sysml.langium"
 	@echo "  vscode-ext  Build the local VS Code extension (highlighting + LSP)"
 	@echo "  vscode-ext-link  Symlink the extension into ~/.vscode/extensions"
-	@echo "  all         svgs + fmt + lint-md + lint-langs + lint + typecheck + test"
+	@echo "  all         D2 ratchet + svgs + fmt + lint-md + lint-langs + lint + typecheck + test"
 	@echo ""
 
 ## Install dependencies via pnpm (recursively across the workspace)
@@ -98,6 +99,10 @@ check-md: $(NODE_BIN)/prettier
 ## Format everything
 fmt: fmt-d2 fmt-md
 
+## Ensure the D2 source inventory only shrinks during migration
+check-d2-ratchet:
+	node --experimental-strip-types $(REPO_ROOT)/.tools/check-d2-ratchet.ts $(REPO_ROOT) $(REPO_ROOT)/.tools/d2-allowlist.txt
+
 ## Run vitest snapshot tests against the SVG corpus
 test:
 	cd $(REPO_ROOT)/.tools && pnpm exec vitest run
@@ -141,7 +146,7 @@ coverage:
 	cd $(REPO_ROOT)/.tools && pnpm exec vitest run --coverage
 
 ## Run everything
-all: svgs fmt lint-md lint-langs lint typecheck test
+all: check-d2-ratchet svgs fmt lint-md lint-langs lint typecheck test
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:
