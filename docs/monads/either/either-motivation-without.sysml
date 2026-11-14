@@ -10,6 +10,7 @@
 // handle it: manual case/match vs. automatic bind short-circuiting.
 
 package EitherMotivationWithout {
+    private import FpDiagram::*;
 
     action def Parse {
         in  raw    : String;
@@ -26,26 +27,36 @@ package EitherMotivationWithout {
         out _      : "Either e Saved";
     }
 
-    activity def ParseValidateSaveWithout {
+    action def ParseValidateSaveWithout {
         // input
-        object raw : String;
+        #FpNodePresentation { role = "value"; tooltip = "Raw input — for example a request body or untrusted user data."; }
+        item raw : String;
 
         // three fallible steps
+        #FpNodePresentation { role = "function"; tooltip = "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error."; }
         action parse    : Parse;
+        #FpNodePresentation { role = "function"; tooltip = "validate(parsed) → Either e Valid. May return Left if a business rule is violated."; }
         action validate : Validate;
+        #FpNodePresentation { role = "function"; tooltip = "save(valid) → Either e Saved. May return Left on a database / IO failure."; }
         action save     : Save;
 
         // one Left-guard per step — each pattern-matches its predecessor's output
-        decision checkParse    : "Left?";
-        decision checkValidate : "Left?";
-        decision checkSave     : "Left?";
+        #FpNodePresentation { tooltip = "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail."; }
+        decide checkParse    : "Left?";
+        #FpNodePresentation { tooltip = "Guard #2: same pattern repeated. Skipping this is a latent bug."; }
+        decide checkValidate : "Left?";
+        #FpNodePresentation { tooltip = "Guard #3: yet another check. Business logic is buried in guards."; }
+        decide checkSave     : "Left?";
 
         // all Left branches converge here
+        #FpNodePresentation { tooltip = "Any Left terminates the chain here — three separate failure paths converge."; }
         merge errorRail;
 
         // outputs
-        object errOut : "Left e";
-        object saved  : "Right Saved";
+        #FpNodePresentation { role = "type"; tooltip = "Left e — returned when any step failed. Caller must also inspect this."; }
+        item errOut : "Left e";
+        #FpNodePresentation { role = "value"; tooltip = "Right Saved — the happy-path result, reached only when all three checks pass."; }
+        item saved  : "Right Saved";
 
         // happy path
         flow from raw           to parse;
@@ -63,28 +74,11 @@ package EitherMotivationWithout {
 
         flow from errorRail     to errOut;
     }
-}
-
-#diagram {
-    type   = activity
-    layout = elk
-    title = "Without bind: explicit Left guard at every step"
-    name  = "parseValidateSave"
-    show raw      as value
-    show parse    as function
-    show validate as function
-    show save     as function
-    show errOut   as type
-    show saved    as value
-    tooltip raw            = "Raw input — for example a request body or untrusted user data."
-    tooltip parse          = "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error."
-    tooltip validate       = "validate(parsed) → Either e Valid. May return Left if a business rule is violated."
-    tooltip save           = "save(valid) → Either e Saved. May return Left on a database / IO failure."
-    tooltip checkParse     = "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail."
-    tooltip checkValidate  = "Guard #2: same pattern repeated. Skipping this is a latent bug."
-    tooltip checkSave      = "Guard #3: yet another check. Business logic is buried in guards."
-    tooltip errorRail      = "Any Left terminates the chain here — three separate failure paths converge."
-    tooltip errOut         = "Left e — returned when any step failed. Caller must also inspect this."
-    tooltip saved          = "Right Saved — the happy-path result, reached only when all three checks pass."
+    #FpViewPresentation { name = "parseValidateSave"; }
+    view diagram : FpActivityView {
+        doc /*Without bind: explicit Left guard at every step*/
+        expose ParseValidateSaveWithout;
+        render fpActivityDiagram;
+    }
 }
 

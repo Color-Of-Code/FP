@@ -88,6 +88,171 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "STMBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "STMBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "run_sa",
+                "type": "RunSA",
+                "role": "function",
+                "tooltip": "Run sa: read/write TVars; result is tentative until atomically commits"
+              },
+              {
+                "kind": "action",
+                "id": "build",
+                "type": "BuildNext",
+                "role": "function",
+                "tooltip": "Apply f(a): build the next atomic action STM b — a not-yet-run TVar action"
+              },
+              {
+                "kind": "action",
+                "id": "run_sb",
+                "type": "RunSB",
+                "role": "function",
+                "tooltip": "Run f(a): read/write TVars; all writes still tentative"
+              },
+              {
+                "kind": "action",
+                "id": "commit",
+                "type": "Atomically",
+                "role": "function",
+                "tooltip": "atomically: check for TVar conflicts.\\n  No conflict  → commit all writes at once; b is visible to other threads\\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "sa",
+                "type": "STM a",
+                "role": "type",
+                "tooltip": "STM a — an atomic action that reads/writes TVars. Not yet executed."
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ STM b",
+                "role": "hof",
+                "tooltip": "(a ⟶ STM b) — given result a, builds the next atomic action"
+              },
+              {
+                "kind": "object",
+                "id": "b_raw",
+                "type": "b",
+                "role": "value",
+                "tooltip": "b — the result value (still tentative, not yet committed)"
+              },
+              {
+                "kind": "object",
+                "id": "b",
+                "type": "b",
+                "role": "value",
+                "tooltip": "b — the committed result. All TVar writes from run_sa and run_sb are now atomically visible."
+              },
+              {
+                "kind": "object",
+                "id": "retry",
+                "type": "STM b",
+                "role": "type",
+                "tooltip": "Retry path — the entire transaction restarts. No partial state is visible to other threads."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "sa",
+                "to": "run_sa"
+              },
+              {
+                "kind": "flow",
+                "from": "run_sa",
+                "to": "build",
+                "label": "a"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "build"
+              },
+              {
+                "kind": "flow",
+                "from": "build",
+                "to": "run_sb",
+                "label": "STM b"
+              },
+              {
+                "kind": "flow",
+                "from": "run_sb",
+                "to": "b_raw"
+              },
+              {
+                "kind": "flow",
+                "from": "b_raw",
+                "to": "commit"
+              },
+              {
+                "kind": "flow",
+                "from": "commit",
+                "to": "b",
+                "label": "commit — all writes visible atomically"
+              },
+              {
+                "kind": "flow",
+                "from": "commit",
+                "to": "retry",
+                "label": "conflict — discard writes, restart entire chain"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "run_sa",
+                "to": "build"
+              },
+              {
+                "kind": "succession",
+                "from": "build",
+                "to": "run_sb"
+              },
+              {
+                "kind": "succession",
+                "from": "run_sb",
+                "to": "commit"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "run_sa": "function",
+              "build": "function",
+              "run_sb": "function",
+              "commit": "function",
+              "sa": "type",
+              "f": "hof",
+              "b_raw": "value",
+              "b": "value",
+              "retry": "type"
+            },
+            "tooltips": {
+              "run_sa": "Run sa: read/write TVars; result is tentative until atomically commits",
+              "build": "Apply f(a): build the next atomic action STM b — a not-yet-run TVar action",
+              "run_sb": "Run f(a): read/write TVars; all writes still tentative",
+              "commit": "atomically: check for TVar conflicts.\\n  No conflict  → commit all writes at once; b is visible to other threads\\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa",
+              "sa": "STM a — an atomic action that reads/writes TVars. Not yet executed.",
+              "f": "(a ⟶ STM b) — given result a, builds the next atomic action",
+              "b_raw": "b — the result value (still tentative, not yet committed)",
+              "b": "b — the committed result. All TVar writes from run_sa and run_sb are now atomically visible.",
+              "retry": "Retry path — the entire transaction restarts. No partial state is visible to other threads."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -98,49 +263,67 @@
             {
               "kind": "action",
               "id": "run_sa",
-              "type": "RunSA"
+              "type": "RunSA",
+              "role": "function",
+              "tooltip": "Run sa: read/write TVars; result is tentative until atomically commits"
             },
             {
               "kind": "action",
               "id": "build",
-              "type": "BuildNext"
+              "type": "BuildNext",
+              "role": "function",
+              "tooltip": "Apply f(a): build the next atomic action STM b — a not-yet-run TVar action"
             },
             {
               "kind": "action",
               "id": "run_sb",
-              "type": "RunSB"
+              "type": "RunSB",
+              "role": "function",
+              "tooltip": "Run f(a): read/write TVars; all writes still tentative"
             },
             {
               "kind": "action",
               "id": "commit",
-              "type": "Atomically"
+              "type": "Atomically",
+              "role": "function",
+              "tooltip": "atomically: check for TVar conflicts.\\n  No conflict  → commit all writes at once; b is visible to other threads\\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "sa",
-              "type": "STM a"
+              "type": "STM a",
+              "role": "type",
+              "tooltip": "STM a — an atomic action that reads/writes TVars. Not yet executed."
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ STM b"
+              "type": "a ⟶ STM b",
+              "role": "hof",
+              "tooltip": "(a ⟶ STM b) — given result a, builds the next atomic action"
             },
             {
               "kind": "object",
               "id": "b_raw",
-              "type": "b"
+              "type": "b",
+              "role": "value",
+              "tooltip": "b — the result value (still tentative, not yet committed)"
             },
             {
               "kind": "object",
               "id": "b",
-              "type": "b"
+              "type": "b",
+              "role": "value",
+              "tooltip": "b — the committed result. All TVar writes from run_sa and run_sb are now atomically visible."
             },
             {
               "kind": "object",
               "id": "retry",
-              "type": "STM b"
+              "type": "STM b",
+              "role": "type",
+              "tooltip": "Retry path — the entire transaction restarts. No partial state is visible to other threads."
             }
           ],
           "decisions": [],
@@ -209,7 +392,40 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "run_sa": "function",
+            "build": "function",
+            "run_sb": "function",
+            "commit": "function",
+            "sa": "type",
+            "f": "hof",
+            "b_raw": "value",
+            "b": "value",
+            "retry": "type"
+          },
+          "tooltips": {
+            "run_sa": "Run sa: read/write TVars; result is tentative until atomically commits",
+            "build": "Apply f(a): build the next atomic action STM b — a not-yet-run TVar action",
+            "run_sb": "Run f(a): read/write TVars; all writes still tentative",
+            "commit": "atomically: check for TVar conflicts.\\n  No conflict  → commit all writes at once; b is visible to other threads\\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa",
+            "sa": "STM a — an atomic action that reads/writes TVars. Not yet executed.",
+            "f": "(a ⟶ STM b) — given result a, builds the next atomic action",
+            "b_raw": "b — the result value (still tentative, not yet committed)",
+            "b": "b — the committed result. All TVar writes from run_sa and run_sb are now atomically visible.",
+            "retry": "Retry path — the entire transaction restarts. No partial state is visible to other threads."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "STMBindImpl",
+          "viewType": "FpActivityView",
+          "expose": "STMBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "STM bind: sequence two TVar actions; atomically commits or retries the whole chain — also called: >>=",
+          "name": "bind"
         }
       ]
     }
@@ -218,25 +434,26 @@
     "diagType": "activity",
     "title": "STM bind: sequence two TVar actions; atomically commits or retries the whole chain — also called: >>=",
     "name": "bind",
+    "render": "STMBindProcess",
     "shows": {
-      "sa": "type",
-      "f": "hof",
       "run_sa": "function",
       "build": "function",
       "run_sb": "function",
-      "b_raw": "value",
       "commit": "function",
+      "sa": "type",
+      "f": "hof",
+      "b_raw": "value",
       "b": "value",
       "retry": "type"
     },
     "tooltips": {
-      "sa": "STM a — an atomic action that reads/writes TVars. Not yet executed.",
-      "f": "(a ⟶ STM b) — given result a, builds the next atomic action",
       "run_sa": "Run sa: read/write TVars; result is tentative until atomically commits",
       "build": "Apply f(a): build the next atomic action STM b — a not-yet-run TVar action",
       "run_sb": "Run f(a): read/write TVars; all writes still tentative",
-      "b_raw": "b — the result value (still tentative, not yet committed)",
       "commit": "atomically: check for TVar conflicts.\\n  No conflict  → commit all writes at once; b is visible to other threads\\n  Conflict     → discard ALL tentative writes; restart the entire chain from run_sa",
+      "sa": "STM a — an atomic action that reads/writes TVars. Not yet executed.",
+      "f": "(a ⟶ STM b) — given result a, builds the next atomic action",
+      "b_raw": "b — the result value (still tentative, not yet committed)",
       "b": "b — the committed result. All TVar writes from run_sa and run_sb are now atomically visible.",
       "retry": "Retry path — the entire transaction restarts. No partial state is visible to other threads."
     }

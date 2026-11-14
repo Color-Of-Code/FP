@@ -6,12 +6,18 @@
 // the output type — it is never consumed, never modified, just shared.
 
 package ReaderSignature {
+    private import FpDiagram::*;
 
     part def ReaderBindContext {
+        #FpNodePresentation { role = "type"; tooltip = "Reader r a — a computation waiting for env r; when run with r it produces a"; }
         part ra_val : "Reader r a";        // r ⟶ a — a suspended computation
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Reader r b) — continuation: given a, produces a new computation waiting for r"; }
         part f_val  : "a ⟶ Reader r b";  // effectful function (HOF)
+        #FpNodePresentation { role = "value"; tooltip = "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified."; }
         part r_env  : r;                   // shared read-only environment
+        #FpNodePresentation { role = "function"; tooltip = "bind ra f = \\r -> f (ra r) r\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r."; }
         part bind   : ReaderBindOp;
+        #FpNodePresentation { role = "type"; tooltip = "Reader r b — the composed computation; when run with r it produces b"; }
         part rb_val : "Reader r b";        // r ⟶ b — result computation
 
         connection connect ra_val to bind;
@@ -19,20 +25,10 @@ package ReaderSignature {
         connection connect r_env  to bind;  // env supplied to both ra and f(a)
         connection connect bind   to rb_val;
     }
+    view diagram : FpIbdView {
+        doc /*bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>=*/
+        expose ReaderBindContext;
+        render fpIbdDiagram;
+    }
 }
 
-#diagram {
-    type  = ibd
-    title = "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>="
-    render = ReaderBindContext
-    show ra_val as type
-    show f_val  as hof
-    show r_env  as value
-    show bind   as function
-    show rb_val as type
-    tooltip ra_val = "Reader r a — a computation waiting for env r; when run with r it produces a"
-    tooltip f_val  = "(a ⟶ Reader r b) — continuation: given a, produces a new computation waiting for r"
-    tooltip r_env  = "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified."
-    tooltip bind   = "bind ra f = \\r -> f (ra r) r\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r."
-    tooltip rb_val = "Reader r b — the composed computation; when run with r it produces b"
-}

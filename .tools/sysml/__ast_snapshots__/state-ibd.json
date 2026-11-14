@@ -12,37 +12,49 @@
               "kind": "part",
               "id": "sa_val",
               "type": "State s a",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "State s a — a computation: given state s returns (a, s')"
             },
             {
               "kind": "part",
               "id": "f_val",
               "type": "a ⟶ State s b",
-              "ports": []
+              "ports": [],
+              "role": "hof",
+              "tooltip": "(a ⟶ State s b) — continuation: given result a, produces a new state computation"
             },
             {
               "kind": "part",
               "id": "s_in",
               "type": "s",
-              "ports": []
+              "ports": [],
+              "role": "value",
+              "tooltip": "s — current state entering bind. The value side and the state side are both threaded."
             },
             {
               "kind": "part",
               "id": "bind",
               "type": "StateBindOp",
-              "ports": []
+              "ports": [],
+              "role": "function",
+              "tooltip": "bind sa f = \\\\s ->\\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\\n  in  (b, s'')"
             },
             {
               "kind": "part",
               "id": "sb_val",
               "type": "State s b",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "State s b — the composed computation; when run it produces (b, s'')"
             },
             {
               "kind": "part",
               "id": "s_out",
               "type": "s",
-              "ports": []
+              "ports": [],
+              "role": "value",
+              "tooltip": "s — the transformed state after both sa and f(a) have run. Different from s_in."
             }
           ],
           "ports": [],
@@ -73,11 +85,37 @@
               "to": "s_out"
             }
           ],
-          "notes": []
+          "notes": [],
+          "shows": {
+            "sa_val": "type",
+            "f_val": "hof",
+            "s_in": "value",
+            "bind": "function",
+            "sb_val": "type",
+            "s_out": "value"
+          },
+          "tooltips": {
+            "sa_val": "State s a — a computation: given state s returns (a, s')",
+            "f_val": "(a ⟶ State s b) — continuation: given result a, produces a new state computation",
+            "s_in": "s — current state entering bind. The value side and the state side are both threaded.",
+            "bind": "bind sa f = \\\\s ->\\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\\n  in  (b, s'')",
+            "sb_val": "State s b — the composed computation; when run it produces (b, s'')",
+            "s_out": "s — the transformed state after both sa and f(a) have run. Different from s_in."
+          }
         }
       ],
       "actionDefs": [],
-      "activityDefs": []
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "StateSignature",
+          "viewType": "FpIbdView",
+          "expose": "StateBindContext",
+          "rendering": "fpIbdDiagram",
+          "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, >>="
+        }
+      ]
     }
   ],
   "diagram": {

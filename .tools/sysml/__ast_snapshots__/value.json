@@ -4,7 +4,55 @@
       "name": "FunctionValueActivity",
       "portDefs": [],
       "partDefs": [],
-      "actionDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ValueConcept",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ValueConcept",
+            "actions": [],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "a0 : a",
+                "role": "value",
+                "tooltip": "a0 — one concrete representative, or witness, of type a."
+              },
+              {
+                "kind": "object",
+                "id": "a",
+                "type": "type a",
+                "role": "type",
+                "tooltip": "type a — the classification that a0 belongs to."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "a",
+                "label": "inhabits"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "a0": "value",
+              "a": "type"
+            },
+            "tooltips": {
+              "a0": "a0 — one concrete representative, or witness, of type a.",
+              "a": "type a — the classification that a0 belongs to."
+            }
+          }
+        }
+      ],
       "activityDefs": [
         {
           "kind": "activityDef",
@@ -14,12 +62,16 @@
             {
               "kind": "object",
               "id": "a0",
-              "type": "a0 : a"
+              "type": "a0 : a",
+              "role": "value",
+              "tooltip": "a0 — one concrete representative, or witness, of type a."
             },
             {
               "kind": "object",
               "id": "a",
-              "type": "type a"
+              "type": "type a",
+              "role": "type",
+              "tooltip": "type a — the classification that a0 belongs to."
             }
           ],
           "decisions": [],
@@ -34,7 +86,26 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "a0": "value",
+            "a": "type"
+          },
+          "tooltips": {
+            "a0": "a0 — one concrete representative, or witness, of type a.",
+            "a": "type a — the classification that a0 belongs to."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FunctionValueActivity",
+          "viewType": "FpActivityView",
+          "expose": "ValueConcept",
+          "rendering": "fpActivityDiagram",
+          "title": "Value a0 of type a",
+          "name": "value"
         }
       ]
     }
@@ -43,6 +114,7 @@
     "diagType": "activity",
     "title": "Value a0 of type a",
     "name": "value",
+    "render": "ValueConcept",
     "shows": {
       "a0": "value",
       "a": "type"

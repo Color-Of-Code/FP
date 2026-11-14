@@ -46,6 +46,134 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "PureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "PureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "pur",
+                "type": "PureLift"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "Ma",
+                "type": "Ma",
+                "role": "type",
+                "tooltip": "Ma — the monadic value to unwrap"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a",
+                "to": "pur"
+              },
+              {
+                "kind": "flow",
+                "from": "pur",
+                "to": "Ma"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "Ma": "type"
+            },
+            "tooltips": {
+              "Ma": "Ma — the monadic value to unwrap"
+            }
+          }
+        },
+        {
+          "kind": "actionDef",
+          "name": "BindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "BindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bind",
+                "type": "BindStep",
+                "role": "function",
+                "tooltip": "bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, >>=."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "Ma",
+                "type": "Ma",
+                "role": "type",
+                "tooltip": "Ma — the monadic value to unwrap"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ Mb",
+                "role": "hof",
+                "tooltip": "(a ⟶ Mb) — effectful function, passed as a data token (HOF)"
+              },
+              {
+                "kind": "object",
+                "id": "Mb",
+                "type": "Mb",
+                "role": "type",
+                "tooltip": "Mb — the result of applying the effectful function"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "Ma",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "bind",
+                "to": "Mb"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "bind": "function",
+              "Ma": "type",
+              "f": "hof",
+              "Mb": "type"
+            },
+            "tooltips": {
+              "bind": "bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, >>=.",
+              "Ma": "Ma — the monadic value to unwrap",
+              "f": "(a ⟶ Mb) — effectful function, passed as a data token (HOF)",
+              "Mb": "Mb — the result of applying the effectful function"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -68,7 +196,9 @@
             {
               "kind": "object",
               "id": "Ma",
-              "type": "Ma"
+              "type": "Ma",
+              "role": "type",
+              "tooltip": "Ma — the monadic value to unwrap"
             }
           ],
           "decisions": [],
@@ -87,7 +217,13 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "Ma": "type"
+          },
+          "tooltips": {
+            "Ma": "Ma — the monadic value to unwrap"
+          }
         },
         {
           "kind": "activityDef",
@@ -96,24 +232,32 @@
             {
               "kind": "action",
               "id": "bind",
-              "type": "BindStep"
+              "type": "BindStep",
+              "role": "function",
+              "tooltip": "bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, >>=."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "Ma",
-              "type": "Ma"
+              "type": "Ma",
+              "role": "type",
+              "tooltip": "Ma — the monadic value to unwrap"
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ Mb"
+              "type": "a ⟶ Mb",
+              "role": "hof",
+              "tooltip": "(a ⟶ Mb) — effectful function, passed as a data token (HOF)"
             },
             {
               "kind": "object",
               "id": "Mb",
-              "type": "Mb"
+              "type": "Mb",
+              "role": "type",
+              "tooltip": "Mb — the result of applying the effectful function"
             }
           ],
           "decisions": [],
@@ -137,7 +281,30 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "bind": "function",
+            "Ma": "type",
+            "f": "hof",
+            "Mb": "type"
+          },
+          "tooltips": {
+            "bind": "bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, >>=.",
+            "Ma": "Ma — the monadic value to unwrap",
+            "f": "(a ⟶ Mb) — effectful function, passed as a data token (HOF)",
+            "Mb": "Mb — the result of applying the effectful function"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MonadPureBind",
+          "viewType": "FpActivityView",
+          "expose": "BindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "pure :: a ⟶ Ma  |  bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb",
+          "name": "bind"
         }
       ]
     }
@@ -148,15 +315,15 @@
     "name": "bind",
     "render": "BindProcess",
     "shows": {
+      "bind": "function",
       "Ma": "type",
       "f": "hof",
-      "bind": "function",
       "Mb": "type"
     },
     "tooltips": {
+      "bind": "bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, >>=.",
       "Ma": "Ma — the monadic value to unwrap",
       "f": "(a ⟶ Mb) — effectful function, passed as a data token (HOF)",
-      "bind": "bind: unwraps a from Ma, applies f, returns Mb. Per-language aliases: flatMap, andThen / and_then, SelectMany, .then, >>=.",
       "Mb": "Mb — the result of applying the effectful function"
     }
   }

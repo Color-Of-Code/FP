@@ -58,6 +58,118 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "DigitLetterWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "DigitLetterWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "digit",
+                "type": "Digit",
+                "role": "function",
+                "tooltip": "digit : Parser Char — consumes one digit, leaves the rest of the string in its state.",
+                "laneId": "monad",
+                "laneLabel": "Parser monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindLetter",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : runs letter on the input that digit left behind. Failure in either step short-circuits.",
+                "laneId": "monad",
+                "laneLabel": "Parser monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "letterFn",
+                "type": "Char ⟶ Parser (Char, Char)",
+                "role": "hof",
+                "tooltip": "λd. letter >>= λl. pure (d, l). HOF argument — captures d and produces a Parser (Char, Char).",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "outResult",
+                "type": "(value, rest)",
+                "role": "type",
+                "tooltip": "runParser supplies the input string and returns (value, rest) — or Nothing if any step failed.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "digit",
+                "to": "bindLetter",
+                "label": "Parser Char"
+              },
+              {
+                "kind": "flow",
+                "from": "bindLetter",
+                "to": "outResult",
+                "label": "runParser"
+              },
+              {
+                "kind": "flow",
+                "from": "letterFn",
+                "to": "bindLetter"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "letterFn",
+                  "outResult"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "Parser monad",
+                "members": [
+                  "digit",
+                  "bindLetter"
+                ]
+              }
+            ],
+            "shows": {
+              "digit": "function",
+              "bindLetter": "function",
+              "letterFn": "hof",
+              "outResult": "type"
+            },
+            "tooltips": {
+              "digit": "digit : Parser Char — consumes one digit, leaves the rest of the string in its state.",
+              "bindLetter": ">>= : runs letter on the input that digit left behind. Failure in either step short-circuits.",
+              "letterFn": "λd. letter >>= λl. pure (d, l). HOF argument — captures d and produces a Parser (Char, Char).",
+              "outResult": "runParser supplies the input string and returns (value, rest) — or Nothing if any step failed."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -68,24 +180,48 @@
             {
               "kind": "action",
               "id": "digit",
-              "type": "Digit"
+              "type": "Digit",
+              "role": "function",
+              "tooltip": "digit : Parser Char — consumes one digit, leaves the rest of the string in its state.",
+              "laneId": "monad",
+              "laneLabel": "Parser monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindLetter",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : runs letter on the input that digit left behind. Failure in either step short-circuits.",
+              "laneId": "monad",
+              "laneLabel": "Parser monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "letterFn",
-              "type": "Char ⟶ Parser (Char, Char)"
+              "type": "Char ⟶ Parser (Char, Char)",
+              "role": "hof",
+              "tooltip": "λd. letter >>= λl. pure (d, l). HOF argument — captures d and produces a Parser (Char, Char).",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "outResult",
-              "type": "(value, rest)"
+              "type": "(value, rest)",
+              "role": "type",
+              "tooltip": "runParser supplies the input string and returns (value, rest) — or Nothing if any step failed.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             }
           ],
           "decisions": [],
@@ -130,7 +266,30 @@
                 "bindLetter"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "digit": "function",
+            "bindLetter": "function",
+            "letterFn": "hof",
+            "outResult": "type"
+          },
+          "tooltips": {
+            "digit": "digit : Parser Char — consumes one digit, leaves the rest of the string in its state.",
+            "bindLetter": ">>= : runs letter on the input that digit left behind. Failure in either step short-circuits.",
+            "letterFn": "λd. letter >>= λl. pure (d, l). HOF argument — captures d and produces a Parser (Char, Char).",
+            "outResult": "runParser supplies the input string and returns (value, rest) — or Nothing if any step failed."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ParserMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "DigitLetterWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: bind threads the remaining input and short-circuits failure",
+          "name": "digitLetter"
         }
       ]
     }
@@ -139,6 +298,7 @@
     "diagType": "activity",
     "title": "With pure + bind: bind threads the remaining input and short-circuits failure",
     "name": "digitLetter",
+    "render": "DigitLetterWith",
     "shows": {
       "digit": "function",
       "bindLetter": "function",

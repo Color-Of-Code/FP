@@ -6,30 +6,29 @@
 // break the left-identity law.
 
 package StatePureImpl {
+    private import FpDiagram::*;
 
     action def IdentityState {
         in  a  : a;
         out sa : "State s a";   // = \s -> (a, s)
     }
 
-    activity def StatePureProcess {
-        object a0   : a;
+    action def StatePureProcess {
+        #FpNodePresentation { role = "value"; tooltip = "a0 — any plain value."; }
+        item a0   : a;
+        #FpNodePresentation { role = "function"; tooltip = "IdentityState: build the function \\s -> (a0, s). State entering = state leaving; only the value is provided."; }
         action wrap : IdentityState;
-        object sa   : "State s a";
+        #FpNodePresentation { role = "type"; tooltip = "State s a = (s ⟶ (a, s)). Run this with any state s and you get (a0, s) — the state is preserved exactly."; }
+        item sa   : "State s a";
 
         flow from a0   to wrap;
         flow from wrap to sa : "\\s -> (a0, s)";
     }
+    #FpViewPresentation { name = "pure"; }
+    view diagram : FpActivityView {
+        doc /*pure :: a ⟶ State s a   (identity on state, returns a0) — also called: return*/
+        expose StatePureProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "pure :: a ⟶ State s a   (identity on state, returns a0) — also called: return"
-    name  = "pure"
-    show a0   as value
-    show wrap as function
-    show sa   as type
-    tooltip a0   = "a0 — any plain value."
-    tooltip wrap = "IdentityState: build the function \\s -> (a0, s). State entering = state leaving; only the value is provided."
-    tooltip sa   = "State s a = (s ⟶ (a, s)). Run this with any state s and you get (a0, s) — the state is preserved exactly."
-}

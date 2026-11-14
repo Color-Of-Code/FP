@@ -82,6 +82,176 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ComputeWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ComputeWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "purePath",
+                "type": "Pure",
+                "role": "function",
+                "tooltip": "pure : FilePath → IO FilePath. Lifts the plain path so the chain can start uniformly with bind.",
+                "laneId": "monad",
+                "laneLabel": "IO monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindRead",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : sequences readFile after pure. The runtime guarantees this effect happens before the next bind.",
+                "laneId": "monad",
+                "laneLabel": "IO monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "action",
+                "id": "bindLogComp",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : sequences the (logMessage cfg >> compute cfg) continuation. Effect order is deterministic.",
+                "laneId": "monad",
+                "laneLabel": "IO monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 2
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "path",
+                "type": "FilePath",
+                "role": "value",
+                "tooltip": "FilePath — plain input. Pure callers see only this in the API.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "readFileFn",
+                "type": "FilePath ⟶ IO Config",
+                "role": "hof",
+                "tooltip": "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "object",
+                "id": "logCompFn",
+                "type": "Config ⟶ IO Int",
+                "role": "hof",
+                "tooltip": "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 2
+              },
+              {
+                "kind": "object",
+                "id": "ioResult",
+                "type": "IO Int",
+                "role": "type",
+                "tooltip": "IO Int — the final described program. The runtime (main) is the only thing that actually executes it.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 3
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "path",
+                "to": "purePath"
+              },
+              {
+                "kind": "flow",
+                "from": "purePath",
+                "to": "bindRead",
+                "label": "IO FilePath"
+              },
+              {
+                "kind": "flow",
+                "from": "bindRead",
+                "to": "bindLogComp",
+                "label": "IO Config"
+              },
+              {
+                "kind": "flow",
+                "from": "bindLogComp",
+                "to": "ioResult",
+                "label": "IO Int"
+              },
+              {
+                "kind": "flow",
+                "from": "readFileFn",
+                "to": "bindRead"
+              },
+              {
+                "kind": "flow",
+                "from": "logCompFn",
+                "to": "bindLogComp"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "path",
+                  "readFileFn",
+                  "logCompFn",
+                  "ioResult"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "IO monad",
+                "members": [
+                  "purePath",
+                  "bindRead",
+                  "bindLogComp"
+                ]
+              }
+            ],
+            "shows": {
+              "purePath": "function",
+              "bindRead": "function",
+              "bindLogComp": "function",
+              "path": "value",
+              "readFileFn": "hof",
+              "logCompFn": "hof",
+              "ioResult": "type"
+            },
+            "tooltips": {
+              "purePath": "pure : FilePath → IO FilePath. Lifts the plain path so the chain can start uniformly with bind.",
+              "bindRead": ">>= : sequences readFile after pure. The runtime guarantees this effect happens before the next bind.",
+              "bindLogComp": ">>= : sequences the (logMessage cfg >> compute cfg) continuation. Effect order is deterministic.",
+              "path": "FilePath — plain input. Pure callers see only this in the API.",
+              "readFileFn": "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow.",
+              "logCompFn": "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg.",
+              "ioResult": "IO Int — the final described program. The runtime (main) is the only thing that actually executes it."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -92,39 +262,81 @@
             {
               "kind": "action",
               "id": "purePath",
-              "type": "Pure"
+              "type": "Pure",
+              "role": "function",
+              "tooltip": "pure : FilePath → IO FilePath. Lifts the plain path so the chain can start uniformly with bind.",
+              "laneId": "monad",
+              "laneLabel": "IO monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindRead",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : sequences readFile after pure. The runtime guarantees this effect happens before the next bind.",
+              "laneId": "monad",
+              "laneLabel": "IO monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             },
             {
               "kind": "action",
               "id": "bindLogComp",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : sequences the (logMessage cfg >> compute cfg) continuation. Effect order is deterministic.",
+              "laneId": "monad",
+              "laneLabel": "IO monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 2
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "path",
-              "type": "FilePath"
+              "type": "FilePath",
+              "role": "value",
+              "tooltip": "FilePath — plain input. Pure callers see only this in the API.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "readFileFn",
-              "type": "FilePath ⟶ IO Config"
+              "type": "FilePath ⟶ IO Config",
+              "role": "hof",
+              "tooltip": "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             },
             {
               "kind": "object",
               "id": "logCompFn",
-              "type": "Config ⟶ IO Int"
+              "type": "Config ⟶ IO Int",
+              "role": "hof",
+              "tooltip": "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 2
             },
             {
               "kind": "object",
               "id": "ioResult",
-              "type": "IO Int"
+              "type": "IO Int",
+              "role": "type",
+              "tooltip": "IO Int — the final described program. The runtime (main) is the only thing that actually executes it.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 3
             }
           ],
           "decisions": [],
@@ -188,7 +400,36 @@
                 "bindLogComp"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "purePath": "function",
+            "bindRead": "function",
+            "bindLogComp": "function",
+            "path": "value",
+            "readFileFn": "hof",
+            "logCompFn": "hof",
+            "ioResult": "type"
+          },
+          "tooltips": {
+            "purePath": "pure : FilePath → IO FilePath. Lifts the plain path so the chain can start uniformly with bind.",
+            "bindRead": ">>= : sequences readFile after pure. The runtime guarantees this effect happens before the next bind.",
+            "bindLogComp": ">>= : sequences the (logMessage cfg >> compute cfg) continuation. Effect order is deterministic.",
+            "path": "FilePath — plain input. Pure callers see only this in the API.",
+            "readFileFn": "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow.",
+            "logCompFn": "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg.",
+            "ioResult": "IO Int — the final described program. The runtime (main) is the only thing that actually executes it."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "IOMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "ComputeWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: effects in the type, sequenced explicitly through bind",
+          "name": "compute"
         }
       ]
     }
@@ -197,20 +438,21 @@
     "diagType": "activity",
     "title": "With pure + bind: effects in the type, sequenced explicitly through bind",
     "name": "compute",
+    "render": "ComputeWith",
     "shows": {
-      "path": "value",
       "purePath": "function",
       "bindRead": "function",
       "bindLogComp": "function",
+      "path": "value",
       "readFileFn": "hof",
       "logCompFn": "hof",
       "ioResult": "type"
     },
     "tooltips": {
-      "path": "FilePath — plain input. Pure callers see only this in the API.",
       "purePath": "pure : FilePath → IO FilePath. Lifts the plain path so the chain can start uniformly with bind.",
       "bindRead": ">>= : sequences readFile after pure. The runtime guarantees this effect happens before the next bind.",
       "bindLogComp": ">>= : sequences the (logMessage cfg >> compute cfg) continuation. Effect order is deterministic.",
+      "path": "FilePath — plain input. Pure callers see only this in the API.",
       "readFileFn": "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow.",
       "logCompFn": "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg.",
       "ioResult": "IO Int — the final described program. The runtime (main) is the only thing that actually executes it."

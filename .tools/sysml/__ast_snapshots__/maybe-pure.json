@@ -22,6 +22,68 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "MaybePureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "MaybePureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "wrap",
+                "type": "WrapInJust",
+                "role": "function",
+                "tooltip": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a0 — any plain value to be lifted into the Maybe context."
+              },
+              {
+                "kind": "object",
+                "id": "just_a0",
+                "type": "Maybe a",
+                "role": "type",
+                "tooltip": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "wrap"
+              },
+              {
+                "kind": "flow",
+                "from": "wrap",
+                "to": "just_a0",
+                "label": "Just a0"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "wrap": "function",
+              "a0": "value",
+              "just_a0": "type"
+            },
+            "tooltips": {
+              "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
+              "a0": "a0 — any plain value to be lifted into the Maybe context.",
+              "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +94,25 @@
             {
               "kind": "action",
               "id": "wrap",
-              "type": "WrapInJust"
+              "type": "WrapInJust",
+              "role": "function",
+              "tooltip": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a0",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a0 — any plain value to be lifted into the Maybe context."
             },
             {
               "kind": "object",
               "id": "just_a0",
-              "type": "Maybe a"
+              "type": "Maybe a",
+              "role": "type",
+              "tooltip": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
             }
           ],
           "decisions": [],
@@ -64,7 +132,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "wrap": "function",
+            "a0": "value",
+            "just_a0": "type"
+          },
+          "tooltips": {
+            "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
+            "a0": "a0 — any plain value to be lifted into the Maybe context.",
+            "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MaybePureImpl",
+          "viewType": "FpActivityView",
+          "expose": "MaybePureProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
+          "name": "pure"
         }
       ]
     }
@@ -73,14 +162,15 @@
     "diagType": "activity",
     "title": "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just",
     "name": "pure",
+    "render": "MaybePureProcess",
     "shows": {
-      "a0": "value",
       "wrap": "function",
+      "a0": "value",
       "just_a0": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to be lifted into the Maybe context.",
       "wrap": "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure.",
+      "a0": "a0 — any plain value to be lifted into the Maybe context.",
       "just_a0": "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
     }
   }

@@ -40,6 +40,143 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "DigitLetterWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "DigitLetterWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "parseDigit",
+                "type": "ParseDigit",
+                "role": "function",
+                "tooltip": "parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing."
+              },
+              {
+                "kind": "action",
+                "id": "parseLetter",
+                "type": "ParseLetter",
+                "role": "function",
+                "tooltip": "parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "input",
+                "type": "String",
+                "role": "value",
+                "tooltip": "input : String — the full input string, threaded through the whole chain."
+              },
+              {
+                "kind": "object",
+                "id": "outResult",
+                "type": "((d, l), rest2)",
+                "role": "type",
+                "tooltip": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input."
+              },
+              {
+                "kind": "object",
+                "id": "failed",
+                "type": "Nothing",
+                "role": "type",
+                "tooltip": "Nothing — a parse failure, indistinguishable from any other Nothing."
+              }
+            ],
+            "decisions": [
+              {
+                "kind": "decision",
+                "id": "check1",
+                "label": "Nothing?",
+                "tooltip": "Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug."
+              },
+              {
+                "kind": "decision",
+                "id": "check2",
+                "label": "Nothing?",
+                "tooltip": "Guard #2: same pattern repeated. Skip and you'll return garbage."
+              }
+            ],
+            "merges": [
+              {
+                "kind": "merge",
+                "id": "failRail",
+                "tooltip": "Any Nothing short-circuits the whole chain — both failure paths converge here."
+              }
+            ],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "input",
+                "to": "parseDigit"
+              },
+              {
+                "kind": "flow",
+                "from": "parseDigit",
+                "to": "check1",
+                "label": "Maybe (Char, String)"
+              },
+              {
+                "kind": "flow",
+                "from": "check1",
+                "to": "failRail",
+                "label": "Nothing"
+              },
+              {
+                "kind": "flow",
+                "from": "check1",
+                "to": "parseLetter",
+                "label": "Just (d, rest1) — pass rest1"
+              },
+              {
+                "kind": "flow",
+                "from": "parseLetter",
+                "to": "check2",
+                "label": "Maybe (Char, String)"
+              },
+              {
+                "kind": "flow",
+                "from": "check2",
+                "to": "failRail",
+                "label": "Nothing"
+              },
+              {
+                "kind": "flow",
+                "from": "check2",
+                "to": "outResult",
+                "label": "Just (l, rest2)"
+              },
+              {
+                "kind": "flow",
+                "from": "failRail",
+                "to": "failed"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "parseDigit": "function",
+              "parseLetter": "function",
+              "input": "value",
+              "outResult": "type",
+              "failed": "type"
+            },
+            "tooltips": {
+              "parseDigit": "parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing.",
+              "parseLetter": "parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input.",
+              "input": "input : String — the full input string, threaded through the whole chain.",
+              "outResult": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.",
+              "failed": "Nothing — a parse failure, indistinguishable from any other Nothing.",
+              "check1": "Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug.",
+              "check2": "Guard #2: same pattern repeated. Skip and you'll return garbage.",
+              "failRail": "Any Nothing short-circuits the whole chain — both failure paths converge here."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -50,47 +187,60 @@
             {
               "kind": "action",
               "id": "parseDigit",
-              "type": "ParseDigit"
+              "type": "ParseDigit",
+              "role": "function",
+              "tooltip": "parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing."
             },
             {
               "kind": "action",
               "id": "parseLetter",
-              "type": "ParseLetter"
+              "type": "ParseLetter",
+              "role": "function",
+              "tooltip": "parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "input",
-              "type": "String"
+              "type": "String",
+              "role": "value",
+              "tooltip": "input : String — the full input string, threaded through the whole chain."
             },
             {
               "kind": "object",
               "id": "outResult",
-              "type": "((d, l), rest2)"
+              "type": "((d, l), rest2)",
+              "role": "type",
+              "tooltip": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input."
             },
             {
               "kind": "object",
               "id": "failed",
-              "type": "Nothing"
+              "type": "Nothing",
+              "role": "type",
+              "tooltip": "Nothing — a parse failure, indistinguishable from any other Nothing."
             }
           ],
           "decisions": [
             {
               "kind": "decision",
               "id": "check1",
-              "label": "Nothing?"
+              "label": "Nothing?",
+              "tooltip": "Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug."
             },
             {
               "kind": "decision",
               "id": "check2",
-              "label": "Nothing?"
+              "label": "Nothing?",
+              "tooltip": "Guard #2: same pattern repeated. Skip and you'll return garbage."
             }
           ],
           "merges": [
             {
               "kind": "merge",
-              "id": "failRail"
+              "id": "failRail",
+              "tooltip": "Any Nothing short-circuits the whole chain — both failure paths converge here."
             }
           ],
           "flows": [
@@ -143,7 +293,35 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "parseDigit": "function",
+            "parseLetter": "function",
+            "input": "value",
+            "outResult": "type",
+            "failed": "type"
+          },
+          "tooltips": {
+            "parseDigit": "parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing.",
+            "parseLetter": "parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input.",
+            "input": "input : String — the full input string, threaded through the whole chain.",
+            "outResult": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.",
+            "failed": "Nothing — a parse failure, indistinguishable from any other Nothing.",
+            "check1": "Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug.",
+            "check2": "Guard #2: same pattern repeated. Skip and you'll return garbage.",
+            "failRail": "Any Nothing short-circuits the whole chain — both failure paths converge here."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ParserMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "DigitLetterWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without bind: leftover threaded by hand; one Nothing guard per step",
+          "name": "digitLetter"
         }
       ]
     }
@@ -152,22 +330,23 @@
     "diagType": "activity",
     "title": "Without bind: leftover threaded by hand; one Nothing guard per step",
     "name": "digitLetter",
+    "render": "DigitLetterWithout",
     "shows": {
-      "input": "value",
       "parseDigit": "function",
       "parseLetter": "function",
+      "input": "value",
       "outResult": "type",
       "failed": "type"
     },
     "tooltips": {
-      "input": "input : String — the full input string, threaded through the whole chain.",
       "parseDigit": "parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing.",
       "parseLetter": "parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input.",
+      "input": "input : String — the full input string, threaded through the whole chain.",
+      "outResult": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.",
+      "failed": "Nothing — a parse failure, indistinguishable from any other Nothing.",
       "check1": "Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug.",
       "check2": "Guard #2: same pattern repeated. Skip and you'll return garbage.",
-      "failRail": "Any Nothing short-circuits the whole chain — both failure paths converge here.",
-      "outResult": "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input.",
-      "failed": "Nothing — a parse failure, indistinguishable from any other Nothing."
+      "failRail": "Any Nothing short-circuits the whole chain — both failure paths converge here."
     }
   }
 }

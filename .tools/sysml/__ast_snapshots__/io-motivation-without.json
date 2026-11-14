@@ -22,6 +22,97 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ComputeWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ComputeWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "compute",
+                "type": "Compute",
+                "role": "function",
+                "tooltip": "compute :: Int → Int — the type promises a pure function. The implementation breaks that promise."
+              },
+              {
+                "kind": "action",
+                "id": "hiddenReadConfig",
+                "type": "reads config.txt",
+                "role": "function",
+                "tooltip": "Hidden effect: reads config.txt during execution. Not visible in the type."
+              },
+              {
+                "kind": "action",
+                "id": "hiddenWriteLog",
+                "type": "writes to log",
+                "role": "function",
+                "tooltip": "Hidden effect: writes to a log during execution. Not visible in the type."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "x",
+                "type": "Int",
+                "role": "value",
+                "tooltip": "x : Int — the only input the caller sees."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "Int",
+                "role": "type",
+                "tooltip": "result : Int — looks like a pure return, but its computation depended on a file and a log call."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "compute"
+              },
+              {
+                "kind": "flow",
+                "from": "compute",
+                "to": "result"
+              },
+              {
+                "kind": "flow",
+                "from": "compute",
+                "to": "hiddenReadConfig",
+                "label": "hidden"
+              },
+              {
+                "kind": "flow",
+                "from": "compute",
+                "to": "hiddenWriteLog",
+                "label": "hidden"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "compute": "function",
+              "hiddenReadConfig": "function",
+              "hiddenWriteLog": "function",
+              "x": "value",
+              "result": "type"
+            },
+            "tooltips": {
+              "compute": "compute :: Int → Int — the type promises a pure function. The implementation breaks that promise.",
+              "hiddenReadConfig": "Hidden effect: reads config.txt during execution. Not visible in the type.",
+              "hiddenWriteLog": "Hidden effect: writes to a log during execution. Not visible in the type.",
+              "x": "x : Int — the only input the caller sees.",
+              "result": "result : Int — looks like a pure return, but its computation depended on a file and a log call."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,29 +123,39 @@
             {
               "kind": "action",
               "id": "compute",
-              "type": "Compute"
+              "type": "Compute",
+              "role": "function",
+              "tooltip": "compute :: Int → Int — the type promises a pure function. The implementation breaks that promise."
             },
             {
               "kind": "action",
               "id": "hiddenReadConfig",
-              "type": "reads config.txt"
+              "type": "reads config.txt",
+              "role": "function",
+              "tooltip": "Hidden effect: reads config.txt during execution. Not visible in the type."
             },
             {
               "kind": "action",
               "id": "hiddenWriteLog",
-              "type": "writes to log"
+              "type": "writes to log",
+              "role": "function",
+              "tooltip": "Hidden effect: writes to a log during execution. Not visible in the type."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "x",
-              "type": "Int"
+              "type": "Int",
+              "role": "value",
+              "tooltip": "x : Int — the only input the caller sees."
             },
             {
               "kind": "object",
               "id": "result",
-              "type": "Int"
+              "type": "Int",
+              "role": "type",
+              "tooltip": "result : Int — looks like a pure return, but its computation depended on a file and a log call."
             }
           ],
           "decisions": [],
@@ -85,7 +186,32 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "compute": "function",
+            "hiddenReadConfig": "function",
+            "hiddenWriteLog": "function",
+            "x": "value",
+            "result": "type"
+          },
+          "tooltips": {
+            "compute": "compute :: Int → Int — the type promises a pure function. The implementation breaks that promise.",
+            "hiddenReadConfig": "Hidden effect: reads config.txt during execution. Not visible in the type.",
+            "hiddenWriteLog": "Hidden effect: writes to a log during execution. Not visible in the type.",
+            "x": "x : Int — the only input the caller sees.",
+            "result": "result : Int — looks like a pure return, but its computation depended on a file and a log call."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "IOMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "ComputeWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without IO: side effects hidden inside a pure-looking type",
+          "name": "compute"
         }
       ]
     }
@@ -94,19 +220,20 @@
     "diagType": "activity",
     "title": "Without IO: side effects hidden inside a pure-looking type",
     "name": "compute",
+    "render": "ComputeWithout",
     "shows": {
-      "x": "value",
       "compute": "function",
-      "result": "type",
       "hiddenReadConfig": "function",
-      "hiddenWriteLog": "function"
+      "hiddenWriteLog": "function",
+      "x": "value",
+      "result": "type"
     },
     "tooltips": {
-      "x": "x : Int — the only input the caller sees.",
       "compute": "compute :: Int → Int — the type promises a pure function. The implementation breaks that promise.",
-      "result": "result : Int — looks like a pure return, but its computation depended on a file and a log call.",
       "hiddenReadConfig": "Hidden effect: reads config.txt during execution. Not visible in the type.",
-      "hiddenWriteLog": "Hidden effect: writes to a log during execution. Not visible in the type."
+      "hiddenWriteLog": "Hidden effect: writes to a log during execution. Not visible in the type.",
+      "x": "x : Int — the only input the caller sees.",
+      "result": "result : Int — looks like a pure return, but its computation depended on a file and a log call."
     }
   }
 }

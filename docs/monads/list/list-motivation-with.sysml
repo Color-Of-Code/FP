@@ -16,6 +16,7 @@
 // pure live inside outerFn (annotated below).
 
 package ListMotivationWith {
+    private import FpDiagram::*;
 
     // pure : a → [a]
     action def Pure {
@@ -30,24 +31,32 @@ package ListMotivationWith {
         out _  : "[b]";
     }
 
-    activity def CartesianWith {
+    action def CartesianWith {
         // inputs
-        object xs        : "[A]";
-        object ys        : "[B]";
+        #FpNodePresentation { role = "value"; tooltip = "[A] — first list. Outer iteration."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item xs        : "[A]";
+        #FpNodePresentation { role = "value"; tooltip = "[B] — second list. Inner iteration (under each x)."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+        item ys        : "[B]";
 
         // outer bind: xs >>= outerFn
         // outerFn = λx. ys >>= λy. pure (x, y)
-        object outerFn   : "A ⟶ [(A, B)]";
+        #FpNodePresentation { role = "hof"; tooltip = "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A]."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+        item outerFn   : "A ⟶ [(A, B)]";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : applies outerFn to every element of xs and concatenates the results."; laneId = "monad"; laneLabel = "List monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action bindOuter : Bind;
 
         // outerFn is itself built from an inner bind and pure;
         // shown here as side actions referenced by outerFn.
+        #FpNodePresentation { role = "function"; tooltip = ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys."; laneId = "monad"; laneLabel = "List monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindInner : Bind;
-        object innerFn   : "B ⟶ [(A, B)]";
+        #FpNodePresentation { role = "hof"; tooltip = "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "3"; }
+        item innerFn   : "B ⟶ [(A, B)]";
+        #FpNodePresentation { role = "function"; tooltip = "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list."; laneId = "monad"; laneLabel = "List monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action purePair  : Pure;
 
         // output
-        object result    : "[(A, B)]";
+        #FpNodePresentation { role = "type"; tooltip = "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "4"; }
+        item result    : "[(A, B)]";
 
         // main flow: the only thing on the linear path is xs → bindOuter → result
         flow from xs        to bindOuter : "[A]";
@@ -62,34 +71,14 @@ package ListMotivationWith {
         flow from purePair  to result    : "(via inner bind)";
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            xs, ys, outerFn, innerFn, result;
-        lane monad : "List monad" =
-            bindOuter, bindInner, purePair;
+
+
+    }
+    #FpViewPresentation { name = "cartesian"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: nested binds = nested loops; one bind per Cartesian axis*/
+        expose CartesianWith;
+        render fpActivityDiagram;
     }
 }
-
-#diagram {
-    type   = activity
-    layout = elk
-    title = "With pure + bind: nested binds = nested loops; one bind per Cartesian axis"
-    name  = "cartesian"
-    show xs        as value
-    show ys        as value
-    show bindOuter as function
-    show bindInner as function
-    show purePair  as function
-    show outerFn   as hof
-    show innerFn   as hof
-    show result    as type
-    tooltip xs        = "[A] — first list. Outer iteration."
-    tooltip ys        = "[B] — second list. Inner iteration (under each x)."
-    tooltip bindOuter = ">>= : applies outerFn to every element of xs and concatenates the results."
-    tooltip bindInner = ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys."
-    tooltip purePair  = "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list."
-    tooltip outerFn   = "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A]."
-    tooltip innerFn   = "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope."
-    tooltip result    = "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."
-}
-
 

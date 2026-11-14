@@ -76,6 +76,154 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ReaderBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ReaderBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "run_ra",
+                "type": "RunRA",
+                "role": "function",
+                "tooltip": "Run ra(env): supply env to ra, get result a"
+              },
+              {
+                "kind": "action",
+                "id": "apply_f",
+                "type": "ApplyF",
+                "role": "function",
+                "tooltip": "Apply f(a): build the next computation Reader r b from result a"
+              },
+              {
+                "kind": "action",
+                "id": "run_rb",
+                "type": "RunRB",
+                "role": "function",
+                "tooltip": "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "ra",
+                "type": "Reader r a",
+                "role": "type",
+                "tooltip": "Reader r a — a suspended computation: a function r ⟶ a, not yet executed"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ Reader r b",
+                "role": "hof",
+                "tooltip": "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b"
+              },
+              {
+                "kind": "object",
+                "id": "env",
+                "type": "r",
+                "role": "value",
+                "tooltip": "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified."
+              },
+              {
+                "kind": "object",
+                "id": "rb",
+                "type": "Reader r b",
+                "role": "type",
+                "tooltip": "Reader r b — the second computation (not yet run)"
+              },
+              {
+                "kind": "object",
+                "id": "b",
+                "type": "b",
+                "role": "value",
+                "tooltip": "b — the final result. The environment was never modified throughout."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "ra",
+                "to": "run_ra"
+              },
+              {
+                "kind": "flow",
+                "from": "env",
+                "to": "run_ra"
+              },
+              {
+                "kind": "flow",
+                "from": "run_ra",
+                "to": "apply_f",
+                "label": "a"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "apply_f"
+              },
+              {
+                "kind": "flow",
+                "from": "apply_f",
+                "to": "rb"
+              },
+              {
+                "kind": "flow",
+                "from": "rb",
+                "to": "run_rb"
+              },
+              {
+                "kind": "flow",
+                "from": "env",
+                "to": "run_rb"
+              },
+              {
+                "kind": "flow",
+                "from": "run_rb",
+                "to": "b"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "run_ra",
+                "to": "apply_f"
+              },
+              {
+                "kind": "succession",
+                "from": "apply_f",
+                "to": "run_rb"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "run_ra": "function",
+              "apply_f": "function",
+              "run_rb": "function",
+              "ra": "type",
+              "f": "hof",
+              "env": "value",
+              "rb": "type",
+              "b": "value"
+            },
+            "tooltips": {
+              "run_ra": "Run ra(env): supply env to ra, get result a",
+              "apply_f": "Apply f(a): build the next computation Reader r b from result a",
+              "run_rb": "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State.",
+              "ra": "Reader r a — a suspended computation: a function r ⟶ a, not yet executed",
+              "f": "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b",
+              "env": "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified.",
+              "rb": "Reader r b — the second computation (not yet run)",
+              "b": "b — the final result. The environment was never modified throughout."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -86,44 +234,60 @@
             {
               "kind": "action",
               "id": "run_ra",
-              "type": "RunRA"
+              "type": "RunRA",
+              "role": "function",
+              "tooltip": "Run ra(env): supply env to ra, get result a"
             },
             {
               "kind": "action",
               "id": "apply_f",
-              "type": "ApplyF"
+              "type": "ApplyF",
+              "role": "function",
+              "tooltip": "Apply f(a): build the next computation Reader r b from result a"
             },
             {
               "kind": "action",
               "id": "run_rb",
-              "type": "RunRB"
+              "type": "RunRB",
+              "role": "function",
+              "tooltip": "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "ra",
-              "type": "Reader r a"
+              "type": "Reader r a",
+              "role": "type",
+              "tooltip": "Reader r a — a suspended computation: a function r ⟶ a, not yet executed"
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ Reader r b"
+              "type": "a ⟶ Reader r b",
+              "role": "hof",
+              "tooltip": "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b"
             },
             {
               "kind": "object",
               "id": "env",
-              "type": "r"
+              "type": "r",
+              "role": "value",
+              "tooltip": "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified."
             },
             {
               "kind": "object",
               "id": "rb",
-              "type": "Reader r b"
+              "type": "Reader r b",
+              "role": "type",
+              "tooltip": "Reader r b — the second computation (not yet run)"
             },
             {
               "kind": "object",
               "id": "b",
-              "type": "b"
+              "type": "b",
+              "role": "value",
+              "tooltip": "b — the final result. The environment was never modified throughout."
             }
           ],
           "decisions": [],
@@ -184,7 +348,38 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "run_ra": "function",
+            "apply_f": "function",
+            "run_rb": "function",
+            "ra": "type",
+            "f": "hof",
+            "env": "value",
+            "rb": "type",
+            "b": "value"
+          },
+          "tooltips": {
+            "run_ra": "Run ra(env): supply env to ra, get result a",
+            "apply_f": "Apply f(a): build the next computation Reader r b from result a",
+            "run_rb": "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State.",
+            "ra": "Reader r a — a suspended computation: a function r ⟶ a, not yet executed",
+            "f": "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b",
+            "env": "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified.",
+            "rb": "Reader r b — the second computation (not yet run)",
+            "b": "b — the final result. The environment was never modified throughout."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ReaderBindImpl",
+          "viewType": "FpActivityView",
+          "expose": "ReaderBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>=",
+          "name": "bind"
         }
       ]
     }
@@ -193,24 +388,25 @@
     "diagType": "activity",
     "title": "Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>=",
     "name": "bind",
+    "render": "ReaderBindProcess",
     "shows": {
+      "run_ra": "function",
+      "apply_f": "function",
+      "run_rb": "function",
       "ra": "type",
       "f": "hof",
       "env": "value",
-      "run_ra": "function",
-      "apply_f": "function",
       "rb": "type",
-      "run_rb": "function",
       "b": "value"
     },
     "tooltips": {
+      "run_ra": "Run ra(env): supply env to ra, get result a",
+      "apply_f": "Apply f(a): build the next computation Reader r b from result a",
+      "run_rb": "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State.",
       "ra": "Reader r a — a suspended computation: a function r ⟶ a, not yet executed",
       "f": "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b",
       "env": "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified.",
-      "run_ra": "Run ra(env): supply env to ra, get result a",
-      "apply_f": "Apply f(a): build the next computation Reader r b from result a",
       "rb": "Reader r b — the second computation (not yet run)",
-      "run_rb": "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State.",
       "b": "b — the final result. The environment was never modified throughout."
     }
   }

@@ -46,6 +46,134 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplicativeProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ApplicativeProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "apStar",
+                "type": "ApplyWrapped",
+                "role": "function",
+                "tooltip": "(<*>) — applies the wrapped function to the wrapped argument"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "fff",
+                "type": "F(a ⟶ b)",
+                "role": "hof",
+                "tooltip": "F(a ⟶ b) — a function wrapped in context F, flowing in as a value (HOF)"
+              },
+              {
+                "kind": "object",
+                "id": "fa",
+                "type": "Fa",
+                "role": "type",
+                "tooltip": "Fa — the argument value, also wrapped in the same context F"
+              },
+              {
+                "kind": "object",
+                "id": "fb",
+                "type": "Fb",
+                "role": "type",
+                "tooltip": "Fb — result in context F; same context shape as input"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "fff",
+                "to": "apStar"
+              },
+              {
+                "kind": "flow",
+                "from": "fa",
+                "to": "apStar"
+              },
+              {
+                "kind": "flow",
+                "from": "apStar",
+                "to": "fb"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "apStar": "function",
+              "fff": "hof",
+              "fa": "type",
+              "fb": "type"
+            },
+            "tooltips": {
+              "apStar": "(<*>) — applies the wrapped function to the wrapped argument",
+              "fff": "F(a ⟶ b) — a function wrapped in context F, flowing in as a value (HOF)",
+              "fa": "Fa — the argument value, also wrapped in the same context F",
+              "fb": "Fb — result in context F; same context shape as input"
+            }
+          }
+        },
+        {
+          "kind": "actionDef",
+          "name": "PureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "PureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "pur",
+                "type": "PureOp"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "x",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "fa",
+                "type": "Fa",
+                "role": "type",
+                "tooltip": "Fa — the argument value, also wrapped in the same context F"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "pur"
+              },
+              {
+                "kind": "flow",
+                "from": "pur",
+                "to": "fa"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "fa": "type"
+            },
+            "tooltips": {
+              "fa": "Fa — the argument value, also wrapped in the same context F"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -56,24 +184,32 @@
             {
               "kind": "action",
               "id": "apStar",
-              "type": "ApplyWrapped"
+              "type": "ApplyWrapped",
+              "role": "function",
+              "tooltip": "(<*>) — applies the wrapped function to the wrapped argument"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "fff",
-              "type": "F(a ⟶ b)"
+              "type": "F(a ⟶ b)",
+              "role": "hof",
+              "tooltip": "F(a ⟶ b) — a function wrapped in context F, flowing in as a value (HOF)"
             },
             {
               "kind": "object",
               "id": "fa",
-              "type": "Fa"
+              "type": "Fa",
+              "role": "type",
+              "tooltip": "Fa — the argument value, also wrapped in the same context F"
             },
             {
               "kind": "object",
               "id": "fb",
-              "type": "Fb"
+              "type": "Fb",
+              "role": "type",
+              "tooltip": "Fb — result in context F; same context shape as input"
             }
           ],
           "decisions": [],
@@ -97,7 +233,19 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "apStar": "function",
+            "fff": "hof",
+            "fa": "type",
+            "fb": "type"
+          },
+          "tooltips": {
+            "apStar": "(<*>) — applies the wrapped function to the wrapped argument",
+            "fff": "F(a ⟶ b) — a function wrapped in context F, flowing in as a value (HOF)",
+            "fa": "Fa — the argument value, also wrapped in the same context F",
+            "fb": "Fb — result in context F; same context shape as input"
+          }
         },
         {
           "kind": "activityDef",
@@ -118,7 +266,9 @@
             {
               "kind": "object",
               "id": "fa",
-              "type": "Fa"
+              "type": "Fa",
+              "role": "type",
+              "tooltip": "Fa — the argument value, also wrapped in the same context F"
             }
           ],
           "decisions": [],
@@ -137,7 +287,24 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "fa": "type"
+          },
+          "tooltips": {
+            "fa": "Fa — the argument value, also wrapped in the same context F"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ApplicativeActivity",
+          "viewType": "FpActivityView",
+          "expose": "ApplicativeProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Applicative: (<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb",
+          "name": "<*>"
         }
       ]
     }
@@ -148,15 +315,15 @@
     "name": "<*>",
     "render": "ApplicativeProcess",
     "shows": {
+      "apStar": "function",
       "fff": "hof",
       "fa": "type",
-      "apStar": "function",
       "fb": "type"
     },
     "tooltips": {
+      "apStar": "(<*>) — applies the wrapped function to the wrapped argument",
       "fff": "F(a ⟶ b) — a function wrapped in context F, flowing in as a value (HOF)",
       "fa": "Fa — the argument value, also wrapped in the same context F",
-      "apStar": "(<*>) — applies the wrapped function to the wrapped argument",
       "fb": "Fb — result in context F; same context shape as input"
     }
   }

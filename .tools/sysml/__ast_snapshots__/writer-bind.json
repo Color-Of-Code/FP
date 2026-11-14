@@ -88,6 +88,186 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "WriterBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "WriterBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "extract",
+                "type": "ExtractPair",
+                "role": "function",
+                "tooltip": "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)"
+              },
+              {
+                "kind": "action",
+                "id": "apply",
+                "type": "ApplyF",
+                "role": "function",
+                "tooltip": "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2"
+              },
+              {
+                "kind": "action",
+                "id": "combine",
+                "type": "CombineLogs",
+                "role": "function",
+                "tooltip": "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "wa",
+                "type": "(a, w1)",
+                "role": "type",
+                "tooltip": "(a, w1) — result a paired with the first log fragment w1"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ (b, w2)",
+                "role": "hof",
+                "tooltip": "(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2"
+              },
+              {
+                "kind": "object",
+                "id": "a_val",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a — the value to pass to f"
+              },
+              {
+                "kind": "object",
+                "id": "w1",
+                "type": "w",
+                "role": "value",
+                "tooltip": "w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped."
+              },
+              {
+                "kind": "object",
+                "id": "b_val",
+                "type": "b",
+                "role": "value",
+                "tooltip": "b — the result value from f(a)"
+              },
+              {
+                "kind": "object",
+                "id": "w2",
+                "type": "w",
+                "role": "value",
+                "tooltip": "w — the second log fragment, produced by f(a). Combined with w1 from the first step."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "(b, w1<>w2)",
+                "role": "type",
+                "tooltip": "(b, w1<>w2) — the final result: value b and the complete accumulated log"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "wa",
+                "to": "extract"
+              },
+              {
+                "kind": "flow",
+                "from": "extract",
+                "to": "a_val"
+              },
+              {
+                "kind": "flow",
+                "from": "extract",
+                "to": "w1"
+              },
+              {
+                "kind": "flow",
+                "from": "a_val",
+                "to": "apply"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "apply"
+              },
+              {
+                "kind": "flow",
+                "from": "apply",
+                "to": "b_val"
+              },
+              {
+                "kind": "flow",
+                "from": "apply",
+                "to": "w2"
+              },
+              {
+                "kind": "flow",
+                "from": "b_val",
+                "to": "combine"
+              },
+              {
+                "kind": "flow",
+                "from": "w1",
+                "to": "combine"
+              },
+              {
+                "kind": "flow",
+                "from": "w2",
+                "to": "combine"
+              },
+              {
+                "kind": "flow",
+                "from": "combine",
+                "to": "result"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "extract",
+                "to": "apply"
+              },
+              {
+                "kind": "succession",
+                "from": "apply",
+                "to": "combine"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "extract": "function",
+              "apply": "function",
+              "combine": "function",
+              "wa": "type",
+              "f": "hof",
+              "a_val": "value",
+              "w1": "value",
+              "b_val": "value",
+              "w2": "value",
+              "result": "type"
+            },
+            "tooltips": {
+              "extract": "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)",
+              "apply": "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2",
+              "combine": "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append",
+              "wa": "(a, w1) — result a paired with the first log fragment w1",
+              "f": "(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2",
+              "a_val": "a — the value to pass to f",
+              "w1": "w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped.",
+              "b_val": "b — the result value from f(a)",
+              "w2": "w — the second log fragment, produced by f(a). Combined with w1 from the first step.",
+              "result": "(b, w1<>w2) — the final result: value b and the complete accumulated log"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -98,54 +278,74 @@
             {
               "kind": "action",
               "id": "extract",
-              "type": "ExtractPair"
+              "type": "ExtractPair",
+              "role": "function",
+              "tooltip": "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)"
             },
             {
               "kind": "action",
               "id": "apply",
-              "type": "ApplyF"
+              "type": "ApplyF",
+              "role": "function",
+              "tooltip": "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2"
             },
             {
               "kind": "action",
               "id": "combine",
-              "type": "CombineLogs"
+              "type": "CombineLogs",
+              "role": "function",
+              "tooltip": "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "wa",
-              "type": "(a, w1)"
+              "type": "(a, w1)",
+              "role": "type",
+              "tooltip": "(a, w1) — result a paired with the first log fragment w1"
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ (b, w2)"
+              "type": "a ⟶ (b, w2)",
+              "role": "hof",
+              "tooltip": "(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2"
             },
             {
               "kind": "object",
               "id": "a_val",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a — the value to pass to f"
             },
             {
               "kind": "object",
               "id": "w1",
-              "type": "w"
+              "type": "w",
+              "role": "value",
+              "tooltip": "w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped."
             },
             {
               "kind": "object",
               "id": "b_val",
-              "type": "b"
+              "type": "b",
+              "role": "value",
+              "tooltip": "b — the result value from f(a)"
             },
             {
               "kind": "object",
               "id": "w2",
-              "type": "w"
+              "type": "w",
+              "role": "value",
+              "tooltip": "w — the second log fragment, produced by f(a). Combined with w1 from the first step."
             },
             {
               "kind": "object",
               "id": "result",
-              "type": "(b, w1<>w2)"
+              "type": "(b, w1<>w2)",
+              "role": "type",
+              "tooltip": "(b, w1<>w2) — the final result: value b and the complete accumulated log"
             }
           ],
           "decisions": [],
@@ -220,7 +420,42 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "extract": "function",
+            "apply": "function",
+            "combine": "function",
+            "wa": "type",
+            "f": "hof",
+            "a_val": "value",
+            "w1": "value",
+            "b_val": "value",
+            "w2": "value",
+            "result": "type"
+          },
+          "tooltips": {
+            "extract": "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)",
+            "apply": "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2",
+            "combine": "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append",
+            "wa": "(a, w1) — result a paired with the first log fragment w1",
+            "f": "(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2",
+            "a_val": "a — the value to pass to f",
+            "w1": "w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped.",
+            "b_val": "b — the result value from f(a)",
+            "w2": "w — the second log fragment, produced by f(a). Combined with w1 from the first step.",
+            "result": "(b, w1<>w2) — the final result: value b and the complete accumulated log"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "WriterBindImpl",
+          "viewType": "FpActivityView",
+          "expose": "WriterBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2 — also called: flatMap, >>=",
+          "name": "bind"
         }
       ]
     }
@@ -229,28 +464,29 @@
     "diagType": "activity",
     "title": "Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2 — also called: flatMap, >>=",
     "name": "bind",
+    "render": "WriterBindProcess",
     "shows": {
+      "extract": "function",
+      "apply": "function",
+      "combine": "function",
       "wa": "type",
       "f": "hof",
-      "extract": "function",
       "a_val": "value",
       "w1": "value",
-      "apply": "function",
       "b_val": "value",
       "w2": "value",
-      "combine": "function",
       "result": "type"
     },
     "tooltips": {
+      "extract": "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)",
+      "apply": "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2",
+      "combine": "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append",
       "wa": "(a, w1) — result a paired with the first log fragment w1",
       "f": "(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2",
-      "extract": "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)",
       "a_val": "a — the value to pass to f",
       "w1": "w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped.",
-      "apply": "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2",
       "b_val": "b — the result value from f(a)",
       "w2": "w — the second log fragment, produced by f(a). Combined with w1 from the first step.",
-      "combine": "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append",
       "result": "(b, w1<>w2) — the final result: value b and the complete accumulated log"
     }
   }

@@ -6,6 +6,7 @@
 // means threading config through every call site.
 
 package ReaderMotivationWithout {
+    private import FpDiagram::*;
 
     action def GetHost {
         in  cfg  : Config;
@@ -24,17 +25,22 @@ package ReaderMotivationWithout {
         out _       : "URL";
     }
 
-    activity def BuildUrlWithout {
+    action def BuildUrlWithout {
         // input
-        object cfg : Config;
+        #FpNodePresentation { role = "type"; tooltip = "Config — the environment record. Every helper requires it as an argument."; }
+        item cfg : Config;
 
         // every helper receives cfg explicitly
+        #FpNodePresentation { role = "function"; tooltip = "getHost(config) — needs only config.host but takes the whole record."; }
         action getHost  : GetHost;
+        #FpNodePresentation { role = "function"; tooltip = "getPort(config) — needs only config.port but still receives the whole record."; }
         action getPort  : GetPort;
+        #FpNodePresentation { role = "function"; tooltip = "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing."; }
         action buildUrl : BuildUrl;
 
         // output
-        object url      : "URL";
+        #FpNodePresentation { role = "type"; tooltip = "URL — the result. Most of the signatures involved were boilerplate."; }
+        item url      : "URL";
 
         flow from cfg     to getHost;
         flow from cfg     to getPort;
@@ -43,22 +49,11 @@ package ReaderMotivationWithout {
         flow from getPort to buildUrl : "port : Int";
         flow from buildUrl to url;
     }
-}
-
-#diagram {
-    type   = activity
-    layout = elk
-    title = "Without bind: config passed into every function explicitly"
-    name  = "buildUrl"
-    show cfg      as type
-    show getHost  as function
-    show getPort  as function
-    show buildUrl as function
-    show url      as type
-    tooltip cfg      = "Config — the environment record. Every helper requires it as an argument."
-    tooltip getHost  = "getHost(config) — needs only config.host but takes the whole record."
-    tooltip getPort  = "getPort(config) — needs only config.port but still receives the whole record."
-    tooltip buildUrl = "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing."
-    tooltip url      = "URL — the result. Most of the signatures involved were boilerplate."
+    #FpViewPresentation { name = "buildUrl"; }
+    view diagram : FpActivityView {
+        doc /*Without bind: config passed into every function explicitly*/
+        expose BuildUrlWithout;
+        render fpActivityDiagram;
+    }
 }
 

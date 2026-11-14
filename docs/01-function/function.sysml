@@ -2,30 +2,29 @@
 // Concept: f :: a ⟶ b maps a value from the domain type to the codomain type.
 
 package FunctionActivity {
+    private import FpDiagram::*;
 
   action def FunctionOp {
     in  a : a;
     out b : b;
   }
 
-  activity def FunctionConcept {
-    object a : "type a";
+  action def FunctionConcept {
+    #FpNodePresentation { role = "type"; tooltip = "type a — the domain of f"; }
+    item a : "type a";
+    #FpNodePresentation { role = "function"; tooltip = "f consumes a value of type a and produces a value of type b"; }
     action f : FunctionOp;
-    object b : "type b";
+    #FpNodePresentation { role = "type"; tooltip = "type b — the codomain of f"; }
+    item b : "type b";
 
     flow from a to f : "domain";
     flow from f to b : "codomain";
   }
+    #FpViewPresentation { name = "function"; }
+    view diagram : FpActivityView {
+        doc /*Function f :: a ⟶ b*/
+        expose FunctionConcept;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-  type  = activity
-  title = "Function f :: a ⟶ b"
-  name  = "function"
-  show a as type
-  show f as function
-  show b as type
-  tooltip a = "type a — the domain of f"
-  tooltip f = "f consumes a value of type a and produces a value of type b"
-  tooltip b = "type b — the codomain of f"
-}

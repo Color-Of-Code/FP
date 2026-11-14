@@ -82,6 +82,304 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ProbBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ProbBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "branch1",
+                "type": "ApplyBranch",
+                "role": "function",
+                "tooltip": "Apply f(a1): get the conditional distribution Prob b given A = a1"
+              },
+              {
+                "kind": "action",
+                "id": "branch2",
+                "type": "ApplyBranch",
+                "role": "function",
+                "tooltip": "Apply f(a2): get the conditional distribution Prob b given A = a2"
+              },
+              {
+                "kind": "action",
+                "id": "weight1",
+                "type": "WeightBranch",
+                "role": "function",
+                "tooltip": "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)"
+              },
+              {
+                "kind": "action",
+                "id": "weight2",
+                "type": "WeightBranch",
+                "role": "function",
+                "tooltip": "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)"
+              },
+              {
+                "kind": "action",
+                "id": "merge",
+                "type": "Merge",
+                "role": "function",
+                "tooltip": "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B)."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "dist_a",
+                "type": "Prob a",
+                "role": "type",
+                "tooltip": "Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a)."
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ Prob b",
+                "role": "hof",
+                "tooltip": "(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b"
+              },
+              {
+                "kind": "object",
+                "id": "a1",
+                "type": "a",
+                "role": "value",
+                "tooltip": "Outcome a1 from Prob a"
+              },
+              {
+                "kind": "object",
+                "id": "pa1",
+                "type": "Double",
+                "role": "value",
+                "tooltip": "P(A = a1) — probability of outcome a1"
+              },
+              {
+                "kind": "object",
+                "id": "a2",
+                "type": "a",
+                "role": "value",
+                "tooltip": "Outcome a2 from Prob a"
+              },
+              {
+                "kind": "object",
+                "id": "pa2",
+                "type": "Double",
+                "role": "value",
+                "tooltip": "P(A = a2) — probability of outcome a2"
+              },
+              {
+                "kind": "object",
+                "id": "sub1",
+                "type": "Prob b",
+                "role": "type",
+                "tooltip": "Prob b — conditional distribution for branch a1"
+              },
+              {
+                "kind": "object",
+                "id": "sub2",
+                "type": "Prob b",
+                "role": "type",
+                "tooltip": "Prob b — conditional distribution for branch a2"
+              },
+              {
+                "kind": "object",
+                "id": "w1",
+                "type": "[(b, pa1·pb)]",
+                "role": "value",
+                "tooltip": "[(b, pa1·pb)] — weighted outcomes for branch a1"
+              },
+              {
+                "kind": "object",
+                "id": "w2",
+                "type": "[(b, pa2·pb)]",
+                "role": "value",
+                "tooltip": "[(b, pa2·pb)] — weighted outcomes for branch a2"
+              },
+              {
+                "kind": "object",
+                "id": "dist_b",
+                "type": "Prob b",
+                "role": "type",
+                "tooltip": "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "dist_a",
+                "to": "a1",
+                "label": "∀ a"
+              },
+              {
+                "kind": "flow",
+                "from": "dist_a",
+                "to": "pa1",
+                "label": "∀ a"
+              },
+              {
+                "kind": "flow",
+                "from": "dist_a",
+                "to": "a2",
+                "label": "∀ a"
+              },
+              {
+                "kind": "flow",
+                "from": "dist_a",
+                "to": "pa2",
+                "label": "∀ a"
+              },
+              {
+                "kind": "flow",
+                "from": "a1",
+                "to": "branch1"
+              },
+              {
+                "kind": "flow",
+                "from": "pa1",
+                "to": "branch1"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "branch1"
+              },
+              {
+                "kind": "flow",
+                "from": "branch1",
+                "to": "sub1"
+              },
+              {
+                "kind": "flow",
+                "from": "sub1",
+                "to": "weight1"
+              },
+              {
+                "kind": "flow",
+                "from": "pa1",
+                "to": "weight1"
+              },
+              {
+                "kind": "flow",
+                "from": "weight1",
+                "to": "w1"
+              },
+              {
+                "kind": "flow",
+                "from": "a2",
+                "to": "branch2"
+              },
+              {
+                "kind": "flow",
+                "from": "pa2",
+                "to": "branch2"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "branch2"
+              },
+              {
+                "kind": "flow",
+                "from": "branch2",
+                "to": "sub2"
+              },
+              {
+                "kind": "flow",
+                "from": "sub2",
+                "to": "weight2"
+              },
+              {
+                "kind": "flow",
+                "from": "pa2",
+                "to": "weight2"
+              },
+              {
+                "kind": "flow",
+                "from": "weight2",
+                "to": "w2"
+              },
+              {
+                "kind": "flow",
+                "from": "w1",
+                "to": "merge"
+              },
+              {
+                "kind": "flow",
+                "from": "w2",
+                "to": "merge"
+              },
+              {
+                "kind": "flow",
+                "from": "merge",
+                "to": "dist_b"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "branch1",
+                "to": "weight1"
+              },
+              {
+                "kind": "succession",
+                "from": "branch2",
+                "to": "weight2"
+              },
+              {
+                "kind": "succession",
+                "from": "weight1",
+                "to": "merge"
+              },
+              {
+                "kind": "succession",
+                "from": "weight2",
+                "to": "merge"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "branch1": "function",
+              "branch2": "function",
+              "weight1": "function",
+              "weight2": "function",
+              "merge": "function",
+              "dist_a": "type",
+              "f": "hof",
+              "a1": "value",
+              "pa1": "value",
+              "a2": "value",
+              "pa2": "value",
+              "sub1": "type",
+              "sub2": "type",
+              "w1": "value",
+              "w2": "value",
+              "dist_b": "type"
+            },
+            "tooltips": {
+              "branch1": "Apply f(a1): get the conditional distribution Prob b given A = a1",
+              "branch2": "Apply f(a2): get the conditional distribution Prob b given A = a2",
+              "weight1": "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)",
+              "weight2": "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)",
+              "merge": "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B).",
+              "dist_a": "Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a).",
+              "f": "(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b",
+              "a1": "Outcome a1 from Prob a",
+              "pa1": "P(A = a1) — probability of outcome a1",
+              "a2": "Outcome a2 from Prob a",
+              "pa2": "P(A = a2) — probability of outcome a2",
+              "sub1": "Prob b — conditional distribution for branch a1",
+              "sub2": "Prob b — conditional distribution for branch a2",
+              "w1": "[(b, pa1·pb)] — weighted outcomes for branch a1",
+              "w2": "[(b, pa2·pb)] — weighted outcomes for branch a2",
+              "dist_b": "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -92,84 +390,116 @@
             {
               "kind": "action",
               "id": "branch1",
-              "type": "ApplyBranch"
+              "type": "ApplyBranch",
+              "role": "function",
+              "tooltip": "Apply f(a1): get the conditional distribution Prob b given A = a1"
             },
             {
               "kind": "action",
               "id": "branch2",
-              "type": "ApplyBranch"
+              "type": "ApplyBranch",
+              "role": "function",
+              "tooltip": "Apply f(a2): get the conditional distribution Prob b given A = a2"
             },
             {
               "kind": "action",
               "id": "weight1",
-              "type": "WeightBranch"
+              "type": "WeightBranch",
+              "role": "function",
+              "tooltip": "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)"
             },
             {
               "kind": "action",
               "id": "weight2",
-              "type": "WeightBranch"
+              "type": "WeightBranch",
+              "role": "function",
+              "tooltip": "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)"
             },
             {
               "kind": "action",
               "id": "merge",
-              "type": "Merge"
+              "type": "Merge",
+              "role": "function",
+              "tooltip": "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B)."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "dist_a",
-              "type": "Prob a"
+              "type": "Prob a",
+              "role": "type",
+              "tooltip": "Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a)."
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ Prob b"
+              "type": "a ⟶ Prob b",
+              "role": "hof",
+              "tooltip": "(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b"
             },
             {
               "kind": "object",
               "id": "a1",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "Outcome a1 from Prob a"
             },
             {
               "kind": "object",
               "id": "pa1",
-              "type": "Double"
+              "type": "Double",
+              "role": "value",
+              "tooltip": "P(A = a1) — probability of outcome a1"
             },
             {
               "kind": "object",
               "id": "a2",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "Outcome a2 from Prob a"
             },
             {
               "kind": "object",
               "id": "pa2",
-              "type": "Double"
+              "type": "Double",
+              "role": "value",
+              "tooltip": "P(A = a2) — probability of outcome a2"
             },
             {
               "kind": "object",
               "id": "sub1",
-              "type": "Prob b"
+              "type": "Prob b",
+              "role": "type",
+              "tooltip": "Prob b — conditional distribution for branch a1"
             },
             {
               "kind": "object",
               "id": "sub2",
-              "type": "Prob b"
+              "type": "Prob b",
+              "role": "type",
+              "tooltip": "Prob b — conditional distribution for branch a2"
             },
             {
               "kind": "object",
               "id": "w1",
-              "type": "[(b, pa1·pb)]"
+              "type": "[(b, pa1·pb)]",
+              "role": "value",
+              "tooltip": "[(b, pa1·pb)] — weighted outcomes for branch a1"
             },
             {
               "kind": "object",
               "id": "w2",
-              "type": "[(b, pa2·pb)]"
+              "type": "[(b, pa2·pb)]",
+              "role": "value",
+              "tooltip": "[(b, pa2·pb)] — weighted outcomes for branch a2"
             },
             {
               "kind": "object",
               "id": "dist_b",
-              "type": "Prob b"
+              "type": "Prob b",
+              "role": "type",
+              "tooltip": "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"
             }
           ],
           "decisions": [],
@@ -308,7 +638,54 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "branch1": "function",
+            "branch2": "function",
+            "weight1": "function",
+            "weight2": "function",
+            "merge": "function",
+            "dist_a": "type",
+            "f": "hof",
+            "a1": "value",
+            "pa1": "value",
+            "a2": "value",
+            "pa2": "value",
+            "sub1": "type",
+            "sub2": "type",
+            "w1": "value",
+            "w2": "value",
+            "dist_b": "type"
+          },
+          "tooltips": {
+            "branch1": "Apply f(a1): get the conditional distribution Prob b given A = a1",
+            "branch2": "Apply f(a2): get the conditional distribution Prob b given A = a2",
+            "weight1": "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)",
+            "weight2": "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)",
+            "merge": "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B).",
+            "dist_a": "Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a).",
+            "f": "(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b",
+            "a1": "Outcome a1 from Prob a",
+            "pa1": "P(A = a1) — probability of outcome a1",
+            "a2": "Outcome a2 from Prob a",
+            "pa2": "P(A = a2) — probability of outcome a2",
+            "sub1": "Prob b — conditional distribution for branch a1",
+            "sub2": "Prob b — conditional distribution for branch a2",
+            "w1": "[(b, pa1·pb)] — weighted outcomes for branch a1",
+            "w2": "[(b, pa2·pb)] — weighted outcomes for branch a2",
+            "dist_b": "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ProbBindImpl",
+          "viewType": "FpActivityView",
+          "expose": "ProbBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>=",
+          "name": "bind"
         }
       ]
     }
@@ -317,40 +694,41 @@
     "diagType": "activity",
     "title": "Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>=",
     "name": "bind",
+    "render": "ProbBindProcess",
     "shows": {
+      "branch1": "function",
+      "branch2": "function",
+      "weight1": "function",
+      "weight2": "function",
+      "merge": "function",
       "dist_a": "type",
       "f": "hof",
       "a1": "value",
       "pa1": "value",
       "a2": "value",
       "pa2": "value",
-      "branch1": "function",
-      "branch2": "function",
       "sub1": "type",
       "sub2": "type",
-      "weight1": "function",
-      "weight2": "function",
       "w1": "value",
       "w2": "value",
-      "merge": "function",
       "dist_b": "type"
     },
     "tooltips": {
+      "branch1": "Apply f(a1): get the conditional distribution Prob b given A = a1",
+      "branch2": "Apply f(a2): get the conditional distribution Prob b given A = a2",
+      "weight1": "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)",
+      "weight2": "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)",
+      "merge": "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B).",
       "dist_a": "Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a).",
       "f": "(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b",
       "a1": "Outcome a1 from Prob a",
       "pa1": "P(A = a1) — probability of outcome a1",
       "a2": "Outcome a2 from Prob a",
       "pa2": "P(A = a2) — probability of outcome a2",
-      "branch1": "Apply f(a1): get the conditional distribution Prob b given A = a1",
-      "branch2": "Apply f(a2): get the conditional distribution Prob b given A = a2",
       "sub1": "Prob b — conditional distribution for branch a1",
       "sub2": "Prob b — conditional distribution for branch a2",
-      "weight1": "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)",
-      "weight2": "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)",
       "w1": "[(b, pa1·pb)] — weighted outcomes for branch a1",
       "w2": "[(b, pa2·pb)] — weighted outcomes for branch a2",
-      "merge": "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B).",
       "dist_b": "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"
     }
   }

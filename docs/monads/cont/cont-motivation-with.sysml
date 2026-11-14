@@ -15,6 +15,7 @@
 // no sentinel, no manual propagation.
 
 package ContMotivationWith {
+    private import FpDiagram::*;
 
     action def CallCC {
         in  body : "(b ⟶ Cont r b) ⟶ Cont r b";
@@ -43,23 +44,33 @@ package ContMotivationWith {
         out _  : "Cont r b";
     }
 
-    activity def ContChainWith {
+    action def ContChainWith {
         // entry: callCC seeds the chain with a Cont r b that has
         // captured the current continuation as `exit`
+        #FpNodePresentation { role = "function"; tooltip = "callCC : ((b → Cont r b) → Cont r b) → Cont r b. Captures the current continuation as exit and seeds the chain."; laneId = "monad"; laneLabel = "Cont monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action callCC    : CallCC;
 
         // each step is bind + a continuation-producing function
-        object step1Fn   : "b ⟶ Cont r c";
+        #FpNodePresentation { role = "hof"; tooltip = "step1 : b → Cont r c. HOF argument — input is b, not Cont r b."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item step1Fn   : "b ⟶ Cont r c";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : sequences step1 after callCC. Skipped if exit was already called."; laneId = "monad"; laneLabel = "Cont monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindStep1 : Bind;
 
-        object step2Fn   : "c ⟶ Cont r d";
+        #FpNodePresentation { role = "hof"; tooltip = "step2 : c → Cont r d. HOF argument."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+
+        item step2Fn   : "c ⟶ Cont r d";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : sequences step2. Same pattern."; laneId = "monad"; laneLabel = "Cont monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action bindStep2 : Bind;
 
-        object step3Fn   : "d ⟶ Cont r e";
+        #FpNodePresentation { role = "hof"; tooltip = "step3 : d → Cont r e. HOF argument."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+
+        item step3Fn   : "d ⟶ Cont r e";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : sequences step3. Same pattern."; laneId = "monad"; laneLabel = "Cont monad"; laneOrder = "1"; laneMemberOrder = "3"; }
         action bindStep3 : Bind;
 
         // output
-        object outVal    : "r";
+        #FpNodePresentation { role = "type"; tooltip = "r — the final continuation result. Reached either by completing the chain or by the exit shortcut."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "3"; }
+        item outVal    : "r";
 
         // main flow runs through the bind nodes
         flow from callCC    to bindStep1 : "Cont r b";
@@ -73,37 +84,18 @@ package ContMotivationWith {
         flow from step3Fn   to bindStep3;
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            step1Fn, step2Fn, step3Fn, outVal;
-        lane monad : "Cont monad" =
-            callCC, bindStep1, bindStep2, bindStep3;
+
+
 
         // captured continuation: calling exit a inside any step jumps
         // directly to the runCont call site, bypassing every bind
         flow from callCC    to outVal    : "exit a — direct jump (skips all binds)";
     }
-}
-
-#diagram {
-    type   = activity
-    layout = elk
-    title = "With callCC + bind: linear steps via bind; exit short-circuits straight to runCont"
-    name  = "contChain"
-    show callCC    as function
-    show bindStep1 as function
-    show bindStep2 as function
-    show bindStep3 as function
-    show step1Fn   as hof
-    show step2Fn   as hof
-    show step3Fn   as hof
-    show outVal    as type
-    tooltip callCC    = "callCC : ((b → Cont r b) → Cont r b) → Cont r b. Captures the current continuation as exit and seeds the chain."
-    tooltip bindStep1 = ">>= : sequences step1 after callCC. Skipped if exit was already called."
-    tooltip bindStep2 = ">>= : sequences step2. Same pattern."
-    tooltip bindStep3 = ">>= : sequences step3. Same pattern."
-    tooltip step1Fn   = "step1 : b → Cont r c. HOF argument — input is b, not Cont r b."
-    tooltip step2Fn   = "step2 : c → Cont r d. HOF argument."
-    tooltip step3Fn   = "step3 : d → Cont r e. HOF argument."
-    tooltip outVal    = "r — the final continuation result. Reached either by completing the chain or by the exit shortcut."
+    #FpViewPresentation { name = "contChain"; }
+    view diagram : FpActivityView {
+        doc /*With callCC + bind: linear steps via bind; exit short-circuits straight to runCont*/
+        expose ContChainWith;
+        render fpActivityDiagram;
+    }
 }
 

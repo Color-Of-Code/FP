@@ -22,6 +22,68 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "WriterTellProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "WriterTellProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "tell",
+                "type": "Tell",
+                "role": "function",
+                "tooltip": "Tell: emit w0 into the Writer log. The value component is unit ()."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "w0",
+                "type": "w",
+                "role": "value",
+                "tooltip": "w0 — a log fragment of monoid type w (e.g. \"step done\\\\n\", [event], 1)."
+              },
+              {
+                "kind": "object",
+                "id": "wu",
+                "type": "Writer w ()",
+                "role": "type",
+                "tooltip": "Writer w () = ((), w0). Subsequent bind concatenates this fragment with later logs via the monoid <>."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "w0",
+                "to": "tell"
+              },
+              {
+                "kind": "flow",
+                "from": "tell",
+                "to": "wu",
+                "label": "((), w0)"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "tell": "function",
+              "w0": "value",
+              "wu": "type"
+            },
+            "tooltips": {
+              "tell": "Tell: emit w0 into the Writer log. The value component is unit ().",
+              "w0": "w0 — a log fragment of monoid type w (e.g. \"step done\\\\n\", [event], 1).",
+              "wu": "Writer w () = ((), w0). Subsequent bind concatenates this fragment with later logs via the monoid <>."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +94,25 @@
             {
               "kind": "action",
               "id": "tell",
-              "type": "Tell"
+              "type": "Tell",
+              "role": "function",
+              "tooltip": "Tell: emit w0 into the Writer log. The value component is unit ()."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "w0",
-              "type": "w"
+              "type": "w",
+              "role": "value",
+              "tooltip": "w0 — a log fragment of monoid type w (e.g. \"step done\\\\n\", [event], 1)."
             },
             {
               "kind": "object",
               "id": "wu",
-              "type": "Writer w ()"
+              "type": "Writer w ()",
+              "role": "type",
+              "tooltip": "Writer w () = ((), w0). Subsequent bind concatenates this fragment with later logs via the monoid <>."
             }
           ],
           "decisions": [],
@@ -64,7 +132,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "tell": "function",
+            "w0": "value",
+            "wu": "type"
+          },
+          "tooltips": {
+            "tell": "Tell: emit w0 into the Writer log. The value component is unit ().",
+            "w0": "w0 — a log fragment of monoid type w (e.g. \"step done\\\\n\", [event], 1).",
+            "wu": "Writer w () = ((), w0). Subsequent bind concatenates this fragment with later logs via the monoid <>."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "WriterTellImpl",
+          "viewType": "FpActivityView",
+          "expose": "WriterTellProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "tell :: w ⟶ Writer w ()   (append w0 to the log; result is unit) — primitive",
+          "name": "tell"
         }
       ]
     }
@@ -73,14 +162,15 @@
     "diagType": "activity",
     "title": "tell :: w ⟶ Writer w ()   (append w0 to the log; result is unit) — primitive",
     "name": "tell",
+    "render": "WriterTellProcess",
     "shows": {
-      "w0": "value",
       "tell": "function",
+      "w0": "value",
       "wu": "type"
     },
     "tooltips": {
-      "w0": "w0 — a log fragment of monoid type w (e.g. \"step done\\\\n\", [event], 1).",
       "tell": "Tell: emit w0 into the Writer log. The value component is unit ().",
+      "w0": "w0 — a log fragment of monoid type w (e.g. \"step done\\\\n\", [event], 1).",
       "wu": "Writer w () = ((), w0). Subsequent bind concatenates this fragment with later logs via the monoid <>."
     }
   }

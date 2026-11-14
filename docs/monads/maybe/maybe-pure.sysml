@@ -7,35 +7,34 @@
 // Pairs with bind to complete the Maybe monad interface.
 
 package MaybePureImpl {
+    private import FpDiagram::*;
 
     action def WrapInJust {
         in  a      : a;
         out maybe_a : "Maybe a";
     }
 
-    activity def MaybePureProcess {
+    action def MaybePureProcess {
         // input: any plain value
-        object a0 : a;
+        #FpNodePresentation { role = "value"; tooltip = "a0 — any plain value to be lifted into the Maybe context."; }
+        item a0 : a;
 
         // wrap in Just
+        #FpNodePresentation { role = "function"; tooltip = "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure."; }
         action wrap : WrapInJust;
 
         // output: always Just a0, never Nothing
-        object just_a0 : "Maybe a";
+        #FpNodePresentation { role = "type"; tooltip = "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."; }
+        item just_a0 : "Maybe a";
 
         flow from a0 to wrap;
         flow from wrap to just_a0 : "Just a0";
     }
+    #FpViewPresentation { name = "pure"; }
+    view diagram : FpActivityView {
+        doc /*pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just*/
+        expose MaybePureProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just"
-    name  = "pure"
-    show a0      as value
-    show wrap    as function
-    show just_a0 as type
-    tooltip a0      = "a0 — any plain value to be lifted into the Maybe context."
-    tooltip wrap    = "WrapInJust: place a0 inside Just. This is the only thing pure does — no logic, no failure."
-    tooltip just_a0 = "Just a0 : Maybe a — always Just. pure never produces Nothing; that would violate the monad laws."
-}

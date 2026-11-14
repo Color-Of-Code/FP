@@ -52,6 +52,157 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "TransferWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "TransferWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "readA",
+                "type": "ReadA",
+                "role": "function",
+                "tooltip": "readTVar accountA : STM Int — STM action. Read tracked, not committed alone.",
+                "laneId": "monad",
+                "laneLabel": "STM monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindWriteA",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : sequences writeA(-delta) and the readB step. Reads/writes accumulate in the transaction.",
+                "laneId": "monad",
+                "laneLabel": "STM monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "action",
+                "id": "bindWriteB",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : sequences writeB(+delta). Final step before commit.",
+                "laneId": "monad",
+                "laneLabel": "STM monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 2
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "writeAThenFn",
+                "type": "Int ⟶ STM Int",
+                "role": "hof",
+                "tooltip": "λaVal. writeTVar accountA (aVal - delta) >> readTVar accountB. HOF argument — captures aVal in scope.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "writeBFn",
+                "type": "Int ⟶ STM ()",
+                "role": "hof",
+                "tooltip": "λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "object",
+                "id": "commit",
+                "type": "IO ()",
+                "role": "type",
+                "tooltip": "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 2
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "readA",
+                "to": "bindWriteA",
+                "label": "STM Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bindWriteA",
+                "to": "bindWriteB",
+                "label": "STM Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bindWriteB",
+                "to": "commit",
+                "label": "atomically"
+              },
+              {
+                "kind": "flow",
+                "from": "writeAThenFn",
+                "to": "bindWriteA"
+              },
+              {
+                "kind": "flow",
+                "from": "writeBFn",
+                "to": "bindWriteB"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "writeAThenFn",
+                  "writeBFn",
+                  "commit"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "STM monad",
+                "members": [
+                  "readA",
+                  "bindWriteA",
+                  "bindWriteB"
+                ]
+              }
+            ],
+            "shows": {
+              "readA": "function",
+              "bindWriteA": "function",
+              "bindWriteB": "function",
+              "writeAThenFn": "hof",
+              "writeBFn": "hof",
+              "commit": "type"
+            },
+            "tooltips": {
+              "readA": "readTVar accountA : STM Int — STM action. Read tracked, not committed alone.",
+              "bindWriteA": ">>= : sequences writeA(-delta) and the readB step. Reads/writes accumulate in the transaction.",
+              "bindWriteB": ">>= : sequences writeB(+delta). Final step before commit.",
+              "writeAThenFn": "λaVal. writeTVar accountA (aVal - delta) >> readTVar accountB. HOF argument — captures aVal in scope.",
+              "writeBFn": "λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal.",
+              "commit": "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -62,34 +213,70 @@
             {
               "kind": "action",
               "id": "readA",
-              "type": "ReadA"
+              "type": "ReadA",
+              "role": "function",
+              "tooltip": "readTVar accountA : STM Int — STM action. Read tracked, not committed alone.",
+              "laneId": "monad",
+              "laneLabel": "STM monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindWriteA",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : sequences writeA(-delta) and the readB step. Reads/writes accumulate in the transaction.",
+              "laneId": "monad",
+              "laneLabel": "STM monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             },
             {
               "kind": "action",
               "id": "bindWriteB",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : sequences writeB(+delta). Final step before commit.",
+              "laneId": "monad",
+              "laneLabel": "STM monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 2
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "writeAThenFn",
-              "type": "Int ⟶ STM Int"
+              "type": "Int ⟶ STM Int",
+              "role": "hof",
+              "tooltip": "λaVal. writeTVar accountA (aVal - delta) >> readTVar accountB. HOF argument — captures aVal in scope.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "writeBFn",
-              "type": "Int ⟶ STM ()"
+              "type": "Int ⟶ STM ()",
+              "role": "hof",
+              "tooltip": "λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             },
             {
               "kind": "object",
               "id": "commit",
-              "type": "IO ()"
+              "type": "IO ()",
+              "role": "type",
+              "tooltip": "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 2
             }
           ],
           "decisions": [],
@@ -147,7 +334,34 @@
                 "bindWriteB"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "readA": "function",
+            "bindWriteA": "function",
+            "bindWriteB": "function",
+            "writeAThenFn": "hof",
+            "writeBFn": "hof",
+            "commit": "type"
+          },
+          "tooltips": {
+            "readA": "readTVar accountA : STM Int — STM action. Read tracked, not committed alone.",
+            "bindWriteA": ">>= : sequences writeA(-delta) and the readB step. Reads/writes accumulate in the transaction.",
+            "bindWriteB": ">>= : sequences writeB(+delta). Final step before commit.",
+            "writeAThenFn": "λaVal. writeTVar accountA (aVal - delta) >> readTVar accountB. HOF argument — captures aVal in scope.",
+            "writeBFn": "λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal.",
+            "commit": "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "STMMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "TransferWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: STM actions compose freely; runtime commits atomically or retries",
+          "name": "transfer"
         }
       ]
     }
@@ -156,6 +370,7 @@
     "diagType": "activity",
     "title": "With pure + bind: STM actions compose freely; runtime commits atomically or retries",
     "name": "transfer",
+    "render": "TransferWith",
     "shows": {
       "readA": "function",
       "bindWriteA": "function",

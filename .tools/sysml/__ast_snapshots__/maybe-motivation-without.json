@@ -58,6 +58,177 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "LookupUserCityWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "LookupUserCityWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "findUser",
+                "type": "FindUser",
+                "role": "function",
+                "tooltip": "find_user(id) → Maybe User. May return Nothing if the user does not exist."
+              },
+              {
+                "kind": "action",
+                "id": "findAddress",
+                "type": "FindAddress",
+                "role": "function",
+                "tooltip": "find_address(user.address_id) → Maybe Address. May return Nothing if no address on file."
+              },
+              {
+                "kind": "action",
+                "id": "findCity",
+                "type": "FindCity",
+                "role": "function",
+                "tooltip": "find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "userId",
+                "type": "UserId",
+                "role": "value",
+                "tooltip": "The input: a user ID to look up."
+              },
+              {
+                "kind": "object",
+                "id": "nothing",
+                "type": "Nothing",
+                "role": "type",
+                "tooltip": "Nothing — returned when any step failed. Caller must also guard against this."
+              },
+              {
+                "kind": "object",
+                "id": "cityName",
+                "type": "String",
+                "role": "value",
+                "tooltip": "city.name — the happy-path result, reached only when all three checks pass."
+              }
+            ],
+            "decisions": [
+              {
+                "kind": "decision",
+                "id": "checkUser",
+                "label": "Nothing?",
+                "tooltip": "Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit."
+              },
+              {
+                "kind": "decision",
+                "id": "checkAddr",
+                "label": "Nothing?",
+                "tooltip": "Guard #2: same pattern repeated. Skipping this is a latent bug."
+              },
+              {
+                "kind": "decision",
+                "id": "checkCity",
+                "label": "Nothing?",
+                "tooltip": "Guard #3: yet another check. Business logic is buried in guards."
+              }
+            ],
+            "merges": [
+              {
+                "kind": "merge",
+                "id": "earlyExit",
+                "tooltip": "Any Nothing terminates the chain here — three separate failure paths converge."
+              }
+            ],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "userId",
+                "to": "findUser"
+              },
+              {
+                "kind": "flow",
+                "from": "findUser",
+                "to": "checkUser",
+                "label": "Maybe User"
+              },
+              {
+                "kind": "flow",
+                "from": "checkUser",
+                "to": "earlyExit",
+                "label": "Nothing"
+              },
+              {
+                "kind": "flow",
+                "from": "checkUser",
+                "to": "findAddress",
+                "label": "Just user"
+              },
+              {
+                "kind": "flow",
+                "from": "findAddress",
+                "to": "checkAddr",
+                "label": "Maybe Address"
+              },
+              {
+                "kind": "flow",
+                "from": "checkAddr",
+                "to": "earlyExit",
+                "label": "Nothing"
+              },
+              {
+                "kind": "flow",
+                "from": "checkAddr",
+                "to": "findCity",
+                "label": "Just address"
+              },
+              {
+                "kind": "flow",
+                "from": "findCity",
+                "to": "checkCity",
+                "label": "Maybe City"
+              },
+              {
+                "kind": "flow",
+                "from": "checkCity",
+                "to": "earlyExit",
+                "label": "Nothing"
+              },
+              {
+                "kind": "flow",
+                "from": "checkCity",
+                "to": "cityName",
+                "label": "Just city → name"
+              },
+              {
+                "kind": "flow",
+                "from": "earlyExit",
+                "to": "nothing"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "findUser": "function",
+              "findAddress": "function",
+              "findCity": "function",
+              "userId": "value",
+              "nothing": "type",
+              "cityName": "value"
+            },
+            "tooltips": {
+              "findUser": "find_user(id) → Maybe User. May return Nothing if the user does not exist.",
+              "findAddress": "find_address(user.address_id) → Maybe Address. May return Nothing if no address on file.",
+              "findCity": "find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing.",
+              "userId": "The input: a user ID to look up.",
+              "nothing": "Nothing — returned when any step failed. Caller must also guard against this.",
+              "cityName": "city.name — the happy-path result, reached only when all three checks pass.",
+              "checkUser": "Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit.",
+              "checkAddr": "Guard #2: same pattern repeated. Skipping this is a latent bug.",
+              "checkCity": "Guard #3: yet another check. Business logic is buried in guards.",
+              "earlyExit": "Any Nothing terminates the chain here — three separate failure paths converge."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -68,57 +239,73 @@
             {
               "kind": "action",
               "id": "findUser",
-              "type": "FindUser"
+              "type": "FindUser",
+              "role": "function",
+              "tooltip": "find_user(id) → Maybe User. May return Nothing if the user does not exist."
             },
             {
               "kind": "action",
               "id": "findAddress",
-              "type": "FindAddress"
+              "type": "FindAddress",
+              "role": "function",
+              "tooltip": "find_address(user.address_id) → Maybe Address. May return Nothing if no address on file."
             },
             {
               "kind": "action",
               "id": "findCity",
-              "type": "FindCity"
+              "type": "FindCity",
+              "role": "function",
+              "tooltip": "find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "userId",
-              "type": "UserId"
+              "type": "UserId",
+              "role": "value",
+              "tooltip": "The input: a user ID to look up."
             },
             {
               "kind": "object",
               "id": "nothing",
-              "type": "Nothing"
+              "type": "Nothing",
+              "role": "type",
+              "tooltip": "Nothing — returned when any step failed. Caller must also guard against this."
             },
             {
               "kind": "object",
               "id": "cityName",
-              "type": "String"
+              "type": "String",
+              "role": "value",
+              "tooltip": "city.name — the happy-path result, reached only when all three checks pass."
             }
           ],
           "decisions": [
             {
               "kind": "decision",
               "id": "checkUser",
-              "label": "Nothing?"
+              "label": "Nothing?",
+              "tooltip": "Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit."
             },
             {
               "kind": "decision",
               "id": "checkAddr",
-              "label": "Nothing?"
+              "label": "Nothing?",
+              "tooltip": "Guard #2: same pattern repeated. Skipping this is a latent bug."
             },
             {
               "kind": "decision",
               "id": "checkCity",
-              "label": "Nothing?"
+              "label": "Nothing?",
+              "tooltip": "Guard #3: yet another check. Business logic is buried in guards."
             }
           ],
           "merges": [
             {
               "kind": "merge",
-              "id": "earlyExit"
+              "id": "earlyExit",
+              "tooltip": "Any Nothing terminates the chain here — three separate failure paths converge."
             }
           ],
           "flows": [
@@ -189,7 +376,38 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "findUser": "function",
+            "findAddress": "function",
+            "findCity": "function",
+            "userId": "value",
+            "nothing": "type",
+            "cityName": "value"
+          },
+          "tooltips": {
+            "findUser": "find_user(id) → Maybe User. May return Nothing if the user does not exist.",
+            "findAddress": "find_address(user.address_id) → Maybe Address. May return Nothing if no address on file.",
+            "findCity": "find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing.",
+            "userId": "The input: a user ID to look up.",
+            "nothing": "Nothing — returned when any step failed. Caller must also guard against this.",
+            "cityName": "city.name — the happy-path result, reached only when all three checks pass.",
+            "checkUser": "Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit.",
+            "checkAddr": "Guard #2: same pattern repeated. Skipping this is a latent bug.",
+            "checkCity": "Guard #3: yet another check. Business logic is buried in guards.",
+            "earlyExit": "Any Nothing terminates the chain here — three separate failure paths converge."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MaybeMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "LookupUserCityWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without bind: explicit Nothing guard at every step",
+          "name": "lookupUserCity"
         }
       ]
     }
@@ -198,25 +416,26 @@
     "diagType": "activity",
     "title": "Without bind: explicit Nothing guard at every step",
     "name": "lookupUserCity",
+    "render": "LookupUserCityWithout",
     "shows": {
-      "userId": "value",
       "findUser": "function",
       "findAddress": "function",
       "findCity": "function",
+      "userId": "value",
       "nothing": "type",
       "cityName": "value"
     },
     "tooltips": {
-      "userId": "The input: a user ID to look up.",
       "findUser": "find_user(id) → Maybe User. May return Nothing if the user does not exist.",
       "findAddress": "find_address(user.address_id) → Maybe Address. May return Nothing if no address on file.",
       "findCity": "find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing.",
+      "userId": "The input: a user ID to look up.",
+      "nothing": "Nothing — returned when any step failed. Caller must also guard against this.",
+      "cityName": "city.name — the happy-path result, reached only when all three checks pass.",
       "checkUser": "Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit.",
       "checkAddr": "Guard #2: same pattern repeated. Skipping this is a latent bug.",
       "checkCity": "Guard #3: yet another check. Business logic is buried in guards.",
-      "earlyExit": "Any Nothing terminates the chain here — three separate failure paths converge.",
-      "nothing": "Nothing — returned when any step failed. Caller must also guard against this.",
-      "cityName": "city.name — the happy-path result, reached only when all three checks pass."
+      "earlyExit": "Any Nothing terminates the chain here — three separate failure paths converge."
     }
   }
 }

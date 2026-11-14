@@ -94,6 +94,219 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ParserBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ParserBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "run_pa",
+                "type": "RunPA",
+                "role": "function",
+                "tooltip": "Run pa(input): on success produces (a, rest); on failure produces Nothing"
+              },
+              {
+                "kind": "action",
+                "id": "apply_f",
+                "type": "ApplyF",
+                "role": "function",
+                "tooltip": "Apply f(a): build Parser b from the parsed value a"
+              },
+              {
+                "kind": "action",
+                "id": "run_pb",
+                "type": "RunPB",
+                "role": "function",
+                "tooltip": "Run pb(rest): parse b from the REMAINING input, not from the original input"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "pa",
+                "type": "Parser a",
+                "role": "type",
+                "tooltip": "Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ Parser b",
+                "role": "hof",
+                "tooltip": "(a ⟶ Parser b) — the next parser, built from the parsed value a"
+              },
+              {
+                "kind": "object",
+                "id": "input",
+                "type": "String",
+                "role": "value",
+                "tooltip": "String — the full input. pa consumes a prefix; rest is passed forward (like State monad)."
+              },
+              {
+                "kind": "object",
+                "id": "a_val",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a — the parsed value. Passed to f to build the next parser."
+              },
+              {
+                "kind": "object",
+                "id": "rest",
+                "type": "String",
+                "role": "value",
+                "tooltip": "String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading."
+              },
+              {
+                "kind": "object",
+                "id": "pb",
+                "type": "Parser b",
+                "role": "type",
+                "tooltip": "Parser b — the second parser"
+              },
+              {
+                "kind": "object",
+                "id": "b",
+                "type": "b",
+                "role": "value",
+                "tooltip": "b — the final parsed value"
+              },
+              {
+                "kind": "object",
+                "id": "rest2",
+                "type": "String",
+                "role": "value",
+                "tooltip": "String — input still unconsumed after both parsers ran"
+              },
+              {
+                "kind": "object",
+                "id": "fail_in",
+                "type": "Nothing",
+                "role": "type",
+                "tooltip": "Nothing — pa failed. No (a, rest) was produced."
+              },
+              {
+                "kind": "object",
+                "id": "fail_out",
+                "type": "Nothing",
+                "role": "type",
+                "tooltip": "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "pa",
+                "to": "run_pa"
+              },
+              {
+                "kind": "flow",
+                "from": "input",
+                "to": "run_pa"
+              },
+              {
+                "kind": "flow",
+                "from": "run_pa",
+                "to": "a_val"
+              },
+              {
+                "kind": "flow",
+                "from": "run_pa",
+                "to": "rest"
+              },
+              {
+                "kind": "flow",
+                "from": "a_val",
+                "to": "apply_f"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "apply_f"
+              },
+              {
+                "kind": "flow",
+                "from": "apply_f",
+                "to": "pb"
+              },
+              {
+                "kind": "flow",
+                "from": "pb",
+                "to": "run_pb"
+              },
+              {
+                "kind": "flow",
+                "from": "rest",
+                "to": "run_pb"
+              },
+              {
+                "kind": "flow",
+                "from": "run_pb",
+                "to": "b"
+              },
+              {
+                "kind": "flow",
+                "from": "run_pb",
+                "to": "rest2"
+              },
+              {
+                "kind": "flow",
+                "from": "fail_in",
+                "to": "fail_out",
+                "label": "f skipped"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "run_pa",
+                "to": "apply_f"
+              },
+              {
+                "kind": "succession",
+                "from": "apply_f",
+                "to": "run_pb"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "run_pa": "function",
+              "apply_f": "function",
+              "run_pb": "function",
+              "pa": "type",
+              "f": "hof",
+              "input": "value",
+              "a_val": "value",
+              "rest": "value",
+              "pb": "type",
+              "b": "value",
+              "rest2": "value",
+              "fail_in": "type",
+              "fail_out": "type"
+            },
+            "tooltips": {
+              "run_pa": "Run pa(input): on success produces (a, rest); on failure produces Nothing",
+              "apply_f": "Apply f(a): build Parser b from the parsed value a",
+              "run_pb": "Run pb(rest): parse b from the REMAINING input, not from the original input",
+              "pa": "Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing",
+              "f": "(a ⟶ Parser b) — the next parser, built from the parsed value a",
+              "input": "String — the full input. pa consumes a prefix; rest is passed forward (like State monad).",
+              "a_val": "a — the parsed value. Passed to f to build the next parser.",
+              "rest": "String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading.",
+              "pb": "Parser b — the second parser",
+              "b": "b — the final parsed value",
+              "rest2": "String — input still unconsumed after both parsers ran",
+              "fail_in": "Nothing — pa failed. No (a, rest) was produced.",
+              "fail_out": "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -104,69 +317,95 @@
             {
               "kind": "action",
               "id": "run_pa",
-              "type": "RunPA"
+              "type": "RunPA",
+              "role": "function",
+              "tooltip": "Run pa(input): on success produces (a, rest); on failure produces Nothing"
             },
             {
               "kind": "action",
               "id": "apply_f",
-              "type": "ApplyF"
+              "type": "ApplyF",
+              "role": "function",
+              "tooltip": "Apply f(a): build Parser b from the parsed value a"
             },
             {
               "kind": "action",
               "id": "run_pb",
-              "type": "RunPB"
+              "type": "RunPB",
+              "role": "function",
+              "tooltip": "Run pb(rest): parse b from the REMAINING input, not from the original input"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "pa",
-              "type": "Parser a"
+              "type": "Parser a",
+              "role": "type",
+              "tooltip": "Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing"
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ Parser b"
+              "type": "a ⟶ Parser b",
+              "role": "hof",
+              "tooltip": "(a ⟶ Parser b) — the next parser, built from the parsed value a"
             },
             {
               "kind": "object",
               "id": "input",
-              "type": "String"
+              "type": "String",
+              "role": "value",
+              "tooltip": "String — the full input. pa consumes a prefix; rest is passed forward (like State monad)."
             },
             {
               "kind": "object",
               "id": "a_val",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a — the parsed value. Passed to f to build the next parser."
             },
             {
               "kind": "object",
               "id": "rest",
-              "type": "String"
+              "type": "String",
+              "role": "value",
+              "tooltip": "String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading."
             },
             {
               "kind": "object",
               "id": "pb",
-              "type": "Parser b"
+              "type": "Parser b",
+              "role": "type",
+              "tooltip": "Parser b — the second parser"
             },
             {
               "kind": "object",
               "id": "b",
-              "type": "b"
+              "type": "b",
+              "role": "value",
+              "tooltip": "b — the final parsed value"
             },
             {
               "kind": "object",
               "id": "rest2",
-              "type": "String"
+              "type": "String",
+              "role": "value",
+              "tooltip": "String — input still unconsumed after both parsers ran"
             },
             {
               "kind": "object",
               "id": "fail_in",
-              "type": "Nothing"
+              "type": "Nothing",
+              "role": "type",
+              "tooltip": "Nothing — pa failed. No (a, rest) was produced."
             },
             {
               "kind": "object",
               "id": "fail_out",
-              "type": "Nothing"
+              "type": "Nothing",
+              "role": "type",
+              "tooltip": "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"
             }
           ],
           "decisions": [],
@@ -247,7 +486,48 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "run_pa": "function",
+            "apply_f": "function",
+            "run_pb": "function",
+            "pa": "type",
+            "f": "hof",
+            "input": "value",
+            "a_val": "value",
+            "rest": "value",
+            "pb": "type",
+            "b": "value",
+            "rest2": "value",
+            "fail_in": "type",
+            "fail_out": "type"
+          },
+          "tooltips": {
+            "run_pa": "Run pa(input): on success produces (a, rest); on failure produces Nothing",
+            "apply_f": "Apply f(a): build Parser b from the parsed value a",
+            "run_pb": "Run pb(rest): parse b from the REMAINING input, not from the original input",
+            "pa": "Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing",
+            "f": "(a ⟶ Parser b) — the next parser, built from the parsed value a",
+            "input": "String — the full input. pa consumes a prefix; rest is passed forward (like State monad).",
+            "a_val": "a — the parsed value. Passed to f to build the next parser.",
+            "rest": "String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading.",
+            "pb": "Parser b — the second parser",
+            "b": "b — the final parsed value",
+            "rest2": "String — input still unconsumed after both parsers ran",
+            "fail_in": "Nothing — pa failed. No (a, rest) was produced.",
+            "fail_out": "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ParserBindImpl",
+          "viewType": "FpActivityView",
+          "expose": "ParserBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>=",
+          "name": "bind"
         }
       ]
     }
@@ -256,31 +536,32 @@
     "diagType": "activity",
     "title": "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>=",
     "name": "bind",
+    "render": "ParserBindProcess",
     "shows": {
+      "run_pa": "function",
+      "apply_f": "function",
+      "run_pb": "function",
       "pa": "type",
       "f": "hof",
       "input": "value",
-      "run_pa": "function",
       "a_val": "value",
       "rest": "value",
-      "apply_f": "function",
       "pb": "type",
-      "run_pb": "function",
       "b": "value",
       "rest2": "value",
       "fail_in": "type",
       "fail_out": "type"
     },
     "tooltips": {
+      "run_pa": "Run pa(input): on success produces (a, rest); on failure produces Nothing",
+      "apply_f": "Apply f(a): build Parser b from the parsed value a",
+      "run_pb": "Run pb(rest): parse b from the REMAINING input, not from the original input",
       "pa": "Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing",
       "f": "(a ⟶ Parser b) — the next parser, built from the parsed value a",
       "input": "String — the full input. pa consumes a prefix; rest is passed forward (like State monad).",
-      "run_pa": "Run pa(input): on success produces (a, rest); on failure produces Nothing",
       "a_val": "a — the parsed value. Passed to f to build the next parser.",
       "rest": "String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading.",
-      "apply_f": "Apply f(a): build Parser b from the parsed value a",
       "pb": "Parser b — the second parser",
-      "run_pb": "Run pb(rest): parse b from the REMAINING input, not from the original input",
       "b": "b — the final parsed value",
       "rest2": "String — input still unconsumed after both parsers ran",
       "fail_in": "Nothing — pa failed. No (a, rest) was produced.",

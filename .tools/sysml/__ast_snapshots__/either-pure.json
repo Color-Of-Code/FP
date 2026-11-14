@@ -22,6 +22,68 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "EitherPureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "EitherPureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "wrap",
+                "type": "WrapInRight",
+                "role": "function",
+                "tooltip": "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a0 — any plain value to lift into the Either context (the success branch)."
+              },
+              {
+                "kind": "object",
+                "id": "right_a0",
+                "type": "Either e a",
+                "role": "type",
+                "tooltip": "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "wrap"
+              },
+              {
+                "kind": "flow",
+                "from": "wrap",
+                "to": "right_a0",
+                "label": "Right a0"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "wrap": "function",
+              "a0": "value",
+              "right_a0": "type"
+            },
+            "tooltips": {
+              "wrap": "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type.",
+              "a0": "a0 — any plain value to lift into the Either context (the success branch).",
+              "right_a0": "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +94,25 @@
             {
               "kind": "action",
               "id": "wrap",
-              "type": "WrapInRight"
+              "type": "WrapInRight",
+              "role": "function",
+              "tooltip": "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a0",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a0 — any plain value to lift into the Either context (the success branch)."
             },
             {
               "kind": "object",
               "id": "right_a0",
-              "type": "Either e a"
+              "type": "Either e a",
+              "role": "type",
+              "tooltip": "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."
             }
           ],
           "decisions": [],
@@ -64,7 +132,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "wrap": "function",
+            "a0": "value",
+            "right_a0": "type"
+          },
+          "tooltips": {
+            "wrap": "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type.",
+            "a0": "a0 — any plain value to lift into the Either context (the success branch).",
+            "right_a0": "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "EitherPureImpl",
+          "viewType": "FpActivityView",
+          "expose": "EitherPureProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok",
+          "name": "pure"
         }
       ]
     }
@@ -73,14 +162,15 @@
     "diagType": "activity",
     "title": "pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok",
     "name": "pure",
+    "render": "EitherPureProcess",
     "shows": {
-      "a0": "value",
       "wrap": "function",
+      "a0": "value",
       "right_a0": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to lift into the Either context (the success branch).",
       "wrap": "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type.",
+      "a0": "a0 — any plain value to lift into the Either context (the success branch).",
       "right_a0": "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."
     }
   }

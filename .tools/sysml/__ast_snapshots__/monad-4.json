@@ -28,6 +28,83 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ListBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ListBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bind",
+                "type": "ListBindOp",
+                "role": "function",
+                "tooltip": ">>= (concatMap): apply f to every element, flatten all resulting lists"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "La",
+                "type": "List a",
+                "role": "type",
+                "tooltip": "List a — each element processed by f (∀ a)"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ List b",
+                "role": "hof",
+                "tooltip": "(a ⟶ List b) — applied to every element, producing a list per element"
+              },
+              {
+                "kind": "object",
+                "id": "Lb",
+                "type": "List b",
+                "role": "type",
+                "tooltip": "List b — the concatenation of all result lists [0..*]"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "La",
+                "to": "bind",
+                "label": "∀ a"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "bind",
+                "to": "Lb",
+                "label": "[0..*]"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "bind": "function",
+              "La": "type",
+              "f": "hof",
+              "Lb": "type"
+            },
+            "tooltips": {
+              "bind": ">>= (concatMap): apply f to every element, flatten all resulting lists",
+              "La": "List a — each element processed by f (∀ a)",
+              "f": "(a ⟶ List b) — applied to every element, producing a list per element",
+              "Lb": "List b — the concatenation of all result lists [0..*]"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -38,24 +115,32 @@
             {
               "kind": "action",
               "id": "bind",
-              "type": "ListBindOp"
+              "type": "ListBindOp",
+              "role": "function",
+              "tooltip": ">>= (concatMap): apply f to every element, flatten all resulting lists"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "La",
-              "type": "List a"
+              "type": "List a",
+              "role": "type",
+              "tooltip": "List a — each element processed by f (∀ a)"
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ List b"
+              "type": "a ⟶ List b",
+              "role": "hof",
+              "tooltip": "(a ⟶ List b) — applied to every element, producing a list per element"
             },
             {
               "kind": "object",
               "id": "Lb",
-              "type": "List b"
+              "type": "List b",
+              "role": "type",
+              "tooltip": "List b — the concatenation of all result lists [0..*]"
             }
           ],
           "decisions": [],
@@ -81,7 +166,30 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "bind": "function",
+            "La": "type",
+            "f": "hof",
+            "Lb": "type"
+          },
+          "tooltips": {
+            "bind": ">>= (concatMap): apply f to every element, flatten all resulting lists",
+            "La": "List a — each element processed by f (∀ a)",
+            "f": "(a ⟶ List b) — applied to every element, producing a list per element",
+            "Lb": "List b — the concatenation of all result lists [0..*]"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ListMonadExample",
+          "viewType": "FpActivityView",
+          "expose": "ListBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "List Monad: bind :: List a ⟶ (a ⟶ List b) ⟶ List b",
+          "name": "bind"
         }
       ]
     }
@@ -90,16 +198,17 @@
     "diagType": "activity",
     "title": "List Monad: bind :: List a ⟶ (a ⟶ List b) ⟶ List b",
     "name": "bind",
+    "render": "ListBindProcess",
     "shows": {
+      "bind": "function",
       "La": "type",
       "f": "hof",
-      "bind": "function",
       "Lb": "type"
     },
     "tooltips": {
+      "bind": ">>= (concatMap): apply f to every element, flatten all resulting lists",
       "La": "List a — each element processed by f (∀ a)",
       "f": "(a ⟶ List b) — applied to every element, producing a list per element",
-      "bind": ">>= (concatMap): apply f to every element, flatten all resulting lists",
       "Lb": "List b — the concatenation of all result lists [0..*]"
     }
   }

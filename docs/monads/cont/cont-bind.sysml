@@ -9,6 +9,7 @@
 // callCC exploits this to capture k as an escape function.
 
 package ContBindImpl {
+    private import FpDiagram::*;
 
     action def BuildInnerK {
         in  f   : "a ⟶ Cont r b";
@@ -22,14 +23,21 @@ package ContBindImpl {
         out r   : r;                 // the final result
     }
 
-    activity def ContBindProcess {
-        object m   : "Cont r a";
-        object f   : "a ⟶ Cont r b";
-        object k   : "b ⟶ r";         // the downstream continuation (final consumer)
+    action def ContBindProcess {
+        #FpNodePresentation { role = "type"; tooltip = "Cont r a = (a ⟶ r) ⟶ r — m is waiting for its continuation. It does not run yet."; }
+        item m   : "Cont r a";
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Cont r b) — the continuation step; given a, produces a Cont r b action"; }
+        item f   : "a ⟶ Cont r b";
+        #FpNodePresentation { role = "value"; tooltip = "(b ⟶ r) — the downstream continuation: what happens after b is produced"; }
+        item k   : "b ⟶ r";         // the downstream continuation (final consumer)
+        #FpNodePresentation { role = "function"; tooltip = "Build inner continuation k2 = \\a -> f(a)(k)\nThis closure captures both f and k.\nWhen called with a, it: runs f(a) to get Cont r b, then runs that with k."; }
         action compose : BuildInnerK;  // build \a -> f(a)(k)
-        object k2  : "a ⟶ r";         // composed inner continuation
+        #FpNodePresentation { role = "value"; tooltip = "(a ⟶ r) — the composed continuation. When m eventually produces a, it calls k2(a), which runs f(a) and then k."; }
+        item k2  : "a ⟶ r";         // composed inner continuation
+        #FpNodePresentation { role = "function"; tooltip = "Run m with k2: m(k2). m runs LAST — this is the inversion of control.\nIf callCC is used, k (the downstream continuation) can be captured as an escape function."; }
         action run : RunM;             // give k2 to m; m runs LAST
-        object r   : r;
+        #FpNodePresentation { role = "type"; tooltip = "r — the final result of the entire composed computation"; }
+        item r   : r;
 
         flow from f to compose;
         flow from k to compose;        // k is captured in the closure
@@ -40,24 +48,11 @@ package ContBindImpl {
 
         succession compose then run;
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m — also called: >>=*/
+        expose ContBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m — also called: >>="
-    name  = "bind"
-    show m       as type
-    show f       as hof
-    show k       as value
-    show compose as function
-    show k2      as value
-    show run     as function
-    show r       as type
-    tooltip m       = "Cont r a = (a ⟶ r) ⟶ r — m is waiting for its continuation. It does not run yet."
-    tooltip f       = "(a ⟶ Cont r b) — the continuation step; given a, produces a Cont r b action"
-    tooltip k       = "(b ⟶ r) — the downstream continuation: what happens after b is produced"
-    tooltip compose = "Build inner continuation k2 = \\a -> f(a)(k)\nThis closure captures both f and k.\nWhen called with a, it: runs f(a) to get Cont r b, then runs that with k."
-    tooltip k2      = "(a ⟶ r) — the composed continuation. When m eventually produces a, it calls k2(a), which runs f(a) and then k."
-    tooltip run     = "Run m with k2: m(k2). m runs LAST — this is the inversion of control.\nIf callCC is used, k (the downstream continuation) can be captured as an escape function."
-    tooltip r       = "r — the final result of the entire composed computation"
-}

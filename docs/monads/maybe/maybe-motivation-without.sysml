@@ -15,6 +15,7 @@
 // manual null-guards vs. automatic bind short-circuiting.
 
 package MaybeMotivationWithout {
+    private import FpDiagram::*;
 
     action def FindUser {
         in  userId  : UserId;
@@ -31,26 +32,36 @@ package MaybeMotivationWithout {
         out _       : "Maybe City";
     }
 
-    activity def LookupUserCityWithout {
+    action def LookupUserCityWithout {
         // input
-        object userId    : UserId;
+        #FpNodePresentation { role = "value"; tooltip = "The input: a user ID to look up."; }
+        item userId    : UserId;
 
         // three fallible steps
+        #FpNodePresentation { role = "function"; tooltip = "find_user(id) → Maybe User. May return Nothing if the user does not exist."; }
         action findUser     : FindUser;
+        #FpNodePresentation { role = "function"; tooltip = "find_address(user.address_id) → Maybe Address. May return Nothing if no address on file."; }
         action findAddress  : FindAddress;
+        #FpNodePresentation { role = "function"; tooltip = "find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing."; }
         action findCity     : FindCity;
 
         // one null-guard per step — each pattern-matches its predecessor's output
-        decision checkUser : "Nothing?";
-        decision checkAddr : "Nothing?";
-        decision checkCity : "Nothing?";
+        #FpNodePresentation { tooltip = "Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit."; }
+        decide checkUser : "Nothing?";
+        #FpNodePresentation { tooltip = "Guard #2: same pattern repeated. Skipping this is a latent bug."; }
+        decide checkAddr : "Nothing?";
+        #FpNodePresentation { tooltip = "Guard #3: yet another check. Business logic is buried in guards."; }
+        decide checkCity : "Nothing?";
 
         // all null branches converge here
+        #FpNodePresentation { tooltip = "Any Nothing terminates the chain here — three separate failure paths converge."; }
         merge earlyExit;
 
         // outputs
-        object nothing   : "Nothing";
-        object cityName  : "String";
+        #FpNodePresentation { role = "type"; tooltip = "Nothing — returned when any step failed. Caller must also guard against this."; }
+        item nothing   : "Nothing";
+        #FpNodePresentation { role = "value"; tooltip = "city.name — the happy-path result, reached only when all three checks pass."; }
+        item cityName  : "String";
 
         // --- flows ---
         // Each action's Maybe output is carried directly to its guard,
@@ -70,28 +81,11 @@ package MaybeMotivationWithout {
 
         flow from earlyExit   to nothing;
     }
-}
-
-#diagram {
-    type   = activity
-    layout = elk
-    title = "Without bind: explicit Nothing guard at every step"
-    name  = "lookupUserCity"
-    show userId      as value
-    show findUser    as function
-    show findAddress as function
-    show findCity    as function
-    show nothing     as type
-    show cityName    as value
-    tooltip userId      = "The input: a user ID to look up."
-    tooltip findUser    = "find_user(id) → Maybe User. May return Nothing if the user does not exist."
-    tooltip findAddress = "find_address(user.address_id) → Maybe Address. May return Nothing if no address on file."
-    tooltip findCity    = "find_city(address.city_id) → Maybe City. May return Nothing if the city record is missing."
-    tooltip checkUser   = "Guard #1: pattern-matches Maybe User. The Just branch unwraps user for findAddress; Nothing joins earlyExit."
-    tooltip checkAddr   = "Guard #2: same pattern repeated. Skipping this is a latent bug."
-    tooltip checkCity   = "Guard #3: yet another check. Business logic is buried in guards."
-    tooltip earlyExit   = "Any Nothing terminates the chain here — three separate failure paths converge."
-    tooltip nothing     = "Nothing — returned when any step failed. Caller must also guard against this."
-    tooltip cityName    = "city.name — the happy-path result, reached only when all three checks pass."
+    #FpViewPresentation { name = "lookupUserCity"; }
+    view diagram : FpActivityView {
+        doc /*Without bind: explicit Nothing guard at every step*/
+        expose LookupUserCityWithout;
+        render fpActivityDiagram;
+    }
 }
 

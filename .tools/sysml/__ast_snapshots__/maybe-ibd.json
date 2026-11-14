@@ -12,25 +12,33 @@
               "kind": "part",
               "id": "ma_val",
               "type": "Maybe a",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called."
             },
             {
               "kind": "part",
               "id": "f_val",
               "type": "a ⟶ Maybe b",
-              "ports": []
+              "ports": [],
+              "role": "hof",
+              "tooltip": "(a ⟶ Maybe b) — called only when ma_val is Just a; may itself return Nothing"
             },
             {
               "kind": "part",
               "id": "bind",
               "type": "MaybeBindOp",
-              "ports": []
+              "ports": [],
+              "role": "function",
+              "tooltip": "Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)"
             },
             {
               "kind": "part",
               "id": "mb_val",
               "type": "Maybe b",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Maybe b — Just b (if every step succeeded) or Nothing (first failure propagated)"
             }
           ],
           "ports": [],
@@ -51,11 +59,33 @@
               "to": "mb_val"
             }
           ],
-          "notes": []
+          "notes": [],
+          "shows": {
+            "ma_val": "type",
+            "f_val": "hof",
+            "bind": "function",
+            "mb_val": "type"
+          },
+          "tooltips": {
+            "ma_val": "Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called.",
+            "f_val": "(a ⟶ Maybe b) — called only when ma_val is Just a; may itself return Nothing",
+            "bind": "Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)",
+            "mb_val": "Maybe b — Just b (if every step succeeded) or Nothing (first failure propagated)"
+          }
         }
       ],
       "actionDefs": [],
-      "activityDefs": []
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MaybeSignature",
+          "viewType": "FpIbdView",
+          "expose": "MaybeBindContext",
+          "rendering": "fpIbdDiagram",
+          "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — also called: flatMap, andThen / and_then, SelectMany, chain, >>="
+        }
+      ]
     }
   ],
   "diagram": {

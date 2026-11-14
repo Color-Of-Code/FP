@@ -22,6 +22,68 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "STMPureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "STMPureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "wrap",
+                "type": "WrapAsSTM",
+                "role": "function",
+                "tooltip": "WrapAsSTM: build a transaction that touches no TVar. Empty read set, empty write set — always commits."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a0 — any plain value."
+              },
+              {
+                "kind": "object",
+                "id": "sa",
+                "type": "STM a",
+                "role": "type",
+                "tooltip": "STM a — a transaction whose only effect is producing a0. Combines with other STM actions via bind / orElse without conflict."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "wrap"
+              },
+              {
+                "kind": "flow",
+                "from": "wrap",
+                "to": "sa",
+                "label": "STM (return a0)"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "wrap": "function",
+              "a0": "value",
+              "sa": "type"
+            },
+            "tooltips": {
+              "wrap": "WrapAsSTM: build a transaction that touches no TVar. Empty read set, empty write set — always commits.",
+              "a0": "a0 — any plain value.",
+              "sa": "STM a — a transaction whose only effect is producing a0. Combines with other STM actions via bind / orElse without conflict."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +94,25 @@
             {
               "kind": "action",
               "id": "wrap",
-              "type": "WrapAsSTM"
+              "type": "WrapAsSTM",
+              "role": "function",
+              "tooltip": "WrapAsSTM: build a transaction that touches no TVar. Empty read set, empty write set — always commits."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a0",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a0 — any plain value."
             },
             {
               "kind": "object",
               "id": "sa",
-              "type": "STM a"
+              "type": "STM a",
+              "role": "type",
+              "tooltip": "STM a — a transaction whose only effect is producing a0. Combines with other STM actions via bind / orElse without conflict."
             }
           ],
           "decisions": [],
@@ -64,7 +132,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "wrap": "function",
+            "a0": "value",
+            "sa": "type"
+          },
+          "tooltips": {
+            "wrap": "WrapAsSTM: build a transaction that touches no TVar. Empty read set, empty write set — always commits.",
+            "a0": "a0 — any plain value.",
+            "sa": "STM a — a transaction whose only effect is producing a0. Combines with other STM actions via bind / orElse without conflict."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "STMPureImpl",
+          "viewType": "FpActivityView",
+          "expose": "STMPureProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "pure :: a ⟶ STM a   (no-read, no-write transaction yielding a0) — also called: return",
+          "name": "pure"
         }
       ]
     }
@@ -73,14 +162,15 @@
     "diagType": "activity",
     "title": "pure :: a ⟶ STM a   (no-read, no-write transaction yielding a0) — also called: return",
     "name": "pure",
+    "render": "STMPureProcess",
     "shows": {
-      "a0": "value",
       "wrap": "function",
+      "a0": "value",
       "sa": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value.",
       "wrap": "WrapAsSTM: build a transaction that touches no TVar. Empty read set, empty write set — always commits.",
+      "a0": "a0 — any plain value.",
       "sa": "STM a — a transaction whose only effect is producing a0. Combines with other STM actions via bind / orElse without conflict."
     }
   }

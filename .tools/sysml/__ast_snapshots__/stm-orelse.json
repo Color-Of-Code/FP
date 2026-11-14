@@ -28,6 +28,82 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "STMOrElseProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "STMOrElseProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "oe",
+                "type": "OrElse",
+                "role": "function",
+                "tooltip": "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "s1",
+                "type": "STM a",
+                "role": "value",
+                "tooltip": "s1 : STM a — primary transaction.  If it commits, sr is its result."
+              },
+              {
+                "kind": "object",
+                "id": "s2",
+                "type": "STM a",
+                "role": "value",
+                "tooltip": "s2 : STM a — alternative transaction tried only if s1 calls retry."
+              },
+              {
+                "kind": "object",
+                "id": "sr",
+                "type": "STM a",
+                "role": "type",
+                "tooltip": "STM a — result of whichever branch commits.  Never blocks unless both branches retry."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "s1",
+                "to": "oe"
+              },
+              {
+                "kind": "flow",
+                "from": "s2",
+                "to": "oe"
+              },
+              {
+                "kind": "flow",
+                "from": "oe",
+                "to": "sr",
+                "label": "run s1; on retry, run s2"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "oe": "function",
+              "s1": "value",
+              "s2": "value",
+              "sr": "type"
+            },
+            "tooltips": {
+              "oe": "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry.",
+              "s1": "s1 : STM a — primary transaction.  If it commits, sr is its result.",
+              "s2": "s2 : STM a — alternative transaction tried only if s1 calls retry.",
+              "sr": "STM a — result of whichever branch commits.  Never blocks unless both branches retry."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -38,24 +114,32 @@
             {
               "kind": "action",
               "id": "oe",
-              "type": "OrElse"
+              "type": "OrElse",
+              "role": "function",
+              "tooltip": "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "s1",
-              "type": "STM a"
+              "type": "STM a",
+              "role": "value",
+              "tooltip": "s1 : STM a — primary transaction.  If it commits, sr is its result."
             },
             {
               "kind": "object",
               "id": "s2",
-              "type": "STM a"
+              "type": "STM a",
+              "role": "value",
+              "tooltip": "s2 : STM a — alternative transaction tried only if s1 calls retry."
             },
             {
               "kind": "object",
               "id": "sr",
-              "type": "STM a"
+              "type": "STM a",
+              "role": "type",
+              "tooltip": "STM a — result of whichever branch commits.  Never blocks unless both branches retry."
             }
           ],
           "decisions": [],
@@ -80,7 +164,30 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "oe": "function",
+            "s1": "value",
+            "s2": "value",
+            "sr": "type"
+          },
+          "tooltips": {
+            "oe": "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry.",
+            "s1": "s1 : STM a — primary transaction.  If it commits, sr is its result.",
+            "s2": "s2 : STM a — alternative transaction tried only if s1 calls retry.",
+            "sr": "STM a — result of whichever branch commits.  Never blocks unless both branches retry."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "STMOrElseImpl",
+          "viewType": "FpActivityView",
+          "expose": "STMOrElseProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "orElse :: STM a ⟶ STM a ⟶ STM a   (try s1; on retry, fall back to s2) — primitive",
+          "name": "orElse"
         }
       ]
     }
@@ -89,16 +196,17 @@
     "diagType": "activity",
     "title": "orElse :: STM a ⟶ STM a ⟶ STM a   (try s1; on retry, fall back to s2) — primitive",
     "name": "orElse",
+    "render": "STMOrElseProcess",
     "shows": {
+      "oe": "function",
       "s1": "value",
       "s2": "value",
-      "oe": "function",
       "sr": "type"
     },
     "tooltips": {
+      "oe": "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry.",
       "s1": "s1 : STM a — primary transaction.  If it commits, sr is its result.",
       "s2": "s2 : STM a — alternative transaction tried only if s1 calls retry.",
-      "oe": "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry.",
       "sr": "STM a — result of whichever branch commits.  Never blocks unless both branches retry."
     }
   }

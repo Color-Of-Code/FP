@@ -10,6 +10,7 @@
 // plumbing vs. automatic via bind.
 
 package StateMotivationWithout {
+    private import FpDiagram::*;
 
     action def Step1 {
         in  a    : A;
@@ -29,22 +30,32 @@ package StateMotivationWithout {
         out _    : "(D, s)";
     }
 
-    activity def StateChainWithout {
+    action def StateChainWithout {
         // input
-        object a0 : A;
-        object s0 : "s0 (initial)";
+        #FpNodePresentation { role = "value"; tooltip = "Plain input value of type A."; }
+        item a0 : A;
+        #FpNodePresentation { role = "type"; tooltip = "Initial state, passed in by the caller."; }
+        item s0 : "s0 (initial)";
 
         // intermediate states must be threaded by hand
-        object s1 : "s1";
-        object s2 : "s2";
-        object sFinal : "s3 (final)";
+        #FpNodePresentation { role = "type"; tooltip = "Intermediate state — must be threaded into step2 by hand."; }
+        item s1 : "s1";
+        #FpNodePresentation { role = "type"; tooltip = "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug."; }
+        item s2 : "s2";
+        #FpNodePresentation { role = "type"; tooltip = "Final state — caller is also responsible for receiving and forwarding it."; }
+        item sFinal : "s3 (final)";
+
+        #FpNodePresentation { role = "function"; tooltip = "step1(a, s0) → (b, s1). Returns a new state alongside the value."; }
 
         action step1 : Step1;
+        #FpNodePresentation { role = "function"; tooltip = "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong."; }
         action step2 : Step2;
+        #FpNodePresentation { role = "function"; tooltip = "step3(c, s2) → (d, s3). Same plumbing, repeated."; }
         action step3 : Step3;
 
         // output
-        object outResult : "(D, sFinal)";
+        #FpNodePresentation { role = "type"; tooltip = "(d, sFinal) — caller unpacks both."; }
+        item outResult : "(D, sFinal)";
 
         flow from a0    to step1;
         flow from s0    to step1;
@@ -55,30 +66,11 @@ package StateMotivationWithout {
         flow from step3 to sFinal : "(d, sFinal)";
         flow from step3 to outResult;
     }
-}
-
-#diagram {
-    type   = activity
-    layout = elk
-    title = "Without bind: state threaded as explicit s0/s1/s2/s3 variables"
-    name  = "stateChain"
-    show a0        as value
-    show s0        as type
-    show s1        as type
-    show s2        as type
-    show sFinal    as type
-    show step1     as function
-    show step2     as function
-    show step3     as function
-    show outResult as type
-    tooltip a0        = "Plain input value of type A."
-    tooltip s0        = "Initial state, passed in by the caller."
-    tooltip s1        = "Intermediate state — must be threaded into step2 by hand."
-    tooltip s2        = "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug."
-    tooltip sFinal    = "Final state — caller is also responsible for receiving and forwarding it."
-    tooltip step1     = "step1(a, s0) → (b, s1). Returns a new state alongside the value."
-    tooltip step2     = "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong."
-    tooltip step3     = "step3(c, s2) → (d, s3). Same plumbing, repeated."
-    tooltip outResult = "(d, sFinal) — caller unpacks both."
+    #FpViewPresentation { name = "stateChain"; }
+    view diagram : FpActivityView {
+        doc /*Without bind: state threaded as explicit s0/s1/s2/s3 variables*/
+        expose StateChainWithout;
+        render fpActivityDiagram;
+    }
 }
 

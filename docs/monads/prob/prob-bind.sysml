@@ -4,6 +4,7 @@
 // This is P(B=b) = Σ_a P(B=b | A=a) · P(A=a) — Bayes / law of total probability.
 
 package ProbBindImpl {
+    private import FpDiagram::*;
 
     action def ApplyBranch {
         in  a_val  : a;
@@ -24,24 +25,40 @@ package ProbBindImpl {
         out dist_b : "Prob b";         // marginal distribution over b
     }
 
-    activity def ProbBindProcess {
-        object dist_a  : "Prob a";
-        object f       : "a ⟶ Prob b";
+    action def ProbBindProcess {
+        #FpNodePresentation { role = "type"; tooltip = "Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a)."; }
+        item dist_a  : "Prob a";
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b"; }
+        item f       : "a ⟶ Prob b";
         // two representative branches (pattern repeats ∀ a in dist_a)
-        object a1      : a;
-        object pa1     : Double;        // P(A = a1)
-        object a2      : a;
-        object pa2     : Double;        // P(A = a2)
+        #FpNodePresentation { role = "value"; tooltip = "Outcome a1 from Prob a"; }
+        item a1      : a;
+        #FpNodePresentation { role = "value"; tooltip = "P(A = a1) — probability of outcome a1"; }
+        item pa1     : Double;        // P(A = a1)
+        #FpNodePresentation { role = "value"; tooltip = "Outcome a2 from Prob a"; }
+        item a2      : a;
+        #FpNodePresentation { role = "value"; tooltip = "P(A = a2) — probability of outcome a2"; }
+        item pa2     : Double;        // P(A = a2)
+        #FpNodePresentation { role = "function"; tooltip = "Apply f(a1): get the conditional distribution Prob b given A = a1"; }
         action branch1 : ApplyBranch;
+        #FpNodePresentation { role = "function"; tooltip = "Apply f(a2): get the conditional distribution Prob b given A = a2"; }
         action branch2 : ApplyBranch;
-        object sub1    : "Prob b";
-        object sub2    : "Prob b";
+        #FpNodePresentation { role = "type"; tooltip = "Prob b — conditional distribution for branch a1"; }
+        item sub1    : "Prob b";
+        #FpNodePresentation { role = "type"; tooltip = "Prob b — conditional distribution for branch a2"; }
+        item sub2    : "Prob b";
+        #FpNodePresentation { role = "function"; tooltip = "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)"; }
         action weight1 : WeightBranch;
+        #FpNodePresentation { role = "function"; tooltip = "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)"; }
         action weight2 : WeightBranch;
-        object w1      : "[(b, pa1·pb)]";
-        object w2      : "[(b, pa2·pb)]";
+        #FpNodePresentation { role = "value"; tooltip = "[(b, pa1·pb)] — weighted outcomes for branch a1"; }
+        item w1      : "[(b, pa1·pb)]";
+        #FpNodePresentation { role = "value"; tooltip = "[(b, pa2·pb)] — weighted outcomes for branch a2"; }
+        item w2      : "[(b, pa2·pb)]";
+        #FpNodePresentation { role = "function"; tooltip = "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B)."; }
         action merge   : Merge;
-        object dist_b  : "Prob b";
+        #FpNodePresentation { role = "type"; tooltip = "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"; }
+        item dist_b  : "Prob b";
 
         flow from dist_a to a1  : "∀ a";
         flow from dist_a to pa1 : "∀ a";
@@ -73,42 +90,11 @@ package ProbBindImpl {
         succession weight1 then merge;
         succession weight2 then merge;
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>=*/
+        expose ProbBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>="
-    name  = "bind"
-    show dist_a  as type
-    show f       as hof
-    show a1      as value
-    show pa1     as value
-    show a2      as value
-    show pa2     as value
-    show branch1 as function
-    show branch2 as function
-    show sub1    as type
-    show sub2    as type
-    show weight1 as function
-    show weight2 as function
-    show w1      as value
-    show w2      as value
-    show merge   as function
-    show dist_b  as type
-    tooltip dist_a  = "Prob a = [(a, p)] — each (a, pa) is an outcome with probability pa. Repeats for every element (∀ a)."
-    tooltip f       = "(a ⟶ Prob b) — conditional distribution: given each outcome a, returns a distribution over b"
-    tooltip a1      = "Outcome a1 from Prob a"
-    tooltip pa1     = "P(A = a1) — probability of outcome a1"
-    tooltip a2      = "Outcome a2 from Prob a"
-    tooltip pa2     = "P(A = a2) — probability of outcome a2"
-    tooltip branch1 = "Apply f(a1): get the conditional distribution Prob b given A = a1"
-    tooltip branch2 = "Apply f(a2): get the conditional distribution Prob b given A = a2"
-    tooltip sub1    = "Prob b — conditional distribution for branch a1"
-    tooltip sub2    = "Prob b — conditional distribution for branch a2"
-    tooltip weight1 = "Scale: each (b, pb) in sub1 gets weight pa1 * pb — P(B=b | A=a1) * P(A=a1)"
-    tooltip weight2 = "Scale: each (b, pb) in sub2 gets weight pa2 * pb — P(B=b | A=a2) * P(A=a2)"
-    tooltip w1      = "[(b, pa1·pb)] — weighted outcomes for branch a1"
-    tooltip w2      = "[(b, pa2·pb)] — weighted outcomes for branch a2"
-    tooltip merge   = "Concatenate: w1 ++ w2 (and repeat for all other branches). Result is the marginal distribution P(B)."
-    tooltip dist_b  = "Prob b — the marginal distribution: P(B=b) = Σ_a P(B=b|A=a)·P(A=a)"
-}

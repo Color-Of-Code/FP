@@ -64,6 +64,97 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CoinThenDieWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "CoinThenDieWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "outer",
+                "type": "OuterLoop",
+                "role": "function",
+                "tooltip": "for (face, p_coin) in coin — opens an outer loop; the inner loop over the die's conditional distribution is implied inside multiply."
+              },
+              {
+                "kind": "action",
+                "id": "multiply",
+                "type": "Multiply",
+                "role": "function",
+                "tooltip": "p_coin * p_score — multiply marginal × conditional by hand. Off-by-one here is invisible until totals don't sum to one."
+              },
+              {
+                "kind": "action",
+                "id": "flatten",
+                "type": "Flatten",
+                "role": "function",
+                "tooltip": "Flatten the nested [[ (Int, Float) ]] back into a single distribution."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "coin",
+                "type": "Prob CoinFace",
+                "role": "type",
+                "tooltip": "Prob CoinFace — the coin distribution as a list of (face, probability) pairs."
+              },
+              {
+                "kind": "object",
+                "id": "outResult",
+                "type": "[(Int, Float)]",
+                "role": "type",
+                "tooltip": "[(Int, Float)] — the joint distribution, hand-built."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "coin",
+                "to": "outer"
+              },
+              {
+                "kind": "flow",
+                "from": "outer",
+                "to": "multiply",
+                "label": "for (face, p_coin)"
+              },
+              {
+                "kind": "flow",
+                "from": "multiply",
+                "to": "flatten",
+                "label": "p_coin * p_score"
+              },
+              {
+                "kind": "flow",
+                "from": "flatten",
+                "to": "outResult"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "outer": "function",
+              "multiply": "function",
+              "flatten": "function",
+              "coin": "type",
+              "outResult": "type"
+            },
+            "tooltips": {
+              "outer": "for (face, p_coin) in coin — opens an outer loop; the inner loop over the die's conditional distribution is implied inside multiply.",
+              "multiply": "p_coin * p_score — multiply marginal × conditional by hand. Off-by-one here is invisible until totals don't sum to one.",
+              "flatten": "Flatten the nested [[ (Int, Float) ]] back into a single distribution.",
+              "coin": "Prob CoinFace — the coin distribution as a list of (face, probability) pairs.",
+              "outResult": "[(Int, Float)] — the joint distribution, hand-built."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -74,29 +165,39 @@
             {
               "kind": "action",
               "id": "outer",
-              "type": "OuterLoop"
+              "type": "OuterLoop",
+              "role": "function",
+              "tooltip": "for (face, p_coin) in coin — opens an outer loop; the inner loop over the die's conditional distribution is implied inside multiply."
             },
             {
               "kind": "action",
               "id": "multiply",
-              "type": "Multiply"
+              "type": "Multiply",
+              "role": "function",
+              "tooltip": "p_coin * p_score — multiply marginal × conditional by hand. Off-by-one here is invisible until totals don't sum to one."
             },
             {
               "kind": "action",
               "id": "flatten",
-              "type": "Flatten"
+              "type": "Flatten",
+              "role": "function",
+              "tooltip": "Flatten the nested [[ (Int, Float) ]] back into a single distribution."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "coin",
-              "type": "Prob CoinFace"
+              "type": "Prob CoinFace",
+              "role": "type",
+              "tooltip": "Prob CoinFace — the coin distribution as a list of (face, probability) pairs."
             },
             {
               "kind": "object",
               "id": "outResult",
-              "type": "[(Int, Float)]"
+              "type": "[(Int, Float)]",
+              "role": "type",
+              "tooltip": "[(Int, Float)] — the joint distribution, hand-built."
             }
           ],
           "decisions": [],
@@ -127,7 +228,32 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "outer": "function",
+            "multiply": "function",
+            "flatten": "function",
+            "coin": "type",
+            "outResult": "type"
+          },
+          "tooltips": {
+            "outer": "for (face, p_coin) in coin — opens an outer loop; the inner loop over the die's conditional distribution is implied inside multiply.",
+            "multiply": "p_coin * p_score — multiply marginal × conditional by hand. Off-by-one here is invisible until totals don't sum to one.",
+            "flatten": "Flatten the nested [[ (Int, Float) ]] back into a single distribution.",
+            "coin": "Prob CoinFace — the coin distribution as a list of (face, probability) pairs.",
+            "outResult": "[(Int, Float)] — the joint distribution, hand-built."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ProbMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "CoinThenDieWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without bind: manual nested loop and probability arithmetic",
+          "name": "coinThenDie"
         }
       ]
     }
@@ -136,18 +262,19 @@
     "diagType": "activity",
     "title": "Without bind: manual nested loop and probability arithmetic",
     "name": "coinThenDie",
+    "render": "CoinThenDieWithout",
     "shows": {
-      "coin": "type",
       "outer": "function",
       "multiply": "function",
       "flatten": "function",
+      "coin": "type",
       "outResult": "type"
     },
     "tooltips": {
-      "coin": "Prob CoinFace — the coin distribution as a list of (face, probability) pairs.",
       "outer": "for (face, p_coin) in coin — opens an outer loop; the inner loop over the die's conditional distribution is implied inside multiply.",
       "multiply": "p_coin * p_score — multiply marginal × conditional by hand. Off-by-one here is invisible until totals don't sum to one.",
       "flatten": "Flatten the nested [[ (Int, Float) ]] back into a single distribution.",
+      "coin": "Prob CoinFace — the coin distribution as a list of (face, probability) pairs.",
       "outResult": "[(Int, Float)] — the joint distribution, hand-built."
     }
   }

@@ -16,6 +16,7 @@
 // swallow one.
 
 package EitherBindImpl {
+    private import FpDiagram::*;
 
     action def ApplyF {
         in  a0 : a;
@@ -28,25 +29,32 @@ package EitherBindImpl {
         out eLeft : "Either e b";       // = Left e0, retyped from Left e to Either e b
     }
 
-    activity def EitherBindProcess {
+    action def EitherBindProcess {
         // inputs
-        object ea : "Either e a";
-        object f  : "a ⟶ Either e b";
+        #FpNodePresentation { role = "type"; tooltip = "Either e a — the input.  Either Right a0 (success carrying a value of type a) or Left e0 (failure carrying an error value of type e)."; }
+        item ea : "Either e a";
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Either e b) — the continuation.  Invoked ONLY on the Right branch.  Skipped entirely when ea is Left."; }
+        item f  : "a ⟶ Either e b";
 
         // pattern match: tests the constructor AND destructures both payloads
-        decision matchEa;
+        #FpNodePresentation { tooltip = "Pattern match on the sum-type constructor.\n  Right a0 → a0 : a flows directly into f (no separate unwrap step).\n  Left  e0 → e0 : e flows directly into widen; the right branch is skipped.\nExactly one branch fires per invocation; the runtime never executes both."; }
+        decide matchEa;
 
         // Right path — destructured a0 : a flows directly into f
+        #FpNodePresentation { role = "function"; tooltip = "Apply f(a0).  f returns Either e b directly (Right b' or Left e').  bind does NOT inspect f's result — whatever f returned is forwarded unchanged.  This is what makes bind compositional: a Left arising inside f propagates exactly the same way as a Left arising before f."; }
         action apply_f : ApplyF;
 
         // Left path — destructured e0 : e flows directly into widen
+        #FpNodePresentation { role = "function"; tooltip = "Re-tag the Left constructor: the runtime VALUE Left e0 stays bit-identical, but the static type widens from Left e to Either e b so it unifies with the Right branch's output type at the merge.  No allocation, no transformation — only the type changes."; }
         action widen    : WidenLeft;
 
         // both branches converge here
+        #FpNodePresentation { tooltip = "Merge node — both branches produce a value of the SAME type Either e b.  Exactly one inflow fires per invocation; the merge is a control-flow join, not a runtime choice."; }
         merge joinResult;
 
         // single output
-        object ec : "Either e b";
+        #FpNodePresentation { role = "type"; tooltip = "Either e b — the single result of bind.  Carries either f's output (when ea was Right) or the original error e0 (when ea was Left)."; }
+        item ec : "Either e b";
 
         // ── main flow ────────────────────────────────────────────
         flow from ea to matchEa;
@@ -64,35 +72,21 @@ package EitherBindImpl {
         flow from joinResult to ec;
 
         // ── notes (UML-style annotations pinned to specific nodes) ──
+        #FpNodePresentation { role = "note"; }
         note shortCircuit on matchEa :
             "Pattern match short-circuits:\nLeft skips f entirely.";
+        #FpNodePresentation { role = "note"; }
         note errorIdentity on widen :
             "Type widens, value preserved bit-identical.\nThis is what 'error preserved verbatim' means.";
+        #FpNodePresentation { role = "note"; }
         note fResultPassThrough on apply_f :
             "Whatever f returns (Right b' or Left e')\nis forwarded UNCHANGED — bind never\ninspects or rewraps f's result.";
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*Either bind — also called: andThen / and_then, Bind, flatMap, >>=*/
+        expose EitherBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type   = activity
-    layout = elk
-    title  = "Either bind — also called: andThen / and_then, Bind, flatMap, >>="
-    name   = "bind"
-
-    show ea       as type
-    show f        as hof
-    show apply_f  as function
-    show widen    as function
-    show ec       as type
-    show shortCircuit       as note
-    show errorIdentity      as note
-    show fResultPassThrough as note
-
-    tooltip ea         = "Either e a — the input.  Either Right a0 (success carrying a value of type a) or Left e0 (failure carrying an error value of type e)."
-    tooltip f          = "(a ⟶ Either e b) — the continuation.  Invoked ONLY on the Right branch.  Skipped entirely when ea is Left."
-    tooltip matchEa    = "Pattern match on the sum-type constructor.\n  Right a0 → a0 : a flows directly into f (no separate unwrap step).\n  Left  e0 → e0 : e flows directly into widen; the right branch is skipped.\nExactly one branch fires per invocation; the runtime never executes both."
-    tooltip apply_f    = "Apply f(a0).  f returns Either e b directly (Right b' or Left e').  bind does NOT inspect f's result — whatever f returned is forwarded unchanged.  This is what makes bind compositional: a Left arising inside f propagates exactly the same way as a Left arising before f."
-    tooltip widen      = "Re-tag the Left constructor: the runtime VALUE Left e0 stays bit-identical, but the static type widens from Left e to Either e b so it unifies with the Right branch's output type at the merge.  No allocation, no transformation — only the type changes."
-    tooltip joinResult = "Merge node — both branches produce a value of the SAME type Either e b.  Exactly one inflow fires per invocation; the merge is a control-flow join, not a runtime choice."
-    tooltip ec         = "Either e b — the single result of bind.  Carries either f's output (when ea was Right) or the original error e0 (when ea was Left)."
-}

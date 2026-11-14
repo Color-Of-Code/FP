@@ -22,6 +22,65 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplicationConcept",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ApplicationConcept",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "f",
+                "type": "ApplyOp",
+                "role": "function",
+                "tooltip": "Apply f to the input value"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "role": "value",
+                "tooltip": "a0 — a concrete input value of type a"
+              },
+              {
+                "kind": "object",
+                "id": "b0",
+                "role": "value",
+                "tooltip": "b0 — the resulting value of type b"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "f"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "b0"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "f": "function",
+              "a0": "value",
+              "b0": "value"
+            },
+            "tooltips": {
+              "f": "Apply f to the input value",
+              "a0": "a0 — a concrete input value of type a",
+              "b0": "b0 — the resulting value of type b"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,17 +91,23 @@
             {
               "kind": "action",
               "id": "f",
-              "type": "ApplyOp"
+              "type": "ApplyOp",
+              "role": "function",
+              "tooltip": "Apply f to the input value"
             }
           ],
           "objects": [
             {
               "kind": "object",
-              "id": "a0"
+              "id": "a0",
+              "role": "value",
+              "tooltip": "a0 — a concrete input value of type a"
             },
             {
               "kind": "object",
-              "id": "b0"
+              "id": "b0",
+              "role": "value",
+              "tooltip": "b0 — the resulting value of type b"
             }
           ],
           "decisions": [],
@@ -61,7 +126,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "f": "function",
+            "a0": "value",
+            "b0": "value"
+          },
+          "tooltips": {
+            "f": "Apply f to the input value",
+            "a0": "a0 — a concrete input value of type a",
+            "b0": "b0 — the resulting value of type b"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FunctionApplicationActivity",
+          "viewType": "FpActivityView",
+          "expose": "ApplicationConcept",
+          "rendering": "fpActivityDiagram",
+          "title": "Application f(a0) = b0",
+          "name": "apply"
         }
       ]
     }
@@ -70,14 +156,15 @@
     "diagType": "activity",
     "title": "Application f(a0) = b0",
     "name": "apply",
+    "render": "ApplicationConcept",
     "shows": {
-      "a0": "value",
       "f": "function",
+      "a0": "value",
       "b0": "value"
     },
     "tooltips": {
-      "a0": "a0 — a concrete input value of type a",
       "f": "Apply f to the input value",
+      "a0": "a0 — a concrete input value of type a",
       "b0": "b0 — the resulting value of type b"
     }
   }

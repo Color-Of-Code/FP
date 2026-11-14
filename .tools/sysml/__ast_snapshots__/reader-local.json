@@ -28,6 +28,82 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ReaderLocalProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ReaderLocalProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "lcl",
+                "type": "Local",
+                "role": "function",
+                "tooltip": "Local: build \\\\r -> runReader ma (f r). The outer caller still supplies the original r; only ma sees f(r)."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "r ⟶ r",
+                "role": "value",
+                "tooltip": "f : r ⟶ r — environment transformer (e.g. add a key, strip a layer, swap config)."
+              },
+              {
+                "kind": "object",
+                "id": "ma",
+                "type": "Reader r a",
+                "role": "value",
+                "tooltip": "ma : Reader r a — the inner reader to be run with the transformed environment."
+              },
+              {
+                "kind": "object",
+                "id": "mb",
+                "type": "Reader r a",
+                "role": "type",
+                "tooltip": "Reader r a — same outer signature, but executions of ma are scoped to the transformed environment."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "lcl"
+              },
+              {
+                "kind": "flow",
+                "from": "ma",
+                "to": "lcl"
+              },
+              {
+                "kind": "flow",
+                "from": "lcl",
+                "to": "mb",
+                "label": "\\\\r -> runReader ma (f r)"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "lcl": "function",
+              "f": "value",
+              "ma": "value",
+              "mb": "type"
+            },
+            "tooltips": {
+              "lcl": "Local: build \\\\r -> runReader ma (f r). The outer caller still supplies the original r; only ma sees f(r).",
+              "f": "f : r ⟶ r — environment transformer (e.g. add a key, strip a layer, swap config).",
+              "ma": "ma : Reader r a — the inner reader to be run with the transformed environment.",
+              "mb": "Reader r a — same outer signature, but executions of ma are scoped to the transformed environment."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -38,24 +114,32 @@
             {
               "kind": "action",
               "id": "lcl",
-              "type": "Local"
+              "type": "Local",
+              "role": "function",
+              "tooltip": "Local: build \\\\r -> runReader ma (f r). The outer caller still supplies the original r; only ma sees f(r)."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "f",
-              "type": "r ⟶ r"
+              "type": "r ⟶ r",
+              "role": "value",
+              "tooltip": "f : r ⟶ r — environment transformer (e.g. add a key, strip a layer, swap config)."
             },
             {
               "kind": "object",
               "id": "ma",
-              "type": "Reader r a"
+              "type": "Reader r a",
+              "role": "value",
+              "tooltip": "ma : Reader r a — the inner reader to be run with the transformed environment."
             },
             {
               "kind": "object",
               "id": "mb",
-              "type": "Reader r a"
+              "type": "Reader r a",
+              "role": "type",
+              "tooltip": "Reader r a — same outer signature, but executions of ma are scoped to the transformed environment."
             }
           ],
           "decisions": [],
@@ -80,7 +164,30 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "lcl": "function",
+            "f": "value",
+            "ma": "value",
+            "mb": "type"
+          },
+          "tooltips": {
+            "lcl": "Local: build \\\\r -> runReader ma (f r). The outer caller still supplies the original r; only ma sees f(r).",
+            "f": "f : r ⟶ r — environment transformer (e.g. add a key, strip a layer, swap config).",
+            "ma": "ma : Reader r a — the inner reader to be run with the transformed environment.",
+            "mb": "Reader r a — same outer signature, but executions of ma are scoped to the transformed environment."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ReaderLocalImpl",
+          "viewType": "FpActivityView",
+          "expose": "ReaderLocalProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "local :: (r ⟶ r) ⟶ Reader r a ⟶ Reader r a   (run inner reader with modified environment) — primitive",
+          "name": "local"
         }
       ]
     }
@@ -89,16 +196,17 @@
     "diagType": "activity",
     "title": "local :: (r ⟶ r) ⟶ Reader r a ⟶ Reader r a   (run inner reader with modified environment) — primitive",
     "name": "local",
+    "render": "ReaderLocalProcess",
     "shows": {
+      "lcl": "function",
       "f": "value",
       "ma": "value",
-      "lcl": "function",
       "mb": "type"
     },
     "tooltips": {
+      "lcl": "Local: build \\\\r -> runReader ma (f r). The outer caller still supplies the original r; only ma sees f(r).",
       "f": "f : r ⟶ r — environment transformer (e.g. add a key, strip a layer, swap config).",
       "ma": "ma : Reader r a — the inner reader to be run with the transformed environment.",
-      "lcl": "Local: build \\\\r -> runReader ma (f r). The outer caller still supplies the original r; only ma sees f(r).",
       "mb": "Reader r a — same outer signature, but executions of ma are scoped to the transformed environment."
     }
   }

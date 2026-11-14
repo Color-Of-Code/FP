@@ -6,6 +6,7 @@
 // resorting to exceptions.
 
 package STMOrElseImpl {
+    private import FpDiagram::*;
 
     action def OrElse {
         in  s1 : "STM a";
@@ -13,28 +14,25 @@ package STMOrElseImpl {
         out sr : "STM a";
     }
 
-    activity def STMOrElseProcess {
-        object s1 : "STM a";
-        object s2 : "STM a";
+    action def STMOrElseProcess {
+        #FpNodePresentation { role = "value"; tooltip = "s1 : STM a — primary transaction.  If it commits, sr is its result."; }
+        item s1 : "STM a";
+        #FpNodePresentation { role = "value"; tooltip = "s2 : STM a — alternative transaction tried only if s1 calls retry."; }
+        item s2 : "STM a";
+        #FpNodePresentation { role = "function"; tooltip = "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry."; }
         action oe : OrElse;
-        object sr : "STM a";
+        #FpNodePresentation { role = "type"; tooltip = "STM a — result of whichever branch commits.  Never blocks unless both branches retry."; }
+        item sr : "STM a";
 
         flow from s1 to oe;
         flow from s2 to oe;
         flow from oe to sr : "run s1; on retry, run s2";
     }
+    #FpViewPresentation { name = "orElse"; }
+    view diagram : FpActivityView {
+        doc /*orElse :: STM a ⟶ STM a ⟶ STM a   (try s1; on retry, fall back to s2) — primitive*/
+        expose STMOrElseProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "orElse :: STM a ⟶ STM a ⟶ STM a   (try s1; on retry, fall back to s2) — primitive"
-    name  = "orElse"
-    show s1 as value
-    show s2 as value
-    show oe as function
-    show sr as type
-    tooltip s1 = "s1 : STM a — primary transaction.  If it commits, sr is its result."
-    tooltip s2 = "s2 : STM a — alternative transaction tried only if s1 calls retry."
-    tooltip oe = "OrElse: a left-biased choice. Reads from s1 are still tracked even when s2 runs, so the combined transaction blocks if both retry."
-    tooltip sr = "STM a — result of whichever branch commits.  Never blocks unless both branches retry."
-}

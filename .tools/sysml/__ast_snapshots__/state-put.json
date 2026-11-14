@@ -22,6 +22,68 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "StatePutProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "StatePutProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "put",
+                "type": "Put",
+                "role": "function",
+                "tooltip": "Put: build \\\\_ -> ((), sNew) — discards incoming state, emits sNew as outgoing state."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "sNew",
+                "type": "s",
+                "role": "value",
+                "tooltip": "sNew — the new state value to install (replaces whatever state was current)."
+              },
+              {
+                "kind": "object",
+                "id": "su",
+                "type": "State s ()",
+                "role": "type",
+                "tooltip": "State s () — value is unit, state is now sNew. Subsequent steps see sNew."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "sNew",
+                "to": "put"
+              },
+              {
+                "kind": "flow",
+                "from": "put",
+                "to": "su",
+                "label": "\\\\_ -> ((), sNew)"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "put": "function",
+              "sNew": "value",
+              "su": "type"
+            },
+            "tooltips": {
+              "put": "Put: build \\\\_ -> ((), sNew) — discards incoming state, emits sNew as outgoing state.",
+              "sNew": "sNew — the new state value to install (replaces whatever state was current).",
+              "su": "State s () — value is unit, state is now sNew. Subsequent steps see sNew."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +94,25 @@
             {
               "kind": "action",
               "id": "put",
-              "type": "Put"
+              "type": "Put",
+              "role": "function",
+              "tooltip": "Put: build \\\\_ -> ((), sNew) — discards incoming state, emits sNew as outgoing state."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "sNew",
-              "type": "s"
+              "type": "s",
+              "role": "value",
+              "tooltip": "sNew — the new state value to install (replaces whatever state was current)."
             },
             {
               "kind": "object",
               "id": "su",
-              "type": "State s ()"
+              "type": "State s ()",
+              "role": "type",
+              "tooltip": "State s () — value is unit, state is now sNew. Subsequent steps see sNew."
             }
           ],
           "decisions": [],
@@ -64,7 +132,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "put": "function",
+            "sNew": "value",
+            "su": "type"
+          },
+          "tooltips": {
+            "put": "Put: build \\\\_ -> ((), sNew) — discards incoming state, emits sNew as outgoing state.",
+            "sNew": "sNew — the new state value to install (replaces whatever state was current).",
+            "su": "State s () — value is unit, state is now sNew. Subsequent steps see sNew."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "StatePutImpl",
+          "viewType": "FpActivityView",
+          "expose": "StatePutProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "put :: s ⟶ State s ()   (overwrite the state with s'; result is unit) — primitive",
+          "name": "put"
         }
       ]
     }
@@ -73,14 +162,15 @@
     "diagType": "activity",
     "title": "put :: s ⟶ State s ()   (overwrite the state with s'; result is unit) — primitive",
     "name": "put",
+    "render": "StatePutProcess",
     "shows": {
-      "sNew": "value",
       "put": "function",
+      "sNew": "value",
       "su": "type"
     },
     "tooltips": {
-      "sNew": "sNew — the new state value to install (replaces whatever state was current).",
       "put": "Put: build \\\\_ -> ((), sNew) — discards incoming state, emits sNew as outgoing state.",
+      "sNew": "sNew — the new state value to install (replaces whatever state was current).",
       "su": "State s () — value is unit, state is now sNew. Subsequent steps see sNew."
     }
   }

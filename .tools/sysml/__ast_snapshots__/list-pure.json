@@ -22,6 +22,68 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ListPureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ListPureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "wrap",
+                "type": "Singleton",
+                "role": "function",
+                "tooltip": "Singleton: produce the one-element list [a0]. The empty list would absorb every subsequent bind and break left identity."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a0 — any plain value."
+              },
+              {
+                "kind": "object",
+                "id": "listOut",
+                "type": "List a",
+                "role": "type",
+                "tooltip": "[a0] : List a — exactly one element. List pure is NOT the empty list."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "wrap"
+              },
+              {
+                "kind": "flow",
+                "from": "wrap",
+                "to": "listOut",
+                "label": "[a0]"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "wrap": "function",
+              "a0": "value",
+              "listOut": "type"
+            },
+            "tooltips": {
+              "wrap": "Singleton: produce the one-element list [a0]. The empty list would absorb every subsequent bind and break left identity.",
+              "a0": "a0 — any plain value.",
+              "listOut": "[a0] : List a — exactly one element. List pure is NOT the empty list."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +94,25 @@
             {
               "kind": "action",
               "id": "wrap",
-              "type": "Singleton"
+              "type": "Singleton",
+              "role": "function",
+              "tooltip": "Singleton: produce the one-element list [a0]. The empty list would absorb every subsequent bind and break left identity."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a0",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a0 — any plain value."
             },
             {
               "kind": "object",
               "id": "listOut",
-              "type": "List a"
+              "type": "List a",
+              "role": "type",
+              "tooltip": "[a0] : List a — exactly one element. List pure is NOT the empty list."
             }
           ],
           "decisions": [],
@@ -64,7 +132,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "wrap": "function",
+            "a0": "value",
+            "listOut": "type"
+          },
+          "tooltips": {
+            "wrap": "Singleton: produce the one-element list [a0]. The empty list would absorb every subsequent bind and break left identity.",
+            "a0": "a0 — any plain value.",
+            "listOut": "[a0] : List a — exactly one element. List pure is NOT the empty list."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ListPureImpl",
+          "viewType": "FpActivityView",
+          "expose": "ListPureProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "pure :: a ⟶ List a   (singleton list [a0], not the empty list) — also called: return, of, single",
+          "name": "pure"
         }
       ]
     }
@@ -73,14 +162,15 @@
     "diagType": "activity",
     "title": "pure :: a ⟶ List a   (singleton list [a0], not the empty list) — also called: return, of, single",
     "name": "pure",
+    "render": "ListPureProcess",
     "shows": {
-      "a0": "value",
       "wrap": "function",
+      "a0": "value",
       "listOut": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value.",
       "wrap": "Singleton: produce the one-element list [a0]. The empty list would absorb every subsequent bind and break left identity.",
+      "a0": "a0 — any plain value.",
       "listOut": "[a0] : List a — exactly one element. List pure is NOT the empty list."
     }
   }

@@ -88,6 +88,169 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "StateBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "StateBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "run_sa",
+                "type": "RunSA",
+                "role": "function",
+                "tooltip": "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1."
+              },
+              {
+                "kind": "action",
+                "id": "apply_f",
+                "type": "ApplyF",
+                "role": "function",
+                "tooltip": "Apply f(a): build the next computation State s b — a function not yet run, applied to s1 by run_sb."
+              },
+              {
+                "kind": "action",
+                "id": "run_sb",
+                "type": "RunSB",
+                "role": "function",
+                "tooltip": "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "sa",
+                "type": "State s a",
+                "role": "type",
+                "tooltip": "State s a — a computation: given state s returns (a, s')"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ State s b",
+                "role": "hof",
+                "tooltip": "(a ⟶ State s b) — the continuation; given result a, builds the next state computation"
+              },
+              {
+                "kind": "object",
+                "id": "s0",
+                "type": "s",
+                "role": "value",
+                "tooltip": "s — the initial state entering the bind. Flows into run_sa."
+              },
+              {
+                "kind": "object",
+                "id": "s1",
+                "type": "s",
+                "role": "value",
+                "tooltip": "s — the state AFTER running sa. This is s1 ≠ s0. It is s1 (not s0) that flows to run_sb. Critical difference from Reader."
+              },
+              {
+                "kind": "object",
+                "id": "b",
+                "type": "b",
+                "role": "value",
+                "tooltip": "b — the final value result"
+              },
+              {
+                "kind": "object",
+                "id": "s2",
+                "type": "s",
+                "role": "value",
+                "tooltip": "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "sa",
+                "to": "run_sa"
+              },
+              {
+                "kind": "flow",
+                "from": "s0",
+                "to": "run_sa"
+              },
+              {
+                "kind": "flow",
+                "from": "run_sa",
+                "to": "apply_f",
+                "label": "a"
+              },
+              {
+                "kind": "flow",
+                "from": "run_sa",
+                "to": "s1"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "apply_f"
+              },
+              {
+                "kind": "flow",
+                "from": "apply_f",
+                "to": "run_sb",
+                "label": "State s b"
+              },
+              {
+                "kind": "flow",
+                "from": "s1",
+                "to": "run_sb"
+              },
+              {
+                "kind": "flow",
+                "from": "run_sb",
+                "to": "b"
+              },
+              {
+                "kind": "flow",
+                "from": "run_sb",
+                "to": "s2"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "run_sa",
+                "to": "apply_f"
+              },
+              {
+                "kind": "succession",
+                "from": "apply_f",
+                "to": "run_sb"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "run_sa": "function",
+              "apply_f": "function",
+              "run_sb": "function",
+              "sa": "type",
+              "f": "hof",
+              "s0": "value",
+              "s1": "value",
+              "b": "value",
+              "s2": "value"
+            },
+            "tooltips": {
+              "run_sa": "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1.",
+              "apply_f": "Apply f(a): build the next computation State s b — a function not yet run, applied to s1 by run_sb.",
+              "run_sb": "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here.",
+              "sa": "State s a — a computation: given state s returns (a, s')",
+              "f": "(a ⟶ State s b) — the continuation; given result a, builds the next state computation",
+              "s0": "s — the initial state entering the bind. Flows into run_sa.",
+              "s1": "s — the state AFTER running sa. This is s1 ≠ s0. It is s1 (not s0) that flows to run_sb. Critical difference from Reader.",
+              "b": "b — the final value result",
+              "s2": "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -98,49 +261,67 @@
             {
               "kind": "action",
               "id": "run_sa",
-              "type": "RunSA"
+              "type": "RunSA",
+              "role": "function",
+              "tooltip": "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1."
             },
             {
               "kind": "action",
               "id": "apply_f",
-              "type": "ApplyF"
+              "type": "ApplyF",
+              "role": "function",
+              "tooltip": "Apply f(a): build the next computation State s b — a function not yet run, applied to s1 by run_sb."
             },
             {
               "kind": "action",
               "id": "run_sb",
-              "type": "RunSB"
+              "type": "RunSB",
+              "role": "function",
+              "tooltip": "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "sa",
-              "type": "State s a"
+              "type": "State s a",
+              "role": "type",
+              "tooltip": "State s a — a computation: given state s returns (a, s')"
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ State s b"
+              "type": "a ⟶ State s b",
+              "role": "hof",
+              "tooltip": "(a ⟶ State s b) — the continuation; given result a, builds the next state computation"
             },
             {
               "kind": "object",
               "id": "s0",
-              "type": "s"
+              "type": "s",
+              "role": "value",
+              "tooltip": "s — the initial state entering the bind. Flows into run_sa."
             },
             {
               "kind": "object",
               "id": "s1",
-              "type": "s"
+              "type": "s",
+              "role": "value",
+              "tooltip": "s — the state AFTER running sa. This is s1 ≠ s0. It is s1 (not s0) that flows to run_sb. Critical difference from Reader."
             },
             {
               "kind": "object",
               "id": "b",
-              "type": "b"
+              "type": "b",
+              "role": "value",
+              "tooltip": "b — the final value result"
             },
             {
               "kind": "object",
               "id": "s2",
-              "type": "s"
+              "type": "s",
+              "role": "value",
+              "tooltip": "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."
             }
           ],
           "decisions": [],
@@ -207,7 +388,40 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "run_sa": "function",
+            "apply_f": "function",
+            "run_sb": "function",
+            "sa": "type",
+            "f": "hof",
+            "s0": "value",
+            "s1": "value",
+            "b": "value",
+            "s2": "value"
+          },
+          "tooltips": {
+            "run_sa": "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1.",
+            "apply_f": "Apply f(a): build the next computation State s b — a function not yet run, applied to s1 by run_sb.",
+            "run_sb": "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here.",
+            "sa": "State s a — a computation: given state s returns (a, s')",
+            "f": "(a ⟶ State s b) — the continuation; given result a, builds the next state computation",
+            "s0": "s — the initial state entering the bind. Flows into run_sa.",
+            "s1": "s — the state AFTER running sa. This is s1 ≠ s0. It is s1 (not s0) that flows to run_sb. Critical difference from Reader.",
+            "b": "b — the final value result",
+            "s2": "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "StateBindImpl",
+          "viewType": "FpActivityView",
+          "expose": "StateBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2) — also called: flatMap, >>=",
+          "name": "bind"
         }
       ]
     }
@@ -216,25 +430,26 @@
     "diagType": "activity",
     "title": "State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2) — also called: flatMap, >>=",
     "name": "bind",
+    "render": "StateBindProcess",
     "shows": {
+      "run_sa": "function",
+      "apply_f": "function",
+      "run_sb": "function",
       "sa": "type",
       "f": "hof",
       "s0": "value",
-      "run_sa": "function",
       "s1": "value",
-      "apply_f": "function",
-      "run_sb": "function",
       "b": "value",
       "s2": "value"
     },
     "tooltips": {
+      "run_sa": "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1.",
+      "apply_f": "Apply f(a): build the next computation State s b — a function not yet run, applied to s1 by run_sb.",
+      "run_sb": "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here.",
       "sa": "State s a — a computation: given state s returns (a, s')",
       "f": "(a ⟶ State s b) — the continuation; given result a, builds the next state computation",
       "s0": "s — the initial state entering the bind. Flows into run_sa.",
-      "run_sa": "Run sa(s0): execute the first computation. Produces BOTH result a AND new state s1.",
       "s1": "s — the state AFTER running sa. This is s1 ≠ s0. It is s1 (not s0) that flows to run_sb. Critical difference from Reader.",
-      "apply_f": "Apply f(a): build the next computation State s b — a function not yet run, applied to s1 by run_sb.",
-      "run_sb": "Run f(a)(s1): execute the second computation with the UPDATED state s1. s0 is not used here.",
       "b": "b — the final value result",
       "s2": "s — the final state after both steps. s0 ≠ s1 ≠ s2 in general; each step transforms the state."
     }

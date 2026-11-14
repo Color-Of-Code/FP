@@ -76,6 +76,112 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "WriterChainWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "WriterChainWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "step1",
+                "type": "Step1",
+                "role": "function",
+                "tooltip": "step1(x, log0) → (r1, log0 ++ entries1). Must accept and return the running log."
+              },
+              {
+                "kind": "action",
+                "id": "step2",
+                "type": "Step2",
+                "role": "function",
+                "tooltip": "step2(r1, log1) → (r2, log1 ++ entries2). Passing log0 instead of log1 silently drops entries."
+              },
+              {
+                "kind": "action",
+                "id": "step3",
+                "type": "Step3",
+                "role": "function",
+                "tooltip": "step3(r2, log2) → (r3, log2 ++ entries3). Same plumbing repeated. Adding a step means adding two more parameters everywhere it is called from."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "x",
+                "type": "A",
+                "role": "value",
+                "tooltip": "Plain input value of type A."
+              },
+              {
+                "kind": "object",
+                "id": "emptyLog",
+                "type": "Log = []",
+                "role": "type",
+                "tooltip": "Initial empty log — caller must pass it in."
+              },
+              {
+                "kind": "object",
+                "id": "outResult",
+                "type": "(R3, log123)",
+                "role": "type",
+                "tooltip": "(r3, log123) — caller unpacks both."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "step1"
+              },
+              {
+                "kind": "flow",
+                "from": "emptyLog",
+                "to": "step1"
+              },
+              {
+                "kind": "flow",
+                "from": "step1",
+                "to": "step2",
+                "label": "(r1, log1)"
+              },
+              {
+                "kind": "flow",
+                "from": "step2",
+                "to": "step3",
+                "label": "(r2, log2)"
+              },
+              {
+                "kind": "flow",
+                "from": "step3",
+                "to": "outResult",
+                "label": "(r3, log123)"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "step1": "function",
+              "step2": "function",
+              "step3": "function",
+              "x": "value",
+              "emptyLog": "type",
+              "outResult": "type"
+            },
+            "tooltips": {
+              "step1": "step1(x, log0) → (r1, log0 ++ entries1). Must accept and return the running log.",
+              "step2": "step2(r1, log1) → (r2, log1 ++ entries2). Passing log0 instead of log1 silently drops entries.",
+              "step3": "step3(r2, log2) → (r3, log2 ++ entries3). Same plumbing repeated. Adding a step means adding two more parameters everywhere it is called from.",
+              "x": "Plain input value of type A.",
+              "emptyLog": "Initial empty log — caller must pass it in.",
+              "outResult": "(r3, log123) — caller unpacks both."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -86,34 +192,46 @@
             {
               "kind": "action",
               "id": "step1",
-              "type": "Step1"
+              "type": "Step1",
+              "role": "function",
+              "tooltip": "step1(x, log0) → (r1, log0 ++ entries1). Must accept and return the running log."
             },
             {
               "kind": "action",
               "id": "step2",
-              "type": "Step2"
+              "type": "Step2",
+              "role": "function",
+              "tooltip": "step2(r1, log1) → (r2, log1 ++ entries2). Passing log0 instead of log1 silently drops entries."
             },
             {
               "kind": "action",
               "id": "step3",
-              "type": "Step3"
+              "type": "Step3",
+              "role": "function",
+              "tooltip": "step3(r2, log2) → (r3, log2 ++ entries3). Same plumbing repeated. Adding a step means adding two more parameters everywhere it is called from."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "x",
-              "type": "A"
+              "type": "A",
+              "role": "value",
+              "tooltip": "Plain input value of type A."
             },
             {
               "kind": "object",
               "id": "emptyLog",
-              "type": "Log = []"
+              "type": "Log = []",
+              "role": "type",
+              "tooltip": "Initial empty log — caller must pass it in."
             },
             {
               "kind": "object",
               "id": "outResult",
-              "type": "(R3, log123)"
+              "type": "(R3, log123)",
+              "role": "type",
+              "tooltip": "(r3, log123) — caller unpacks both."
             }
           ],
           "decisions": [],
@@ -150,7 +268,34 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "step1": "function",
+            "step2": "function",
+            "step3": "function",
+            "x": "value",
+            "emptyLog": "type",
+            "outResult": "type"
+          },
+          "tooltips": {
+            "step1": "step1(x, log0) → (r1, log0 ++ entries1). Must accept and return the running log.",
+            "step2": "step2(r1, log1) → (r2, log1 ++ entries2). Passing log0 instead of log1 silently drops entries.",
+            "step3": "step3(r2, log2) → (r3, log2 ++ entries3). Same plumbing repeated. Adding a step means adding two more parameters everywhere it is called from.",
+            "x": "Plain input value of type A.",
+            "emptyLog": "Initial empty log — caller must pass it in.",
+            "outResult": "(r3, log123) — caller unpacks both."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "WriterMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "WriterChainWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without bind: log threaded as an explicit second parameter at every step",
+          "name": "writerChain"
         }
       ]
     }
@@ -159,20 +304,21 @@
     "diagType": "activity",
     "title": "Without bind: log threaded as an explicit second parameter at every step",
     "name": "writerChain",
+    "render": "WriterChainWithout",
     "shows": {
-      "x": "value",
-      "emptyLog": "type",
       "step1": "function",
       "step2": "function",
       "step3": "function",
+      "x": "value",
+      "emptyLog": "type",
       "outResult": "type"
     },
     "tooltips": {
-      "x": "Plain input value of type A.",
-      "emptyLog": "Initial empty log — caller must pass it in.",
       "step1": "step1(x, log0) → (r1, log0 ++ entries1). Must accept and return the running log.",
       "step2": "step2(r1, log1) → (r2, log1 ++ entries2). Passing log0 instead of log1 silently drops entries.",
       "step3": "step3(r2, log2) → (r3, log2 ++ entries3). Same plumbing repeated. Adding a step means adding two more parameters everywhere it is called from.",
+      "x": "Plain input value of type A.",
+      "emptyLog": "Initial empty log — caller must pass it in.",
       "outResult": "(r3, log123) — caller unpacks both."
     }
   }

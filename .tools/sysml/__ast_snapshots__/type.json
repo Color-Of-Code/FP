@@ -4,7 +4,55 @@
       "name": "FunctionTypeActivity",
       "portDefs": [],
       "partDefs": [],
-      "actionDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "TypeConcept",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "TypeConcept",
+            "actions": [],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "values",
+                "type": "{a0, a1, ...}",
+                "role": "value",
+                "tooltip": "A type can be seen as the set of values that may inhabit it."
+              },
+              {
+                "kind": "object",
+                "id": "a",
+                "type": "type a",
+                "role": "type",
+                "tooltip": "type a — used to describe the domain or codomain of a function."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "values",
+                "to": "a",
+                "label": "all possible values"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "values": "value",
+              "a": "type"
+            },
+            "tooltips": {
+              "values": "A type can be seen as the set of values that may inhabit it.",
+              "a": "type a — used to describe the domain or codomain of a function."
+            }
+          }
+        }
+      ],
       "activityDefs": [
         {
           "kind": "activityDef",
@@ -14,12 +62,16 @@
             {
               "kind": "object",
               "id": "values",
-              "type": "{a0, a1, ...}"
+              "type": "{a0, a1, ...}",
+              "role": "value",
+              "tooltip": "A type can be seen as the set of values that may inhabit it."
             },
             {
               "kind": "object",
               "id": "a",
-              "type": "type a"
+              "type": "type a",
+              "role": "type",
+              "tooltip": "type a — used to describe the domain or codomain of a function."
             }
           ],
           "decisions": [],
@@ -34,7 +86,26 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "values": "value",
+            "a": "type"
+          },
+          "tooltips": {
+            "values": "A type can be seen as the set of values that may inhabit it.",
+            "a": "type a — used to describe the domain or codomain of a function."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FunctionTypeActivity",
+          "viewType": "FpActivityView",
+          "expose": "TypeConcept",
+          "rendering": "fpActivityDiagram",
+          "title": "Type a",
+          "name": "type"
         }
       ]
     }
@@ -43,6 +114,7 @@
     "diagType": "activity",
     "title": "Type a",
     "name": "type",
+    "render": "TypeConcept",
     "shows": {
       "values": "value",
       "a": "type"

@@ -7,30 +7,29 @@
 // break the left-identity law.
 
 package WriterPureImpl {
+    private import FpDiagram::*;
 
     action def PairWithMempty {
         in  a   : a;
         out wa  : "(a, mempty)";
     }
 
-    activity def WriterPureProcess {
-        object a0  : a;
+    action def WriterPureProcess {
+        #FpNodePresentation { role = "value"; tooltip = "a0 — any plain value."; }
+        item a0  : a;
+        #FpNodePresentation { role = "function"; tooltip = "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log."; }
         action wrap : PairWithMempty;
-        object wa  : "(a, mempty)";
+        #FpNodePresentation { role = "type"; tooltip = "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."; }
+        item wa  : "(a, mempty)";
 
         flow from a0  to wrap;
         flow from wrap to wa;
     }
+    #FpViewPresentation { name = "pure"; }
+    view diagram : FpActivityView {
+        doc /*pure :: a ⟶ (a, mempty)   (pair with the monoid identity of the log) — also called: return*/
+        expose WriterPureProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "pure :: a ⟶ (a, mempty)   (pair with the monoid identity of the log) — also called: return"
-    name  = "pure"
-    show a0   as value
-    show wrap as function
-    show wa   as type
-    tooltip a0   = "a0 — any plain value."
-    tooltip wrap = "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log."
-    tooltip wa   = "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."
-}

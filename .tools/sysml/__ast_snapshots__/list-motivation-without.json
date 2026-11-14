@@ -64,6 +64,112 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CartesianWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "CartesianWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "outer",
+                "type": "OuterLoop",
+                "role": "function",
+                "tooltip": "for x in xs — outer loop opens scope for x."
+              },
+              {
+                "kind": "action",
+                "id": "inner",
+                "type": "InnerLoop",
+                "role": "function",
+                "tooltip": "for y in ys — inner loop nested inside; each extra dimension means one more nesting level."
+              },
+              {
+                "kind": "action",
+                "id": "append",
+                "type": "AppendPair",
+                "role": "function",
+                "tooltip": "result.append((x, y)) — manual mutation of a shared accumulator. Easy to forget; easy to break."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "xs",
+                "type": "[A]",
+                "role": "value",
+                "tooltip": "xs : [A] — the first list, iterated by the outer loop."
+              },
+              {
+                "kind": "object",
+                "id": "ys",
+                "type": "[B]",
+                "role": "value",
+                "tooltip": "ys : [B] — the second list, iterated by the inner loop for every x."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "[(A, B)]",
+                "role": "type",
+                "tooltip": "[(A, B)] — the result list built by side effect. Adding a 3rd dimension means rewriting the whole structure."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "xs",
+                "to": "outer"
+              },
+              {
+                "kind": "flow",
+                "from": "outer",
+                "to": "inner",
+                "label": "for x in xs"
+              },
+              {
+                "kind": "flow",
+                "from": "ys",
+                "to": "inner"
+              },
+              {
+                "kind": "flow",
+                "from": "inner",
+                "to": "append",
+                "label": "for y in ys"
+              },
+              {
+                "kind": "flow",
+                "from": "append",
+                "to": "result",
+                "label": "result.append((x, y))"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "outer": "function",
+              "inner": "function",
+              "append": "function",
+              "xs": "value",
+              "ys": "value",
+              "result": "type"
+            },
+            "tooltips": {
+              "outer": "for x in xs — outer loop opens scope for x.",
+              "inner": "for y in ys — inner loop nested inside; each extra dimension means one more nesting level.",
+              "append": "result.append((x, y)) — manual mutation of a shared accumulator. Easy to forget; easy to break.",
+              "xs": "xs : [A] — the first list, iterated by the outer loop.",
+              "ys": "ys : [B] — the second list, iterated by the inner loop for every x.",
+              "result": "[(A, B)] — the result list built by side effect. Adding a 3rd dimension means rewriting the whole structure."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -74,34 +180,46 @@
             {
               "kind": "action",
               "id": "outer",
-              "type": "OuterLoop"
+              "type": "OuterLoop",
+              "role": "function",
+              "tooltip": "for x in xs — outer loop opens scope for x."
             },
             {
               "kind": "action",
               "id": "inner",
-              "type": "InnerLoop"
+              "type": "InnerLoop",
+              "role": "function",
+              "tooltip": "for y in ys — inner loop nested inside; each extra dimension means one more nesting level."
             },
             {
               "kind": "action",
               "id": "append",
-              "type": "AppendPair"
+              "type": "AppendPair",
+              "role": "function",
+              "tooltip": "result.append((x, y)) — manual mutation of a shared accumulator. Easy to forget; easy to break."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "xs",
-              "type": "[A]"
+              "type": "[A]",
+              "role": "value",
+              "tooltip": "xs : [A] — the first list, iterated by the outer loop."
             },
             {
               "kind": "object",
               "id": "ys",
-              "type": "[B]"
+              "type": "[B]",
+              "role": "value",
+              "tooltip": "ys : [B] — the second list, iterated by the inner loop for every x."
             },
             {
               "kind": "object",
               "id": "result",
-              "type": "[(A, B)]"
+              "type": "[(A, B)]",
+              "role": "type",
+              "tooltip": "[(A, B)] — the result list built by side effect. Adding a 3rd dimension means rewriting the whole structure."
             }
           ],
           "decisions": [],
@@ -138,7 +256,34 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "outer": "function",
+            "inner": "function",
+            "append": "function",
+            "xs": "value",
+            "ys": "value",
+            "result": "type"
+          },
+          "tooltips": {
+            "outer": "for x in xs — outer loop opens scope for x.",
+            "inner": "for y in ys — inner loop nested inside; each extra dimension means one more nesting level.",
+            "append": "result.append((x, y)) — manual mutation of a shared accumulator. Easy to forget; easy to break.",
+            "xs": "xs : [A] — the first list, iterated by the outer loop.",
+            "ys": "ys : [B] — the second list, iterated by the inner loop for every x.",
+            "result": "[(A, B)] — the result list built by side effect. Adding a 3rd dimension means rewriting the whole structure."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ListMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "CartesianWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without bind: one nested loop level per Cartesian dimension",
+          "name": "cartesian"
         }
       ]
     }
@@ -147,20 +292,21 @@
     "diagType": "activity",
     "title": "Without bind: one nested loop level per Cartesian dimension",
     "name": "cartesian",
+    "render": "CartesianWithout",
     "shows": {
-      "xs": "value",
-      "ys": "value",
       "outer": "function",
       "inner": "function",
       "append": "function",
+      "xs": "value",
+      "ys": "value",
       "result": "type"
     },
     "tooltips": {
-      "xs": "xs : [A] — the first list, iterated by the outer loop.",
-      "ys": "ys : [B] — the second list, iterated by the inner loop for every x.",
       "outer": "for x in xs — outer loop opens scope for x.",
       "inner": "for y in ys — inner loop nested inside; each extra dimension means one more nesting level.",
       "append": "result.append((x, y)) — manual mutation of a shared accumulator. Easy to forget; easy to break.",
+      "xs": "xs : [A] — the first list, iterated by the outer loop.",
+      "ys": "ys : [B] — the second list, iterated by the inner loop for every x.",
       "result": "[(A, B)] — the result list built by side effect. Adding a 3rd dimension means rewriting the whole structure."
     }
   }

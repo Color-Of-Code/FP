@@ -22,6 +22,67 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "WriterPureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "WriterPureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "wrap",
+                "type": "PairWithMempty",
+                "role": "function",
+                "tooltip": "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a0 — any plain value."
+              },
+              {
+                "kind": "object",
+                "id": "wa",
+                "type": "(a, mempty)",
+                "role": "type",
+                "tooltip": "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "wrap"
+              },
+              {
+                "kind": "flow",
+                "from": "wrap",
+                "to": "wa"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "wrap": "function",
+              "a0": "value",
+              "wa": "type"
+            },
+            "tooltips": {
+              "wrap": "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log.",
+              "a0": "a0 — any plain value.",
+              "wa": "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +93,25 @@
             {
               "kind": "action",
               "id": "wrap",
-              "type": "PairWithMempty"
+              "type": "PairWithMempty",
+              "role": "function",
+              "tooltip": "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a0",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a0 — any plain value."
             },
             {
               "kind": "object",
               "id": "wa",
-              "type": "(a, mempty)"
+              "type": "(a, mempty)",
+              "role": "type",
+              "tooltip": "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."
             }
           ],
           "decisions": [],
@@ -63,7 +130,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "wrap": "function",
+            "a0": "value",
+            "wa": "type"
+          },
+          "tooltips": {
+            "wrap": "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log.",
+            "a0": "a0 — any plain value.",
+            "wa": "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "WriterPureImpl",
+          "viewType": "FpActivityView",
+          "expose": "WriterPureProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "pure :: a ⟶ (a, mempty)   (pair with the monoid identity of the log) — also called: return",
+          "name": "pure"
         }
       ]
     }
@@ -72,14 +160,15 @@
     "diagType": "activity",
     "title": "pure :: a ⟶ (a, mempty)   (pair with the monoid identity of the log) — also called: return",
     "name": "pure",
+    "render": "WriterPureProcess",
     "shows": {
-      "a0": "value",
       "wrap": "function",
+      "a0": "value",
       "wa": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value.",
       "wrap": "PairWithMempty: pair a0 with the monoid identity of w (\"\", [], 0, mempty, …). The empty log accumulates correctly when combined with any other log.",
+      "a0": "a0 — any plain value.",
       "wa": "(a0, mempty) : (a, w) — value preserved, log empty. Subsequent bind appends each step's log fragment via <>."
     }
   }

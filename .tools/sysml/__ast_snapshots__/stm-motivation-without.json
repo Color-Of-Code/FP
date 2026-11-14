@@ -76,6 +76,110 @@
               "direction": "in"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "TransferWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "TransferWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "lockA",
+                "type": "LockA",
+                "role": "function",
+                "tooltip": "lock(accountA) — must be acquired in a globally agreed order."
+              },
+              {
+                "kind": "action",
+                "id": "lockB",
+                "type": "LockB",
+                "role": "function",
+                "tooltip": "lock(accountB) — second lock. A thread that takes B before A can deadlock against this one."
+              },
+              {
+                "kind": "action",
+                "id": "updateA",
+                "type": "UpdateA",
+                "role": "function",
+                "tooltip": "accountA -= amount — only safe inside both locks."
+              },
+              {
+                "kind": "action",
+                "id": "updateB",
+                "type": "UpdateB",
+                "role": "function",
+                "tooltip": "accountB += amount — likewise."
+              },
+              {
+                "kind": "action",
+                "id": "unlockB",
+                "type": "UnlockB",
+                "role": "function",
+                "tooltip": "unlock(accountB) — release in reverse order; forgetting is a leak."
+              },
+              {
+                "kind": "action",
+                "id": "unlockA",
+                "type": "UnlockA",
+                "role": "function",
+                "tooltip": "unlock(accountA) — also reverse-order; ordering is contract, not type."
+              }
+            ],
+            "objects": [],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "lockA",
+                "to": "lockB"
+              },
+              {
+                "kind": "flow",
+                "from": "lockB",
+                "to": "updateA"
+              },
+              {
+                "kind": "flow",
+                "from": "updateA",
+                "to": "updateB",
+                "label": "accountA -= amount"
+              },
+              {
+                "kind": "flow",
+                "from": "updateB",
+                "to": "unlockB",
+                "label": "accountB += amount"
+              },
+              {
+                "kind": "flow",
+                "from": "unlockB",
+                "to": "unlockA"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "lockA": "function",
+              "lockB": "function",
+              "updateA": "function",
+              "updateB": "function",
+              "unlockB": "function",
+              "unlockA": "function"
+            },
+            "tooltips": {
+              "lockA": "lock(accountA) — must be acquired in a globally agreed order.",
+              "lockB": "lock(accountB) — second lock. A thread that takes B before A can deadlock against this one.",
+              "updateA": "accountA -= amount — only safe inside both locks.",
+              "updateB": "accountB += amount — likewise.",
+              "unlockB": "unlock(accountB) — release in reverse order; forgetting is a leak.",
+              "unlockA": "unlock(accountA) — also reverse-order; ordering is contract, not type."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -86,32 +190,44 @@
             {
               "kind": "action",
               "id": "lockA",
-              "type": "LockA"
+              "type": "LockA",
+              "role": "function",
+              "tooltip": "lock(accountA) — must be acquired in a globally agreed order."
             },
             {
               "kind": "action",
               "id": "lockB",
-              "type": "LockB"
+              "type": "LockB",
+              "role": "function",
+              "tooltip": "lock(accountB) — second lock. A thread that takes B before A can deadlock against this one."
             },
             {
               "kind": "action",
               "id": "updateA",
-              "type": "UpdateA"
+              "type": "UpdateA",
+              "role": "function",
+              "tooltip": "accountA -= amount — only safe inside both locks."
             },
             {
               "kind": "action",
               "id": "updateB",
-              "type": "UpdateB"
+              "type": "UpdateB",
+              "role": "function",
+              "tooltip": "accountB += amount — likewise."
             },
             {
               "kind": "action",
               "id": "unlockB",
-              "type": "UnlockB"
+              "type": "UnlockB",
+              "role": "function",
+              "tooltip": "unlock(accountB) — release in reverse order; forgetting is a leak."
             },
             {
               "kind": "action",
               "id": "unlockA",
-              "type": "UnlockA"
+              "type": "UnlockA",
+              "role": "function",
+              "tooltip": "unlock(accountA) — also reverse-order; ordering is contract, not type."
             }
           ],
           "objects": [],
@@ -148,7 +264,34 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "lockA": "function",
+            "lockB": "function",
+            "updateA": "function",
+            "updateB": "function",
+            "unlockB": "function",
+            "unlockA": "function"
+          },
+          "tooltips": {
+            "lockA": "lock(accountA) — must be acquired in a globally agreed order.",
+            "lockB": "lock(accountB) — second lock. A thread that takes B before A can deadlock against this one.",
+            "updateA": "accountA -= amount — only safe inside both locks.",
+            "updateB": "accountB += amount — likewise.",
+            "unlockB": "unlock(accountB) — release in reverse order; forgetting is a leak.",
+            "unlockA": "unlock(accountA) — also reverse-order; ordering is contract, not type."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "STMMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "TransferWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without STM: explicit locks require careful ordering to avoid deadlock",
+          "name": "transfer"
         }
       ]
     }
@@ -157,6 +300,7 @@
     "diagType": "activity",
     "title": "Without STM: explicit locks require careful ordering to avoid deadlock",
     "name": "transfer",
+    "render": "TransferWithout",
     "shows": {
       "lockA": "function",
       "lockB": "function",

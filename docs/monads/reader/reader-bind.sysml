@@ -4,6 +4,7 @@
 // Contrast with State, where s is transformed at each step.
 
 package ReaderBindImpl {
+    private import FpDiagram::*;
 
     action def RunRA {
         in  ra  : "Reader r a";  // r ⟶ a
@@ -23,15 +24,23 @@ package ReaderBindImpl {
         out b   : b;
     }
 
-    activity def ReaderBindProcess {
-        object ra     : "Reader r a";
-        object f      : "a ⟶ Reader r b";
-        object env    : r;              // shared read-only environment
+    action def ReaderBindProcess {
+        #FpNodePresentation { role = "type"; tooltip = "Reader r a — a suspended computation: a function r ⟶ a, not yet executed"; }
+        item ra     : "Reader r a";
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b"; }
+        item f      : "a ⟶ Reader r b";
+        #FpNodePresentation { role = "value"; tooltip = "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified."; }
+        item env    : r;              // shared read-only environment
+        #FpNodePresentation { role = "function"; tooltip = "Run ra(env): supply env to ra, get result a"; }
         action run_ra  : RunRA;
+        #FpNodePresentation { role = "function"; tooltip = "Apply f(a): build the next computation Reader r b from result a"; }
         action apply_f : ApplyF;
-        object rb      : "Reader r b";
+        #FpNodePresentation { role = "type"; tooltip = "Reader r b — the second computation (not yet run)"; }
+        item rb      : "Reader r b";
+        #FpNodePresentation { role = "function"; tooltip = "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State."; }
         action run_rb  : RunRB;
-        object b       : b;
+        #FpNodePresentation { role = "value"; tooltip = "b — the final result. The environment was never modified throughout."; }
+        item b       : b;
 
         flow from ra    to run_ra;
         flow from env   to run_ra;          // env supplied to first step
@@ -45,26 +54,11 @@ package ReaderBindImpl {
         succession run_ra then apply_f;
         succession apply_f then run_rb;
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>=*/
+        expose ReaderBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>="
-    name  = "bind"
-    show ra      as type
-    show f       as hof
-    show env     as value
-    show run_ra  as function
-    show apply_f as function
-    show rb      as type
-    show run_rb  as function
-    show b       as value
-    tooltip ra      = "Reader r a — a suspended computation: a function r ⟶ a, not yet executed"
-    tooltip f       = "(a ⟶ Reader r b) — given result a, builds the next computation r ⟶ b"
-    tooltip env     = "r — the shared read-only environment. The SAME instance flows to both run_ra and run_rb. It is NEVER modified."
-    tooltip run_ra  = "Run ra(env): supply env to ra, get result a"
-    tooltip apply_f = "Apply f(a): build the next computation Reader r b from result a"
-    tooltip rb      = "Reader r b — the second computation (not yet run)"
-    tooltip run_rb  = "Run rb(env): supply THE SAME env to f(a) — env is unchanged from step 1. Key difference from State."
-    tooltip b       = "b — the final result. The environment was never modified throughout."
-}

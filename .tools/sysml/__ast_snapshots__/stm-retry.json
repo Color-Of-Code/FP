@@ -16,6 +16,54 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "STMRetryProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "STMRetryProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "retry",
+                "type": "Retry",
+                "role": "function",
+                "tooltip": "Retry: discard the transaction's pending writes, suspend the thread, wake when any TVar in the read set is written by another thread."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "sa",
+                "type": "STM a",
+                "role": "type",
+                "tooltip": "STM a — type-polymorphic in a because retry never returns through the value channel; the runtime handles the resumption."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "retry",
+                "to": "sa",
+                "label": "block; rollback; re-run on TVar change"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "retry": "function",
+              "sa": "type"
+            },
+            "tooltips": {
+              "retry": "Retry: discard the transaction's pending writes, suspend the thread, wake when any TVar in the read set is written by another thread.",
+              "sa": "STM a — type-polymorphic in a because retry never returns through the value channel; the runtime handles the resumption."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -26,14 +74,18 @@
             {
               "kind": "action",
               "id": "retry",
-              "type": "Retry"
+              "type": "Retry",
+              "role": "function",
+              "tooltip": "Retry: discard the transaction's pending writes, suspend the thread, wake when any TVar in the read set is written by another thread."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "sa",
-              "type": "STM a"
+              "type": "STM a",
+              "role": "type",
+              "tooltip": "STM a — type-polymorphic in a because retry never returns through the value channel; the runtime handles the resumption."
             }
           ],
           "decisions": [],
@@ -48,7 +100,26 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "retry": "function",
+            "sa": "type"
+          },
+          "tooltips": {
+            "retry": "Retry: discard the transaction's pending writes, suspend the thread, wake when any TVar in the read set is written by another thread.",
+            "sa": "STM a — type-polymorphic in a because retry never returns through the value channel; the runtime handles the resumption."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "STMRetryImpl",
+          "viewType": "FpActivityView",
+          "expose": "STMRetryProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "retry :: STM a   (abort + block until a watched TVar changes; then restart) — primitive",
+          "name": "retry"
         }
       ]
     }
@@ -57,6 +128,7 @@
     "diagType": "activity",
     "title": "retry :: STM a   (abort + block until a watched TVar changes; then restart) — primitive",
     "name": "retry",
+    "render": "STMRetryProcess",
     "shows": {
       "retry": "function",
       "sa": "type"

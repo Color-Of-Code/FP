@@ -7,25 +7,31 @@
 // matters where it shouldn't.
 
 package IOMotivationWithout {
+    private import FpDiagram::*;
 
     action def Compute {
         in  x : Int;
         out _ : Int;
     }
 
-    activity def ComputeWithout {
+    action def ComputeWithout {
         // input
-        object x : Int;
+        #FpNodePresentation { role = "value"; tooltip = "x : Int — the only input the caller sees."; }
+        item x : Int;
 
         // single "pure-looking" function
+        #FpNodePresentation { role = "function"; tooltip = "compute :: Int → Int — the type promises a pure function. The implementation breaks that promise."; }
         action compute : Compute;
 
         // output
-        object result  : Int;
+        #FpNodePresentation { role = "type"; tooltip = "result : Int — looks like a pure return, but its computation depended on a file and a log call."; }
+        item result  : Int;
 
         // hidden side effects — same compute action, but its body
         // performs IO that the type signature does not advertise
+        #FpNodePresentation { role = "function"; tooltip = "Hidden effect: reads config.txt during execution. Not visible in the type."; }
         action hiddenReadConfig  : "reads config.txt";
+        #FpNodePresentation { role = "function"; tooltip = "Hidden effect: writes to a log during execution. Not visible in the type."; }
         action hiddenWriteLog    : "writes to log";
 
         flow from x       to compute;
@@ -33,22 +39,11 @@ package IOMotivationWithout {
         flow from compute to hiddenReadConfig : "hidden";
         flow from compute to hiddenWriteLog   : "hidden";
     }
-}
-
-#diagram {
-    type   = activity
-    layout = elk
-    title = "Without IO: side effects hidden inside a pure-looking type"
-    name  = "compute"
-    show x                as value
-    show compute          as function
-    show result           as type
-    show hiddenReadConfig as function
-    show hiddenWriteLog   as function
-    tooltip x                = "x : Int — the only input the caller sees."
-    tooltip compute          = "compute :: Int → Int — the type promises a pure function. The implementation breaks that promise."
-    tooltip result           = "result : Int — looks like a pure return, but its computation depended on a file and a log call."
-    tooltip hiddenReadConfig = "Hidden effect: reads config.txt during execution. Not visible in the type."
-    tooltip hiddenWriteLog   = "Hidden effect: writes to a log during execution. Not visible in the type."
+    #FpViewPresentation { name = "compute"; }
+    view diagram : FpActivityView {
+        doc /*Without IO: side effects hidden inside a pure-looking type*/
+        expose ComputeWithout;
+        render fpActivityDiagram;
+    }
 }
 

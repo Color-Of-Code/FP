@@ -3,6 +3,7 @@
 // w1 (first log fragment) flows AROUND apply directly to combine — it must not be lost.
 
 package WriterBindImpl {
+    private import FpDiagram::*;
 
     action def ExtractPair {
         in  wa    : "(a, w1)";
@@ -24,17 +25,27 @@ package WriterBindImpl {
         out result : "(b, w1<>w2)";
     }
 
-    activity def WriterBindProcess {
-        object wa      : "(a, w1)";
-        object f       : "a ⟶ (b, w2)";
+    action def WriterBindProcess {
+        #FpNodePresentation { role = "type"; tooltip = "(a, w1) — result a paired with the first log fragment w1"; }
+        item wa      : "(a, w1)";
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2"; }
+        item f       : "a ⟶ (b, w2)";
+        #FpNodePresentation { role = "function"; tooltip = "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)"; }
         action extract : ExtractPair;
-        object a_val   : a;
-        object w1      : w;              // first log fragment: bypasses f
+        #FpNodePresentation { role = "value"; tooltip = "a — the value to pass to f"; }
+        item a_val   : a;
+        #FpNodePresentation { role = "value"; tooltip = "w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped."; }
+        item w1      : w;              // first log fragment: bypasses f
+        #FpNodePresentation { role = "function"; tooltip = "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2"; }
         action apply   : ApplyF;
-        object b_val   : b;
-        object w2      : w;              // second log fragment: produced by f
+        #FpNodePresentation { role = "value"; tooltip = "b — the result value from f(a)"; }
+        item b_val   : b;
+        #FpNodePresentation { role = "value"; tooltip = "w — the second log fragment, produced by f(a). Combined with w1 from the first step."; }
+        item w2      : w;              // second log fragment: produced by f
+        #FpNodePresentation { role = "function"; tooltip = "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append"; }
         action combine : CombineLogs;
-        object result  : "(b, w1<>w2)";
+        #FpNodePresentation { role = "type"; tooltip = "(b, w1<>w2) — the final result: value b and the complete accumulated log"; }
+        item result  : "(b, w1<>w2)";
 
         flow from wa       to extract;
         flow from extract  to a_val;
@@ -51,30 +62,11 @@ package WriterBindImpl {
         succession extract then apply;
         succession apply   then combine;
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2 — also called: flatMap, >>=*/
+        expose WriterBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2 — also called: flatMap, >>="
-    name  = "bind"
-    show wa      as type
-    show f       as hof
-    show extract as function
-    show a_val   as value
-    show w1      as value
-    show apply   as function
-    show b_val   as value
-    show w2      as value
-    show combine as function
-    show result  as type
-    tooltip wa      = "(a, w1) — result a paired with the first log fragment w1"
-    tooltip f       = "(a ⟶ (b, w2)) — the continuation; produces result b AND a new log fragment w2"
-    tooltip extract = "Pattern-match the pair: extract a (for f) and w1 (for the log combiner)"
-    tooltip a_val   = "a — the value to pass to f"
-    tooltip w1      = "w — the first log fragment. Flows DIRECTLY to combine, bypassing apply. It must not be dropped."
-    tooltip apply   = "Apply f(a): produces (b, w2) — the result value b and a new log fragment w2"
-    tooltip b_val   = "b — the result value from f(a)"
-    tooltip w2      = "w — the second log fragment, produced by f(a). Combined with w1 from the first step."
-    tooltip combine = "Return (b, w1 <> w2) — result b with both log fragments combined using monoid append"
-    tooltip result  = "(b, w1<>w2) — the final result: value b and the complete accumulated log"
-}

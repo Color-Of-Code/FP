@@ -22,6 +22,67 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "PureFlow",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "PureFlow",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "lift",
+                "type": "Lift",
+                "role": "function",
+                "tooltip": "Embed a0 in the monad with no additional effect.  Per-monad realisation: Just a0 (Maybe), Right a0 (Either), [a0] (List), return a0 (IO), \\\\s -> (a0, s) (State), …"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a0 — any plain value to be lifted into the monadic context."
+              },
+              {
+                "kind": "object",
+                "id": "Ma",
+                "type": "Ma",
+                "role": "type",
+                "tooltip": "Ma — the same value wrapped in the minimal monadic context.  pure must satisfy the left/right identity laws with bind."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "lift"
+              },
+              {
+                "kind": "flow",
+                "from": "lift",
+                "to": "Ma"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "lift": "function",
+              "a0": "value",
+              "Ma": "type"
+            },
+            "tooltips": {
+              "lift": "Embed a0 in the monad with no additional effect.  Per-monad realisation: Just a0 (Maybe), Right a0 (Either), [a0] (List), return a0 (IO), \\\\s -> (a0, s) (State), …",
+              "a0": "a0 — any plain value to be lifted into the monadic context.",
+              "Ma": "Ma — the same value wrapped in the minimal monadic context.  pure must satisfy the left/right identity laws with bind."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +93,25 @@
             {
               "kind": "action",
               "id": "lift",
-              "type": "Lift"
+              "type": "Lift",
+              "role": "function",
+              "tooltip": "Embed a0 in the monad with no additional effect.  Per-monad realisation: Just a0 (Maybe), Right a0 (Either), [a0] (List), return a0 (IO), \\\\s -> (a0, s) (State), …"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a0",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a0 — any plain value to be lifted into the monadic context."
             },
             {
               "kind": "object",
               "id": "Ma",
-              "type": "Ma"
+              "type": "Ma",
+              "role": "type",
+              "tooltip": "Ma — the same value wrapped in the minimal monadic context.  pure must satisfy the left/right identity laws with bind."
             }
           ],
           "decisions": [],
@@ -63,7 +130,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "lift": "function",
+            "a0": "value",
+            "Ma": "type"
+          },
+          "tooltips": {
+            "lift": "Embed a0 in the monad with no additional effect.  Per-monad realisation: Just a0 (Maybe), Right a0 (Either), [a0] (List), return a0 (IO), \\\\s -> (a0, s) (State), …",
+            "a0": "a0 — any plain value to be lifted into the monadic context.",
+            "Ma": "Ma — the same value wrapped in the minimal monadic context.  pure must satisfy the left/right identity laws with bind."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MonadPureGeneric",
+          "viewType": "FpActivityView",
+          "expose": "PureFlow",
+          "rendering": "fpActivityDiagram",
+          "title": "pure :: a ⟶ Ma   (lift a plain value into the monad — also called: return, of, unit, point)",
+          "name": "pure"
         }
       ]
     }
@@ -74,13 +162,13 @@
     "name": "pure",
     "render": "PureFlow",
     "shows": {
-      "a0": "value",
       "lift": "function",
+      "a0": "value",
       "Ma": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value to be lifted into the monadic context.",
       "lift": "Embed a0 in the monad with no additional effect.  Per-monad realisation: Just a0 (Maybe), Right a0 (Either), [a0] (List), return a0 (IO), \\\\s -> (a0, s) (State), …",
+      "a0": "a0 — any plain value to be lifted into the monadic context.",
       "Ma": "Ma — the same value wrapped in the minimal monadic context.  pure must satisfy the left/right identity laws with bind."
     }
   }

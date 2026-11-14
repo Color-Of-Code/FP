@@ -15,6 +15,7 @@
 // the same shape; Left short-circuits the whole chain unchanged.
 
 package EitherMotivationWith {
+    private import FpDiagram::*;
 
     action def Parse {
         in  raw    : String;
@@ -44,25 +45,36 @@ package EitherMotivationWith {
         out _  : "Either e b";
     }
 
-    activity def ParseValidateSaveWith {
+    action def ParseValidateSaveWith {
         // input
-        object raw          : String;
+        #FpNodePresentation { role = "value"; tooltip = "Raw input — for example a request body or untrusted user data."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item raw          : String;
 
         // lift the plain String into Either — entry point of the chain
+        #FpNodePresentation { role = "function"; tooltip = "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind."; laneId = "monad"; laneLabel = "Either monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action pureRaw      : Pure;
 
         // each subsequent step is bind + a fallible function (HOF argument)
-        object parseFn      : "String ⟶ Either e Parsed";
+        #FpNodePresentation { role = "hof"; tooltip = "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+        item parseFn      : "String ⟶ Either e Parsed";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates."; laneId = "monad"; laneLabel = "Either monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindParse    : Bind;
 
-        object validateFn   : "Parsed ⟶ Either e Valid";
+        #FpNodePresentation { role = "hof"; tooltip = "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+
+        item validateFn   : "Parsed ⟶ Either e Valid";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern."; laneId = "monad"; laneLabel = "Either monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action bindValidate : Bind;
 
-        object saveFn       : "Valid ⟶ Either e Saved";
+        #FpNodePresentation { role = "hof"; tooltip = "save : Valid → Either e Saved. Same: supplied to bind as the continuation."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "3"; }
+
+        item saveFn       : "Valid ⟶ Either e Saved";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern."; laneId = "monad"; laneLabel = "Either monad"; laneOrder = "1"; laneMemberOrder = "3"; }
         action bindSave     : Bind;
 
         // output
-        object eSaved       : "Either e Saved";
+        #FpNodePresentation { role = "type"; tooltip = "Either e Saved — Right on the happy path; the very first Left otherwise."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "4"; }
+        item eSaved       : "Either e Saved";
 
         // main flow runs through the bind nodes
         flow from raw          to pureRaw;
@@ -81,34 +93,14 @@ package EitherMotivationWith {
         // functions all live in plain-value land.
         // Bottom lane: pure (entry into the monad) and the bind chain — the
         // operations that work on the elevated values.
-        lane plain : "Plain values & functions" =
-            raw, parseFn, validateFn, saveFn, eSaved;
-        lane monad : "Either monad" =
-            pureRaw, bindParse, bindValidate, bindSave;
-    }
-}
 
-#diagram {
-    type  = activity
-    title = "With pure + bind: Left propagates automatically; every step has the same shape"
-    name  = "parseValidateSave"
-    show raw          as value
-    show pureRaw      as function
-    show bindParse    as function
-    show bindValidate as function
-    show bindSave     as function
-    show parseFn      as hof
-    show validateFn   as hof
-    show saveFn       as hof
-    show eSaved       as type
-    tooltip raw          = "Raw input — for example a request body or untrusted user data."
-    tooltip pureRaw      = "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind."
-    tooltip bindParse    = ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates."
-    tooltip bindValidate = ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern."
-    tooltip bindSave     = ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern."
-    tooltip parseFn      = "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow."
-    tooltip validateFn   = "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation."
-    tooltip saveFn       = "save : Valid → Either e Saved. Same: supplied to bind as the continuation."
-    tooltip eSaved       = "Either e Saved — Right on the happy path; the very first Left otherwise."
+
+    }
+    #FpViewPresentation { name = "parseValidateSave"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: Left propagates automatically; every step has the same shape*/
+        expose ParseValidateSaveWith;
+        render fpActivityDiagram;
+    }
 }
 

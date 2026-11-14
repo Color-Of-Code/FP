@@ -4,7 +4,85 @@
       "name": "FunctionDefinitionsActivity",
       "portDefs": [],
       "partDefs": [],
-      "actionDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "TotalityConcept",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "TotalityConcept",
+            "actions": [],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "f :: a ⟶ b",
+                "role": "function",
+                "tooltip": "A function under discussion."
+              },
+              {
+                "kind": "object",
+                "id": "safe",
+                "type": "total",
+                "role": "value",
+                "tooltip": "Total — defined for all values of type a."
+              },
+              {
+                "kind": "object",
+                "id": "partial",
+                "type": "partial",
+                "role": "value",
+                "tooltip": "Partial — undefined for some values of type a."
+              }
+            ],
+            "decisions": [
+              {
+                "kind": "decision",
+                "id": "total",
+                "label": "defined for every a?",
+                "role": "decision",
+                "tooltip": "A total function returns a result for every input in the domain."
+              }
+            ],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "total"
+              },
+              {
+                "kind": "flow",
+                "from": "total",
+                "to": "safe",
+                "label": "yes"
+              },
+              {
+                "kind": "flow",
+                "from": "total",
+                "to": "partial",
+                "label": "no"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "f": "function",
+              "safe": "value",
+              "partial": "value",
+              "total": "decision"
+            },
+            "tooltips": {
+              "f": "A function under discussion.",
+              "safe": "Total — defined for all values of type a.",
+              "partial": "Partial — undefined for some values of type a.",
+              "total": "A total function returns a result for every input in the domain."
+            }
+          }
+        }
+      ],
       "activityDefs": [
         {
           "kind": "activityDef",
@@ -14,24 +92,32 @@
             {
               "kind": "object",
               "id": "f",
-              "type": "f :: a ⟶ b"
+              "type": "f :: a ⟶ b",
+              "role": "function",
+              "tooltip": "A function under discussion."
             },
             {
               "kind": "object",
               "id": "safe",
-              "type": "total"
+              "type": "total",
+              "role": "value",
+              "tooltip": "Total — defined for all values of type a."
             },
             {
               "kind": "object",
               "id": "partial",
-              "type": "partial"
+              "type": "partial",
+              "role": "value",
+              "tooltip": "Partial — undefined for some values of type a."
             }
           ],
           "decisions": [
             {
               "kind": "decision",
               "id": "total",
-              "label": "defined for every a?"
+              "label": "defined for every a?",
+              "role": "decision",
+              "tooltip": "A total function returns a result for every input in the domain."
             }
           ],
           "merges": [],
@@ -56,7 +142,30 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "f": "function",
+            "safe": "value",
+            "partial": "value",
+            "total": "decision"
+          },
+          "tooltips": {
+            "f": "A function under discussion.",
+            "safe": "Total — defined for all values of type a.",
+            "partial": "Partial — undefined for some values of type a.",
+            "total": "A total function returns a result for every input in the domain."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FunctionDefinitionsActivity",
+          "viewType": "FpActivityView",
+          "expose": "TotalityConcept",
+          "rendering": "fpActivityDiagram",
+          "title": "Total vs partial",
+          "name": "totality"
         }
       ]
     }
@@ -65,17 +174,18 @@
     "diagType": "activity",
     "title": "Total vs partial",
     "name": "totality",
+    "render": "TotalityConcept",
     "shows": {
       "f": "function",
-      "total": "decision",
       "safe": "value",
-      "partial": "value"
+      "partial": "value",
+      "total": "decision"
     },
     "tooltips": {
       "f": "A function under discussion.",
-      "total": "A total function returns a result for every input in the domain.",
       "safe": "Total — defined for all values of type a.",
-      "partial": "Partial — undefined for some values of type a."
+      "partial": "Partial — undefined for some values of type a.",
+      "total": "A total function returns a result for every input in the domain."
     }
   }
 }

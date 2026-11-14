@@ -3,6 +3,7 @@
 // Diagram type: activity — shows monadic value + HOF flowing into bind, chain
 
 package MonadActivity {
+    private import FpDiagram::*;
 
     action def BindOp {
         in  ma : Ma;             // monadic value
@@ -10,19 +11,26 @@ package MonadActivity {
         out mb : Mb;
     }
 
-    activity def MonadChain {
+    action def MonadChain {
         // input values
-        object Ma  : Ma;           // initial wrapped value
-        object f   : "a ⟶ Mb";  // HOF: first step function
-        object g   : "b ⟶ Mc";  // HOF: second step function
+        #FpNodePresentation { role = "type"; tooltip = "Ma — the initial wrapped value"; }
+        item Ma  : Ma;           // initial wrapped value
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Mb) — effectful function, received as a data token (HOF)"; }
+        item f   : "a ⟶ Mb";  // HOF: first step function
+        #FpNodePresentation { role = "hof"; tooltip = "(b ⟶ Mc) — second step function, also a HOF input"; }
+        item g   : "b ⟶ Mc";  // HOF: second step function
 
         // bind actions
+        #FpNodePresentation { role = "function"; tooltip = ">>= : unwraps Ma, applies f, produces Mb"; }
         action bind1 : BindOp;
+        #FpNodePresentation { role = "function"; tooltip = ">>= : unwraps Mb, applies g, produces Mc"; }
         action bind2 : BindOp;
 
         // intermediate and final monadic values
-        object Mb  : Mb;           // result of first bind
-        object Mc  : Mc;           // result of second bind (final)
+        #FpNodePresentation { role = "type"; }
+        item Mb  : Mb;           // result of first bind
+        #FpNodePresentation { role = "type"; tooltip = "Mc — final result, effects from all steps collected"; }
+        item Mc  : Mc;           // result of second bind (final)
 
         // object flows — data token movement
         flow from Ma   to bind1;
@@ -36,23 +44,11 @@ package MonadActivity {
         // control flow — bind1 completes before bind2 begins
         succession bind1 then bind2;
     }
+    #FpViewPresentation { name = ">>="; }
+    view diagram : FpActivityView {
+        doc /*Monad: Ma >>= (a ⟶ Mb) >>= (b ⟶ Mc)*/
+        expose MonadChain;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "Monad: Ma >>= (a ⟶ Mb) >>= (b ⟶ Mc)"
-    name  = ">>=" 
-    show Ma    as type
-    show f     as hof
-    show g     as hof
-    show bind1 as function
-    show bind2 as function
-    show Mb    as type
-    show Mc    as type
-    tooltip Ma    = "Ma — the initial wrapped value"
-    tooltip f     = "(a ⟶ Mb) — effectful function, received as a data token (HOF)"
-    tooltip g     = "(b ⟶ Mc) — second step function, also a HOF input"
-    tooltip bind1 = ">>= : unwraps Ma, applies f, produces Mb"
-    tooltip bind2 = ">>= : unwraps Mb, applies g, produces Mc"
-    tooltip Mc    = "Mc — final result, effects from all steps collected"
-}

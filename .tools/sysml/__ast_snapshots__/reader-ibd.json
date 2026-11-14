@@ -12,31 +12,41 @@
               "kind": "part",
               "id": "ra_val",
               "type": "Reader r a",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Reader r a — a computation waiting for env r; when run with r it produces a"
             },
             {
               "kind": "part",
               "id": "f_val",
               "type": "a ⟶ Reader r b",
-              "ports": []
+              "ports": [],
+              "role": "hof",
+              "tooltip": "(a ⟶ Reader r b) — continuation: given a, produces a new computation waiting for r"
             },
             {
               "kind": "part",
               "id": "r_env",
               "type": "r",
-              "ports": []
+              "ports": [],
+              "role": "value",
+              "tooltip": "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified."
             },
             {
               "kind": "part",
               "id": "bind",
               "type": "ReaderBindOp",
-              "ports": []
+              "ports": [],
+              "role": "function",
+              "tooltip": "bind ra f = \\\\r -> f (ra r) r\\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r."
             },
             {
               "kind": "part",
               "id": "rb_val",
               "type": "Reader r b",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Reader r b — the composed computation; when run with r it produces b"
             }
           ],
           "ports": [],
@@ -62,11 +72,35 @@
               "to": "rb_val"
             }
           ],
-          "notes": []
+          "notes": [],
+          "shows": {
+            "ra_val": "type",
+            "f_val": "hof",
+            "r_env": "value",
+            "bind": "function",
+            "rb_val": "type"
+          },
+          "tooltips": {
+            "ra_val": "Reader r a — a computation waiting for env r; when run with r it produces a",
+            "f_val": "(a ⟶ Reader r b) — continuation: given a, produces a new computation waiting for r",
+            "r_env": "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified.",
+            "bind": "bind ra f = \\\\r -> f (ra r) r\\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r.",
+            "rb_val": "Reader r b — the composed computation; when run with r it produces b"
+          }
         }
       ],
       "actionDefs": [],
-      "activityDefs": []
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ReaderSignature",
+          "viewType": "FpIbdView",
+          "expose": "ReaderBindContext",
+          "rendering": "fpIbdDiagram",
+          "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>="
+        }
+      ]
     }
   ],
   "diagram": {

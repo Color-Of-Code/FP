@@ -46,6 +46,134 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "FmapProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "FmapProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "fmapF",
+                "type": "FmapOp",
+                "role": "function",
+                "tooltip": "fmap: lifts a plain function into the functor"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ b",
+                "role": "hof",
+                "tooltip": "(a ⟶ b) — a plain function (contrast: Applicative wraps the function too)"
+              },
+              {
+                "kind": "object",
+                "id": "Fa",
+                "type": "Fa",
+                "role": "type",
+                "tooltip": "Fa — value inside context F"
+              },
+              {
+                "kind": "object",
+                "id": "Fb",
+                "type": "Fb",
+                "role": "type",
+                "tooltip": "Fb — result inside context F"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "fmapF"
+              },
+              {
+                "kind": "flow",
+                "from": "Fa",
+                "to": "fmapF"
+              },
+              {
+                "kind": "flow",
+                "from": "fmapF",
+                "to": "Fb"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "fmapF": "function",
+              "f": "hof",
+              "Fa": "type",
+              "Fb": "type"
+            },
+            "tooltips": {
+              "fmapF": "fmap: lifts a plain function into the functor",
+              "f": "(a ⟶ b) — a plain function (contrast: Applicative wraps the function too)",
+              "Fa": "Fa — value inside context F",
+              "Fb": "Fb — result inside context F"
+            }
+          }
+        },
+        {
+          "kind": "actionDef",
+          "name": "PureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "PureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "pur",
+                "type": "PureOp"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "x",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "Fa",
+                "type": "Fa",
+                "role": "type",
+                "tooltip": "Fa — value inside context F"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "pur"
+              },
+              {
+                "kind": "flow",
+                "from": "pur",
+                "to": "Fa"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "Fa": "type"
+            },
+            "tooltips": {
+              "Fa": "Fa — value inside context F"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -56,24 +184,32 @@
             {
               "kind": "action",
               "id": "fmapF",
-              "type": "FmapOp"
+              "type": "FmapOp",
+              "role": "function",
+              "tooltip": "fmap: lifts a plain function into the functor"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ b"
+              "type": "a ⟶ b",
+              "role": "hof",
+              "tooltip": "(a ⟶ b) — a plain function (contrast: Applicative wraps the function too)"
             },
             {
               "kind": "object",
               "id": "Fa",
-              "type": "Fa"
+              "type": "Fa",
+              "role": "type",
+              "tooltip": "Fa — value inside context F"
             },
             {
               "kind": "object",
               "id": "Fb",
-              "type": "Fb"
+              "type": "Fb",
+              "role": "type",
+              "tooltip": "Fb — result inside context F"
             }
           ],
           "decisions": [],
@@ -97,7 +233,19 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "fmapF": "function",
+            "f": "hof",
+            "Fa": "type",
+            "Fb": "type"
+          },
+          "tooltips": {
+            "fmapF": "fmap: lifts a plain function into the functor",
+            "f": "(a ⟶ b) — a plain function (contrast: Applicative wraps the function too)",
+            "Fa": "Fa — value inside context F",
+            "Fb": "Fb — result inside context F"
+          }
         },
         {
           "kind": "activityDef",
@@ -118,7 +266,9 @@
             {
               "kind": "object",
               "id": "Fa",
-              "type": "Fa"
+              "type": "Fa",
+              "role": "type",
+              "tooltip": "Fa — value inside context F"
             }
           ],
           "decisions": [],
@@ -137,7 +287,24 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "Fa": "type"
+          },
+          "tooltips": {
+            "Fa": "Fa — value inside context F"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ApplicativeFmapPure",
+          "viewType": "FpActivityView",
+          "expose": "FmapProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb  |  pure :: a ⟶ Fa",
+          "name": "fmap"
         }
       ]
     }
@@ -148,15 +315,15 @@
     "name": "fmap",
     "render": "FmapProcess",
     "shows": {
+      "fmapF": "function",
       "f": "hof",
       "Fa": "type",
-      "fmapF": "function",
       "Fb": "type"
     },
     "tooltips": {
+      "fmapF": "fmap: lifts a plain function into the functor",
       "f": "(a ⟶ b) — a plain function (contrast: Applicative wraps the function too)",
       "Fa": "Fa — value inside context F",
-      "fmapF": "fmap: lifts a plain function into the functor",
       "Fb": "Fb — result inside context F"
     }
   }

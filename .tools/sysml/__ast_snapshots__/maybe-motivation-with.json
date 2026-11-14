@@ -118,6 +118,254 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "LookupUserCityWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "LookupUserCityWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "pureId",
+                "type": "Pure",
+                "role": "function",
+                "tooltip": "pure : UserId → Maybe UserId. Lifts the plain value into Maybe so the chain can start uniformly with bind.",
+                "laneId": "monad",
+                "laneLabel": "Maybe monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindUser",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : takes Maybe UserId and (UserId → Maybe User). Unwraps Just id and applies findUser; propagates Nothing.",
+                "laneId": "monad",
+                "laneLabel": "Maybe monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "action",
+                "id": "bindAddr",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : takes Maybe User and (User → Maybe Address). Same pattern.",
+                "laneId": "monad",
+                "laneLabel": "Maybe monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 2
+              },
+              {
+                "kind": "action",
+                "id": "bindCity",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : takes Maybe Address and (Address → Maybe City). Same pattern.",
+                "laneId": "monad",
+                "laneLabel": "Maybe monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 3
+              },
+              {
+                "kind": "action",
+                "id": "bindName",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : takes Maybe City and (City → Maybe String). Same pattern.",
+                "laneId": "monad",
+                "laneLabel": "Maybe monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 4
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "userId",
+                "type": "UserId",
+                "role": "value",
+                "tooltip": "The input: a plain UserId.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "findUserFn",
+                "type": "UserId ⟶ Maybe User",
+                "role": "hof",
+                "tooltip": "find_user : UserId → Maybe User. Passed as an argument to bind — its input type is UserId, not Maybe UserId, so it cannot sit on the main flow.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "object",
+                "id": "findAddrFn",
+                "type": "User ⟶ Maybe Address",
+                "role": "hof",
+                "tooltip": "find_address : User → Maybe Address. Same: supplied to bind as the continuation.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 2
+              },
+              {
+                "kind": "object",
+                "id": "findCityFn",
+                "type": "Address ⟶ Maybe City",
+                "role": "hof",
+                "tooltip": "find_city : Address → Maybe City. Same: supplied to bind as the continuation.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 3
+              },
+              {
+                "kind": "object",
+                "id": "liftNameFn",
+                "type": "City ⟶ Maybe String",
+                "role": "hof",
+                "tooltip": "lift_name : City → Maybe String (= pure ∘ .name). Lifts the plain String back into Maybe.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 4
+              },
+              {
+                "kind": "object",
+                "id": "cityName",
+                "type": "Maybe String",
+                "role": "type",
+                "tooltip": "Maybe String — Just city.name on success; Nothing if any step failed.\\nNo explicit null checks anywhere in this chain; pure starts it, bind drives it.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 5
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "userId",
+                "to": "pureId"
+              },
+              {
+                "kind": "flow",
+                "from": "pureId",
+                "to": "bindUser",
+                "label": "Maybe UserId"
+              },
+              {
+                "kind": "flow",
+                "from": "bindUser",
+                "to": "bindAddr",
+                "label": "Maybe User"
+              },
+              {
+                "kind": "flow",
+                "from": "bindAddr",
+                "to": "bindCity",
+                "label": "Maybe Address"
+              },
+              {
+                "kind": "flow",
+                "from": "bindCity",
+                "to": "bindName",
+                "label": "Maybe City"
+              },
+              {
+                "kind": "flow",
+                "from": "bindName",
+                "to": "cityName",
+                "label": "Maybe String"
+              },
+              {
+                "kind": "flow",
+                "from": "findUserFn",
+                "to": "bindUser"
+              },
+              {
+                "kind": "flow",
+                "from": "findAddrFn",
+                "to": "bindAddr"
+              },
+              {
+                "kind": "flow",
+                "from": "findCityFn",
+                "to": "bindCity"
+              },
+              {
+                "kind": "flow",
+                "from": "liftNameFn",
+                "to": "bindName"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "userId",
+                  "findUserFn",
+                  "findAddrFn",
+                  "findCityFn",
+                  "liftNameFn",
+                  "cityName"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "Maybe monad",
+                "members": [
+                  "pureId",
+                  "bindUser",
+                  "bindAddr",
+                  "bindCity",
+                  "bindName"
+                ]
+              }
+            ],
+            "shows": {
+              "pureId": "function",
+              "bindUser": "function",
+              "bindAddr": "function",
+              "bindCity": "function",
+              "bindName": "function",
+              "userId": "value",
+              "findUserFn": "hof",
+              "findAddrFn": "hof",
+              "findCityFn": "hof",
+              "liftNameFn": "hof",
+              "cityName": "type"
+            },
+            "tooltips": {
+              "pureId": "pure : UserId → Maybe UserId. Lifts the plain value into Maybe so the chain can start uniformly with bind.",
+              "bindUser": ">>= : takes Maybe UserId and (UserId → Maybe User). Unwraps Just id and applies findUser; propagates Nothing.",
+              "bindAddr": ">>= : takes Maybe User and (User → Maybe Address). Same pattern.",
+              "bindCity": ">>= : takes Maybe Address and (Address → Maybe City). Same pattern.",
+              "bindName": ">>= : takes Maybe City and (City → Maybe String). Same pattern.",
+              "userId": "The input: a plain UserId.",
+              "findUserFn": "find_user : UserId → Maybe User. Passed as an argument to bind — its input type is UserId, not Maybe UserId, so it cannot sit on the main flow.",
+              "findAddrFn": "find_address : User → Maybe Address. Same: supplied to bind as the continuation.",
+              "findCityFn": "find_city : Address → Maybe City. Same: supplied to bind as the continuation.",
+              "liftNameFn": "lift_name : City → Maybe String (= pure ∘ .name). Lifts the plain String back into Maybe.",
+              "cityName": "Maybe String — Just city.name on success; Nothing if any step failed.\\nNo explicit null checks anywhere in this chain; pure starts it, bind drives it."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -128,59 +376,125 @@
             {
               "kind": "action",
               "id": "pureId",
-              "type": "Pure"
+              "type": "Pure",
+              "role": "function",
+              "tooltip": "pure : UserId → Maybe UserId. Lifts the plain value into Maybe so the chain can start uniformly with bind.",
+              "laneId": "monad",
+              "laneLabel": "Maybe monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindUser",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : takes Maybe UserId and (UserId → Maybe User). Unwraps Just id and applies findUser; propagates Nothing.",
+              "laneId": "monad",
+              "laneLabel": "Maybe monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             },
             {
               "kind": "action",
               "id": "bindAddr",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : takes Maybe User and (User → Maybe Address). Same pattern.",
+              "laneId": "monad",
+              "laneLabel": "Maybe monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 2
             },
             {
               "kind": "action",
               "id": "bindCity",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : takes Maybe Address and (Address → Maybe City). Same pattern.",
+              "laneId": "monad",
+              "laneLabel": "Maybe monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 3
             },
             {
               "kind": "action",
               "id": "bindName",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : takes Maybe City and (City → Maybe String). Same pattern.",
+              "laneId": "monad",
+              "laneLabel": "Maybe monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 4
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "userId",
-              "type": "UserId"
+              "type": "UserId",
+              "role": "value",
+              "tooltip": "The input: a plain UserId.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "findUserFn",
-              "type": "UserId ⟶ Maybe User"
+              "type": "UserId ⟶ Maybe User",
+              "role": "hof",
+              "tooltip": "find_user : UserId → Maybe User. Passed as an argument to bind — its input type is UserId, not Maybe UserId, so it cannot sit on the main flow.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             },
             {
               "kind": "object",
               "id": "findAddrFn",
-              "type": "User ⟶ Maybe Address"
+              "type": "User ⟶ Maybe Address",
+              "role": "hof",
+              "tooltip": "find_address : User → Maybe Address. Same: supplied to bind as the continuation.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 2
             },
             {
               "kind": "object",
               "id": "findCityFn",
-              "type": "Address ⟶ Maybe City"
+              "type": "Address ⟶ Maybe City",
+              "role": "hof",
+              "tooltip": "find_city : Address → Maybe City. Same: supplied to bind as the continuation.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 3
             },
             {
               "kind": "object",
               "id": "liftNameFn",
-              "type": "City ⟶ Maybe String"
+              "type": "City ⟶ Maybe String",
+              "role": "hof",
+              "tooltip": "lift_name : City → Maybe String (= pure ∘ .name). Lifts the plain String back into Maybe.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 4
             },
             {
               "kind": "object",
               "id": "cityName",
-              "type": "Maybe String"
+              "type": "Maybe String",
+              "role": "type",
+              "tooltip": "Maybe String — Just city.name on success; Nothing if any step failed.\\nNo explicit null checks anywhere in this chain; pure starts it, bind drives it.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 5
             }
           ],
           "decisions": [],
@@ -270,7 +584,44 @@
                 "bindName"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "pureId": "function",
+            "bindUser": "function",
+            "bindAddr": "function",
+            "bindCity": "function",
+            "bindName": "function",
+            "userId": "value",
+            "findUserFn": "hof",
+            "findAddrFn": "hof",
+            "findCityFn": "hof",
+            "liftNameFn": "hof",
+            "cityName": "type"
+          },
+          "tooltips": {
+            "pureId": "pure : UserId → Maybe UserId. Lifts the plain value into Maybe so the chain can start uniformly with bind.",
+            "bindUser": ">>= : takes Maybe UserId and (UserId → Maybe User). Unwraps Just id and applies findUser; propagates Nothing.",
+            "bindAddr": ">>= : takes Maybe User and (User → Maybe Address). Same pattern.",
+            "bindCity": ">>= : takes Maybe Address and (Address → Maybe City). Same pattern.",
+            "bindName": ">>= : takes Maybe City and (City → Maybe String). Same pattern.",
+            "userId": "The input: a plain UserId.",
+            "findUserFn": "find_user : UserId → Maybe User. Passed as an argument to bind — its input type is UserId, not Maybe UserId, so it cannot sit on the main flow.",
+            "findAddrFn": "find_address : User → Maybe Address. Same: supplied to bind as the continuation.",
+            "findCityFn": "find_city : Address → Maybe City. Same: supplied to bind as the continuation.",
+            "liftNameFn": "lift_name : City → Maybe String (= pure ∘ .name). Lifts the plain String back into Maybe.",
+            "cityName": "Maybe String — Just city.name on success; Nothing if any step failed.\\nNo explicit null checks anywhere in this chain; pure starts it, bind drives it."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MaybeMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "LookupUserCityWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: every step has the same shape; bind is the glue",
+          "name": "lookupUserCity"
         }
       ]
     }
@@ -279,13 +630,14 @@
     "diagType": "activity",
     "title": "With pure + bind: every step has the same shape; bind is the glue",
     "name": "lookupUserCity",
+    "render": "LookupUserCityWith",
     "shows": {
-      "userId": "value",
       "pureId": "function",
       "bindUser": "function",
       "bindAddr": "function",
       "bindCity": "function",
       "bindName": "function",
+      "userId": "value",
       "findUserFn": "hof",
       "findAddrFn": "hof",
       "findCityFn": "hof",
@@ -293,12 +645,12 @@
       "cityName": "type"
     },
     "tooltips": {
-      "userId": "The input: a plain UserId.",
       "pureId": "pure : UserId → Maybe UserId. Lifts the plain value into Maybe so the chain can start uniformly with bind.",
       "bindUser": ">>= : takes Maybe UserId and (UserId → Maybe User). Unwraps Just id and applies findUser; propagates Nothing.",
       "bindAddr": ">>= : takes Maybe User and (User → Maybe Address). Same pattern.",
       "bindCity": ">>= : takes Maybe Address and (Address → Maybe City). Same pattern.",
       "bindName": ">>= : takes Maybe City and (City → Maybe String). Same pattern.",
+      "userId": "The input: a plain UserId.",
       "findUserFn": "find_user : UserId → Maybe User. Passed as an argument to bind — its input type is UserId, not Maybe UserId, so it cannot sit on the main flow.",
       "findAddrFn": "find_address : User → Maybe Address. Same: supplied to bind as the continuation.",
       "findCityFn": "find_city : Address → Maybe City. Same: supplied to bind as the continuation.",

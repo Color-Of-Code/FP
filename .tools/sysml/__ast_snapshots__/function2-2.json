@@ -46,6 +46,113 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CurryingProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "CurryingProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "curry",
+                "type": "CurryOp",
+                "role": "function",
+                "tooltip": "curry: transforms a multi-arg function into a chain of single-arg functions"
+              },
+              {
+                "kind": "action",
+                "id": "applyA",
+                "type": "ApplyFirst",
+                "role": "function",
+                "tooltip": "Apply the first argument a, yielding the specialised function"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "f2",
+                "type": "(a,b) ⟶ c",
+                "role": "hof",
+                "tooltip": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token"
+              },
+              {
+                "kind": "object",
+                "id": "curried",
+                "type": "a ⟶ (b ⟶ c)",
+                "role": "function",
+                "tooltip": "a ⟶ (b ⟶ c) — the curried form, itself a function"
+              },
+              {
+                "kind": "object",
+                "id": "a",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "f1",
+                "type": "b ⟶ c",
+                "role": "function",
+                "tooltip": "b ⟶ c — the specialised function with a already applied"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "f2",
+                "to": "curry",
+                "label": "curry"
+              },
+              {
+                "kind": "flow",
+                "from": "curry",
+                "to": "curried"
+              },
+              {
+                "kind": "flow",
+                "from": "curried",
+                "to": "applyA",
+                "label": "apply a"
+              },
+              {
+                "kind": "flow",
+                "from": "a",
+                "to": "applyA"
+              },
+              {
+                "kind": "flow",
+                "from": "applyA",
+                "to": "f1"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "curry",
+                "to": "applyA"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "curry": "function",
+              "applyA": "function",
+              "f2": "hof",
+              "curried": "function",
+              "f1": "function"
+            },
+            "tooltips": {
+              "curry": "curry: transforms a multi-arg function into a chain of single-arg functions",
+              "applyA": "Apply the first argument a, yielding the specialised function",
+              "f2": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token",
+              "curried": "a ⟶ (b ⟶ c) — the curried form, itself a function",
+              "f1": "b ⟶ c — the specialised function with a already applied"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -56,24 +163,32 @@
             {
               "kind": "action",
               "id": "curry",
-              "type": "CurryOp"
+              "type": "CurryOp",
+              "role": "function",
+              "tooltip": "curry: transforms a multi-arg function into a chain of single-arg functions"
             },
             {
               "kind": "action",
               "id": "applyA",
-              "type": "ApplyFirst"
+              "type": "ApplyFirst",
+              "role": "function",
+              "tooltip": "Apply the first argument a, yielding the specialised function"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "f2",
-              "type": "(a,b) ⟶ c"
+              "type": "(a,b) ⟶ c",
+              "role": "hof",
+              "tooltip": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token"
             },
             {
               "kind": "object",
               "id": "curried",
-              "type": "a ⟶ (b ⟶ c)"
+              "type": "a ⟶ (b ⟶ c)",
+              "role": "function",
+              "tooltip": "a ⟶ (b ⟶ c) — the curried form, itself a function"
             },
             {
               "kind": "object",
@@ -83,7 +198,9 @@
             {
               "kind": "object",
               "id": "f1",
-              "type": "b ⟶ c"
+              "type": "b ⟶ c",
+              "role": "function",
+              "tooltip": "b ⟶ c — the specialised function with a already applied"
             }
           ],
           "decisions": [],
@@ -125,7 +242,32 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "curry": "function",
+            "applyA": "function",
+            "f2": "hof",
+            "curried": "function",
+            "f1": "function"
+          },
+          "tooltips": {
+            "curry": "curry: transforms a multi-arg function into a chain of single-arg functions",
+            "applyA": "Apply the first argument a, yielding the specialised function",
+            "f2": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token",
+            "curried": "a ⟶ (b ⟶ c) — the curried form, itself a function",
+            "f1": "b ⟶ c — the specialised function with a already applied"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "Function2Currying",
+          "viewType": "FpActivityView",
+          "expose": "CurryingProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)",
+          "name": "curry"
         }
       ]
     }
@@ -134,18 +276,19 @@
     "diagType": "activity",
     "title": "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)",
     "name": "curry",
+    "render": "CurryingProcess",
     "shows": {
-      "f2": "hof",
       "curry": "function",
-      "curried": "function",
       "applyA": "function",
+      "f2": "hof",
+      "curried": "function",
       "f1": "function"
     },
     "tooltips": {
-      "f2": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token",
       "curry": "curry: transforms a multi-arg function into a chain of single-arg functions",
-      "curried": "a ⟶ (b ⟶ c) — the curried form, itself a function",
       "applyA": "Apply the first argument a, yielding the specialised function",
+      "f2": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token",
+      "curried": "a ⟶ (b ⟶ c) — the curried form, itself a function",
       "f1": "b ⟶ c — the specialised function with a already applied"
     }
   }

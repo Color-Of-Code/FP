@@ -4,6 +4,7 @@
 // Failure: p returns Nothing → f is skipped, Nothing propagates (like Maybe bind).
 
 package ParserBindImpl {
+    private import FpDiagram::*;
 
     action def RunPA {
         in  pa    : "Parser a";  // String ⟶ Maybe (a, String)
@@ -26,23 +27,36 @@ package ParserBindImpl {
         out rest2 : String;      // unconsumed input after both parsers
     }
 
-    activity def ParserBindProcess {
+    action def ParserBindProcess {
         // ── success path ───────────────────────────────────────────────────
-        object pa      : "Parser a";
-        object f       : "a ⟶ Parser b";
-        object input   : String;           // full input string
+        #FpNodePresentation { role = "type"; tooltip = "Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing"; }
+        item pa      : "Parser a";
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Parser b) — the next parser, built from the parsed value a"; }
+        item f       : "a ⟶ Parser b";
+        #FpNodePresentation { role = "value"; tooltip = "String — the full input. pa consumes a prefix; rest is passed forward (like State monad)."; }
+        item input   : String;           // full input string
+        #FpNodePresentation { role = "function"; tooltip = "Run pa(input): on success produces (a, rest); on failure produces Nothing"; }
         action run_pa  : RunPA;
-        object a_val   : a;                // parsed value
-        object rest    : String;           // remaining input after pa consumed its prefix
+        #FpNodePresentation { role = "value"; tooltip = "a — the parsed value. Passed to f to build the next parser."; }
+        item a_val   : a;                // parsed value
+        #FpNodePresentation { role = "value"; tooltip = "String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading."; }
+        item rest    : String;           // remaining input after pa consumed its prefix
+        #FpNodePresentation { role = "function"; tooltip = "Apply f(a): build Parser b from the parsed value a"; }
         action apply_f : ApplyF;
-        object pb      : "Parser b";
+        #FpNodePresentation { role = "type"; tooltip = "Parser b — the second parser"; }
+        item pb      : "Parser b";
+        #FpNodePresentation { role = "function"; tooltip = "Run pb(rest): parse b from the REMAINING input, not from the original input"; }
         action run_pb  : RunPB;
-        object b       : b;
-        object rest2   : String;           // remaining after both parsers
+        #FpNodePresentation { role = "value"; tooltip = "b — the final parsed value"; }
+        item b       : b;
+        #FpNodePresentation { role = "value"; tooltip = "String — input still unconsumed after both parsers ran"; }
+        item rest2   : String;           // remaining after both parsers
 
         // ── failure path ───────────────────────────────────────────────────
-        object fail_in  : Nothing;         // pa returned Nothing
-        object fail_out : Nothing;         // propagated — f never called
+        #FpNodePresentation { role = "type"; tooltip = "Nothing — pa failed. No (a, rest) was produced."; }
+        item fail_in  : Nothing;         // pa returned Nothing
+        #FpNodePresentation { role = "type"; tooltip = "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"; }
+        item fail_out : Nothing;         // propagated — f never called
 
         // success path flows
         flow from pa      to run_pa;
@@ -63,36 +77,11 @@ package ParserBindImpl {
         succession run_pa then apply_f;
         succession apply_f then run_pb;
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>=*/
+        expose ParserBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>="
-    name  = "bind"
-    show pa       as type
-    show f        as hof
-    show input    as value
-    show run_pa   as function
-    show a_val    as value
-    show rest     as value
-    show apply_f  as function
-    show pb       as type
-    show run_pb   as function
-    show b        as value
-    show rest2    as value
-    show fail_in  as type
-    show fail_out as type
-    tooltip pa       = "Parser a — a function String ⟶ Maybe (a, String): consumes a prefix, returns (a, rest) or Nothing"
-    tooltip f        = "(a ⟶ Parser b) — the next parser, built from the parsed value a"
-    tooltip input    = "String — the full input. pa consumes a prefix; rest is passed forward (like State monad)."
-    tooltip run_pa   = "Run pa(input): on success produces (a, rest); on failure produces Nothing"
-    tooltip a_val    = "a — the parsed value. Passed to f to build the next parser."
-    tooltip rest     = "String — unconsumed input after pa ran. Flows to run_pb (not input). This is the State-like threading."
-    tooltip apply_f  = "Apply f(a): build Parser b from the parsed value a"
-    tooltip pb       = "Parser b — the second parser"
-    tooltip run_pb   = "Run pb(rest): parse b from the REMAINING input, not from the original input"
-    tooltip b        = "b — the final parsed value"
-    tooltip rest2    = "String — input still unconsumed after both parsers ran"
-    tooltip fail_in  = "Nothing — pa failed. No (a, rest) was produced."
-    tooltip fail_out = "Nothing — propagated unchanged. f is never called. (Same short-circuit as Maybe bind.)"
-}

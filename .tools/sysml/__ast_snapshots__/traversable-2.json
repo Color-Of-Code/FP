@@ -22,6 +22,67 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "SequenceProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "SequenceProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "seq",
+                "type": "SequenceOp",
+                "role": "function",
+                "tooltip": "sequence: swaps T and F — collects all effects into one outer F"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "Tfa",
+                "type": "T(Fa)",
+                "role": "type",
+                "tooltip": "T(Fa) — a container of effects (e.g. [Maybe a, Maybe a, ...])"
+              },
+              {
+                "kind": "object",
+                "id": "Fta",
+                "type": "F(Ta)",
+                "role": "type",
+                "tooltip": "F(Ta) — one effect wrapping the whole container (e.g. Maybe [a, a, ...])"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "Tfa",
+                "to": "seq"
+              },
+              {
+                "kind": "flow",
+                "from": "seq",
+                "to": "Fta"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "seq": "function",
+              "Tfa": "type",
+              "Fta": "type"
+            },
+            "tooltips": {
+              "seq": "sequence: swaps T and F — collects all effects into one outer F",
+              "Tfa": "T(Fa) — a container of effects (e.g. [Maybe a, Maybe a, ...])",
+              "Fta": "F(Ta) — one effect wrapping the whole container (e.g. Maybe [a, a, ...])"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +93,25 @@
             {
               "kind": "action",
               "id": "seq",
-              "type": "SequenceOp"
+              "type": "SequenceOp",
+              "role": "function",
+              "tooltip": "sequence: swaps T and F — collects all effects into one outer F"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "Tfa",
-              "type": "T(Fa)"
+              "type": "T(Fa)",
+              "role": "type",
+              "tooltip": "T(Fa) — a container of effects (e.g. [Maybe a, Maybe a, ...])"
             },
             {
               "kind": "object",
               "id": "Fta",
-              "type": "F(Ta)"
+              "type": "F(Ta)",
+              "role": "type",
+              "tooltip": "F(Ta) — one effect wrapping the whole container (e.g. Maybe [a, a, ...])"
             }
           ],
           "decisions": [],
@@ -63,7 +130,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "seq": "function",
+            "Tfa": "type",
+            "Fta": "type"
+          },
+          "tooltips": {
+            "seq": "sequence: swaps T and F — collects all effects into one outer F",
+            "Tfa": "T(Fa) — a container of effects (e.g. [Maybe a, Maybe a, ...])",
+            "Fta": "F(Ta) — one effect wrapping the whole container (e.g. Maybe [a, a, ...])"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TraversableSequence",
+          "viewType": "FpActivityView",
+          "expose": "SequenceProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "sequence :: T(Fa) ⟶ F(Ta)  (= traverse id)",
+          "name": "sequence"
         }
       ]
     }
@@ -72,14 +160,15 @@
     "diagType": "activity",
     "title": "sequence :: T(Fa) ⟶ F(Ta)  (= traverse id)",
     "name": "sequence",
+    "render": "SequenceProcess",
     "shows": {
-      "Tfa": "type",
       "seq": "function",
+      "Tfa": "type",
       "Fta": "type"
     },
     "tooltips": {
-      "Tfa": "T(Fa) — a container of effects (e.g. [Maybe a, Maybe a, ...])",
       "seq": "sequence: swaps T and F — collects all effects into one outer F",
+      "Tfa": "T(Fa) — a container of effects (e.g. [Maybe a, Maybe a, ...])",
       "Fta": "F(Ta) — one effect wrapping the whole container (e.g. Maybe [a, a, ...])"
     }
   }

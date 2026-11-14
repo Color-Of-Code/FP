@@ -15,6 +15,7 @@
 // runReader env supplies the env exactly once at the top of the chain.
 
 package ReaderMotivationWith {
+    private import FpDiagram::*;
 
     action def AsksHost {
         out _ : "Reader Config String";
@@ -43,21 +44,27 @@ package ReaderMotivationWith {
         out _  : "Reader r b";
     }
 
-    activity def BuildUrlWith {
+    action def BuildUrlWith {
         // entry — first projection from the env
+        #FpNodePresentation { role = "function"; tooltip = "asks (.host) : Reader Config String — projects host out of the implicit env."; laneId = "monad"; laneLabel = "Reader monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action asksHost  : AsksHost;
 
         // bind threads the unwrapped host into the next Reader-producing function
-        object readPortFn : "String ⟶ Reader Config (String, Int)";
+        #FpNodePresentation { role = "hof"; tooltip = "λhost. asksPort >>= λport. pure (host, port). HOF argument — captures host in scope while running asksPort under the same env."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item readPortFn : "String ⟶ Reader Config (String, Int)";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : runs asksHost with env, then runs the continuation (which itself returns a Reader) with the SAME env."; laneId = "monad"; laneLabel = "Reader monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindHost  : Bind;
 
         // and once both host and port are in scope, the final pure step
         // wraps the constructed URL back into Reader
-        object pureUrlFn : "(String, Int) ⟶ Reader Config URL";
+        #FpNodePresentation { role = "hof"; tooltip = "λ(host, port). pure (build host port). HOF argument — wraps the pure URL back into Reader."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+        item pureUrlFn : "(String, Int) ⟶ Reader Config URL";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : final bind — turns the (host, port) pair into the URL via build, lifted with pure."; laneId = "monad"; laneLabel = "Reader monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action bindPair  : Bind;
 
         // output
-        object url       : "URL";
+        #FpNodePresentation { role = "type"; tooltip = "URL — final value. runReader env supplies the environment exactly once at the top of the chain."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+        item url       : "URL";
 
         // main flow runs through the bind nodes
         flow from asksHost to bindHost : "Reader Config String";
@@ -69,29 +76,14 @@ package ReaderMotivationWith {
         flow from pureUrlFn  to bindPair;
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            readPortFn, pureUrlFn, url;
-        lane monad : "Reader monad" =
-            asksHost, bindHost, bindPair;
-    }
-}
 
-#diagram {
-    type  = activity
-    layout = elk
-    title = "With pure + bind: env supplied once at the top; bind feeds it to every step"
-    name  = "buildUrl"
-    show asksHost   as function
-    show bindHost   as function
-    show bindPair   as function
-    show readPortFn as hof
-    show pureUrlFn  as hof
-    show url        as type
-    tooltip asksHost   = "asks (.host) : Reader Config String — projects host out of the implicit env."
-    tooltip bindHost   = ">>= : runs asksHost with env, then runs the continuation (which itself returns a Reader) with the SAME env."
-    tooltip bindPair   = ">>= : final bind — turns the (host, port) pair into the URL via build, lifted with pure."
-    tooltip readPortFn = "λhost. asksPort >>= λport. pure (host, port). HOF argument — captures host in scope while running asksPort under the same env."
-    tooltip pureUrlFn  = "λ(host, port). pure (build host port). HOF argument — wraps the pure URL back into Reader."
-    tooltip url        = "URL — final value. runReader env supplies the environment exactly once at the top of the chain."
+
+    }
+    #FpViewPresentation { name = "buildUrl"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: env supplied once at the top; bind feeds it to every step*/
+        expose BuildUrlWith;
+        render fpActivityDiagram;
+    }
 }
 

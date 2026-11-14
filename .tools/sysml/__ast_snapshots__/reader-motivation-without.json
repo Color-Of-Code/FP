@@ -70,6 +70,107 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BuildUrlWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "BuildUrlWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "getHost",
+                "type": "GetHost",
+                "role": "function",
+                "tooltip": "getHost(config) — needs only config.host but takes the whole record."
+              },
+              {
+                "kind": "action",
+                "id": "getPort",
+                "type": "GetPort",
+                "role": "function",
+                "tooltip": "getPort(config) — needs only config.port but still receives the whole record."
+              },
+              {
+                "kind": "action",
+                "id": "buildUrl",
+                "type": "BuildUrl",
+                "role": "function",
+                "tooltip": "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "cfg",
+                "type": "Config",
+                "role": "type",
+                "tooltip": "Config — the environment record. Every helper requires it as an argument."
+              },
+              {
+                "kind": "object",
+                "id": "url",
+                "type": "URL",
+                "role": "type",
+                "tooltip": "URL — the result. Most of the signatures involved were boilerplate."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "cfg",
+                "to": "getHost"
+              },
+              {
+                "kind": "flow",
+                "from": "cfg",
+                "to": "getPort"
+              },
+              {
+                "kind": "flow",
+                "from": "cfg",
+                "to": "buildUrl"
+              },
+              {
+                "kind": "flow",
+                "from": "getHost",
+                "to": "buildUrl",
+                "label": "host : String"
+              },
+              {
+                "kind": "flow",
+                "from": "getPort",
+                "to": "buildUrl",
+                "label": "port : Int"
+              },
+              {
+                "kind": "flow",
+                "from": "buildUrl",
+                "to": "url"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "getHost": "function",
+              "getPort": "function",
+              "buildUrl": "function",
+              "cfg": "type",
+              "url": "type"
+            },
+            "tooltips": {
+              "getHost": "getHost(config) — needs only config.host but takes the whole record.",
+              "getPort": "getPort(config) — needs only config.port but still receives the whole record.",
+              "buildUrl": "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing.",
+              "cfg": "Config — the environment record. Every helper requires it as an argument.",
+              "url": "URL — the result. Most of the signatures involved were boilerplate."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -80,29 +181,39 @@
             {
               "kind": "action",
               "id": "getHost",
-              "type": "GetHost"
+              "type": "GetHost",
+              "role": "function",
+              "tooltip": "getHost(config) — needs only config.host but takes the whole record."
             },
             {
               "kind": "action",
               "id": "getPort",
-              "type": "GetPort"
+              "type": "GetPort",
+              "role": "function",
+              "tooltip": "getPort(config) — needs only config.port but still receives the whole record."
             },
             {
               "kind": "action",
               "id": "buildUrl",
-              "type": "BuildUrl"
+              "type": "BuildUrl",
+              "role": "function",
+              "tooltip": "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "cfg",
-              "type": "Config"
+              "type": "Config",
+              "role": "type",
+              "tooltip": "Config — the environment record. Every helper requires it as an argument."
             },
             {
               "kind": "object",
               "id": "url",
-              "type": "URL"
+              "type": "URL",
+              "role": "type",
+              "tooltip": "URL — the result. Most of the signatures involved were boilerplate."
             }
           ],
           "decisions": [],
@@ -143,7 +254,32 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "getHost": "function",
+            "getPort": "function",
+            "buildUrl": "function",
+            "cfg": "type",
+            "url": "type"
+          },
+          "tooltips": {
+            "getHost": "getHost(config) — needs only config.host but takes the whole record.",
+            "getPort": "getPort(config) — needs only config.port but still receives the whole record.",
+            "buildUrl": "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing.",
+            "cfg": "Config — the environment record. Every helper requires it as an argument.",
+            "url": "URL — the result. Most of the signatures involved were boilerplate."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ReaderMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "BuildUrlWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without bind: config passed into every function explicitly",
+          "name": "buildUrl"
         }
       ]
     }
@@ -152,18 +288,19 @@
     "diagType": "activity",
     "title": "Without bind: config passed into every function explicitly",
     "name": "buildUrl",
+    "render": "BuildUrlWithout",
     "shows": {
-      "cfg": "type",
       "getHost": "function",
       "getPort": "function",
       "buildUrl": "function",
+      "cfg": "type",
       "url": "type"
     },
     "tooltips": {
-      "cfg": "Config — the environment record. Every helper requires it as an argument.",
       "getHost": "getHost(config) — needs only config.host but takes the whole record.",
       "getPort": "getPort(config) — needs only config.port but still receives the whole record.",
       "buildUrl": "buildUrl(config, host, port) — receives config a third time. Adding a new helper repeats the plumbing.",
+      "cfg": "Config — the environment record. Every helper requires it as an argument.",
       "url": "URL — the result. Most of the signatures involved were boilerplate."
     }
   }

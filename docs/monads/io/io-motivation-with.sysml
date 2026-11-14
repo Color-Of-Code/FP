@@ -17,6 +17,7 @@
 // guard.  IO appears in every signature so callers cannot ignore it.
 
 package IOMotivationWith {
+    private import FpDiagram::*;
 
     action def ReadFile {
         in  path : "FilePath";
@@ -41,24 +42,31 @@ package IOMotivationWith {
         out _  : "IO b";
     }
 
-    activity def ComputeWith {
+    action def ComputeWith {
         // input
-        object path        : "FilePath";
+        #FpNodePresentation { role = "value"; tooltip = "FilePath — plain input. Pure callers see only this in the API."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item path        : "FilePath";
 
         // lift the plain path into IO — entry point of the chain
+        #FpNodePresentation { role = "function"; tooltip = "pure : FilePath → IO FilePath. Lifts the plain path so the chain can start uniformly with bind."; laneId = "monad"; laneLabel = "IO monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action purePath    : Pure;
 
         // bind in readFile
-        object readFileFn  : "FilePath ⟶ IO Config";
+        #FpNodePresentation { role = "hof"; tooltip = "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+        item readFileFn  : "FilePath ⟶ IO Config";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : sequences readFile after pure. The runtime guarantees this effect happens before the next bind."; laneId = "monad"; laneLabel = "IO monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindRead    : Bind;
 
         // bind in the log-then-compute continuation (a single function
         // because both effects need cfg in scope)
-        object logCompFn   : "Config ⟶ IO Int";
+        #FpNodePresentation { role = "hof"; tooltip = "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+        item logCompFn   : "Config ⟶ IO Int";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : sequences the (logMessage cfg >> compute cfg) continuation. Effect order is deterministic."; laneId = "monad"; laneLabel = "IO monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action bindLogComp : Bind;
 
         // output
-        object ioResult    : "IO Int";
+        #FpNodePresentation { role = "type"; tooltip = "IO Int — the final described program. The runtime (main) is the only thing that actually executes it."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "3"; }
+        item ioResult    : "IO Int";
 
         // main flow runs through the bind nodes
         flow from path        to purePath;
@@ -71,30 +79,14 @@ package IOMotivationWith {
         flow from logCompFn   to bindLogComp;
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            path, readFileFn, logCompFn, ioResult;
-        lane monad : "IO monad" =
-            purePath, bindRead, bindLogComp;
-    }
-}
 
-#diagram {
-    type  = activity
-    title = "With pure + bind: effects in the type, sequenced explicitly through bind"
-    name  = "compute"
-    show path        as value
-    show purePath    as function
-    show bindRead    as function
-    show bindLogComp as function
-    show readFileFn  as hof
-    show logCompFn   as hof
-    show ioResult    as type
-    tooltip path        = "FilePath — plain input. Pure callers see only this in the API."
-    tooltip purePath    = "pure : FilePath → IO FilePath. Lifts the plain path so the chain can start uniformly with bind."
-    tooltip bindRead    = ">>= : sequences readFile after pure. The runtime guarantees this effect happens before the next bind."
-    tooltip bindLogComp = ">>= : sequences the (logMessage cfg >> compute cfg) continuation. Effect order is deterministic."
-    tooltip readFileFn  = "readFile : FilePath → IO Config. HOF argument — its input is FilePath, not IO FilePath, so it cannot sit on the main flow."
-    tooltip logCompFn   = "λcfg. logMessage cfg >> compute cfg : Config → IO Int. HOF argument — runs both side-effects in order, both seeing cfg."
-    tooltip ioResult    = "IO Int — the final described program. The runtime (main) is the only thing that actually executes it."
+
+    }
+    #FpViewPresentation { name = "compute"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: effects in the type, sequenced explicitly through bind*/
+        expose ComputeWith;
+        render fpActivityDiagram;
+    }
 }
 

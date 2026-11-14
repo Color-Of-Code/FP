@@ -15,6 +15,7 @@
 // log; dropping a log entry is impossible by construction.
 
 package WriterMotivationWith {
+    private import FpDiagram::*;
 
     action def Step1 {
         in  x  : A;
@@ -44,25 +45,36 @@ package WriterMotivationWith {
         out _  : "Writer w b";
     }
 
-    activity def WriterChainWith {
+    action def WriterChainWith {
         // input
-        object x         : A;
+        #FpNodePresentation { role = "value"; tooltip = "Plain input value of type A."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item x         : A;
 
         // lift the plain value with an empty log — entry point
+        #FpNodePresentation { role = "function"; tooltip = "pure : A → Writer w A. Lifts the plain value with mempty (empty log)."; laneId = "monad"; laneLabel = "Writer monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action pureX     : Pure;
 
         // each subsequent step is bind + a producing function (HOF argument)
-        object step1Fn   : "A ⟶ Writer w R1";
+        #FpNodePresentation { role = "hof"; tooltip = "step1 : A → Writer w R1. HOF argument — its input is A, not Writer w A, so it cannot sit on the main flow."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+        item step1Fn   : "A ⟶ Writer w R1";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : runs step1 on the unwrapped value; concatenates the existing log with step1's log."; laneId = "monad"; laneLabel = "Writer monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindStep1 : Bind;
 
-        object step2Fn   : "R1 ⟶ Writer w R2";
+        #FpNodePresentation { role = "hof"; tooltip = "step2 : R1 → Writer w R2. Same: supplied to bind as the continuation."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+
+        item step2Fn   : "R1 ⟶ Writer w R2";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : runs step2; concatenates its log onto the running total. Drops are impossible."; laneId = "monad"; laneLabel = "Writer monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action bindStep2 : Bind;
 
-        object step3Fn   : "R2 ⟶ Writer w R3";
+        #FpNodePresentation { role = "hof"; tooltip = "step3 : R2 → Writer w R3. Same: supplied to bind as the continuation."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "3"; }
+
+        item step3Fn   : "R2 ⟶ Writer w R3";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : runs step3; concatenates its log onto the running total."; laneId = "monad"; laneLabel = "Writer monad"; laneOrder = "1"; laneMemberOrder = "3"; }
         action bindStep3 : Bind;
 
         // output
-        object outResult : "(R3, log123)";
+        #FpNodePresentation { role = "type"; tooltip = "runWriter returns the final value and the combined log."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "4"; }
+        item outResult : "(R3, log123)";
 
         // main flow runs through the bind nodes
         flow from x         to pureX;
@@ -77,34 +89,14 @@ package WriterMotivationWith {
         flow from step3Fn   to bindStep3;
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            x, step1Fn, step2Fn, step3Fn, outResult;
-        lane monad : "Writer monad" =
-            pureX, bindStep1, bindStep2, bindStep3;
-    }
-}
 
-#diagram {
-    type  = activity
-    title = "With pure + bind: log accumulation is automatic via the Monoid for w"
-    name  = "writerChain"
-    show x         as value
-    show pureX     as function
-    show bindStep1 as function
-    show bindStep2 as function
-    show bindStep3 as function
-    show step1Fn   as hof
-    show step2Fn   as hof
-    show step3Fn   as hof
-    show outResult as type
-    tooltip x         = "Plain input value of type A."
-    tooltip pureX     = "pure : A → Writer w A. Lifts the plain value with mempty (empty log)."
-    tooltip bindStep1 = ">>= : runs step1 on the unwrapped value; concatenates the existing log with step1's log."
-    tooltip bindStep2 = ">>= : runs step2; concatenates its log onto the running total. Drops are impossible."
-    tooltip bindStep3 = ">>= : runs step3; concatenates its log onto the running total."
-    tooltip step1Fn   = "step1 : A → Writer w R1. HOF argument — its input is A, not Writer w A, so it cannot sit on the main flow."
-    tooltip step2Fn   = "step2 : R1 → Writer w R2. Same: supplied to bind as the continuation."
-    tooltip step3Fn   = "step3 : R2 → Writer w R3. Same: supplied to bind as the continuation."
-    tooltip outResult = "runWriter returns the final value and the combined log."
+
+    }
+    #FpViewPresentation { name = "writerChain"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: log accumulation is automatic via the Monoid for w*/
+        expose WriterChainWith;
+        render fpActivityDiagram;
+    }
 }
 

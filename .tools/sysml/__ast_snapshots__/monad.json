@@ -28,6 +28,127 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "MonadChain",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "MonadChain",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bind1",
+                "type": "BindOp",
+                "role": "function",
+                "tooltip": ">>= : unwraps Ma, applies f, produces Mb"
+              },
+              {
+                "kind": "action",
+                "id": "bind2",
+                "type": "BindOp",
+                "role": "function",
+                "tooltip": ">>= : unwraps Mb, applies g, produces Mc"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "Ma",
+                "type": "Ma",
+                "role": "type",
+                "tooltip": "Ma — the initial wrapped value"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ Mb",
+                "role": "hof",
+                "tooltip": "(a ⟶ Mb) — effectful function, received as a data token (HOF)"
+              },
+              {
+                "kind": "object",
+                "id": "g",
+                "type": "b ⟶ Mc",
+                "role": "hof",
+                "tooltip": "(b ⟶ Mc) — second step function, also a HOF input"
+              },
+              {
+                "kind": "object",
+                "id": "Mb",
+                "type": "Mb",
+                "role": "type"
+              },
+              {
+                "kind": "object",
+                "id": "Mc",
+                "type": "Mc",
+                "role": "type",
+                "tooltip": "Mc — final result, effects from all steps collected"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "Ma",
+                "to": "bind1"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "bind1"
+              },
+              {
+                "kind": "flow",
+                "from": "bind1",
+                "to": "Mb"
+              },
+              {
+                "kind": "flow",
+                "from": "Mb",
+                "to": "bind2"
+              },
+              {
+                "kind": "flow",
+                "from": "g",
+                "to": "bind2"
+              },
+              {
+                "kind": "flow",
+                "from": "bind2",
+                "to": "Mc"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "bind1",
+                "to": "bind2"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "bind1": "function",
+              "bind2": "function",
+              "Ma": "type",
+              "f": "hof",
+              "g": "hof",
+              "Mb": "type",
+              "Mc": "type"
+            },
+            "tooltips": {
+              "bind1": ">>= : unwraps Ma, applies f, produces Mb",
+              "bind2": ">>= : unwraps Mb, applies g, produces Mc",
+              "Ma": "Ma — the initial wrapped value",
+              "f": "(a ⟶ Mb) — effectful function, received as a data token (HOF)",
+              "g": "(b ⟶ Mc) — second step function, also a HOF input",
+              "Mc": "Mc — final result, effects from all steps collected"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -38,39 +159,52 @@
             {
               "kind": "action",
               "id": "bind1",
-              "type": "BindOp"
+              "type": "BindOp",
+              "role": "function",
+              "tooltip": ">>= : unwraps Ma, applies f, produces Mb"
             },
             {
               "kind": "action",
               "id": "bind2",
-              "type": "BindOp"
+              "type": "BindOp",
+              "role": "function",
+              "tooltip": ">>= : unwraps Mb, applies g, produces Mc"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "Ma",
-              "type": "Ma"
+              "type": "Ma",
+              "role": "type",
+              "tooltip": "Ma — the initial wrapped value"
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ Mb"
+              "type": "a ⟶ Mb",
+              "role": "hof",
+              "tooltip": "(a ⟶ Mb) — effectful function, received as a data token (HOF)"
             },
             {
               "kind": "object",
               "id": "g",
-              "type": "b ⟶ Mc"
+              "type": "b ⟶ Mc",
+              "role": "hof",
+              "tooltip": "(b ⟶ Mc) — second step function, also a HOF input"
             },
             {
               "kind": "object",
               "id": "Mb",
-              "type": "Mb"
+              "type": "Mb",
+              "role": "type"
             },
             {
               "kind": "object",
               "id": "Mc",
-              "type": "Mc"
+              "type": "Mc",
+              "role": "type",
+              "tooltip": "Mc — final result, effects from all steps collected"
             }
           ],
           "decisions": [],
@@ -115,7 +249,35 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "bind1": "function",
+            "bind2": "function",
+            "Ma": "type",
+            "f": "hof",
+            "g": "hof",
+            "Mb": "type",
+            "Mc": "type"
+          },
+          "tooltips": {
+            "bind1": ">>= : unwraps Ma, applies f, produces Mb",
+            "bind2": ">>= : unwraps Mb, applies g, produces Mc",
+            "Ma": "Ma — the initial wrapped value",
+            "f": "(a ⟶ Mb) — effectful function, received as a data token (HOF)",
+            "g": "(b ⟶ Mc) — second step function, also a HOF input",
+            "Mc": "Mc — final result, effects from all steps collected"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MonadActivity",
+          "viewType": "FpActivityView",
+          "expose": "MonadChain",
+          "rendering": "fpActivityDiagram",
+          "title": "Monad: Ma >>= (a ⟶ Mb) >>= (b ⟶ Mc)",
+          "name": ">>="
         }
       ]
     }
@@ -124,21 +286,22 @@
     "diagType": "activity",
     "title": "Monad: Ma >>= (a ⟶ Mb) >>= (b ⟶ Mc)",
     "name": ">>=",
+    "render": "MonadChain",
     "shows": {
+      "bind1": "function",
+      "bind2": "function",
       "Ma": "type",
       "f": "hof",
       "g": "hof",
-      "bind1": "function",
-      "bind2": "function",
       "Mb": "type",
       "Mc": "type"
     },
     "tooltips": {
+      "bind1": ">>= : unwraps Ma, applies f, produces Mb",
+      "bind2": ">>= : unwraps Mb, applies g, produces Mc",
       "Ma": "Ma — the initial wrapped value",
       "f": "(a ⟶ Mb) — effectful function, received as a data token (HOF)",
       "g": "(b ⟶ Mc) — second step function, also a HOF input",
-      "bind1": ">>= : unwraps Ma, applies f, produces Mb",
-      "bind2": ">>= : unwraps Mb, applies g, produces Mc",
       "Mc": "Mc — final result, effects from all steps collected"
     }
   }

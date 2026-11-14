@@ -12,25 +12,33 @@
               "kind": "part",
               "id": "ff_val",
               "type": "F(a ⟶ b)",
-              "ports": []
+              "ports": [],
+              "role": "hof",
+              "tooltip": "F(a ⟶ b) — a function already lifted into the applicative context"
             },
             {
               "kind": "part",
               "id": "fa_val",
               "type": "Fa",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Fa — value inside the same context F"
             },
             {
               "kind": "part",
               "id": "ap",
               "type": "ApOp",
-              "ports": []
+              "ports": [],
+              "role": "function",
+              "tooltip": "<*>: applies a wrapped function to a wrapped value"
             },
             {
               "kind": "part",
               "id": "fb_val",
               "type": "Fb",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Fb — result in context F"
             }
           ],
           "ports": [],
@@ -51,11 +59,33 @@
               "to": "fb_val"
             }
           ],
-          "notes": []
+          "notes": [],
+          "shows": {
+            "ff_val": "hof",
+            "fa_val": "type",
+            "ap": "function",
+            "fb_val": "type"
+          },
+          "tooltips": {
+            "ff_val": "F(a ⟶ b) — a function already lifted into the applicative context",
+            "fa_val": "Fa — value inside the same context F",
+            "ap": "<*>: applies a wrapped function to a wrapped value",
+            "fb_val": "Fb — result in context F"
+          }
         }
       ],
       "actionDefs": [],
-      "activityDefs": []
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ApplicativeSignature",
+          "viewType": "FpIbdView",
+          "expose": "ApContext",
+          "rendering": "fpIbdDiagram",
+          "title": "(<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb"
+        }
+      ]
     }
   ],
   "diagram": {

@@ -28,6 +28,82 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ParserAltProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ParserAltProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "alt",
+                "type": "Alt",
+                "role": "function",
+                "tooltip": "Alt: build \\\\input -> case p1 input of Just r -> Just r; Nothing -> p2 input."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "p1",
+                "type": "Parser a",
+                "role": "value",
+                "tooltip": "p1 : Parser a — primary alternative.  If it succeeds (or consumes input then fails, depending on the parser library), its result wins."
+              },
+              {
+                "kind": "object",
+                "id": "p2",
+                "type": "Parser a",
+                "role": "value",
+                "tooltip": "p2 : Parser a — fallback alternative.  Tried only when p1 fails without commitment."
+              },
+              {
+                "kind": "object",
+                "id": "pr",
+                "type": "Parser a",
+                "role": "type",
+                "tooltip": "Parser a — combined parser that succeeds whenever either branch succeeds.  Used to encode grammar disjunction (rule = a | b)."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "p1",
+                "to": "alt"
+              },
+              {
+                "kind": "flow",
+                "from": "p2",
+                "to": "alt"
+              },
+              {
+                "kind": "flow",
+                "from": "alt",
+                "to": "pr",
+                "label": "run p1; on failure, run p2"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "alt": "function",
+              "p1": "value",
+              "p2": "value",
+              "pr": "type"
+            },
+            "tooltips": {
+              "alt": "Alt: build \\\\input -> case p1 input of Just r -> Just r; Nothing -> p2 input.",
+              "p1": "p1 : Parser a — primary alternative.  If it succeeds (or consumes input then fails, depending on the parser library), its result wins.",
+              "p2": "p2 : Parser a — fallback alternative.  Tried only when p1 fails without commitment.",
+              "pr": "Parser a — combined parser that succeeds whenever either branch succeeds.  Used to encode grammar disjunction (rule = a | b)."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -38,24 +114,32 @@
             {
               "kind": "action",
               "id": "alt",
-              "type": "Alt"
+              "type": "Alt",
+              "role": "function",
+              "tooltip": "Alt: build \\\\input -> case p1 input of Just r -> Just r; Nothing -> p2 input."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "p1",
-              "type": "Parser a"
+              "type": "Parser a",
+              "role": "value",
+              "tooltip": "p1 : Parser a — primary alternative.  If it succeeds (or consumes input then fails, depending on the parser library), its result wins."
             },
             {
               "kind": "object",
               "id": "p2",
-              "type": "Parser a"
+              "type": "Parser a",
+              "role": "value",
+              "tooltip": "p2 : Parser a — fallback alternative.  Tried only when p1 fails without commitment."
             },
             {
               "kind": "object",
               "id": "pr",
-              "type": "Parser a"
+              "type": "Parser a",
+              "role": "type",
+              "tooltip": "Parser a — combined parser that succeeds whenever either branch succeeds.  Used to encode grammar disjunction (rule = a | b)."
             }
           ],
           "decisions": [],
@@ -80,7 +164,30 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "alt": "function",
+            "p1": "value",
+            "p2": "value",
+            "pr": "type"
+          },
+          "tooltips": {
+            "alt": "Alt: build \\\\input -> case p1 input of Just r -> Just r; Nothing -> p2 input.",
+            "p1": "p1 : Parser a — primary alternative.  If it succeeds (or consumes input then fails, depending on the parser library), its result wins.",
+            "p2": "p2 : Parser a — fallback alternative.  Tried only when p1 fails without commitment.",
+            "pr": "Parser a — combined parser that succeeds whenever either branch succeeds.  Used to encode grammar disjunction (rule = a | b)."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ParserAltImpl",
+          "viewType": "FpActivityView",
+          "expose": "ParserAltProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "(<|>) :: Parser a ⟶ Parser a ⟶ Parser a   (ordered choice; try p1, on failure try p2) — also called: alt, choice, orElse",
+          "name": "alt"
         }
       ]
     }
@@ -89,16 +196,17 @@
     "diagType": "activity",
     "title": "(<|>) :: Parser a ⟶ Parser a ⟶ Parser a   (ordered choice; try p1, on failure try p2) — also called: alt, choice, orElse",
     "name": "alt",
+    "render": "ParserAltProcess",
     "shows": {
+      "alt": "function",
       "p1": "value",
       "p2": "value",
-      "alt": "function",
       "pr": "type"
     },
     "tooltips": {
+      "alt": "Alt: build \\\\input -> case p1 input of Just r -> Just r; Nothing -> p2 input.",
       "p1": "p1 : Parser a — primary alternative.  If it succeeds (or consumes input then fails, depending on the parser library), its result wins.",
       "p2": "p2 : Parser a — fallback alternative.  Tried only when p1 fails without commitment.",
-      "alt": "Alt: build \\\\input -> case p1 input of Just r -> Just r; Nothing -> p2 input.",
       "pr": "Parser a — combined parser that succeeds whenever either branch succeeds.  Used to encode grammar disjunction (rule = a | b)."
     }
   }

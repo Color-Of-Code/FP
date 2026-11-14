@@ -1,6 +1,7 @@
 // SysML v2 — Maybe monad: bind example
 
 package MaybeMonadExample {
+    private import FpDiagram::*;
 
     action def MaybeBindOp {
         in  ma : MaybeA;           // Maybe a — Just a or Nothing
@@ -8,28 +9,25 @@ package MaybeMonadExample {
         out mb : MaybeB;
     }
 
-    activity def MaybeBindProcess {
-        object Ma   : MaybeA;           // Maybe a — Just a or Nothing
-        object f    : "a ⟶ Maybe b";  // effectful fn, HOF input
+    action def MaybeBindProcess {
+        #FpNodePresentation { role = "type"; tooltip = "Maybe<a> — Nothing propagates automatically (short-circuit)"; }
+        item Ma   : MaybeA;           // Maybe a — Just a or Nothing
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Maybe<b>) — effectful function, applied only if Ma is Just"; }
+        item f    : "a ⟶ Maybe b";  // effectful fn, HOF input
+        #FpNodePresentation { role = "function"; tooltip = ">>= : Nothing → Nothing ; Just a → f a"; }
         action bind : MaybeBindOp;
-        object Mb   : MaybeB;           // Maybe b — result
+        #FpNodePresentation { role = "type"; tooltip = "Maybe<b> — Nothing or Just (result of f a)"; }
+        item Mb   : MaybeB;           // Maybe b — result
 
         flow from Ma to bind;
         flow from f  to bind;
         flow from bind to Mb;
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*Maybe Monad: bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b*/
+        expose MaybeBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type   = activity
-    title  = "Maybe Monad: bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b"
-    name   = "bind"
-    show Ma   as type
-    show f    as hof
-    show bind as function
-    show Mb   as type
-    tooltip Ma   = "Maybe<a> — Nothing propagates automatically (short-circuit)"
-    tooltip f    = "(a ⟶ Maybe<b>) — effectful function, applied only if Ma is Just"
-    tooltip bind = ">>= : Nothing → Nothing ; Just a → f a"
-    tooltip Mb   = "Maybe<b> — Nothing or Just (result of f a)"
-}

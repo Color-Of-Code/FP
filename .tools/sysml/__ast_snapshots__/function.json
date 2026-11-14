@@ -22,6 +22,69 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "FunctionConcept",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "FunctionConcept",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "f",
+                "type": "FunctionOp",
+                "role": "function",
+                "tooltip": "f consumes a value of type a and produces a value of type b"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a",
+                "type": "type a",
+                "role": "type",
+                "tooltip": "type a — the domain of f"
+              },
+              {
+                "kind": "object",
+                "id": "b",
+                "type": "type b",
+                "role": "type",
+                "tooltip": "type b — the codomain of f"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a",
+                "to": "f",
+                "label": "domain"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "b",
+                "label": "codomain"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "f": "function",
+              "a": "type",
+              "b": "type"
+            },
+            "tooltips": {
+              "f": "f consumes a value of type a and produces a value of type b",
+              "a": "type a — the domain of f",
+              "b": "type b — the codomain of f"
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +95,25 @@
             {
               "kind": "action",
               "id": "f",
-              "type": "FunctionOp"
+              "type": "FunctionOp",
+              "role": "function",
+              "tooltip": "f consumes a value of type a and produces a value of type b"
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a",
-              "type": "type a"
+              "type": "type a",
+              "role": "type",
+              "tooltip": "type a — the domain of f"
             },
             {
               "kind": "object",
               "id": "b",
-              "type": "type b"
+              "type": "type b",
+              "role": "type",
+              "tooltip": "type b — the codomain of f"
             }
           ],
           "decisions": [],
@@ -65,7 +134,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "f": "function",
+            "a": "type",
+            "b": "type"
+          },
+          "tooltips": {
+            "f": "f consumes a value of type a and produces a value of type b",
+            "a": "type a — the domain of f",
+            "b": "type b — the codomain of f"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FunctionActivity",
+          "viewType": "FpActivityView",
+          "expose": "FunctionConcept",
+          "rendering": "fpActivityDiagram",
+          "title": "Function f :: a ⟶ b",
+          "name": "function"
         }
       ]
     }
@@ -74,14 +164,15 @@
     "diagType": "activity",
     "title": "Function f :: a ⟶ b",
     "name": "function",
+    "render": "FunctionConcept",
     "shows": {
-      "a": "type",
       "f": "function",
+      "a": "type",
       "b": "type"
     },
     "tooltips": {
-      "a": "type a — the domain of f",
       "f": "f consumes a value of type a and produces a value of type b",
+      "a": "type a — the domain of f",
       "b": "type b — the codomain of f"
     }
   }

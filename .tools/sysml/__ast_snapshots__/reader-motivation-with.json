@@ -94,6 +94,157 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BuildUrlWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "BuildUrlWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "asksHost",
+                "type": "AsksHost",
+                "role": "function",
+                "tooltip": "asks (.host) : Reader Config String — projects host out of the implicit env.",
+                "laneId": "monad",
+                "laneLabel": "Reader monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindHost",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : runs asksHost with env, then runs the continuation (which itself returns a Reader) with the SAME env.",
+                "laneId": "monad",
+                "laneLabel": "Reader monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "action",
+                "id": "bindPair",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : final bind — turns the (host, port) pair into the URL via build, lifted with pure.",
+                "laneId": "monad",
+                "laneLabel": "Reader monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 2
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "readPortFn",
+                "type": "String ⟶ Reader Config (String, Int)",
+                "role": "hof",
+                "tooltip": "λhost. asksPort >>= λport. pure (host, port). HOF argument — captures host in scope while running asksPort under the same env.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "pureUrlFn",
+                "type": "(String, Int) ⟶ Reader Config URL",
+                "role": "hof",
+                "tooltip": "λ(host, port). pure (build host port). HOF argument — wraps the pure URL back into Reader.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "object",
+                "id": "url",
+                "type": "URL",
+                "role": "type",
+                "tooltip": "URL — final value. runReader env supplies the environment exactly once at the top of the chain.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 2
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "asksHost",
+                "to": "bindHost",
+                "label": "Reader Config String"
+              },
+              {
+                "kind": "flow",
+                "from": "bindHost",
+                "to": "bindPair",
+                "label": "Reader Config (String, Int)"
+              },
+              {
+                "kind": "flow",
+                "from": "bindPair",
+                "to": "url",
+                "label": "runReader env"
+              },
+              {
+                "kind": "flow",
+                "from": "readPortFn",
+                "to": "bindHost"
+              },
+              {
+                "kind": "flow",
+                "from": "pureUrlFn",
+                "to": "bindPair"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "readPortFn",
+                  "pureUrlFn",
+                  "url"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "Reader monad",
+                "members": [
+                  "asksHost",
+                  "bindHost",
+                  "bindPair"
+                ]
+              }
+            ],
+            "shows": {
+              "asksHost": "function",
+              "bindHost": "function",
+              "bindPair": "function",
+              "readPortFn": "hof",
+              "pureUrlFn": "hof",
+              "url": "type"
+            },
+            "tooltips": {
+              "asksHost": "asks (.host) : Reader Config String — projects host out of the implicit env.",
+              "bindHost": ">>= : runs asksHost with env, then runs the continuation (which itself returns a Reader) with the SAME env.",
+              "bindPair": ">>= : final bind — turns the (host, port) pair into the URL via build, lifted with pure.",
+              "readPortFn": "λhost. asksPort >>= λport. pure (host, port). HOF argument — captures host in scope while running asksPort under the same env.",
+              "pureUrlFn": "λ(host, port). pure (build host port). HOF argument — wraps the pure URL back into Reader.",
+              "url": "URL — final value. runReader env supplies the environment exactly once at the top of the chain."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -104,34 +255,70 @@
             {
               "kind": "action",
               "id": "asksHost",
-              "type": "AsksHost"
+              "type": "AsksHost",
+              "role": "function",
+              "tooltip": "asks (.host) : Reader Config String — projects host out of the implicit env.",
+              "laneId": "monad",
+              "laneLabel": "Reader monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindHost",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : runs asksHost with env, then runs the continuation (which itself returns a Reader) with the SAME env.",
+              "laneId": "monad",
+              "laneLabel": "Reader monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             },
             {
               "kind": "action",
               "id": "bindPair",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : final bind — turns the (host, port) pair into the URL via build, lifted with pure.",
+              "laneId": "monad",
+              "laneLabel": "Reader monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 2
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "readPortFn",
-              "type": "String ⟶ Reader Config (String, Int)"
+              "type": "String ⟶ Reader Config (String, Int)",
+              "role": "hof",
+              "tooltip": "λhost. asksPort >>= λport. pure (host, port). HOF argument — captures host in scope while running asksPort under the same env.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "pureUrlFn",
-              "type": "(String, Int) ⟶ Reader Config URL"
+              "type": "(String, Int) ⟶ Reader Config URL",
+              "role": "hof",
+              "tooltip": "λ(host, port). pure (build host port). HOF argument — wraps the pure URL back into Reader.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             },
             {
               "kind": "object",
               "id": "url",
-              "type": "URL"
+              "type": "URL",
+              "role": "type",
+              "tooltip": "URL — final value. runReader env supplies the environment exactly once at the top of the chain.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 2
             }
           ],
           "decisions": [],
@@ -189,7 +376,34 @@
                 "bindPair"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "asksHost": "function",
+            "bindHost": "function",
+            "bindPair": "function",
+            "readPortFn": "hof",
+            "pureUrlFn": "hof",
+            "url": "type"
+          },
+          "tooltips": {
+            "asksHost": "asks (.host) : Reader Config String — projects host out of the implicit env.",
+            "bindHost": ">>= : runs asksHost with env, then runs the continuation (which itself returns a Reader) with the SAME env.",
+            "bindPair": ">>= : final bind — turns the (host, port) pair into the URL via build, lifted with pure.",
+            "readPortFn": "λhost. asksPort >>= λport. pure (host, port). HOF argument — captures host in scope while running asksPort under the same env.",
+            "pureUrlFn": "λ(host, port). pure (build host port). HOF argument — wraps the pure URL back into Reader.",
+            "url": "URL — final value. runReader env supplies the environment exactly once at the top of the chain."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ReaderMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "BuildUrlWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: env supplied once at the top; bind feeds it to every step",
+          "name": "buildUrl"
         }
       ]
     }
@@ -198,6 +412,7 @@
     "diagType": "activity",
     "title": "With pure + bind: env supplied once at the top; bind feeds it to every step",
     "name": "buildUrl",
+    "render": "BuildUrlWith",
     "shows": {
       "asksHost": "function",
       "bindHost": "function",

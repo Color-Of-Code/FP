@@ -12,25 +12,33 @@
               "kind": "part",
               "id": "f_val",
               "type": "a ⟶ b",
-              "ports": []
+              "ports": [],
+              "role": "hof",
+              "tooltip": "(a ⟶ b) — plain function, flowing in as a structural argument"
             },
             {
               "kind": "part",
               "id": "fa_val",
               "type": "Fa",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Fa — value inside the functor context"
             },
             {
               "kind": "part",
               "id": "fmap",
               "type": "FmapOp",
-              "ports": []
+              "ports": [],
+              "role": "function",
+              "tooltip": "fmap: lifts a plain function to operate inside the functor"
             },
             {
               "kind": "part",
               "id": "fb_val",
               "type": "Fb",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Fb — result inside the same functor context"
             }
           ],
           "ports": [],
@@ -51,11 +59,33 @@
               "to": "fb_val"
             }
           ],
-          "notes": []
+          "notes": [],
+          "shows": {
+            "f_val": "hof",
+            "fa_val": "type",
+            "fmap": "function",
+            "fb_val": "type"
+          },
+          "tooltips": {
+            "f_val": "(a ⟶ b) — plain function, flowing in as a structural argument",
+            "fa_val": "Fa — value inside the functor context",
+            "fmap": "fmap: lifts a plain function to operate inside the functor",
+            "fb_val": "Fb — result inside the same functor context"
+          }
         }
       ],
       "actionDefs": [],
-      "activityDefs": []
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FunctorSignature",
+          "viewType": "FpIbdView",
+          "expose": "FmapContext",
+          "rendering": "fpIbdDiagram",
+          "title": "fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb"
+        }
+      ]
     }
   ],
   "diagram": {

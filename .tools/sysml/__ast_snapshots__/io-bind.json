@@ -64,6 +64,122 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "IOBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "IOBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "exec_a",
+                "type": "ExecA",
+                "role": "function",
+                "tooltip": "Execute ia: the runtime runs the described effect and produces value a. Real I/O happens here."
+              },
+              {
+                "kind": "action",
+                "id": "build",
+                "type": "BuildNext",
+                "role": "function",
+                "tooltip": "Apply f(a): build the next IO action description from a. No effect yet — only the description is created."
+              },
+              {
+                "kind": "action",
+                "id": "exec_b",
+                "type": "ExecB",
+                "role": "function",
+                "tooltip": "Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "ia",
+                "type": "IO a",
+                "role": "type",
+                "tooltip": "IO a — a description (recipe) of a side-effectful computation. Nothing has run yet."
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ IO b",
+                "role": "hof",
+                "tooltip": "(a ⟶ IO b) — given result a, constructs the next IO action description"
+              },
+              {
+                "kind": "object",
+                "id": "b",
+                "type": "b",
+                "role": "value",
+                "tooltip": "b — the final result. The sequencing of exec_a before exec_b is the entire bind contract."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "ia",
+                "to": "exec_a"
+              },
+              {
+                "kind": "flow",
+                "from": "exec_a",
+                "to": "build",
+                "label": "a"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "build"
+              },
+              {
+                "kind": "flow",
+                "from": "build",
+                "to": "exec_b",
+                "label": "IO b"
+              },
+              {
+                "kind": "flow",
+                "from": "exec_b",
+                "to": "b"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "exec_a",
+                "to": "build"
+              },
+              {
+                "kind": "succession",
+                "from": "build",
+                "to": "exec_b"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "exec_a": "function",
+              "build": "function",
+              "exec_b": "function",
+              "ia": "type",
+              "f": "hof",
+              "b": "value"
+            },
+            "tooltips": {
+              "exec_a": "Execute ia: the runtime runs the described effect and produces value a. Real I/O happens here.",
+              "build": "Apply f(a): build the next IO action description from a. No effect yet — only the description is created.",
+              "exec_b": "Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this.",
+              "ia": "IO a — a description (recipe) of a side-effectful computation. Nothing has run yet.",
+              "f": "(a ⟶ IO b) — given result a, constructs the next IO action description",
+              "b": "b — the final result. The sequencing of exec_a before exec_b is the entire bind contract."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -74,34 +190,46 @@
             {
               "kind": "action",
               "id": "exec_a",
-              "type": "ExecA"
+              "type": "ExecA",
+              "role": "function",
+              "tooltip": "Execute ia: the runtime runs the described effect and produces value a. Real I/O happens here."
             },
             {
               "kind": "action",
               "id": "build",
-              "type": "BuildNext"
+              "type": "BuildNext",
+              "role": "function",
+              "tooltip": "Apply f(a): build the next IO action description from a. No effect yet — only the description is created."
             },
             {
               "kind": "action",
               "id": "exec_b",
-              "type": "ExecB"
+              "type": "ExecB",
+              "role": "function",
+              "tooltip": "Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "ia",
-              "type": "IO a"
+              "type": "IO a",
+              "role": "type",
+              "tooltip": "IO a — a description (recipe) of a side-effectful computation. Nothing has run yet."
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ IO b"
+              "type": "a ⟶ IO b",
+              "role": "hof",
+              "tooltip": "(a ⟶ IO b) — given result a, constructs the next IO action description"
             },
             {
               "kind": "object",
               "id": "b",
-              "type": "b"
+              "type": "b",
+              "role": "value",
+              "tooltip": "b — the final result. The sequencing of exec_a before exec_b is the entire bind contract."
             }
           ],
           "decisions": [],
@@ -148,7 +276,34 @@
             }
           ],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "exec_a": "function",
+            "build": "function",
+            "exec_b": "function",
+            "ia": "type",
+            "f": "hof",
+            "b": "value"
+          },
+          "tooltips": {
+            "exec_a": "Execute ia: the runtime runs the described effect and produces value a. Real I/O happens here.",
+            "build": "Apply f(a): build the next IO action description from a. No effect yet — only the description is created.",
+            "exec_b": "Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this.",
+            "ia": "IO a — a description (recipe) of a side-effectful computation. Nothing has run yet.",
+            "f": "(a ⟶ IO b) — given result a, constructs the next IO action description",
+            "b": "b — the final result. The sequencing of exec_a before exec_b is the entire bind contract."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "IOBindImpl",
+          "viewType": "FpActivityView",
+          "expose": "IOBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "IO bind: execute ia, feed a to f to build IO b, execute IO b — also called: .then (Promises), >>=",
+          "name": "bind"
         }
       ]
     }
@@ -157,20 +312,21 @@
     "diagType": "activity",
     "title": "IO bind: execute ia, feed a to f to build IO b, execute IO b — also called: .then (Promises), >>=",
     "name": "bind",
+    "render": "IOBindProcess",
     "shows": {
-      "ia": "type",
-      "f": "hof",
       "exec_a": "function",
       "build": "function",
       "exec_b": "function",
+      "ia": "type",
+      "f": "hof",
       "b": "value"
     },
     "tooltips": {
-      "ia": "IO a — a description (recipe) of a side-effectful computation. Nothing has run yet.",
-      "f": "(a ⟶ IO b) — given result a, constructs the next IO action description",
       "exec_a": "Execute ia: the runtime runs the described effect and produces value a. Real I/O happens here.",
       "build": "Apply f(a): build the next IO action description from a. No effect yet — only the description is created.",
       "exec_b": "Execute IO b: the runtime runs the second described effect. Effects of ia happened BEFORE this.",
+      "ia": "IO a — a description (recipe) of a side-effectful computation. Nothing has run yet.",
+      "f": "(a ⟶ IO b) — given result a, constructs the next IO action description",
       "b": "b — the final result. The sequencing of exec_a before exec_b is the entire bind contract."
     }
   }

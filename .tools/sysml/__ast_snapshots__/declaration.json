@@ -22,6 +22,37 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "DeclarationConcept",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "DeclarationConcept",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "f",
+                "type": "DeclaredFunction",
+                "role": "function",
+                "tooltip": "The function identified by the declaration f :: a ⟶ b."
+              }
+            ],
+            "objects": [],
+            "decisions": [],
+            "merges": [],
+            "flows": [],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "f": "function"
+            },
+            "tooltips": {
+              "f": "The function identified by the declaration f :: a ⟶ b."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,7 +63,9 @@
             {
               "kind": "action",
               "id": "f",
-              "type": "DeclaredFunction"
+              "type": "DeclaredFunction",
+              "role": "function",
+              "tooltip": "The function identified by the declaration f :: a ⟶ b."
             }
           ],
           "objects": [],
@@ -41,7 +74,24 @@
           "flows": [],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "f": "function"
+          },
+          "tooltips": {
+            "f": "The function identified by the declaration f :: a ⟶ b."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FunctionDeclarationActivity",
+          "viewType": "FpActivityView",
+          "expose": "DeclarationConcept",
+          "rendering": "fpActivityDiagram",
+          "title": "Declaration f :: a ⟶ b",
+          "name": "declaration"
         }
       ]
     }
@@ -50,6 +100,7 @@
     "diagType": "activity",
     "title": "Declaration f :: a ⟶ b",
     "name": "declaration",
+    "render": "DeclarationConcept",
     "shows": {
       "f": "function"
     },

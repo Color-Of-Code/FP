@@ -15,6 +15,7 @@
 // Manually passing the wrong state is structurally impossible.
 
 package StateMotivationWith {
+    private import FpDiagram::*;
 
     action def Step1 {
         in  a : A;
@@ -44,25 +45,36 @@ package StateMotivationWith {
         out _  : "State s b";
     }
 
-    activity def StateChainWith {
+    action def StateChainWith {
         // input
-        object initial   : A;
+        #FpNodePresentation { role = "value"; tooltip = "Plain input value of type A — does not include the state."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item initial   : A;
 
         // lift the plain value into State — entry point
+        #FpNodePresentation { role = "function"; tooltip = "pure : A → State s A. Returns (a, s) — leaves s untouched."; laneId = "monad"; laneLabel = "State monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action pureA     : Pure;
 
         // each subsequent step is bind + a producing function (HOF argument)
-        object step1Fn   : "A ⟶ State s B";
+        #FpNodePresentation { role = "hof"; tooltip = "step1 : A → State s B. HOF argument — its input is A, not State s A."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+        item step1Fn   : "A ⟶ State s B";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : runs the State action, threads s' into step1, returns step1's (b, s'')."; laneId = "monad"; laneLabel = "State monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindStep1 : Bind;
 
-        object step2Fn   : "B ⟶ State s C";
+        #FpNodePresentation { role = "hof"; tooltip = "step2 : B → State s C. Same: supplied to bind as the continuation."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+
+        item step2Fn   : "B ⟶ State s C";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : threads the latest state into step2 automatically. No way to supply the wrong state."; laneId = "monad"; laneLabel = "State monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action bindStep2 : Bind;
 
-        object step3Fn   : "C ⟶ State s D";
+        #FpNodePresentation { role = "hof"; tooltip = "step3 : C → State s D. Same: supplied to bind as the continuation."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "3"; }
+
+        item step3Fn   : "C ⟶ State s D";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : threads the latest state into step3 automatically."; laneId = "monad"; laneLabel = "State monad"; laneOrder = "1"; laneMemberOrder = "3"; }
         action bindStep3 : Bind;
 
         // output
-        object outResult : "(D, sFinal)";
+        #FpNodePresentation { role = "type"; tooltip = "runState s0 supplies the initial state and returns the final value alongside the final state."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "4"; }
+        item outResult : "(D, sFinal)";
 
         // main flow runs through the bind nodes
         flow from initial   to pureA;
@@ -77,34 +89,14 @@ package StateMotivationWith {
         flow from step3Fn   to bindStep3;
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            initial, step1Fn, step2Fn, step3Fn, outResult;
-        lane monad : "State monad" =
-            pureA, bindStep1, bindStep2, bindStep3;
-    }
-}
 
-#diagram {
-    type  = activity
-    title = "With pure + bind: state threads automatically; using a stale state is impossible"
-    name  = "stateChain"
-    show initial   as value
-    show pureA     as function
-    show bindStep1 as function
-    show bindStep2 as function
-    show bindStep3 as function
-    show step1Fn   as hof
-    show step2Fn   as hof
-    show step3Fn   as hof
-    show outResult as type
-    tooltip initial   = "Plain input value of type A — does not include the state."
-    tooltip pureA     = "pure : A → State s A. Returns (a, s) — leaves s untouched."
-    tooltip bindStep1 = ">>= : runs the State action, threads s' into step1, returns step1's (b, s'')."
-    tooltip bindStep2 = ">>= : threads the latest state into step2 automatically. No way to supply the wrong state."
-    tooltip bindStep3 = ">>= : threads the latest state into step3 automatically."
-    tooltip step1Fn   = "step1 : A → State s B. HOF argument — its input is A, not State s A."
-    tooltip step2Fn   = "step2 : B → State s C. Same: supplied to bind as the continuation."
-    tooltip step3Fn   = "step3 : C → State s D. Same: supplied to bind as the continuation."
-    tooltip outResult = "runState s0 supplies the initial state and returns the final value alongside the final state."
+
+    }
+    #FpViewPresentation { name = "stateChain"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: state threads automatically; using a stale state is impossible*/
+        expose StateChainWith;
+        render fpActivityDiagram;
+    }
 }
 

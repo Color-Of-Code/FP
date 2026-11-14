@@ -12,25 +12,33 @@
               "kind": "part",
               "id": "f_val",
               "type": "a ⟶ Fb",
-              "ports": []
+              "ports": [],
+              "role": "hof",
+              "tooltip": "(a ⟶ Fb) — effectful mapper applied to each element"
             },
             {
               "kind": "part",
               "id": "ta_val",
               "type": "Ta",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Ta — traversable structure containing elements of type a"
             },
             {
               "kind": "part",
               "id": "traverse",
               "type": "TraverseOp",
-              "ports": []
+              "ports": [],
+              "role": "function",
+              "tooltip": "traverse: map with effects, collecting results into F(Tb)"
             },
             {
               "kind": "part",
               "id": "ftb_val",
               "type": "F(Tb)",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "F(Tb) — effect on the outside, rebuilt structure on the inside"
             }
           ],
           "ports": [],
@@ -51,11 +59,33 @@
               "to": "ftb_val"
             }
           ],
-          "notes": []
+          "notes": [],
+          "shows": {
+            "f_val": "hof",
+            "ta_val": "type",
+            "traverse": "function",
+            "ftb_val": "type"
+          },
+          "tooltips": {
+            "f_val": "(a ⟶ Fb) — effectful mapper applied to each element",
+            "ta_val": "Ta — traversable structure containing elements of type a",
+            "traverse": "traverse: map with effects, collecting results into F(Tb)",
+            "ftb_val": "F(Tb) — effect on the outside, rebuilt structure on the inside"
+          }
         }
       ],
       "actionDefs": [],
-      "activityDefs": []
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TraversableSignature",
+          "viewType": "FpIbdView",
+          "expose": "TraverseContext",
+          "rendering": "fpIbdDiagram",
+          "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)"
+        }
+      ]
     }
   ],
   "diagram": {

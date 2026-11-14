@@ -7,30 +7,29 @@
 // violate the left-identity law (pure a >>= f ≡ f a).
 
 package EitherPureImpl {
+    private import FpDiagram::*;
 
     action def WrapInRight {
         in  a       : a;
         out either_a : "Either e a";
     }
 
-    activity def EitherPureProcess {
-        object a0       : a;
+    action def EitherPureProcess {
+        #FpNodePresentation { role = "value"; tooltip = "a0 — any plain value to lift into the Either context (the success branch)."; }
+        item a0       : a;
+        #FpNodePresentation { role = "function"; tooltip = "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type."; }
         action wrap     : WrapInRight;
-        object right_a0 : "Either e a";
+        #FpNodePresentation { role = "type"; tooltip = "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."; }
+        item right_a0 : "Either e a";
 
         flow from a0   to wrap;
         flow from wrap to right_a0 : "Right a0";
     }
+    #FpViewPresentation { name = "pure"; }
+    view diagram : FpActivityView {
+        doc /*pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok*/
+        expose EitherPureProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "pure :: a ⟶ Either e a   (always wraps in Right, never Left) — also called: return, ok, Ok"
-    name  = "pure"
-    show a0       as value
-    show wrap     as function
-    show right_a0 as type
-    tooltip a0       = "a0 — any plain value to lift into the Either context (the success branch)."
-    tooltip wrap     = "WrapInRight: place a0 in the Right constructor. The error type e is unused but appears in the type."
-    tooltip right_a0 = "Right a0 : Either e a — always Right. Producing Left here would break the monad laws."
-}

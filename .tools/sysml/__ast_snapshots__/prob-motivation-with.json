@@ -58,6 +58,118 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CoinThenDieWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "CoinThenDieWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "biasedCoin",
+                "type": "BiasedCoin",
+                "role": "function",
+                "tooltip": "biasedCoin : Prob CoinFace — distribution over the coin outcomes.",
+                "laneId": "monad",
+                "laneLabel": "Prob monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindRoll",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : applies the conditional distribution to every branch; multiplies probabilities and flattens.",
+                "laneId": "monad",
+                "laneLabel": "Prob monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "rollDieFn",
+                "type": "CoinFace ⟶ Prob Int",
+                "role": "hof",
+                "tooltip": "rollDie : CoinFace → Prob Int. HOF argument — its input is CoinFace, not Prob CoinFace.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "outResult",
+                "type": "Prob Int",
+                "role": "type",
+                "tooltip": "Prob Int — the joint distribution. bind has multiplied probabilities and flattened the nested list automatically.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "biasedCoin",
+                "to": "bindRoll",
+                "label": "Prob CoinFace"
+              },
+              {
+                "kind": "flow",
+                "from": "bindRoll",
+                "to": "outResult",
+                "label": "runProb"
+              },
+              {
+                "kind": "flow",
+                "from": "rollDieFn",
+                "to": "bindRoll"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "rollDieFn",
+                  "outResult"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "Prob monad",
+                "members": [
+                  "biasedCoin",
+                  "bindRoll"
+                ]
+              }
+            ],
+            "shows": {
+              "biasedCoin": "function",
+              "bindRoll": "function",
+              "rollDieFn": "hof",
+              "outResult": "type"
+            },
+            "tooltips": {
+              "biasedCoin": "biasedCoin : Prob CoinFace — distribution over the coin outcomes.",
+              "bindRoll": ">>= : applies the conditional distribution to every branch; multiplies probabilities and flattens.",
+              "rollDieFn": "rollDie : CoinFace → Prob Int. HOF argument — its input is CoinFace, not Prob CoinFace.",
+              "outResult": "Prob Int — the joint distribution. bind has multiplied probabilities and flattened the nested list automatically."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -68,24 +180,48 @@
             {
               "kind": "action",
               "id": "biasedCoin",
-              "type": "BiasedCoin"
+              "type": "BiasedCoin",
+              "role": "function",
+              "tooltip": "biasedCoin : Prob CoinFace — distribution over the coin outcomes.",
+              "laneId": "monad",
+              "laneLabel": "Prob monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindRoll",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : applies the conditional distribution to every branch; multiplies probabilities and flattens.",
+              "laneId": "monad",
+              "laneLabel": "Prob monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "rollDieFn",
-              "type": "CoinFace ⟶ Prob Int"
+              "type": "CoinFace ⟶ Prob Int",
+              "role": "hof",
+              "tooltip": "rollDie : CoinFace → Prob Int. HOF argument — its input is CoinFace, not Prob CoinFace.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "outResult",
-              "type": "Prob Int"
+              "type": "Prob Int",
+              "role": "type",
+              "tooltip": "Prob Int — the joint distribution. bind has multiplied probabilities and flattened the nested list automatically.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             }
           ],
           "decisions": [],
@@ -130,7 +266,30 @@
                 "bindRoll"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "biasedCoin": "function",
+            "bindRoll": "function",
+            "rollDieFn": "hof",
+            "outResult": "type"
+          },
+          "tooltips": {
+            "biasedCoin": "biasedCoin : Prob CoinFace — distribution over the coin outcomes.",
+            "bindRoll": ">>= : applies the conditional distribution to every branch; multiplies probabilities and flattens.",
+            "rollDieFn": "rollDie : CoinFace → Prob Int. HOF argument — its input is CoinFace, not Prob CoinFace.",
+            "outResult": "Prob Int — the joint distribution. bind has multiplied probabilities and flattened the nested list automatically."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ProbMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "CoinThenDieWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: bind multiplies probabilities and flattens the joint distribution",
+          "name": "coinThenDie"
         }
       ]
     }
@@ -139,6 +298,7 @@
     "diagType": "activity",
     "title": "With pure + bind: bind multiplies probabilities and flattens the joint distribution",
     "name": "coinThenDie",
+    "render": "CoinThenDieWith",
     "shows": {
       "biasedCoin": "function",
       "bindRoll": "function",

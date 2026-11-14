@@ -100,6 +100,215 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ParseValidateSaveWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ParseValidateSaveWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "pureRaw",
+                "type": "Pure",
+                "role": "function",
+                "tooltip": "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind.",
+                "laneId": "monad",
+                "laneLabel": "Either monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindParse",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates.",
+                "laneId": "monad",
+                "laneLabel": "Either monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "action",
+                "id": "bindValidate",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern.",
+                "laneId": "monad",
+                "laneLabel": "Either monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 2
+              },
+              {
+                "kind": "action",
+                "id": "bindSave",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern.",
+                "laneId": "monad",
+                "laneLabel": "Either monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 3
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "raw",
+                "type": "String",
+                "role": "value",
+                "tooltip": "Raw input — for example a request body or untrusted user data.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "parseFn",
+                "type": "String ⟶ Either e Parsed",
+                "role": "hof",
+                "tooltip": "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "object",
+                "id": "validateFn",
+                "type": "Parsed ⟶ Either e Valid",
+                "role": "hof",
+                "tooltip": "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 2
+              },
+              {
+                "kind": "object",
+                "id": "saveFn",
+                "type": "Valid ⟶ Either e Saved",
+                "role": "hof",
+                "tooltip": "save : Valid → Either e Saved. Same: supplied to bind as the continuation.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 3
+              },
+              {
+                "kind": "object",
+                "id": "eSaved",
+                "type": "Either e Saved",
+                "role": "type",
+                "tooltip": "Either e Saved — Right on the happy path; the very first Left otherwise.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 4
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "raw",
+                "to": "pureRaw"
+              },
+              {
+                "kind": "flow",
+                "from": "pureRaw",
+                "to": "bindParse",
+                "label": "Either e String"
+              },
+              {
+                "kind": "flow",
+                "from": "bindParse",
+                "to": "bindValidate",
+                "label": "Either e Parsed"
+              },
+              {
+                "kind": "flow",
+                "from": "bindValidate",
+                "to": "bindSave",
+                "label": "Either e Valid"
+              },
+              {
+                "kind": "flow",
+                "from": "bindSave",
+                "to": "eSaved",
+                "label": "Either e Saved"
+              },
+              {
+                "kind": "flow",
+                "from": "parseFn",
+                "to": "bindParse"
+              },
+              {
+                "kind": "flow",
+                "from": "validateFn",
+                "to": "bindValidate"
+              },
+              {
+                "kind": "flow",
+                "from": "saveFn",
+                "to": "bindSave"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "raw",
+                  "parseFn",
+                  "validateFn",
+                  "saveFn",
+                  "eSaved"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "Either monad",
+                "members": [
+                  "pureRaw",
+                  "bindParse",
+                  "bindValidate",
+                  "bindSave"
+                ]
+              }
+            ],
+            "shows": {
+              "pureRaw": "function",
+              "bindParse": "function",
+              "bindValidate": "function",
+              "bindSave": "function",
+              "raw": "value",
+              "parseFn": "hof",
+              "validateFn": "hof",
+              "saveFn": "hof",
+              "eSaved": "type"
+            },
+            "tooltips": {
+              "pureRaw": "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind.",
+              "bindParse": ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates.",
+              "bindValidate": ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern.",
+              "bindSave": ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern.",
+              "raw": "Raw input — for example a request body or untrusted user data.",
+              "parseFn": "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow.",
+              "validateFn": "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation.",
+              "saveFn": "save : Valid → Either e Saved. Same: supplied to bind as the continuation.",
+              "eSaved": "Either e Saved — Right on the happy path; the very first Left otherwise."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -110,49 +319,103 @@
             {
               "kind": "action",
               "id": "pureRaw",
-              "type": "Pure"
+              "type": "Pure",
+              "role": "function",
+              "tooltip": "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind.",
+              "laneId": "monad",
+              "laneLabel": "Either monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindParse",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates.",
+              "laneId": "monad",
+              "laneLabel": "Either monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             },
             {
               "kind": "action",
               "id": "bindValidate",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern.",
+              "laneId": "monad",
+              "laneLabel": "Either monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 2
             },
             {
               "kind": "action",
               "id": "bindSave",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern.",
+              "laneId": "monad",
+              "laneLabel": "Either monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 3
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "raw",
-              "type": "String"
+              "type": "String",
+              "role": "value",
+              "tooltip": "Raw input — for example a request body or untrusted user data.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "parseFn",
-              "type": "String ⟶ Either e Parsed"
+              "type": "String ⟶ Either e Parsed",
+              "role": "hof",
+              "tooltip": "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             },
             {
               "kind": "object",
               "id": "validateFn",
-              "type": "Parsed ⟶ Either e Valid"
+              "type": "Parsed ⟶ Either e Valid",
+              "role": "hof",
+              "tooltip": "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 2
             },
             {
               "kind": "object",
               "id": "saveFn",
-              "type": "Valid ⟶ Either e Saved"
+              "type": "Valid ⟶ Either e Saved",
+              "role": "hof",
+              "tooltip": "save : Valid → Either e Saved. Same: supplied to bind as the continuation.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 3
             },
             {
               "kind": "object",
               "id": "eSaved",
-              "type": "Either e Saved"
+              "type": "Either e Saved",
+              "role": "type",
+              "tooltip": "Either e Saved — Right on the happy path; the very first Left otherwise.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 4
             }
           ],
           "decisions": [],
@@ -229,7 +492,40 @@
                 "bindSave"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "pureRaw": "function",
+            "bindParse": "function",
+            "bindValidate": "function",
+            "bindSave": "function",
+            "raw": "value",
+            "parseFn": "hof",
+            "validateFn": "hof",
+            "saveFn": "hof",
+            "eSaved": "type"
+          },
+          "tooltips": {
+            "pureRaw": "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind.",
+            "bindParse": ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates.",
+            "bindValidate": ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern.",
+            "bindSave": ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern.",
+            "raw": "Raw input — for example a request body or untrusted user data.",
+            "parseFn": "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow.",
+            "validateFn": "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation.",
+            "saveFn": "save : Valid → Either e Saved. Same: supplied to bind as the continuation.",
+            "eSaved": "Either e Saved — Right on the happy path; the very first Left otherwise."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "EitherMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "ParseValidateSaveWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: Left propagates automatically; every step has the same shape",
+          "name": "parseValidateSave"
         }
       ]
     }
@@ -238,23 +534,24 @@
     "diagType": "activity",
     "title": "With pure + bind: Left propagates automatically; every step has the same shape",
     "name": "parseValidateSave",
+    "render": "ParseValidateSaveWith",
     "shows": {
-      "raw": "value",
       "pureRaw": "function",
       "bindParse": "function",
       "bindValidate": "function",
       "bindSave": "function",
+      "raw": "value",
       "parseFn": "hof",
       "validateFn": "hof",
       "saveFn": "hof",
       "eSaved": "type"
     },
     "tooltips": {
-      "raw": "Raw input — for example a request body or untrusted user data.",
       "pureRaw": "pure : String → Either e String. Lifts the plain value so the chain can start uniformly with bind.",
       "bindParse": ">>= : takes Either e String and (String → Either e Parsed). Right-path runs parse; Left propagates.",
       "bindValidate": ">>= : takes Either e Parsed and (Parsed → Either e Valid). Same pattern.",
       "bindSave": ">>= : takes Either e Valid and (Valid → Either e Saved). Same pattern.",
+      "raw": "Raw input — for example a request body or untrusted user data.",
       "parseFn": "parse : String → Either e Parsed. HOF argument — its input is String, not Either e String, so it cannot sit on the main flow.",
       "validateFn": "validate : Parsed → Either e Valid. Same: supplied to bind as the continuation.",
       "saveFn": "save : Valid → Either e Saved. Same: supplied to bind as the continuation.",

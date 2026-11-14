@@ -3,6 +3,7 @@
 // Diagram type: activity — wrapped function flows in as HOF token, applied to Fa
 
 package ApplicativeActivity {
+    private import FpDiagram::*;
 
     action def ApplyWrapped {
         in  fff : "F(a ⟶ b)";  // wrapped function, HOF input
@@ -15,41 +16,40 @@ package ApplicativeActivity {
         out fa : Fa;  // lifted into context
     }
 
-    activity def ApplicativeProcess {
+    action def ApplicativeProcess {
         // HOF input: the wrapped function flowing in as a data token
-        object fff  : "F(a ⟶ b)";  // wrapped function, HOF input
-        object fa   : Fa;             // argument in same context
+        #FpNodePresentation { role = "hof"; tooltip = "F(a ⟶ b) — a function wrapped in context F, flowing in as a value (HOF)"; }
+        item fff  : "F(a ⟶ b)";  // wrapped function, HOF input
+        #FpNodePresentation { role = "type"; tooltip = "Fa — the argument value, also wrapped in the same context F"; }
+        item fa   : Fa;             // argument in same context
+
+        #FpNodePresentation { role = "function"; tooltip = "(<*>) — applies the wrapped function to the wrapped argument"; }
 
         action apStar : ApplyWrapped;
 
-        object fb   : Fb;             // result in context
+        #FpNodePresentation { role = "type"; tooltip = "Fb — result in context F; same context shape as input"; }
+
+        item fb   : Fb;             // result in context
 
         flow from fff  to apStar;
         flow from fa   to apStar;
         flow from apStar to fb;
     }
 
-    activity def PureProcess {
-        object x  : a;    // plain value
+    action def PureProcess {
+        item x  : a;    // plain value
         action pur : PureOp;
-        object fa : Fa;   // lifted into context
+        #FpNodePresentation { role = "type"; tooltip = "Fa — the argument value, also wrapped in the same context F"; }
+        item fa : Fa;   // lifted into context
 
         flow from x   to pur;
         flow from pur to fa;
     }
+    #FpViewPresentation { name = "<*>"; }
+    view diagram : FpActivityView {
+        doc /*Applicative: (<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb*/
+        expose ApplicativeProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "Applicative: (<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb"
-    name  = "<*>"
-    render = ApplicativeProcess
-    show fff    as hof
-    show fa     as type
-    show apStar as function
-    show fb     as type
-    tooltip fff    = "F(a ⟶ b) — a function wrapped in context F, flowing in as a value (HOF)"
-    tooltip fa     = "Fa — the argument value, also wrapped in the same context F"
-    tooltip apStar = "(<*>) — applies the wrapped function to the wrapped argument"
-    tooltip fb     = "Fb — result in context F; same context shape as input"
-}

@@ -1,6 +1,7 @@
 // SysML v2 — currying activity diagram
 
 package Function2Currying {
+    private import FpDiagram::*;
 
     action def CurryOp {
         in  f2      : "(a,b) ⟶ c";    // multi-arg function, HOF input
@@ -13,14 +14,19 @@ package Function2Currying {
         out f1      : "b ⟶ c";          // specialised function
     }
 
-    activity def CurryingProcess {
-        object f2      : "(a,b) ⟶ c";      // function, HOF input
+    action def CurryingProcess {
+        #FpNodePresentation { role = "hof"; tooltip = "(a,b) ⟶ c — original multi-argument function, flowing in as a data token"; }
+        item f2      : "(a,b) ⟶ c";      // function, HOF input
+        #FpNodePresentation { role = "function"; tooltip = "curry: transforms a multi-arg function into a chain of single-arg functions"; }
         action curry   : CurryOp;
-        object curried : "a ⟶ (b ⟶ c)";  // curried form
+        #FpNodePresentation { role = "function"; tooltip = "a ⟶ (b ⟶ c) — the curried form, itself a function"; }
+        item curried : "a ⟶ (b ⟶ c)";  // curried form
 
-        object a       : a;               // first argument
+        item a       : a;               // first argument
+        #FpNodePresentation { role = "function"; tooltip = "Apply the first argument a, yielding the specialised function"; }
         action applyA  : ApplyFirst;
-        object f1      : "b ⟶ c";        // specialised function
+        #FpNodePresentation { role = "function"; tooltip = "b ⟶ c — the specialised function with a already applied"; }
+        item f1      : "b ⟶ c";        // specialised function
 
         flow from f2      to curry : "curry";
         flow from curry   to curried;
@@ -30,20 +36,11 @@ package Function2Currying {
 
         succession curry then applyA;
     }
+    #FpViewPresentation { name = "curry"; }
+    view diagram : FpActivityView {
+        doc /*Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)*/
+        expose CurryingProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type   = activity
-    title  = "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)"
-    name   = "curry"
-    show f2      as hof
-    show curry   as function
-    show curried as function
-    show applyA  as function
-    show f1      as function
-    tooltip f2      = "(a,b) ⟶ c — original multi-argument function, flowing in as a data token"
-    tooltip curry   = "curry: transforms a multi-arg function into a chain of single-arg functions"
-    tooltip curried = "a ⟶ (b ⟶ c) — the curried form, itself a function"
-    tooltip applyA  = "Apply the first argument a, yielding the specialised function"
-    tooltip f1      = "b ⟶ c — the specialised function with a already applied"
-}

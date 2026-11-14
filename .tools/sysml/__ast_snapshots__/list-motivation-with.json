@@ -46,6 +46,191 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CartesianWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "CartesianWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bindOuter",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : applies outerFn to every element of xs and concatenates the results.",
+                "laneId": "monad",
+                "laneLabel": "List monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindInner",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys.",
+                "laneId": "monad",
+                "laneLabel": "List monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "action",
+                "id": "purePair",
+                "type": "Pure",
+                "role": "function",
+                "tooltip": "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list.",
+                "laneId": "monad",
+                "laneLabel": "List monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 2
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "xs",
+                "type": "[A]",
+                "role": "value",
+                "tooltip": "[A] — first list. Outer iteration.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "ys",
+                "type": "[B]",
+                "role": "value",
+                "tooltip": "[B] — second list. Inner iteration (under each x).",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "object",
+                "id": "outerFn",
+                "type": "A ⟶ [(A, B)]",
+                "role": "hof",
+                "tooltip": "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A].",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 2
+              },
+              {
+                "kind": "object",
+                "id": "innerFn",
+                "type": "B ⟶ [(A, B)]",
+                "role": "hof",
+                "tooltip": "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 3
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "[(A, B)]",
+                "role": "type",
+                "tooltip": "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 4
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "xs",
+                "to": "bindOuter",
+                "label": "[A]"
+              },
+              {
+                "kind": "flow",
+                "from": "outerFn",
+                "to": "bindOuter"
+              },
+              {
+                "kind": "flow",
+                "from": "bindOuter",
+                "to": "result",
+                "label": "[(A, B)]"
+              },
+              {
+                "kind": "flow",
+                "from": "ys",
+                "to": "bindInner",
+                "label": "[B]"
+              },
+              {
+                "kind": "flow",
+                "from": "innerFn",
+                "to": "bindInner"
+              },
+              {
+                "kind": "flow",
+                "from": "purePair",
+                "to": "result",
+                "label": "(via inner bind)"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "xs",
+                  "ys",
+                  "outerFn",
+                  "innerFn",
+                  "result"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "List monad",
+                "members": [
+                  "bindOuter",
+                  "bindInner",
+                  "purePair"
+                ]
+              }
+            ],
+            "shows": {
+              "bindOuter": "function",
+              "bindInner": "function",
+              "purePair": "function",
+              "xs": "value",
+              "ys": "value",
+              "outerFn": "hof",
+              "innerFn": "hof",
+              "result": "type"
+            },
+            "tooltips": {
+              "bindOuter": ">>= : applies outerFn to every element of xs and concatenates the results.",
+              "bindInner": ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys.",
+              "purePair": "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list.",
+              "xs": "[A] — first list. Outer iteration.",
+              "ys": "[B] — second list. Inner iteration (under each x).",
+              "outerFn": "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A].",
+              "innerFn": "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.",
+              "result": "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -56,44 +241,92 @@
             {
               "kind": "action",
               "id": "bindOuter",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : applies outerFn to every element of xs and concatenates the results.",
+              "laneId": "monad",
+              "laneLabel": "List monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindInner",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys.",
+              "laneId": "monad",
+              "laneLabel": "List monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             },
             {
               "kind": "action",
               "id": "purePair",
-              "type": "Pure"
+              "type": "Pure",
+              "role": "function",
+              "tooltip": "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list.",
+              "laneId": "monad",
+              "laneLabel": "List monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 2
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "xs",
-              "type": "[A]"
+              "type": "[A]",
+              "role": "value",
+              "tooltip": "[A] — first list. Outer iteration.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "ys",
-              "type": "[B]"
+              "type": "[B]",
+              "role": "value",
+              "tooltip": "[B] — second list. Inner iteration (under each x).",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             },
             {
               "kind": "object",
               "id": "outerFn",
-              "type": "A ⟶ [(A, B)]"
+              "type": "A ⟶ [(A, B)]",
+              "role": "hof",
+              "tooltip": "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A].",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 2
             },
             {
               "kind": "object",
               "id": "innerFn",
-              "type": "B ⟶ [(A, B)]"
+              "type": "B ⟶ [(A, B)]",
+              "role": "hof",
+              "tooltip": "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 3
             },
             {
               "kind": "object",
               "id": "result",
-              "type": "[(A, B)]"
+              "type": "[(A, B)]",
+              "role": "type",
+              "tooltip": "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 4
             }
           ],
           "decisions": [],
@@ -159,7 +392,38 @@
                 "purePair"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "bindOuter": "function",
+            "bindInner": "function",
+            "purePair": "function",
+            "xs": "value",
+            "ys": "value",
+            "outerFn": "hof",
+            "innerFn": "hof",
+            "result": "type"
+          },
+          "tooltips": {
+            "bindOuter": ">>= : applies outerFn to every element of xs and concatenates the results.",
+            "bindInner": ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys.",
+            "purePair": "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list.",
+            "xs": "[A] — first list. Outer iteration.",
+            "ys": "[B] — second list. Inner iteration (under each x).",
+            "outerFn": "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A].",
+            "innerFn": "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.",
+            "result": "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ListMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "CartesianWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: nested binds = nested loops; one bind per Cartesian axis",
+          "name": "cartesian"
         }
       ]
     }
@@ -168,22 +432,23 @@
     "diagType": "activity",
     "title": "With pure + bind: nested binds = nested loops; one bind per Cartesian axis",
     "name": "cartesian",
+    "render": "CartesianWith",
     "shows": {
-      "xs": "value",
-      "ys": "value",
       "bindOuter": "function",
       "bindInner": "function",
       "purePair": "function",
+      "xs": "value",
+      "ys": "value",
       "outerFn": "hof",
       "innerFn": "hof",
       "result": "type"
     },
     "tooltips": {
-      "xs": "[A] — first list. Outer iteration.",
-      "ys": "[B] — second list. Inner iteration (under each x).",
       "bindOuter": ">>= : applies outerFn to every element of xs and concatenates the results.",
       "bindInner": ">>= : the inner bind that lives inside outerFn — applies innerFn to every element of ys.",
       "purePair": "pure : (A, B) → [(A, B)]. Lifts the single pair (x, y) into a singleton list.",
+      "xs": "[A] — first list. Outer iteration.",
+      "ys": "[B] — second list. Inner iteration (under each x).",
       "outerFn": "λx. ys >>= λy. pure (x, y). HOF argument to the outer bind — its input is A, not [A].",
       "innerFn": "λy. pure (x, y). HOF argument to the inner bind — captures x from outerFn's scope.",
       "result": "[(A, B)] — the Cartesian product as a flat list. One more axis = one more bind line."

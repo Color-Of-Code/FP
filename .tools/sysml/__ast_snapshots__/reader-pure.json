@@ -22,6 +22,68 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ReaderPureProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ReaderPureProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "wrap",
+                "type": "ConstReader",
+                "role": "function",
+                "tooltip": "ConstReader: build the function \\\\r -> a0. The environment is accepted but never inspected."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "a",
+                "role": "value",
+                "tooltip": "a0 — any plain value."
+              },
+              {
+                "kind": "object",
+                "id": "ra",
+                "type": "Reader r a",
+                "role": "type",
+                "tooltip": "Reader r a = (r ⟶ a). Always returns a0 regardless of which environment is supplied at run time."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "wrap"
+              },
+              {
+                "kind": "flow",
+                "from": "wrap",
+                "to": "ra",
+                "label": "\\\\r -> a0"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "wrap": "function",
+              "a0": "value",
+              "ra": "type"
+            },
+            "tooltips": {
+              "wrap": "ConstReader: build the function \\\\r -> a0. The environment is accepted but never inspected.",
+              "a0": "a0 — any plain value.",
+              "ra": "Reader r a = (r ⟶ a). Always returns a0 regardless of which environment is supplied at run time."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -32,19 +94,25 @@
             {
               "kind": "action",
               "id": "wrap",
-              "type": "ConstReader"
+              "type": "ConstReader",
+              "role": "function",
+              "tooltip": "ConstReader: build the function \\\\r -> a0. The environment is accepted but never inspected."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a0",
-              "type": "a"
+              "type": "a",
+              "role": "value",
+              "tooltip": "a0 — any plain value."
             },
             {
               "kind": "object",
               "id": "ra",
-              "type": "Reader r a"
+              "type": "Reader r a",
+              "role": "type",
+              "tooltip": "Reader r a = (r ⟶ a). Always returns a0 regardless of which environment is supplied at run time."
             }
           ],
           "decisions": [],
@@ -64,7 +132,28 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "wrap": "function",
+            "a0": "value",
+            "ra": "type"
+          },
+          "tooltips": {
+            "wrap": "ConstReader: build the function \\\\r -> a0. The environment is accepted but never inspected.",
+            "a0": "a0 — any plain value.",
+            "ra": "Reader r a = (r ⟶ a). Always returns a0 regardless of which environment is supplied at run time."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ReaderPureImpl",
+          "viewType": "FpActivityView",
+          "expose": "ReaderPureProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "pure :: a ⟶ Reader r a   (constant reader: ignore r, return a0) — also called: return",
+          "name": "pure"
         }
       ]
     }
@@ -73,14 +162,15 @@
     "diagType": "activity",
     "title": "pure :: a ⟶ Reader r a   (constant reader: ignore r, return a0) — also called: return",
     "name": "pure",
+    "render": "ReaderPureProcess",
     "shows": {
-      "a0": "value",
       "wrap": "function",
+      "a0": "value",
       "ra": "type"
     },
     "tooltips": {
-      "a0": "a0 — any plain value.",
       "wrap": "ConstReader: build the function \\\\r -> a0. The environment is accepted but never inspected.",
+      "a0": "a0 — any plain value.",
       "ra": "Reader r a = (r ⟶ a). Always returns a0 regardless of which environment is supplied at run time."
     }
   }

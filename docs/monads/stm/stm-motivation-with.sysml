@@ -15,6 +15,7 @@
 // the transaction on conflict.  No locks, no manual ordering.
 
 package STMMotivationWith {
+    private import FpDiagram::*;
 
     action def ReadA {
         out _ : "STM Int";
@@ -31,20 +32,27 @@ package STMMotivationWith {
         out _  : "STM b";
     }
 
-    activity def TransferWith {
+    action def TransferWith {
         // entry: readA is itself an STM action (no input)
+        #FpNodePresentation { role = "function"; tooltip = "readTVar accountA : STM Int — STM action. Read tracked, not committed alone."; laneId = "monad"; laneLabel = "STM monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action readA       : ReadA;
 
         // bind in writeA-then-readB-then-writeB as a single continuation
         // (writeA captures aVal; readB and writeB chain naturally)
-        object writeAThenFn : "Int ⟶ STM Int";
+        #FpNodePresentation { role = "hof"; tooltip = "λaVal. writeTVar accountA (aVal - delta) >> readTVar accountB. HOF argument — captures aVal in scope."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item writeAThenFn : "Int ⟶ STM Int";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : sequences writeA(-delta) and the readB step. Reads/writes accumulate in the transaction."; laneId = "monad"; laneLabel = "STM monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindWriteA  : Bind;
 
-        object writeBFn    : "Int ⟶ STM ()";
+        #FpNodePresentation { role = "hof"; tooltip = "λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+
+        item writeBFn    : "Int ⟶ STM ()";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : sequences writeB(+delta). Final step before commit."; laneId = "monad"; laneLabel = "STM monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action bindWriteB  : Bind;
 
         // output
-        object commit      : "IO ()";
+        #FpNodePresentation { role = "type"; tooltip = "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+        item commit      : "IO ()";
 
         // main flow runs through the bind nodes
         flow from readA       to bindWriteA : "STM Int";
@@ -56,28 +64,14 @@ package STMMotivationWith {
         flow from writeBFn     to bindWriteB;
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            writeAThenFn, writeBFn, commit;
-        lane monad : "STM monad" =
-            readA, bindWriteA, bindWriteB;
-    }
-}
 
-#diagram {
-    type  = activity
-    title = "With pure + bind: STM actions compose freely; runtime commits atomically or retries"
-    name  = "transfer"
-    show readA        as function
-    show bindWriteA   as function
-    show bindWriteB   as function
-    show writeAThenFn as hof
-    show writeBFn     as hof
-    show commit       as type
-    tooltip readA        = "readTVar accountA : STM Int — STM action. Read tracked, not committed alone."
-    tooltip bindWriteA   = ">>= : sequences writeA(-delta) and the readB step. Reads/writes accumulate in the transaction."
-    tooltip bindWriteB   = ">>= : sequences writeB(+delta). Final step before commit."
-    tooltip writeAThenFn = "λaVal. writeTVar accountA (aVal - delta) >> readTVar accountB. HOF argument — captures aVal in scope."
-    tooltip writeBFn     = "λbVal. writeTVar accountB (bVal + delta). HOF argument — captures bVal."
-    tooltip commit       = "atomically — commits all four operations as one unit, or restarts the whole transaction on conflict. No deadlock possible."
+
+    }
+    #FpViewPresentation { name = "transfer"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: STM actions compose freely; runtime commits atomically or retries*/
+        expose TransferWith;
+        render fpActivityDiagram;
+    }
 }
 

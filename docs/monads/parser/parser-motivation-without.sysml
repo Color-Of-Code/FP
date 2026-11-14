@@ -12,6 +12,7 @@
 // + manual rest-passing vs. automatic threading via bind).
 
 package ParserMotivationWithout {
+    private import FpDiagram::*;
 
     action def ParseDigit {
         in  input  : String;
@@ -23,24 +24,32 @@ package ParserMotivationWithout {
         out _      : "Maybe (Char, String)";
     }
 
-    activity def DigitLetterWithout {
+    action def DigitLetterWithout {
         // input
-        object input : String;
+        #FpNodePresentation { role = "value"; tooltip = "input : String — the full input string, threaded through the whole chain."; }
+        item input : String;
 
         // two fallible parsers
+        #FpNodePresentation { role = "function"; tooltip = "parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing."; }
         action parseDigit  : ParseDigit;
+        #FpNodePresentation { role = "function"; tooltip = "parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input."; }
         action parseLetter : ParseLetter;
 
         // one Nothing-guard per step
-        decision check1 : "Nothing?";
-        decision check2 : "Nothing?";
+        #FpNodePresentation { tooltip = "Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug."; }
+        decide check1 : "Nothing?";
+        #FpNodePresentation { tooltip = "Guard #2: same pattern repeated. Skip and you'll return garbage."; }
+        decide check2 : "Nothing?";
 
         // all failure branches converge here
+        #FpNodePresentation { tooltip = "Any Nothing short-circuits the whole chain — both failure paths converge here."; }
         merge failRail;
 
         // outputs
-        object outResult : "((d, l), rest2)";
-        object failed    : "Nothing";
+        #FpNodePresentation { role = "type"; tooltip = "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input."; }
+        item outResult : "((d, l), rest2)";
+        #FpNodePresentation { role = "type"; tooltip = "Nothing — a parse failure, indistinguishable from any other Nothing."; }
+        item failed    : "Nothing";
 
         // happy path — leftover is unwrapped from the pair and threaded by hand
         flow from input        to parseDigit;
@@ -54,25 +63,11 @@ package ParserMotivationWithout {
 
         flow from failRail     to failed;
     }
-}
-
-#diagram {
-    type   = activity
-    layout = elk
-    title = "Without bind: leftover threaded by hand; one Nothing guard per step"
-    name  = "digitLetter"
-    show input       as value
-    show parseDigit  as function
-    show parseLetter as function
-    show outResult   as type
-    show failed      as type
-    tooltip input        = "input : String — the full input string, threaded through the whole chain."
-    tooltip parseDigit   = "parseDigit(input) → Maybe (Char, String). Returns the consumed character and the leftover, or Nothing."
-    tooltip parseLetter  = "parseLetter(rest1) → Maybe (Char, String). Must be called with the leftover from parseDigit, never the original input."
-    tooltip check1       = "Guard #1: pattern-matches Maybe (Char, String). Skip and you'll feed Nothing to parseLetter — type error or worse, silent bug."
-    tooltip check2       = "Guard #2: same pattern repeated. Skip and you'll return garbage."
-    tooltip failRail     = "Any Nothing short-circuits the whole chain — both failure paths converge here."
-    tooltip outResult    = "((d, l), rest2) — caller is responsible for unpacking the value and the remaining input."
-    tooltip failed       = "Nothing — a parse failure, indistinguishable from any other Nothing."
+    #FpViewPresentation { name = "digitLetter"; }
+    view diagram : FpActivityView {
+        doc /*Without bind: leftover threaded by hand; one Nothing guard per step*/
+        expose DigitLetterWithout;
+        render fpActivityDiagram;
+    }
 }
 

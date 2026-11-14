@@ -3,6 +3,7 @@
 // Three concrete elements (a1, a2, a3) make the "every element" contract visible.
 
 package ListBindImpl {
+    private import FpDiagram::*;
 
     action def ApplyToElem {
         in  a_val : a;
@@ -17,20 +18,33 @@ package ListBindImpl {
         out flat  : "List b";  // all sub-lists concatenated
     }
 
-    activity def ListBindProcess {
-        object la    : "List a";          // input: all elements
-        object f     : "a ⟶ List b";
-        object a1    : a;                 // element 1
-        object a2    : a;                 // element 2
-        object a3    : a;                 // element 3
+    action def ListBindProcess {
+        #FpNodePresentation { role = "type"; tooltip = "List a — every element is independently processed. Empty list short-circuits: no elements, no calls."; }
+        item la    : "List a";          // input: all elements
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ List b) — called for EVERY element. Each call may return [], [b], or [b1, b2, ...] — any size."; }
+        item f     : "a ⟶ List b";
+        #FpNodePresentation { role = "value"; tooltip = "First element of List a"; }
+        item a1    : a;                 // element 1
+        #FpNodePresentation { role = "value"; tooltip = "Second element of List a"; }
+        item a2    : a;                 // element 2
+        #FpNodePresentation { role = "value"; tooltip = "Third element of List a"; }
+        item a3    : a;                 // element 3
+        #FpNodePresentation { role = "function"; tooltip = "f(a1) — sub-list of b values for the first element (0 or more results)"; }
         action app1  : ApplyToElem;
+        #FpNodePresentation { role = "function"; tooltip = "f(a2) — sub-list of b values for the second element (0 or more results)"; }
         action app2  : ApplyToElem;
+        #FpNodePresentation { role = "function"; tooltip = "f(a3) — sub-list of b values for the third element (0 or more results)"; }
         action app3  : ApplyToElem;
-        object sub1  : "List b";          // results for a1
-        object sub2  : "List b";          // results for a2
-        object sub3  : "List b";          // results for a3
+        #FpNodePresentation { role = "type"; tooltip = "List b — all b values produced for a1. May be empty."; }
+        item sub1  : "List b";          // results for a1
+        #FpNodePresentation { role = "type"; tooltip = "List b — all b values produced for a2. May be empty."; }
+        item sub2  : "List b";          // results for a2
+        #FpNodePresentation { role = "type"; tooltip = "List b — all b values produced for a3. May be empty."; }
+        item sub3  : "List b";          // results for a3
+        #FpNodePresentation { role = "function"; tooltip = "Concatenate: sub1 ++ sub2 ++ sub3. This is the key step: all branches merged into one flat List b."; }
         action flatten : Flatten;
-        object lb    : "List b";          // flattened output
+        #FpNodePresentation { role = "type"; tooltip = "List b — the complete output: sub1 ++ sub2 ++ sub3. Non-determinism is preserved as multiple values."; }
+        item lb    : "List b";          // flattened output
 
         flow from la to a1 : "∀ a";
         flow from la to a2 : "∀ a";
@@ -57,36 +71,11 @@ package ListBindImpl {
         succession app2 then app3;
         succession app3 then flatten;
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*List bind (concatMap): apply f to every element, concatenate all results — also called: flatMap, SelectMany, List.collect, >>=*/
+        expose ListBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type  = activity
-    title = "List bind (concatMap): apply f to every element, concatenate all results — also called: flatMap, SelectMany, List.collect, >>="
-    name  = "bind"
-    show la      as type
-    show f       as hof
-    show a1      as value
-    show a2      as value
-    show a3      as value
-    show app1    as function
-    show app2    as function
-    show app3    as function
-    show sub1    as type
-    show sub2    as type
-    show sub3    as type
-    show flatten as function
-    show lb      as type
-    tooltip la      = "List a — every element is independently processed. Empty list short-circuits: no elements, no calls."
-    tooltip f       = "(a ⟶ List b) — called for EVERY element. Each call may return [], [b], or [b1, b2, ...] — any size."
-    tooltip a1      = "First element of List a"
-    tooltip a2      = "Second element of List a"
-    tooltip a3      = "Third element of List a"
-    tooltip app1    = "f(a1) — sub-list of b values for the first element (0 or more results)"
-    tooltip app2    = "f(a2) — sub-list of b values for the second element (0 or more results)"
-    tooltip app3    = "f(a3) — sub-list of b values for the third element (0 or more results)"
-    tooltip sub1    = "List b — all b values produced for a1. May be empty."
-    tooltip sub2    = "List b — all b values produced for a2. May be empty."
-    tooltip sub3    = "List b — all b values produced for a3. May be empty."
-    tooltip flatten = "Concatenate: sub1 ++ sub2 ++ sub3. This is the key step: all branches merged into one flat List b."
-    tooltip lb      = "List b — the complete output: sub1 ++ sub2 ++ sub3. Non-determinism is preserved as multiple values."
-}

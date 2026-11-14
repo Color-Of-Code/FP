@@ -15,6 +15,7 @@
 // back into Parser without consuming any more input.
 
 package ParserMotivationWith {
+    private import FpDiagram::*;
 
     action def Digit {
         out _ : "Parser Char";
@@ -33,17 +34,21 @@ package ParserMotivationWith {
         out _  : "Parser b";
     }
 
-    activity def DigitLetterWith {
+    action def DigitLetterWith {
         // entry: digit is itself a Parser (no input value)
+        #FpNodePresentation { role = "function"; tooltip = "digit : Parser Char — consumes one digit, leaves the rest of the string in its state."; laneId = "monad"; laneLabel = "Parser monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action digit       : Digit;
 
         // bind in letter as the next parser; the HOF captures d in scope
         // and runs letter — conceptually  λd. letter >>= λl. pure (d, l)
-        object letterFn    : "Char ⟶ Parser (Char, Char)";
+        #FpNodePresentation { role = "hof"; tooltip = "λd. letter >>= λl. pure (d, l). HOF argument — captures d and produces a Parser (Char, Char)."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item letterFn    : "Char ⟶ Parser (Char, Char)";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : runs letter on the input that digit left behind. Failure in either step short-circuits."; laneId = "monad"; laneLabel = "Parser monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindLetter  : Bind;
 
         // output
-        object outResult   : "(value, rest)";
+        #FpNodePresentation { role = "type"; tooltip = "runParser supplies the input string and returns (value, rest) — or Nothing if any step failed."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+        item outResult   : "(value, rest)";
 
         // main flow runs through the bind nodes
         flow from digit       to bindLetter : "Parser Char";
@@ -53,24 +58,14 @@ package ParserMotivationWith {
         flow from letterFn    to bindLetter;
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            letterFn, outResult;
-        lane monad : "Parser monad" =
-            digit, bindLetter;
-    }
-}
 
-#diagram {
-    type  = activity
-    title = "With pure + bind: bind threads the remaining input and short-circuits failure"
-    name  = "digitLetter"
-    show digit       as function
-    show bindLetter  as function
-    show letterFn    as hof
-    show outResult   as type
-    tooltip digit       = "digit : Parser Char — consumes one digit, leaves the rest of the string in its state."
-    tooltip bindLetter  = ">>= : runs letter on the input that digit left behind. Failure in either step short-circuits."
-    tooltip letterFn    = "λd. letter >>= λl. pure (d, l). HOF argument — captures d and produces a Parser (Char, Char)."
-    tooltip outResult   = "runParser supplies the input string and returns (value, rest) — or Nothing if any step failed."
+
+    }
+    #FpViewPresentation { name = "digitLetter"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: bind threads the remaining input and short-circuits failure*/
+        expose DigitLetterWith;
+        render fpActivityDiagram;
+    }
 }
 

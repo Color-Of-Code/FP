@@ -100,6 +100,215 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "StateChainWith",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "StateChainWith",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "pureA",
+                "type": "Pure",
+                "role": "function",
+                "tooltip": "pure : A → State s A. Returns (a, s) — leaves s untouched.",
+                "laneId": "monad",
+                "laneLabel": "State monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "action",
+                "id": "bindStep1",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : runs the State action, threads s' into step1, returns step1's (b, s'').",
+                "laneId": "monad",
+                "laneLabel": "State monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "action",
+                "id": "bindStep2",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : threads the latest state into step2 automatically. No way to supply the wrong state.",
+                "laneId": "monad",
+                "laneLabel": "State monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 2
+              },
+              {
+                "kind": "action",
+                "id": "bindStep3",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": ">>= : threads the latest state into step3 automatically.",
+                "laneId": "monad",
+                "laneLabel": "State monad",
+                "laneOrder": 1,
+                "laneMemberOrder": 3
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "initial",
+                "type": "A",
+                "role": "value",
+                "tooltip": "Plain input value of type A — does not include the state.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 0
+              },
+              {
+                "kind": "object",
+                "id": "step1Fn",
+                "type": "A ⟶ State s B",
+                "role": "hof",
+                "tooltip": "step1 : A → State s B. HOF argument — its input is A, not State s A.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 1
+              },
+              {
+                "kind": "object",
+                "id": "step2Fn",
+                "type": "B ⟶ State s C",
+                "role": "hof",
+                "tooltip": "step2 : B → State s C. Same: supplied to bind as the continuation.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 2
+              },
+              {
+                "kind": "object",
+                "id": "step3Fn",
+                "type": "C ⟶ State s D",
+                "role": "hof",
+                "tooltip": "step3 : C → State s D. Same: supplied to bind as the continuation.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 3
+              },
+              {
+                "kind": "object",
+                "id": "outResult",
+                "type": "(D, sFinal)",
+                "role": "type",
+                "tooltip": "runState s0 supplies the initial state and returns the final value alongside the final state.",
+                "laneId": "plain",
+                "laneLabel": "Plain values & functions",
+                "laneOrder": 0,
+                "laneMemberOrder": 4
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "initial",
+                "to": "pureA"
+              },
+              {
+                "kind": "flow",
+                "from": "pureA",
+                "to": "bindStep1",
+                "label": "State s A"
+              },
+              {
+                "kind": "flow",
+                "from": "bindStep1",
+                "to": "bindStep2",
+                "label": "State s B"
+              },
+              {
+                "kind": "flow",
+                "from": "bindStep2",
+                "to": "bindStep3",
+                "label": "State s C"
+              },
+              {
+                "kind": "flow",
+                "from": "bindStep3",
+                "to": "outResult",
+                "label": "runState s0"
+              },
+              {
+                "kind": "flow",
+                "from": "step1Fn",
+                "to": "bindStep1"
+              },
+              {
+                "kind": "flow",
+                "from": "step2Fn",
+                "to": "bindStep2"
+              },
+              {
+                "kind": "flow",
+                "from": "step3Fn",
+                "to": "bindStep3"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [
+              {
+                "kind": "lane",
+                "id": "plain",
+                "label": "Plain values & functions",
+                "members": [
+                  "initial",
+                  "step1Fn",
+                  "step2Fn",
+                  "step3Fn",
+                  "outResult"
+                ]
+              },
+              {
+                "kind": "lane",
+                "id": "monad",
+                "label": "State monad",
+                "members": [
+                  "pureA",
+                  "bindStep1",
+                  "bindStep2",
+                  "bindStep3"
+                ]
+              }
+            ],
+            "shows": {
+              "pureA": "function",
+              "bindStep1": "function",
+              "bindStep2": "function",
+              "bindStep3": "function",
+              "initial": "value",
+              "step1Fn": "hof",
+              "step2Fn": "hof",
+              "step3Fn": "hof",
+              "outResult": "type"
+            },
+            "tooltips": {
+              "pureA": "pure : A → State s A. Returns (a, s) — leaves s untouched.",
+              "bindStep1": ">>= : runs the State action, threads s' into step1, returns step1's (b, s'').",
+              "bindStep2": ">>= : threads the latest state into step2 automatically. No way to supply the wrong state.",
+              "bindStep3": ">>= : threads the latest state into step3 automatically.",
+              "initial": "Plain input value of type A — does not include the state.",
+              "step1Fn": "step1 : A → State s B. HOF argument — its input is A, not State s A.",
+              "step2Fn": "step2 : B → State s C. Same: supplied to bind as the continuation.",
+              "step3Fn": "step3 : C → State s D. Same: supplied to bind as the continuation.",
+              "outResult": "runState s0 supplies the initial state and returns the final value alongside the final state."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -110,49 +319,103 @@
             {
               "kind": "action",
               "id": "pureA",
-              "type": "Pure"
+              "type": "Pure",
+              "role": "function",
+              "tooltip": "pure : A → State s A. Returns (a, s) — leaves s untouched.",
+              "laneId": "monad",
+              "laneLabel": "State monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 0
             },
             {
               "kind": "action",
               "id": "bindStep1",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : runs the State action, threads s' into step1, returns step1's (b, s'').",
+              "laneId": "monad",
+              "laneLabel": "State monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 1
             },
             {
               "kind": "action",
               "id": "bindStep2",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : threads the latest state into step2 automatically. No way to supply the wrong state.",
+              "laneId": "monad",
+              "laneLabel": "State monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 2
             },
             {
               "kind": "action",
               "id": "bindStep3",
-              "type": "Bind"
+              "type": "Bind",
+              "role": "function",
+              "tooltip": ">>= : threads the latest state into step3 automatically.",
+              "laneId": "monad",
+              "laneLabel": "State monad",
+              "laneOrder": 1,
+              "laneMemberOrder": 3
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "initial",
-              "type": "A"
+              "type": "A",
+              "role": "value",
+              "tooltip": "Plain input value of type A — does not include the state.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 0
             },
             {
               "kind": "object",
               "id": "step1Fn",
-              "type": "A ⟶ State s B"
+              "type": "A ⟶ State s B",
+              "role": "hof",
+              "tooltip": "step1 : A → State s B. HOF argument — its input is A, not State s A.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 1
             },
             {
               "kind": "object",
               "id": "step2Fn",
-              "type": "B ⟶ State s C"
+              "type": "B ⟶ State s C",
+              "role": "hof",
+              "tooltip": "step2 : B → State s C. Same: supplied to bind as the continuation.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 2
             },
             {
               "kind": "object",
               "id": "step3Fn",
-              "type": "C ⟶ State s D"
+              "type": "C ⟶ State s D",
+              "role": "hof",
+              "tooltip": "step3 : C → State s D. Same: supplied to bind as the continuation.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 3
             },
             {
               "kind": "object",
               "id": "outResult",
-              "type": "(D, sFinal)"
+              "type": "(D, sFinal)",
+              "role": "type",
+              "tooltip": "runState s0 supplies the initial state and returns the final value alongside the final state.",
+              "laneId": "plain",
+              "laneLabel": "Plain values & functions",
+              "laneOrder": 0,
+              "laneMemberOrder": 4
             }
           ],
           "decisions": [],
@@ -229,7 +492,40 @@
                 "bindStep3"
               ]
             }
-          ]
+          ],
+          "shows": {
+            "pureA": "function",
+            "bindStep1": "function",
+            "bindStep2": "function",
+            "bindStep3": "function",
+            "initial": "value",
+            "step1Fn": "hof",
+            "step2Fn": "hof",
+            "step3Fn": "hof",
+            "outResult": "type"
+          },
+          "tooltips": {
+            "pureA": "pure : A → State s A. Returns (a, s) — leaves s untouched.",
+            "bindStep1": ">>= : runs the State action, threads s' into step1, returns step1's (b, s'').",
+            "bindStep2": ">>= : threads the latest state into step2 automatically. No way to supply the wrong state.",
+            "bindStep3": ">>= : threads the latest state into step3 automatically.",
+            "initial": "Plain input value of type A — does not include the state.",
+            "step1Fn": "step1 : A → State s B. HOF argument — its input is A, not State s A.",
+            "step2Fn": "step2 : B → State s C. Same: supplied to bind as the continuation.",
+            "step3Fn": "step3 : C → State s D. Same: supplied to bind as the continuation.",
+            "outResult": "runState s0 supplies the initial state and returns the final value alongside the final state."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "StateMotivationWith",
+          "viewType": "FpActivityView",
+          "expose": "StateChainWith",
+          "rendering": "fpActivityDiagram",
+          "title": "With pure + bind: state threads automatically; using a stale state is impossible",
+          "name": "stateChain"
         }
       ]
     }
@@ -238,23 +534,24 @@
     "diagType": "activity",
     "title": "With pure + bind: state threads automatically; using a stale state is impossible",
     "name": "stateChain",
+    "render": "StateChainWith",
     "shows": {
-      "initial": "value",
       "pureA": "function",
       "bindStep1": "function",
       "bindStep2": "function",
       "bindStep3": "function",
+      "initial": "value",
       "step1Fn": "hof",
       "step2Fn": "hof",
       "step3Fn": "hof",
       "outResult": "type"
     },
     "tooltips": {
-      "initial": "Plain input value of type A — does not include the state.",
       "pureA": "pure : A → State s A. Returns (a, s) — leaves s untouched.",
       "bindStep1": ">>= : runs the State action, threads s' into step1, returns step1's (b, s'').",
       "bindStep2": ">>= : threads the latest state into step2 automatically. No way to supply the wrong state.",
       "bindStep3": ">>= : threads the latest state into step3 automatically.",
+      "initial": "Plain input value of type A — does not include the state.",
       "step1Fn": "step1 : A → State s B. HOF argument — its input is A, not State s A.",
       "step2Fn": "step2 : B → State s C. Same: supplied to bind as the continuation.",
       "step3Fn": "step3 : C → State s D. Same: supplied to bind as the continuation.",

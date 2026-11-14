@@ -58,6 +58,177 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ParseValidateSaveWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ParseValidateSaveWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "parse",
+                "type": "Parse",
+                "role": "function",
+                "tooltip": "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error."
+              },
+              {
+                "kind": "action",
+                "id": "validate",
+                "type": "Validate",
+                "role": "function",
+                "tooltip": "validate(parsed) → Either e Valid. May return Left if a business rule is violated."
+              },
+              {
+                "kind": "action",
+                "id": "save",
+                "type": "Save",
+                "role": "function",
+                "tooltip": "save(valid) → Either e Saved. May return Left on a database / IO failure."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "raw",
+                "type": "String",
+                "role": "value",
+                "tooltip": "Raw input — for example a request body or untrusted user data."
+              },
+              {
+                "kind": "object",
+                "id": "errOut",
+                "type": "Left e",
+                "role": "type",
+                "tooltip": "Left e — returned when any step failed. Caller must also inspect this."
+              },
+              {
+                "kind": "object",
+                "id": "saved",
+                "type": "Right Saved",
+                "role": "value",
+                "tooltip": "Right Saved — the happy-path result, reached only when all three checks pass."
+              }
+            ],
+            "decisions": [
+              {
+                "kind": "decision",
+                "id": "checkParse",
+                "label": "Left?",
+                "tooltip": "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail."
+              },
+              {
+                "kind": "decision",
+                "id": "checkValidate",
+                "label": "Left?",
+                "tooltip": "Guard #2: same pattern repeated. Skipping this is a latent bug."
+              },
+              {
+                "kind": "decision",
+                "id": "checkSave",
+                "label": "Left?",
+                "tooltip": "Guard #3: yet another check. Business logic is buried in guards."
+              }
+            ],
+            "merges": [
+              {
+                "kind": "merge",
+                "id": "errorRail",
+                "tooltip": "Any Left terminates the chain here — three separate failure paths converge."
+              }
+            ],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "raw",
+                "to": "parse"
+              },
+              {
+                "kind": "flow",
+                "from": "parse",
+                "to": "checkParse",
+                "label": "Either e Parsed"
+              },
+              {
+                "kind": "flow",
+                "from": "checkParse",
+                "to": "errorRail",
+                "label": "Left e"
+              },
+              {
+                "kind": "flow",
+                "from": "checkParse",
+                "to": "validate",
+                "label": "Right parsed"
+              },
+              {
+                "kind": "flow",
+                "from": "validate",
+                "to": "checkValidate",
+                "label": "Either e Valid"
+              },
+              {
+                "kind": "flow",
+                "from": "checkValidate",
+                "to": "errorRail",
+                "label": "Left e"
+              },
+              {
+                "kind": "flow",
+                "from": "checkValidate",
+                "to": "save",
+                "label": "Right valid"
+              },
+              {
+                "kind": "flow",
+                "from": "save",
+                "to": "checkSave",
+                "label": "Either e Saved"
+              },
+              {
+                "kind": "flow",
+                "from": "checkSave",
+                "to": "errorRail",
+                "label": "Left e"
+              },
+              {
+                "kind": "flow",
+                "from": "checkSave",
+                "to": "saved",
+                "label": "Right saved"
+              },
+              {
+                "kind": "flow",
+                "from": "errorRail",
+                "to": "errOut"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "parse": "function",
+              "validate": "function",
+              "save": "function",
+              "raw": "value",
+              "errOut": "type",
+              "saved": "value"
+            },
+            "tooltips": {
+              "parse": "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error.",
+              "validate": "validate(parsed) → Either e Valid. May return Left if a business rule is violated.",
+              "save": "save(valid) → Either e Saved. May return Left on a database / IO failure.",
+              "raw": "Raw input — for example a request body or untrusted user data.",
+              "errOut": "Left e — returned when any step failed. Caller must also inspect this.",
+              "saved": "Right Saved — the happy-path result, reached only when all three checks pass.",
+              "checkParse": "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail.",
+              "checkValidate": "Guard #2: same pattern repeated. Skipping this is a latent bug.",
+              "checkSave": "Guard #3: yet another check. Business logic is buried in guards.",
+              "errorRail": "Any Left terminates the chain here — three separate failure paths converge."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -68,57 +239,73 @@
             {
               "kind": "action",
               "id": "parse",
-              "type": "Parse"
+              "type": "Parse",
+              "role": "function",
+              "tooltip": "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error."
             },
             {
               "kind": "action",
               "id": "validate",
-              "type": "Validate"
+              "type": "Validate",
+              "role": "function",
+              "tooltip": "validate(parsed) → Either e Valid. May return Left if a business rule is violated."
             },
             {
               "kind": "action",
               "id": "save",
-              "type": "Save"
+              "type": "Save",
+              "role": "function",
+              "tooltip": "save(valid) → Either e Saved. May return Left on a database / IO failure."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "raw",
-              "type": "String"
+              "type": "String",
+              "role": "value",
+              "tooltip": "Raw input — for example a request body or untrusted user data."
             },
             {
               "kind": "object",
               "id": "errOut",
-              "type": "Left e"
+              "type": "Left e",
+              "role": "type",
+              "tooltip": "Left e — returned when any step failed. Caller must also inspect this."
             },
             {
               "kind": "object",
               "id": "saved",
-              "type": "Right Saved"
+              "type": "Right Saved",
+              "role": "value",
+              "tooltip": "Right Saved — the happy-path result, reached only when all three checks pass."
             }
           ],
           "decisions": [
             {
               "kind": "decision",
               "id": "checkParse",
-              "label": "Left?"
+              "label": "Left?",
+              "tooltip": "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail."
             },
             {
               "kind": "decision",
               "id": "checkValidate",
-              "label": "Left?"
+              "label": "Left?",
+              "tooltip": "Guard #2: same pattern repeated. Skipping this is a latent bug."
             },
             {
               "kind": "decision",
               "id": "checkSave",
-              "label": "Left?"
+              "label": "Left?",
+              "tooltip": "Guard #3: yet another check. Business logic is buried in guards."
             }
           ],
           "merges": [
             {
               "kind": "merge",
-              "id": "errorRail"
+              "id": "errorRail",
+              "tooltip": "Any Left terminates the chain here — three separate failure paths converge."
             }
           ],
           "flows": [
@@ -189,7 +376,38 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "parse": "function",
+            "validate": "function",
+            "save": "function",
+            "raw": "value",
+            "errOut": "type",
+            "saved": "value"
+          },
+          "tooltips": {
+            "parse": "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error.",
+            "validate": "validate(parsed) → Either e Valid. May return Left if a business rule is violated.",
+            "save": "save(valid) → Either e Saved. May return Left on a database / IO failure.",
+            "raw": "Raw input — for example a request body or untrusted user data.",
+            "errOut": "Left e — returned when any step failed. Caller must also inspect this.",
+            "saved": "Right Saved — the happy-path result, reached only when all three checks pass.",
+            "checkParse": "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail.",
+            "checkValidate": "Guard #2: same pattern repeated. Skipping this is a latent bug.",
+            "checkSave": "Guard #3: yet another check. Business logic is buried in guards.",
+            "errorRail": "Any Left terminates the chain here — three separate failure paths converge."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "EitherMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "ParseValidateSaveWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without bind: explicit Left guard at every step",
+          "name": "parseValidateSave"
         }
       ]
     }
@@ -198,25 +416,26 @@
     "diagType": "activity",
     "title": "Without bind: explicit Left guard at every step",
     "name": "parseValidateSave",
+    "render": "ParseValidateSaveWithout",
     "shows": {
-      "raw": "value",
       "parse": "function",
       "validate": "function",
       "save": "function",
+      "raw": "value",
       "errOut": "type",
       "saved": "value"
     },
     "tooltips": {
-      "raw": "Raw input — for example a request body or untrusted user data.",
       "parse": "parse(raw) → Either e Parsed. Returns Right parsed on success or Left e on a parse error.",
       "validate": "validate(parsed) → Either e Valid. May return Left if a business rule is violated.",
       "save": "save(valid) → Either e Saved. May return Left on a database / IO failure.",
+      "raw": "Raw input — for example a request body or untrusted user data.",
+      "errOut": "Left e — returned when any step failed. Caller must also inspect this.",
+      "saved": "Right Saved — the happy-path result, reached only when all three checks pass.",
       "checkParse": "Guard #1: pattern-matches Either e Parsed. The Right branch unwraps parsed for validate; Left joins errorRail.",
       "checkValidate": "Guard #2: same pattern repeated. Skipping this is a latent bug.",
       "checkSave": "Guard #3: yet another check. Business logic is buried in guards.",
-      "errorRail": "Any Left terminates the chain here — three separate failure paths converge.",
-      "errOut": "Left e — returned when any step failed. Caller must also inspect this.",
-      "saved": "Right Saved — the happy-path result, reached only when all three checks pass."
+      "errorRail": "Any Left terminates the chain here — three separate failure paths converge."
     }
   }
 }

@@ -28,6 +28,112 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "MaybeBindProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "MaybeBindProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "apply_f",
+                "type": "ApplyF",
+                "role": "function",
+                "tooltip": "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "ma",
+                "type": "Maybe a",
+                "role": "type",
+                "tooltip": "Maybe a — the input value. Either Just a0 or Nothing."
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a ⟶ Maybe b",
+                "role": "hof",
+                "tooltip": "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0."
+              },
+              {
+                "kind": "object",
+                "id": "mb",
+                "type": "Maybe b",
+                "role": "type",
+                "tooltip": "Maybe b — the single result of bind."
+              }
+            ],
+            "decisions": [
+              {
+                "kind": "decision",
+                "id": "matchMa",
+                "tooltip": "Pattern match: simultaneously tests the constructor and destructures the payload.\\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\\nNothing → skip f entirely."
+              }
+            ],
+            "merges": [
+              {
+                "kind": "merge",
+                "id": "joinResult",
+                "tooltip": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."
+              }
+            ],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "ma",
+                "to": "matchMa"
+              },
+              {
+                "kind": "flow",
+                "from": "matchMa",
+                "to": "apply_f",
+                "label": "Just a0  (a0 : a)"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "apply_f"
+              },
+              {
+                "kind": "flow",
+                "from": "apply_f",
+                "to": "joinResult"
+              },
+              {
+                "kind": "flow",
+                "from": "matchMa",
+                "to": "joinResult",
+                "label": "Nothing (: Maybe b)"
+              },
+              {
+                "kind": "flow",
+                "from": "joinResult",
+                "to": "mb"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "apply_f": "function",
+              "ma": "type",
+              "f": "hof",
+              "mb": "type"
+            },
+            "tooltips": {
+              "apply_f": "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.",
+              "ma": "Maybe a — the input value. Either Just a0 or Nothing.",
+              "f": "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0.",
+              "mb": "Maybe b — the single result of bind.",
+              "matchMa": "Pattern match: simultaneously tests the constructor and destructures the payload.\\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\\nNothing → skip f entirely.",
+              "joinResult": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -38,36 +144,46 @@
             {
               "kind": "action",
               "id": "apply_f",
-              "type": "ApplyF"
+              "type": "ApplyF",
+              "role": "function",
+              "tooltip": "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "ma",
-              "type": "Maybe a"
+              "type": "Maybe a",
+              "role": "type",
+              "tooltip": "Maybe a — the input value. Either Just a0 or Nothing."
             },
             {
               "kind": "object",
               "id": "f",
-              "type": "a ⟶ Maybe b"
+              "type": "a ⟶ Maybe b",
+              "role": "hof",
+              "tooltip": "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0."
             },
             {
               "kind": "object",
               "id": "mb",
-              "type": "Maybe b"
+              "type": "Maybe b",
+              "role": "type",
+              "tooltip": "Maybe b — the single result of bind."
             }
           ],
           "decisions": [
             {
               "kind": "decision",
-              "id": "matchMa"
+              "id": "matchMa",
+              "tooltip": "Pattern match: simultaneously tests the constructor and destructures the payload.\\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\\nNothing → skip f entirely."
             }
           ],
           "merges": [
             {
               "kind": "merge",
-              "id": "joinResult"
+              "id": "joinResult",
+              "tooltip": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."
             }
           ],
           "flows": [
@@ -106,7 +222,32 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "apply_f": "function",
+            "ma": "type",
+            "f": "hof",
+            "mb": "type"
+          },
+          "tooltips": {
+            "apply_f": "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.",
+            "ma": "Maybe a — the input value. Either Just a0 or Nothing.",
+            "f": "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0.",
+            "mb": "Maybe b — the single result of bind.",
+            "matchMa": "Pattern match: simultaneously tests the constructor and destructures the payload.\\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\\nNothing → skip f entirely.",
+            "joinResult": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MaybeBindImpl",
+          "viewType": "FpActivityView",
+          "expose": "MaybeBindProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
+          "name": "bind"
         }
       ]
     }
@@ -115,19 +256,20 @@
     "diagType": "activity",
     "title": "Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
     "name": "bind",
+    "render": "MaybeBindProcess",
     "shows": {
+      "apply_f": "function",
       "ma": "type",
       "f": "hof",
-      "apply_f": "function",
       "mb": "type"
     },
     "tooltips": {
+      "apply_f": "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.",
       "ma": "Maybe a — the input value. Either Just a0 or Nothing.",
       "f": "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0.",
+      "mb": "Maybe b — the single result of bind.",
       "matchMa": "Pattern match: simultaneously tests the constructor and destructures the payload.\\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\\nNothing → skip f entirely.",
-      "apply_f": "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job.",
-      "joinResult": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit).",
-      "mb": "Maybe b — the single result of bind."
+      "joinResult": "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."
     }
   }
 }

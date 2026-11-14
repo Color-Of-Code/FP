@@ -12,25 +12,33 @@
               "kind": "part",
               "id": "m_val",
               "type": "Cont r a",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation k"
             },
             {
               "kind": "part",
               "id": "f_val",
               "type": "a ⟶ Cont r b",
-              "ports": []
+              "ports": [],
+              "role": "hof",
+              "tooltip": "(a ⟶ Cont r b) — given result a, builds the next continuation-based step"
             },
             {
               "kind": "part",
               "id": "bind",
               "type": "ContBindOp",
-              "ports": []
+              "ports": [],
+              "role": "function",
+              "tooltip": "bind m f = \\\\k -> m (\\\\a -> f a k)\\nGive m a continuation that: feeds a into f, then passes original k to the result.\\nThe current step runs last — this is continuation composition."
             },
             {
               "kind": "part",
               "id": "res",
               "type": "Cont r b",
-              "ports": []
+              "ports": [],
+              "role": "type",
+              "tooltip": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"
             }
           ],
           "ports": [],
@@ -51,11 +59,33 @@
               "to": "res"
             }
           ],
-          "notes": []
+          "notes": [],
+          "shows": {
+            "m_val": "type",
+            "f_val": "hof",
+            "bind": "function",
+            "res": "type"
+          },
+          "tooltips": {
+            "m_val": "Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation k",
+            "f_val": "(a ⟶ Cont r b) — given result a, builds the next continuation-based step",
+            "bind": "bind m f = \\\\k -> m (\\\\a -> f a k)\\nGive m a continuation that: feeds a into f, then passes original k to the result.\\nThe current step runs last — this is continuation composition.",
+            "res": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"
+          }
         }
       ],
       "actionDefs": [],
-      "activityDefs": []
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ContSignature",
+          "viewType": "FpIbdView",
+          "expose": "ContBindContext",
+          "rendering": "fpIbdDiagram",
+          "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>="
+        }
+      ]
     }
   ],
   "diagram": {

@@ -16,6 +16,7 @@
 // have the same shape — that uniformity is the point.
 
 package MaybeMotivationWith {
+    private import FpDiagram::*;
 
     action def FindUser {
         in  userId  : UserId;
@@ -50,29 +51,43 @@ package MaybeMotivationWith {
         out _  : "Maybe b";
     }
 
-    activity def LookupUserCityWith {
+    action def LookupUserCityWith {
         // input
-        object userId       : UserId;
+        #FpNodePresentation { role = "value"; tooltip = "The input: a plain UserId."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "0"; }
+        item userId       : UserId;
 
         // lift the plain UserId into Maybe — entry point of the chain
+        #FpNodePresentation { role = "function"; tooltip = "pure : UserId → Maybe UserId. Lifts the plain value into Maybe so the chain can start uniformly with bind."; laneId = "monad"; laneLabel = "Maybe monad"; laneOrder = "1"; laneMemberOrder = "0"; }
         action pureId       : Pure;
 
         // every subsequent step is bind applied to the previous Maybe
         // and the next fallible function (passed in as an HOF value).
-        object findUserFn   : "UserId ⟶ Maybe User";
+        #FpNodePresentation { role = "hof"; tooltip = "find_user : UserId → Maybe User. Passed as an argument to bind — its input type is UserId, not Maybe UserId, so it cannot sit on the main flow."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "1"; }
+        item findUserFn   : "UserId ⟶ Maybe User";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : takes Maybe UserId and (UserId → Maybe User). Unwraps Just id and applies findUser; propagates Nothing."; laneId = "monad"; laneLabel = "Maybe monad"; laneOrder = "1"; laneMemberOrder = "1"; }
         action bindUser     : Bind;
 
-        object findAddrFn   : "User ⟶ Maybe Address";
+        #FpNodePresentation { role = "hof"; tooltip = "find_address : User → Maybe Address. Same: supplied to bind as the continuation."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "2"; }
+
+        item findAddrFn   : "User ⟶ Maybe Address";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : takes Maybe User and (User → Maybe Address). Same pattern."; laneId = "monad"; laneLabel = "Maybe monad"; laneOrder = "1"; laneMemberOrder = "2"; }
         action bindAddr     : Bind;
 
-        object findCityFn   : "Address ⟶ Maybe City";
+        #FpNodePresentation { role = "hof"; tooltip = "find_city : Address → Maybe City. Same: supplied to bind as the continuation."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "3"; }
+
+        item findCityFn   : "Address ⟶ Maybe City";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : takes Maybe Address and (Address → Maybe City). Same pattern."; laneId = "monad"; laneLabel = "Maybe monad"; laneOrder = "1"; laneMemberOrder = "3"; }
         action bindCity     : Bind;
 
-        object liftNameFn   : "City ⟶ Maybe String";
+        #FpNodePresentation { role = "hof"; tooltip = "lift_name : City → Maybe String (= pure ∘ .name). Lifts the plain String back into Maybe."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "4"; }
+
+        item liftNameFn   : "City ⟶ Maybe String";
+        #FpNodePresentation { role = "function"; tooltip = ">>= : takes Maybe City and (City → Maybe String). Same pattern."; laneId = "monad"; laneLabel = "Maybe monad"; laneOrder = "1"; laneMemberOrder = "4"; }
         action bindName     : Bind;
 
         // output
-        object cityName     : "Maybe String";
+        #FpNodePresentation { role = "type"; tooltip = "Maybe String — Just city.name on success; Nothing if any step failed.\nNo explicit null checks anywhere in this chain; pure starts it, bind drives it."; laneId = "plain"; laneLabel = "Plain values & functions"; laneOrder = "0"; laneMemberOrder = "5"; }
+        item cityName     : "Maybe String";
 
         // main flow runs through the bind nodes
         flow from userId   to pureId;
@@ -89,37 +104,14 @@ package MaybeMotivationWith {
         flow from liftNameFn  to bindName;
 
         // ── Swimlanes ───────────────────────────────────────────────────────
-        lane plain : "Plain values & functions" =
-            userId, findUserFn, findAddrFn, findCityFn, liftNameFn, cityName;
-        lane monad : "Maybe monad" =
-            pureId, bindUser, bindAddr, bindCity, bindName;
+
+
+    }
+    #FpViewPresentation { name = "lookupUserCity"; }
+    view diagram : FpActivityView {
+        doc /*With pure + bind: every step has the same shape; bind is the glue*/
+        expose LookupUserCityWith;
+        render fpActivityDiagram;
     }
 }
 
-#diagram {
-    type  = activity
-    title = "With pure + bind: every step has the same shape; bind is the glue"
-    name  = "lookupUserCity"
-    show userId      as value
-    show pureId      as function
-    show bindUser    as function
-    show bindAddr    as function
-    show bindCity    as function
-    show bindName    as function
-    show findUserFn  as hof
-    show findAddrFn  as hof
-    show findCityFn  as hof
-    show liftNameFn  as hof
-    show cityName    as type
-    tooltip userId      = "The input: a plain UserId."
-    tooltip pureId      = "pure : UserId → Maybe UserId. Lifts the plain value into Maybe so the chain can start uniformly with bind."
-    tooltip bindUser    = ">>= : takes Maybe UserId and (UserId → Maybe User). Unwraps Just id and applies findUser; propagates Nothing."
-    tooltip bindAddr    = ">>= : takes Maybe User and (User → Maybe Address). Same pattern."
-    tooltip bindCity    = ">>= : takes Maybe Address and (Address → Maybe City). Same pattern."
-    tooltip bindName    = ">>= : takes Maybe City and (City → Maybe String). Same pattern."
-    tooltip findUserFn  = "find_user : UserId → Maybe User. Passed as an argument to bind — its input type is UserId, not Maybe UserId, so it cannot sit on the main flow."
-    tooltip findAddrFn  = "find_address : User → Maybe Address. Same: supplied to bind as the continuation."
-    tooltip findCityFn  = "find_city : Address → Maybe City. Same: supplied to bind as the continuation."
-    tooltip liftNameFn  = "lift_name : City → Maybe String (= pure ∘ .name). Lifts the plain String back into Maybe."
-    tooltip cityName    = "Maybe String — Just city.name on success; Nothing if any step failed.\nNo explicit null checks anywhere in this chain; pure starts it, bind drives it."
-}

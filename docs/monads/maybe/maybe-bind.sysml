@@ -6,6 +6,7 @@
 // as Nothing (: Maybe b) without calling f.  Wrapping is pure's job.
 
 package MaybeBindImpl {
+    private import FpDiagram::*;
 
     action def ApplyF {
         in  a0 : a;
@@ -13,24 +14,30 @@ package MaybeBindImpl {
         out mb : "Maybe b";
     }
 
-    activity def MaybeBindProcess {
+    action def MaybeBindProcess {
         // inputs
-        object ma   : "Maybe a";
-        object f    : "a ⟶ Maybe b";
+        #FpNodePresentation { role = "type"; tooltip = "Maybe a — the input value. Either Just a0 or Nothing."; }
+        item ma   : "Maybe a";
+        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0."; }
+        item f    : "a ⟶ Maybe b";
 
         // decision: pattern match — tests constructor AND destructures in one step
         // Just branch  → a : a  (payload already unwrapped by the match)
         // Nothing branch → short-circuit directly to output
-        decision matchMa;
+        #FpNodePresentation { tooltip = "Pattern match: simultaneously tests the constructor and destructures the payload.\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\nNothing → skip f entirely."; }
+        decide matchMa;
 
         // Just path: f consumes the unwrapped payload directly — no separate object
+        #FpNodePresentation { role = "function"; tooltip = "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job."; }
         action apply_f : ApplyF;
 
         // merge both paths
+        #FpNodePresentation { tooltip = "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."; }
         merge joinResult;
 
         // output
-        object mb : "Maybe b";
+        #FpNodePresentation { role = "type"; tooltip = "Maybe b — the single result of bind."; }
+        item mb : "Maybe b";
 
         // main flow
         flow from ma to matchMa;
@@ -46,21 +53,11 @@ package MaybeBindImpl {
         // single output
         flow from joinResult to mb;
     }
+    #FpViewPresentation { name = "bind"; }
+    view diagram : FpActivityView {
+        doc /*Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>=*/
+        expose MaybeBindProcess;
+        render fpActivityDiagram;
+    }
 }
 
-#diagram {
-    type   = activity
-    layout = elk
-    title = "Maybe bind: pattern match unwraps Just or short-circuits Nothing — also called: flatMap, andThen / and_then, SelectMany, chain, >>="
-    name  = "bind"
-    show ma         as type
-    show f          as hof
-    show apply_f    as function
-    show mb         as type
-    tooltip ma         = "Maybe a — the input value. Either Just a0 or Nothing."
-    tooltip f          = "(a ⟶ Maybe b) — the continuation. Only called when ma is Just a0."
-    tooltip matchMa    = "Pattern match: simultaneously tests the constructor and destructures the payload.\nJust a0 → a0 (: a) flows directly to f — no separate unwrap step.\nNothing → skip f entirely."
-    tooltip apply_f    = "Apply f(a0). Returns Maybe b directly — bind never re-wraps. Wrapping is pure's job."
-    tooltip joinResult = "Merge: both paths produce Maybe b (Just-path result or Nothing short-circuit)."
-    tooltip mb         = "Maybe b — the single result of bind."
-}

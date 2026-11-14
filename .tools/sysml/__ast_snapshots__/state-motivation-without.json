@@ -76,6 +76,154 @@
               "direction": "out"
             }
           ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "StateChainWithout",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "StateChainWithout",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "step1",
+                "type": "Step1",
+                "role": "function",
+                "tooltip": "step1(a, s0) → (b, s1). Returns a new state alongside the value."
+              },
+              {
+                "kind": "action",
+                "id": "step2",
+                "type": "Step2",
+                "role": "function",
+                "tooltip": "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong."
+              },
+              {
+                "kind": "action",
+                "id": "step3",
+                "type": "Step3",
+                "role": "function",
+                "tooltip": "step3(c, s2) → (d, s3). Same plumbing, repeated."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a0",
+                "type": "A",
+                "role": "value",
+                "tooltip": "Plain input value of type A."
+              },
+              {
+                "kind": "object",
+                "id": "s0",
+                "type": "s0 (initial)",
+                "role": "type",
+                "tooltip": "Initial state, passed in by the caller."
+              },
+              {
+                "kind": "object",
+                "id": "s1",
+                "type": "s1",
+                "role": "type",
+                "tooltip": "Intermediate state — must be threaded into step2 by hand."
+              },
+              {
+                "kind": "object",
+                "id": "s2",
+                "type": "s2",
+                "role": "type",
+                "tooltip": "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug."
+              },
+              {
+                "kind": "object",
+                "id": "sFinal",
+                "type": "s3 (final)",
+                "role": "type",
+                "tooltip": "Final state — caller is also responsible for receiving and forwarding it."
+              },
+              {
+                "kind": "object",
+                "id": "outResult",
+                "type": "(D, sFinal)",
+                "role": "type",
+                "tooltip": "(d, sFinal) — caller unpacks both."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a0",
+                "to": "step1"
+              },
+              {
+                "kind": "flow",
+                "from": "s0",
+                "to": "step1"
+              },
+              {
+                "kind": "flow",
+                "from": "step1",
+                "to": "s1",
+                "label": "(b, s1)"
+              },
+              {
+                "kind": "flow",
+                "from": "s1",
+                "to": "step2"
+              },
+              {
+                "kind": "flow",
+                "from": "step2",
+                "to": "s2",
+                "label": "(c, s2)"
+              },
+              {
+                "kind": "flow",
+                "from": "s2",
+                "to": "step3"
+              },
+              {
+                "kind": "flow",
+                "from": "step3",
+                "to": "sFinal",
+                "label": "(d, sFinal)"
+              },
+              {
+                "kind": "flow",
+                "from": "step3",
+                "to": "outResult"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "step1": "function",
+              "step2": "function",
+              "step3": "function",
+              "a0": "value",
+              "s0": "type",
+              "s1": "type",
+              "s2": "type",
+              "sFinal": "type",
+              "outResult": "type"
+            },
+            "tooltips": {
+              "step1": "step1(a, s0) → (b, s1). Returns a new state alongside the value.",
+              "step2": "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong.",
+              "step3": "step3(c, s2) → (d, s3). Same plumbing, repeated.",
+              "a0": "Plain input value of type A.",
+              "s0": "Initial state, passed in by the caller.",
+              "s1": "Intermediate state — must be threaded into step2 by hand.",
+              "s2": "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug.",
+              "sFinal": "Final state — caller is also responsible for receiving and forwarding it.",
+              "outResult": "(d, sFinal) — caller unpacks both."
+            }
+          }
         }
       ],
       "activityDefs": [
@@ -86,49 +234,67 @@
             {
               "kind": "action",
               "id": "step1",
-              "type": "Step1"
+              "type": "Step1",
+              "role": "function",
+              "tooltip": "step1(a, s0) → (b, s1). Returns a new state alongside the value."
             },
             {
               "kind": "action",
               "id": "step2",
-              "type": "Step2"
+              "type": "Step2",
+              "role": "function",
+              "tooltip": "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong."
             },
             {
               "kind": "action",
               "id": "step3",
-              "type": "Step3"
+              "type": "Step3",
+              "role": "function",
+              "tooltip": "step3(c, s2) → (d, s3). Same plumbing, repeated."
             }
           ],
           "objects": [
             {
               "kind": "object",
               "id": "a0",
-              "type": "A"
+              "type": "A",
+              "role": "value",
+              "tooltip": "Plain input value of type A."
             },
             {
               "kind": "object",
               "id": "s0",
-              "type": "s0 (initial)"
+              "type": "s0 (initial)",
+              "role": "type",
+              "tooltip": "Initial state, passed in by the caller."
             },
             {
               "kind": "object",
               "id": "s1",
-              "type": "s1"
+              "type": "s1",
+              "role": "type",
+              "tooltip": "Intermediate state — must be threaded into step2 by hand."
             },
             {
               "kind": "object",
               "id": "s2",
-              "type": "s2"
+              "type": "s2",
+              "role": "type",
+              "tooltip": "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug."
             },
             {
               "kind": "object",
               "id": "sFinal",
-              "type": "s3 (final)"
+              "type": "s3 (final)",
+              "role": "type",
+              "tooltip": "Final state — caller is also responsible for receiving and forwarding it."
             },
             {
               "kind": "object",
               "id": "outResult",
-              "type": "(D, sFinal)"
+              "type": "(D, sFinal)",
+              "role": "type",
+              "tooltip": "(d, sFinal) — caller unpacks both."
             }
           ],
           "decisions": [],
@@ -180,7 +346,40 @@
           ],
           "successions": [],
           "notes": [],
-          "lanes": []
+          "lanes": [],
+          "shows": {
+            "step1": "function",
+            "step2": "function",
+            "step3": "function",
+            "a0": "value",
+            "s0": "type",
+            "s1": "type",
+            "s2": "type",
+            "sFinal": "type",
+            "outResult": "type"
+          },
+          "tooltips": {
+            "step1": "step1(a, s0) → (b, s1). Returns a new state alongside the value.",
+            "step2": "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong.",
+            "step3": "step3(c, s2) → (d, s3). Same plumbing, repeated.",
+            "a0": "Plain input value of type A.",
+            "s0": "Initial state, passed in by the caller.",
+            "s1": "Intermediate state — must be threaded into step2 by hand.",
+            "s2": "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug.",
+            "sFinal": "Final state — caller is also responsible for receiving and forwarding it.",
+            "outResult": "(d, sFinal) — caller unpacks both."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "StateMotivationWithout",
+          "viewType": "FpActivityView",
+          "expose": "StateChainWithout",
+          "rendering": "fpActivityDiagram",
+          "title": "Without bind: state threaded as explicit s0/s1/s2/s3 variables",
+          "name": "stateChain"
         }
       ]
     }
@@ -189,26 +388,27 @@
     "diagType": "activity",
     "title": "Without bind: state threaded as explicit s0/s1/s2/s3 variables",
     "name": "stateChain",
+    "render": "StateChainWithout",
     "shows": {
+      "step1": "function",
+      "step2": "function",
+      "step3": "function",
       "a0": "value",
       "s0": "type",
       "s1": "type",
       "s2": "type",
       "sFinal": "type",
-      "step1": "function",
-      "step2": "function",
-      "step3": "function",
       "outResult": "type"
     },
     "tooltips": {
+      "step1": "step1(a, s0) → (b, s1). Returns a new state alongside the value.",
+      "step2": "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong.",
+      "step3": "step3(c, s2) → (d, s3). Same plumbing, repeated.",
       "a0": "Plain input value of type A.",
       "s0": "Initial state, passed in by the caller.",
       "s1": "Intermediate state — must be threaded into step2 by hand.",
       "s2": "Intermediate state — passing s1 here instead of s2 compiles fine but is a silent bug.",
       "sFinal": "Final state — caller is also responsible for receiving and forwarding it.",
-      "step1": "step1(a, s0) → (b, s1). Returns a new state alongside the value.",
-      "step2": "step2(b, s1) → (c, s2). Must be called with the freshest state — easy to get wrong.",
-      "step3": "step3(c, s2) → (d, s3). Same plumbing, repeated.",
       "outResult": "(d, sFinal) — caller unpacks both."
     }
   }
