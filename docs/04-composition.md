@@ -10,6 +10,14 @@ function that applies `f` first and then `g`.
 
 ![Function composition applies f then g](04-composition/composition.svg)
 
+![(∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c) — inside compose: f runs first, its result b feeds g; b never leaves the block](04-composition/composition-ibd.svg)
+
+Inside `compose`: the ports on the frame are everything a caller sees — `g` and `f` go in, the new
+function `h` comes out. Nothing is applied yet; the block shows the body of `h` as it runs once `h`
+is called with an `x`. `f` runs first, its result `b` is passed to `g`, and only `c` comes out. The
+wire carrying `b` is the single typing rule of composition: the output type of `f` must equal the
+input type of `g`.
+
 This is the central mechanism of functional programming: building complex behaviour by combining
 small, pure functions.
 

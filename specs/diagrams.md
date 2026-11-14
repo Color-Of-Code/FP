@@ -116,6 +116,7 @@ the math notation verbatim.
 | SysML source                                | SVG output                                | Chapter                       |
 | ------------------------------------------- | ----------------------------------------- | ----------------------------- |
 | `docs/13-functor/functor-ibd.sysml`         | `docs/13-functor/functor-ibd.svg`         | ch 13 Functor                 |
+| `docs/04-composition/composition-ibd.sysml` | `docs/04-composition/composition-ibd.svg` | ch 04 Composition             |
 | `docs/15-applicative/applicative-ibd.sysml` | `docs/15-applicative/applicative-ibd.svg` | ch 15 Applicative             |
 | `docs/17-traversable/traversable-ibd.sysml` | `docs/17-traversable/traversable-ibd.svg` | ch 17 Traversable             |
 | `docs/19-monad/monad-ibd.sysml`             | `docs/19-monad/monad-ibd.svg`             | ch 19 Monad                   |
@@ -253,6 +254,7 @@ as internal parts wired together. Intermediate types that never leave the block 
 
 | Combinator                | Internal decomposition                   | Diagram                                     |
 | ------------------------- | ---------------------------------------- | ------------------------------------------- |
+| `(∘)` compose             | `f x` → `g b` → `λx → c`                 | `docs/04-composition/composition-ibd.sysml` |
 | `bind` (generic)          | `fmap f` → `join`                        | `docs/19-monad/monad-ibd.sysml`             |
 | `bind` (a concrete monad) | the instance's own mechanism (see below) | `docs/monads/<name>/<name>-ibd.sysml`       |
 | `traverse f`              | `fmap f` → `sequence`                    | `docs/17-traversable/traversable-ibd.sysml` |
