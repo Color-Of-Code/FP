@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1193 206" width="1193" height="206" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: ExceptT e m a ⟶ (a ⟶ ExceptT e m b) ⟶ ExceptT e m b — inside bind: the layer's continuation is sequenced by the bind of the monad m below</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: ExceptT e m a ⟶ (a ⟶ ExceptT e m b) ⟶ ExceptT e m b — inside bind: the layer's continuation is sequenced by the bind of the monad m below</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="596.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: ExceptT e m a ⟶ (a ⟶ ExceptT e m b) ⟶ ExceptT e m b</text>
+  <text x="596.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: the layer's continuation is sequenced by the bind of the monad m below</text>
+  <g transform="translate(0,44) scale(1)">
+    <g transform="translate(125,0)">
+      <rect x="0" y="0" width="959" height="162" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <g class="diagram-frame-tab tab-block">
+        <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,52.0 L159.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="87.5" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,110.0 L147.0,110.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="81.5" y="104" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+      </g>
+      <g class="edge">
+        <path d="M333.0,52.0 L462.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="405.5" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">inner computation</text>
+      </g>
+      <g class="edge">
+        <path d="M345.0,110.0 L458.0,110.0 Q464.0,110.0 464.0,104.0 L464.0,70.0 L464.0,70.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="406.5" y="104" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">continuation</text>
+      </g>
+      <g class="edge">
+        <path d="M624.0,61.0 L717.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="678.5" y="55" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">composed in m</text>
+      </g>
+      <g class="edge">
+        <path d="M861.0,61.0 L943.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="action-node">
+        <title>runExceptT: look through the newtype at the m (Either e a) it wraps.</title>
+        <rect x="179" y="30" width="150" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="254" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">unwrap : runExceptT</text>
+        <g class="pin pin-in">
+          <rect x="175" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="325" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Build the continuation for m's bind.\n\\r -&gt; case r of\n  Left e  -&gt; return (Left e)   -- short-circuit: f is skipped\n  Right a -&gt; runExceptT (f a)  -- run the next step</title>
+        <rect x="167" y="88" width="174" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="254" y="110" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">next : λr → case r of …</text>
+        <g class="pin pin-in">
+          <rect x="163" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="173" y="110" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="337" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>The bind of the monad m underneath — the layer below does the actual sequencing (IO runs effects in order, Writer appends logs, State threads state, …).</title>
+        <rect x="482" y="39" width="138" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="551" y="61" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind_m : &gt;&gt;= of m</text>
+        <g class="pin pin-in">
+          <rect x="478" y="49.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="488" y="53.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">m</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="478" y="64.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="488" y="68.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">k</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="616" y="57" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>ExceptT: put the newtype back around the result.</title>
+        <rect x="737" y="39" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="797" y="61" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">wrap : ExceptT</text>
+        <g class="pin pin-in">
+          <rect x="733" y="57" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="853" y="57" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="port port-left">
+        <title>ExceptT e m a ≅ m (Either e a) — an m-computation that may fail with e</title>
+        <rect x="-4" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="46" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : ExceptT e m a</text>
+      </g>
+      <g class="port port-left">
+        <title>f : a ⟶ ExceptT e m b — user code; may itself fail</title>
+        <rect x="-4" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="104" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ ExceptT e m b</text>
+      </g>
+      <g class="port port-right">
+        <title>ExceptT e m b — the composed computation</title>
+        <rect x="955" y="57" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="966" y="55" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : ExceptT e m b</text>
+      </g>
+    </g>
+  </g>
+</svg>

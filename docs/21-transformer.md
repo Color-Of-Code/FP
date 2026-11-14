@@ -40,6 +40,14 @@ type App a = ReaderT Config (ExceptT AppError (Writer Log)) a
 runApp cfg m = runWriter (runExceptT (runReaderT m cfg))
 ```
 
+![bind :: ExceptT e m a ⟶ (a ⟶ ExceptT e m b) ⟶ ExceptT e m b — inside bind: the layer's continuation is sequenced by the bind of the monad m below](21-transformer/transformer-ibd.svg)
+
+Inside a transformer's `bind` (shown for `ExceptT`): the call interface is the same as any monad's.
+The layer does not sequence anything itself — it unwraps to `m (Either e a)` and lets the `bind` of
+the monad `m` _below_ do the work. The layer's own effect lives in the continuation it passes down:
+a `Left` short-circuits, a `Right` runs `f`. A transformer stack is a chain of these blocks, each
+built on the one underneath.
+
 ## Common transformers
 
 | Transformer     | Effect added           | Key operations                      |

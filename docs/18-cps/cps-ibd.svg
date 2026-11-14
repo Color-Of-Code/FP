@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1308.4 217" width="1308.4" height="217" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 925 211" width="925" height="211" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title">toCps :: (a ⟶ b) ⟶ (a ⟶ (b ⟶ r) ⟶ r) — inside toCps: f computes b, but b is handed to the continuation k instead of being returned</title>
   <desc id="diagram-description">Functional programming diagram: toCps :: (a ⟶ b) ⟶ (a ⟶ (b ⟶ r) ⟶ r) — inside toCps: f computes b, but b is handed to the continuation k instead of being returned</desc>
   <style>:root {
@@ -85,100 +85,86 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="654.2" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">toCps :: (a ⟶ b) ⟶ (a ⟶ (b ⟶ r) ⟶ r)</text>
-  <text x="654.2" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside toCps: f computes b, but b is handed to the continuation k instead of being returned</text>
+  <text x="462.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">toCps :: (a ⟶ b) ⟶ (a ⟶ (b ⟶ r) ⟶ r)</text>
+  <text x="462.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside toCps: f computes b, but b is handed to the continuation k instead of being returned</text>
   <g transform="translate(0,44) scale(1)">
     <g transform="translate(60,0)">
-      <rect x="0" y="0" width="1129.4" height="173" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="800" height="167" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L96.60000000000001,0 L96.60000000000001,12 L86.60000000000001,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
-        <text x="48.300000000000004" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» toCps</text>
+        <text x="48.300000000000004" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» cps_f</text>
+      </g>
+      <g class="edge hof-edge">
+        <path d="M234.0,80.0 L299.0,80.0 Q304.0,80.0 304.0,85.0 L304.0,90.0 L304.0,90.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+        <text x="269" y="74" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">captured</text>
       </g>
       <g class="edge">
-        <path d="M4.0,86.0 L420.4,86.0 Q425.4,86.0 425.4,91.0 L425.4,96.0 L425.4,96.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="214.7" y="80" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">direct function</text>
+        <path d="M4.0,117.0 L299.5,117.0 Q304.0,117.0 304.0,112.5 L304.0,108.0 L304.0,108.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="154" y="111" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">argument</text>
       </g>
       <g class="edge">
-        <path d="M320.4,123.0 L420.9,123.0 Q425.4,123.0 425.4,118.5 L425.4,114.0 L425.4,114.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="372.9" y="117" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">argument</text>
+        <path d="M446.0,99.0 L454.0,99.0 Q460.0,99.0 460.0,93.0 L460.0,67.0 Q460.0,61.0 466.0,61.0 L558.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="515" y="55" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">b (not returned)</text>
       </g>
       <g class="edge">
-        <path d="M567.4,105.0 L575.4,105.0 Q581.4,105.0 581.4,99.0 L581.4,73.0 Q581.4,67.0 587.4,67.0 L679.4,67.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="636.4" y="61" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">b (not returned)</text>
+        <path d="M4.0,43.0 L558.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="287" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">continuation</text>
       </g>
       <g class="edge">
-        <path d="M320.4,49.0 L679.4,49.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="505.9" y="43" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">continuation</text>
+        <path d="M702.0,52.0 L784.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
-      <g class="edge">
-        <path d="M823.4,58.0 L881.4,58.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="860.4" y="52" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">answer</text>
-      </g>
-      <g class="edge">
-        <path d="M1031.4,58.0 L1113.4,58.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      </g>
-      <g class="object-node">
-        <title>The argument: supplied when the CPS function is called.</title>
-        <rect x="98.80000000000003" y="104" width="221.6" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-        <text x="209.60000000000002" y="123" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">x : a — supplied when called</text>
-      </g>
-      <g class="object-node">
-        <title>The continuation: what to do with the result — the rest of the computation. Supplied when the CPS function is called.</title>
-        <rect x="69.99999999999999" y="30" width="250.4" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-        <text x="195.2" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">k : b ⟶ r — supplied when called</text>
+      <g class="object-node hof">
+        <title>f : a ⟶ b — an ordinary function that returns its result; fixed when toCps was applied</title>
+        <rect x="70" y="61" width="164" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+        <text x="152" y="73" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+        <text x="152" y="87" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">f : a ⟶ b — captured</text>
       </g>
       <g class="action-node">
         <title>The original computation: f x produces b.</title>
-        <rect x="443.4" y="83" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="503.4" y="105" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_f : f x</text>
+        <rect x="322" y="77" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="382" y="99" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_f : f x</text>
         <g class="pin pin-in">
-          <rect x="439.4" y="93.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="449.4" y="97.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+          <rect x="318" y="87.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="328" y="91.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
         </g>
         <g class="pin pin-in">
-          <rect x="439.4" y="108.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="449.4" y="112.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
+          <rect x="318" y="102.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="328" y="106.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
         </g>
         <g class="pin pin-out">
-          <rect x="559.4" y="101" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="438" y="95" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="action-node">
         <title>Instead of returning b to a caller, hand it to the continuation: k b. Control passes forward; nothing returns here.</title>
-        <rect x="699.4" y="36" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="759.4" y="58" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call_k : k b</text>
+        <rect x="578" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="638" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call_k : k b</text>
         <g class="pin pin-in">
-          <rect x="695.4" y="46.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="705.4" y="50.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">k</text>
+          <rect x="574" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="584" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">k</text>
         </g>
         <g class="pin pin-in">
-          <rect x="695.4" y="61.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="705.4" y="65.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
+          <rect x="574" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="584" y="59.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
         </g>
         <g class="pin pin-out">
-          <rect x="815.4" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        </g>
-      </g>
-      <g class="action-node">
-        <title>Abstract over x and k again: the whole body becomes the CPS function that toCps returns.</title>
-        <rect x="901.4" y="36" width="126" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="964.4" y="58" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">wrap : λx k → r</text>
-        <g class="pin pin-in">
-          <rect x="897.4" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        </g>
-        <g class="pin pin-out">
-          <rect x="1023.4000000000001" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="694" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
-        <title>f : a ⟶ b — an ordinary function that returns its result</title>
-        <rect x="-4" y="82" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="80" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ b</text>
+        <title>x : a — the argument, supplied on every call</title>
+        <rect x="-4" y="113" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="111" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">x : a</text>
+      </g>
+      <g class="port port-left">
+        <title>k : b ⟶ r — the continuation: what to do with the result, i.e. the rest of the computation. Supplied on every call.</title>
+        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">k : b ⟶ r</text>
       </g>
       <g class="port port-right">
-        <title>a ⟶ (b ⟶ r) ⟶ r — the same computation, but it takes a continuation and calls it instead of returning</title>
-        <rect x="1125.4" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="1136.4" y="52" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">fk : a ⟶ (b ⟶ r) ⟶ r</text>
+        <title>result : r — the answer, produced by k. The function never returns b.</title>
+        <rect x="796" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="807" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">result : r</text>
       </g>
     </g>
   </g>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1639.4 204" width="1639.4" height="204" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1192.8 210" width="1192.8" height="210" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title">cata :: (F a ⟶ a) ⟶ Fix F ⟶ a — inside cata: unFix one layer, fmap cata over its children, then apply alg once</title>
   <desc id="diagram-description">Functional programming diagram: cata :: (F a ⟶ a) ⟶ Fix F ⟶ a — inside cata: unFix one layer, fmap cata over its children, then apply alg once</desc>
   <style>:root {
@@ -85,108 +85,94 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="819.7" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">cata :: (F a ⟶ a) ⟶ Fix F ⟶ a</text>
-  <text x="819.7" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside cata: unFix one layer, fmap cata over its children, then apply alg once</text>
+  <text x="596.4" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">cata :: (F a ⟶ a) ⟶ Fix F ⟶ a</text>
+  <text x="596.4" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside cata: unFix one layer, fmap cata over its children, then apply alg once</text>
   <g transform="translate(0,44) scale(1)">
-    <g transform="translate(82,0)">
-      <rect x="0" y="0" width="1459.4" height="160" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g transform="translate(60,0)">
+      <rect x="0" y="0" width="1067.8" height="166" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
-        <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
-        <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» cata</text>
+        <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» reducer</text>
       </g>
       <g class="edge">
-        <path d="M320.4,108.0 L393.4,108.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="362.9" y="102" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">structure</text>
+        <path d="M4.0,114.0 L175.4,114.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="95.7" y="108" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">structure</text>
       </g>
       <g class="edge">
-        <path d="M537.4,108.0 L689.4,108.0 Q695.4,108.0 695.4,102.0 L695.4,89.0 L695.4,89.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="618.4" y="102" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">children (internal only)</text>
+        <path d="M319.4,114.0 L503.8,114.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="419.59999999999997" y="108" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">children (internal only)</text>
+      </g>
+      <g class="edge hof-edge">
+        <path d="M351.8,49.0 L356.8,49.0 Q361.8,49.0 361.8,54.0 L361.8,78.0 Q361.8,84.0 367.8,84.0 L499.8,84.0 Q505.8,84.0 505.8,90.0 L505.8,96.0 L505.8,96.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+        <text x="433.8" y="78" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">same algebra</text>
       </g>
       <g class="edge">
-        <path d="M4.0,43.0 L390.9,43.0 Q395.4,43.0 395.4,47.5 L395.4,47.5 Q395.4,52.0 399.9,52.0 L545.4,52.0 Q551.4,52.0 551.4,58.0 L551.4,65.0 Q551.4,71.0 557.4,71.0 L693.4,71.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="199.7" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">same algebra</text>
+        <path d="M713.8,105.0 L721.8,105.0 Q727.8,105.0 727.8,99.0 L727.8,73.0 Q727.8,67.0 733.8,67.0 L825.8,67.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="782.8" y="61" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">children reduced</text>
+      </g>
+      <g class="edge hof-edge">
+        <path d="M351.8,49.0 L825.8,49.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+        <text x="594.8" y="43" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">algebra</text>
       </g>
       <g class="edge">
-        <path d="M903.4,80.0 L911.4,80.0 Q917.4,80.0 917.4,74.0 L917.4,67.0 Q917.4,61.0 923.4,61.0 L1015.4,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="972.4000000000001" y="55" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">children reduced</text>
+        <path d="M969.8,58.0 L1051.8,58.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
-      <g class="edge">
-        <path d="M4.0,43.0 L1015.4,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="515.7" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">algebra</text>
-      </g>
-      <g class="edge">
-        <path d="M1159.4,52.0 L1217.4,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="1196.4" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">result</text>
-      </g>
-      <g class="edge">
-        <path d="M1361.4,52.0 L1443.4,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      </g>
-      <g class="object-node">
-        <title>The structure to reduce: supplied when the returned function is called, not when cata is applied to alg.</title>
-        <rect x="69.99999999999999" y="89" width="250.4" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-        <text x="195.2" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">t : Fix F — supplied when called</text>
+      <g class="object-node hof">
+        <title>alg : F a ⟶ a — the algebra: what to do at one node, given its already-reduced children; fixed when cata was applied</title>
+        <rect x="159" y="30" width="192.8" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+        <text x="255.4" y="42" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+        <text x="255.4" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">alg : F a ⟶ a — captured</text>
       </g>
       <g class="action-node">
         <title>unFix :: Fix F ⟶ F (Fix F) — peel one layer: the node's constructor with its children still unreduced.</title>
-        <rect x="413.4" y="86" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="473.4" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">unfix : unFix</text>
+        <rect x="195.4" y="92" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="255.4" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">unfix : unFix</text>
         <g class="pin pin-in">
-          <rect x="409.4" y="104" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="191.4" y="110" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
         <g class="pin pin-out">
-          <rect x="529.4" y="104" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="311.4" y="110" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="action-node">
         <title>fmap (cata alg) :: F (Fix F) ⟶ F a — the recursion. cata alg is this very block, applied to every child under F; the shape of the layer is kept.</title>
-        <rect x="713.4" y="58" width="186" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="806.4" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">recurse : fmap (cata alg)</text>
+        <rect x="523.8" y="83" width="186" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="616.8" y="105" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">recurse : fmap (cata alg)</text>
         <g class="pin pin-in">
-          <rect x="709.4" y="68.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="719.4" y="72.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">alg</text>
+          <rect x="519.8" y="93.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="529.8" y="97.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">alg</text>
         </g>
         <g class="pin pin-in">
-          <rect x="709.4" y="83.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="519.8" y="108.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
         <g class="pin pin-out">
-          <rect x="895.4" y="76" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="705.8" y="101" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="action-node">
         <title>alg :: F a ⟶ a — applied exactly once per node, on a layer whose children are already reduced.</title>
-        <rect x="1035.4" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="1095.4" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">apply : alg</text>
+        <rect x="845.8" y="36" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="905.8" y="58" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">apply : alg</text>
         <g class="pin pin-in">
-          <rect x="1031.4" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="1041.4" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">alg</text>
+          <rect x="841.8" y="46.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="851.8" y="50.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">alg</text>
         </g>
         <g class="pin pin-in">
-          <rect x="1031.4" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="841.8" y="61.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
         <g class="pin pin-out">
-          <rect x="1151.4" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        </g>
-      </g>
-      <g class="action-node">
-        <title>Abstract over t again: the whole body becomes the function Fix F ⟶ a that cata returns.</title>
-        <rect x="1237.4" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="1297.4" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">wrap : λt → a</text>
-        <g class="pin pin-in">
-          <rect x="1233.4" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        </g>
-        <g class="pin pin-out">
-          <rect x="1353.4" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="961.8" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
-        <title>alg : F a ⟶ a — the algebra: what to do at one node, given its already-reduced children</title>
-        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">alg : F a ⟶ a</text>
+        <title>t : Fix F — the structure to reduce, supplied on every call</title>
+        <rect x="-4" y="110" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="108" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">t : Fix F</text>
       </g>
       <g class="port port-right">
-        <title>Fix F ⟶ a — the new function; nothing has been reduced yet</title>
-        <rect x="1455.4" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="1466.4" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">eval : Fix F ⟶ a</text>
+        <title>result : a — the whole structure reduced to a single value</title>
+        <rect x="1063.8" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="1074.8" y="52" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">result : a</text>
       </g>
     </g>
   </g>

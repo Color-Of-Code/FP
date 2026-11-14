@@ -25,9 +25,9 @@ The plain function arrow `(→)` is the simplest instance: `arr = id`, `>>>` is 
 
 ![first :: A b c ⟶ A (b, d) (c, d) — inside first: the arrow runs on b only; d bypasses it and rejoins the result](26-arrows/arrows-ibd.svg)
 
-Inside `first` (drawn for the plain function arrow): the pair is split, `b` goes through the arrow,
-and `d` bypasses it on its own wire. The two meet again in the output pair, so the arrow never sees
-`d`.
+Inside `first` (drawn for the plain function arrow): the frame is the lifted arrow, with the
+original arrow captured. The pair is split, `b` goes through the arrow, and `d` bypasses it on its
+own wire. The two meet again in the output pair, so the arrow never sees `d`.
 
 ## Laws
 

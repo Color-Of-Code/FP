@@ -1,0 +1,210 @@
+{
+  "packages": [
+    {
+      "name": "TransformerSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "bind",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "unwrap",
+              "type": "runExceptT",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "ExceptT e m a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "m (Either e a)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "runExceptT: look through the newtype at the m (Either e a) it wraps."
+            },
+            {
+              "kind": "part",
+              "id": "next",
+              "type": "λr → case r of …",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ ExceptT e m b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Either e a ⟶ m (Either e b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Build the continuation for m's bind.\\n\\\\r -> case r of\\n  Left e  -> return (Left e)   -- short-circuit: f is skipped\\n  Right a -> runExceptT (f a)  -- run the next step"
+            },
+            {
+              "kind": "part",
+              "id": "bind_m",
+              "type": ">>= of m",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "m",
+                  "type": "m (Either e a)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "k",
+                  "type": "Either e a ⟶ m (Either e b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "m (Either e b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "The bind of the monad m underneath — the layer below does the actual sequencing (IO runs effects in order, Writer appends logs, State threads state, …)."
+            },
+            {
+              "kind": "part",
+              "id": "wrap",
+              "type": "ExceptT",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "m (Either e b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "ExceptT e m b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "ExceptT: put the newtype back around the result."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "ExceptT e m a",
+              "direction": "in",
+              "tooltip": "ExceptT e m a ≅ m (Either e a) — an m-computation that may fail with e"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ ExceptT e m b",
+              "direction": "in",
+              "tooltip": "f : a ⟶ ExceptT e m b — user code; may itself fail"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "ExceptT e m b",
+              "direction": "out",
+              "tooltip": "ExceptT e m b — the composed computation"
+            }
+          ],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ma",
+              "to": "unwrap._",
+              "label": "wrapped"
+            },
+            {
+              "kind": "connection",
+              "from": "f",
+              "to": "next.f",
+              "label": "user code"
+            },
+            {
+              "kind": "connection",
+              "from": "unwrap._",
+              "to": "bind_m.m",
+              "label": "inner computation"
+            },
+            {
+              "kind": "connection",
+              "from": "next._",
+              "to": "bind_m.k",
+              "label": "continuation"
+            },
+            {
+              "kind": "connection",
+              "from": "bind_m._",
+              "to": "wrap._",
+              "label": "composed in m"
+            },
+            {
+              "kind": "connection",
+              "from": "wrap._",
+              "to": "mb"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "unwrap": "function",
+            "next": "function",
+            "bind_m": "function",
+            "wrap": "function"
+          },
+          "tooltips": {
+            "unwrap": "runExceptT: look through the newtype at the m (Either e a) it wraps.",
+            "next": "Build the continuation for m's bind.\\n\\\\r -> case r of\\n  Left e  -> return (Left e)   -- short-circuit: f is skipped\\n  Right a -> runExceptT (f a)  -- run the next step",
+            "bind_m": "The bind of the monad m underneath — the layer below does the actual sequencing (IO runs effects in order, Writer appends logs, State threads state, …).",
+            "wrap": "ExceptT: put the newtype back around the result."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TransformerSignature",
+          "viewType": "FpIbdView",
+          "expose": "bind",
+          "rendering": "fpIbdDiagram",
+          "title": "bind :: ExceptT e m a ⟶ (a ⟶ ExceptT e m b) ⟶ ExceptT e m b — inside bind: the layer's continuation is sequenced by the bind of the monad m below",
+          "name": "bind (ExceptT)"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "bind :: ExceptT e m a ⟶ (a ⟶ ExceptT e m b) ⟶ ExceptT e m b — inside bind: the layer's continuation is sequenced by the bind of the monad m below",
+    "name": "bind (ExceptT)",
+    "render": "bind",
+    "shows": {
+      "unwrap": "function",
+      "next": "function",
+      "bind_m": "function",
+      "wrap": "function"
+    },
+    "tooltips": {
+      "unwrap": "runExceptT: look through the newtype at the m (Either e a) it wraps.",
+      "next": "Build the continuation for m's bind.\\n\\\\r -> case r of\\n  Left e  -> return (Left e)   -- short-circuit: f is skipped\\n  Right a -> runExceptT (f a)  -- run the next step",
+      "bind_m": "The bind of the monad m underneath — the layer below does the actual sequencing (IO runs effects in order, Writer appends logs, State threads state, …).",
+      "wrap": "ExceptT: put the newtype back around the result."
+    }
+  }
+}

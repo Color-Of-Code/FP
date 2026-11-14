@@ -1,11 +1,11 @@
-// SysML v2 — composition IBD: what happens inside compose
-// (∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c)      (g ∘ f) x = g (f x)
+// SysML v2 — composition IBD: the function that compose returns
+// (∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c)      h = g ∘ f,   h x = g (f x)
 //
 // Reading guide:
-//   • the «block» frame is compose; its boundary ports are its whole call interface:
-//     the two functions g and f in, the new function h out
-//   • compose does not run anything — it builds h. Inside the block we see the body of h,
-//     as it executes when h is finally called: x is h's parameter, supplied only then
+//   • the «block» frame is the new function h; its boundary ports are its call interface:
+//     the actual argument x in, the result out
+//   • f and g are fixed (captured) when compose builds h — they live inside, not on the
+//     boundary, exactly like the captured 5 in add5
 //   • the wire between f and g carries b: f's output type must equal g's input type —
 //     that is the one rule composition enforces
 //   • the intermediate b exists only inside the block; callers of h never see it
@@ -13,16 +13,16 @@
 package CompositionSignature {
     private import FpDiagram::*;
 
-    part def compose {
-        #FpNodePresentation { tooltip = "g : b ⟶ c — runs second; its input type must equal f's output type"; }
-        port in  g : "b ⟶ c";
-        #FpNodePresentation { tooltip = "f : a ⟶ b — runs first"; }
-        port in  f : "a ⟶ b";
-        #FpNodePresentation { tooltip = "h = g ∘ f : a ⟶ c — a new function; nothing has been applied yet"; }
-        port out h : "a ⟶ c";
+    part def composed {
+        #FpNodePresentation { tooltip = "x : a — actual parameter, supplied on every call: h x"; }
+        port in  x      : "a";
+        #FpNodePresentation { tooltip = "result : c — what each call returns: h x = g (f x)"; }
+        port out result : "c";
 
-        #FpNodePresentation { role = "value"; tooltip = "The argument of h: supplied when h is called, not when compose builds it."; }
-        part x : "a — supplied when h is called";
+        #FpNodePresentation { role = "hof"; tooltip = "f : a ⟶ b — fixed when h was built; runs first"; }
+        part f : "a ⟶ b — captured";
+        #FpNodePresentation { role = "hof"; tooltip = "g : b ⟶ c — fixed when h was built; runs second. Its input type must equal f's output type."; }
+        part g : "b ⟶ c — captured";
 
         #FpNodePresentation { role = "function"; tooltip = "Apply f to the argument: the first step of h."; }
         part run_f : "f x" {
@@ -36,24 +36,18 @@ package CompositionSignature {
             port in  b : "b";
             port out _ : "c";
         }
-        #FpNodePresentation { role = "function"; tooltip = "Abstract over x again: the whole body becomes the function h that compose returns."; }
-        part wrap : "λx → c" {
-            port in  _ : "c";
-            port out _ : "a ⟶ c";
-        }
 
-        connection connect f        to run_f.f : "first";
-        connection connect x        to run_f.a : "argument";
-        connection connect run_f._  to run_g.b : "b (internal only)";
-        connection connect g        to run_g.g : "second";
-        connection connect run_g._  to wrap._ : "result";
-        connection connect wrap._   to h;
+        connection connect f       to run_f.f : "captured";
+        connection connect x       to run_f.a : "argument";
+        connection connect run_f._ to run_g.b : "b (internal only)";
+        connection connect g       to run_g.g : "captured";
+        connection connect run_g._ to result;
     }
 
     #FpViewPresentation { name = "compose"; }
     view diagram : FpIbdView {
         doc /*(∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c) — inside compose: f runs first, its result b feeds g; b never leaves the block*/
-        expose compose;
+        expose composed;
         render fpIbdDiagram;
     }
 }

@@ -1,26 +1,25 @@
-// SysML v2 — arrows IBD: what happens inside first
+// SysML v2 — arrows IBD: the arrow that first returns
 // first :: A b c ⟶ A (b, d) (c, d)      first f (b, d) = (f b, d)
 //
 // Reading guide:
-//   • the «block» frame is first; its boundary ports are its whole call interface:
-//     the arrow in, the lifted arrow out
-//   • first applies nothing itself — inside the block we see the body of the lifted
-//     arrow, as it runs on a pair: p is its input, supplied only then
+//   • drawn for the plain function arrow (→), where running an arrow is applying it
+//   • the «block» frame is the lifted arrow; its boundary ports are its call interface:
+//     the pair p in, the new pair out
+//   • the original arrow is fixed (captured) when first lifts it — it lives inside
 //   • the pair is split: b goes through the arrow, d bypasses it on its own wire
 //   • the two parts meet again in the output pair — the arrow never sees d
-//   • drawn for the plain function arrow (→), where running an arrow is applying it
 
 package ArrowsSignature {
     private import FpDiagram::*;
 
-    part def first {
-        #FpNodePresentation { tooltip = "A b c — an arrow from b to c (for plain functions: b ⟶ c)"; }
-        port in  arrow : "A b c";
-        #FpNodePresentation { tooltip = "A (b, d) (c, d) — the same arrow lifted to pairs; the second component is passed through unchanged"; }
-        port out paired : "A (b, d) (c, d)";
+    part def lifted {
+        #FpNodePresentation { tooltip = "p : (b, d) — the pair the lifted arrow runs on, supplied on every call"; }
+        port in  p      : "(b, d)";
+        #FpNodePresentation { tooltip = "result : (c, d) — the arrow's output paired with the untouched second component"; }
+        port out result : "(c, d)";
 
-        #FpNodePresentation { role = "value"; tooltip = "The pair the lifted arrow runs on: supplied when it is called."; }
-        part p : "(b, d) — supplied when run";
+        #FpNodePresentation { role = "hof"; tooltip = "arrow : A b c — an arrow from b to c (for plain functions: b ⟶ c); fixed when first lifted it"; }
+        part arrow : "A b c — captured";
 
         #FpNodePresentation { role = "function"; tooltip = "Take the pair apart: b is for the arrow, d is set aside."; }
         part split : "(b, d)" {
@@ -40,25 +39,19 @@ package ArrowsSignature {
             port in  d : "d";
             port out _ : "(c, d)";
         }
-        #FpNodePresentation { role = "function"; tooltip = "Abstract over the pair again: the whole body becomes the lifted arrow that first returns."; }
-        part wrap : "λp → (c, d)" {
-            port in  _ : "(c, d)";
-            port out _ : "A (b, d) (c, d)";
-        }
 
         connection connect p         to split._ : "pair";
-        connection connect arrow     to run.arrow : "arrow";
+        connection connect arrow     to run.arrow : "captured";
         connection connect split.b   to run.b : "first component";
         connection connect split.d   to join_pair.d : "bypasses the arrow";
         connection connect run._     to join_pair.c : "result";
-        connection connect join_pair._ to wrap._ : "pair";
-        connection connect wrap._    to paired;
+        connection connect join_pair._ to result;
     }
 
     #FpViewPresentation { name = "first"; }
     view diagram : FpIbdView {
         doc /*first :: A b c ⟶ A (b, d) (c, d) — inside first: the arrow runs on b only; d bypasses it and rejoins the result*/
-        expose first;
+        expose lifted;
         render fpIbdDiagram;
     }
 }

@@ -252,29 +252,41 @@ inside the block), as in the partial-application diagram in
 as internal parts wired together. Intermediate types that never leave the block (`M (M b)`,
 `T (F b)`, `F ((a ⟶ b), a)`) appear only on the internal wire, labelled `(internal only)`.
 
-| Combinator                | Internal decomposition                    | Diagram                                                 |
-| ------------------------- | ----------------------------------------- | ------------------------------------------------------- |
-| `(∘)` compose             | `f x` → `g b` → `λx → c`                  | `docs/04-composition/composition-ibd.sysml`             |
-| `fold`                    | case split → `f acc x` → recursive `fold` | `docs/16-fold/fold-ibd.sysml`                           |
-| `toCps f`                 | `f x` → `k b` → `λx k → r`                | `docs/18-cps/cps-ibd.sysml`                             |
-| `first` (arrow)           | split pair → `arrow b` ∥ bypass → re-pair | `docs/26-arrows/arrows-ibd.sysml`                       |
-| `over` (lens)             | `get` → `f` → `set`, `s` bypasses `f`     | `docs/optics/lens/lens-ibd.sysml`                       |
-| `cata alg`                | `unFix` → `fmap (cata alg)` → `alg`       | `docs/28-recursion-schemes/recursion-schemes-ibd.sysml` |
-| `bind` (generic)          | `fmap f` → `join`                         | `docs/19-monad/monad-ibd.sysml`                         |
-| `bind` (a concrete monad) | the instance's own mechanism (see below)  | `docs/monads/<name>/<name>-ibd.sysml`                   |
-| `traverse f`              | `fmap f` → `sequence`                     | `docs/17-traversable/traversable-ibd.sysml`             |
-| `<*>`                     | `pair` → `fmap apply`                     | `docs/15-applicative/applicative-ibd.sysml`             |
+| Combinator                | Internal decomposition                                           | Diagram                                                 |
+| ------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------- |
+| `(∘)` compose             | `f x` → `g b`                                                    | `docs/04-composition/composition-ibd.sysml`             |
+| `fold`                    | case split → `f acc x` → recursive `fold`                        | `docs/16-fold/fold-ibd.sysml`                           |
+| `toCps f`                 | `f x` → `k b`                                                    | `docs/18-cps/cps-ibd.sysml`                             |
+| `first` (arrow)           | split pair → `arrow b` ∥ bypass → re-pair                        | `docs/26-arrows/arrows-ibd.sysml`                       |
+| `over` (lens)             | `get` → `f` → `set`, `s` bypasses `f`                            | `docs/optics/lens/lens-ibd.sysml`                       |
+| `cata alg`                | `unFix` → `fmap (cata alg)` → `alg`                              | `docs/28-recursion-schemes/recursion-schemes-ibd.sysml` |
+| `dimap` (functions)       | `f x` → `h a` → `g b`                                            | `docs/25-profunctor/profunctor-ibd.sysml`               |
+| `const`                   | `y` wired to a dead end; `x` captured                            | `docs/05-higher-order-functions/const-ibd.sysml`        |
+| `map`                     | split elements + shape → `f a_i`; shape bypasses                 | `docs/05-higher-order-functions/map-ibd.sysml`          |
+| `curry` / `uncurry`       | pack pair → `f (a, b)` / unpair → `g a` → `(g a) b`              | `docs/06-currying/curry-ibd.sysml`, `uncurry-ibd.sysml` |
+| `bind` (a transformer)    | `runExceptT` → inner monad's `>>=` with the layer's continuation | `docs/21-transformer/transformer-ibd.sysml`             |
+| a tagless-final program   | every operation, even `>>=`, read from the instance              | `docs/23-tagless-final/tagless-final-ibd.sysml`         |
+| `bind` (generic)          | `fmap f` → `join`                                                | `docs/19-monad/monad-ibd.sysml`                         |
+| `bind` (a concrete monad) | the instance's own mechanism (see below)                         | `docs/monads/<name>/<name>-ibd.sysml`                   |
+| `traverse f`              | `fmap f` → `sequence`                                            | `docs/17-traversable/traversable-ibd.sysml`             |
+| `<*>`                     | `pair` → `fmap apply`                                            | `docs/15-applicative/applicative-ibd.sysml`             |
 
 - **Generic vs. concrete.** A generic combinator shows the shared decomposition. A concrete instance
   must NOT repeat it: fuse `fmap` and `join` into the instance's real mechanism so the diagrams
   differ in _wiring_, not just in labels — Maybe/Either a case split with a skipped `f`, List a
   fan-out/`concat`, Writer a bypassing log, State/Parser a threaded state, Reader a shared
   environment, Cont a wrapped continuation, IO/STM sequenced execution.
-- **The call interface never changes.** Every `bind` IBD has exactly the boundary ports `ma`, `f`
-  and `mb`, with the same types as the generic diagram. A monad whose value is a function or recipe
-  (Reader, State, Parser, Cont, IO, STM) is drawn at the moment it is run: its run-time input (`r`,
-  `s`, text, `k`) is an internal `role = "value"` part — not a boundary port — and a final `wrap`
-  part (`λr → b`, `λs → (b, s'')`, …) turns the body back into the `mb` that bind returns.
+- **A combinator that returns a function is drawn as that function.** The frame IS the returned
+  function (`composed`, `curried`, `updater`, `reducer`, …): its boundary ports are the arguments of
+  the later call, and what the combinator was applied to is captured inside as `role = "hof"` /
+  `"value"` parts labelled `— captured`. This is the convention of `06-currying/function2.sysml`
+  (`add5`). No `wrap` part is needed: a `λ` is the frame itself.
+- **`bind` is the exception: its call interface never changes.** Every `bind` IBD has exactly the
+  boundary ports `ma`, `f` and `mb`, with the same types as the generic diagram. A monad whose value
+  is a function or recipe (Reader, State, Parser, Cont, IO, STM) is drawn at the moment it is run:
+  its run-time input (`r`, `s`, text, `k`) is an internal `role = "value"` part — not a boundary
+  port — and a final `wrap` part (`λr → b`, `λs → (b, s'')`, …) turns the body back into the `mb`
+  that bind returns.
 - Never describe the generic step as "unwrapping" `M a` — there is no general `M a ⟶ a`. A concrete
   instance may pattern-match on its own constructors.
 - **Recursion is a part that names the block itself** (`fold f acc' rest`, `fmap (cata alg)`); say

@@ -1,11 +1,10 @@
-// SysML v2 — recursion schemes IBD: what happens inside cata
+// SysML v2 — recursion schemes IBD: the function that cata returns
 // cata :: Functor f => (f a ⟶ a) ⟶ Fix f ⟶ a      cata alg = alg ∘ fmap (cata alg) ∘ unFix
 //
 // Reading guide:
-//   • the «block» frame is cata; its boundary ports are its whole call interface:
-//     the algebra alg in, the new function Fix F ⟶ a out
-//   • cata applies nothing itself — inside the block we see the body of the returned
-//     function, as it runs when called: t is its parameter, supplied only then
+//   • the «block» frame is the reducer Fix F ⟶ a; its boundary ports are its call interface:
+//     the structure t in, the reduced result out
+//   • the algebra alg is fixed (captured) when cata is applied — it lives inside
 //   • unFix peels one layer off t, exposing its children as F (Fix F)
 //   • fmap (cata alg) is the recursion: it is this very block, applied to every child
 //     under F — after it, each child has already been reduced to an a
@@ -15,14 +14,14 @@
 package RecursionSchemesSignature {
     private import FpDiagram::*;
 
-    part def cata {
-        #FpNodePresentation { tooltip = "alg : F a ⟶ a — the algebra: what to do at one node, given its already-reduced children"; }
-        port in  alg  : "F a ⟶ a";
-        #FpNodePresentation { tooltip = "Fix F ⟶ a — the new function; nothing has been reduced yet"; }
-        port out eval : "Fix F ⟶ a";
+    part def reducer {
+        #FpNodePresentation { tooltip = "t : Fix F — the structure to reduce, supplied on every call"; }
+        port in  t      : "Fix F";
+        #FpNodePresentation { tooltip = "result : a — the whole structure reduced to a single value"; }
+        port out result : "a";
 
-        #FpNodePresentation { role = "value"; tooltip = "The structure to reduce: supplied when the returned function is called, not when cata is applied to alg."; }
-        part t : "Fix F — supplied when called";
+        #FpNodePresentation { role = "hof"; tooltip = "alg : F a ⟶ a — the algebra: what to do at one node, given its already-reduced children; fixed when cata was applied"; }
+        part alg : "F a ⟶ a — captured";
 
         #FpNodePresentation { role = "function"; tooltip = "unFix :: Fix F ⟶ F (Fix F) — peel one layer: the node's constructor with its children still unreduced."; }
         part unfix : "unFix" {
@@ -41,25 +40,19 @@ package RecursionSchemesSignature {
             port in  _   : "F a";
             port out _   : "a";
         }
-        #FpNodePresentation { role = "function"; tooltip = "Abstract over t again: the whole body becomes the function Fix F ⟶ a that cata returns."; }
-        part wrap : "λt → a" {
-            port in  _ : "a";
-            port out _ : "Fix F ⟶ a";
-        }
 
         connection connect t          to unfix._ : "structure";
         connection connect unfix._    to recurse._ : "children (internal only)";
         connection connect alg        to recurse.alg : "same algebra";
         connection connect recurse._  to apply._ : "children reduced";
         connection connect alg        to apply.alg : "algebra";
-        connection connect apply._    to wrap._ : "result";
-        connection connect wrap._     to eval;
+        connection connect apply._    to result;
     }
 
     #FpViewPresentation { name = "cata"; }
     view diagram : FpIbdView {
         doc /*cata :: (F a ⟶ a) ⟶ Fix F ⟶ a — inside cata: unFix one layer, fmap cata over its children, then apply alg once*/
-        expose cata;
+        expose reducer;
         render fpIbdDiagram;
     }
 }

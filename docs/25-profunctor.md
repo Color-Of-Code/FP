@@ -23,6 +23,12 @@ dimap :: (A' → A)   -- pre-map (contravariant, "input" side)
 The archetypal profunctor is the plain function type `A → B`: given `f :: A' → A` and `g :: B → B'`,
 `dimap f g h = g ∘ h ∘ f`.
 
+![dimap :: (A' ⟶ A) ⟶ (B ⟶ B') ⟶ P A B ⟶ P A' B' — inside dimap (for functions): f adapts the input, h runs, g adapts the output](25-profunctor/profunctor-ibd.svg)
+
+Inside `dimap` (drawn for plain functions): the frame is the adapted function; `f`, `g` and `h` are
+captured inside. `f` runs _before_ `h` — the contravariant side turns the new input into the one `h`
+expects — and `g` runs _after_ it on the covariant side. `h` itself is never touched.
+
 ![profunctor motivation](25-profunctor/profunctor-motivation.svg)
 
 ## Laws

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220.6 202" width="1220.6" height="202" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 936 214" width="936" height="214" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title">(∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c) — inside compose: f runs first, its result b feeds g; b never leaves the block</title>
   <desc id="diagram-description">Functional programming diagram: (∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c) — inside compose: f runs first, its result b feeds g; b never leaves the block</desc>
   <style>:root {
@@ -85,100 +85,87 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="610.3" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">(∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c)</text>
-  <text x="610.3" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside compose: f runs first, its result b feeds g; b never leaves the block</text>
+  <text x="468" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">(∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c)</text>
+  <text x="468" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside compose: f runs first, its result b feeds g; b never leaves the block</text>
   <g transform="translate(0,44) scale(1)">
-    <g transform="translate(60,0)">
-      <rect x="0" y="0" width="1100.6" height="158" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g transform="translate(38,0)">
+      <rect x="0" y="0" width="833" height="170" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
-        <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
-        <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» compose</text>
+        <path d="M0,0 L115.2,0 L115.2,12 L105.2,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="57.6" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» composed</text>
+      </g>
+      <g class="edge hof-edge">
+        <path d="M234.0,83.0 L298.0,83.0 Q304.0,83.0 304.0,89.0 L304.0,91.3 Q304.0,95.0 307.7,95.0 L311.3,95.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+        <text x="269" y="77" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">captured</text>
       </g>
       <g class="edge">
-        <path d="M4.0,71.0 L391.6,71.0 Q397.6,71.0 397.6,77.0 L397.6,90.0 L397.6,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="200.8" y="65" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">first</text>
+        <path d="M4.0,120.0 L300.5,120.0 Q304.0,120.0 304.0,116.5 L304.0,116.5 Q304.0,113.0 307.5,113.0 L311.3,113.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="154" y="114" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">argument</text>
       </g>
       <g class="edge">
-        <path d="M327.6,108.0 L395.6,108.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="367.6" y="102" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">argument</text>
+        <path d="M455.3,104.0 L587.0,104.0 Q593.0,104.0 593.0,98.0 L593.0,67.0 L593.0,67.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="526.1666666666666" y="98" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">b (internal only)</text>
+      </g>
+      <g class="edge hof-edge">
+        <path d="M478.0,49.0 L591.0,49.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+        <text x="540.5" y="43" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">captured</text>
       </g>
       <g class="edge">
-        <path d="M539.6,99.0 L547.6,99.0 Q553.6,99.0 553.6,93.0 L553.6,67.0 Q553.6,61.0 559.6,61.0 L656.6,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="611.1" y="55" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">b (internal only)</text>
+        <path d="M735.0,58.0 L817.0,58.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
-      <g class="edge">
-        <path d="M4.0,43.0 L656.6,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="336.3" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">second</text>
+      <g class="object-node hof">
+        <title>f : a ⟶ b — fixed when h was built; runs first</title>
+        <rect x="70" y="64" width="164" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+        <text x="152" y="76" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+        <text x="152" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">f : a ⟶ b — captured</text>
       </g>
-      <g class="edge">
-        <path d="M800.6,52.0 L858.6,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="837.6" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">result</text>
-      </g>
-      <g class="edge">
-        <path d="M1002.6,52.0 L1084.6,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      </g>
-      <g class="object-node">
-        <title>The argument of h: supplied when h is called, not when compose builds it.</title>
-        <rect x="70" y="89" width="257.6" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-        <text x="198.8" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">x : a — supplied when h is called</text>
+      <g class="object-node hof">
+        <title>g : b ⟶ c — fixed when h was built; runs second. Its input type must equal f's output type.</title>
+        <rect x="314" y="30" width="164" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+        <text x="396" y="42" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+        <text x="396" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">g : b ⟶ c — captured</text>
       </g>
       <g class="action-node">
         <title>Apply f to the argument: the first step of h.</title>
-        <rect x="415.6" y="77" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="475.6" y="99" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_f : f x</text>
+        <rect x="331.3333333333333" y="82" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="391.3333333333333" y="104" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_f : f x</text>
         <g class="pin pin-in">
-          <rect x="411.6" y="87.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="421.6" y="91.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+          <rect x="327.3333333333333" y="92.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="337.3333333333333" y="96.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
         </g>
         <g class="pin pin-in">
-          <rect x="411.6" y="102.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="421.6" y="106.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
+          <rect x="327.3333333333333" y="107.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="337.3333333333333" y="111.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
         </g>
         <g class="pin pin-out">
-          <rect x="531.6" y="95" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="447.3333333333333" y="100" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="action-node">
         <title>Apply g to the result of f: the second step of h. This is the only place where f's output meets g's input.</title>
-        <rect x="676.6" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="736.6" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_g : g b</text>
+        <rect x="611" y="36" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="671" y="58" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_g : g b</text>
         <g class="pin pin-in">
-          <rect x="672.6" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="682.6" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">g</text>
+          <rect x="607" y="46.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="617" y="50.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">g</text>
         </g>
         <g class="pin pin-in">
-          <rect x="672.6" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="682.6" y="59.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
+          <rect x="607" y="61.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="617" y="65.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
         </g>
         <g class="pin pin-out">
-          <rect x="792.6" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        </g>
-      </g>
-      <g class="action-node">
-        <title>Abstract over x again: the whole body becomes the function h that compose returns.</title>
-        <rect x="878.6" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="938.6" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">wrap : λx → c</text>
-        <g class="pin pin-in">
-          <rect x="874.6" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        </g>
-        <g class="pin pin-out">
-          <rect x="994.6" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="727" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
-        <title>g : b ⟶ c — runs second; its input type must equal f's output type</title>
-        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">g : b ⟶ c</text>
-      </g>
-      <g class="port port-left">
-        <title>f : a ⟶ b — runs first</title>
-        <rect x="-4" y="67" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="65" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ b</text>
+        <title>x : a — actual parameter, supplied on every call: h x</title>
+        <rect x="-4" y="116" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="114" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">x : a</text>
       </g>
       <g class="port port-right">
-        <title>h = g ∘ f : a ⟶ c — a new function; nothing has been applied yet</title>
-        <rect x="1096.6" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="1107.6" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">h : a ⟶ c</text>
+        <title>result : c — what each call returns: h x = g (f x)</title>
+        <rect x="829" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="840" y="52" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">result : c</text>
       </g>
     </g>
   </g>

@@ -1,0 +1,202 @@
+{
+  "packages": [
+    {
+      "name": "UncurrySignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "uncurried",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "g",
+              "type": "a ⟶ b ⟶ c — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "g : a ⟶ b ⟶ c — fixed when uncurry was applied; takes the arguments one call at a time"
+            },
+            {
+              "kind": "part",
+              "id": "unpair",
+              "type": "(a, b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "(a, b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Take the pair apart into the two arguments g expects, one per call."
+            },
+            {
+              "kind": "part",
+              "id": "stage1",
+              "type": "g a",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "g",
+                  "type": "a ⟶ b ⟶ c",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b ⟶ c",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "First call: g a returns a function still waiting for b."
+            },
+            {
+              "kind": "part",
+              "id": "stage2",
+              "type": "(g a) b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "h",
+                  "type": "b ⟶ c",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "c",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Second call: apply the returned function to b."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "p",
+              "type": "(a, b)",
+              "direction": "in",
+              "tooltip": "p : (a, b) — actual parameter, supplied on every call: h (x, y)"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "c",
+              "direction": "out",
+              "tooltip": "result : c — what each call returns"
+            }
+          ],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "p",
+              "to": "unpair._",
+              "label": "pair"
+            },
+            {
+              "kind": "connection",
+              "from": "g",
+              "to": "stage1.g",
+              "label": "captured"
+            },
+            {
+              "kind": "connection",
+              "from": "unpair.a",
+              "to": "stage1.a",
+              "label": "1st argument"
+            },
+            {
+              "kind": "connection",
+              "from": "stage1._",
+              "to": "stage2.h",
+              "label": "b ⟶ c (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "unpair.b",
+              "to": "stage2.b",
+              "label": "2nd argument"
+            },
+            {
+              "kind": "connection",
+              "from": "stage2._",
+              "to": "result"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "g": "hof",
+            "unpair": "function",
+            "stage1": "function",
+            "stage2": "function"
+          },
+          "tooltips": {
+            "g": "g : a ⟶ b ⟶ c — fixed when uncurry was applied; takes the arguments one call at a time",
+            "unpair": "Take the pair apart into the two arguments g expects, one per call.",
+            "stage1": "First call: g a returns a function still waiting for b.",
+            "stage2": "Second call: apply the returned function to b."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "UncurrySignature",
+          "viewType": "FpIbdView",
+          "expose": "uncurried",
+          "rendering": "fpIbdDiagram",
+          "title": "uncurry :: (a ⟶ b ⟶ c) ⟶ ((a, b) ⟶ c) — inside uncurry: the pair is taken apart and g is applied in two stages",
+          "name": "uncurry"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "uncurry :: (a ⟶ b ⟶ c) ⟶ ((a, b) ⟶ c) — inside uncurry: the pair is taken apart and g is applied in two stages",
+    "name": "uncurry",
+    "render": "uncurried",
+    "shows": {
+      "g": "hof",
+      "unpair": "function",
+      "stage1": "function",
+      "stage2": "function"
+    },
+    "tooltips": {
+      "g": "g : a ⟶ b ⟶ c — fixed when uncurry was applied; takes the arguments one call at a time",
+      "unpair": "Take the pair apart into the two arguments g expects, one per call.",
+      "stage1": "First call: g a returns a function still waiting for b.",
+      "stage2": "Second call: apply the returned function to b."
+    }
+  }
+}

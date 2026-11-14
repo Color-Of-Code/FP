@@ -40,6 +40,13 @@ program[IO]              // production: real console + real DB
 program[StateT[Log, Id]] // test: log-collecting pure interpreter
 ```
 
+![program :: Algebra F ⟹ F () — inside the program: every operation, even sequencing, is reached through the instance inst](23-tagless-final/tagless-final-ibd.svg)
+
+Inside a tagless-final program: the program is a function of its instance `inst`. Every operation —
+`readLine`, `writeLine`, even `>>=` — is reached _through_ `inst`; the program has no other access
+to the world. Swapping `inst` swaps the meaning of everything inside while the program stays the
+same, and an operation `inst` does not offer cannot be written at all.
+
 ## Comparison with Free Monad
 
 |                       | Free Monad                           | Tagless Final                           |

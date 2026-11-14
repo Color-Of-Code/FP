@@ -1,0 +1,172 @@
+{
+  "packages": [
+    {
+      "name": "CurrySignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "curried",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "f",
+              "type": "(a, b) ⟶ c — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "f : (a, b) ⟶ c — fixed when curry was applied; takes both arguments at once, as a pair"
+            },
+            {
+              "kind": "part",
+              "id": "pack",
+              "type": "(a, b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "(a, b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Pack the two separately delivered arguments into the pair that f expects."
+            },
+            {
+              "kind": "part",
+              "id": "run",
+              "type": "f (a, b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "(a, b) ⟶ c",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "p",
+                  "type": "(a, b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "c",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "The original function, applied to the pair."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in",
+              "tooltip": "a : first argument — actual parameter of the 1st call: (curry f) a"
+            },
+            {
+              "kind": "port",
+              "id": "b",
+              "type": "b",
+              "direction": "in",
+              "tooltip": "b : second argument — actual parameter of the 2nd call: ((curry f) a) b"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "c",
+              "direction": "out",
+              "tooltip": "result : c — available only after both calls"
+            }
+          ],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "a",
+              "to": "pack.a",
+              "label": "1st call"
+            },
+            {
+              "kind": "connection",
+              "from": "b",
+              "to": "pack.b",
+              "label": "2nd call"
+            },
+            {
+              "kind": "connection",
+              "from": "pack._",
+              "to": "run.p",
+              "label": "pair (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "f",
+              "to": "run.f",
+              "label": "captured"
+            },
+            {
+              "kind": "connection",
+              "from": "run._",
+              "to": "result"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "f": "hof",
+            "pack": "function",
+            "run": "function"
+          },
+          "tooltips": {
+            "f": "f : (a, b) ⟶ c — fixed when curry was applied; takes both arguments at once, as a pair",
+            "pack": "Pack the two separately delivered arguments into the pair that f expects.",
+            "run": "The original function, applied to the pair."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "CurrySignature",
+          "viewType": "FpIbdView",
+          "expose": "curried",
+          "rendering": "fpIbdDiagram",
+          "title": "curry :: ((a, b) ⟶ c) ⟶ (a ⟶ b ⟶ c) — inside curry: the two separately supplied arguments are packed into a pair for f",
+          "name": "curry"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "curry :: ((a, b) ⟶ c) ⟶ (a ⟶ b ⟶ c) — inside curry: the two separately supplied arguments are packed into a pair for f",
+    "name": "curry",
+    "render": "curried",
+    "shows": {
+      "f": "hof",
+      "pack": "function",
+      "run": "function"
+    },
+    "tooltips": {
+      "f": "f : (a, b) ⟶ c — fixed when curry was applied; takes both arguments at once, as a pair",
+      "pack": "Pack the two separately delivered arguments into the pair that f expects.",
+      "run": "The original function, applied to the pair."
+    }
+  }
+}

@@ -6,15 +6,15 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "cata",
+          "name": "reducer",
           "parts": [
             {
               "kind": "part",
-              "id": "t",
-              "type": "Fix F — supplied when called",
+              "id": "alg",
+              "type": "F a ⟶ a — captured",
               "ports": [],
-              "role": "value",
-              "tooltip": "The structure to reduce: supplied when the returned function is called, not when cata is applied to alg."
+              "role": "hof",
+              "tooltip": "alg : F a ⟶ a — the algebra: what to do at one node, given its already-reduced children; fixed when cata was applied"
             },
             {
               "kind": "part",
@@ -90,43 +90,22 @@
               ],
               "role": "function",
               "tooltip": "alg :: F a ⟶ a — applied exactly once per node, on a layer whose children are already reduced."
-            },
-            {
-              "kind": "part",
-              "id": "wrap",
-              "type": "λt → a",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Fix F ⟶ a",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "Abstract over t again: the whole body becomes the function Fix F ⟶ a that cata returns."
             }
           ],
           "ports": [
             {
               "kind": "port",
-              "id": "alg",
-              "type": "F a ⟶ a",
+              "id": "t",
+              "type": "Fix F",
               "direction": "in",
-              "tooltip": "alg : F a ⟶ a — the algebra: what to do at one node, given its already-reduced children"
+              "tooltip": "t : Fix F — the structure to reduce, supplied on every call"
             },
             {
               "kind": "port",
-              "id": "eval",
-              "type": "Fix F ⟶ a",
+              "id": "result",
+              "type": "a",
               "direction": "out",
-              "tooltip": "Fix F ⟶ a — the new function; nothing has been reduced yet"
+              "tooltip": "result : a — the whole structure reduced to a single value"
             }
           ],
           "connections": [
@@ -163,29 +142,21 @@
             {
               "kind": "connection",
               "from": "apply._",
-              "to": "wrap._",
-              "label": "result"
-            },
-            {
-              "kind": "connection",
-              "from": "wrap._",
-              "to": "eval"
+              "to": "result"
             }
           ],
           "notes": [],
           "shows": {
-            "t": "value",
+            "alg": "hof",
             "unfix": "function",
             "recurse": "function",
-            "apply": "function",
-            "wrap": "function"
+            "apply": "function"
           },
           "tooltips": {
-            "t": "The structure to reduce: supplied when the returned function is called, not when cata is applied to alg.",
+            "alg": "alg : F a ⟶ a — the algebra: what to do at one node, given its already-reduced children; fixed when cata was applied",
             "unfix": "unFix :: Fix F ⟶ F (Fix F) — peel one layer: the node's constructor with its children still unreduced.",
             "recurse": "fmap (cata alg) :: F (Fix F) ⟶ F a — the recursion. cata alg is this very block, applied to every child under F; the shape of the layer is kept.",
-            "apply": "alg :: F a ⟶ a — applied exactly once per node, on a layer whose children are already reduced.",
-            "wrap": "Abstract over t again: the whole body becomes the function Fix F ⟶ a that cata returns."
+            "apply": "alg :: F a ⟶ a — applied exactly once per node, on a layer whose children are already reduced."
           }
         }
       ],
@@ -196,7 +167,7 @@
           "id": "diagram",
           "packageName": "RecursionSchemesSignature",
           "viewType": "FpIbdView",
-          "expose": "cata",
+          "expose": "reducer",
           "rendering": "fpIbdDiagram",
           "title": "cata :: (F a ⟶ a) ⟶ Fix F ⟶ a — inside cata: unFix one layer, fmap cata over its children, then apply alg once",
           "name": "cata"
@@ -208,20 +179,18 @@
     "diagType": "ibd",
     "title": "cata :: (F a ⟶ a) ⟶ Fix F ⟶ a — inside cata: unFix one layer, fmap cata over its children, then apply alg once",
     "name": "cata",
-    "render": "cata",
+    "render": "reducer",
     "shows": {
-      "t": "value",
+      "alg": "hof",
       "unfix": "function",
       "recurse": "function",
-      "apply": "function",
-      "wrap": "function"
+      "apply": "function"
     },
     "tooltips": {
-      "t": "The structure to reduce: supplied when the returned function is called, not when cata is applied to alg.",
+      "alg": "alg : F a ⟶ a — the algebra: what to do at one node, given its already-reduced children; fixed when cata was applied",
       "unfix": "unFix :: Fix F ⟶ F (Fix F) — peel one layer: the node's constructor with its children still unreduced.",
       "recurse": "fmap (cata alg) :: F (Fix F) ⟶ F a — the recursion. cata alg is this very block, applied to every child under F; the shape of the layer is kept.",
-      "apply": "alg :: F a ⟶ a — applied exactly once per node, on a layer whose children are already reduced.",
-      "wrap": "Abstract over t again: the whole body becomes the function Fix F ⟶ a that cata returns."
+      "apply": "alg :: F a ⟶ a — applied exactly once per node, on a layer whose children are already reduced."
     }
   }
 }

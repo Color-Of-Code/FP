@@ -43,6 +43,16 @@ curry  :: ((a, b) ⟶ c) ⟶ (a ⟶ b ⟶ c)
 curry f2 :: a ⟶ (b ⟶ c)       -- takes a, returns a function that takes b
 ```
 
+![curry :: ((a, b) ⟶ c) ⟶ (a ⟶ b ⟶ c) — inside curry: the two separately supplied arguments are packed into a pair for f](06-currying/curry-ibd.svg)
+
+![uncurry :: (a ⟶ b ⟶ c) ⟶ ((a, b) ⟶ c) — inside uncurry: the pair is taken apart and g is applied in two stages](06-currying/uncurry-ibd.svg)
+
+Inside `curry`: the frame is the curried function. `a` arrives with the first call and `b` with the
+second, and they are packed into the pair the captured `f` expects; `f` itself is untouched.
+`uncurry` is the mirror image: its frame is the tupled function, which takes the pair apart and
+applies the captured `g` in two stages, so the function returned by the first stage exists only
+inside the block.
+
 ## How they relate
 
 > **Currying** transforms the function signature. **Partial application** uses that signature to

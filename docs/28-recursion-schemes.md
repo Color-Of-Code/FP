@@ -64,10 +64,10 @@ function.
 
 ![cata :: (F a ⟶ a) ⟶ Fix F ⟶ a — inside cata: unFix one layer, fmap cata over its children, then apply alg once](28-recursion-schemes/recursion-schemes-ibd.svg)
 
-Inside `cata`: the frame shows the body of the function that `cata alg` returns, as it runs on a
-structure `t`. `unFix` peels one layer, `fmap (cata alg)` reduces every child — it is this very
-block applied recursively — and `alg` is applied exactly once to the layer of reduced children. This
-is the same `fmap`-then-collapse shape as [`bind`](./19-monad.md).
+Inside `cata`: the frame is the function `cata alg` returns, with `alg` captured. `unFix` peels one
+layer, `fmap (cata alg)` reduces every child — it is this very block applied recursively — and `alg`
+is applied exactly once to the layer of reduced children. This is the same `fmap`-then-collapse
+shape as [`bind`](./19-monad.md).
 
 ## Hylomorphism fusion
 

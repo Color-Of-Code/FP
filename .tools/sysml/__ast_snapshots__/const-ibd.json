@@ -1,0 +1,105 @@
+{
+  "packages": [
+    {
+      "name": "ConstSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "constant",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "x",
+              "type": "a — captured",
+              "ports": [],
+              "role": "value",
+              "tooltip": "x : a — fixed when const was applied; captured in the closure"
+            },
+            {
+              "kind": "part",
+              "id": "discard",
+              "type": "ignored",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "in"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Dead end: y is received and thrown away. Nothing downstream depends on it."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "y",
+              "type": "b",
+              "direction": "in",
+              "tooltip": "y : b — actual parameter, supplied on every call — and never used"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "a",
+              "direction": "out",
+              "tooltip": "result : a — always the captured x, whatever y is"
+            }
+          ],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "y",
+              "to": "discard._",
+              "label": "dropped"
+            },
+            {
+              "kind": "connection",
+              "from": "x",
+              "to": "result",
+              "label": "captured"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "x": "value",
+            "discard": "function"
+          },
+          "tooltips": {
+            "x": "x : a — fixed when const was applied; captured in the closure",
+            "discard": "Dead end: y is received and thrown away. Nothing downstream depends on it."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ConstSignature",
+          "viewType": "FpIbdView",
+          "expose": "constant",
+          "rendering": "fpIbdDiagram",
+          "title": "const :: a ⟶ b ⟶ a — inside const: the returned function receives y and drops it; x is captured and returned",
+          "name": "const"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "const :: a ⟶ b ⟶ a — inside const: the returned function receives y and drops it; x is captured and returned",
+    "name": "const",
+    "render": "constant",
+    "shows": {
+      "x": "value",
+      "discard": "function"
+    },
+    "tooltips": {
+      "x": "x : a — fixed when const was applied; captured in the closure",
+      "discard": "Dead end: y is received and thrown away. Nothing downstream depends on it."
+    }
+  }
+}

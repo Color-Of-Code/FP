@@ -6,15 +6,23 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "compose",
+          "name": "composed",
           "parts": [
             {
               "kind": "part",
-              "id": "x",
-              "type": "a — supplied when h is called",
+              "id": "f",
+              "type": "a ⟶ b — captured",
               "ports": [],
-              "role": "value",
-              "tooltip": "The argument of h: supplied when h is called, not when compose builds it."
+              "role": "hof",
+              "tooltip": "f : a ⟶ b — fixed when h was built; runs first"
+            },
+            {
+              "kind": "part",
+              "id": "g",
+              "type": "b ⟶ c — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "g : b ⟶ c — fixed when h was built; runs second. Its input type must equal f's output type."
             },
             {
               "kind": "part",
@@ -69,50 +77,22 @@
               ],
               "role": "function",
               "tooltip": "Apply g to the result of f: the second step of h. This is the only place where f's output meets g's input."
-            },
-            {
-              "kind": "part",
-              "id": "wrap",
-              "type": "λx → c",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "c",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "a ⟶ c",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "Abstract over x again: the whole body becomes the function h that compose returns."
             }
           ],
           "ports": [
             {
               "kind": "port",
-              "id": "g",
-              "type": "b ⟶ c",
+              "id": "x",
+              "type": "a",
               "direction": "in",
-              "tooltip": "g : b ⟶ c — runs second; its input type must equal f's output type"
+              "tooltip": "x : a — actual parameter, supplied on every call: h x"
             },
             {
               "kind": "port",
-              "id": "f",
-              "type": "a ⟶ b",
-              "direction": "in",
-              "tooltip": "f : a ⟶ b — runs first"
-            },
-            {
-              "kind": "port",
-              "id": "h",
-              "type": "a ⟶ c",
+              "id": "result",
+              "type": "c",
               "direction": "out",
-              "tooltip": "h = g ∘ f : a ⟶ c — a new function; nothing has been applied yet"
+              "tooltip": "result : c — what each call returns: h x = g (f x)"
             }
           ],
           "connections": [
@@ -120,7 +100,7 @@
               "kind": "connection",
               "from": "f",
               "to": "run_f.f",
-              "label": "first"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -138,32 +118,26 @@
               "kind": "connection",
               "from": "g",
               "to": "run_g.g",
-              "label": "second"
+              "label": "captured"
             },
             {
               "kind": "connection",
               "from": "run_g._",
-              "to": "wrap._",
-              "label": "result"
-            },
-            {
-              "kind": "connection",
-              "from": "wrap._",
-              "to": "h"
+              "to": "result"
             }
           ],
           "notes": [],
           "shows": {
-            "x": "value",
+            "f": "hof",
+            "g": "hof",
             "run_f": "function",
-            "run_g": "function",
-            "wrap": "function"
+            "run_g": "function"
           },
           "tooltips": {
-            "x": "The argument of h: supplied when h is called, not when compose builds it.",
+            "f": "f : a ⟶ b — fixed when h was built; runs first",
+            "g": "g : b ⟶ c — fixed when h was built; runs second. Its input type must equal f's output type.",
             "run_f": "Apply f to the argument: the first step of h.",
-            "run_g": "Apply g to the result of f: the second step of h. This is the only place where f's output meets g's input.",
-            "wrap": "Abstract over x again: the whole body becomes the function h that compose returns."
+            "run_g": "Apply g to the result of f: the second step of h. This is the only place where f's output meets g's input."
           }
         }
       ],
@@ -174,7 +148,7 @@
           "id": "diagram",
           "packageName": "CompositionSignature",
           "viewType": "FpIbdView",
-          "expose": "compose",
+          "expose": "composed",
           "rendering": "fpIbdDiagram",
           "title": "(∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c) — inside compose: f runs first, its result b feeds g; b never leaves the block",
           "name": "compose"
@@ -186,18 +160,18 @@
     "diagType": "ibd",
     "title": "(∘) :: (b ⟶ c) ⟶ (a ⟶ b) ⟶ (a ⟶ c) — inside compose: f runs first, its result b feeds g; b never leaves the block",
     "name": "compose",
-    "render": "compose",
+    "render": "composed",
     "shows": {
-      "x": "value",
+      "f": "hof",
+      "g": "hof",
       "run_f": "function",
-      "run_g": "function",
-      "wrap": "function"
+      "run_g": "function"
     },
     "tooltips": {
-      "x": "The argument of h: supplied when h is called, not when compose builds it.",
+      "f": "f : a ⟶ b — fixed when h was built; runs first",
+      "g": "g : b ⟶ c — fixed when h was built; runs second. Its input type must equal f's output type.",
       "run_f": "Apply f to the argument: the first step of h.",
-      "run_g": "Apply g to the result of f: the second step of h. This is the only place where f's output meets g's input.",
-      "wrap": "Abstract over x again: the whole body becomes the function h that compose returns."
+      "run_g": "Apply g to the result of f: the second step of h. This is the only place where f's output meets g's input."
     }
   }
 }

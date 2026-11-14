@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 946 240" width="946" height="240" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">program :: Algebra F ⟹ F () — inside the program: every operation, even sequencing, is reached through the instance inst</title>
+  <desc id="diagram-description">Functional programming diagram: program :: Algebra F ⟹ F () — inside the program: every operation, even sequencing, is reached through the instance inst</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="473" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">program :: Algebra F ⟹ F ()</text>
+  <text x="473" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside the program: every operation, even sequencing, is reached through the instance inst</text>
+  <g transform="translate(0,44) scale(1)">
+    <g transform="translate(98,0)">
+      <rect x="0" y="0" width="793" height="196" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <g class="diagram-frame-tab tab-block">
+        <path d="M0,0 L109,0 L109,12 L99,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="54.5" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» program</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,86.0 L246.0,86.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="131" y="80" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">readLine from inst</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,86.0 L82.0,86.0 Q88.0,86.0 88.0,92.0 L88.0,138.0 Q88.0,144.0 94.0,144.0 L201.0,144.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="150.5" y="138" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">writeLine from inst</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,86.0 L82.0,86.0 Q88.0,86.0 88.0,80.0 L88.0,36.0 Q88.0,30.0 94.0,30.0 L529.0,30.0 Q535.0,30.0 535.0,36.0 L535.0,73.0 L535.0,73.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="311.5" y="24" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">sequencing from inst</text>
+      </g>
+      <g class="edge">
+        <path d="M396.0,86.0 L533.0,86.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="472.5" y="80" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">F String</text>
+      </g>
+      <g class="edge">
+        <path d="M441.0,144.0 L529.0,144.0 Q535.0,144.0 535.0,138.0 L535.0,99.0 L535.0,99.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="490" y="138" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">continuation</text>
+      </g>
+      <g class="edge">
+        <path d="M695.0,86.0 L777.0,86.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="action-node">
+        <title>inst.readLine :: F String — an operation of the algebra, not a concrete read.</title>
+        <rect x="266" y="64" width="126" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="329" y="86" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">read : readLine</text>
+        <g class="pin pin-in">
+          <rect x="262" y="82" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="272" y="86" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">i</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="388" y="82" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>λname → inst.writeLine name :: String ⟶ F () — the next step, built from another operation of the same algebra.</title>
+        <rect x="221" y="122" width="216" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="329" y="144" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">write : λname → writeLine name</text>
+        <g class="pin pin-in">
+          <rect x="217" y="140" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="227" y="144" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">i</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="433" y="140" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>inst's Monad F: sequencing is also supplied by the instance. IO runs the effects in order; a pure instance threads a log.</title>
+        <rect x="553" y="64" width="138" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="622" y="86" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind_f : &gt;&gt;= of F</text>
+        <g class="pin pin-in">
+          <rect x="549" y="71" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="559" y="75" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">i</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="549" y="82" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="559" y="86" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">m</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="549" y="93" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="559" y="97" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">k</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="687" y="82" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="port port-left">
+        <title>inst : Console F, Monad F — the interpreter: a dictionary of the operations the program may use. Chosen by the caller.</title>
+        <rect x="-4" y="82" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="80" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">inst : Algebra F</text>
+      </g>
+      <g class="port port-right">
+        <title>F () — the program as an effect in whatever F the instance defines: IO in production, State Log in tests</title>
+        <rect x="789" y="82" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="800" y="80" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">r : F ()</text>
+      </g>
+    </g>
+  </g>
+</svg>

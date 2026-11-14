@@ -1,0 +1,197 @@
+{
+  "packages": [
+    {
+      "name": "MapSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "map",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "split",
+              "type": "elements + shape",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Container a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a_i",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "shape",
+                  "type": "shape",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Take the container apart: elements one at a time, and the shape (how many, in what order) kept aside."
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a_i",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Applied once per element. f sees only the element, never the shape."
+            },
+            {
+              "kind": "part",
+              "id": "refill",
+              "type": "shape + results",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "shape",
+                  "type": "shape",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "b_i",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Container b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Refill the shape with the results, in the original positions."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ b",
+              "direction": "in",
+              "tooltip": "f : a ⟶ b — plain function applied to every element"
+            },
+            {
+              "kind": "port",
+              "id": "xs",
+              "type": "Container a",
+              "direction": "in",
+              "tooltip": "xs : Container a — list, tree, Maybe, …"
+            },
+            {
+              "kind": "port",
+              "id": "ys",
+              "type": "Container b",
+              "direction": "out",
+              "tooltip": "ys : Container b — same shape as xs, new elements"
+            }
+          ],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "xs",
+              "to": "split._",
+              "label": "container"
+            },
+            {
+              "kind": "connection",
+              "from": "f",
+              "to": "call.f",
+              "label": "function"
+            },
+            {
+              "kind": "connection",
+              "from": "split.a_i",
+              "to": "call.a",
+              "label": "once per element"
+            },
+            {
+              "kind": "connection",
+              "from": "split.shape",
+              "to": "refill.shape",
+              "label": "shape bypasses f"
+            },
+            {
+              "kind": "connection",
+              "from": "call._",
+              "to": "refill.b_i",
+              "label": "results"
+            },
+            {
+              "kind": "connection",
+              "from": "refill._",
+              "to": "ys"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "split": "function",
+            "call": "function",
+            "refill": "function"
+          },
+          "tooltips": {
+            "split": "Take the container apart: elements one at a time, and the shape (how many, in what order) kept aside.",
+            "call": "Applied once per element. f sees only the element, never the shape.",
+            "refill": "Refill the shape with the results, in the original positions."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MapSignature",
+          "viewType": "FpIbdView",
+          "expose": "map",
+          "rendering": "fpIbdDiagram",
+          "title": "map :: (a ⟶ b) ⟶ Container a ⟶ Container b — inside map: f is applied to each element; the shape bypasses f and is refilled with the results",
+          "name": "map"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "map :: (a ⟶ b) ⟶ Container a ⟶ Container b — inside map: f is applied to each element; the shape bypasses f and is refilled with the results",
+    "name": "map",
+    "render": "map",
+    "shows": {
+      "split": "function",
+      "call": "function",
+      "refill": "function"
+    },
+    "tooltips": {
+      "split": "Take the container apart: elements one at a time, and the shape (how many, in what order) kept aside.",
+      "call": "Applied once per element. f sees only the element, never the shape.",
+      "refill": "Refill the shape with the results, in the original positions."
+    }
+  }
+}

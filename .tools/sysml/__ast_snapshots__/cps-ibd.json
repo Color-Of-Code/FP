@@ -6,23 +6,15 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "toCps",
+          "name": "cps_f",
           "parts": [
             {
               "kind": "part",
-              "id": "x",
-              "type": "a — supplied when called",
+              "id": "f",
+              "type": "a ⟶ b — captured",
               "ports": [],
-              "role": "value",
-              "tooltip": "The argument: supplied when the CPS function is called."
-            },
-            {
-              "kind": "part",
-              "id": "k",
-              "type": "b ⟶ r — supplied when called",
-              "ports": [],
-              "role": "value",
-              "tooltip": "The continuation: what to do with the result — the rest of the computation. Supplied when the CPS function is called."
+              "role": "hof",
+              "tooltip": "f : a ⟶ b — an ordinary function that returns its result; fixed when toCps was applied"
             },
             {
               "kind": "part",
@@ -77,43 +69,29 @@
               ],
               "role": "function",
               "tooltip": "Instead of returning b to a caller, hand it to the continuation: k b. Control passes forward; nothing returns here."
-            },
-            {
-              "kind": "part",
-              "id": "wrap",
-              "type": "λx k → r",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "r",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "a ⟶ (b ⟶ r) ⟶ r",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "Abstract over x and k again: the whole body becomes the CPS function that toCps returns."
             }
           ],
           "ports": [
             {
               "kind": "port",
-              "id": "f",
-              "type": "a ⟶ b",
+              "id": "x",
+              "type": "a",
               "direction": "in",
-              "tooltip": "f : a ⟶ b — an ordinary function that returns its result"
+              "tooltip": "x : a — the argument, supplied on every call"
             },
             {
               "kind": "port",
-              "id": "fk",
-              "type": "a ⟶ (b ⟶ r) ⟶ r",
+              "id": "k",
+              "type": "b ⟶ r",
+              "direction": "in",
+              "tooltip": "k : b ⟶ r — the continuation: what to do with the result, i.e. the rest of the computation. Supplied on every call."
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "r",
               "direction": "out",
-              "tooltip": "a ⟶ (b ⟶ r) ⟶ r — the same computation, but it takes a continuation and calls it instead of returning"
+              "tooltip": "result : r — the answer, produced by k. The function never returns b."
             }
           ],
           "connections": [
@@ -121,7 +99,7 @@
               "kind": "connection",
               "from": "f",
               "to": "run_f.f",
-              "label": "direct function"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -144,29 +122,19 @@
             {
               "kind": "connection",
               "from": "call_k._",
-              "to": "wrap._",
-              "label": "answer"
-            },
-            {
-              "kind": "connection",
-              "from": "wrap._",
-              "to": "fk"
+              "to": "result"
             }
           ],
           "notes": [],
           "shows": {
-            "x": "value",
-            "k": "value",
+            "f": "hof",
             "run_f": "function",
-            "call_k": "function",
-            "wrap": "function"
+            "call_k": "function"
           },
           "tooltips": {
-            "x": "The argument: supplied when the CPS function is called.",
-            "k": "The continuation: what to do with the result — the rest of the computation. Supplied when the CPS function is called.",
+            "f": "f : a ⟶ b — an ordinary function that returns its result; fixed when toCps was applied",
             "run_f": "The original computation: f x produces b.",
-            "call_k": "Instead of returning b to a caller, hand it to the continuation: k b. Control passes forward; nothing returns here.",
-            "wrap": "Abstract over x and k again: the whole body becomes the CPS function that toCps returns."
+            "call_k": "Instead of returning b to a caller, hand it to the continuation: k b. Control passes forward; nothing returns here."
           }
         }
       ],
@@ -177,7 +145,7 @@
           "id": "diagram",
           "packageName": "CpsSignature",
           "viewType": "FpIbdView",
-          "expose": "toCps",
+          "expose": "cps_f",
           "rendering": "fpIbdDiagram",
           "title": "toCps :: (a ⟶ b) ⟶ (a ⟶ (b ⟶ r) ⟶ r) — inside toCps: f computes b, but b is handed to the continuation k instead of being returned",
           "name": "toCps"
@@ -189,20 +157,16 @@
     "diagType": "ibd",
     "title": "toCps :: (a ⟶ b) ⟶ (a ⟶ (b ⟶ r) ⟶ r) — inside toCps: f computes b, but b is handed to the continuation k instead of being returned",
     "name": "toCps",
-    "render": "toCps",
+    "render": "cps_f",
     "shows": {
-      "x": "value",
-      "k": "value",
+      "f": "hof",
       "run_f": "function",
-      "call_k": "function",
-      "wrap": "function"
+      "call_k": "function"
     },
     "tooltips": {
-      "x": "The argument: supplied when the CPS function is called.",
-      "k": "The continuation: what to do with the result — the rest of the computation. Supplied when the CPS function is called.",
+      "f": "f : a ⟶ b — an ordinary function that returns its result; fixed when toCps was applied",
       "run_f": "The original computation: f x produces b.",
-      "call_k": "Instead of returning b to a caller, hand it to the continuation: k b. Control passes forward; nothing returns here.",
-      "wrap": "Abstract over x and k again: the whole body becomes the CPS function that toCps returns."
+      "call_k": "Instead of returning b to a caller, hand it to the continuation: k b. Control passes forward; nothing returns here."
     }
   }
 }

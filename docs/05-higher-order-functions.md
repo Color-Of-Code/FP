@@ -21,6 +21,17 @@ functional programs build large behaviour from small, reusable pieces.
 | `on`           | `(b → b → c) → (a → b) → a → a → c` | Apply a transform before a comparison              |
 | `fix`          | `(a → a) → a`                       | Find the fixed point; enables recursion as a value |
 
+![const :: a ⟶ b ⟶ a — inside const: the returned function receives y and drops it; x is captured and returned](05-higher-order-functions/const-ibd.svg)
+
+Inside `const`: the frame is the function `const x` returns. Its argument `y` is wired to a dead end
+— received and discarded — while the captured `x` goes straight to the result.
+
+![map :: (a ⟶ b) ⟶ Container a ⟶ Container b — inside map: f is applied to each element; the shape bypasses f and is refilled with the results](05-higher-order-functions/map-ibd.svg)
+
+Inside `map`: the container is split into its elements and its _shape_. `f` sees only the elements;
+the shape bypasses it and is refilled with the results, so the output always has the same shape as
+the input.
+
 ## Point-free style
 
 A function defined without mentioning its arguments — only by combining other functions — is

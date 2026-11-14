@@ -1,0 +1,184 @@
+{
+  "packages": [
+    {
+      "name": "TaglessFinalSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "program",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "read",
+              "type": "readLine",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "i",
+                  "type": "Algebra F",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "F String",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "inst.readLine :: F String — an operation of the algebra, not a concrete read."
+            },
+            {
+              "kind": "part",
+              "id": "write",
+              "type": "λname → writeLine name",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "i",
+                  "type": "Algebra F",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "String ⟶ F ()",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "λname → inst.writeLine name :: String ⟶ F () — the next step, built from another operation of the same algebra."
+            },
+            {
+              "kind": "part",
+              "id": "bind_f",
+              "type": ">>= of F",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "i",
+                  "type": "Algebra F",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "m",
+                  "type": "F String",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "k",
+                  "type": "String ⟶ F ()",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "F ()",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "inst's Monad F: sequencing is also supplied by the instance. IO runs the effects in order; a pure instance threads a log."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "inst",
+              "type": "Algebra F",
+              "direction": "in",
+              "tooltip": "inst : Console F, Monad F — the interpreter: a dictionary of the operations the program may use. Chosen by the caller."
+            },
+            {
+              "kind": "port",
+              "id": "r",
+              "type": "F ()",
+              "direction": "out",
+              "tooltip": "F () — the program as an effect in whatever F the instance defines: IO in production, State Log in tests"
+            }
+          ],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "inst",
+              "to": "read.i",
+              "label": "readLine from inst"
+            },
+            {
+              "kind": "connection",
+              "from": "inst",
+              "to": "write.i",
+              "label": "writeLine from inst"
+            },
+            {
+              "kind": "connection",
+              "from": "inst",
+              "to": "bind_f.i",
+              "label": "sequencing from inst"
+            },
+            {
+              "kind": "connection",
+              "from": "read._",
+              "to": "bind_f.m",
+              "label": "F String"
+            },
+            {
+              "kind": "connection",
+              "from": "write._",
+              "to": "bind_f.k",
+              "label": "continuation"
+            },
+            {
+              "kind": "connection",
+              "from": "bind_f._",
+              "to": "r"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "read": "function",
+            "write": "function",
+            "bind_f": "function"
+          },
+          "tooltips": {
+            "read": "inst.readLine :: F String — an operation of the algebra, not a concrete read.",
+            "write": "λname → inst.writeLine name :: String ⟶ F () — the next step, built from another operation of the same algebra.",
+            "bind_f": "inst's Monad F: sequencing is also supplied by the instance. IO runs the effects in order; a pure instance threads a log."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TaglessFinalSignature",
+          "viewType": "FpIbdView",
+          "expose": "program",
+          "rendering": "fpIbdDiagram",
+          "title": "program :: Algebra F ⟹ F () — inside the program: every operation, even sequencing, is reached through the instance inst",
+          "name": "program"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "program :: Algebra F ⟹ F () — inside the program: every operation, even sequencing, is reached through the instance inst",
+    "name": "program",
+    "render": "program",
+    "shows": {
+      "read": "function",
+      "write": "function",
+      "bind_f": "function"
+    },
+    "tooltips": {
+      "read": "inst.readLine :: F String — an operation of the algebra, not a concrete read.",
+      "write": "λname → inst.writeLine name :: String ⟶ F () — the next step, built from another operation of the same algebra.",
+      "bind_f": "inst's Monad F: sequencing is also supplied by the instance. IO runs the effects in order; a pure instance threads a log."
+    }
+  }
+}
