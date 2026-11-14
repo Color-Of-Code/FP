@@ -63,8 +63,8 @@ choices, see [decisions/](decisions/README.md).
 | `sysml/layout.ts`             | ELK layered layout + orthogonal edge routing             |
 | `sysml/render/`               | Per-diagram renderers + shared edge/arrow/frame helpers  |
 | `sysml/lib/svg.ts`            | jsdom + d3 + xmlbuilder2 plumbing                        |
-| `sysml/parser.test.ts`        | AST snapshot tests (41 fixtures)                         |
-| `sysml/render.test.ts`        | SVG snapshot tests (41 fixtures)                         |
+| `sysml/parser.test.ts`        | AST snapshot tests for all SysML sources                 |
+| `sysml/render.test.ts`        | SVG snapshot tests for all renderable SysML sources      |
 | `sysml/__ast_snapshots__/`    | Committed AST JSON snapshots                             |
 | `vscode-sysml/`               | Local VS Code extension (highlighting + LSP)             |
 
@@ -76,11 +76,13 @@ picked this exact split.
 Everything goes through `make -C .tools`. The Makefile targets fall into four groups:
 
 - **Generation**: `svgs`, `sysml`, `langium-gen`, `vscode-ext`.
-- **Quality**: `test`, `test-update`, `typecheck`, `lint-md`, `lint-langs`, `check-md`.
-- **Formatting**: `fmt-md`, `fmt-d2`, `fmt`.
+- **Quality**: `lint-diagrams`, `test`, `test-update`, `typecheck`, `lint`, `lint-md`, `lint-langs`,
+  `check-md`.
+- **Formatting**: `fmt-md`, `fmt`.
 - **Setup**: `install`, `vscode-ext-link`.
 
-`make -C .tools all` runs the production set: `svgs sysml fmt lint-md lint-langs typecheck test`.
+`make -C .tools all` runs the production set: SVG generation, formatting, lint, typecheck, and
+tests.
 
 Detailed table in [tooling spec](../../specs/tooling.md).
 

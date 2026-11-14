@@ -115,14 +115,12 @@ function checkMarkdownImage(
     return {
       errors: [
         ...emptyAlt,
-        `${location}: SVG has no sibling .sysml or .d2 source: ${relativeImage}`,
+        `${location}: SVG has no sibling .sysml source: ${relativeImage}`,
       ],
     };
   }
 
   const source = sourceBySvg.get(imagePath)!;
-  if (!source.endsWith(".sysml")) return { errors: emptyAlt, referencedSvg: imagePath };
-
   try {
     const title = parse(fs.readFileSync(source, "utf8")).diagram.title?.trim();
     return {
@@ -147,12 +145,11 @@ function checkMarkdownImage(
 
 const repoRoot = path.resolve(process.argv[2] ?? path.join(import.meta.dirname, ".."));
 const docsRoot = path.join(repoRoot, "docs");
-const sourceFiles = findFiles(docsRoot, [".sysml", ".d2"]);
-const sysmlFiles = sourceFiles.filter((file) => file.endsWith(".sysml"));
+const sysmlFiles = findFiles(docsRoot, [".sysml"]);
 const svgFiles = findFiles(docsRoot, [".svg"]);
 const markdownFiles = findFiles(docsRoot, [".md"]);
 const sourceBySvg = new Map(
-  sourceFiles.map((source) => [source.replace(/\.(sysml|d2)$/, ".svg"), source]),
+  sysmlFiles.map((source) => [source.replace(/\.sysml$/, ".svg"), source]),
 );
 const sourceErrors = sysmlFiles.flatMap((source) => checkSysmlSource(repoRoot, source));
 const markdownResults = markdownFiles.flatMap((markdown) => {

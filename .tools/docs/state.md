@@ -8,11 +8,11 @@ same commit as any non-trivial change.
 ### Build & quality gates (all driven by `make -C .tools`)
 
 - `install` — pnpm workspace install.
-- `svgs`, `sysml` — D2 → SVG and SysML → SVG.
+- `svgs`, `sysml` — SysML → SVG.
 - `langium-gen` — regenerate parser/AST from the grammar.
 - `vscode-ext`, `vscode-ext-link` — build / install the local VS Code extension.
-- `test`, `test-update`, `typecheck` — Vitest snapshots + `tsc --noEmit`.
-- `fmt-md`, `fmt-d2`, `fmt`, `lint-md`, `lint-langs`, `check-md`.
+- `test`, `test-update`, `typecheck`, `lint` — Vitest snapshots, `tsc --noEmit`, and ESLint.
+- `fmt-md`, `fmt`, `lint-md`, `lint-langs`, `lint-diagrams`, `check-md`.
 
 ### Parser
 
@@ -37,11 +37,11 @@ fixtures but is ignored at render time.
 
 ### Tests
 
-- 41 SysML fixtures × 2 (parser + render) = 82 snapshots.
+- SysML source fixtures cover every diagram source under `docs/`; parser and render snapshots guard
+  their structure and generated SVGs.
 - AST snapshots in [sysml/**ast_snapshots**/](../sysml/__ast_snapshots__).
-- SVG snapshots committed alongside the `.sysml` source under `docs/diagrams/`,
-  `docs/monads/diagrams/`, `docs/optics/diagrams/`.
-- `make -C .tools test` is currently green (82/82).
+- SVGs are committed alongside `.sysml` sources in chapter and detail-page folders.
+- `make -C .tools test` covers parser/render snapshots and renderer behavior.
 
 ### VS Code extension
 
@@ -63,7 +63,7 @@ fixtures but is ignored at render time.
   `make -C .tools langium-gen`.
 - pnpm workspace shares `langium` / `typescript` between the tooling and the extension; no
   per-package duplication.
-- Markdown / D2 / TS all formatted by separate idempotent tools, no cross-contamination.
+- Markdown and TypeScript are formatted by separate idempotent tools, no cross-contamination.
 
 ## Known issues / open work
 

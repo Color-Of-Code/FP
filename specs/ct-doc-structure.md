@@ -31,7 +31,7 @@ Formal or semi-formal definition. Use standard mathematical notation:
 - Composition: $g \circ f$
 - Identity morphism: $\mathrm{id}_A$
 - Natural transformation component: $\eta_A : FA \to GA$
-- Commutative diagrams described in prose or as lists (D2 diagrams are optional)
+- Commutative diagrams described in prose or as lists; the CT track currently has no diagram files
 
 ### 4. `## Laws`
 
@@ -62,7 +62,7 @@ For concepts covered in multiple chapters, list each row separately.
 ## Optional sections
 
 - `## See Also` — cross-links to related `ct/` pages
-- `## Diagram` — a D2 diagram stored in `ct/diagrams/`; if added, compile with `make -C .tools svgs`
+- No diagram section is used; the CT track remains diagram-free for now
 
 ## File naming
 

@@ -8,8 +8,8 @@ architecture, current state, and the design decisions behind the tooling, see
 
 | Tool             | Version   | Location                                              |
 | ---------------- | --------- | ----------------------------------------------------- |
-| `d2`             | 0.6.1+    | `~/.local/bin/d2`                                     |
 | Node.js          | 24+       | `~/.nvm/versions/node/v24.12.0/bin/`                  |
+| pnpm             | 10.28.2   | via Corepack, pinned in `.tools/package.json`         |
 | npm dev packages | see below | `.tools/node_modules/` (run `make -C .tools install`) |
 
 Install npm packages once:
@@ -23,21 +23,26 @@ make -C .tools install
 All targets must be run as `make -C .tools <target>` from the repo root, or `make <target>` from
 inside `.tools/`.
 
-| Target       | Command(s) invoked                                                   |
-| ------------ | -------------------------------------------------------------------- |
-| `install`    | `pnpm install` in `.tools/` (recursively across the workspace)       |
-| `svgs`       | `d2 --layout=elk <src>.d2 <src>.svg` for every D2 file (incremental) |
-| `fmt-d2`     | `d2 fmt` on all D2 sources and `styles.d2`                           |
-| `fmt-md`     | `prettier --write "**/*.md"` (respects `.prettierrc`)                |
-| `check-md`   | `prettier --check "**/*.md"` (read-only; for CI)                     |
-| `lint-md`    | `markdownlint-cli2 "**/*.md"` (respects `.markdownlint.json`)        |
-| `lint-langs` | `node .tools/check-lang-order.js`                                    |
-| `fmt`        | `fmt-d2` + `fmt-md`                                                  |
-| `all`        | `svgs` + `fmt` + `lint-md` + `lint-langs`                            |
+| Target          | What it does                                                             |
+| --------------- | ------------------------------------------------------------------------ |
+| `install`       | `pnpm install` in `.tools/` (recursively across the workspace)           |
+| `svgs`          | Incrementally compile each SysML source to a sibling SVG                 |
+| `sysml`         | Compile all SysML SVGs                                                   |
+| `lint-diagrams` | Check SysML sources, SVGs, Markdown embeds, accessibility, and node size |
+| `fmt-md`        | `prettier --write "**/*.md"` (respects `.prettierrc`)                    |
+| `check-md`      | `prettier --check "**/*.md"` (read-only; for CI)                         |
+| `lint-md`       | `markdownlint-cli2 "**/*.md"` (respects `.markdownlint.json`)            |
+| `lint-langs`    | Check completeness and order of all nine language sections               |
+| `fmt`           | `fmt-md`                                                                 |
+| `lint`          | ESLint for TypeScript tooling                                            |
+| `typecheck`     | `tsc --noEmit` for TypeScript tooling                                    |
+| `test`          | Run Vitest parser, renderer, and behavior tests                          |
+| `test-update`   | Refresh SVG snapshots after intentional renderer changes                 |
+| `all`           | SVGs, format, diagram/Markdown/TS lint, typecheck, and tests             |
 
 **Minimum after any Markdown edit:** `make -C .tools fmt-md lint-md lint-langs`
 
-**Minimum after any D2 edit:** `make -C .tools svgs` (then also `fmt-md lint-md lint-langs`)
+**Minimum after any SysML diagram edit:** `make -C .tools svgs lint-diagrams`
 
 ## Linting rules (`.markdownlint.json`)
 
@@ -91,20 +96,13 @@ forms are accepted.
 Do not add a file to `SKIP_FILES` to silence the check. Only discussion chapters with no per-
 language tutorial code belong there.
 
-## D2 SVG compilation
+## SysML SVG compilation
 
-The Makefile uses incremental builds (Make's implicit `.d2` → `.svg` rules). If you need to force a
-rebuild of all SVGs:
-
-```sh
-touch docs/**/*.d2
-make -C .tools svgs
-```
-
-To compile a single diagram manually:
+The Makefile incrementally compiles each `.sysml` source to a sibling `.svg`. To compile one diagram
+manually:
 
 ```sh
-d2 --layout=elk docs/19-monad/monad.d2 docs/19-monad/monad.svg
+node --experimental-strip-types .tools/sysml/cli.ts docs/19-monad/monad.sysml docs/19-monad/monad.svg
 ```
 
 SVG files are committed to the repository (they are the rendered artefacts referenced by Markdown

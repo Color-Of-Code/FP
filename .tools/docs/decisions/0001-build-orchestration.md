@@ -5,11 +5,11 @@
 
 ## Context
 
-The repo is a multi-language FP learning track. Authors edit Markdown, diagrams (D2 + SysML), and a
-small amount of TypeScript tooling. The build needs to:
+The repo is a multi-language FP learning track. Authors edit Markdown, SysML diagrams, and a small
+amount of TypeScript tooling. The build needs to:
 
-- regenerate SVGs from D2 and SysML sources,
-- format Markdown and D2 consistently,
+- regenerate SVGs from SysML sources,
+- format Markdown consistently,
 - lint the 9-language ordering rule (see [AGENTS.md](../../../AGENTS.md)),
 - type-check and snapshot-test the tooling itself,
 - be runnable on any contributor laptop without per-OS scripts.

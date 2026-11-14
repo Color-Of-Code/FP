@@ -5,9 +5,6 @@
 REPO_ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 NODE_BIN  := $(REPO_ROOT)/.tools/node_modules/.bin
 
-# styles.d2 lives at the docs root and is shared by every D2 diagram.
-STYLES := $(REPO_ROOT)/docs/styles.d2
-
 # Diagram sources are discovered recursively under docs/ at depth 2 or 3.
 # Two wildcard patterns cover both the historical layout
 # (docs/diagrams/, docs/monads/diagrams/, docs/optics/diagrams/) and the
@@ -16,15 +13,12 @@ STYLES := $(REPO_ROOT)/docs/styles.d2
 SYSML_FILES := $(wildcard $(REPO_ROOT)/docs/*/*.sysml $(REPO_ROOT)/docs/*/*/*.sysml)
 SYSML_SVGS  := $(SYSML_FILES:.sysml=.svg)
 
-D2_FILES := $(filter-out $(STYLES),$(wildcard $(REPO_ROOT)/docs/*.d2 $(REPO_ROOT)/docs/*/*.d2 $(REPO_ROOT)/docs/*/*/*.d2))
-D2_SVGS  := $(D2_FILES:.d2=.svg)
-
 # Generator tooling: any change here invalidates every SysML SVG.
 # Two wildcard patterns cover the whole tree (root + one subdir level).
 # Pure make built-in — no shell-out — so it's effectively free.
 SYSML_TOOL_SRCS := $(wildcard $(REPO_ROOT)/.tools/sysml/*.ts $(REPO_ROOT)/.tools/sysml/*/*.ts)
 
-.PHONY: all svgs sysml check-d2-ratchet lint-diagrams fmt-d2 fmt-md lint-md lint-langs lint lint-fix check-md fmt install help test test-update coverage typecheck langium-gen vscode-ext vscode-ext-link
+.PHONY: all svgs sysml lint-diagrams fmt-md lint-md lint-langs lint lint-fix check-md fmt install help test test-update coverage typecheck langium-gen vscode-ext vscode-ext-link
 
 ## Default: show help
 help:
@@ -34,15 +28,13 @@ help:
 	@echo "Architecture, state, and decisions: see .tools/docs/README.md"
 	@echo ""
 	@echo "  install     Install dev dependencies via pnpm"
-	@echo "  svgs        Regenerate all SVG diagrams (D2 + SysML)"
-	@echo "  check-d2-ratchet  Fail if a D2 source is added beyond the migration baseline"
+	@echo "  svgs        Regenerate all SysML SVG diagrams"
 	@echo "  lint-diagrams  Check diagram sources, embeds, accessibility text, and size budget"
-	@echo "  fmt-d2      Format all D2 source files"
 	@echo "  fmt-md      Format all Markdown files with prettier"
 	@echo "  lint-md     Lint all Markdown files with markdownlint-cli2"
 	@echo "  lint-langs  Check language-example completeness and order"
 	@echo "  check-md    Check Markdown formatting without writing (CI-friendly)"
-	@echo "  fmt         Format both D2 and Markdown"
+	@echo "  fmt         Format all Markdown"
 	@echo "  lint        Lint TypeScript sources with ESLint"
 	@echo "  lint-fix    Lint and auto-fix TypeScript sources"
 	@echo "  test        Run vitest snapshot tests for the SysML pipeline"
@@ -52,7 +44,7 @@ help:
 	@echo "  langium-gen Regenerate the SysML parser/AST from sysml.langium"
 	@echo "  vscode-ext  Build the local VS Code extension (highlighting + LSP)"
 	@echo "  vscode-ext-link  Symlink the extension into ~/.vscode/extensions"
-	@echo "  all         D2 ratchet + svgs + fmt + lint-md + lint-langs + lint + typecheck + test"
+	@echo "  all         svgs + fmt + lint-md + lint-langs + lint-diagrams + lint + typecheck + test"
 	@echo ""
 
 ## Install dependencies via pnpm (recursively across the workspace)
@@ -62,24 +54,13 @@ install:
 ## Transpile SysML v2 sources to SVG (each SVG written next to its source)
 sysml: $(SYSML_SVGS)
 
-## Regenerate all SVG diagrams (D2 + SysML)
-svgs: $(D2_SVGS) $(SYSML_SVGS)
+## Regenerate all SysML SVG diagrams
+svgs: $(SYSML_SVGS)
 
 # Static pattern rule: each .svg is built from its sibling .sysml.
 # Works regardless of which directory the source lives in.
 $(SYSML_SVGS): %.svg: %.sysml $(SYSML_TOOL_SRCS)
 	node --experimental-strip-types $(REPO_ROOT)/.tools/sysml/cli.ts "$<" "$@"
-
-# Static pattern rule: each .svg is built from its sibling .d2.
-# All D2 files share docs/styles.d2.
-$(D2_SVGS): %.svg: %.d2 $(STYLES)
-	d2 --layout=elk "$<" "$@"
-	@echo "  generated $@"
-
-## Format D2 source files (uses d2 fmt built-in)
-fmt-d2:
-	d2 fmt $(D2_FILES) $(STYLES)
-	@echo "  formatted D2 files"
 
 ## Format Markdown files
 fmt-md: $(NODE_BIN)/prettier
@@ -97,15 +78,11 @@ lint-langs:
 check-md: $(NODE_BIN)/prettier
 	$(NODE_BIN)/prettier --check "$(REPO_ROOT)/**/*.md"
 
-## Format everything
-fmt: fmt-d2 fmt-md
-
-## Ensure the D2 source inventory only shrinks during migration
-check-d2-ratchet:
-	node --experimental-strip-types $(REPO_ROOT)/.tools/check-d2-ratchet.ts $(REPO_ROOT) $(REPO_ROOT)/.tools/d2-allowlist.txt
+## Format Markdown
+fmt: fmt-md
 
 ## Validate source/output/link consistency, accessibility text, and diagram size
-lint-diagrams: check-d2-ratchet
+lint-diagrams:
 	node --experimental-strip-types $(REPO_ROOT)/.tools/check-diagrams.ts $(REPO_ROOT)
 
 ## Run vitest snapshot tests against the SVG corpus
@@ -151,7 +128,7 @@ coverage:
 	cd $(REPO_ROOT)/.tools && pnpm exec vitest run --coverage
 
 ## Run everything
-all: check-d2-ratchet svgs fmt lint-md lint-langs lint-diagrams lint typecheck test
+all: svgs fmt lint-md lint-langs lint-diagrams lint typecheck test
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:

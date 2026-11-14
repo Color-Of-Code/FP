@@ -5,7 +5,7 @@
 Filename pattern: `docs/NN-kebab-case-name.md` where `NN` is a zero-padded two-digit number. The
 number determines the position in the README learning-track table and must be unique.
 
-### Required section order
+### Suggested section order
 
 ```markdown
 # NN. Concept Title
@@ -103,17 +103,18 @@ Short definition sentence.
 
 1. Pick the next `NN` number (do not insert in the middle without renumbering).
 2. Create `docs/NN-kebab-name.md` following the template above.
-3. Create `docs/NN-kebab-name/concept.d2` and `docs/NN-kebab-name/concept-motivation.d2`.
-4. Compile SVGs: `make -C .tools svgs` (or `d2 --layout=elk src.d2 src.svg`).
+3. Add SysML `.sysml` sources with `view` / `render` for concepts that benefit from diagrams; use
+   tables, code, or prose when those explain the concept more clearly.
+4. Compile SVGs with `make -C .tools svgs`.
 5. Add a row to the README learning-track table.
 6. Run `make -C .tools fmt-md lint-md lint-langs` and fix any errors before committing.
 
 ## Adding a new monad detail page
 
 1. Create `docs/monads/name.md` following the monad template above.
-2. Create the following diagram sources in `docs/monads/name/`:
-   - `name.d2` — concept overview (type constructors, flow)
-   - `name-motivation.d2` — before/after motivation
+2. Create the following SysML diagram sources in `docs/monads/name/` where they add clarity:
+   - `name.sysml` — concept overview (type constructors, flow)
+   - `name-motivation.sysml` — before/after motivation
    - `name-pure.sysml` — activity diagram: `pure :: a ⟶ Maybe a` (wrap into context)
    - `name-bind.sysml` — activity diagram: `bind` (pattern match, apply f, short-circuit)
    - `name-ibd.sysml` — IBD: structural type signature for `bind`
@@ -133,7 +134,7 @@ Filename pattern: `docs/optics/name.md` (no number prefix). Currently: `iso.md`,
 
 Short definition sentence. State the optic's position in the hierarchy (stronger/weaker than).
 
-![concept diagram](diagrams/concept.svg)
+(Optionally embed a SysML-generated concept diagram here when it clarifies the optic.)
 
 ## Type
 
@@ -151,7 +152,7 @@ Short definition sentence. State the optic's position in the hierarchy (stronger
 
 (two ```text fences: without-optic pain, then with-optic relief)
 
-![motivation diagram](diagrams/concept-motivation.svg)
+(Optionally embed a motivation diagram when it adds information beyond the examples.)
 
 ## Examples
 
@@ -162,14 +163,15 @@ Short definition sentence. State the optic's position in the hierarchy (stronger
 
 ### Rules
 
-- Diagrams live in `docs/optics/name/` and import `...@../../styles`.
+- Diagrams live in `docs/optics/name/` and use the shared SysML diagram library.
 - Cross-links to other optic pages use relative paths: `[Lens](lens.md)`.
 - Cross-links from `docs/` use: `[lens.md](optics/lens.md)`.
 
 ## Adding a new optic detail page
 
 1. Create `docs/optics/name.md` following the optic template above.
-2. Create `docs/optics/name/name.d2` and `docs/optics/name/name-motivation.d2`.
+2. Add SysML `.sysml` sources with `view` / `render` where they clarify the optic; use a table,
+   code, or prose when that is clearer.
 3. Compile SVGs: `make -C .tools svgs`.
 4. Add a row to the optics catalogue table in `docs/13-optics.md` and in `README.md`.
 5. Run `make -C .tools fmt-md lint-md lint-langs`.

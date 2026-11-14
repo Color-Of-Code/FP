@@ -1,8 +1,8 @@
 # Agent Guidelines — FP Learning Track
 
 This repo is a multi-language FP learning track. Every document explains one concept through prose,
-diagrams, motivation, and code examples in **all nine languages in a fixed order**. Diagram sources
-are transitioning from D2 to SysML; see [`plan.md`](plan.md).
+diagrams, motivation, and code examples in **all nine languages in a fixed order**. Diagrams in
+`docs/` use the SysML `view` / `render` pipeline; see [`specs/diagrams.md`](specs/diagrams.md).
 
 See `specs/` for detailed specifications.
 
@@ -20,17 +20,16 @@ make -C .tools <target>
 | `lint-md`       | Lint all Markdown with markdownlint-cli2                |
 | `lint-langs`    | Check 9-language completeness and order in every doc    |
 | `lint-diagrams` | Check diagram links, alt text, sources, and node budget |
-| `svgs`          | Compile D2 and SysML sources to SVG                     |
-| `fmt`           | `fmt-md` + D2 formatter                                 |
+| `svgs`          | Compile SysML sources to SVG                            |
+| `fmt`           | Format Markdown                                         |
 | `all`           | `svgs` + `fmt` + lint, typecheck, and tests             |
 
 **After every edit run at minimum:** `make -C .tools fmt-md lint-md lint-langs`
 
 **After adding or editing any diagram:** also run `make -C .tools svgs`
 
-**D2 migration freeze:** do not add or modify `.d2` files. New and updated diagrams must use the
-existing SysML pipeline; migrate a D2 diagram rather than adding to it. `make -C .tools all` checks
-that the D2 inventory only shrinks.
+**Diagram sources:** add and update diagrams as SysML `.sysml` files using `view` / `render`. Keep
+the generated SVG beside its source and embed it with alt text matching the view's `doc`.
 
 ## Key constraints — read before touching anything
 
