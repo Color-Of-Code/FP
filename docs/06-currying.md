@@ -1,7 +1,7 @@
 # 6. Partial Application & Currying
 
-> Mathematical background: [Adjunction](../ct/adjunction.md) — the curry/uncurry adjunction
-> $({-} \times A) \dashv (A \Rightarrow {-})$
+> Mathematical background: [Adjunction](../ct/adjunction.md) — the curry/uncurry adjunction $({-}
+> \times A) \dashv (A \Rightarrow {-})$
 >
 > **In plain terms:** Partial application is like pre-filling form fields: call a two-argument
 > function with only the first argument and get back a new single-argument function with that first
@@ -10,9 +10,13 @@
 These two techniques are closely related but distinct. Both build on functions being first-class
 values.
 
-![Partial application and currying](06-currying/function2.svg)
+![Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port](06-currying/function2.svg)
 
-![Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)](06-currying/function2-2.svg)
+In the diagrams, the block frame is the function value. Ports on the frame are its **actual
+parameters** — supplied on each call. Parts inside the frame are **fixed**: `a = 5` is captured when
+`add5` is created and is never passed again.
+
+![Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c) — one input port per call, no value fixed yet](06-currying/function2-2.svg)
 
 ## Partial application
 

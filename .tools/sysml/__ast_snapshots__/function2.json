@@ -1,488 +1,122 @@
 {
   "packages": [
     {
-      "name": "Function2Activity",
+      "name": "Function2PartialApplication",
       "portDefs": [],
-      "partDefs": [],
-      "actionDefs": [
+      "partDefs": [
         {
-          "kind": "actionDef",
-          "name": "PartialApply",
-          "pins": [
+          "kind": "partDef",
+          "name": "add5",
+          "parts": [
             {
-              "kind": "port",
-              "id": "f",
-              "type": "(a,b) ⟶ c",
-              "direction": "in"
-            },
-            {
-              "kind": "port",
-              "id": "x",
-              "type": "a",
-              "direction": "in"
-            },
-            {
-              "kind": "port",
-              "id": "f1",
-              "type": "b ⟶ c",
-              "direction": "out"
-            }
-          ]
-        },
-        {
-          "kind": "actionDef",
-          "name": "CurryOp",
-          "pins": [
-            {
-              "kind": "port",
-              "id": "f2",
-              "type": "(a,b) ⟶ c",
-              "direction": "in"
-            },
-            {
-              "kind": "port",
-              "id": "curried",
-              "type": "a ⟶ (b ⟶ c)",
-              "direction": "out"
-            }
-          ]
-        },
-        {
-          "kind": "actionDef",
-          "name": "PartialApplication",
-          "pins": [],
-          "activity": {
-            "kind": "activityDef",
-            "name": "PartialApplication",
-            "actions": [
-              {
-                "kind": "action",
-                "id": "applyA",
-                "type": "PartialApply",
-                "role": "function",
-                "tooltip": "Partially apply a — captures a, returns b ⟶ c"
-              },
-              {
-                "kind": "action",
-                "id": "applyB",
-                "type": "PartialApply",
-                "role": "function",
-                "tooltip": "Partially apply b — captures b, returns a ⟶ c"
-              }
-            ],
-            "objects": [
-              {
-                "kind": "object",
-                "id": "f",
-                "type": "(a,b) ⟶ c",
-                "role": "hof",
-                "tooltip": "f2 :: (a,b) ⟶ c — original function, flowing in as a data token (HOF)"
-              },
-              {
-                "kind": "object",
-                "id": "xa",
-                "type": "a"
-              },
-              {
-                "kind": "object",
-                "id": "xb",
-                "type": "b"
-              },
-              {
-                "kind": "object",
-                "id": "f1a",
-                "type": "b ⟶ c",
-                "role": "function",
-                "tooltip": "f1a :: b ⟶ c — specialised function"
-              },
-              {
-                "kind": "object",
-                "id": "f1b",
-                "type": "a ⟶ c",
-                "role": "function",
-                "tooltip": "f1b :: a ⟶ c — specialised function"
-              }
-            ],
-            "decisions": [],
-            "merges": [],
-            "flows": [
-              {
-                "kind": "flow",
-                "from": "f",
-                "to": "applyA",
-                "label": "apply a"
-              },
-              {
-                "kind": "flow",
-                "from": "xa",
-                "to": "applyA"
-              },
-              {
-                "kind": "flow",
-                "from": "applyA",
-                "to": "f1a"
-              },
-              {
-                "kind": "flow",
-                "from": "f",
-                "to": "applyB",
-                "label": "apply b"
-              },
-              {
-                "kind": "flow",
-                "from": "xb",
-                "to": "applyB"
-              },
-              {
-                "kind": "flow",
-                "from": "applyB",
-                "to": "f1b"
-              }
-            ],
-            "successions": [],
-            "notes": [],
-            "lanes": [],
-            "shows": {
-              "applyA": "function",
-              "applyB": "function",
-              "f": "hof",
-              "f1a": "function",
-              "f1b": "function"
-            },
-            "tooltips": {
-              "applyA": "Partially apply a — captures a, returns b ⟶ c",
-              "applyB": "Partially apply b — captures b, returns a ⟶ c",
-              "f": "f2 :: (a,b) ⟶ c — original function, flowing in as a data token (HOF)",
-              "f1a": "f1a :: b ⟶ c — specialised function",
-              "f1b": "f1b :: a ⟶ c — specialised function"
-            }
-          }
-        },
-        {
-          "kind": "actionDef",
-          "name": "Currying",
-          "pins": [],
-          "activity": {
-            "kind": "activityDef",
-            "name": "Currying",
-            "actions": [
-              {
-                "kind": "action",
-                "id": "curry",
-                "type": "CurryOp"
-              },
-              {
-                "kind": "action",
-                "id": "applyA",
-                "type": "PartialApply",
-                "role": "function",
-                "tooltip": "Partially apply a — captures a, returns b ⟶ c"
-              }
-            ],
-            "objects": [
-              {
-                "kind": "object",
-                "id": "f2",
-                "type": "(a,b) ⟶ c"
-              },
-              {
-                "kind": "object",
-                "id": "curried",
-                "type": "a ⟶ (b ⟶ c)"
-              },
-              {
-                "kind": "object",
-                "id": "a",
-                "type": "a"
-              },
-              {
-                "kind": "object",
-                "id": "f1a",
-                "type": "b ⟶ c",
-                "role": "function",
-                "tooltip": "f1a :: b ⟶ c — specialised function"
-              }
-            ],
-            "decisions": [],
-            "merges": [],
-            "flows": [
-              {
-                "kind": "flow",
-                "from": "f2",
-                "to": "curry",
-                "label": "curry"
-              },
-              {
-                "kind": "flow",
-                "from": "curry",
-                "to": "curried"
-              },
-              {
-                "kind": "flow",
-                "from": "curried",
-                "to": "applyA",
-                "label": "apply a"
-              },
-              {
-                "kind": "flow",
-                "from": "a",
-                "to": "applyA"
-              },
-              {
-                "kind": "flow",
-                "from": "applyA",
-                "to": "f1a"
-              }
-            ],
-            "successions": [
-              {
-                "kind": "succession",
-                "from": "curry",
-                "to": "applyA"
-              }
-            ],
-            "notes": [],
-            "lanes": [],
-            "shows": {
-              "applyA": "function",
-              "f1a": "function"
-            },
-            "tooltips": {
-              "applyA": "Partially apply a — captures a, returns b ⟶ c",
-              "f1a": "f1a :: b ⟶ c — specialised function"
-            }
-          }
-        }
-      ],
-      "activityDefs": [
-        {
-          "kind": "activityDef",
-          "name": "PartialApplication",
-          "actions": [
-            {
-              "kind": "action",
-              "id": "applyA",
-              "type": "PartialApply",
-              "role": "function",
-              "tooltip": "Partially apply a — captures a, returns b ⟶ c"
-            },
-            {
-              "kind": "action",
-              "id": "applyB",
-              "type": "PartialApply",
-              "role": "function",
-              "tooltip": "Partially apply b — captures b, returns a ⟶ c"
-            }
-          ],
-          "objects": [
-            {
-              "kind": "object",
-              "id": "f",
-              "type": "(a,b) ⟶ c",
-              "role": "hof",
-              "tooltip": "f2 :: (a,b) ⟶ c — original function, flowing in as a data token (HOF)"
-            },
-            {
-              "kind": "object",
-              "id": "xa",
-              "type": "a"
-            },
-            {
-              "kind": "object",
-              "id": "xb",
-              "type": "b"
-            },
-            {
-              "kind": "object",
-              "id": "f1a",
-              "type": "b ⟶ c",
-              "role": "function",
-              "tooltip": "f1a :: b ⟶ c — specialised function"
-            },
-            {
-              "kind": "object",
-              "id": "f1b",
-              "type": "a ⟶ c",
-              "role": "function",
-              "tooltip": "f1b :: a ⟶ c — specialised function"
-            }
-          ],
-          "decisions": [],
-          "merges": [],
-          "flows": [
-            {
-              "kind": "flow",
-              "from": "f",
-              "to": "applyA",
-              "label": "apply a"
-            },
-            {
-              "kind": "flow",
-              "from": "xa",
-              "to": "applyA"
-            },
-            {
-              "kind": "flow",
-              "from": "applyA",
-              "to": "f1a"
-            },
-            {
-              "kind": "flow",
-              "from": "f",
-              "to": "applyB",
-              "label": "apply b"
-            },
-            {
-              "kind": "flow",
-              "from": "xb",
-              "to": "applyB"
-            },
-            {
-              "kind": "flow",
-              "from": "applyB",
-              "to": "f1b"
-            }
-          ],
-          "successions": [],
-          "notes": [],
-          "lanes": [],
-          "shows": {
-            "applyA": "function",
-            "applyB": "function",
-            "f": "hof",
-            "f1a": "function",
-            "f1b": "function"
-          },
-          "tooltips": {
-            "applyA": "Partially apply a — captures a, returns b ⟶ c",
-            "applyB": "Partially apply b — captures b, returns a ⟶ c",
-            "f": "f2 :: (a,b) ⟶ c — original function, flowing in as a data token (HOF)",
-            "f1a": "f1a :: b ⟶ c — specialised function",
-            "f1b": "f1b :: a ⟶ c — specialised function"
-          }
-        },
-        {
-          "kind": "activityDef",
-          "name": "Currying",
-          "actions": [
-            {
-              "kind": "action",
-              "id": "curry",
-              "type": "CurryOp"
-            },
-            {
-              "kind": "action",
-              "id": "applyA",
-              "type": "PartialApply",
-              "role": "function",
-              "tooltip": "Partially apply a — captures a, returns b ⟶ c"
-            }
-          ],
-          "objects": [
-            {
-              "kind": "object",
-              "id": "f2",
-              "type": "(a,b) ⟶ c"
-            },
-            {
-              "kind": "object",
-              "id": "curried",
-              "type": "a ⟶ (b ⟶ c)"
-            },
-            {
-              "kind": "object",
+              "kind": "part",
               "id": "a",
-              "type": "a"
+              "type": "Int = 5",
+              "ports": [],
+              "role": "value",
+              "tooltip": "a = 5 — fixed when add5 was created; captured in the closure, never passed again"
             },
             {
-              "kind": "object",
-              "id": "f1a",
-              "type": "b ⟶ c",
+              "kind": "part",
+              "id": "add",
+              "type": "(Int, Int) ⟶ Int",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "Int",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "Int",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Int",
+                  "direction": "out"
+                }
+              ],
               "role": "function",
-              "tooltip": "f1a :: b ⟶ c — specialised function"
+              "tooltip": "add : (Int, Int) ⟶ Int — the original two-parameter function, unchanged"
             }
           ],
-          "decisions": [],
-          "merges": [],
-          "flows": [
+          "ports": [
             {
-              "kind": "flow",
-              "from": "f2",
-              "to": "curry",
-              "label": "curry"
+              "kind": "port",
+              "id": "b",
+              "type": "Int",
+              "direction": "in",
+              "tooltip": "b : Int — actual parameter, supplied on every call: add5 3"
             },
             {
-              "kind": "flow",
-              "from": "curry",
-              "to": "curried"
-            },
+              "kind": "port",
+              "id": "result",
+              "type": "Int",
+              "direction": "out",
+              "tooltip": "result : Int — what each call returns: add5 3 = 8"
+            }
+          ],
+          "connections": [
             {
-              "kind": "flow",
-              "from": "curried",
-              "to": "applyA",
-              "label": "apply a"
-            },
-            {
-              "kind": "flow",
+              "kind": "connection",
               "from": "a",
-              "to": "applyA"
+              "to": "add.a",
+              "label": "fixed"
             },
             {
-              "kind": "flow",
-              "from": "applyA",
-              "to": "f1a"
-            }
-          ],
-          "successions": [
+              "kind": "connection",
+              "from": "b",
+              "to": "add.b",
+              "label": "actual"
+            },
             {
-              "kind": "succession",
-              "from": "curry",
-              "to": "applyA"
+              "kind": "connection",
+              "from": "add._",
+              "to": "result"
             }
           ],
           "notes": [],
-          "lanes": [],
           "shows": {
-            "applyA": "function",
-            "f1a": "function"
+            "a": "value",
+            "add": "function"
           },
           "tooltips": {
-            "applyA": "Partially apply a — captures a, returns b ⟶ c",
-            "f1a": "f1a :: b ⟶ c — specialised function"
+            "a": "a = 5 — fixed when add5 was created; captured in the closure, never passed again",
+            "add": "add : (Int, Int) ⟶ Int — the original two-parameter function, unchanged"
           }
         }
       ],
+      "actionDefs": [],
+      "activityDefs": [],
       "views": [
         {
           "id": "diagram",
-          "packageName": "Function2Activity",
-          "viewType": "FpActivityView",
-          "expose": "PartialApplication",
-          "rendering": "fpActivityDiagram",
-          "title": "Partial application and currying",
-          "name": "partial apply"
+          "packageName": "Function2PartialApplication",
+          "viewType": "FpIbdView",
+          "expose": "add5",
+          "rendering": "fpIbdDiagram",
+          "title": "Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port",
+          "name": "partial application"
         }
       ]
     }
   ],
   "diagram": {
-    "diagType": "activity",
-    "title": "Partial application and currying",
-    "name": "partial apply",
-    "render": "PartialApplication",
+    "diagType": "ibd",
+    "title": "Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port",
+    "name": "partial application",
+    "render": "add5",
     "shows": {
-      "applyA": "function",
-      "applyB": "function",
-      "f": "hof",
-      "f1a": "function",
-      "f1b": "function"
+      "a": "value",
+      "add": "function"
     },
     "tooltips": {
-      "applyA": "Partially apply a — captures a, returns b ⟶ c",
-      "applyB": "Partially apply b — captures b, returns a ⟶ c",
-      "f": "f2 :: (a,b) ⟶ c — original function, flowing in as a data token (HOF)",
-      "f1a": "f1a :: b ⟶ c — specialised function",
-      "f1b": "f1b :: a ⟶ c — specialised function"
+      "a": "a = 5 — fixed when add5 was created; captured in the closure, never passed again",
+      "add": "add : (Int, Int) ⟶ Int — the original two-parameter function, unchanged"
     }
   }
 }

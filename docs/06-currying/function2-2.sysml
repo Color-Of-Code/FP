@@ -1,46 +1,45 @@
-// SysML v2 — currying activity diagram
+// SysML v2 — currying as an internal block diagram
+// curriedAdd :: Int ⟶ (Int ⟶ Int)    curriedAdd a b = a + b
+//
+// Reading guide:
+//   • currying fixes NO value — it only splits the call interface into stages
+//   • each stage has exactly one parameter port, filled by its own call
+//   • stage 1 returns a function value that captures a; stage 2 completes the sum
+//   • stopping after stage 1 IS partial application: curriedAdd 5 = add5
 
 package Function2Currying {
     private import FpDiagram::*;
 
-    action def CurryOp {
-        in  f2      : "(a,b) ⟶ c";    // multi-arg function, HOF input
-        out curried : "a ⟶ (b ⟶ c)";  // curried form
+    part def curriedAdd {
+        #FpNodePresentation { tooltip = "a : Int — actual parameter of the first call: curriedAdd 5"; }
+        port in  a      : Int;
+        #FpNodePresentation { tooltip = "b : Int — actual parameter of the second call: (curriedAdd 5) 3"; }
+        port in  b      : Int;
+        #FpNodePresentation { tooltip = "result : Int — available only after both calls"; }
+        port out result : Int;
+
+        #FpNodePresentation { role = "function"; tooltip = "Stage 1 : Int ⟶ (Int ⟶ Int) — takes a and returns a closure that remembers it"; }
+        part call1 : "a ⟶ (b ⟶ c)" {
+            port in  a : Int;
+            port out _ : "Int ⟶ Int";
+        }
+        #FpNodePresentation { role = "function"; tooltip = "Stage 2 : Int ⟶ Int — the returned closure (add5 when a = 5); takes b and computes a + b"; }
+        part call2 : "b ⟶ c" {
+            port in  fn  : "Int ⟶ Int";
+            port in  b   : Int;
+            port out _   : Int;
+        }
+
+        connection connect a         to call1.a  : "1st call";
+        connection connect call1._   to call2.fn : "closure (captures a)";
+        connection connect b         to call2.b  : "2nd call";
+        connection connect call2._   to result;
     }
 
-    action def ApplyFirst {
-        in  curried : "a ⟶ (b ⟶ c)";  // curried fn, HOF input
-        in  a       : a;                  // first argument
-        out f1      : "b ⟶ c";          // specialised function
-    }
-
-    action def CurryingProcess {
-        #FpNodePresentation { role = "hof"; tooltip = "(a,b) ⟶ c — original multi-argument function, flowing in as a data token"; }
-        item f2      : "(a,b) ⟶ c";      // function, HOF input
-        #FpNodePresentation { role = "function"; tooltip = "curry: transforms a multi-arg function into a chain of single-arg functions"; }
-        action curry   : CurryOp;
-        #FpNodePresentation { role = "function"; tooltip = "a ⟶ (b ⟶ c) — the curried form, itself a function"; }
-        item curried : "a ⟶ (b ⟶ c)";  // curried form
-
-        item a       : a;               // first argument
-        #FpNodePresentation { role = "function"; tooltip = "Apply the first argument a, yielding the specialised function"; }
-        action applyA  : ApplyFirst;
-        #FpNodePresentation { role = "function"; tooltip = "b ⟶ c — the specialised function with a already applied"; }
-        item f1      : "b ⟶ c";        // specialised function
-
-        flow from f2      to curry : "curry";
-        flow from curry   to curried;
-        flow from curried to applyA : "apply a";
-        flow from a       to applyA;
-        flow from applyA  to f1;
-
-        succession curry then applyA;
-    }
-    #FpViewPresentation { name = "curry"; }
-    view diagram : FpActivityView {
-        doc /*Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)*/
-        expose CurryingProcess;
-        render fpActivityDiagram;
+    #FpViewPresentation { name = "currying"; }
+    view diagram : FpIbdView {
+        doc /*Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c) — one input port per call, no value fixed yet*/
+        expose curriedAdd;
+        render fpIbdDiagram;
     }
 }
-

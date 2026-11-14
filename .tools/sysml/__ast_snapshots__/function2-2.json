@@ -3,293 +3,146 @@
     {
       "name": "Function2Currying",
       "portDefs": [],
-      "partDefs": [],
-      "actionDefs": [
+      "partDefs": [
         {
-          "kind": "actionDef",
-          "name": "CurryOp",
-          "pins": [
+          "kind": "partDef",
+          "name": "curriedAdd",
+          "parts": [
             {
-              "kind": "port",
-              "id": "f2",
-              "type": "(a,b) ⟶ c",
-              "direction": "in"
+              "kind": "part",
+              "id": "call1",
+              "type": "a ⟶ (b ⟶ c)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "Int",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Int ⟶ Int",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Stage 1 : Int ⟶ (Int ⟶ Int) — takes a and returns a closure that remembers it"
             },
             {
-              "kind": "port",
-              "id": "curried",
-              "type": "a ⟶ (b ⟶ c)",
-              "direction": "out"
+              "kind": "part",
+              "id": "call2",
+              "type": "b ⟶ c",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "fn",
+                  "type": "Int ⟶ Int",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "Int",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Int",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Stage 2 : Int ⟶ Int — the returned closure (add5 when a = 5); takes b and computes a + b"
             }
-          ]
-        },
-        {
-          "kind": "actionDef",
-          "name": "ApplyFirst",
-          "pins": [
-            {
-              "kind": "port",
-              "id": "curried",
-              "type": "a ⟶ (b ⟶ c)",
-              "direction": "in"
-            },
+          ],
+          "ports": [
             {
               "kind": "port",
               "id": "a",
-              "type": "a",
-              "direction": "in"
+              "type": "Int",
+              "direction": "in",
+              "tooltip": "a : Int — actual parameter of the first call: curriedAdd 5"
             },
             {
               "kind": "port",
-              "id": "f1",
-              "type": "b ⟶ c",
-              "direction": "out"
-            }
-          ]
-        },
-        {
-          "kind": "actionDef",
-          "name": "CurryingProcess",
-          "pins": [],
-          "activity": {
-            "kind": "activityDef",
-            "name": "CurryingProcess",
-            "actions": [
-              {
-                "kind": "action",
-                "id": "curry",
-                "type": "CurryOp",
-                "role": "function",
-                "tooltip": "curry: transforms a multi-arg function into a chain of single-arg functions"
-              },
-              {
-                "kind": "action",
-                "id": "applyA",
-                "type": "ApplyFirst",
-                "role": "function",
-                "tooltip": "Apply the first argument a, yielding the specialised function"
-              }
-            ],
-            "objects": [
-              {
-                "kind": "object",
-                "id": "f2",
-                "type": "(a,b) ⟶ c",
-                "role": "hof",
-                "tooltip": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token"
-              },
-              {
-                "kind": "object",
-                "id": "curried",
-                "type": "a ⟶ (b ⟶ c)",
-                "role": "function",
-                "tooltip": "a ⟶ (b ⟶ c) — the curried form, itself a function"
-              },
-              {
-                "kind": "object",
-                "id": "a",
-                "type": "a"
-              },
-              {
-                "kind": "object",
-                "id": "f1",
-                "type": "b ⟶ c",
-                "role": "function",
-                "tooltip": "b ⟶ c — the specialised function with a already applied"
-              }
-            ],
-            "decisions": [],
-            "merges": [],
-            "flows": [
-              {
-                "kind": "flow",
-                "from": "f2",
-                "to": "curry",
-                "label": "curry"
-              },
-              {
-                "kind": "flow",
-                "from": "curry",
-                "to": "curried"
-              },
-              {
-                "kind": "flow",
-                "from": "curried",
-                "to": "applyA",
-                "label": "apply a"
-              },
-              {
-                "kind": "flow",
-                "from": "a",
-                "to": "applyA"
-              },
-              {
-                "kind": "flow",
-                "from": "applyA",
-                "to": "f1"
-              }
-            ],
-            "successions": [
-              {
-                "kind": "succession",
-                "from": "curry",
-                "to": "applyA"
-              }
-            ],
-            "notes": [],
-            "lanes": [],
-            "shows": {
-              "curry": "function",
-              "applyA": "function",
-              "f2": "hof",
-              "curried": "function",
-              "f1": "function"
-            },
-            "tooltips": {
-              "curry": "curry: transforms a multi-arg function into a chain of single-arg functions",
-              "applyA": "Apply the first argument a, yielding the specialised function",
-              "f2": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token",
-              "curried": "a ⟶ (b ⟶ c) — the curried form, itself a function",
-              "f1": "b ⟶ c — the specialised function with a already applied"
-            }
-          }
-        }
-      ],
-      "activityDefs": [
-        {
-          "kind": "activityDef",
-          "name": "CurryingProcess",
-          "actions": [
-            {
-              "kind": "action",
-              "id": "curry",
-              "type": "CurryOp",
-              "role": "function",
-              "tooltip": "curry: transforms a multi-arg function into a chain of single-arg functions"
+              "id": "b",
+              "type": "Int",
+              "direction": "in",
+              "tooltip": "b : Int — actual parameter of the second call: (curriedAdd 5) 3"
             },
             {
-              "kind": "action",
-              "id": "applyA",
-              "type": "ApplyFirst",
-              "role": "function",
-              "tooltip": "Apply the first argument a, yielding the specialised function"
+              "kind": "port",
+              "id": "result",
+              "type": "Int",
+              "direction": "out",
+              "tooltip": "result : Int — available only after both calls"
             }
           ],
-          "objects": [
+          "connections": [
             {
-              "kind": "object",
-              "id": "f2",
-              "type": "(a,b) ⟶ c",
-              "role": "hof",
-              "tooltip": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token"
-            },
-            {
-              "kind": "object",
-              "id": "curried",
-              "type": "a ⟶ (b ⟶ c)",
-              "role": "function",
-              "tooltip": "a ⟶ (b ⟶ c) — the curried form, itself a function"
-            },
-            {
-              "kind": "object",
-              "id": "a",
-              "type": "a"
-            },
-            {
-              "kind": "object",
-              "id": "f1",
-              "type": "b ⟶ c",
-              "role": "function",
-              "tooltip": "b ⟶ c — the specialised function with a already applied"
-            }
-          ],
-          "decisions": [],
-          "merges": [],
-          "flows": [
-            {
-              "kind": "flow",
-              "from": "f2",
-              "to": "curry",
-              "label": "curry"
-            },
-            {
-              "kind": "flow",
-              "from": "curry",
-              "to": "curried"
-            },
-            {
-              "kind": "flow",
-              "from": "curried",
-              "to": "applyA",
-              "label": "apply a"
-            },
-            {
-              "kind": "flow",
+              "kind": "connection",
               "from": "a",
-              "to": "applyA"
+              "to": "call1.a",
+              "label": "1st call"
             },
             {
-              "kind": "flow",
-              "from": "applyA",
-              "to": "f1"
-            }
-          ],
-          "successions": [
+              "kind": "connection",
+              "from": "call1._",
+              "to": "call2.fn",
+              "label": "closure (captures a)"
+            },
             {
-              "kind": "succession",
-              "from": "curry",
-              "to": "applyA"
+              "kind": "connection",
+              "from": "b",
+              "to": "call2.b",
+              "label": "2nd call"
+            },
+            {
+              "kind": "connection",
+              "from": "call2._",
+              "to": "result"
             }
           ],
           "notes": [],
-          "lanes": [],
           "shows": {
-            "curry": "function",
-            "applyA": "function",
-            "f2": "hof",
-            "curried": "function",
-            "f1": "function"
+            "call1": "function",
+            "call2": "function"
           },
           "tooltips": {
-            "curry": "curry: transforms a multi-arg function into a chain of single-arg functions",
-            "applyA": "Apply the first argument a, yielding the specialised function",
-            "f2": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token",
-            "curried": "a ⟶ (b ⟶ c) — the curried form, itself a function",
-            "f1": "b ⟶ c — the specialised function with a already applied"
+            "call1": "Stage 1 : Int ⟶ (Int ⟶ Int) — takes a and returns a closure that remembers it",
+            "call2": "Stage 2 : Int ⟶ Int — the returned closure (add5 when a = 5); takes b and computes a + b"
           }
         }
       ],
+      "actionDefs": [],
+      "activityDefs": [],
       "views": [
         {
           "id": "diagram",
           "packageName": "Function2Currying",
-          "viewType": "FpActivityView",
-          "expose": "CurryingProcess",
-          "rendering": "fpActivityDiagram",
-          "title": "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)",
-          "name": "curry"
+          "viewType": "FpIbdView",
+          "expose": "curriedAdd",
+          "rendering": "fpIbdDiagram",
+          "title": "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c) — one input port per call, no value fixed yet",
+          "name": "currying"
         }
       ]
     }
   ],
   "diagram": {
-    "diagType": "activity",
-    "title": "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)",
-    "name": "curry",
-    "render": "CurryingProcess",
+    "diagType": "ibd",
+    "title": "Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c) — one input port per call, no value fixed yet",
+    "name": "currying",
+    "render": "curriedAdd",
     "shows": {
-      "curry": "function",
-      "applyA": "function",
-      "f2": "hof",
-      "curried": "function",
-      "f1": "function"
+      "call1": "function",
+      "call2": "function"
     },
     "tooltips": {
-      "curry": "curry: transforms a multi-arg function into a chain of single-arg functions",
-      "applyA": "Apply the first argument a, yielding the specialised function",
-      "f2": "(a,b) ⟶ c — original multi-argument function, flowing in as a data token",
-      "curried": "a ⟶ (b ⟶ c) — the curried form, itself a function",
-      "f1": "b ⟶ c — the specialised function with a already applied"
+      "call1": "Stage 1 : Int ⟶ (Int ⟶ Int) — takes a and returns a closure that remembers it",
+      "call2": "Stage 2 : Int ⟶ Int — the returned closure (add5 when a = 5); takes b and computes a + b"
     }
   }
 }

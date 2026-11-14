@@ -8,6 +8,7 @@ import {
   OBJECT_W, OBJECT_H,
   INIT_R, FINAL_R,
   DECISION_SZ,
+  PIN_SZ,
 } from "./theme.ts";
 import { maxBy } from "../lib/fp.ts";
 
@@ -33,6 +34,11 @@ export interface GNode {
    * compass-style sides used by ELK: "N", "S", "E", "W".
    */
   pinSides?:  Record<string, "N" | "S" | "E" | "W">;
+  /**
+   * IBD block-boundary port.  Laid out as a tiny object node so connections
+   * can be routed to it, then drawn as a port square on the block frame.
+   */
+  boundaryPort?: "in" | "out";
   /** Multi-line text body for note nodes (split on \n). */
   noteLines?: string[];
 }
@@ -80,6 +86,7 @@ export function nodeDims(n: GNode): [number, number] {
     const h = Math.max(28, lines.length * 14 + 12);
     return [w, h];
   }
+  if (n.boundaryPort) return [PIN_SZ, PIN_SZ];
   // object node: width scales with label length
   const charW = 7.2;
   const w = Math.max(OBJECT_W, n.label.length * charW + 20);

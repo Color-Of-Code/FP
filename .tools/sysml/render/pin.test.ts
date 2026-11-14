@@ -115,4 +115,15 @@ describe("assignActionPins", () => {
     expect(requireAt(result, 0).srcPin).toBeUndefined();
     expect(requireAt(result, 0).dstPin).toBeUndefined();
   });
+
+  it("keeps explicit pins and reserves them from automatic matching", () => {
+    const act = makeAction("add", ["a", "b"], ["_"]);
+    const nodeMap = new Map<string, GNode>([
+      ["add", act], ["five", makeObject("five")], ["arg", makeObject("arg")],
+    ]);
+    const edges = [makeEdge("arg", "add"), { ...makeEdge("five", "add"), dstPin: "b" }];
+    const result = assignActionPins(edges, nodeMap);
+    expect(requireAt(result, 0).dstPin).toBe("a");
+    expect(requireAt(result, 1).dstPin).toBe("b");
+  });
 });

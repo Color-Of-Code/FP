@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 533 228" width="533" height="228" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">Partial application and currying</title>
-  <desc id="diagram-description">Functional programming diagram: Partial application and currying</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 655 176" width="655" height="176" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port</title>
+  <desc id="diagram-description">Functional programming diagram: Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,90 +85,56 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="266.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">Partial application and currying</text>
-  <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="533" height="200" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
-    <g class="diagram-frame-tab tab-activity">
-      <path d="M0,0 L164.8,0 L164.8,12 L154.8,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
-      <text x="82.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«activity» partial apply</text>
-    </g>
-    <g class="edge hof-edge">
-      <path d="M146.0,59.0 L160.0,59.0 Q166.0,59.0 166.0,65.0 L166.0,111.0 Q166.0,117.0 172.0,117.0 L223.0,117.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
-      <text x="200.5" y="111" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">apply a</text>
-    </g>
-    <g class="edge">
-      <path d="M146.0,163.0 L219.0,163.0 Q225.0,163.0 225.0,157.0 L225.0,135.0 L225.0,135.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M367.0,126.0 L375.0,126.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge hof-edge">
-      <path d="M146.0,59.0 L223.0,59.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
-      <text x="190.5" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">apply b</text>
-    </g>
-    <g class="edge">
-      <path d="M146.0,111.0 L151.0,111.0 Q156.0,111.0 156.0,106.0 L156.0,104.0 Q156.0,98.0 162.0,98.0 L219.0,98.0 Q225.0,98.0 225.0,92.0 L225.0,77.0 L225.0,77.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M367.0,68.0 L375.0,68.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="action-node">
-      <title>Partially apply a — captures a, returns b ⟶ c</title>
-      <rect x="243" y="104" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="303" y="126" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">applyA</text>
-      <g class="pin pin-in">
-        <rect x="239" y="114.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="249" y="118.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+  <text x="327.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port</text>
+  <g transform="translate(0,28) scale(1.0826446280991735)">
+    <g transform="translate(49,0)">
+      <rect x="0" y="0" width="480" height="136" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <g class="diagram-frame-tab tab-block">
+        <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» add5</text>
       </g>
-      <g class="pin pin-in">
-        <rect x="239" y="129.33333333333334" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="249" y="133.33333333333334" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">x</text>
+      <g class="edge">
+        <path d="M180.0,49.0 L238.0,49.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="215" y="43" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">fixed</text>
       </g>
-      <g class="pin pin-out">
-        <rect x="359" y="122" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="357" y="126" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f1</text>
+      <g class="edge">
+        <path d="M4.0,86.0 L234.0,86.0 Q240.0,86.0 240.0,80.0 L240.0,67.0 L240.0,67.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="122" y="80" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">actual</text>
       </g>
-    </g>
-    <g class="action-node">
-      <title>Partially apply b — captures b, returns a ⟶ c</title>
-      <rect x="243" y="46" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="303" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">applyB</text>
-      <g class="pin pin-in">
-        <rect x="239" y="56.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="249" y="60.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      <g class="edge">
+        <path d="M382.0,58.0 L464.0,58.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
-      <g class="pin pin-in">
-        <rect x="239" y="71.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="249" y="75.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">x</text>
+      <g class="object-node">
+        <title>a = 5 — fixed when add5 was created; captured in the closure, never passed again</title>
+        <rect x="70" y="30" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+        <text x="125" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">a : Int = 5</text>
       </g>
-      <g class="pin pin-out">
-        <rect x="359" y="64" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="357" y="68" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f1</text>
+      <g class="action-node">
+        <title>add : (Int, Int) ⟶ Int — the original two-parameter function, unchanged</title>
+        <rect x="258" y="36" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="318" y="58" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">add : (Int, Int) ⟶ Int</text>
+        <g class="pin pin-in">
+          <rect x="254" y="46.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="264" y="50.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="254" y="61.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="264" y="65.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="374" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
       </g>
-    </g>
-    <g class="object-node hof">
-      <title>f2 :: (a,b) ⟶ c — original function, flowing in as a data token (HOF)</title>
-      <rect x="36" y="40" width="110" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
-      <text x="91" y="52" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
-      <text x="91" y="66" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">(a,b) ⟶ c</text>
-    </g>
-    <g class="object-node">
-      <rect x="36" y="144" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="91" y="163" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">a</text>
-    </g>
-    <g class="object-node">
-      <rect x="36" y="92" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="91" y="111" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">b</text>
-    </g>
-    <g class="object-node">
-      <title>f1a :: b ⟶ c — specialised function</title>
-      <rect x="387" y="107" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="442" y="126" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">b ⟶ c</text>
-    </g>
-    <g class="object-node">
-      <title>f1b :: a ⟶ c — specialised function</title>
-      <rect x="387" y="49" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="442" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">a ⟶ c</text>
+      <g class="port port-left">
+        <title>b : Int — actual parameter, supplied on every call: add5 3</title>
+        <rect x="-4" y="82" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="80" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">b : Int</text>
+      </g>
+      <g class="port port-right">
+        <title>result : Int — what each call returns: add5 3 = 8</title>
+        <rect x="476" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="487" y="52" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">result : Int</text>
+      </g>
     </g>
   </g>
 </svg>

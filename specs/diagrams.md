@@ -170,7 +170,12 @@ package <Name> {
         port in  <id> : <PortType>;          // port on block boundary (in)
         port out <id> : <PortType>;          // port on block boundary (out)
         part <id> : <TypeName>;              // internal node
+        part <id> : <TypeName> {             // internal node with typed ports (pins)
+            port in  <pid> : <PortType>;
+            port out <pid> : <PortType>;
+        }
         connection [<id>] connect <a> to <b> [via <ConnType>] [: "<label>"];
+        // <a>/<b>: a part id, a boundary port id, or <part>.<pid>
     }
 }
 
@@ -232,6 +237,13 @@ This keeps the diagram abstract and avoids the literal enumeration that only wor
 | `part def` + internal `part` | Type-signature block with named components                |
 | `part <id> : "a → b"`        | A function type as a structural component (show as `hof`) |
 | `connection connect A to B`  | Structural wire — types are related / composed            |
+| Boundary `port in/out`       | The block's call interface — what callers supply / get    |
+| `part <id> { port … }`       | Component with typed parameter ports (`<id>.<port>`)      |
+
+Boundary ports are real connection endpoints and render on the block frame. Use them to separate
+**actual parameters** (supplied at each call, on the boundary) from **fixed values** (captured parts
+inside the block), as in the partial-application diagram in
+[06-currying.md](../docs/06-currying.md).
 
 #### Activity constructs
 

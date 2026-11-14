@@ -9,6 +9,9 @@
  *   1. The opposite endpoint is also an action and shares a pin name.
  *   2. The opposite endpoint is an object whose `id` matches a pin name.
  *   3. Otherwise, take the next unused pin in declaration order.
+ *
+ * Pins already set on an edge (e.g. an IBD connection to `part.port`) are
+ * kept and reserved before the matching passes.
  */
 
 import type { GEdge, GNode } from "../types.ts";
@@ -103,8 +106,15 @@ function matchSide(
   const pins = side === "in" ? node.inPins : node.outPins;
   if (pins.length === 0) return;
 
+  const presetOf = (e: GEdge): string | undefined => side === "in" ? e.dstPin : e.srcPin;
+  const preset = new Set(es.flatMap(e => {
+    const p = presetOf(e);
+    return p === undefined ? [] : [p];
+  }));
+  const open = es.filter(e => presetOf(e) === undefined);
+
   // First pass: match by shared pin or object-id, tracking used pins.
-  const { used, unmatched } = es.reduce<{ used: ReadonlySet<string>; unmatched: readonly GEdge[] }>(
+  const { used, unmatched } = open.reduce<{ used: ReadonlySet<string>; unmatched: readonly GEdge[] }>(
     (acc, e) => {
       const chosen = chooseSharedPin(e, side, pins, acc.used, nodeMap)
                   ?? chooseObjectIdPin(e, side, pins, acc.used, nodeMap);
@@ -114,7 +124,7 @@ function matchSide(
       }
       return { used: acc.used, unmatched: [...acc.unmatched, e] };
     },
-    { used: new Set<string>(), unmatched: [] as readonly GEdge[] },
+    { used: preset, unmatched: [] as readonly GEdge[] },
   );
 
   // Second pass: distribute leftovers in declaration order.

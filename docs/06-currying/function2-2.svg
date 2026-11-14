@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 179" width="856" height="179" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)</title>
-  <desc id="diagram-description">Functional programming diagram: Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 785 182" width="785" height="182" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c) — one input port per call, no value fixed yet</title>
+  <desc id="diagram-description">Functional programming diagram: Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c) — one input port per call, no value fixed yet</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,82 +85,73 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="428" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)</text>
-  <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="856" height="151" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
-    <g class="diagram-frame-tab tab-activity">
-      <path d="M0,0 L115.2,0 L115.2,12 L105.2,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
-      <text x="57.6" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«activity» curry</text>
-    </g>
-    <g class="edge hof-edge">
-      <path d="M146.0,62.0 L195.0,62.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
-      <text x="176.5" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">curry</text>
-    </g>
-    <g class="edge">
-      <path d="M339.0,56.0 L347.0,56.0 Q353.0,56.0 353.0,62.0 L353.0,82.0 Q353.0,86.0 357.0,86.0 L361.0,86.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M483.0,86.0 L546.0,86.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="520.5" y="80" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">apply a</text>
-    </g>
-    <g class="edge">
-      <path d="M146.0,114.0 L542.0,114.0 Q548.0,114.0 548.0,108.0 L548.0,101.0 L548.0,101.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M690.0,90.0 L698.0,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M335.0,72.0 L357.0,72.0 Q363.0,72.0 363.0,66.0 L363.0,64.0 Q363.0,58.0 369.0,58.0 L542.0,58.0 Q548.0,58.0 548.0,64.0 L548.0,72.0 Q548.0,75.0 551.0,75.0 L554.0,75.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
-    </g>
-    <g class="action-node">
-      <title>curry: transforms a multi-arg function into a chain of single-arg functions</title>
-      <rect x="215" y="40" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="275" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">curry</text>
-      <g class="pin pin-in">
-        <rect x="211" y="58" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="221" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f2</text>
+  <text x="392.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">Currying: (a,b) ⟶ c  ⟹  a ⟶ (b ⟶ c)</text>
+  <text x="392.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">one input port per call, no value fixed yet</text>
+  <g transform="translate(0,44) scale(1)">
+    <g transform="translate(49,0)">
+      <rect x="0" y="0" width="660" height="138" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <g class="diagram-frame-tab tab-block">
+        <path d="M0,0 L127.60000000000001,0 L127.60000000000001,12 L117.60000000000001,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="63.800000000000004" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» curriedAdd</text>
       </g>
-      <g class="pin pin-out">
-        <rect x="331" y="58" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="329" y="62" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">curried</text>
+      <g class="edge">
+        <path d="M4.0,52.0 L142.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="79" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">1st call</text>
       </g>
-    </g>
-    <g class="action-node">
-      <title>Apply the first argument a, yielding the specialised function</title>
-      <rect x="566" y="68" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="626" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">applyA</text>
-      <g class="pin pin-in">
-        <rect x="562" y="78.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="572" y="82.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">curried</text>
+      <g class="edge">
+        <path d="M286.0,52.0 L418.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="360" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">closure (captures a)</text>
       </g>
-      <g class="pin pin-in">
-        <rect x="562" y="93.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="572" y="97.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
+      <g class="edge">
+        <path d="M4.0,88.0 L414.0,88.0 Q420.0,88.0 420.0,82.0 L420.0,70.0 L420.0,70.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="212" y="82" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">2nd call</text>
       </g>
-      <g class="pin pin-out">
-        <rect x="682" y="86" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-        <text x="680" y="90" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f1</text>
+      <g class="edge">
+        <path d="M562.0,61.0 L644.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
-    </g>
-    <g class="object-node hof">
-      <title>(a,b) ⟶ c — original multi-argument function, flowing in as a data token</title>
-      <rect x="36" y="43" width="110" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
-      <text x="91" y="55" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
-      <text x="91" y="69" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">(a,b) ⟶ c</text>
-    </g>
-    <g class="object-node">
-      <title>a ⟶ (b ⟶ c) — the curried form, itself a function</title>
-      <rect x="373" y="67" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="428" y="86" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">a ⟶ (b ⟶ c)</text>
-    </g>
-    <g class="object-node">
-      <rect x="36" y="95" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="91" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">a</text>
-    </g>
-    <g class="object-node">
-      <title>b ⟶ c — the specialised function with a already applied</title>
-      <rect x="710" y="71" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="765" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">b ⟶ c</text>
+      <g class="action-node">
+        <title>Stage 1 : Int ⟶ (Int ⟶ Int) — takes a and returns a closure that remembers it</title>
+        <rect x="162" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="222" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call1 : a ⟶ (b ⟶ c)</text>
+        <g class="pin pin-in">
+          <rect x="158" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="168" y="52" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="278" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Stage 2 : Int ⟶ Int — the returned closure (add5 when a = 5); takes b and computes a + b</title>
+        <rect x="438" y="39" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="498" y="61" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call2 : b ⟶ c</text>
+        <g class="pin pin-in">
+          <rect x="434" y="49.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="444" y="53.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">fn</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="434" y="64.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="444" y="68.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="554" y="57" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="port port-left">
+        <title>a : Int — actual parameter of the first call: curriedAdd 5</title>
+        <rect x="-4" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="46" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">a : Int</text>
+      </g>
+      <g class="port port-left">
+        <title>b : Int — actual parameter of the second call: (curriedAdd 5) 3</title>
+        <rect x="-4" y="84" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="82" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">b : Int</text>
+      </g>
+      <g class="port port-right">
+        <title>result : Int — available only after both calls</title>
+        <rect x="656" y="57" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="667" y="55" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">result : Int</text>
+      </g>
     </g>
   </g>
 </svg>
