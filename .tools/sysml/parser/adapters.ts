@@ -4,7 +4,7 @@
  */
 
 import * as G from "../generated/ast.ts";
-import { fromPairs, groupBy } from "../lib/fp.ts";
+import { fromPairs, groupBy, sortBy } from "../lib/fp.ts";
 import type {
   ActivityDef, ActionDef, ActionUsage, ConnectionUsage, DiagramMeta, DiagramType,
   DecisionNode, FlowUsage, LaneBlock, MergeNode, NoteUsage, ObjectNode, PackageDecl,
@@ -35,6 +35,8 @@ interface NodePresentation {
   tooltip?: string;
   laneId?: string;
   laneLabel?: string;
+  laneOrder?: number;
+  laneMemberOrder?: number;
 }
 
 const ROLE_NAMES: readonly Role[] = [
@@ -51,11 +53,15 @@ function metadataField(metadata: readonly G.NodeMetadata[], key: string): string
 
 function nodePresentation(metadata: readonly G.NodeMetadata[] = []): NodePresentation {
   const role = metadataField(metadata, "role");
+  const laneOrder = metadataField(metadata, "laneOrder");
+  const laneMemberOrder = metadataField(metadata, "laneMemberOrder");
   return {
     role: ROLE_NAMES.find(candidate => candidate === role),
     tooltip: metadataField(metadata, "tooltip"),
     laneId: metadataField(metadata, "laneId"),
     laneLabel: metadataField(metadata, "laneLabel"),
+    laneOrder: laneOrder ? Number(laneOrder) : undefined,
+    laneMemberOrder: laneMemberOrder ? Number(laneMemberOrder) : undefined,
   };
 }
 
@@ -208,15 +214,25 @@ function adaptActivityDef(g: G.ActionDef): ActivityDef {
   const nodes = [...actions, ...objects, ...decisions, ...merges, ...notes];
   const laneEntries = nodes.flatMap(node =>
     node.laneId && node.laneLabel
-      ? [{ id: node.laneId, label: node.laneLabel, member: node.id }]
+      ? [{
+          id: node.laneId,
+          label: node.laneLabel,
+          member: node.id,
+          order: node.laneOrder ?? 0,
+          memberOrder: node.laneMemberOrder ?? 0,
+        }]
       : [],
   );
-  const lanes = Object.entries(groupBy(laneEntries, entry => entry.id)).map(([id, entries]) => ({
-    kind: "lane" as const,
-    id,
-    label: entries[0]?.label,
-    members: entries.map(entry => entry.member),
-  }));
+  const lanes = sortBy(
+    Object.entries(groupBy(laneEntries, entry => entry.id)).map(([id, entries]) => ({
+      kind: "lane" as const,
+      id,
+      label: entries[0]?.label,
+      order: entries[0]?.order ?? 0,
+      members: sortBy(entries, entry => entry.memberOrder).map(entry => entry.member),
+    })),
+    lane => lane.order,
+  ).map(({ order: _order, ...lane }) => lane);
   return {
     kind: "activityDef",
     name: g.name ?? "",

@@ -7,6 +7,8 @@ package FpDiagram {
         attribute tooltip : String;
         attribute laneId : String;
         attribute laneLabel : String;
+        attribute laneOrder : String;
+        attribute laneMemberOrder : String;
     }
 
     metadata def FpViewPresentation {

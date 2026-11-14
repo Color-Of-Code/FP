@@ -63,6 +63,7 @@ describe("adaptPackage", () => {
       partDefs: [],
       actionDefs: [],
       activityDefs: [],
+      views: [],
     });
   });
 
@@ -74,14 +75,15 @@ describe("adaptPackage", () => {
   });
 
   it("adapts an ActionDef with pins", () => {
-    const pin = stub("PinDecl", { id: "x", type: '"Int"', direction: "in" });
-    const actionDef = stub("ActionDef", { name: "add", pins: [pin] });
+    const pin = stub("PinDeclaration", { id: "x", type: '"Int"', direction: "in" });
+    const actionDef = stub("ActionDef", { name: "add", members: [pin] });
     const pkg = stub("Package", { name: "P", members: [actionDef] });
     const result = adaptPackage(pkg as never);
     expect(result.actionDefs).toEqual([{
       kind: "actionDef",
       name: "add",
       pins: [{ kind: "port", id: "x", type: "Int", direction: "in" }],
+      activity: undefined,
     }]);
   });
 
@@ -98,20 +100,34 @@ describe("adaptPackage", () => {
     expect(pd.parts).toHaveLength(1);
     expect(pd.connections).toHaveLength(1);
     expect(pd.notes).toHaveLength(1);
+    expect(pd.shows).toEqual({});
+    expect(pd.tooltips).toEqual({});
   });
 
-  it("adapts an ActivityDef with all member kinds", () => {
+  it("adapts an action definition with activity members and ordered lane metadata", () => {
     const action = stub("ActionUsage", { id: "a1" });
-    const obj = stub("ObjectNode", { id: "o1" });
+    const obj = stub("ItemUsage", {
+      id: "o1",
+      metadata: [stub("NodeMetadata", {
+        name: "FpNodePresentation",
+        fields: [
+          stub("MetadataField", { key: "role", value: '"value"' }),
+          stub("MetadataField", { key: "tooltip", value: '"object tip"' }),
+          stub("MetadataField", { key: "laneId", value: '"plain"' }),
+          stub("MetadataField", { key: "laneLabel", value: '"Plain values"' }),
+          stub("MetadataField", { key: "laneOrder", value: '"0"' }),
+          stub("MetadataField", { key: "laneMemberOrder", value: '"1"' }),
+        ],
+      })],
+    });
     const decision = stub("DecisionNode", { id: "d1" });
     const merge = stub("MergeNode", { id: "m1" });
     const flow = stub("FlowUsage", { from: "a1", to: "o1", label: '"lbl"' });
     const succ = stub("SuccessionUsage", { from: "a1", to: "d1" });
     const note = stub("NoteUsage", { id: "n1", target: "a1", text: "txt" });
-    const lane = stub("LaneBlock", { id: "L", label: '"Plain"', members: ["a1"] });
-    const actDef = stub("ActivityDef", {
+    const actDef = stub("ActionDef", {
       name: "myAct",
-      members: [action, obj, decision, merge, flow, succ, note, lane],
+      members: [action, obj, decision, merge, flow, succ, note],
     });
     const pkg = stub("Package", { name: "P", members: [actDef] });
     const result = adaptPackage(pkg as never);
@@ -127,12 +143,19 @@ describe("adaptPackage", () => {
     expect(ad.successions).toHaveLength(1);
     expect(ad.notes).toHaveLength(1);
     expect(ad.lanes).toHaveLength(1);
-    expect(ad.lanes[0].label).toBe("Plain");
+    expect(ad.lanes[0]).toEqual({
+      kind: "lane",
+      id: "plain",
+      label: "Plain values",
+      members: ["o1"],
+    });
+    expect(ad.shows).toEqual({ o1: "value" });
+    expect(ad.tooltips).toEqual({ o1: "object tip" });
   });
 
   it("uses id as fallback type for ActionUsage without explicit type", () => {
     const action = stub("ActionUsage", { id: "doStuff" });
-    const actDef = stub("ActivityDef", { name: "A", members: [action] });
+    const actDef = stub("ActionDef", { name: "A", members: [action] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
     const result = adaptPackage(pkg as never);
     expect(result.activityDefs[0].actions[0].type).toBe("doStuff");
@@ -140,15 +163,15 @@ describe("adaptPackage", () => {
 
   it("uses explicit type for ActionUsage when provided", () => {
     const action = stub("ActionUsage", { id: "a", type: '"MyAction"' });
-    const actDef = stub("ActivityDef", { name: "A", members: [action] });
+    const actDef = stub("ActionDef", { name: "A", members: [action] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
     const result = adaptPackage(pkg as never);
     expect(result.activityDefs[0].actions[0].type).toBe("MyAction");
   });
 
   it("ObjectNode type is undefined when not provided", () => {
-    const obj = stub("ObjectNode", { id: "o" });
-    const actDef = stub("ActivityDef", { name: "A", members: [obj] });
+    const obj = stub("ItemUsage", { id: "o" });
+    const actDef = stub("ActionDef", { name: "A", members: [obj] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
     const result = adaptPackage(pkg as never);
     expect(result.activityDefs[0].objects[0].type).toBeUndefined();
@@ -172,40 +195,34 @@ describe("adaptPackage", () => {
 
 describe("adaptDiagramMeta", () => {
   it("returns defaults for undefined input", () => {
-    const result = adaptDiagramMeta(undefined);
+    const result = adaptDiagramMeta(undefined, undefined);
     expect(result).toEqual({ diagType: "activity", shows: {}, tooltips: {} });
   });
 
-  it("parses KV fields", () => {
-    const fields = [
-      stub("KvField", { key: "type", value: "ibd" }),
-      stub("KvField", { key: "title", value: '"My Title"' }),
-      stub("KvField", { key: "name", value: "traverse" }),
-      stub("KvField", { key: "direction", value: "TB" }),
-    ];
-    const meta = stub("DiagramMeta", { fields });
-    const result = adaptDiagramMeta(meta as never);
+  it("uses the standard view type, documentation and presentation metadata", () => {
+    const view = stub("ViewUsage", {
+      viewType: "FpIbdView",
+      id: "diagram",
+      title: "My Title",
+      name: "traverse",
+      direction: "TB",
+      expose: "FmapContext",
+      members: [
+        stub("Expose", { target: "FmapContext" }),
+        stub("RenderUsage", { rendering: "fpIbdDiagram" }),
+      ],
+    });
+    const graph = {
+      shows: { f_val: "hof" },
+      tooltips: { f_val: "function value" },
+    };
+    const result = adaptDiagramMeta(view as never, graph as never);
     expect(result.diagType).toBe("ibd");
     expect(result.title).toBe("My Title");
     expect(result.name).toBe("traverse");
     expect(result.direction).toBe("TB");
-  });
-
-  it("parses show fields", () => {
-    const fields = [
-      stub("ShowField", { id: "bind1", role: "hof" }),
-    ];
-    const meta = stub("DiagramMeta", { fields });
-    const result = adaptDiagramMeta(meta as never);
-    expect(result.shows).toEqual({ bind1: "hof" });
-  });
-
-  it("parses tooltip fields", () => {
-    const fields = [
-      stub("TooltipField", { id: "a1", text: '"some tip"' }),
-    ];
-    const meta = stub("DiagramMeta", { fields });
-    const result = adaptDiagramMeta(meta as never);
-    expect(result.tooltips).toEqual({ a1: "some tip" });
+    expect(result.render).toBe("FmapContext");
+    expect(result.shows).toEqual({ f_val: "hof" });
+    expect(result.tooltips).toEqual({ f_val: "function value" });
   });
 });

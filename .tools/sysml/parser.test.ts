@@ -36,4 +36,55 @@ describe("SysML → AST snapshots", () => {
       await expect(json).toMatchFileSnapshot(path.join(snapshotDir, `${base}.json`));
     });
   });
+
+  describe("standard SysML views", () => {
+    it("adapts a view, rendering, node metadata, and lane order", () => {
+      const source = `
+  package Example {
+    private import FpDiagram::*;
+
+    action def Chain {
+      #FpNodePresentation {
+        role = "hof";
+        tooltip = "Function argument";
+        laneId = "plain";
+        laneLabel = "Plain values";
+        laneOrder = "0";
+        laneMemberOrder = "0";
+      }
+      item f : "a ⟶ b";
+      #FpNodePresentation {
+        role = "function";
+        laneId = "plain";
+        laneLabel = "Plain values";
+        laneOrder = "0";
+        laneMemberOrder = "1";
+      }
+      action map : Map;
+      flow from f to map;
+    }
+
+    #FpViewPresentation { name = "example"; direction = "TB"; }
+    view diagram : FpActivityView {
+      doc /*Example flow*/
+      expose Chain;
+      render fpActivityDiagram;
+    }
+  }
+  `;
+      const model = parse(source);
+      expect(model.diagram).toEqual({
+        diagType: "activity",
+        title: "Example flow",
+        name: "example",
+        direction: "TB",
+        render: "Chain",
+        shows: { f: "hof", map: "function" },
+        tooltips: { f: "Function argument" },
+      });
+      expect(model.packages[0].activityDefs[0].lanes).toEqual([
+        { kind: "lane", id: "plain", label: "Plain values", members: ["f", "map"] },
+      ]);
+    });
+  });
 });

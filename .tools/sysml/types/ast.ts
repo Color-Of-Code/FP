@@ -72,6 +72,8 @@ export interface ActionUsage {
   tooltip?: string;
   laneId?: string;
   laneLabel?: string;
+  laneOrder?: number;
+  laneMemberOrder?: number;
 }
 
 export interface ObjectNode {
@@ -82,6 +84,8 @@ export interface ObjectNode {
   tooltip?: string;
   laneId?: string;
   laneLabel?: string;
+  laneOrder?: number;
+  laneMemberOrder?: number;
 }
 
 export interface DecisionNode {
@@ -92,6 +96,8 @@ export interface DecisionNode {
   tooltip?: string;
   laneId?: string;
   laneLabel?: string;
+  laneOrder?: number;
+  laneMemberOrder?: number;
 }
 
 export interface MergeNode {
@@ -102,6 +108,8 @@ export interface MergeNode {
   tooltip?: string;
   laneId?: string;
   laneLabel?: string;
+  laneOrder?: number;
+  laneMemberOrder?: number;
 }
 
 export interface FlowUsage {
@@ -131,6 +139,8 @@ export interface NoteUsage {
   tooltip?: string;
   laneId?: string;
   laneLabel?: string;
+  laneOrder?: number;
+  laneMemberOrder?: number;
 }
 
 /**
