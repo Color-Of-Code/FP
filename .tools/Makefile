@@ -24,7 +24,7 @@ D2_SVGS  := $(D2_FILES:.d2=.svg)
 # Pure make built-in — no shell-out — so it's effectively free.
 SYSML_TOOL_SRCS := $(wildcard $(REPO_ROOT)/.tools/sysml/*.ts $(REPO_ROOT)/.tools/sysml/*/*.ts)
 
-.PHONY: all svgs sysml check-d2-ratchet fmt-d2 fmt-md lint-md lint-langs lint lint-fix check-md fmt install help test test-update coverage typecheck langium-gen vscode-ext vscode-ext-link
+.PHONY: all svgs sysml check-d2-ratchet lint-diagrams fmt-d2 fmt-md lint-md lint-langs lint lint-fix check-md fmt install help test test-update coverage typecheck langium-gen vscode-ext vscode-ext-link
 
 ## Default: show help
 help:
@@ -36,6 +36,7 @@ help:
 	@echo "  install     Install dev dependencies via pnpm"
 	@echo "  svgs        Regenerate all SVG diagrams (D2 + SysML)"
 	@echo "  check-d2-ratchet  Fail if a D2 source is added beyond the migration baseline"
+	@echo "  lint-diagrams  Check diagram sources, embeds, accessibility text, and size budget"
 	@echo "  fmt-d2      Format all D2 source files"
 	@echo "  fmt-md      Format all Markdown files with prettier"
 	@echo "  lint-md     Lint all Markdown files with markdownlint-cli2"
@@ -103,6 +104,10 @@ fmt: fmt-d2 fmt-md
 check-d2-ratchet:
 	node --experimental-strip-types $(REPO_ROOT)/.tools/check-d2-ratchet.ts $(REPO_ROOT) $(REPO_ROOT)/.tools/d2-allowlist.txt
 
+## Validate source/output/link consistency, accessibility text, and diagram size
+lint-diagrams: check-d2-ratchet
+	node --experimental-strip-types $(REPO_ROOT)/.tools/check-diagrams.ts $(REPO_ROOT)
+
 ## Run vitest snapshot tests against the SVG corpus
 test:
 	cd $(REPO_ROOT)/.tools && pnpm exec vitest run
@@ -146,7 +151,7 @@ coverage:
 	cd $(REPO_ROOT)/.tools && pnpm exec vitest run --coverage
 
 ## Run everything
-all: check-d2-ratchet svgs fmt lint-md lint-langs lint typecheck test
+all: check-d2-ratchet svgs fmt lint-md lint-langs lint-diagrams lint typecheck test
 
 # Guard: remind to run install if node_modules is missing
 $(NODE_BIN)/prettier $(NODE_BIN)/markdownlint-cli2:
