@@ -11,7 +11,7 @@ function** and collecting the results — while preserving the container's shape
 
 ![sequence :: T(Fa) ⟶ F(Ta)  (= traverse id)](17-traversable/traversable-2.svg)
 
-![traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)](17-traversable/traversable-ibd.svg)
+![traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb) — inside traverse: fmap f, then sequence swaps T (F b) into F (T b)](17-traversable/traversable-ibd.svg)
 
 Two core operations:
 
@@ -22,6 +22,10 @@ Two core operations:
 `F` must be an [Applicative](./15-applicative.md) so that independent effects can be combined. `T`
 must be a [Functor](./13-functor.md) so that its shape can be mapped over. Many traversable types
 are also [Foldable](./16-fold.md).
+
+Inside `traverse`: `fmap f` (the Functor `T`) turns every element into an `F b`, leaving the effects
+_inside_ the structure as `T (F b)`. `sequence` then swaps the two layers using the Applicative `F`,
+yielding `F (T b)`. It plays the same role here that `join` plays inside [`bind`](./19-monad.md).
 
 ## Laws
 

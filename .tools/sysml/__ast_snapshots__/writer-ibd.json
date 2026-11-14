@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "WriterBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "ma_val",
+              "id": "fmap",
+              "type": "(a, w1) ⟶ ((b, w2), w1)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ (b, w2)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "(a, w1)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "((b, w2), w1)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: (a, w1) ⟶ ((b, w2), w1)\\nApplies f to the value; the outer log w1 stays where it is, the new log w2 sits inside."
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "((b, w2), w1) ⟶ (b, w1<>w2)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "((b, w2), w1)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "(b, w1<>w2)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: ((b, w2), w1) ⟶ (b, w1<>w2) — the Writer-specific part\\nMerges the outer and inner log with the monoid append, in execution order: w1 first, then w2."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "(a, w1)",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "(a, w1) — a result value a paired with a log fragment w1"
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ (b, w2)",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ (b, w2)) — given a, produces result b alongside a new log fragment w2"
+              "direction": "in",
+              "tooltip": "f : a ⟶ (b, w2) — user code; given a, produces result b alongside a new log fragment w2"
             },
             {
-              "kind": "part",
-              "id": "bind",
-              "type": "WriterBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "extract a from (a, w1)\\napply f(a) to get (b, w2)\\nreturn (b, w1 <> w2)  ← logs combined with monoid append"
-            },
-            {
-              "kind": "part",
-              "id": "mb_val",
+              "kind": "port",
+              "id": "mb",
               "type": "(b, w1<>w2)",
-              "ports": [],
-              "role": "type",
+              "direction": "out",
               "tooltip": "(b, w1<>w2) — result b with the complete log: w1 from the first step appended with w2 from f"
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "ma_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "mb_val"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "ma_val": "type",
-            "f_val": "hof",
-            "bind": "function",
-            "mb_val": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "ma_val": "(a, w1) — a result value a paired with a log fragment w1",
-            "f_val": "(a ⟶ (b, w2)) — given a, produces result b alongside a new log fragment w2",
-            "bind": "extract a from (a, w1)\\napply f(a) to get (b, w2)\\nreturn (b, w1 <> w2)  ← logs combined with monoid append",
-            "mb_val": "(b, w1<>w2) — result b with the complete log: w1 from the first step appended with w2 from f"
+            "fmap": "fmap f :: (a, w1) ⟶ ((b, w2), w1)\\nApplies f to the value; the outer log w1 stays where it is, the new log w2 sits inside.",
+            "join": "join :: ((b, w2), w1) ⟶ (b, w1<>w2) — the Writer-specific part\\nMerges the outer and inner log with the monoid append, in execution order: w1 first, then w2."
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "WriterSignature",
           "viewType": "FpIbdView",
-          "expose": "WriterBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — also called: flatMap, >>="
+          "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — inside bind: fmap f, then join appends the logs — also called: flatMap, >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — also called: flatMap, >>=",
-    "render": "WriterBindContext",
+    "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — inside bind: fmap f, then join appends the logs — also called: flatMap, >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "ma_val": "type",
-      "f_val": "hof",
-      "bind": "function",
-      "mb_val": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "ma_val": "(a, w1) — a result value a paired with a log fragment w1",
-      "f_val": "(a ⟶ (b, w2)) — given a, produces result b alongside a new log fragment w2",
-      "bind": "extract a from (a, w1)\\napply f(a) to get (b, w2)\\nreturn (b, w1 <> w2)  ← logs combined with monoid append",
-      "mb_val": "(b, w1<>w2) — result b with the complete log: w1 from the first step appended with w2 from f"
+      "fmap": "fmap f :: (a, w1) ⟶ ((b, w2), w1)\\nApplies f to the value; the outer log w1 stays where it is, the new log w2 sits inside.",
+      "join": "join :: ((b, w2), w1) ⟶ (b, w1<>w2) — the Writer-specific part\\nMerges the outer and inner log with the monoid append, in execution order: w1 first, then w2."
     }
   }
 }

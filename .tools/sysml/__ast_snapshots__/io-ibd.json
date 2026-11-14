@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "IOBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "ia_val",
+              "id": "fmap",
+              "type": "IO a ⟶ IO (IO b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ IO b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "IO a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "IO (IO b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: IO a ⟶ IO (IO b)\\nA recipe that runs ma and returns f a — a new recipe — without running it."
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "IO (IO b) ⟶ IO b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "IO (IO b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "IO b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: IO (IO b) ⟶ IO b — the IO-specific part\\nA recipe that, when run by the runtime:\\n1. runs the outer recipe to obtain the inner recipe\\n2. runs the inner recipe\\nOrder of effects = order of binds."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "IO a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "IO a — a description of a side-effectful computation. Nothing runs yet."
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ IO b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ IO b) — given the result of running ia, produces the next IO action to run"
+              "direction": "in",
+              "tooltip": "f : a ⟶ IO b — user code; given the result of running ma, returns the next IO action"
             },
             {
-              "kind": "part",
-              "id": "bind",
-              "type": "IOBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "Build a new IO recipe that, when run by the runtime:\\n1. executes ia to get a\\n2. passes a to f to get IO b\\n3. executes IO b\\nOrder of effects = order of binds."
-            },
-            {
-              "kind": "part",
-              "id": "ib_val",
+              "kind": "port",
+              "id": "mb",
               "type": "IO b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "IO b — the composed recipe. Effects of ia happen before effects of f(a)."
+              "direction": "out",
+              "tooltip": "IO b — the composed recipe. Effects of ma happen before effects of f(a). Never IO (IO b)."
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "ia_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "ib_val"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "ia_val": "type",
-            "f_val": "hof",
-            "bind": "function",
-            "ib_val": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "ia_val": "IO a — a description of a side-effectful computation. Nothing runs yet.",
-            "f_val": "(a ⟶ IO b) — given the result of running ia, produces the next IO action to run",
-            "bind": "Build a new IO recipe that, when run by the runtime:\\n1. executes ia to get a\\n2. passes a to f to get IO b\\n3. executes IO b\\nOrder of effects = order of binds.",
-            "ib_val": "IO b — the composed recipe. Effects of ia happen before effects of f(a)."
+            "fmap": "fmap f :: IO a ⟶ IO (IO b)\\nA recipe that runs ma and returns f a — a new recipe — without running it.",
+            "join": "join :: IO (IO b) ⟶ IO b — the IO-specific part\\nA recipe that, when run by the runtime:\\n1. runs the outer recipe to obtain the inner recipe\\n2. runs the inner recipe\\nOrder of effects = order of binds."
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "IOSignature",
           "viewType": "FpIbdView",
-          "expose": "IOBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>="
+          "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: fmap f, then join runs outer then inner recipe — also called: .then (Promises), >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>=",
-    "render": "IOBindContext",
+    "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: fmap f, then join runs outer then inner recipe — also called: .then (Promises), >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "ia_val": "type",
-      "f_val": "hof",
-      "bind": "function",
-      "ib_val": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "ia_val": "IO a — a description of a side-effectful computation. Nothing runs yet.",
-      "f_val": "(a ⟶ IO b) — given the result of running ia, produces the next IO action to run",
-      "bind": "Build a new IO recipe that, when run by the runtime:\\n1. executes ia to get a\\n2. passes a to f to get IO b\\n3. executes IO b\\nOrder of effects = order of binds.",
-      "ib_val": "IO b — the composed recipe. Effects of ia happen before effects of f(a)."
+      "fmap": "fmap f :: IO a ⟶ IO (IO b)\\nA recipe that runs ma and returns f a — a new recipe — without running it.",
+      "join": "join :: IO (IO b) ⟶ IO b — the IO-specific part\\nA recipe that, when run by the runtime:\\n1. runs the outer recipe to obtain the inner recipe\\n2. runs the inner recipe\\nOrder of effects = order of binds."
     }
   }
 }

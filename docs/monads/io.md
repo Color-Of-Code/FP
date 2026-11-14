@@ -5,7 +5,7 @@ files, clocks, or any interaction with the outside world.
 
 ![IO computations describe effects and bind sequences them explicitly](io/io.svg)
 
-![bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>=](io/io-ibd.svg)
+![bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: fmap f, then join runs outer then inner recipe — also called: .then (Promises), >>=](io/io-ibd.svg)
 
 ![IO bind: execute ia, feed a to f to build IO b, execute IO b — also called: .then (Promises), >>=](io/io-bind.svg)
 

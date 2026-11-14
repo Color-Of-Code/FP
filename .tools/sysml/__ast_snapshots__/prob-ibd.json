@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "ProbBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "dist_a",
+              "id": "fmap",
+              "type": "Prob a ⟶ Prob (Prob b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ Prob b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Prob a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Prob (Prob b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: Prob a ⟶ Prob (Prob b)\\n[(a, pa)]  →  [(f a, pa)]\\nEach outcome a keeps its probability pa and is replaced by the distribution f a."
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "Prob (Prob b) ⟶ Prob b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Prob (Prob b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Prob b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: Prob (Prob b) ⟶ Prob b — the Prob-specific part\\n[(b, pa*pb) | (dist, pa) <- outer, (b, pb) <- dist]\\nEach inner outcome is weighted by the probability of its branch — law of total probability."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "Prob a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1."
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ Prob b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ Prob b) — conditional distribution: given outcome a, returns a new distribution over b"
+              "direction": "in",
+              "tooltip": "f : a ⟶ Prob b — user code; conditional distribution: given outcome a, returns a distribution over b"
             },
             {
-              "kind": "part",
-              "id": "bind",
-              "type": "ProbBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "[(b, pa*pb) | (a, pa) <- dist, (b, pb) <- f a]\\nFor each outcome a (probability pa), apply f to get a distribution over b.\\nEach (b, pb) gets weight pa * pb — law of total probability."
-            },
-            {
-              "kind": "part",
-              "id": "dist_b",
+              "kind": "port",
+              "id": "mb",
               "type": "Prob b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it"
+              "direction": "out",
+              "tooltip": "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it; never Prob (Prob b)"
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "dist_a",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "dist_b"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "dist_a": "type",
-            "f_val": "hof",
-            "bind": "function",
-            "dist_b": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "dist_a": "Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1.",
-            "f_val": "(a ⟶ Prob b) — conditional distribution: given outcome a, returns a new distribution over b",
-            "bind": "[(b, pa*pb) | (a, pa) <- dist, (b, pb) <- f a]\\nFor each outcome a (probability pa), apply f to get a distribution over b.\\nEach (b, pb) gets weight pa * pb — law of total probability.",
-            "dist_b": "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it"
+            "fmap": "fmap f :: Prob a ⟶ Prob (Prob b)\\n[(a, pa)]  →  [(f a, pa)]\\nEach outcome a keeps its probability pa and is replaced by the distribution f a.",
+            "join": "join :: Prob (Prob b) ⟶ Prob b — the Prob-specific part\\n[(b, pa*pb) | (dist, pa) <- outer, (b, pb) <- dist]\\nEach inner outcome is weighted by the probability of its branch — law of total probability."
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "ProbSignature",
           "viewType": "FpIbdView",
-          "expose": "ProbBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>="
+          "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: fmap f, then join weights and merges branches — also called: flatMap, SelectMany, >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>=",
-    "render": "ProbBindContext",
+    "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: fmap f, then join weights and merges branches — also called: flatMap, SelectMany, >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "dist_a": "type",
-      "f_val": "hof",
-      "bind": "function",
-      "dist_b": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "dist_a": "Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1.",
-      "f_val": "(a ⟶ Prob b) — conditional distribution: given outcome a, returns a new distribution over b",
-      "bind": "[(b, pa*pb) | (a, pa) <- dist, (b, pb) <- f a]\\nFor each outcome a (probability pa), apply f to get a distribution over b.\\nEach (b, pb) gets weight pa * pb — law of total probability.",
-      "dist_b": "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it"
+      "fmap": "fmap f :: Prob a ⟶ Prob (Prob b)\\n[(a, pa)]  →  [(f a, pa)]\\nEach outcome a keeps its probability pa and is replaced by the distribution f a.",
+      "join": "join :: Prob (Prob b) ⟶ Prob b — the Prob-specific part\\n[(b, pa*pb) | (dist, pa) <- outer, (b, pb) <- dist]\\nEach inner outcome is weighted by the probability of its branch — law of total probability."
     }
   }
 }

@@ -6,7 +6,7 @@ explicit gives first-class control over the flow of a program.
 
 ![A Cont computation waits for its continuation to produce the final result](cont/cont.svg)
 
-![bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>=](cont/cont-ibd.svg)
+![bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: fmap f, then join passes the original k to the inner Cont — also called: Bind, >>=](cont/cont-ibd.svg)
 
 ![Cont bind: build inner continuation k2 = (a → f(a)(k)), give k2 to m — also called: >>=](cont/cont-bind.svg)
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 548.4 178" width="548.4" height="178" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">(&lt;*&gt;) :: F(a ⟶ b) ⟶ Fa ⟶ Fb</title>
-  <desc id="diagram-description">Functional programming diagram: (&lt;*&gt;) :: F(a ⟶ b) ⟶ Fa ⟶ Fb</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 167" width="1080" height="167" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">(&lt;*&gt;) :: F(a ⟶ b) ⟶ Fa ⟶ Fb — inside &lt;*&gt;: pair the two contexts, then fmap apply</title>
+  <desc id="diagram-description">Functional programming diagram: (&lt;*&gt;) :: F(a ⟶ b) ⟶ Fa ⟶ Fb — inside &lt;*&gt;: pair the two contexts, then fmap apply</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,42 +85,72 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="274.2" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">(&lt;*&gt;) :: F(a ⟶ b) ⟶ Fa ⟶ Fb</text>
-  <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="548.4" height="150" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
-    <g class="diagram-frame-tab tab-block">
-      <path d="M0,0 L121.4,0 L121.4,12 L111.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
-      <text x="60.7" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» ApContext</text>
-    </g>
-    <g class="edge hof-edge">
-      <path d="M212.4,101.0 L217.4,101.0 Q222.4,101.0 222.4,96.0 L222.4,63.0 L222.4,63.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
-    </g>
-    <g class="edge">
-      <path d="M212.4,49.0 L220.4,49.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M352.4,56.0 L356.4,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="object-node hof">
-      <title>F(a ⟶ b) — a function already lifted into the applicative context</title>
-      <rect x="69.99999999999999" y="82" width="142.4" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
-      <text x="141.2" y="94" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
-      <text x="141.2" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">ff_val : F(a ⟶ b)</text>
-    </g>
-    <g class="object-node">
-      <title>Fa — value inside the same context F</title>
-      <rect x="102.4" y="30" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="157.4" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fa_val : Fa</text>
-    </g>
-    <g class="action-node">
-      <title>&lt;*&gt;: applies a wrapped function to a wrapped value</title>
-      <rect x="232.39999999999998" y="34" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="292.4" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">ap : ApOp</text>
-    </g>
-    <g class="object-node">
-      <title>Fb — result in context F</title>
-      <rect x="368.4" y="37" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="423.4" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fb_val : Fb</text>
+  <text x="540" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">(&lt;*&gt;) :: F(a ⟶ b) ⟶ Fa ⟶ Fb</text>
+  <text x="540" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside &lt;*&gt;: pair the two contexts, then fmap apply</text>
+  <g transform="translate(0,44) scale(1)">
+    <g transform="translate(87,0)">
+      <rect x="0" y="0" width="938" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <g class="diagram-frame-tab tab-block">
+        <path d="M0,0 L78,0 L78,12 L68,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="39" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» ap</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,43.0 L186.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="101" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped function</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,73.0 L182.0,73.0 Q188.0,73.0 188.0,67.0 L188.0,61.0 L188.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="96" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped value</text>
+      </g>
+      <g class="edge">
+        <path d="M480.0,52.0 L618.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="557" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">paired (internal only)</text>
+      </g>
+      <g class="edge">
+        <path d="M840.0,52.0 L922.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="action-node">
+        <title>pair :: F x ⟶ F y ⟶ F (x, y) — the Applicative-specific part (the monoidal structure of F). Combines both contexts: Maybe needs both Just, List takes all combinations, Validation accumulates both errors, IO runs both effects in order.</title>
+        <rect x="206" y="30" width="270" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="341" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">pair : F (a ⟶ b) × F a ⟶ F ((a ⟶ b), a)</text>
+        <g class="pin pin-in">
+          <rect x="202" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="212" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">ff</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="202" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="212" y="59.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">fa</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="472" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>fmap apply :: F ((a ⟶ b), a) ⟶ F b — from Functor. apply (f, a) = f a, mapped under the combined context.</title>
+        <rect x="638" y="30" width="198" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="737" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : F ((a ⟶ b), a) ⟶ F b</text>
+        <g class="pin pin-in">
+          <rect x="634" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="832" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="port port-left">
+        <title>F (a ⟶ b) — a function already lifted into the applicative context</title>
+        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ff : F (a ⟶ b)</text>
+      </g>
+      <g class="port port-left">
+        <title>F a — value inside the same context F</title>
+        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">fa : F a</text>
+      </g>
+      <g class="port port-right">
+        <title>F b — result in context F</title>
+        <rect x="934" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="945" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">fb : F b</text>
+      </g>
     </g>
   </g>
 </svg>

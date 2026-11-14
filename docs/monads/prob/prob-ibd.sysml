@@ -1,32 +1,44 @@
-// SysML v2 — Prob monad IBD: type signature + bind contract
-// (>>=) :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b
+// SysML v2 — Prob monad IBD: what happens inside bind
+// (>>=) :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b      m >>= f = join (fmap f m)
 //
 // Prob a = [(a, Double)] — a discrete probability distribution.
-// bind implements conditional probability (law of total probability):
-// P(B=b) = sum over a of P(B=b | A=a) * P(A=a)
-// The output distribution is the weighted cartesian product of input and f(a).
+//   • fmap applies f to every outcome, giving a distribution OVER distributions
+//   • join flattens it by the law of total probability:
+//     P(B=b) = sum over a of P(B=b | A=a) * P(A=a)
 
 package ProbSignature {
     private import FpDiagram::*;
 
-    part def ProbBindContext {
-        #FpNodePresentation { role = "type"; tooltip = "Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1."; }
-        part dist_a : "Prob a";        // [(a, p_a)] — distribution over a
-        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ Prob b) — conditional distribution: given outcome a, returns a new distribution over b"; }
-        part f_val  : "a ⟶ Prob b";  // conditional distribution (HOF)
-        #FpNodePresentation { role = "function"; tooltip = "[(b, pa*pb) | (a, pa) <- dist, (b, pb) <- f a]\nFor each outcome a (probability pa), apply f to get a distribution over b.\nEach (b, pb) gets weight pa * pb — law of total probability."; }
-        part bind   : ProbBindOp;
-        #FpNodePresentation { role = "type"; tooltip = "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it"; }
-        part dist_b : "Prob b";        // [(b, p_a*p_b)] — joint distribution over b
+    part def bind {
+        #FpNodePresentation { tooltip = "Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1."; }
+        port in  ma : "Prob a";
+        #FpNodePresentation { tooltip = "f : a ⟶ Prob b — user code; conditional distribution: given outcome a, returns a distribution over b"; }
+        port in  f  : "a ⟶ Prob b";
+        #FpNodePresentation { tooltip = "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it; never Prob (Prob b)"; }
+        port out mb : "Prob b";
 
-        connection connect dist_a to bind;
-        connection connect f_val  to bind;
-        connection connect bind   to dist_b;
+        #FpNodePresentation { role = "function"; tooltip = "fmap f :: Prob a ⟶ Prob (Prob b)\n[(a, pa)]  →  [(f a, pa)]\nEach outcome a keeps its probability pa and is replaced by the distribution f a."; }
+        part fmap : "Prob a ⟶ Prob (Prob b)" {
+            port in  f : "a ⟶ Prob b";
+            port in  _ : "Prob a";
+            port out _ : "Prob (Prob b)";
+        }
+        #FpNodePresentation { role = "function"; tooltip = "join :: Prob (Prob b) ⟶ Prob b — the Prob-specific part\n[(b, pa*pb) | (dist, pa) <- outer, (b, pb) <- dist]\nEach inner outcome is weighted by the probability of its branch — law of total probability."; }
+        part join : "Prob (Prob b) ⟶ Prob b" {
+            port in  _ : "Prob (Prob b)";
+            port out _ : "Prob b";
+        }
+
+        connection connect ma      to fmap._ : "wrapped";
+        connection connect f       to fmap.f : "user code";
+        connection connect fmap._  to join._ : "nested (internal only)";
+        connection connect join._  to mb;
     }
+
+    #FpViewPresentation { name = "bind"; }
     view diagram : FpIbdView {
-        doc /*bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>=*/
-        expose ProbBindContext;
+        doc /*bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: fmap f, then join weights and merges branches — also called: flatMap, SelectMany, >>=*/
+        expose bind;
         render fpIbdDiagram;
     }
 }
-

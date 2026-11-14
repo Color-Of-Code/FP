@@ -17,7 +17,7 @@ applying **wrapped functions** to **wrapped values**.
 | `Applicative` | `pure` and `<*>`                           |
 | `Monad`       | `bind` (`>>=`); every Monad is Applicative |
 
-![(<\*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb](15-applicative/applicative-ibd.svg)
+![(<\*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb — inside <\*>: pair the two contexts, then fmap apply](15-applicative/applicative-ibd.svg)
 
 A plain functor can only lift an unwrapped function: `fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb`. But what if the
 function itself is wrapped inside `F`? Applicative adds:
@@ -26,6 +26,11 @@ function itself is wrapped inside `F`? Applicative adds:
 - **`<*> :: F(a ⟶ b) ⟶ Fa ⟶ Fb`** — apply a wrapped function to a wrapped value.
 
 Every monad is an applicative; every applicative is a functor.
+
+Inside `<*>`: the ports on the frame are everything a caller sees. `pair` combines the two contexts
+into one holding both the function and its argument — this is the applicative-specific part — and
+`fmap apply` then applies the function under `F`. Both inputs are independent, so nothing computed
+from one can choose the effect of the other; that is the step [Monad](./19-monad.md) adds.
 
 ## Laws
 

@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "ContBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "m_val",
+              "id": "fmap",
+              "type": "Cont r a ⟶ Cont r (Cont r b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ Cont r b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Cont r a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Cont r (Cont r b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: Cont r a ⟶ Cont r (Cont r b)\\nfmap f m = \\\\k -> m (\\\\a -> k (f a))\\nWhatever a is produced, the continuation k receives f a — the next Cont — not its result."
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "Cont r (Cont r b) ⟶ Cont r b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Cont r (Cont r b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Cont r b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: Cont r (Cont r b) ⟶ Cont r b — the Cont-specific part\\njoin mm = \\\\k -> mm (\\\\m -> m k)\\nWhen the outer step finishes, the inner Cont it produced receives the original continuation k. The current step runs last — this is continuation composition."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "Cont r a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation k"
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ Cont r b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ Cont r b) — given result a, builds the next continuation-based step"
+              "direction": "in",
+              "tooltip": "f : a ⟶ Cont r b — user code; given result a, builds the next continuation-based step"
             },
             {
-              "kind": "part",
-              "id": "bind",
-              "type": "ContBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "bind m f = \\\\k -> m (\\\\a -> f a k)\\nGive m a continuation that: feeds a into f, then passes original k to the result.\\nThe current step runs last — this is continuation composition."
-            },
-            {
-              "kind": "part",
-              "id": "res",
+              "kind": "port",
+              "id": "mb",
               "type": "Cont r b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"
+              "direction": "out",
+              "tooltip": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit. Never Cont r (Cont r b)."
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "m_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "res"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "m_val": "type",
-            "f_val": "hof",
-            "bind": "function",
-            "res": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "m_val": "Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation k",
-            "f_val": "(a ⟶ Cont r b) — given result a, builds the next continuation-based step",
-            "bind": "bind m f = \\\\k -> m (\\\\a -> f a k)\\nGive m a continuation that: feeds a into f, then passes original k to the result.\\nThe current step runs last — this is continuation composition.",
-            "res": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"
+            "fmap": "fmap f :: Cont r a ⟶ Cont r (Cont r b)\\nfmap f m = \\\\k -> m (\\\\a -> k (f a))\\nWhatever a is produced, the continuation k receives f a — the next Cont — not its result.",
+            "join": "join :: Cont r (Cont r b) ⟶ Cont r b — the Cont-specific part\\njoin mm = \\\\k -> mm (\\\\m -> m k)\\nWhen the outer step finishes, the inner Cont it produced receives the original continuation k. The current step runs last — this is continuation composition."
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "ContSignature",
           "viewType": "FpIbdView",
-          "expose": "ContBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>="
+          "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: fmap f, then join passes the original k to the inner Cont — also called: Bind, >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>=",
-    "render": "ContBindContext",
+    "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: fmap f, then join passes the original k to the inner Cont — also called: Bind, >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "m_val": "type",
-      "f_val": "hof",
-      "bind": "function",
-      "res": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "m_val": "Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation k",
-      "f_val": "(a ⟶ Cont r b) — given result a, builds the next continuation-based step",
-      "bind": "bind m f = \\\\k -> m (\\\\a -> f a k)\\nGive m a continuation that: feeds a into f, then passes original k to the result.\\nThe current step runs last — this is continuation composition.",
-      "res": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"
+      "fmap": "fmap f :: Cont r a ⟶ Cont r (Cont r b)\\nfmap f m = \\\\k -> m (\\\\a -> k (f a))\\nWhatever a is produced, the continuation k receives f a — the next Cont — not its result.",
+      "join": "join :: Cont r (Cont r b) ⟶ Cont r b — the Cont-specific part\\njoin mm = \\\\k -> mm (\\\\m -> m k)\\nWhen the outer step finishes, the inner Cont it produced receives the original continuation k. The current step runs last — this is continuation composition."
     }
   }
 }

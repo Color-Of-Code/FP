@@ -93,16 +93,16 @@
       <text x="91.7" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» PolymorphicDispatch</text>
     </g>
     <g class="edge">
-      <path d="M442.8,113.0 L447.8,113.0 Q452.8,113.0 452.8,118.0 L452.8,162.0 Q452.8,168.0 458.8,168.0 L589.6,168.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="527.2" y="162" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">implements</text>
+      <path d="M442.8,113.0 L447.8,113.0 Q452.8,113.0 452.8,118.0 L452.8,162.0 Q452.8,168.0 458.8,168.0 L538.6,168.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="501.70000000000005" y="162" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">implements</text>
     </g>
     <g class="edge">
       <path d="M442.8,113.0 L520.8,113.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       <text x="487.79999999999995" y="107" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">implements</text>
     </g>
     <g class="edge">
-      <path d="M721.6,168.0 L854.4,168.0 Q860.4,168.0 860.4,162.0 L860.4,113.0 L860.4,113.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-      <text x="791" y="162" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">dispatch</text>
+      <path d="M772.6,168.0 L854.4,168.0 Q860.4,168.0 860.4,162.0 L860.4,113.0 L860.4,113.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="816.5" y="162" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">dispatch</text>
     </g>
     <g class="edge">
       <path d="M790.4,113.0 L858.4,113.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
@@ -110,12 +110,12 @@
     </g>
     <g class="action-node">
       <title>Manual dispatch requires a separate function for each type.</title>
-      <rect x="70" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="130" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">showInt : showInt :: Int ⟶ String</text>
+      <rect x="70" y="30" width="234" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="187" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">showInt : showInt :: Int ⟶ String</text>
     </g>
     <g class="object-node">
-      <rect x="210.00000000000003" y="30" width="279.2" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="349.6" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">showBool : showBool :: Bool ⟶ String</text>
+      <rect x="324" y="30" width="279.2" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="463.6" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">showBool : showBool :: Bool ⟶ String</text>
     </g>
     <g class="object-node">
       <title>A type class groups the shared operation behind one contract.</title>
@@ -123,7 +123,7 @@
       <text x="256.4" y="113" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">showClass : class Show a where show :: a ⟶ String</text>
     </g>
     <g class="action-node">
-      <rect x="601.6" y="146" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <rect x="550.6" y="146" width="222" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
       <text class="action-label" x="661.6" y="168" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">intInstance : instance Show Int</text>
     </g>
     <g class="object-node">

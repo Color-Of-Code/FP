@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 836.0000000000001 194" width="836.0000000000001" height="194" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 884.0000000000001 194" width="884.0000000000001" height="194" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title">TVar reads and writes compose into an STM transaction committed by atomically</title>
   <desc id="diagram-description">Functional programming diagram: TVar reads and writes compose into an STM transaction committed by atomically</desc>
   <style>:root {
@@ -85,15 +85,15 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="418.00000000000006" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">TVar reads and writes compose into an STM transaction committed by atomically</text>
+  <text x="442.00000000000006" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">TVar reads and writes compose into an STM transaction committed by atomically</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="836.0000000000001" height="166" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <rect x="0" y="0" width="884.0000000000001" height="166" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L177.20000000000002,0 L177.20000000000002,12 L167.20000000000002,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
       <text x="88.60000000000001" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» TransactionContext</text>
     </g>
     <g class="edge">
-      <path d="M183.6,101.0 L188.6,101.0 Q193.6,101.0 193.6,106.0 L193.6,114.0 L193.6,114.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M183.6,101.0 L188.6,101.0 Q193.6,101.0 193.6,106.0 L193.6,112.0 Q193.6,114.0 195.6,114.0 L197.6,114.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
       <path d="M183.6,101.0 L188.6,101.0 Q193.6,101.0 193.6,96.0 L193.6,63.0 L193.6,63.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
@@ -102,16 +102,16 @@
       <path d="M183.6,49.0 L191.6,49.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M323.6,114.0 L328.6,114.0 Q333.6,114.0 333.6,109.0 L333.6,56.0 L333.6,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M335.6,114.0 L345.6,114.0 Q351.6,114.0 351.6,108.0 L351.6,56.0 L351.6,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M323.6,56.0 L331.6,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M341.6,56.0 L349.6,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M500.4,56.0 L504.4,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M518.4,56.0 L522.4,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M636.4,56.0 L640.4,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M684.4,56.0 L688.4,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>A shared mutable cell, accessed only through STM operations.</title>
@@ -120,8 +120,8 @@
     </g>
     <g class="action-node">
       <title>readTVar :: TVar a ⟶ STM a — read the cell value inside a transaction.</title>
-      <rect x="203.60000000000002" y="92" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="263.6" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">read : ReadTVar</text>
+      <rect x="209.60000000000002" y="92" width="126" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="272.6" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">read : ReadTVar</text>
     </g>
     <g class="object-node">
       <title>A value to be written tentatively inside the transaction.</title>
@@ -130,23 +130,23 @@
     </g>
     <g class="action-node">
       <title>writeTVar :: TVar a ⟶ a ⟶ STM () — record a tentative write.</title>
-      <rect x="203.60000000000002" y="34" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="263.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">write : WriteTVar</text>
+      <rect x="203.60000000000002" y="34" width="138" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="272.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">write : WriteTVar</text>
     </g>
     <g class="object-node">
       <title>The transactional program composes reads and writes before it is run.</title>
-      <rect x="343.6" y="37" width="156.8" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="422" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">transaction : STM a</text>
+      <rect x="361.6" y="37" width="156.8" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="440" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">transaction : STM a</text>
     </g>
     <g class="action-node">
       <title>atomically :: STM a ⟶ IO a — commit all writes together or retry the whole transaction.</title>
-      <rect x="516.4000000000001" y="34" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="576.4000000000001" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">commit : Atomically</text>
+      <rect x="534.4000000000001" y="34" width="150" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="609.4000000000001" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">commit : Atomically</text>
     </g>
     <g class="object-node">
       <title>The result is available in IO only after the transaction commits.</title>
-      <rect x="652.4000000000001" y="37" width="113.60000000000001" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="709.2" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">result : IO a</text>
+      <rect x="700.4000000000001" y="37" width="113.60000000000001" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="757.2" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">result : IO a</text>
     </g>
   </g>
 </svg>

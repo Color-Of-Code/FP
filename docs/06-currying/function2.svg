@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 655 176" width="655" height="176" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 655 165" width="655" height="165" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title">Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port</title>
   <desc id="diagram-description">Functional programming diagram: Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port</desc>
   <style>:root {
@@ -86,9 +86,9 @@
     </marker>
   </defs>
   <text x="327.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">Partial application: add5 = add 5 fixes a = 5 inside; only b remains an input port</text>
-  <g transform="translate(0,28) scale(1.0826446280991735)">
+  <g transform="translate(0,28) scale(1.003062787136294)">
     <g transform="translate(49,0)">
-      <rect x="0" y="0" width="480" height="136" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="528" height="136" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
         <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» add5</text>
@@ -102,7 +102,7 @@
         <text x="122" y="80" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">actual</text>
       </g>
       <g class="edge">
-        <path d="M382.0,58.0 L464.0,58.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <path d="M430.0,58.0 L512.0,58.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
       <g class="object-node">
         <title>a = 5 — fixed when add5 was created; captured in the closure, never passed again</title>
@@ -111,8 +111,8 @@
       </g>
       <g class="action-node">
         <title>add : (Int, Int) ⟶ Int — the original two-parameter function, unchanged</title>
-        <rect x="258" y="36" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="318" y="58" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">add : (Int, Int) ⟶ Int</text>
+        <rect x="258" y="36" width="168" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="342" y="58" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">add : (Int, Int) ⟶ Int</text>
         <g class="pin pin-in">
           <rect x="254" y="46.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
           <text x="264" y="50.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
@@ -122,7 +122,7 @@
           <text x="264" y="65.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
         </g>
         <g class="pin pin-out">
-          <rect x="374" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="422" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
@@ -132,8 +132,8 @@
       </g>
       <g class="port port-right">
         <title>result : Int — what each call returns: add5 3 = 8</title>
-        <rect x="476" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="487" y="52" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">result : Int</text>
+        <rect x="524" y="54" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="535" y="52" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">result : Int</text>
       </g>
     </g>
   </g>

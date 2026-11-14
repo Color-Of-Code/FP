@@ -6,7 +6,7 @@ once — or retries from the beginning if another thread modified a value it rea
 
 ![TVar reads and writes compose into an STM transaction committed by atomically](stm/stm.svg)
 
-![bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — also called: >>=](stm/stm-ibd.svg)
+![bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: fmap f, then join runs both actions in one transaction — also called: >>=](stm/stm-ibd.svg)
 
 ![STM bind: sequence two TVar actions; atomically commits or retries the whole chain — also called: >>=](stm/stm-bind.svg)
 

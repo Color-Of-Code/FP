@@ -6,86 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "ParserBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "pa_val",
+              "id": "fmap",
+              "type": "Parser a ⟶ Parser (Parser b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ Parser b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Parser a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Parser (Parser b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: Parser a ⟶ Parser (Parser b)\\nOn success (a, rest) returns (f a, rest): the next parser is built but not yet run. Failure stays Nothing."
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "Parser (Parser b) ⟶ Parser b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Parser (Parser b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Parser b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: Parser (Parser b) ⟶ Parser b — the Parser-specific part\\njoin pp = \\\\input -> case pp input of\\n  Nothing        -> Nothing       -- propagate failure\\n  Just (p, rest) -> p rest        -- run the inner parser on the remainder"
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "Parser a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "Parser a = String ⟶ Maybe (a, String) — run on input; succeeds with (a, rest) or fails with Nothing"
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ Parser b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ Parser b) — given parsed value a, constructs the next parser (runs on the remaining input)"
+              "direction": "in",
+              "tooltip": "f : a ⟶ Parser b — user code; given parsed value a, constructs the next parser"
             },
             {
-              "kind": "part",
-              "id": "rest",
-              "type": "String",
-              "ports": [],
-              "role": "value",
-              "tooltip": "String — the unconsumed remainder after pa_val runs. bind threads it into f(a). Nothing short-circuits (like Maybe)."
-            },
-            {
-              "kind": "part",
-              "id": "bind",
-              "type": "ParserBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "bind p f = \\\\input ->\\n  case p(input) of\\n    Nothing       -> Nothing        -- propagate failure\\n    Just (a, rest) -> f a rest      -- thread rest into next parser"
-            },
-            {
-              "kind": "part",
-              "id": "pb_val",
+              "kind": "port",
+              "id": "mb",
               "type": "Parser b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume"
+              "direction": "out",
+              "tooltip": "Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume. Never Parser (Parser b)."
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "pa_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "rest",
-              "to": "bind"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "pb_val"
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "pa_val": "type",
-            "f_val": "hof",
-            "rest": "value",
-            "bind": "function",
-            "pb_val": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "pa_val": "Parser a = String ⟶ Maybe (a, String) — run on input; succeeds with (a, rest) or fails with Nothing",
-            "f_val": "(a ⟶ Parser b) — given parsed value a, constructs the next parser (runs on the remaining input)",
-            "rest": "String — the unconsumed remainder after pa_val runs. bind threads it into f(a). Nothing short-circuits (like Maybe).",
-            "bind": "bind p f = \\\\input ->\\n  case p(input) of\\n    Nothing       -> Nothing        -- propagate failure\\n    Just (a, rest) -> f a rest      -- thread rest into next parser",
-            "pb_val": "Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume"
+            "fmap": "fmap f :: Parser a ⟶ Parser (Parser b)\\nOn success (a, rest) returns (f a, rest): the next parser is built but not yet run. Failure stays Nothing.",
+            "join": "join :: Parser (Parser b) ⟶ Parser b — the Parser-specific part\\njoin pp = \\\\input -> case pp input of\\n  Nothing        -> Nothing       -- propagate failure\\n  Just (p, rest) -> p rest        -- run the inner parser on the remainder"
           }
         }
       ],
@@ -96,30 +123,26 @@
           "id": "diagram",
           "packageName": "ParserSignature",
           "viewType": "FpIbdView",
-          "expose": "ParserBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — also called: flatMap, Bind, >>="
+          "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: fmap f, then join runs the inner parser on the remaining input — also called: flatMap, Bind, >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — also called: flatMap, Bind, >>=",
-    "render": "ParserBindContext",
+    "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: fmap f, then join runs the inner parser on the remaining input — also called: flatMap, Bind, >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "pa_val": "type",
-      "f_val": "hof",
-      "rest": "value",
-      "bind": "function",
-      "pb_val": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "pa_val": "Parser a = String ⟶ Maybe (a, String) — run on input; succeeds with (a, rest) or fails with Nothing",
-      "f_val": "(a ⟶ Parser b) — given parsed value a, constructs the next parser (runs on the remaining input)",
-      "rest": "String — the unconsumed remainder after pa_val runs. bind threads it into f(a). Nothing short-circuits (like Maybe).",
-      "bind": "bind p f = \\\\input ->\\n  case p(input) of\\n    Nothing       -> Nothing        -- propagate failure\\n    Just (a, rest) -> f a rest      -- thread rest into next parser",
-      "pb_val": "Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume"
+      "fmap": "fmap f :: Parser a ⟶ Parser (Parser b)\\nOn success (a, rest) returns (f a, rest): the next parser is built but not yet run. Failure stays Nothing.",
+      "join": "join :: Parser (Parser b) ⟶ Parser b — the Parser-specific part\\njoin pp = \\\\input -> case pp input of\\n  Nothing        -> Nothing       -- propagate failure\\n  Just (p, rest) -> p rest        -- run the inner parser on the remainder"
     }
   }
 }

@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "ApContext",
+          "name": "ap",
           "parts": [
             {
               "kind": "part",
-              "id": "ff_val",
-              "type": "F(a ⟶ b)",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "F(a ⟶ b) — a function already lifted into the applicative context"
-            },
-            {
-              "kind": "part",
-              "id": "fa_val",
-              "type": "Fa",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Fa — value inside the same context F"
-            },
-            {
-              "kind": "part",
-              "id": "ap",
-              "type": "ApOp",
-              "ports": [],
+              "id": "pair",
+              "type": "F (a ⟶ b) × F a ⟶ F ((a ⟶ b), a)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "ff",
+                  "type": "F (a ⟶ b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "fa",
+                  "type": "F a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "F ((a ⟶ b), a)",
+                  "direction": "out"
+                }
+              ],
               "role": "function",
-              "tooltip": "<*>: applies a wrapped function to a wrapped value"
+              "tooltip": "pair :: F x ⟶ F y ⟶ F (x, y) — the Applicative-specific part (the monoidal structure of F). Combines both contexts: Maybe needs both Just, List takes all combinations, Validation accumulates both errors, IO runs both effects in order."
             },
             {
               "kind": "part",
-              "id": "fb_val",
-              "type": "Fb",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Fb — result in context F"
+              "id": "fmap",
+              "type": "F ((a ⟶ b), a) ⟶ F b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "F ((a ⟶ b), a)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "F b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap apply :: F ((a ⟶ b), a) ⟶ F b — from Functor. apply (f, a) = f a, mapped under the combined context."
             }
           ],
-          "ports": [],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ff",
+              "type": "F (a ⟶ b)",
+              "direction": "in",
+              "tooltip": "F (a ⟶ b) — a function already lifted into the applicative context"
+            },
+            {
+              "kind": "port",
+              "id": "fa",
+              "type": "F a",
+              "direction": "in",
+              "tooltip": "F a — value inside the same context F"
+            },
+            {
+              "kind": "port",
+              "id": "fb",
+              "type": "F b",
+              "direction": "out",
+              "tooltip": "F b — result in context F"
+            }
+          ],
           "connections": [
             {
               "kind": "connection",
-              "from": "ff_val",
-              "to": "ap"
+              "from": "ff",
+              "to": "pair.ff",
+              "label": "wrapped function"
             },
             {
               "kind": "connection",
-              "from": "fa_val",
-              "to": "ap"
+              "from": "fa",
+              "to": "pair.fa",
+              "label": "wrapped value"
             },
             {
               "kind": "connection",
-              "from": "ap",
-              "to": "fb_val"
+              "from": "pair._",
+              "to": "fmap._",
+              "label": "paired (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "fmap._",
+              "to": "fb"
             }
           ],
           "notes": [],
           "shows": {
-            "ff_val": "hof",
-            "fa_val": "type",
-            "ap": "function",
-            "fb_val": "type"
+            "pair": "function",
+            "fmap": "function"
           },
           "tooltips": {
-            "ff_val": "F(a ⟶ b) — a function already lifted into the applicative context",
-            "fa_val": "Fa — value inside the same context F",
-            "ap": "<*>: applies a wrapped function to a wrapped value",
-            "fb_val": "Fb — result in context F"
+            "pair": "pair :: F x ⟶ F y ⟶ F (x, y) — the Applicative-specific part (the monoidal structure of F). Combines both contexts: Maybe needs both Just, List takes all combinations, Validation accumulates both errors, IO runs both effects in order.",
+            "fmap": "fmap apply :: F ((a ⟶ b), a) ⟶ F b — from Functor. apply (f, a) = f a, mapped under the combined context."
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "ApplicativeSignature",
           "viewType": "FpIbdView",
-          "expose": "ApContext",
+          "expose": "ap",
           "rendering": "fpIbdDiagram",
-          "title": "(<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb"
+          "title": "(<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb — inside <*>: pair the two contexts, then fmap apply",
+          "name": "<*>"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "(<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb",
-    "render": "ApContext",
+    "title": "(<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb — inside <*>: pair the two contexts, then fmap apply",
+    "name": "<*>",
+    "render": "ap",
     "shows": {
-      "ff_val": "hof",
-      "fa_val": "type",
-      "ap": "function",
-      "fb_val": "type"
+      "pair": "function",
+      "fmap": "function"
     },
     "tooltips": {
-      "ff_val": "F(a ⟶ b) — a function already lifted into the applicative context",
-      "fa_val": "Fa — value inside the same context F",
-      "ap": "<*>: applies a wrapped function to a wrapped value",
-      "fb_val": "Fb — result in context F"
+      "pair": "pair :: F x ⟶ F y ⟶ F (x, y) — the Applicative-specific part (the monoidal structure of F). Combines both contexts: Maybe needs both Just, List takes all combinations, Validation accumulates both errors, IO runs both effects in order.",
+      "fmap": "fmap apply :: F ((a ⟶ b), a) ⟶ F b — from Functor. apply (f, a) = f a, mapped under the combined context."
     }
   }
 }

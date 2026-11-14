@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616.8000000000001 178" width="616.8000000000001" height="178" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 670.8000000000001 178" width="670.8000000000001" height="178" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title">profunctor</title>
   <desc id="diagram-description">Functional programming diagram: profunctor</desc>
   <style>:root {
@@ -85,9 +85,9 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="308.40000000000003" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">profunctor</text>
+  <text x="335.40000000000003" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">profunctor</text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="616.8000000000001" height="150" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <rect x="0" y="0" width="670.8000000000001" height="150" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L121.4,0 L121.4,12 L111.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
       <text x="60.7" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» OpticType</text>
@@ -99,7 +99,7 @@
       <path d="M277.2,49.0 L285.2,49.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="edge">
-      <path d="M417.2,56.0 L421.2,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <path d="M471.2,56.0 L475.2,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
     </g>
     <g class="object-node">
       <title>A profunctor with the optic's focused input and output types.</title>
@@ -108,8 +108,8 @@
     </g>
     <g class="object-node">
       <title>The whole structure's input and output types.</title>
-      <rect x="433.20000000000005" y="37" width="113.60000000000001" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="490.00000000000006" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">whole : P s t</text>
+      <rect x="487.2" y="37" width="113.60000000000001" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="544" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">whole : P s t</text>
     </g>
     <g class="object-node">
       <title>The optic is polymorphic in P, subject to a constraint such as Strong or Choice.</title>
@@ -118,8 +118,8 @@
     </g>
     <g class="action-node">
       <title>An optic transforms the focused profunctor into the whole-structure profunctor.</title>
-      <rect x="297.20000000000005" y="34" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="357.20000000000005" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">optic : Optic C s t a b</text>
+      <rect x="297.20000000000005" y="34" width="174" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="384.20000000000005" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">optic : Optic C s t a b</text>
     </g>
   </g>
 </svg>

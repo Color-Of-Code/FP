@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "EitherBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "ma_val",
+              "id": "fmap",
+              "type": "Either e a ⟶ Either e (Either e b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ Either e b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Either e a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Either e (Either e b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: Either e a ⟶ Either e (Either e b)\\nRight a →  Right (f a)\\nLeft e  →  Left e   (f is skipped)"
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "Either e (Either e b) ⟶ Either e b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Either e (Either e b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Either e b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: Either e (Either e b) ⟶ Either e b — the Either-specific part\\nRight (Right b) →  Right b\\nRight (Left e)  →  Left e\\nLeft e          →  Left e   (the error value is preserved unchanged)"
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "Either e a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "Either e a — Right a (carry a) or Left e (carry error e). Unlike Maybe, the error value is preserved."
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ Either e b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ Either e b) — called only when ma_val is Right a; may itself return Left e"
+              "direction": "in",
+              "tooltip": "f : a ⟶ Either e b — user code; may itself return Left e"
             },
             {
-              "kind": "part",
-              "id": "bind",
-              "type": "EitherBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "Right a →  f a          (unwrap, apply, return result)\\nLeft e  →  Left e       (short-circuit: skip f, propagate the error value unchanged)"
-            },
-            {
-              "kind": "part",
-              "id": "mb_val",
+              "kind": "port",
+              "id": "mb",
               "type": "Either e b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)"
+              "direction": "out",
+              "tooltip": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged); never Either e (Either e b)"
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "ma_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "mb_val"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "ma_val": "type",
-            "f_val": "hof",
-            "bind": "function",
-            "mb_val": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "ma_val": "Either e a — Right a (carry a) or Left e (carry error e). Unlike Maybe, the error value is preserved.",
-            "f_val": "(a ⟶ Either e b) — called only when ma_val is Right a; may itself return Left e",
-            "bind": "Right a →  f a          (unwrap, apply, return result)\\nLeft e  →  Left e       (short-circuit: skip f, propagate the error value unchanged)",
-            "mb_val": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)"
+            "fmap": "fmap f :: Either e a ⟶ Either e (Either e b)\\nRight a →  Right (f a)\\nLeft e  →  Left e   (f is skipped)",
+            "join": "join :: Either e (Either e b) ⟶ Either e b — the Either-specific part\\nRight (Right b) →  Right b\\nRight (Left e)  →  Left e\\nLeft e          →  Left e   (the error value is preserved unchanged)"
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "EitherSignature",
           "viewType": "FpIbdView",
-          "expose": "EitherBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — also called: andThen / and_then, Bind, flatMap, >>="
+          "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: fmap f, then join; Left short-circuits — also called: andThen / and_then, Bind, flatMap, >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — also called: andThen / and_then, Bind, flatMap, >>=",
-    "render": "EitherBindContext",
+    "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: fmap f, then join; Left short-circuits — also called: andThen / and_then, Bind, flatMap, >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "ma_val": "type",
-      "f_val": "hof",
-      "bind": "function",
-      "mb_val": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "ma_val": "Either e a — Right a (carry a) or Left e (carry error e). Unlike Maybe, the error value is preserved.",
-      "f_val": "(a ⟶ Either e b) — called only when ma_val is Right a; may itself return Left e",
-      "bind": "Right a →  f a          (unwrap, apply, return result)\\nLeft e  →  Left e       (short-circuit: skip f, propagate the error value unchanged)",
-      "mb_val": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)"
+      "fmap": "fmap f :: Either e a ⟶ Either e (Either e b)\\nRight a →  Right (f a)\\nLeft e  →  Left e   (f is skipped)",
+      "join": "join :: Either e (Either e b) ⟶ Either e b — the Either-specific part\\nRight (Right b) →  Right b\\nRight (Left e)  →  Left e\\nLeft e          →  Left e   (the error value is preserved unchanged)"
     }
   }
 }

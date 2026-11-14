@@ -1,37 +1,45 @@
-// SysML v2 — State monad IBD: type signature + bind contract
-// (>>=) :: State s a ⟶ (a ⟶ State s b) ⟶ State s b
+// SysML v2 — State monad IBD: what happens inside bind
+// (>>=) :: State s a ⟶ (a ⟶ State s b) ⟶ State s b      m >>= f = join (fmap f m)
 //
-// s_in and s_out make the state threading explicit: s enters bind, is transformed
-// by sa, then threaded as s' into f(a), and emerges as s'' in the output type.
-// Unlike Reader, s IS modified — each step sees the state that the previous step left.
+// State s a = s ⟶ (a, s) — a computation that reads and updates the state s.
+//   • fmap applies f to the result and passes the state through unchanged
+//   • join runs the outer computation, then runs the State it produced with the
+//     state the outer one left behind — this is where the state is threaded
+// Unlike Reader, s IS modified: each step sees what the previous step left.
 
 package StateSignature {
     private import FpDiagram::*;
 
-    part def StateBindContext {
-        #FpNodePresentation { role = "type"; tooltip = "State s a — a computation: given state s returns (a, s')"; }
-        part sa_val : "State s a";        // s ⟶ (a, s)  — reads state, returns a + new state
-        #FpNodePresentation { role = "hof"; tooltip = "(a ⟶ State s b) — continuation: given result a, produces a new state computation"; }
-        part f_val  : "a ⟶ State s b";  // effectful function (HOF)
-        #FpNodePresentation { role = "value"; tooltip = "s — current state entering bind. The value side and the state side are both threaded."; }
-        part s_in   : s;                  // current state flowing into bind
-        #FpNodePresentation { role = "function"; tooltip = "bind sa f = \\s ->\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\n  in  (b, s'')"; }
-        part bind   : StateBindOp;
-        #FpNodePresentation { role = "type"; tooltip = "State s b — the composed computation; when run it produces (b, s'')"; }
-        part sb_val : "State s b";        // s ⟶ (b, s) — next state computation
-        #FpNodePresentation { role = "value"; tooltip = "s — the transformed state after both sa and f(a) have run. Different from s_in."; }
-        part s_out  : s;                  // updated state flowing out of bind
+    part def bind {
+        #FpNodePresentation { tooltip = "State s a — a computation: given state s returns (a, s')"; }
+        port in  ma : "State s a";
+        #FpNodePresentation { tooltip = "f : a ⟶ State s b — user code; given result a, produces a new state computation"; }
+        port in  f  : "a ⟶ State s b";
+        #FpNodePresentation { tooltip = "State s b — the composed computation; when run it produces (b, s''). Never State s (State s b)."; }
+        port out mb : "State s b";
 
-        connection connect sa_val to bind;
-        connection connect f_val  to bind;
-        connection connect s_in   to bind;
-        connection connect bind   to sb_val;
-        connection connect bind   to s_out;  // transformed state continues to next step
+        #FpNodePresentation { role = "function"; tooltip = "fmap f :: State s a ⟶ State s (State s b)\nfmap f sa = \\s -> let (a, s') = sa s in (f a, s')\nThe state s' passes through untouched; the result is the next State computation, not yet run."; }
+        part fmap : "State s a ⟶ State s (State s b)" {
+            port in  f : "a ⟶ State s b";
+            port in  _ : "State s a";
+            port out _ : "State s (State s b)";
+        }
+        #FpNodePresentation { role = "function"; tooltip = "join :: State s (State s b) ⟶ State s b — the State-specific part\njoin mm = \\s -> let (m, s') = mm s   -- run the outer computation\n                in  m s'              -- run the inner one with the NEW state s'"; }
+        part join : "State s (State s b) ⟶ State s b" {
+            port in  _ : "State s (State s b)";
+            port out _ : "State s b";
+        }
+
+        connection connect ma      to fmap._ : "wrapped";
+        connection connect f       to fmap.f : "user code";
+        connection connect fmap._  to join._ : "nested (internal only)";
+        connection connect join._  to mb;
     }
+
+    #FpViewPresentation { name = "bind"; }
     view diagram : FpIbdView {
-        doc /*bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, >>=*/
-        expose StateBindContext;
+        doc /*bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: fmap f, then join threads the state from outer to inner — also called: flatMap, >>=*/
+        expose bind;
         render fpIbdDiagram;
     }
 }
-

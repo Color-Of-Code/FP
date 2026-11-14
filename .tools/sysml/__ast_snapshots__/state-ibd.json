@@ -6,101 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "StateBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "sa_val",
+              "id": "fmap",
+              "type": "State s a ⟶ State s (State s b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ State s b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "State s a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "State s (State s b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: State s a ⟶ State s (State s b)\\nfmap f sa = \\\\s -> let (a, s') = sa s in (f a, s')\\nThe state s' passes through untouched; the result is the next State computation, not yet run."
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "State s (State s b) ⟶ State s b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "State s (State s b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "State s b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: State s (State s b) ⟶ State s b — the State-specific part\\njoin mm = \\\\s -> let (m, s') = mm s   -- run the outer computation\\n                in  m s'              -- run the inner one with the NEW state s'"
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "State s a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "State s a — a computation: given state s returns (a, s')"
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ State s b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ State s b) — continuation: given result a, produces a new state computation"
+              "direction": "in",
+              "tooltip": "f : a ⟶ State s b — user code; given result a, produces a new state computation"
             },
             {
-              "kind": "part",
-              "id": "s_in",
-              "type": "s",
-              "ports": [],
-              "role": "value",
-              "tooltip": "s — current state entering bind. The value side and the state side are both threaded."
-            },
-            {
-              "kind": "part",
-              "id": "bind",
-              "type": "StateBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "bind sa f = \\\\s ->\\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\\n  in  (b, s'')"
-            },
-            {
-              "kind": "part",
-              "id": "sb_val",
+              "kind": "port",
+              "id": "mb",
               "type": "State s b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "State s b — the composed computation; when run it produces (b, s'')"
-            },
-            {
-              "kind": "part",
-              "id": "s_out",
-              "type": "s",
-              "ports": [],
-              "role": "value",
-              "tooltip": "s — the transformed state after both sa and f(a) have run. Different from s_in."
+              "direction": "out",
+              "tooltip": "State s b — the composed computation; when run it produces (b, s''). Never State s (State s b)."
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "sa_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "s_in",
-              "to": "bind"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "sb_val"
-            },
-            {
-              "kind": "connection",
-              "from": "bind",
-              "to": "s_out"
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "sa_val": "type",
-            "f_val": "hof",
-            "s_in": "value",
-            "bind": "function",
-            "sb_val": "type",
-            "s_out": "value"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "sa_val": "State s a — a computation: given state s returns (a, s')",
-            "f_val": "(a ⟶ State s b) — continuation: given result a, produces a new state computation",
-            "s_in": "s — current state entering bind. The value side and the state side are both threaded.",
-            "bind": "bind sa f = \\\\s ->\\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\\n  in  (b, s'')",
-            "sb_val": "State s b — the composed computation; when run it produces (b, s'')",
-            "s_out": "s — the transformed state after both sa and f(a) have run. Different from s_in."
+            "fmap": "fmap f :: State s a ⟶ State s (State s b)\\nfmap f sa = \\\\s -> let (a, s') = sa s in (f a, s')\\nThe state s' passes through untouched; the result is the next State computation, not yet run.",
+            "join": "join :: State s (State s b) ⟶ State s b — the State-specific part\\njoin mm = \\\\s -> let (m, s') = mm s   -- run the outer computation\\n                in  m s'              -- run the inner one with the NEW state s'"
           }
         }
       ],
@@ -111,32 +123,26 @@
           "id": "diagram",
           "packageName": "StateSignature",
           "viewType": "FpIbdView",
-          "expose": "StateBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, >>="
+          "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: fmap f, then join threads the state from outer to inner — also called: flatMap, >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, >>=",
-    "render": "StateBindContext",
+    "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: fmap f, then join threads the state from outer to inner — also called: flatMap, >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "sa_val": "type",
-      "f_val": "hof",
-      "s_in": "value",
-      "bind": "function",
-      "sb_val": "type",
-      "s_out": "value"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "sa_val": "State s a — a computation: given state s returns (a, s')",
-      "f_val": "(a ⟶ State s b) — continuation: given result a, produces a new state computation",
-      "s_in": "s — current state entering bind. The value side and the state side are both threaded.",
-      "bind": "bind sa f = \\\\s ->\\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\\n  in  (b, s'')",
-      "sb_val": "State s b — the composed computation; when run it produces (b, s'')",
-      "s_out": "s — the transformed state after both sa and f(a) have run. Different from s_in."
+      "fmap": "fmap f :: State s a ⟶ State s (State s b)\\nfmap f sa = \\\\s -> let (a, s') = sa s in (f a, s')\\nThe state s' passes through untouched; the result is the next State computation, not yet run.",
+      "join": "join :: State s (State s b) ⟶ State s b — the State-specific part\\njoin mm = \\\\s -> let (m, s') = mm s   -- run the outer computation\\n                in  m s'              -- run the inner one with the NEW state s'"
     }
   }
 }

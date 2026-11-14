@@ -36,7 +36,8 @@ pages may also use SysML for the two monad operations and their shared type sign
 
 - `name-pure.sysml` / `name-pure.svg` — activity: `pure :: a ⟶ Maybe a` (wrap in context)
 - `name-bind.sysml` / `name-bind.svg` — activity: `bind` (pattern match, apply, short-circuit)
-- `name-ibd.sysml` / `name-ibd.svg` — IBD: type signature for `bind`
+- `name-ibd.sysml` / `name-ibd.svg` — IBD: the `bind` block — boundary ports plus its internal
+  `fmap` → `join` decomposition
 
 ---
 
@@ -244,6 +245,23 @@ Boundary ports are real connection endpoints and render on the block frame. Use 
 **actual parameters** (supplied at each call, on the boundary) from **fixed values** (captured parts
 inside the block), as in the partial-application diagram in
 [06-currying.md](../docs/06-currying.md).
+
+**Decompose a combinator that is defined in terms of simpler ones.** Model the combinator as a
+`part def` frame whose boundary ports are its whole call interface, and show the simpler operations
+as internal parts wired together. Intermediate types that never leave the block (`M (M b)`,
+`T (F b)`, `F ((a ⟶ b), a)`) appear only on the internal wire, labelled `(internal only)`.
+
+| Combinator     | Internal decomposition | Diagram                                         |
+| -------------- | ---------------------- | ----------------------------------------------- |
+| `bind` (`>>=`) | `fmap f` → `join`      | `docs/19-monad/monad-ibd.sysml`, `docs/monads/` |
+| `traverse f`   | `fmap f` → `sequence`  | `docs/17-traversable/traversable-ibd.sysml`     |
+| `<*>`          | `pair` → `fmap apply`  | `docs/15-applicative/applicative-ibd.sysml`     |
+
+- Keep the structural shape identical across a family (all monad IBDs are `fmap` → `join`); only the
+  type names and the tooltip of the instance-specific part (`join`, `sequence`, `pair`) differ.
+- Never describe a step as "unwrapping" `M a` — there is no general `M a ⟶ a`. The user's function
+  only sees `a` inside `fmap`.
+- Do not decompose atomic operations (`fmap`, `fold`); a flat signature diagram is enough there.
 
 #### Activity constructs
 

@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "MaybeBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "ma_val",
+              "id": "fmap",
+              "type": "Maybe a ⟶ Maybe (Maybe b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ Maybe b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe (Maybe b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: Maybe a ⟶ Maybe (Maybe b)\\nJust a  →  Just (f a)\\nNothing →  Nothing   (f is skipped)"
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "Maybe (Maybe b) ⟶ Maybe b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe (Maybe b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: Maybe (Maybe b) ⟶ Maybe b — the Maybe-specific part\\nJust (Just b) →  Just b\\nJust Nothing  →  Nothing\\nNothing       →  Nothing   (failure at either level propagates)"
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "Maybe a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called."
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ Maybe b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ Maybe b) — called only when ma_val is Just a; may itself return Nothing"
+              "direction": "in",
+              "tooltip": "f : a ⟶ Maybe b — user code; may itself return Nothing"
             },
             {
-              "kind": "part",
-              "id": "bind",
-              "type": "MaybeBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)"
-            },
-            {
-              "kind": "part",
-              "id": "mb_val",
+              "kind": "port",
+              "id": "mb",
               "type": "Maybe b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Maybe b — Just b (if every step succeeded) or Nothing (first failure propagated)"
+              "direction": "out",
+              "tooltip": "Maybe b — Just b (every step succeeded) or Nothing (first failure propagated); never Maybe (Maybe b)"
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "ma_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "mb_val"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "ma_val": "type",
-            "f_val": "hof",
-            "bind": "function",
-            "mb_val": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "ma_val": "Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called.",
-            "f_val": "(a ⟶ Maybe b) — called only when ma_val is Just a; may itself return Nothing",
-            "bind": "Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)",
-            "mb_val": "Maybe b — Just b (if every step succeeded) or Nothing (first failure propagated)"
+            "fmap": "fmap f :: Maybe a ⟶ Maybe (Maybe b)\\nJust a  →  Just (f a)\\nNothing →  Nothing   (f is skipped)",
+            "join": "join :: Maybe (Maybe b) ⟶ Maybe b — the Maybe-specific part\\nJust (Just b) →  Just b\\nJust Nothing  →  Nothing\\nNothing       →  Nothing   (failure at either level propagates)"
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "MaybeSignature",
           "viewType": "FpIbdView",
-          "expose": "MaybeBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — also called: flatMap, andThen / and_then, SelectMany, chain, >>="
+          "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: fmap f, then join; Nothing short-circuits — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
-    "render": "MaybeBindContext",
+    "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: fmap f, then join; Nothing short-circuits — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "ma_val": "type",
-      "f_val": "hof",
-      "bind": "function",
-      "mb_val": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "ma_val": "Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called.",
-      "f_val": "(a ⟶ Maybe b) — called only when ma_val is Just a; may itself return Nothing",
-      "bind": "Just a  →  unwrap a, apply f, return Maybe b (no re-wrap)\\nNothing →  short-circuit: skip f, propagate Nothing (: Maybe b)",
-      "mb_val": "Maybe b — Just b (if every step succeeded) or Nothing (first failure propagated)"
+      "fmap": "fmap f :: Maybe a ⟶ Maybe (Maybe b)\\nJust a  →  Just (f a)\\nNothing →  Nothing   (f is skipped)",
+      "join": "join :: Maybe (Maybe b) ⟶ Maybe b — the Maybe-specific part\\nJust (Just b) →  Just b\\nJust Nothing  →  Nothing\\nNothing       →  Nothing   (failure at either level propagates)"
     }
   }
 }

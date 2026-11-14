@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "STMBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "sa_val",
+              "id": "fmap",
+              "type": "STM a ⟶ STM (STM b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ STM b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "STM a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "STM (STM b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: STM a ⟶ STM (STM b)\\nAn action that runs ma and returns f a — the next action — without running it."
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "STM (STM b) ⟶ STM b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "STM (STM b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "STM b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: STM (STM b) ⟶ STM b — the STM-specific part\\nRuns the outer action, then the inner action, within ONE transaction.\\nIf any readTVar conflicts → the entire composed transaction retries from scratch."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "STM a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "STM a — an atomic action on TVars (transactional variables). Not yet committed."
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ STM b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ STM b) — given result a of the first action, constructs the next atomic step"
+              "direction": "in",
+              "tooltip": "f : a ⟶ STM b — user code; given result a of the first action, constructs the next atomic step"
             },
             {
-              "kind": "part",
-              "id": "bind",
-              "type": "STMBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "Sequences two STM actions within ONE transaction:\\n1. run sa to get a\\n2. pass a to f to get STM b\\n3. run that action\\nIf any readTVar conflicts → the entire composed transaction retries from scratch."
-            },
-            {
-              "kind": "part",
-              "id": "sb_val",
+              "kind": "port",
+              "id": "mb",
               "type": "STM b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a."
+              "direction": "out",
+              "tooltip": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a. Never STM (STM b)."
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "sa_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "sb_val"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "sa_val": "type",
-            "f_val": "hof",
-            "bind": "function",
-            "sb_val": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "sa_val": "STM a — an atomic action on TVars (transactional variables). Not yet committed.",
-            "f_val": "(a ⟶ STM b) — given result a of the first action, constructs the next atomic step",
-            "bind": "Sequences two STM actions within ONE transaction:\\n1. run sa to get a\\n2. pass a to f to get STM b\\n3. run that action\\nIf any readTVar conflicts → the entire composed transaction retries from scratch.",
-            "sb_val": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a."
+            "fmap": "fmap f :: STM a ⟶ STM (STM b)\\nAn action that runs ma and returns f a — the next action — without running it.",
+            "join": "join :: STM (STM b) ⟶ STM b — the STM-specific part\\nRuns the outer action, then the inner action, within ONE transaction.\\nIf any readTVar conflicts → the entire composed transaction retries from scratch."
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "STMSignature",
           "viewType": "FpIbdView",
-          "expose": "STMBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — also called: >>="
+          "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: fmap f, then join runs both actions in one transaction — also called: >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — also called: >>=",
-    "render": "STMBindContext",
+    "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: fmap f, then join runs both actions in one transaction — also called: >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "sa_val": "type",
-      "f_val": "hof",
-      "bind": "function",
-      "sb_val": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "sa_val": "STM a — an atomic action on TVars (transactional variables). Not yet committed.",
-      "f_val": "(a ⟶ STM b) — given result a of the first action, constructs the next atomic step",
-      "bind": "Sequences two STM actions within ONE transaction:\\n1. run sa to get a\\n2. pass a to f to get STM b\\n3. run that action\\nIf any readTVar conflicts → the entire composed transaction retries from scratch.",
-      "sb_val": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a."
+      "fmap": "fmap f :: STM a ⟶ STM (STM b)\\nAn action that runs ma and returns f a — the next action — without running it.",
+      "join": "join :: STM (STM b) ⟶ STM b — the STM-specific part\\nRuns the outer action, then the inner action, within ONE transaction.\\nIf any readTVar conflicts → the entire composed transaction retries from scratch."
     }
   }
 }

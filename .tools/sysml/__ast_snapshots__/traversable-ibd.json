@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "TraverseContext",
+          "name": "traverse",
           "parts": [
             {
               "kind": "part",
-              "id": "f_val",
-              "type": "a ⟶ Fb",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ Fb) — effectful mapper applied to each element"
-            },
-            {
-              "kind": "part",
-              "id": "ta_val",
-              "type": "Ta",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Ta — traversable structure containing elements of type a"
-            },
-            {
-              "kind": "part",
-              "id": "traverse",
-              "type": "TraverseOp",
-              "ports": [],
+              "id": "fmap",
+              "type": "T a ⟶ T (F b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ F b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "T a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "T (F b)",
+                  "direction": "out"
+                }
+              ],
               "role": "function",
-              "tooltip": "traverse: map with effects, collecting results into F(Tb)"
+              "tooltip": "fmap f :: T a ⟶ T (F b) — from Functor T. Applies f to every element and keeps the shape of the structure; each element is now an effect waiting to be combined."
             },
             {
               "kind": "part",
-              "id": "ftb_val",
-              "type": "F(Tb)",
-              "ports": [],
-              "role": "type",
-              "tooltip": "F(Tb) — effect on the outside, rebuilt structure on the inside"
+              "id": "sequence",
+              "type": "T (F b) ⟶ F (T b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "T (F b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "F (T b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "sequence :: T (F b) ⟶ F (T b) — needs Applicative F. Runs the effects left to right and rebuilds the structure inside a single outer F: Maybe fails on any Nothing, List builds all combinations, IO runs the actions in order."
             }
           ],
-          "ports": [],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ F b",
+              "direction": "in",
+              "tooltip": "f : a ⟶ F b — effectful mapper applied to each element"
+            },
+            {
+              "kind": "port",
+              "id": "ta",
+              "type": "T a",
+              "direction": "in",
+              "tooltip": "T a — traversable structure containing elements of type a"
+            },
+            {
+              "kind": "port",
+              "id": "ftb",
+              "type": "F (T b)",
+              "direction": "out",
+              "tooltip": "F (T b) — effect on the outside, rebuilt structure on the inside"
+            }
+          ],
           "connections": [
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "traverse"
+              "from": "ta",
+              "to": "fmap._",
+              "label": "structure"
             },
             {
               "kind": "connection",
-              "from": "ta_val",
-              "to": "traverse"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "effectful mapper"
             },
             {
               "kind": "connection",
-              "from": "traverse",
-              "to": "ftb_val"
+              "from": "fmap._",
+              "to": "sequence._",
+              "label": "effects inside (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "sequence._",
+              "to": "ftb"
             }
           ],
           "notes": [],
           "shows": {
-            "f_val": "hof",
-            "ta_val": "type",
-            "traverse": "function",
-            "ftb_val": "type"
+            "fmap": "function",
+            "sequence": "function"
           },
           "tooltips": {
-            "f_val": "(a ⟶ Fb) — effectful mapper applied to each element",
-            "ta_val": "Ta — traversable structure containing elements of type a",
-            "traverse": "traverse: map with effects, collecting results into F(Tb)",
-            "ftb_val": "F(Tb) — effect on the outside, rebuilt structure on the inside"
+            "fmap": "fmap f :: T a ⟶ T (F b) — from Functor T. Applies f to every element and keeps the shape of the structure; each element is now an effect waiting to be combined.",
+            "sequence": "sequence :: T (F b) ⟶ F (T b) — needs Applicative F. Runs the effects left to right and rebuilds the structure inside a single outer F: Maybe fails on any Nothing, List builds all combinations, IO runs the actions in order."
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "TraversableSignature",
           "viewType": "FpIbdView",
-          "expose": "TraverseContext",
+          "expose": "traverse",
           "rendering": "fpIbdDiagram",
-          "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)"
+          "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb) — inside traverse: fmap f, then sequence swaps T (F b) into F (T b)",
+          "name": "traverse"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)",
-    "render": "TraverseContext",
+    "title": "traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb) — inside traverse: fmap f, then sequence swaps T (F b) into F (T b)",
+    "name": "traverse",
+    "render": "traverse",
     "shows": {
-      "f_val": "hof",
-      "ta_val": "type",
-      "traverse": "function",
-      "ftb_val": "type"
+      "fmap": "function",
+      "sequence": "function"
     },
     "tooltips": {
-      "f_val": "(a ⟶ Fb) — effectful mapper applied to each element",
-      "ta_val": "Ta — traversable structure containing elements of type a",
-      "traverse": "traverse: map with effects, collecting results into F(Tb)",
-      "ftb_val": "F(Tb) — effect on the outside, rebuilt structure on the inside"
+      "fmap": "fmap f :: T a ⟶ T (F b) — from Functor T. Applies f to every element and keeps the shape of the structure; each element is now an effect waiting to be combined.",
+      "sequence": "sequence :: T (F b) ⟶ F (T b) — needs Applicative F. Runs the effects left to right and rebuilds the structure inside a single outer F: Maybe fails on any Nothing, List builds all combinations, IO runs the actions in order."
     }
   }
 }

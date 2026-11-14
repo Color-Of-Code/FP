@@ -76,7 +76,13 @@ export function nodeDims(n: GNode): [number, number] {
     const w = n.label ? Math.max(DECISION_SZ, n.label.length * 6 + 16) : DECISION_SZ;
     return [w, DECISION_SZ];
   }
-  if (n.kind === "action")    return [ACTION_W,       ACTION_H];
+  if (n.kind === "action") {
+    // Grow with the longest label line so long signatures stay inside the node;
+    // the padding leaves room for pin squares and their captions on both sides.
+    const longest = maxBy(n.label.split("\n"), l => l.length)?.length ?? 0;
+    const charW = 6.0; // 11pt sans
+    return [Math.max(ACTION_W, Math.ceil(longest * charW) + 36), ACTION_H];
+  }
   if (n.kind === "note") {
     // Width = longest line; height = number of lines × line-height + padding.
     const lines = n.noteLines ?? [n.label];

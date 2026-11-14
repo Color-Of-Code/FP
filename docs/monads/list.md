@@ -5,7 +5,7 @@ many results simultaneously.
 
 ![List bind applies a function to each element and concatenates the results](list/list.svg)
 
-![bind :: List a ⟶ (a ⟶ List b) ⟶ List b — also called: flatMap, concatMap, SelectMany, List.collect, >>=](list/list-ibd.svg)
+![bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: map f, then concat — also called: flatMap, concatMap, SelectMany, List.collect, >>=](list/list-ibd.svg)
 
 ![List bind (concatMap): apply f to every element, concatenate all results — also called: flatMap, SelectMany, List.collect, >>=](list/list-bind.svg)
 

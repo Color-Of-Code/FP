@@ -6,86 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "ReaderBindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "ra_val",
+              "id": "fmap",
+              "type": "Reader r a ⟶ Reader r (Reader r b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ Reader r b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Reader r a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Reader r (Reader r b)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "fmap f :: Reader r a ⟶ Reader r (Reader r b)\\nfmap f ma = \\\\r -> f (ma r)\\nOnce r is supplied, the result is the next Reader — not yet run."
+            },
+            {
+              "kind": "part",
+              "id": "join",
+              "type": "Reader r (Reader r b) ⟶ Reader r b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Reader r (Reader r b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Reader r b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: Reader r (Reader r b) ⟶ Reader r b — the Reader-specific part\\njoin mm = \\\\r -> mm r r\\nRun the outer Reader with r to get the inner Reader, then run it with the SAME env r. r is never modified."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
               "type": "Reader r a",
-              "ports": [],
-              "role": "type",
+              "direction": "in",
               "tooltip": "Reader r a — a computation waiting for env r; when run with r it produces a"
             },
             {
-              "kind": "part",
-              "id": "f_val",
+              "kind": "port",
+              "id": "f",
               "type": "a ⟶ Reader r b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ Reader r b) — continuation: given a, produces a new computation waiting for r"
+              "direction": "in",
+              "tooltip": "f : a ⟶ Reader r b — user code; given a, produces a new computation waiting for r"
             },
             {
-              "kind": "part",
-              "id": "r_env",
-              "type": "r",
-              "ports": [],
-              "role": "value",
-              "tooltip": "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified."
-            },
-            {
-              "kind": "part",
-              "id": "bind",
-              "type": "ReaderBindOp",
-              "ports": [],
-              "role": "function",
-              "tooltip": "bind ra f = \\\\r -> f (ra r) r\\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r."
-            },
-            {
-              "kind": "part",
-              "id": "rb_val",
+              "kind": "port",
+              "id": "mb",
               "type": "Reader r b",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Reader r b — the composed computation; when run with r it produces b"
+              "direction": "out",
+              "tooltip": "Reader r b — the composed computation; when run with r it produces b. Never Reader r (Reader r b)."
             }
           ],
-          "ports": [],
           "connections": [
             {
               "kind": "connection",
-              "from": "ra_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "r_env",
-              "to": "bind"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "rb_val"
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "ra_val": "type",
-            "f_val": "hof",
-            "r_env": "value",
-            "bind": "function",
-            "rb_val": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "ra_val": "Reader r a — a computation waiting for env r; when run with r it produces a",
-            "f_val": "(a ⟶ Reader r b) — continuation: given a, produces a new computation waiting for r",
-            "r_env": "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified.",
-            "bind": "bind ra f = \\\\r -> f (ra r) r\\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r.",
-            "rb_val": "Reader r b — the composed computation; when run with r it produces b"
+            "fmap": "fmap f :: Reader r a ⟶ Reader r (Reader r b)\\nfmap f ma = \\\\r -> f (ma r)\\nOnce r is supplied, the result is the next Reader — not yet run.",
+            "join": "join :: Reader r (Reader r b) ⟶ Reader r b — the Reader-specific part\\njoin mm = \\\\r -> mm r r\\nRun the outer Reader with r to get the inner Reader, then run it with the SAME env r. r is never modified."
           }
         }
       ],
@@ -96,30 +123,26 @@
           "id": "diagram",
           "packageName": "ReaderSignature",
           "viewType": "FpIbdView",
-          "expose": "ReaderBindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>="
+          "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — inside bind: fmap f, then join feeds the same r to both — also called: flatMap, >>=",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>=",
-    "render": "ReaderBindContext",
+    "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — inside bind: fmap f, then join feeds the same r to both — also called: flatMap, >>=",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "ra_val": "type",
-      "f_val": "hof",
-      "r_env": "value",
-      "bind": "function",
-      "rb_val": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "ra_val": "Reader r a — a computation waiting for env r; when run with r it produces a",
-      "f_val": "(a ⟶ Reader r b) — continuation: given a, produces a new computation waiting for r",
-      "r_env": "r — the shared read-only environment. bind supplies THE SAME r to ra and to f(a). It is never modified.",
-      "bind": "bind ra f = \\\\r -> f (ra r) r\\nRun ra with env r to get a. Pass a to f. Run f(a) with the SAME env r.",
-      "rb_val": "Reader r b — the composed computation; when run with r it produces b"
+      "fmap": "fmap f :: Reader r a ⟶ Reader r (Reader r b)\\nfmap f ma = \\\\r -> f (ma r)\\nOnce r is supplied, the result is the next Reader — not yet run.",
+      "join": "join :: Reader r (Reader r b) ⟶ Reader r b — the Reader-specific part\\njoin mm = \\\\r -> mm r r\\nRun the outer Reader with r to get the inner Reader, then run it with the SAME env r. r is never modified."
     }
   }
 }

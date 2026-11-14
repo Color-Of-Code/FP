@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 491 312" width="491" height="312" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 611 312" width="611" height="312" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title"> fmap replaces container-specific mapping code </title>
   <desc id="diagram-description">Functional programming diagram:  fmap replaces container-specific mapping code </desc>
   <style>:root {
@@ -85,9 +85,9 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="245.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)"> fmap replaces container-specific mapping code </text>
+  <text x="305.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)"> fmap replaces container-specific mapping code </text>
   <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="491" height="284" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <rect x="0" y="0" width="611" height="284" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
     <g class="diagram-frame-tab tab-block">
       <path d="M0,0 L152.4,0 L152.4,12 L142.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
       <text x="76.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» GenericMapping</text>
@@ -98,16 +98,16 @@
     </g>
     <g class="action-node">
       <title>The same mapping logic is duplicated for each container.</title>
-      <rect x="70" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="130" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">listMap : map_list :: List a ⟶ List b</text>
+      <rect x="70" y="88" width="258" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="199" y="110" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">listMap : map_list :: List a ⟶ List b</text>
     </g>
     <g class="object-node">
       <rect x="70" y="152" width="315.2" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
       <text x="227.6" y="171" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">maybeMap : map_maybe :: Maybe a ⟶ Maybe b</text>
     </g>
     <g class="object-node">
-      <rect x="70" y="94" width="286.40000000000003" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="213.20000000000002" y="113" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">treeMap : map_tree :: Tree a ⟶ Tree b</text>
+      <rect x="70" y="30" width="286.40000000000003" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="213.20000000000002" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">treeMap : map_tree :: Tree a ⟶ Tree b</text>
     </g>
     <g class="object-node hof">
       <title>One plain function is reused inside every functor.</title>
@@ -117,8 +117,8 @@
     </g>
     <g class="action-node">
       <title>fmap lifts f according to the container's structure.</title>
-      <rect x="301" y="210" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="361" y="232" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : fmap :: (a ⟶ b) ⟶ F a ⟶ F b</text>
+      <rect x="301" y="210" width="240" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="421" y="232" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : fmap :: (a ⟶ b) ⟶ F a ⟶ F b</text>
     </g>
   </g>
 </svg>

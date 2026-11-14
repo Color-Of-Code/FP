@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620.8000000000001 246" width="620.8000000000001" height="246" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, &gt;&gt;=</title>
-  <desc id="diagram-description">Functional programming diagram: bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, &gt;&gt;=</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1153 183" width="1153" height="183" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: fmap f, then join threads the state from outer to inner — also called: flatMap, &gt;&gt;=</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: fmap f, then join threads the state from outer to inner — also called: flatMap, &gt;&gt;=</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,59 +85,72 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="310.40000000000003" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b</text>
-  <text x="310.40000000000003" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, &gt;&gt;=</text>
-  <g transform="translate(0,44) scale(1)">
-    <rect x="0" y="0" width="620.8000000000001" height="202" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
-    <g class="diagram-frame-tab tab-block">
-      <path d="M0,0 L164.8,0 L164.8,12 L154.8,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
-      <text x="82.4" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» StateBindContext</text>
-    </g>
-    <g class="edge">
-      <path d="M241.2,153.0 L246.2,153.0 Q251.2,153.0 251.2,148.0 L251.2,112.0 L251.2,112.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge hof-edge">
-      <path d="M241.2,101.0 L249.2,101.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
-    </g>
-    <g class="edge">
-      <path d="M241.2,49.0 L246.2,49.0 Q251.2,49.0 251.2,54.0 L251.2,90.0 L251.2,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M381.2,94.0 L389.2,94.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M381.2,108.0 L386.2,108.0 Q391.2,108.0 391.2,113.0 L391.2,146.0 L391.2,146.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="object-node">
-      <title>State s a — a computation: given state s returns (a, s')</title>
-      <rect x="91.60000000000004" y="134" width="149.6" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="166.40000000000003" y="153" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">sa_val : State s a</text>
-    </g>
-    <g class="object-node hof">
-      <title>(a ⟶ State s b) — continuation: given result a, produces a new state computation</title>
-      <rect x="70.00000000000001" y="82" width="171.20000000000002" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
-      <text x="155.60000000000002" y="94" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
-      <text x="155.60000000000002" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">f_val : a ⟶ State s b</text>
-    </g>
-    <g class="object-node">
-      <title>s — current state entering bind. The value side and the state side are both threaded.</title>
-      <rect x="131.20000000000002" y="30" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="186.20000000000002" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">s_in : s</text>
-    </g>
-    <g class="action-node">
-      <title>bind sa f = \\s -&gt;\n  let (a, s')  = sa(s)    -- run sa: get result a and new state s'\n      (b, s'') = f(a)(s') -- run f(a) with s': get b and final state s''\n  in  (b, s'')</title>
-      <rect x="261.20000000000005" y="79" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="321.20000000000005" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind : StateBindOp</text>
-    </g>
-    <g class="object-node">
-      <title>State s b — the composed computation; when run it produces (b, s'')</title>
-      <rect x="401.20000000000005" y="75" width="149.6" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="476.00000000000006" y="94" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">sb_val : State s b</text>
-    </g>
-    <g class="object-node">
-      <title>s — the transformed state after both sa and f(a) have run. Different from s_in.</title>
-      <rect x="401.20000000000005" y="127" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="456.20000000000005" y="146" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">s_out : s</text>
+  <text x="576.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b</text>
+  <text x="576.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: fmap f, then join threads the state from outer to inner</text>
+  <text x="576.5" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, &gt;&gt;=</text>
+  <g transform="translate(0,60) scale(1)">
+    <g transform="translate(103,0)">
+      <rect x="0" y="0" width="963" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <g class="diagram-frame-tab tab-block">
+        <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,73.0 L147.0,73.0 Q153.0,73.0 153.0,67.0 L153.0,61.0 L153.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="78.5" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,43.0 L151.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="83.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+      </g>
+      <g class="edge">
+        <path d="M439.0,52.0 L577.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="516" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">nested (internal only)</text>
+      </g>
+      <g class="edge">
+        <path d="M865.0,52.0 L947.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="action-node">
+        <title>fmap f :: State s a ⟶ State s (State s b)\nfmap f sa = \\s -&gt; let (a, s') = sa s in (f a, s')\nThe state s' passes through untouched; the result is the next State computation, not yet run.</title>
+        <rect x="171" y="30" width="264" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="303" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : State s a ⟶ State s (State s b)</text>
+        <g class="pin pin-in">
+          <rect x="167" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="177" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="167" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="431" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>join :: State s (State s b) ⟶ State s b — the State-specific part\njoin mm = \\s -&gt; let (m, s') = mm s   -- run the outer computation\n                in  m s'              -- run the inner one with the NEW state s'</title>
+        <rect x="597" y="30" width="264" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="729" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join : State s (State s b) ⟶ State s b</text>
+        <g class="pin pin-in">
+          <rect x="593" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="857" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="port port-left">
+        <title>State s a — a computation: given state s returns (a, s')</title>
+        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : State s a</text>
+      </g>
+      <g class="port port-left">
+        <title>f : a ⟶ State s b — user code; given result a, produces a new state computation</title>
+        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ State s b</text>
+      </g>
+      <g class="port port-right">
+        <title>State s b — the composed computation; when run it produces (b, s''). Never State s (State s b).</title>
+        <rect x="959" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="970" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : State s b</text>
+      </g>
     </g>
   </g>
 </svg>
