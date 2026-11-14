@@ -68,46 +68,51 @@ that the D2 inventory only shrinks.
 
 ## SysML activity diagrams — conventions
 
-1. **Pins represent typed values** (a slot where a value flows). The type constrains what flows; the
+1. **One view per file.** The `view`'s `doc` comment is the diagram's title and must exactly match
+   the Markdown image alt text. `make -C .tools lint-diagrams` enforces this, along with a 20-node
+   budget and source/output/embed consistency.
+
+2. **Use the shared theme.** Do not hard-code colors in renderers; use tokens from
+   `.tools/sysml/types/theme.ts`. SVG canvases stay transparent, and the theme provides light and
+   dark values using `prefers-color-scheme`. Keep text contrast at or above 4.5:1 and graphic
+   contrast at or above 3:1 in both schemes.
+
+3. **Law diagrams:** show the two expressions as separate paths and join their results with an `=`
+   marker. Do not imply equality by relying on layout or color alone.
+
+4. **Pins represent typed values** (a slot where a value flows). The type constrains what flows; the
    name labels the value. Type information belongs on the flow edge, not duplicated on the pin.
 
-2. **Anonymous pins**: use `_` as the pin name to render the pin square without a text label. Use
+5. **Anonymous pins**: use `_` as the pin name to render the pin square without a text label. Use
    this when the pin's purpose is already obvious from the flow-edge type annotation (e.g., output
    pins whose type like `"Maybe User"` is on the outgoing edge).
 
-3. **Motivation-pair consistency**: "without" and "with" diagrams for the same monad should use
+6. **Motivation-pair consistency**: "without" and "with" diagrams for the same monad should use
    **identical type names** (e.g., `Maybe User` in both). This makes the structural parallel
    immediately visible — the difference is in _handling_ (manual guards vs. automatic bind), not in
    the types themselves.
 
-4. **Minimize label noise**: if information is already carried on a flow edge, do not repeat it on a
+7. **Minimize label noise**: if information is already carried on a flow edge, do not repeat it on a
    pin label. Prefer fewer, meaningful labels over exhaustive annotation.
 
-5. **Show monadic combinators as real nodes, not edge labels**. A function `f : a → m b` cannot
+8. **Show monadic combinators as real nodes, not edge labels**. A function `f : a → m b` cannot
    compose directly with `g : b → m c` — the types do not line up. The combinator (`bind`/`>>=`,
    `ap`/`<*>`, `fmap`, etc.) is a real operation with its own type signature, not just notation.
    - Render the combinator as an `action` node on the main flow.
-   - Pass the chained function in as a side **HOF input** (rendered with `show … as hof`), typed
-     `a ⟶ m b` (or whatever its signature is). It must not sit on the main flow, because its input
-     type does not match the `m a` flowing through.
+   - Pass the chained function in as a side **HOF input** (rendered with
+     `#FpNodePresentation { role = "hof"; }`), typed `a ⟶ m b` (or whatever its signature is). It
+     must not sit on the main flow, because its input type does not match the `m a` flowing through.
    - Edge labels on the main flow carry the monadic types (`Maybe User`, `Maybe Address`, …).
    - This makes the central insight visible: the chain runs through the combinator nodes; the
      fallible/effectful functions are arguments to those combinators.
 
-6. **Anonymous combinator output pins**: `bind`, `ap`, etc. typically have one output. Use
+9. **Anonymous combinator output pins**: `bind`, `ap`, etc. typically have one output. Use
    `out _ : "Maybe b"` (or similar) so the pin square is rendered without a noisy `result` label.
 
-7. **Swimlanes (`lane` blocks)** in `*-motivation-with.sysml` files split plain-value land from
-   monadic land. Conventions:
-   - Top lane is `lane plain : "Plain values & functions" = …` and lists raw input, all HOF argument
-     objects, and the final output object.
-   - Bottom lane is `lane monad : "<Name> monad" = …` and lists the chain entry (`pureX`) and the
-     bind/ap/fmap action nodes.
-   - **Member order matters**: list members left-to-right in the order they should appear along the
-     chain. The layout engine column-aligns each cross-lane HOF object to its target action's x —
-     the natural "HOF dropping straight down into its bind" reading depends on the declaration order
-     matching the flow order.
-   - Lanes are decoration only. Do not try to encode flow direction or semantics through lanes.
+10. **Swimlanes** in `*-motivation-with.sysml` files use `FpNodePresentation` metadata:
+    `laneId`, `laneLabel`, `laneOrder`, and `laneMemberOrder`. Keep member order aligned with the
+    flow order; the layout engine uses it to align each HOF input over its target combinator. Lanes
+    are decoration only and must not encode flow direction or semantics.
 
 ## Lessons learned — do not repeat
 
