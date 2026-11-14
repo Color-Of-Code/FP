@@ -1,10 +1,10 @@
-// SysML v2 — Parser monad IBD: inside bind
+// SysML v2 — Parser monad IBD: the Parser that bind returns
 // (>>=) :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b      m >>= f = join (fmap f m)
 //
-// Generic shape: see docs/19-monad/monad-ibd.sysml. The call interface is the same for every
-// monad — ma and f in, mb out. Parser a = String ⟶ Maybe (a, String), so inside the block we
-// see the body of the parser that bind returns: text is its parameter, supplied only when
-// the parser is run. Here fmap and join are fused into State threading plus Maybe failure:
+// Generic shape: see docs/19-monad/monad-ibd.sysml. Parser b = String ⟶ Maybe (b, String), so
+// the «block» frame is the parser that bind returns: its boundary ports are its call
+// interface — the text in, the outcome out. The two things bind was applied to, ma and f, are
+// fixed (captured) inside. Here fmap and join are fused into State threading plus Maybe failure:
 //   • the first parser consumes a prefix and returns a plus the unconsumed rest
 //   • the parser f builds runs on that rest — not on the original text
 //   • if the first parser fails, f is never reached and Nothing is returned
@@ -12,16 +12,16 @@
 package ParserSignature {
     private import FpDiagram::*;
 
-    part def bind {
-        #FpNodePresentation { tooltip = "Parser a = String ⟶ Maybe (a, String) — run on input; succeeds with (a, rest) or fails with Nothing"; }
-        port in  ma : "Parser a";
-        #FpNodePresentation { tooltip = "f : a ⟶ Parser b — user code; given parsed value a, constructs the next parser"; }
-        port in  f  : "a ⟶ Parser b";
-        #FpNodePresentation { tooltip = "Parser b — the composed parser; a function still waiting for the text to parse"; }
-        port out mb : "Parser b";
+    part def bound {
+        #FpNodePresentation { tooltip = "The text to parse, supplied each time the parser is run"; }
+        port in  text   : "String";
+        #FpNodePresentation { tooltip = "Just (b, rest2) where rest2 is what f(a) didn't consume, or Nothing if either parser failed"; }
+        port out result : "Maybe (b, String)";
 
-        #FpNodePresentation { role = "value"; tooltip = "The text to parse: the parameter of the returned parser. It is supplied when the parser is run, not when bind is called."; }
-        part text : "String — supplied when run";
+        #FpNodePresentation { role = "hof"; tooltip = "ma : Parser a = String ⟶ Maybe (a, String) — succeeds with (a, rest) or fails with Nothing; fixed when bind was applied"; }
+        part ma : "Parser a — captured";
+        #FpNodePresentation { role = "hof"; tooltip = "f : a ⟶ Parser b — user code; given parsed value a, constructs the next parser; fixed when bind was applied"; }
+        part f : "a ⟶ Parser b — captured";
 
         #FpNodePresentation { role = "function"; tooltip = "Run the first parser on the text: ma text."; }
         part run_ma : "ma text" {
@@ -53,29 +53,23 @@ package ParserSignature {
             port in  _ : "Nothing";
             port out _ : "Maybe (b, String)";
         }
-        #FpNodePresentation { role = "function"; tooltip = "Abstract over the text again: the outcome becomes the Parser b that bind returns."; }
-        part wrap : "λtext → Maybe (b, String)" {
-            port in  _ : "Maybe (b, String)";
-            port out _ : "Parser b";
-        }
 
-        connection connect ma            to run_ma.p : "wrapped";
+        connection connect ma            to run_ma.p : "captured";
         connection connect text          to run_ma.s : "text";
         connection connect run_ma._      to match._ : "outcome";
         connection connect match.a       to call.a : "parsed value";
-        connection connect f             to call.f : "user code";
+        connection connect f             to call.f : "captured";
         connection connect call._        to run_next.p : "next parser";
         connection connect match.rest    to run_next.s : "rest threaded";
         connection connect match.nothing to fail._ : "f skipped";
-        connection connect run_next._    to wrap._ : "success";
-        connection connect fail._        to wrap._ : "failure";
-        connection connect wrap._        to mb;
+        connection connect run_next._    to result;
+        connection connect fail._        to result;
     }
 
     #FpViewPresentation { name = "bind"; }
     view diagram : FpIbdView {
         doc /*bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: the unconsumed rest is threaded into the next parser; failure skips it — also called: flatMap, Bind, >>=*/
-        expose bind;
+        expose bound;
         render fpIbdDiagram;
     }
 }

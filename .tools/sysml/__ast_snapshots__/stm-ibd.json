@@ -6,8 +6,24 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "bind",
+          "name": "bound",
           "parts": [
+            {
+              "kind": "part",
+              "id": "ma",
+              "type": "STM a — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "ma : STM a — an atomic action on TVars (transactional variables). Not yet committed; fixed when bind was applied."
+            },
+            {
+              "kind": "part",
+              "id": "f",
+              "type": "a ⟶ STM b — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "f : a ⟶ STM b — user code; given result a of the first action, constructs the next atomic step; fixed when bind was applied"
+            },
             {
               "kind": "part",
               "id": "log",
@@ -117,50 +133,15 @@
               ],
               "role": "function",
               "tooltip": "atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over."
-            },
-            {
-              "kind": "part",
-              "id": "wrap",
-              "type": "atomic action",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "b",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "STM b",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "Package the whole script as one atomic action, to be run by atomically."
             }
           ],
           "ports": [
             {
               "kind": "port",
-              "id": "ma",
-              "type": "STM a",
-              "direction": "in",
-              "tooltip": "STM a — an atomic action on TVars (transactional variables). Not yet committed."
-            },
-            {
-              "kind": "port",
-              "id": "f",
-              "type": "a ⟶ STM b",
-              "direction": "in",
-              "tooltip": "f : a ⟶ STM b — user code; given result a of the first action, constructs the next atomic step"
-            },
-            {
-              "kind": "port",
-              "id": "mb",
-              "type": "STM b",
+              "id": "result",
+              "type": "b",
               "direction": "out",
-              "tooltip": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a."
+              "tooltip": "b — the result once atomically has committed the whole transaction"
             }
           ],
           "connections": [
@@ -168,7 +149,7 @@
               "kind": "connection",
               "from": "ma",
               "to": "run_ma.m",
-              "label": "wrapped"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -186,7 +167,7 @@
               "kind": "connection",
               "from": "f",
               "to": "call.f",
-              "label": "user code"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -209,31 +190,27 @@
             {
               "kind": "connection",
               "from": "commit._",
-              "to": "wrap._",
-              "label": "committed"
-            },
-            {
-              "kind": "connection",
-              "from": "wrap._",
-              "to": "mb"
+              "to": "result"
             }
           ],
           "notes": [],
           "shows": {
+            "ma": "hof",
+            "f": "hof",
             "log": "value",
             "run_ma": "function",
             "call": "function",
             "run_next": "function",
-            "commit": "function",
-            "wrap": "function"
+            "commit": "function"
           },
           "tooltips": {
+            "ma": "ma : STM a — an atomic action on TVars (transactional variables). Not yet committed; fixed when bind was applied.",
+            "f": "f : a ⟶ STM b — user code; given result a of the first action, constructs the next atomic step; fixed when bind was applied",
             "log": "The transaction log: TVar reads and tentative writes are recorded here, not applied. One log is shared by both steps.",
             "run_ma": "Run the first action against the log, producing a.",
             "call": "Apply f to the result: yields the next atomic action, not yet run.",
             "run_next": "The STM-specific join: run the action f built against the SAME log, so both steps form one atomic unit.",
-            "commit": "atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over.",
-            "wrap": "Package the whole script as one atomic action, to be run by atomically."
+            "commit": "atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over."
           }
         }
       ],
@@ -244,7 +221,7 @@
           "id": "diagram",
           "packageName": "STMSignature",
           "viewType": "FpIbdView",
-          "expose": "bind",
+          "expose": "bound",
           "rendering": "fpIbdDiagram",
           "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: both actions run against one shared transaction log that commits or retries as a whole — also called: >>=",
           "name": "bind"
@@ -256,22 +233,24 @@
     "diagType": "ibd",
     "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: both actions run against one shared transaction log that commits or retries as a whole — also called: >>=",
     "name": "bind",
-    "render": "bind",
+    "render": "bound",
     "shows": {
+      "ma": "hof",
+      "f": "hof",
       "log": "value",
       "run_ma": "function",
       "call": "function",
       "run_next": "function",
-      "commit": "function",
-      "wrap": "function"
+      "commit": "function"
     },
     "tooltips": {
+      "ma": "ma : STM a — an atomic action on TVars (transactional variables). Not yet committed; fixed when bind was applied.",
+      "f": "f : a ⟶ STM b — user code; given result a of the first action, constructs the next atomic step; fixed when bind was applied",
       "log": "The transaction log: TVar reads and tentative writes are recorded here, not applied. One log is shared by both steps.",
       "run_ma": "Run the first action against the log, producing a.",
       "call": "Apply f to the result: yields the next atomic action, not yet run.",
       "run_next": "The STM-specific join: run the action f built against the SAME log, so both steps form one atomic unit.",
-      "commit": "atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over.",
-      "wrap": "Package the whole script as one atomic action, to be run by atomically."
+      "commit": "atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over."
     }
   }
 }

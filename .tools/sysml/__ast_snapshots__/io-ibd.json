@@ -6,8 +6,24 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "bind",
+          "name": "bound",
           "parts": [
+            {
+              "kind": "part",
+              "id": "ma",
+              "type": "IO a — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "ma : IO a — a description of a side-effectful computation. Nothing runs yet; fixed when bind was applied."
+            },
+            {
+              "kind": "part",
+              "id": "f",
+              "type": "a ⟶ IO b — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "f : a ⟶ IO b — user code; given the result of running ma, returns the next IO action; fixed when bind was applied"
+            },
             {
               "kind": "part",
               "id": "run_ma",
@@ -76,50 +92,15 @@
               ],
               "role": "function",
               "tooltip": "The IO-specific join: execute the recipe f built. Its effects happen strictly after those of ma — order of effects = order of binds."
-            },
-            {
-              "kind": "part",
-              "id": "wrap",
-              "type": "recipe",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "b",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "IO b",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "Package the whole script as one recipe, to be executed by the runtime."
             }
           ],
           "ports": [
             {
               "kind": "port",
-              "id": "ma",
-              "type": "IO a",
-              "direction": "in",
-              "tooltip": "IO a — a description of a side-effectful computation. Nothing runs yet."
-            },
-            {
-              "kind": "port",
-              "id": "f",
-              "type": "a ⟶ IO b",
-              "direction": "in",
-              "tooltip": "f : a ⟶ IO b — user code; given the result of running ma, returns the next IO action"
-            },
-            {
-              "kind": "port",
-              "id": "mb",
-              "type": "IO b",
+              "id": "result",
+              "type": "b",
               "direction": "out",
-              "tooltip": "IO b — the composed recipe. Effects of ma happen before effects of f(a)."
+              "tooltip": "b — the result once the whole composed recipe has been executed by the runtime"
             }
           ],
           "connections": [
@@ -127,7 +108,7 @@
               "kind": "connection",
               "from": "ma",
               "to": "run_ma._",
-              "label": "wrapped"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -139,7 +120,7 @@
               "kind": "connection",
               "from": "f",
               "to": "call.f",
-              "label": "user code"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -150,27 +131,23 @@
             {
               "kind": "connection",
               "from": "run_next._",
-              "to": "wrap._",
-              "label": "result"
-            },
-            {
-              "kind": "connection",
-              "from": "wrap._",
-              "to": "mb"
+              "to": "result"
             }
           ],
           "notes": [],
           "shows": {
+            "ma": "hof",
+            "f": "hof",
             "run_ma": "function",
             "call": "function",
-            "run_next": "function",
-            "wrap": "function"
+            "run_next": "function"
           },
           "tooltips": {
+            "ma": "ma : IO a — a description of a side-effectful computation. Nothing runs yet; fixed when bind was applied.",
+            "f": "f : a ⟶ IO b — user code; given the result of running ma, returns the next IO action; fixed when bind was applied",
             "run_ma": "Execute the first recipe: its side effects happen now, producing a.",
             "call": "Apply f to the result: yields the next recipe, not yet executed. The choice of the next effect can depend on a.",
-            "run_next": "The IO-specific join: execute the recipe f built. Its effects happen strictly after those of ma — order of effects = order of binds.",
-            "wrap": "Package the whole script as one recipe, to be executed by the runtime."
+            "run_next": "The IO-specific join: execute the recipe f built. Its effects happen strictly after those of ma — order of effects = order of binds."
           }
         }
       ],
@@ -181,7 +158,7 @@
           "id": "diagram",
           "packageName": "IOSignature",
           "viewType": "FpIbdView",
-          "expose": "bind",
+          "expose": "bound",
           "rendering": "fpIbdDiagram",
           "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: execute ma, feed its result to f, then execute the recipe f returns — also called: .then (Promises), >>=",
           "name": "bind"
@@ -193,18 +170,20 @@
     "diagType": "ibd",
     "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: execute ma, feed its result to f, then execute the recipe f returns — also called: .then (Promises), >>=",
     "name": "bind",
-    "render": "bind",
+    "render": "bound",
     "shows": {
+      "ma": "hof",
+      "f": "hof",
       "run_ma": "function",
       "call": "function",
-      "run_next": "function",
-      "wrap": "function"
+      "run_next": "function"
     },
     "tooltips": {
+      "ma": "ma : IO a — a description of a side-effectful computation. Nothing runs yet; fixed when bind was applied.",
+      "f": "f : a ⟶ IO b — user code; given the result of running ma, returns the next IO action; fixed when bind was applied",
       "run_ma": "Execute the first recipe: its side effects happen now, producing a.",
       "call": "Apply f to the result: yields the next recipe, not yet executed. The choice of the next effect can depend on a.",
-      "run_next": "The IO-specific join: execute the recipe f built. Its effects happen strictly after those of ma — order of effects = order of binds.",
-      "wrap": "Package the whole script as one recipe, to be executed by the runtime."
+      "run_next": "The IO-specific join: execute the recipe f built. Its effects happen strictly after those of ma — order of effects = order of binds."
     }
   }
 }

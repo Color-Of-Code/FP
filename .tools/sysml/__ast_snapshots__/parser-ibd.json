@@ -6,15 +6,23 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "bind",
+          "name": "bound",
           "parts": [
             {
               "kind": "part",
-              "id": "text",
-              "type": "String — supplied when run",
+              "id": "ma",
+              "type": "Parser a — captured",
               "ports": [],
-              "role": "value",
-              "tooltip": "The text to parse: the parameter of the returned parser. It is supplied when the parser is run, not when bind is called."
+              "role": "hof",
+              "tooltip": "ma : Parser a = String ⟶ Maybe (a, String) — succeeds with (a, rest) or fails with Nothing; fixed when bind was applied"
+            },
+            {
+              "kind": "part",
+              "id": "f",
+              "type": "a ⟶ Parser b — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "f : a ⟶ Parser b — user code; given parsed value a, constructs the next parser; fixed when bind was applied"
             },
             {
               "kind": "part",
@@ -150,50 +158,22 @@
               ],
               "role": "function",
               "tooltip": "Short-circuit: failure is propagated, f is skipped."
-            },
-            {
-              "kind": "part",
-              "id": "wrap",
-              "type": "λtext → Maybe (b, String)",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Maybe (b, String)",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Parser b",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "Abstract over the text again: the outcome becomes the Parser b that bind returns."
             }
           ],
           "ports": [
             {
               "kind": "port",
-              "id": "ma",
-              "type": "Parser a",
+              "id": "text",
+              "type": "String",
               "direction": "in",
-              "tooltip": "Parser a = String ⟶ Maybe (a, String) — run on input; succeeds with (a, rest) or fails with Nothing"
+              "tooltip": "The text to parse, supplied each time the parser is run"
             },
             {
               "kind": "port",
-              "id": "f",
-              "type": "a ⟶ Parser b",
-              "direction": "in",
-              "tooltip": "f : a ⟶ Parser b — user code; given parsed value a, constructs the next parser"
-            },
-            {
-              "kind": "port",
-              "id": "mb",
-              "type": "Parser b",
+              "id": "result",
+              "type": "Maybe (b, String)",
               "direction": "out",
-              "tooltip": "Parser b — the composed parser; a function still waiting for the text to parse"
+              "tooltip": "Just (b, rest2) where rest2 is what f(a) didn't consume, or Nothing if either parser failed"
             }
           ],
           "connections": [
@@ -201,7 +181,7 @@
               "kind": "connection",
               "from": "ma",
               "to": "run_ma.p",
-              "label": "wrapped"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -225,7 +205,7 @@
               "kind": "connection",
               "from": "f",
               "to": "call.f",
-              "label": "user code"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -248,39 +228,32 @@
             {
               "kind": "connection",
               "from": "run_next._",
-              "to": "wrap._",
-              "label": "success"
+              "to": "result"
             },
             {
               "kind": "connection",
               "from": "fail._",
-              "to": "wrap._",
-              "label": "failure"
-            },
-            {
-              "kind": "connection",
-              "from": "wrap._",
-              "to": "mb"
+              "to": "result"
             }
           ],
           "notes": [],
           "shows": {
-            "text": "value",
+            "ma": "hof",
+            "f": "hof",
             "run_ma": "function",
             "match": "function",
             "call": "function",
             "run_next": "function",
-            "fail": "function",
-            "wrap": "function"
+            "fail": "function"
           },
           "tooltips": {
-            "text": "The text to parse: the parameter of the returned parser. It is supplied when the parser is run, not when bind is called.",
+            "ma": "ma : Parser a = String ⟶ Maybe (a, String) — succeeds with (a, rest) or fails with Nothing; fixed when bind was applied",
+            "f": "f : a ⟶ Parser b — user code; given parsed value a, constructs the next parser; fixed when bind was applied",
             "run_ma": "Run the first parser on the text: ma text.",
             "match": "Pattern match on the outcome.\\nJust (a, rest) → value and unconsumed rest leave separately\\nNothing        → the parse failed",
             "call": "Apply f to the parsed value: yields the next parser, not yet run.",
             "run_next": "Run the next parser on the remainder: (f a) rest. This is the threading step of the join.",
-            "fail": "Short-circuit: failure is propagated, f is skipped.",
-            "wrap": "Abstract over the text again: the outcome becomes the Parser b that bind returns."
+            "fail": "Short-circuit: failure is propagated, f is skipped."
           }
         }
       ],
@@ -291,7 +264,7 @@
           "id": "diagram",
           "packageName": "ParserSignature",
           "viewType": "FpIbdView",
-          "expose": "bind",
+          "expose": "bound",
           "rendering": "fpIbdDiagram",
           "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: the unconsumed rest is threaded into the next parser; failure skips it — also called: flatMap, Bind, >>=",
           "name": "bind"
@@ -303,24 +276,24 @@
     "diagType": "ibd",
     "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: the unconsumed rest is threaded into the next parser; failure skips it — also called: flatMap, Bind, >>=",
     "name": "bind",
-    "render": "bind",
+    "render": "bound",
     "shows": {
-      "text": "value",
+      "ma": "hof",
+      "f": "hof",
       "run_ma": "function",
       "match": "function",
       "call": "function",
       "run_next": "function",
-      "fail": "function",
-      "wrap": "function"
+      "fail": "function"
     },
     "tooltips": {
-      "text": "The text to parse: the parameter of the returned parser. It is supplied when the parser is run, not when bind is called.",
+      "ma": "ma : Parser a = String ⟶ Maybe (a, String) — succeeds with (a, rest) or fails with Nothing; fixed when bind was applied",
+      "f": "f : a ⟶ Parser b — user code; given parsed value a, constructs the next parser; fixed when bind was applied",
       "run_ma": "Run the first parser on the text: ma text.",
       "match": "Pattern match on the outcome.\\nJust (a, rest) → value and unconsumed rest leave separately\\nNothing        → the parse failed",
       "call": "Apply f to the parsed value: yields the next parser, not yet run.",
       "run_next": "Run the next parser on the remainder: (f a) rest. This is the threading step of the join.",
-      "fail": "Short-circuit: failure is propagated, f is skipped.",
-      "wrap": "Abstract over the text again: the outcome becomes the Parser b that bind returns."
+      "fail": "Short-circuit: failure is propagated, f is skipped."
     }
   }
 }

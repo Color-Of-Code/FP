@@ -1,10 +1,10 @@
-// SysML v2 — Cont monad IBD: inside bind
+// SysML v2 — Cont monad IBD: the Cont that bind returns
 // (>>=) :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b      m >>= f = join (fmap f m)
 //
-// Generic shape: see docs/19-monad/monad-ibd.sysml. The call interface is the same for every
-// monad — ma and f in, mb out. Cont r b = (b ⟶ r) ⟶ r, so inside the block we see the body
-// of the Cont that bind returns: k is its parameter, the final continuation, supplied only
-// when the result is run. Here fmap and join are fused into what Cont actually does — an
+// Generic shape: see docs/19-monad/monad-ibd.sysml. Cont r b = (b ⟶ r) ⟶ r, so the «block»
+// frame is the Cont that bind returns: its boundary ports are its call interface — the final
+// continuation k in, the answer r out. The two things bind was applied to, ma and f, are fixed
+// (captured) inside. Here fmap and join are fused into what Cont actually does — an
 // inversion of control:
 //   • f and k are wrapped into a NEW continuation k' = \a -> f a k
 //   • the original computation ma receives k' and calls it with its result
@@ -13,16 +13,16 @@
 package ContSignature {
     private import FpDiagram::*;
 
-    part def bind {
-        #FpNodePresentation { tooltip = "Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation"; }
-        port in  ma : "Cont r a";
-        #FpNodePresentation { tooltip = "f : a ⟶ Cont r b — user code; given result a, builds the next continuation-based step"; }
-        port in  f  : "a ⟶ Cont r b";
-        #FpNodePresentation { tooltip = "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"; }
-        port out mb : "Cont r b";
+    part def bound {
+        #FpNodePresentation { tooltip = "k : b ⟶ r — the final continuation: what to do with b once everything is done. Supplied each time the Cont is run."; }
+        port in  k      : "b ⟶ r";
+        #FpNodePresentation { tooltip = "r — the final answer of the whole computation; callCC can capture k to exit early"; }
+        port out result : "r";
 
-        #FpNodePresentation { role = "value"; tooltip = "The final continuation: the parameter of the returned Cont. It says what to do with b once everything is done, and is supplied when the Cont is run, not when bind is called."; }
-        part k : "b ⟶ r — supplied when run";
+        #FpNodePresentation { role = "hof"; tooltip = "ma : Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation; fixed when bind was applied"; }
+        part ma : "Cont r a — captured";
+        #FpNodePresentation { role = "hof"; tooltip = "f : a ⟶ Cont r b — user code; given result a, builds the next continuation-based step; fixed when bind was applied"; }
+        part f : "a ⟶ Cont r b — captured";
 
         #FpNodePresentation { role = "function"; tooltip = "Builds the new continuation k' = \\a -> f a k.\nWhen k' receives a, it runs f a and hands it the ORIGINAL continuation k — this is the Cont-specific join."; }
         part bridge : "λa → (f a) k" {
@@ -36,24 +36,18 @@ package ContSignature {
             port in  k2 : "a ⟶ r";
             port out _  : "r";
         }
-        #FpNodePresentation { role = "function"; tooltip = "Abstract over k again: the whole body becomes the Cont r b that bind returns."; }
-        part wrap : "λk → r" {
-            port in  _ : "r";
-            port out _ : "Cont r b";
-        }
 
-        connection connect f         to bridge.f : "user code";
+        connection connect f         to bridge.f : "captured";
         connection connect k         to bridge.k : "final continuation";
         connection connect bridge.k2 to run.k2 : "new continuation k'";
-        connection connect ma        to run.m : "wrapped";
-        connection connect run._     to wrap._ : "answer";
-        connection connect wrap._    to mb;
+        connection connect ma        to run.m : "captured";
+        connection connect run._     to result;
     }
 
     #FpViewPresentation { name = "bind"; }
     view diagram : FpIbdView {
         doc /*bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: f and k are wrapped into a new continuation handed to ma, so the current step runs last — also called: Bind, >>=*/
-        expose bind;
+        expose bound;
         render fpIbdDiagram;
     }
 }

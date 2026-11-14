@@ -1,10 +1,11 @@
-// SysML v2 — STM monad IBD: inside bind
+// SysML v2 — STM monad IBD: the transaction that bind returns
 // (>>=) :: STM a ⟶ (a ⟶ STM b) ⟶ STM b      m >>= f = join (fmap f m)
 //
-// Generic shape: see docs/19-monad/monad-ibd.sysml. The call interface is the same for every
-// monad — ma and f in, mb out. An STM value is a transaction recipe, so inside the block we
-// see its script as atomically executes it. Here fmap and join are fused into what STM
-// actually does — IO-style sequencing inside ONE transaction:
+// Generic shape: see docs/19-monad/monad-ibd.sysml. An STM value is a transaction recipe, so
+// the «block» frame is the transaction that bind returns, as atomically executes it: its only
+// boundary port is the result b it produces. The two things bind was applied to, ma and f, are
+// fixed (captured) inside. Here fmap and join are fused into what STM actually does —
+// IO-style sequencing inside ONE transaction:
 //   • both steps read and write TVars through the same transaction log
 //   • nothing is visible to other threads until the whole log commits
 //   • a conflict (or retry) in either step discards the log and re-runs everything
@@ -12,14 +13,14 @@
 package STMSignature {
     private import FpDiagram::*;
 
-    part def bind {
-        #FpNodePresentation { tooltip = "STM a — an atomic action on TVars (transactional variables). Not yet committed."; }
-        port in  ma : "STM a";
-        #FpNodePresentation { tooltip = "f : a ⟶ STM b — user code; given result a of the first action, constructs the next atomic step"; }
-        port in  f  : "a ⟶ STM b";
-        #FpNodePresentation { tooltip = "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a."; }
-        port out mb : "STM b";
+    part def bound {
+        #FpNodePresentation { tooltip = "b — the result once atomically has committed the whole transaction"; }
+        port out result : "b";
 
+        #FpNodePresentation { role = "hof"; tooltip = "ma : STM a — an atomic action on TVars (transactional variables). Not yet committed; fixed when bind was applied."; }
+        part ma : "STM a — captured";
+        #FpNodePresentation { role = "hof"; tooltip = "f : a ⟶ STM b — user code; given result a of the first action, constructs the next atomic step; fixed when bind was applied"; }
+        part f : "a ⟶ STM b — captured";
         #FpNodePresentation { role = "value"; tooltip = "The transaction log: TVar reads and tentative writes are recorded here, not applied. One log is shared by both steps."; }
         part log : "transaction log";
 
@@ -46,27 +47,21 @@ package STMSignature {
             port in  _ : "b";
             port out _ : "b";
         }
-        #FpNodePresentation { role = "function"; tooltip = "Package the whole script as one atomic action, to be run by atomically."; }
-        part wrap : "atomic action" {
-            port in  _ : "b";
-            port out _ : "STM b";
-        }
 
-        connection connect ma         to run_ma.m : "wrapped";
+        connection connect ma         to run_ma.m : "captured";
         connection connect log        to run_ma.log : "shared log";
         connection connect run_ma._   to call.a : "result";
-        connection connect f          to call.f : "user code";
+        connection connect f          to call.f : "captured";
         connection connect call._     to run_next.m : "next action";
         connection connect log        to run_next.log : "same log";
         connection connect run_next._ to commit._ : "tentative result";
-        connection connect commit._   to wrap._ : "committed";
-        connection connect wrap._     to mb;
+        connection connect commit._   to result;
     }
 
     #FpViewPresentation { name = "bind"; }
     view diagram : FpIbdView {
         doc /*bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: both actions run against one shared transaction log that commits or retries as a whole — also called: >>=*/
-        expose bind;
+        expose bound;
         render fpIbdDiagram;
     }
 }

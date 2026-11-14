@@ -277,16 +277,15 @@ as internal parts wired together. Intermediate types that never leave the block 
   fan-out/`concat`, Writer a bypassing log, State/Parser a threaded state, Reader a shared
   environment, Cont a wrapped continuation, IO/STM sequenced execution.
 - **A combinator that returns a function is drawn as that function.** The frame IS the returned
-  function (`composed`, `curried`, `updater`, `reducer`, …): its boundary ports are the arguments of
-  the later call, and what the combinator was applied to is captured inside as `role = "hof"` /
-  `"value"` parts labelled `— captured`. This is the convention of `06-currying/function2.sysml`
-  (`add5`). No `wrap` part is needed: a `λ` is the frame itself.
-- **`bind` is the exception: its call interface never changes.** Every `bind` IBD has exactly the
-  boundary ports `ma`, `f` and `mb`, with the same types as the generic diagram. A monad whose value
-  is a function or recipe (Reader, State, Parser, Cont, IO, STM) is drawn at the moment it is run:
-  its run-time input (`r`, `s`, text, `k`) is an internal `role = "value"` part — not a boundary
-  port — and a final `wrap` part (`λr → b`, `λs → (b, s'')`, …) turns the body back into the `mb`
-  that bind returns.
+  function (`composed`, `curried`, `updater`, `reducer`, `bound`, …): its boundary ports are the
+  arguments of the later call, and what the combinator was applied to is captured inside as
+  `role = "hof"` / `"value"` parts labelled `— captured`. This is the convention of
+  `06-currying/function2.sysml` (`add5`). No `wrap` part is needed: a `λ` is the frame itself.
+- **Monads follow the same rule.** For a data-shaped monad (Maybe, Either, List, Writer, Prob) the
+  returned value is plain data, so the frame is `bind` with boundary ports `ma`, `f`, `mb`. For a
+  function- or recipe-shaped monad (Reader, State, Parser, Cont, IO, STM) the frame is the returned
+  computation (`bound`): its ports are what running it takes and gives (`r`, `s`/`s''`, text, `k`, a
+  result `b`), and `ma` and `f` are captured parts.
 - Never describe the generic step as "unwrapping" `M a` — there is no general `M a ⟶ a`. A concrete
   instance may pattern-match on its own constructors.
 - **Recursion is a part that names the block itself** (`fold f acc' rest`, `fmap (cata alg)`); say

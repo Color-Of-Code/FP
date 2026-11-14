@@ -6,15 +6,23 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "bind",
+          "name": "bound",
           "parts": [
             {
               "kind": "part",
-              "id": "k",
-              "type": "b ⟶ r — supplied when run",
+              "id": "ma",
+              "type": "Cont r a — captured",
               "ports": [],
-              "role": "value",
-              "tooltip": "The final continuation: the parameter of the returned Cont. It says what to do with b once everything is done, and is supplied when the Cont is run, not when bind is called."
+              "role": "hof",
+              "tooltip": "ma : Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation; fixed when bind was applied"
+            },
+            {
+              "kind": "part",
+              "id": "f",
+              "type": "a ⟶ Cont r b — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "f : a ⟶ Cont r b — user code; given result a, builds the next continuation-based step; fixed when bind was applied"
             },
             {
               "kind": "part",
@@ -69,50 +77,22 @@
               ],
               "role": "function",
               "tooltip": "Run the original computation, handing it k' instead of k. It decides if and when to call k' (once, many times, or never — callCC, early exit)."
-            },
-            {
-              "kind": "part",
-              "id": "wrap",
-              "type": "λk → r",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "r",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Cont r b",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "Abstract over k again: the whole body becomes the Cont r b that bind returns."
             }
           ],
           "ports": [
             {
               "kind": "port",
-              "id": "ma",
-              "type": "Cont r a",
+              "id": "k",
+              "type": "b ⟶ r",
               "direction": "in",
-              "tooltip": "Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation"
+              "tooltip": "k : b ⟶ r — the final continuation: what to do with b once everything is done. Supplied each time the Cont is run."
             },
             {
               "kind": "port",
-              "id": "f",
-              "type": "a ⟶ Cont r b",
-              "direction": "in",
-              "tooltip": "f : a ⟶ Cont r b — user code; given result a, builds the next continuation-based step"
-            },
-            {
-              "kind": "port",
-              "id": "mb",
-              "type": "Cont r b",
+              "id": "result",
+              "type": "r",
               "direction": "out",
-              "tooltip": "Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit"
+              "tooltip": "r — the final answer of the whole computation; callCC can capture k to exit early"
             }
           ],
           "connections": [
@@ -120,7 +100,7 @@
               "kind": "connection",
               "from": "f",
               "to": "bridge.f",
-              "label": "user code"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -138,32 +118,26 @@
               "kind": "connection",
               "from": "ma",
               "to": "run.m",
-              "label": "wrapped"
+              "label": "captured"
             },
             {
               "kind": "connection",
               "from": "run._",
-              "to": "wrap._",
-              "label": "answer"
-            },
-            {
-              "kind": "connection",
-              "from": "wrap._",
-              "to": "mb"
+              "to": "result"
             }
           ],
           "notes": [],
           "shows": {
-            "k": "value",
+            "ma": "hof",
+            "f": "hof",
             "bridge": "function",
-            "run": "function",
-            "wrap": "function"
+            "run": "function"
           },
           "tooltips": {
-            "k": "The final continuation: the parameter of the returned Cont. It says what to do with b once everything is done, and is supplied when the Cont is run, not when bind is called.",
+            "ma": "ma : Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation; fixed when bind was applied",
+            "f": "f : a ⟶ Cont r b — user code; given result a, builds the next continuation-based step; fixed when bind was applied",
             "bridge": "Builds the new continuation k' = \\\\a -> f a k.\\nWhen k' receives a, it runs f a and hands it the ORIGINAL continuation k — this is the Cont-specific join.",
-            "run": "Run the original computation, handing it k' instead of k. It decides if and when to call k' (once, many times, or never — callCC, early exit).",
-            "wrap": "Abstract over k again: the whole body becomes the Cont r b that bind returns."
+            "run": "Run the original computation, handing it k' instead of k. It decides if and when to call k' (once, many times, or never — callCC, early exit)."
           }
         }
       ],
@@ -174,7 +148,7 @@
           "id": "diagram",
           "packageName": "ContSignature",
           "viewType": "FpIbdView",
-          "expose": "bind",
+          "expose": "bound",
           "rendering": "fpIbdDiagram",
           "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: f and k are wrapped into a new continuation handed to ma, so the current step runs last — also called: Bind, >>=",
           "name": "bind"
@@ -186,18 +160,18 @@
     "diagType": "ibd",
     "title": "bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: f and k are wrapped into a new continuation handed to ma, so the current step runs last — also called: Bind, >>=",
     "name": "bind",
-    "render": "bind",
+    "render": "bound",
     "shows": {
-      "k": "value",
+      "ma": "hof",
+      "f": "hof",
       "bridge": "function",
-      "run": "function",
-      "wrap": "function"
+      "run": "function"
     },
     "tooltips": {
-      "k": "The final continuation: the parameter of the returned Cont. It says what to do with b once everything is done, and is supplied when the Cont is run, not when bind is called.",
+      "ma": "ma : Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation; fixed when bind was applied",
+      "f": "f : a ⟶ Cont r b — user code; given result a, builds the next continuation-based step; fixed when bind was applied",
       "bridge": "Builds the new continuation k' = \\\\a -> f a k.\\nWhen k' receives a, it runs f a and hands it the ORIGINAL continuation k — this is the Cont-specific join.",
-      "run": "Run the original computation, handing it k' instead of k. It decides if and when to call k' (once, many times, or never — callCC, early exit).",
-      "wrap": "Abstract over k again: the whole body becomes the Cont r b that bind returns."
+      "run": "Run the original computation, handing it k' instead of k. It decides if and when to call k' (once, many times, or never — callCC, early exit)."
     }
   }
 }

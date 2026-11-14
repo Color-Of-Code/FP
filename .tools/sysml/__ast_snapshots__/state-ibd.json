@@ -6,15 +6,23 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "bind",
+          "name": "bound",
           "parts": [
             {
               "kind": "part",
-              "id": "s0",
-              "type": "s — supplied when run",
+              "id": "ma",
+              "type": "State s a — captured",
               "ports": [],
-              "role": "value",
-              "tooltip": "The initial state: the parameter of the returned State. It is supplied when the State is run, not when bind is called."
+              "role": "hof",
+              "tooltip": "ma : State s a — a computation: given state s returns (a, s'); fixed when bind was applied"
+            },
+            {
+              "kind": "part",
+              "id": "f",
+              "type": "a ⟶ State s b — captured",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "f : a ⟶ State s b — user code; given result a, produces a new state computation; fixed when bind was applied"
             },
             {
               "kind": "part",
@@ -47,7 +55,7 @@
                 }
               ],
               "role": "function",
-              "tooltip": "Run the first computation: ma s0 = (a, s')."
+              "tooltip": "Run the first computation: ma s = (a, s')."
             },
             {
               "kind": "part",
@@ -108,56 +116,29 @@
               ],
               "role": "function",
               "tooltip": "The State-specific join: run the computation f built with the state s' that the first step left behind — (f a) s' = (b, s'')."
-            },
-            {
-              "kind": "part",
-              "id": "wrap",
-              "type": "λs → (b, s'')",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "b",
-                  "type": "b",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "s2",
-                  "type": "s''",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "State s b",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "Abstract over s again: the result and the final state s'' become the State s b that bind returns."
             }
           ],
           "ports": [
             {
               "kind": "port",
-              "id": "ma",
-              "type": "State s a",
+              "id": "s",
+              "type": "s",
               "direction": "in",
-              "tooltip": "State s a — a computation: given state s returns (a, s')"
+              "tooltip": "s — the state, supplied each time the State is run"
             },
             {
               "kind": "port",
-              "id": "f",
-              "type": "a ⟶ State s b",
-              "direction": "in",
-              "tooltip": "f : a ⟶ State s b — user code; given result a, produces a new state computation"
-            },
-            {
-              "kind": "port",
-              "id": "mb",
-              "type": "State s b",
+              "id": "b",
+              "type": "b",
               "direction": "out",
-              "tooltip": "State s b — the composed computation; a function still waiting for a state"
+              "tooltip": "b — the result of running the composed computation"
+            },
+            {
+              "kind": "port",
+              "id": "s_out",
+              "type": "s''",
+              "direction": "out",
+              "tooltip": "s'' — the final state, after both steps have run"
             }
           ],
           "connections": [
@@ -165,13 +146,13 @@
               "kind": "connection",
               "from": "ma",
               "to": "run_ma.m",
-              "label": "wrapped"
+              "label": "captured"
             },
             {
               "kind": "connection",
-              "from": "s0",
+              "from": "s",
               "to": "run_ma.s",
-              "label": "initial state"
+              "label": "state"
             },
             {
               "kind": "connection",
@@ -183,7 +164,7 @@
               "kind": "connection",
               "from": "f",
               "to": "call.f",
-              "label": "user code"
+              "label": "captured"
             },
             {
               "kind": "connection",
@@ -200,35 +181,28 @@
             {
               "kind": "connection",
               "from": "run_next.b",
-              "to": "wrap.b",
-              "label": "result"
+              "to": "b"
             },
             {
               "kind": "connection",
               "from": "run_next.s2",
-              "to": "wrap.s2",
-              "label": "final state"
-            },
-            {
-              "kind": "connection",
-              "from": "wrap._",
-              "to": "mb"
+              "to": "s_out"
             }
           ],
           "notes": [],
           "shows": {
-            "s0": "value",
+            "ma": "hof",
+            "f": "hof",
             "run_ma": "function",
             "call": "function",
-            "run_next": "function",
-            "wrap": "function"
+            "run_next": "function"
           },
           "tooltips": {
-            "s0": "The initial state: the parameter of the returned State. It is supplied when the State is run, not when bind is called.",
-            "run_ma": "Run the first computation: ma s0 = (a, s').",
+            "ma": "ma : State s a — a computation: given state s returns (a, s'); fixed when bind was applied",
+            "f": "f : a ⟶ State s b — user code; given result a, produces a new state computation; fixed when bind was applied",
+            "run_ma": "Run the first computation: ma s = (a, s').",
             "call": "Apply f to the result: yields the next State computation, not yet run.",
-            "run_next": "The State-specific join: run the computation f built with the state s' that the first step left behind — (f a) s' = (b, s'').",
-            "wrap": "Abstract over s again: the result and the final state s'' become the State s b that bind returns."
+            "run_next": "The State-specific join: run the computation f built with the state s' that the first step left behind — (f a) s' = (b, s'')."
           }
         }
       ],
@@ -239,7 +213,7 @@
           "id": "diagram",
           "packageName": "StateSignature",
           "viewType": "FpIbdView",
-          "expose": "bind",
+          "expose": "bound",
           "rendering": "fpIbdDiagram",
           "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: the state s' left by the first step is threaded into the second — also called: flatMap, >>=",
           "name": "bind"
@@ -251,20 +225,20 @@
     "diagType": "ibd",
     "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: the state s' left by the first step is threaded into the second — also called: flatMap, >>=",
     "name": "bind",
-    "render": "bind",
+    "render": "bound",
     "shows": {
-      "s0": "value",
+      "ma": "hof",
+      "f": "hof",
       "run_ma": "function",
       "call": "function",
-      "run_next": "function",
-      "wrap": "function"
+      "run_next": "function"
     },
     "tooltips": {
-      "s0": "The initial state: the parameter of the returned State. It is supplied when the State is run, not when bind is called.",
-      "run_ma": "Run the first computation: ma s0 = (a, s').",
+      "ma": "ma : State s a — a computation: given state s returns (a, s'); fixed when bind was applied",
+      "f": "f : a ⟶ State s b — user code; given result a, produces a new state computation; fixed when bind was applied",
+      "run_ma": "Run the first computation: ma s = (a, s').",
       "call": "Apply f to the result: yields the next State computation, not yet run.",
-      "run_next": "The State-specific join: run the computation f built with the state s' that the first step left behind — (f a) s' = (b, s'').",
-      "wrap": "Abstract over s again: the result and the final state s'' become the State s b that bind returns."
+      "run_next": "The State-specific join: run the computation f built with the state s' that the first step left behind — (f a) s' = (b, s'')."
     }
   }
 }
