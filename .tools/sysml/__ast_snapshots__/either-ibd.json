@@ -10,8 +10,35 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "Either e a ⟶ Either e (Either e b)",
+              "id": "match",
+              "type": "case ma of",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Either e a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "right",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "left",
+                  "type": "e",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Pattern match on the constructor.\\nRight a → the payload a leaves through 'right'\\nLeft e  → the error e leaves through 'left'"
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +48,8 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "Either e a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Either e (Either e b)",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "fmap f :: Either e a ⟶ Either e (Either e b)\\nRight a →  Right (f a)\\nLeft e  →  Left e   (f is skipped)"
-            },
-            {
-              "kind": "part",
-              "id": "join",
-              "type": "Either e (Either e b) ⟶ Either e b",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Either e (Either e b)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +60,28 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: Either e (Either e b) ⟶ Either e b — the Either-specific part\\nRight (Right b) →  Right b\\nRight (Left e)  →  Left e\\nLeft e          →  Left e   (the error value is preserved unchanged)"
+              "tooltip": "Apply f to the payload. Only reachable on the Right path — on Left, f is never called."
+            },
+            {
+              "kind": "part",
+              "id": "skip",
+              "type": "Left e",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "e",
+                  "type": "e",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Either e b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Short-circuit: the error value is rewrapped as Left e, unchanged — unlike Maybe, the reason is preserved."
             }
           ],
           "ports": [
@@ -63,7 +90,7 @@
               "id": "ma",
               "type": "Either e a",
               "direction": "in",
-              "tooltip": "Either e a — Right a (carry a) or Left e (carry error e). Unlike Maybe, the error value is preserved."
+              "tooltip": "Either e a — Right a (carry a) or Left e (carry error e)"
             },
             {
               "kind": "port",
@@ -77,42 +104,55 @@
               "id": "mb",
               "type": "Either e b",
               "direction": "out",
-              "tooltip": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged); never Either e (Either e b)"
+              "tooltip": "Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)"
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "match._",
               "label": "wrapped"
             },
             {
               "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "match.right",
+              "to": "call.a",
+              "label": "payload"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "match.left",
+              "to": "skip.e",
+              "label": "error kept"
+            },
+            {
+              "kind": "connection",
+              "from": "call._",
+              "to": "mb"
+            },
+            {
+              "kind": "connection",
+              "from": "skip._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "match": "function",
+            "call": "function",
+            "skip": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: Either e a ⟶ Either e (Either e b)\\nRight a →  Right (f a)\\nLeft e  →  Left e   (f is skipped)",
-            "join": "join :: Either e (Either e b) ⟶ Either e b — the Either-specific part\\nRight (Right b) →  Right b\\nRight (Left e)  →  Left e\\nLeft e          →  Left e   (the error value is preserved unchanged)"
+            "match": "Pattern match on the constructor.\\nRight a → the payload a leaves through 'right'\\nLeft e  → the error e leaves through 'left'",
+            "call": "Apply f to the payload. Only reachable on the Right path — on Left, f is never called.",
+            "skip": "Short-circuit: the error value is rewrapped as Left e, unchanged — unlike Maybe, the reason is preserved."
           }
         }
       ],
@@ -125,7 +165,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: fmap f, then join; Left short-circuits — also called: andThen / and_then, Bind, flatMap, >>=",
+          "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: Right passes its payload to f; Left skips f and keeps its error — also called: andThen / and_then, Bind, flatMap, >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +173,18 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: fmap f, then join; Left short-circuits — also called: andThen / and_then, Bind, flatMap, >>=",
+    "title": "bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: Right passes its payload to f; Left skips f and keeps its error — also called: andThen / and_then, Bind, flatMap, >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "match": "function",
+      "call": "function",
+      "skip": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: Either e a ⟶ Either e (Either e b)\\nRight a →  Right (f a)\\nLeft e  →  Left e   (f is skipped)",
-      "join": "join :: Either e (Either e b) ⟶ Either e b — the Either-specific part\\nRight (Right b) →  Right b\\nRight (Left e)  →  Left e\\nLeft e          →  Left e   (the error value is preserved unchanged)"
+      "match": "Pattern match on the constructor.\\nRight a → the payload a leaves through 'right'\\nLeft e  → the error e leaves through 'left'",
+      "call": "Apply f to the payload. Only reachable on the Right path — on Left, f is never called.",
+      "skip": "Short-circuit: the error value is rewrapped as Left e, unchanged — unlike Maybe, the reason is preserved."
     }
   }
 }

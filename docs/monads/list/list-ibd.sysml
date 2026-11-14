@@ -1,43 +1,50 @@
-// SysML v2 — List monad IBD: what happens inside bind
+// SysML v2 — List monad IBD: inside bind
 // (>>=) :: List a ⟶ (a ⟶ List b) ⟶ List b      m >>= f = join (fmap f m)
 //
-// Same fmap → join shape as every monad — only the join differs:
-//   • fmap applies f to EVERY element, giving a list of lists
-//   • join (concat) flattens that list of lists into one list
-// Together they are concatMap.
+// Generic shape: see docs/19-monad/monad-ibd.sysml. Here fmap and join are fused into
+// what List actually does — a fan-out, then a fan-in:
+//   • each element a_i of the input list is fed to f separately (0, 1 or n calls)
+//   • every call returns a whole List b; concat joins them, in order, into one list
+// Contrast Maybe, where f is called at most once.
 
 package ListSignature {
     private import FpDiagram::*;
 
     part def bind {
-        #FpNodePresentation { tooltip = "List a — zero or more possible values. An empty list short-circuits (no elements to process)."; }
+        #FpNodePresentation { tooltip = "List a — zero or more possible values. An empty list means f is never called."; }
         port in  ma : "List a";
         #FpNodePresentation { tooltip = "f : a ⟶ List b — user code; each call may return zero, one, or many results"; }
         port in  f  : "a ⟶ List b";
-        #FpNodePresentation { tooltip = "List b — all branches expanded and flattened into a single list; never List (List b)"; }
+        #FpNodePresentation { tooltip = "List b — all branches expanded and flattened into a single list"; }
         port out mb : "List b";
 
-        #FpNodePresentation { role = "function"; tooltip = "fmap f :: List a ⟶ List (List b)\nmap f [a1, a2, a3]  =  [f a1, f a2, f a3]\nOne inner list per element; the outer structure is kept."; }
-        part fmap : "List a ⟶ List (List b)" {
-            port in  f : "a ⟶ List b";
-            port in  _ : "List a";
-            port out _ : "List (List b)";
+        #FpNodePresentation { role = "function"; tooltip = "Fan-out: emits the elements one at a time. [a1, a2, a3] produces three separate a tokens; [] produces none."; }
+        part each : "elements of ma" {
+            port in  _   : "List a";
+            port out a_i : "a";
         }
-        #FpNodePresentation { role = "function"; tooltip = "join :: List (List b) ⟶ List b — the List-specific part\nconcat [[b1, b2], [], [b3]]  =  [b1, b2, b3]\nInner lists are concatenated in order."; }
-        part join : "List (List b) ⟶ List b" {
-            port in  _ : "List (List b)";
+        #FpNodePresentation { role = "function"; tooltip = "Applied once per element: f(a1), f(a2), f(a3), …\nEach call returns its own List b."; }
+        part call : "f a_i" {
+            port in  f : "a ⟶ List b";
+            port in  a : "a";
+            port out _ : "List b";
+        }
+        #FpNodePresentation { role = "function"; tooltip = "Fan-in: f(a1) ++ f(a2) ++ f(a3) — the per-element lists are concatenated in order. This is the List-specific join."; }
+        part flatten : "concat" {
+            port in  _ : "List b";
             port out _ : "List b";
         }
 
-        connection connect ma      to fmap._ : "wrapped";
-        connection connect f       to fmap.f : "user code";
-        connection connect fmap._  to join._ : "nested (internal only)";
-        connection connect join._  to mb;
+        connection connect ma       to each._ : "wrapped";
+        connection connect f        to call.f : "user code";
+        connection connect each.a_i to call.a : "once per element";
+        connection connect call._   to flatten._ : "a List b per element";
+        connection connect flatten._ to mb;
     }
 
     #FpViewPresentation { name = "bind"; }
     view diagram : FpIbdView {
-        doc /*bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: map f, then concat — also called: flatMap, concatMap, SelectMany, List.collect, >>=*/
+        doc /*bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: f is applied to every element and the resulting lists are concatenated — also called: flatMap, concatMap, SelectMany, List.collect, >>=*/
         expose bind;
         render fpIbdDiagram;
     }

@@ -6,7 +6,7 @@ should modify.
 
 ![Reader runs a computation with an environment to produce a value](reader/reader.svg)
 
-![bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — inside bind: fmap f, then join feeds the same r to both — also called: flatMap, >>=](reader/reader-ibd.svg)
+![bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — inside bind: the same environment r is supplied to both computations — also called: flatMap, >>=](reader/reader-ibd.svg)
 
 ![Reader bind: same env r supplied to ra(r) and to f(a)(r) — never modified — also called: flatMap, >>=](reader/reader-bind.svg)
 

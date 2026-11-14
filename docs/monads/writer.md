@@ -5,7 +5,7 @@ any other monoidal side output such as metrics, warnings, or a list of events).
 
 ![Writer bind combines each step's log with the result in order](writer/writer.svg)
 
-![bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — inside bind: fmap f, then join appends the logs — also called: flatMap, >>=](writer/writer-ibd.svg)
+![bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — inside bind: the value goes to f; the two logs bypass it and are appended — also called: flatMap, >>=](writer/writer-ibd.svg)
 
 ![Writer bind: extract a+w1, apply f→(b,w2), combine logs w1<>w2 — also called: flatMap, >>=](writer/writer-bind.svg)
 

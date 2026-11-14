@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1081 183" width="1081" height="183" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1&lt;&gt;w2) — inside bind: fmap f, then join appends the logs — also called: flatMap, &gt;&gt;=</title>
-  <desc id="diagram-description">Functional programming diagram: bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1&lt;&gt;w2) — inside bind: fmap f, then join appends the logs — also called: flatMap, &gt;&gt;=</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 209" width="1100" height="209" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1&lt;&gt;w2) — inside bind: the value goes to f; the two logs bypass it and are appended — also called: flatMap, &gt;&gt;=</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1&lt;&gt;w2) — inside bind: the value goes to f; the two logs bypass it and are appended — also called: flatMap, &gt;&gt;=</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,71 +85,101 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="540.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1&lt;&gt;w2)</text>
-  <text x="540.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: fmap f, then join appends the logs</text>
-  <text x="540.5" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, &gt;&gt;=</text>
+  <text x="550" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1&lt;&gt;w2)</text>
+  <text x="550" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: the value goes to f; the two logs bypass it and are appended</text>
+  <text x="550" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, &gt;&gt;=</text>
   <g transform="translate(0,60) scale(1)">
     <g transform="translate(92,0)">
-      <rect x="0" y="0" width="891" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="910" height="149" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
         <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
       </g>
       <g class="edge">
-        <path d="M4.0,73.0 L147.0,73.0 Q153.0,73.0 153.0,67.0 L153.0,61.0 L153.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="78.5" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+        <path d="M4.0,90.0 L137.0,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="76.5" y="84" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
       </g>
       <g class="edge">
-        <path d="M4.0,43.0 L151.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="83.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+        <path d="M4.0,34.0 L344.0,34.0 Q350.0,34.0 350.0,40.0 L350.0,53.0 L350.0,53.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="177" y="28" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
       </g>
       <g class="edge">
-        <path d="M391.0,52.0 L529.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="468" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">nested (internal only)</text>
+        <path d="M287.0,81.0 L296.0,81.0 Q301.0,81.0 301.0,76.0 L301.0,76.0 Q301.0,71.0 306.0,71.0 L348.0,71.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="330.5" y="65" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">value</text>
       </g>
       <g class="edge">
-        <path d="M793.0,52.0 L875.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <path d="M287.0,99.0 L600.0,99.0 Q606.0,99.0 606.0,93.0 L606.0,57.0 Q606.0,53.0 610.0,53.0 L614.0,53.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="448.5" y="93" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">log bypasses f</text>
+      </g>
+      <g class="edge">
+        <path d="M492.0,62.0 L611.5,62.0 Q616.0,62.0 616.0,66.5 L616.0,71.0 L616.0,71.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="556" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">result + new log</text>
+      </g>
+      <g class="edge">
+        <path d="M812.0,62.0 L894.0,62.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
       <g class="action-node">
-        <title>fmap f :: (a, w1) ⟶ ((b, w2), w1)\nApplies f to the value; the outer log w1 stays where it is, the new log w2 sits inside.</title>
-        <rect x="171" y="30" width="216" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="279" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : (a, w1) ⟶ ((b, w2), w1)</text>
+        <title>Take the pair apart: the value a is for f, the log w1 is set aside.</title>
+        <rect x="157" y="68" width="126" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="220" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">split : (a, w1)</text>
         <g class="pin pin-in">
-          <rect x="167" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="177" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
-        </g>
-        <g class="pin pin-in">
-          <rect x="167" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="153" y="86" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
         <g class="pin pin-out">
-          <rect x="383" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="279" y="78.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="277" y="82.66666666666667" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="279" y="93.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="277" y="97.33333333333333" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">w1</text>
         </g>
       </g>
       <g class="action-node">
-        <title>join :: ((b, w2), w1) ⟶ (b, w1&lt;&gt;w2) — the Writer-specific part\nMerges the outer and inner log with the monoid append, in execution order: w1 first, then w2.</title>
-        <rect x="549" y="30" width="240" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="669" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join : ((b, w2), w1) ⟶ (b, w1&lt;&gt;w2)</text>
+        <title>Apply f to the value only — it never sees the earlier log.</title>
+        <rect x="368" y="40" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="428" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call : f a</text>
         <g class="pin pin-in">
-          <rect x="545" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="364" y="50.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="374" y="54.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="364" y="65.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="374" y="69.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
         </g>
         <g class="pin pin-out">
-          <rect x="785" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="484" y="58" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>The Writer-specific join: keep b, append the logs in execution order — w1 &lt;&gt; w2 (Monoid append, e.g. list concatenation).</title>
+        <rect x="634" y="40" width="174" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="721" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">combine : (b, w1 &lt;&gt; w2)</text>
+        <g class="pin pin-in">
+          <rect x="630" y="50.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="640" y="54.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">w1</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="630" y="65.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="640" y="69.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">r</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="804" y="58" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
         <title>(a, w1) — a result value a paired with a log fragment w1</title>
-        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : (a, w1)</text>
+        <rect x="-4" y="86" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="84" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : (a, w1)</text>
       </g>
       <g class="port port-left">
         <title>f : a ⟶ (b, w2) — user code; given a, produces result b alongside a new log fragment w2</title>
-        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ (b, w2)</text>
+        <rect x="-4" y="30" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="28" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ (b, w2)</text>
       </g>
       <g class="port port-right">
-        <title>(b, w1&lt;&gt;w2) — result b with the complete log: w1 from the first step appended with w2 from f</title>
-        <rect x="887" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="898" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : (b, w1&lt;&gt;w2)</text>
+        <title>(b, w1&lt;&gt;w2) — result b with the complete log</title>
+        <rect x="906" y="58" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="917" y="56" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : (b, w1&lt;&gt;w2)</text>
       </g>
     </g>
   </g>

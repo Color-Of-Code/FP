@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1013 183" width="1013" height="183" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: map f, then concat — also called: flatMap, concatMap, SelectMany, List.collect, &gt;&gt;=</title>
-  <desc id="diagram-description">Functional programming diagram: bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: map f, then concat — also called: flatMap, concatMap, SelectMany, List.collect, &gt;&gt;=</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1119 202" width="1119" height="202" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: f is applied to every element and the resulting lists are concatenated — also called: flatMap, concatMap, SelectMany, List.collect, &gt;&gt;=</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: f is applied to every element and the resulting lists are concatenated — also called: flatMap, concatMap, SelectMany, List.collect, &gt;&gt;=</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,71 +85,88 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="506.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: List a ⟶ (a ⟶ List b) ⟶ List b</text>
-  <text x="506.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: map f, then concat</text>
-  <text x="506.5" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, concatMap, SelectMany, List.collect, &gt;&gt;=</text>
+  <text x="559.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: List a ⟶ (a ⟶ List b) ⟶ List b</text>
+  <text x="559.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: f is applied to every element and the resulting lists are concatenated</text>
+  <text x="559.5" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, concatMap, SelectMany, List.collect, &gt;&gt;=</text>
   <g transform="translate(0,60) scale(1)">
     <g transform="translate(87,0)">
-      <rect x="0" y="0" width="855" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="961" height="142" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
         <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
       </g>
       <g class="edge">
-        <path d="M4.0,73.0 L147.0,73.0 Q153.0,73.0 153.0,67.0 L153.0,61.0 L153.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="78.5" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+        <path d="M4.0,90.0 L137.0,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="76.5" y="84" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
       </g>
       <g class="edge">
-        <path d="M4.0,43.0 L151.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="83.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+        <path d="M4.0,34.0 L431.0,34.0 Q437.0,34.0 437.0,40.0 L437.0,72.0 L437.0,72.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="220.5" y="28" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
       </g>
       <g class="edge">
-        <path d="M385.0,52.0 L523.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="462" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">nested (internal only)</text>
+        <path d="M323.0,90.0 L435.0,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="387" y="84" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">once per element</text>
       </g>
       <g class="edge">
-        <path d="M757.0,52.0 L839.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <path d="M579.0,81.0 L707.0,81.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="651" y="75" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">a List b per element</text>
+      </g>
+      <g class="edge">
+        <path d="M863.0,81.0 L945.0,81.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
       <g class="action-node">
-        <title>fmap f :: List a ⟶ List (List b)\nmap f [a1, a2, a3]  =  [f a1, f a2, f a3]\nOne inner list per element; the outer structure is kept.</title>
-        <rect x="171" y="30" width="210" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="276" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : List a ⟶ List (List b)</text>
+        <title>Fan-out: emits the elements one at a time. [a1, a2, a3] produces three separate a tokens; [] produces none.</title>
+        <rect x="157" y="68" width="162" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="238" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">each : elements of ma</text>
         <g class="pin pin-in">
-          <rect x="167" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="177" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
-        </g>
-        <g class="pin pin-in">
-          <rect x="167" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="153" y="86" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
         <g class="pin pin-out">
-          <rect x="377" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="315" y="86" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="313" y="90" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a_i</text>
         </g>
       </g>
       <g class="action-node">
-        <title>join :: List (List b) ⟶ List b — the List-specific part\nconcat [[b1, b2], [], [b3]]  =  [b1, b2, b3]\nInner lists are concatenated in order.</title>
-        <rect x="543" y="30" width="210" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="648" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join : List (List b) ⟶ List b</text>
+        <title>Applied once per element: f(a1), f(a2), f(a3), …\nEach call returns its own List b.</title>
+        <rect x="455" y="59" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="515" y="81" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call : f a_i</text>
         <g class="pin pin-in">
-          <rect x="539" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="451" y="69.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="461" y="73.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="451" y="84.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="461" y="88.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
         </g>
         <g class="pin pin-out">
-          <rect x="749" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="571" y="77" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Fan-in: f(a1) ++ f(a2) ++ f(a3) — the per-element lists are concatenated in order. This is the List-specific join.</title>
+        <rect x="727" y="59" width="132" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="793" y="81" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">flatten : concat</text>
+        <g class="pin pin-in">
+          <rect x="723" y="77" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="855" y="77" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
-        <title>List a — zero or more possible values. An empty list short-circuits (no elements to process).</title>
-        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : List a</text>
+        <title>List a — zero or more possible values. An empty list means f is never called.</title>
+        <rect x="-4" y="86" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="84" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : List a</text>
       </g>
       <g class="port port-left">
         <title>f : a ⟶ List b — user code; each call may return zero, one, or many results</title>
-        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ List b</text>
+        <rect x="-4" y="30" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="28" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ List b</text>
       </g>
       <g class="port port-right">
-        <title>List b — all branches expanded and flattened into a single list; never List (List b)</title>
-        <rect x="851" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="862" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : List b</text>
+        <title>List b — all branches expanded and flattened into a single list</title>
+        <rect x="957" y="77" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="968" y="75" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : List b</text>
       </g>
     </g>
   </g>

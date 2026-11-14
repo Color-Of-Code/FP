@@ -10,8 +10,43 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "STM a ⟶ STM (STM b)",
+              "id": "log",
+              "type": "transaction log",
+              "ports": [],
+              "role": "value",
+              "tooltip": "The transaction log: TVar reads and tentative writes are recorded here, not applied. One log is shared by both steps."
+            },
+            {
+              "kind": "part",
+              "id": "run_ma",
+              "type": "run ma",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "m",
+                  "type": "STM a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "log",
+                  "type": "log",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "a",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Run the first action against the log, producing a."
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +56,8 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "STM a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "STM (STM b)",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "fmap f :: STM a ⟶ STM (STM b)\\nAn action that runs ma and returns f a — the next action — without running it."
-            },
-            {
-              "kind": "part",
-              "id": "join",
-              "type": "STM (STM b) ⟶ STM b",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "STM (STM b)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +68,76 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: STM (STM b) ⟶ STM b — the STM-specific part\\nRuns the outer action, then the inner action, within ONE transaction.\\nIf any readTVar conflicts → the entire composed transaction retries from scratch."
+              "tooltip": "Apply f to the result: yields the next atomic action, not yet run."
+            },
+            {
+              "kind": "part",
+              "id": "run_next",
+              "type": "run (f a)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "m",
+                  "type": "STM b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "log",
+                  "type": "log",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "The STM-specific join: run the action f built against the SAME log, so both steps form one atomic unit."
+            },
+            {
+              "kind": "part",
+              "id": "commit",
+              "type": "commit or retry",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over."
+            },
+            {
+              "kind": "part",
+              "id": "wrap",
+              "type": "atomic action",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "STM b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Package the whole script as one atomic action, to be run by atomically."
             }
           ],
           "ports": [
@@ -77,42 +160,80 @@
               "id": "mb",
               "type": "STM b",
               "direction": "out",
-              "tooltip": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a. Never STM (STM b)."
+              "tooltip": "STM b — the composed atomic action. Runs inside atomically :: STM a -> IO a."
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "run_ma.m",
               "label": "wrapped"
             },
             {
               "kind": "connection",
+              "from": "log",
+              "to": "run_ma.log",
+              "label": "shared log"
+            },
+            {
+              "kind": "connection",
+              "from": "run_ma._",
+              "to": "call.a",
+              "label": "result"
+            },
+            {
+              "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "call._",
+              "to": "run_next.m",
+              "label": "next action"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "log",
+              "to": "run_next.log",
+              "label": "same log"
+            },
+            {
+              "kind": "connection",
+              "from": "run_next._",
+              "to": "commit._",
+              "label": "tentative result"
+            },
+            {
+              "kind": "connection",
+              "from": "commit._",
+              "to": "wrap._",
+              "label": "committed"
+            },
+            {
+              "kind": "connection",
+              "from": "wrap._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "log": "value",
+            "run_ma": "function",
+            "call": "function",
+            "run_next": "function",
+            "commit": "function",
+            "wrap": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: STM a ⟶ STM (STM b)\\nAn action that runs ma and returns f a — the next action — without running it.",
-            "join": "join :: STM (STM b) ⟶ STM b — the STM-specific part\\nRuns the outer action, then the inner action, within ONE transaction.\\nIf any readTVar conflicts → the entire composed transaction retries from scratch."
+            "log": "The transaction log: TVar reads and tentative writes are recorded here, not applied. One log is shared by both steps.",
+            "run_ma": "Run the first action against the log, producing a.",
+            "call": "Apply f to the result: yields the next atomic action, not yet run.",
+            "run_next": "The STM-specific join: run the action f built against the SAME log, so both steps form one atomic unit.",
+            "commit": "atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over.",
+            "wrap": "Package the whole script as one atomic action, to be run by atomically."
           }
         }
       ],
@@ -125,7 +246,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: fmap f, then join runs both actions in one transaction — also called: >>=",
+          "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: both actions run against one shared transaction log that commits or retries as a whole — also called: >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +254,24 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: fmap f, then join runs both actions in one transaction — also called: >>=",
+    "title": "bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: both actions run against one shared transaction log that commits or retries as a whole — also called: >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "log": "value",
+      "run_ma": "function",
+      "call": "function",
+      "run_next": "function",
+      "commit": "function",
+      "wrap": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: STM a ⟶ STM (STM b)\\nAn action that runs ma and returns f a — the next action — without running it.",
-      "join": "join :: STM (STM b) ⟶ STM b — the STM-specific part\\nRuns the outer action, then the inner action, within ONE transaction.\\nIf any readTVar conflicts → the entire composed transaction retries from scratch."
+      "log": "The transaction log: TVar reads and tentative writes are recorded here, not applied. One log is shared by both steps.",
+      "run_ma": "Run the first action against the log, producing a.",
+      "call": "Apply f to the result: yields the next atomic action, not yet run.",
+      "run_next": "The STM-specific join: run the action f built against the SAME log, so both steps form one atomic unit.",
+      "commit": "atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over.",
+      "wrap": "Package the whole script as one atomic action, to be run by atomically."
     }
   }
 }

@@ -6,7 +6,7 @@ conditional probability — weighting each outcome by the probability of reachin
 
 ![uniform assigns weights and probability sums matching outcomes](prob/prob.svg)
 
-![bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: fmap f, then join weights and merges branches — also called: flatMap, SelectMany, >>=](prob/prob-ibd.svg)
+![bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: each outcome is fed to f, its branch is scaled by pa, and all branches are merged — also called: flatMap, SelectMany, >>=](prob/prob-ibd.svg)
 
 ![Prob bind: apply f per outcome, weight by pa, merge — law of total probability — also called: flatMap, SelectMany, >>=](prob/prob-bind.svg)
 

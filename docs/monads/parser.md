@@ -5,7 +5,7 @@ The **Parser monad** models computations that **consume a sequence of input** �
 
 ![A Parser a consumes input and returns a value with the unconsumed suffix](parser/parser.svg)
 
-![bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: fmap f, then join runs the inner parser on the remaining input — also called: flatMap, Bind, >>=](parser/parser-ibd.svg)
+![bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: the unconsumed rest is threaded into the next parser; failure skips it — also called: flatMap, Bind, >>=](parser/parser-ibd.svg)
 
 ![Parser bind: thread rest to f(a)  |  Nothing → Nothing  (f skipped) — also called: flatMap, Bind, >>=](parser/parser-bind.svg)
 

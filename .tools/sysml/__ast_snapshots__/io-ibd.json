@@ -10,15 +10,9 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "IO a ⟶ IO (IO b)",
+              "id": "run_ma",
+              "type": "execute ma",
               "ports": [
-                {
-                  "kind": "port",
-                  "id": "f",
-                  "type": "a ⟶ IO b",
-                  "direction": "in"
-                },
                 {
                   "kind": "port",
                   "id": "_",
@@ -28,22 +22,28 @@
                 {
                   "kind": "port",
                   "id": "_",
-                  "type": "IO (IO b)",
+                  "type": "a",
                   "direction": "out"
                 }
               ],
               "role": "function",
-              "tooltip": "fmap f :: IO a ⟶ IO (IO b)\\nA recipe that runs ma and returns f a — a new recipe — without running it."
+              "tooltip": "Execute the first recipe: its side effects happen now, producing a."
             },
             {
               "kind": "part",
-              "id": "join",
-              "type": "IO (IO b) ⟶ IO b",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "IO (IO b)",
+                  "id": "f",
+                  "type": "a ⟶ IO b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +54,49 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: IO (IO b) ⟶ IO b — the IO-specific part\\nA recipe that, when run by the runtime:\\n1. runs the outer recipe to obtain the inner recipe\\n2. runs the inner recipe\\nOrder of effects = order of binds."
+              "tooltip": "Apply f to the result: yields the next recipe, not yet executed. The choice of the next effect can depend on a."
+            },
+            {
+              "kind": "part",
+              "id": "run_next",
+              "type": "execute (f a)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "IO b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "The IO-specific join: execute the recipe f built. Its effects happen strictly after those of ma — order of effects = order of binds."
+            },
+            {
+              "kind": "part",
+              "id": "wrap",
+              "type": "recipe",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "IO b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Package the whole script as one recipe, to be executed by the runtime."
             }
           ],
           "ports": [
@@ -77,42 +119,58 @@
               "id": "mb",
               "type": "IO b",
               "direction": "out",
-              "tooltip": "IO b — the composed recipe. Effects of ma happen before effects of f(a). Never IO (IO b)."
+              "tooltip": "IO b — the composed recipe. Effects of ma happen before effects of f(a)."
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "run_ma._",
               "label": "wrapped"
             },
             {
               "kind": "connection",
+              "from": "run_ma._",
+              "to": "call.a",
+              "label": "effects done, result a"
+            },
+            {
+              "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "call._",
+              "to": "run_next._",
+              "label": "next recipe"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "run_next._",
+              "to": "wrap._",
+              "label": "result"
+            },
+            {
+              "kind": "connection",
+              "from": "wrap._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "run_ma": "function",
+            "call": "function",
+            "run_next": "function",
+            "wrap": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: IO a ⟶ IO (IO b)\\nA recipe that runs ma and returns f a — a new recipe — without running it.",
-            "join": "join :: IO (IO b) ⟶ IO b — the IO-specific part\\nA recipe that, when run by the runtime:\\n1. runs the outer recipe to obtain the inner recipe\\n2. runs the inner recipe\\nOrder of effects = order of binds."
+            "run_ma": "Execute the first recipe: its side effects happen now, producing a.",
+            "call": "Apply f to the result: yields the next recipe, not yet executed. The choice of the next effect can depend on a.",
+            "run_next": "The IO-specific join: execute the recipe f built. Its effects happen strictly after those of ma — order of effects = order of binds.",
+            "wrap": "Package the whole script as one recipe, to be executed by the runtime."
           }
         }
       ],
@@ -125,7 +183,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: fmap f, then join runs outer then inner recipe — also called: .then (Promises), >>=",
+          "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: execute ma, feed its result to f, then execute the recipe f returns — also called: .then (Promises), >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +191,20 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: fmap f, then join runs outer then inner recipe — also called: .then (Promises), >>=",
+    "title": "bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — inside bind: execute ma, feed its result to f, then execute the recipe f returns — also called: .then (Promises), >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "run_ma": "function",
+      "call": "function",
+      "run_next": "function",
+      "wrap": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: IO a ⟶ IO (IO b)\\nA recipe that runs ma and returns f a — a new recipe — without running it.",
-      "join": "join :: IO (IO b) ⟶ IO b — the IO-specific part\\nA recipe that, when run by the runtime:\\n1. runs the outer recipe to obtain the inner recipe\\n2. runs the inner recipe\\nOrder of effects = order of binds."
+      "run_ma": "Execute the first recipe: its side effects happen now, producing a.",
+      "call": "Apply f to the result: yields the next recipe, not yet executed. The choice of the next effect can depend on a.",
+      "run_next": "The IO-specific join: execute the recipe f built. Its effects happen strictly after those of ma — order of effects = order of binds.",
+      "wrap": "Package the whole script as one recipe, to be executed by the runtime."
     }
   }
 }

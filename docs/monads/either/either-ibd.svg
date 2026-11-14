@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 183" width="1200" height="183" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: fmap f, then join; Left short-circuits — also called: andThen / and_then, Bind, flatMap, &gt;&gt;=</title>
-  <desc id="diagram-description">Functional programming diagram: bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: fmap f, then join; Left short-circuits — also called: andThen / and_then, Bind, flatMap, &gt;&gt;=</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 834 222" width="834" height="222" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: Right passes its payload to f; Left skips f and keeps its error — also called: andThen / and_then, Bind, flatMap, &gt;&gt;=</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: Right passes its payload to f; Left skips f and keeps its error — also called: andThen / and_then, Bind, flatMap, &gt;&gt;=</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,61 +85,86 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="600" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b</text>
-  <text x="600" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: fmap f, then join; Left short-circuits</text>
-  <text x="600" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: andThen / and_then, Bind, flatMap, &gt;&gt;=</text>
+  <text x="417" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b</text>
+  <text x="417" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: Right passes its payload to f; Left skips f and keeps its error</text>
+  <text x="417" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: andThen / and_then, Bind, flatMap, &gt;&gt;=</text>
   <g transform="translate(0,60) scale(1)">
     <g transform="translate(109,0)">
-      <rect x="0" y="0" width="999" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="633" height="162" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
         <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
       </g>
       <g class="edge">
-        <path d="M4.0,73.0 L147.0,73.0 Q153.0,73.0 153.0,67.0 L153.0,61.0 L153.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="78.5" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+        <path d="M4.0,101.0 L137.0,101.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="76.5" y="95" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
       </g>
       <g class="edge">
-        <path d="M4.0,43.0 L151.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="83.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+        <path d="M4.0,43.0 L387.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="201.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
       </g>
       <g class="edge">
-        <path d="M457.0,52.0 L595.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="534" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">nested (internal only)</text>
+        <path d="M305.0,92.0 L313.0,92.0 Q319.0,92.0 319.0,86.0 L319.0,67.0 Q319.0,61.0 325.0,61.0 L387.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="359" y="55" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">payload</text>
       </g>
       <g class="edge">
-        <path d="M901.0,52.0 L983.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <path d="M305.0,110.0 L387.0,110.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="354" y="104" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">error kept</text>
+      </g>
+      <g class="edge">
+        <path d="M531.0,52.0 L539.0,52.0 Q545.0,52.0 545.0,58.0 L545.0,104.0 Q545.0,110.0 551.0,110.0 L617.0,110.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="edge">
+        <path d="M531.0,110.0 L617.0,110.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
       <g class="action-node">
-        <title>fmap f :: Either e a ⟶ Either e (Either e b)\nRight a →  Right (f a)\nLeft e  →  Left e   (f is skipped)</title>
-        <rect x="171" y="30" width="282" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="312" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : Either e a ⟶ Either e (Either e b)</text>
+        <title>Pattern match on the constructor.\nRight a → the payload a leaves through 'right'\nLeft e  → the error e leaves through 'left'</title>
+        <rect x="157" y="79" width="144" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="229" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">match : case ma of</text>
         <g class="pin pin-in">
-          <rect x="167" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="177" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
-        </g>
-        <g class="pin pin-in">
-          <rect x="167" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="153" y="97" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
         <g class="pin pin-out">
-          <rect x="449" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="297" y="89.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="295" y="93.66666666666667" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">right</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="297" y="104.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="295" y="108.33333333333333" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">left</text>
         </g>
       </g>
       <g class="action-node">
-        <title>join :: Either e (Either e b) ⟶ Either e b — the Either-specific part\nRight (Right b) →  Right b\nRight (Left e)  →  Left e\nLeft e          →  Left e   (the error value is preserved unchanged)</title>
-        <rect x="615" y="30" width="282" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="756" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join : Either e (Either e b) ⟶ Either e b</text>
+        <title>Apply f to the payload. Only reachable on the Right path — on Left, f is never called.</title>
+        <rect x="407" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="467" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call : f a</text>
         <g class="pin pin-in">
-          <rect x="611" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="403" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="413" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="403" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="413" y="59.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
         </g>
         <g class="pin pin-out">
-          <rect x="893" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="523" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Short-circuit: the error value is rewrapped as Left e, unchanged — unlike Maybe, the reason is preserved.</title>
+        <rect x="407" y="88" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="467" y="110" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">skip : Left e</text>
+        <g class="pin pin-in">
+          <rect x="403" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="413" y="110" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">e</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="523" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
-        <title>Either e a — Right a (carry a) or Left e (carry error e). Unlike Maybe, the error value is preserved.</title>
-        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : Either e a</text>
+        <title>Either e a — Right a (carry a) or Left e (carry error e)</title>
+        <rect x="-4" y="97" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="95" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : Either e a</text>
       </g>
       <g class="port port-left">
         <title>f : a ⟶ Either e b — user code; may itself return Left e</title>
@@ -147,9 +172,9 @@
         <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ Either e b</text>
       </g>
       <g class="port port-right">
-        <title>Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged); never Either e (Either e b)</title>
-        <rect x="995" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="1006" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : Either e b</text>
+        <title>Either e b — Right b (all steps succeeded) or Left e (first error propagated, unchanged)</title>
+        <rect x="629" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="640" y="104" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : Either e b</text>
       </g>
     </g>
   </g>

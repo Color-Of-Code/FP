@@ -10,8 +10,43 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "Reader r a ⟶ Reader r (Reader r b)",
+              "id": "env",
+              "type": "r — supplied when run",
+              "ports": [],
+              "role": "value",
+              "tooltip": "The environment: the parameter of the returned Reader. It is supplied when the Reader is run, not when bind is called. Read-only."
+            },
+            {
+              "kind": "part",
+              "id": "run_ma",
+              "type": "ma r",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "m",
+                  "type": "Reader r a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "r",
+                  "type": "r",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "a",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Run the first computation with the environment: ma r."
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +56,8 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "Reader r a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Reader r (Reader r b)",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "fmap f :: Reader r a ⟶ Reader r (Reader r b)\\nfmap f ma = \\\\r -> f (ma r)\\nOnce r is supplied, the result is the next Reader — not yet run."
-            },
-            {
-              "kind": "part",
-              "id": "join",
-              "type": "Reader r (Reader r b) ⟶ Reader r b",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Reader r (Reader r b)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +68,55 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: Reader r (Reader r b) ⟶ Reader r b — the Reader-specific part\\njoin mm = \\\\r -> mm r r\\nRun the outer Reader with r to get the inner Reader, then run it with the SAME env r. r is never modified."
+              "tooltip": "Apply f to the result: yields the next Reader, not yet run."
+            },
+            {
+              "kind": "part",
+              "id": "run_next",
+              "type": "(f a) r",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "m",
+                  "type": "Reader r b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "r",
+                  "type": "r",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "The Reader-specific join: run the Reader that f built with the SAME environment r — (f a) r."
+            },
+            {
+              "kind": "part",
+              "id": "wrap",
+              "type": "λr → b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Reader r b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Abstract over r again: the whole body becomes the Reader r b that bind returns."
             }
           ],
           "ports": [
@@ -77,42 +139,72 @@
               "id": "mb",
               "type": "Reader r b",
               "direction": "out",
-              "tooltip": "Reader r b — the composed computation; when run with r it produces b. Never Reader r (Reader r b)."
+              "tooltip": "Reader r b — the composed computation; a function still waiting for r"
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "run_ma.m",
               "label": "wrapped"
             },
             {
               "kind": "connection",
+              "from": "env",
+              "to": "run_ma.r",
+              "label": "env r"
+            },
+            {
+              "kind": "connection",
+              "from": "run_ma._",
+              "to": "call.a",
+              "label": "result"
+            },
+            {
+              "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "call._",
+              "to": "run_next.m",
+              "label": "next Reader"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "env",
+              "to": "run_next.r",
+              "label": "same r"
+            },
+            {
+              "kind": "connection",
+              "from": "run_next._",
+              "to": "wrap.b",
+              "label": "result"
+            },
+            {
+              "kind": "connection",
+              "from": "wrap._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "env": "value",
+            "run_ma": "function",
+            "call": "function",
+            "run_next": "function",
+            "wrap": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: Reader r a ⟶ Reader r (Reader r b)\\nfmap f ma = \\\\r -> f (ma r)\\nOnce r is supplied, the result is the next Reader — not yet run.",
-            "join": "join :: Reader r (Reader r b) ⟶ Reader r b — the Reader-specific part\\njoin mm = \\\\r -> mm r r\\nRun the outer Reader with r to get the inner Reader, then run it with the SAME env r. r is never modified."
+            "env": "The environment: the parameter of the returned Reader. It is supplied when the Reader is run, not when bind is called. Read-only.",
+            "run_ma": "Run the first computation with the environment: ma r.",
+            "call": "Apply f to the result: yields the next Reader, not yet run.",
+            "run_next": "The Reader-specific join: run the Reader that f built with the SAME environment r — (f a) r.",
+            "wrap": "Abstract over r again: the whole body becomes the Reader r b that bind returns."
           }
         }
       ],
@@ -125,7 +217,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — inside bind: fmap f, then join feeds the same r to both — also called: flatMap, >>=",
+          "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — inside bind: the same environment r is supplied to both computations — also called: flatMap, >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +225,22 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — inside bind: fmap f, then join feeds the same r to both — also called: flatMap, >>=",
+    "title": "bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — inside bind: the same environment r is supplied to both computations — also called: flatMap, >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "env": "value",
+      "run_ma": "function",
+      "call": "function",
+      "run_next": "function",
+      "wrap": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: Reader r a ⟶ Reader r (Reader r b)\\nfmap f ma = \\\\r -> f (ma r)\\nOnce r is supplied, the result is the next Reader — not yet run.",
-      "join": "join :: Reader r (Reader r b) ⟶ Reader r b — the Reader-specific part\\njoin mm = \\\\r -> mm r r\\nRun the outer Reader with r to get the inner Reader, then run it with the SAME env r. r is never modified."
+      "env": "The environment: the parameter of the returned Reader. It is supplied when the Reader is run, not when bind is called. Read-only.",
+      "run_ma": "Run the first computation with the environment: ma r.",
+      "call": "Apply f to the result: yields the next Reader, not yet run.",
+      "run_next": "The Reader-specific join: run the Reader that f built with the SAME environment r — (f a) r.",
+      "wrap": "Abstract over r again: the whole body becomes the Reader r b that bind returns."
     }
   }
 }

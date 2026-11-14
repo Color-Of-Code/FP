@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1107 183" width="1107" height="183" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: fmap f, then join passes the original k to the inner Cont — also called: Bind, &gt;&gt;=</title>
-  <desc id="diagram-description">Functional programming diagram: bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: fmap f, then join passes the original k to the inner Cont — also called: Bind, &gt;&gt;=</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1353.8 218" width="1353.8" height="218" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: f and k are wrapped into a new continuation handed to ma, so the current step runs last — also called: Bind, &gt;&gt;=</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — inside bind: f and k are wrapped into a new continuation handed to ma, so the current step runs last — also called: Bind, &gt;&gt;=</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,71 +85,102 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="553.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b</text>
-  <text x="553.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: fmap f, then join passes the original k to the inner Cont</text>
-  <text x="553.5" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: Bind, &gt;&gt;=</text>
+  <text x="676.9" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b</text>
+  <text x="676.9" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: f and k are wrapped into a new continuation handed to ma, so the current step runs last</text>
+  <text x="676.9" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: Bind, &gt;&gt;=</text>
   <g transform="translate(0,60) scale(1)">
     <g transform="translate(98,0)">
-      <rect x="0" y="0" width="927" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="1173.8" height="158" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
         <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
       </g>
       <g class="edge">
-        <path d="M4.0,73.0 L147.0,73.0 Q153.0,73.0 153.0,67.0 L153.0,61.0 L153.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="78.5" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+        <path d="M4.0,71.0 L412.8,71.0 Q418.8,71.0 418.8,77.0 L418.8,90.0 L418.8,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="211.4" y="65" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
       </g>
       <g class="edge">
-        <path d="M4.0,43.0 L151.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="83.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+        <path d="M298.8,108.0 L416.8,108.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="363.8" y="102" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">final continuation</text>
       </g>
       <g class="edge">
-        <path d="M421.0,52.0 L559.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="498" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">nested (internal only)</text>
+        <path d="M602.8,99.0 L610.8,99.0 Q616.8,99.0 616.8,93.0 L616.8,67.0 Q616.8,61.0 622.8,61.0 L729.8,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="679.3" y="55" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">new continuation k'</text>
       </g>
       <g class="edge">
-        <path d="M829.0,52.0 L911.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <path d="M4.0,43.0 L729.8,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="372.9" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+      </g>
+      <g class="edge">
+        <path d="M873.8,52.0 L931.8,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="910.8" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">answer</text>
+      </g>
+      <g class="edge">
+        <path d="M1075.8,52.0 L1157.8,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="object-node">
+        <title>The final continuation: the parameter of the returned Cont. It says what to do with b once everything is done, and is supplied when the Cont is run, not when bind is called.</title>
+        <rect x="70" y="89" width="228.8" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+        <text x="184.4" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">k : b ⟶ r — supplied when run</text>
       </g>
       <g class="action-node">
-        <title>fmap f :: Cont r a ⟶ Cont r (Cont r b)\nfmap f m = \\k -&gt; m (\\a -&gt; k (f a))\nWhatever a is produced, the continuation k receives f a — the next Cont — not its result.</title>
-        <rect x="171" y="30" width="246" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="294" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : Cont r a ⟶ Cont r (Cont r b)</text>
+        <title>Builds the new continuation k' = \\a -&gt; f a k.\nWhen k' receives a, it runs f a and hands it the ORIGINAL continuation k — this is the Cont-specific join.</title>
+        <rect x="436.79999999999995" y="77" width="162" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="517.8" y="99" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bridge : λa → (f a) k</text>
         <g class="pin pin-in">
-          <rect x="167" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="177" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+          <rect x="432.79999999999995" y="87.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="442.79999999999995" y="91.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
         </g>
         <g class="pin pin-in">
-          <rect x="167" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="432.79999999999995" y="102.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="442.79999999999995" y="106.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">k</text>
         </g>
         <g class="pin pin-out">
-          <rect x="413" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="594.8" y="95" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="592.8" y="99" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">k2</text>
         </g>
       </g>
       <g class="action-node">
-        <title>join :: Cont r (Cont r b) ⟶ Cont r b — the Cont-specific part\njoin mm = \\k -&gt; mm (\\m -&gt; m k)\nWhen the outer step finishes, the inner Cont it produced receives the original continuation k. The current step runs last — this is continuation composition.</title>
-        <rect x="579" y="30" width="246" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="702" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join : Cont r (Cont r b) ⟶ Cont r b</text>
+        <title>Run the original computation, handing it k' instead of k. It decides if and when to call k' (once, many times, or never — callCC, early exit).</title>
+        <rect x="749.8" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="809.8" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run : ma k'</text>
         <g class="pin pin-in">
-          <rect x="575" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="745.8" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="755.8" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">m</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="745.8" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="755.8" y="59.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">k2</text>
         </g>
         <g class="pin pin-out">
-          <rect x="821" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="865.8" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Abstract over k again: the whole body becomes the Cont r b that bind returns.</title>
+        <rect x="951.8" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="1011.8" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">wrap : λk → r</text>
+        <g class="pin pin-in">
+          <rect x="947.8" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="1067.8" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
-        <title>Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation k</title>
-        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : Cont r a</text>
+        <title>Cont r a = (a ⟶ r) ⟶ r — a suspended computation waiting for its continuation</title>
+        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : Cont r a</text>
       </g>
       <g class="port port-left">
         <title>f : a ⟶ Cont r b — user code; given result a, builds the next continuation-based step</title>
-        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ Cont r b</text>
+        <rect x="-4" y="67" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="65" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ Cont r b</text>
       </g>
       <g class="port port-right">
-        <title>Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit. Never Cont r (Cont r b).</title>
-        <rect x="923" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="934" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : Cont r b</text>
+        <title>Cont r b = (b ⟶ r) ⟶ r — the composed computation; callCC can capture k here for early exit</title>
+        <rect x="1169.8" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="1180.8" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : Cont r b</text>
       </g>
     </g>
   </g>

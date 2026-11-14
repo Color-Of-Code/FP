@@ -5,7 +5,7 @@ producing either a value or nothing at all.
 
 ![Maybe bind propagates Nothing and skips the remaining functions](maybe/maybe.svg)
 
-![bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: fmap f, then join; Nothing short-circuits — also called: flatMap, andThen / and_then, SelectMany, chain, >>=](maybe/maybe-ibd.svg)
+![bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: Just passes its payload to f; Nothing skips f — also called: flatMap, andThen / and_then, SelectMany, chain, >>=](maybe/maybe-ibd.svg)
 
 ![pure :: a ⟶ Maybe a   (always wraps in Just, never Nothing) — also called: return, of, Some, Just](maybe/maybe-pure.svg)
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1059 183" width="1059" height="183" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: fmap f, then join; Nothing short-circuits — also called: flatMap, andThen / and_then, SelectMany, chain, &gt;&gt;=</title>
-  <desc id="diagram-description">Functional programming diagram: bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: fmap f, then join; Nothing short-circuits — also called: flatMap, andThen / and_then, SelectMany, chain, &gt;&gt;=</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 796 222" width="796" height="222" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: Just passes its payload to f; Nothing skips f — also called: flatMap, andThen / and_then, SelectMany, chain, &gt;&gt;=</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: Just passes its payload to f; Nothing skips f — also called: flatMap, andThen / and_then, SelectMany, chain, &gt;&gt;=</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,61 +85,85 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="529.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b</text>
-  <text x="529.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: fmap f, then join; Nothing short-circuits</text>
-  <text x="529.5" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, andThen / and_then, SelectMany, chain, &gt;&gt;=</text>
+  <text x="398" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b</text>
+  <text x="398" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: Just passes its payload to f; Nothing skips f</text>
+  <text x="398" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, andThen / and_then, SelectMany, chain, &gt;&gt;=</text>
   <g transform="translate(0,60) scale(1)">
     <g transform="translate(92,0)">
-      <rect x="0" y="0" width="891" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="628" height="162" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
         <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
       </g>
       <g class="edge">
-        <path d="M4.0,73.0 L147.0,73.0 Q153.0,73.0 153.0,67.0 L153.0,61.0 L153.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="78.5" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+        <path d="M4.0,101.0 L137.0,101.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="76.5" y="95" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
       </g>
       <g class="edge">
-        <path d="M4.0,43.0 L151.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="83.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+        <path d="M4.0,43.0 L382.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="199" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
       </g>
       <g class="edge">
-        <path d="M403.0,52.0 L541.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="480" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">nested (internal only)</text>
+        <path d="M305.0,92.0 L313.0,92.0 Q319.0,92.0 319.0,86.0 L319.0,67.0 Q319.0,61.0 325.0,61.0 L382.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="356.5" y="55" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">payload</text>
       </g>
       <g class="edge">
-        <path d="M793.0,52.0 L875.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <path d="M305.0,110.0 L382.0,110.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="351.5" y="104" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">f skipped</text>
+      </g>
+      <g class="edge">
+        <path d="M526.0,52.0 L534.0,52.0 Q540.0,52.0 540.0,58.0 L540.0,104.0 Q540.0,110.0 546.0,110.0 L612.0,110.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="edge">
+        <path d="M526.0,110.0 L612.0,110.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
       </g>
       <g class="action-node">
-        <title>fmap f :: Maybe a ⟶ Maybe (Maybe b)\nJust a  →  Just (f a)\nNothing →  Nothing   (f is skipped)</title>
-        <rect x="171" y="30" width="228" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="285" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : Maybe a ⟶ Maybe (Maybe b)</text>
+        <title>Pattern match on the constructor.\nJust a  → the payload a leaves through 'just'\nNothing → the 'nothing' exit fires; there is no a to pass on</title>
+        <rect x="157" y="79" width="144" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="229" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">match : case ma of</text>
         <g class="pin pin-in">
-          <rect x="167" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="177" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
-        </g>
-        <g class="pin pin-in">
-          <rect x="167" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="153" y="97" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
         <g class="pin pin-out">
-          <rect x="395" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="297" y="89.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="295" y="93.66666666666667" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">just</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="297" y="104.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="295" y="108.33333333333333" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">nothing</text>
         </g>
       </g>
       <g class="action-node">
-        <title>join :: Maybe (Maybe b) ⟶ Maybe b — the Maybe-specific part\nJust (Just b) →  Just b\nJust Nothing  →  Nothing\nNothing       →  Nothing   (failure at either level propagates)</title>
-        <rect x="561" y="30" width="228" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="675" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join : Maybe (Maybe b) ⟶ Maybe b</text>
+        <title>Apply f to the payload. Only reachable on the Just path — on Nothing, f is never called.</title>
+        <rect x="402" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="462" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call : f a</text>
         <g class="pin pin-in">
-          <rect x="557" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="398" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="408" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="398" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="408" y="59.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
         </g>
         <g class="pin pin-out">
-          <rect x="785" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="518" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Short-circuit: the absence is returned unchanged, retyped as Maybe b.</title>
+        <rect x="402" y="88" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="462" y="110" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">skip : Nothing</text>
+        <g class="pin pin-in">
+          <rect x="398" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="518" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
-        <title>Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called.</title>
-        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : Maybe a</text>
+        <title>Maybe a — Just a (has a value) or Nothing (absent)</title>
+        <rect x="-4" y="97" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="95" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : Maybe a</text>
       </g>
       <g class="port port-left">
         <title>f : a ⟶ Maybe b — user code; may itself return Nothing</title>
@@ -147,9 +171,9 @@
         <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ Maybe b</text>
       </g>
       <g class="port port-right">
-        <title>Maybe b — Just b (every step succeeded) or Nothing (first failure propagated); never Maybe (Maybe b)</title>
-        <rect x="887" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="898" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : Maybe b</text>
+        <title>Maybe b — Just b (every step succeeded) or Nothing (first failure propagated)</title>
+        <rect x="624" y="106" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="635" y="104" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : Maybe b</text>
       </g>
     </g>
   </g>

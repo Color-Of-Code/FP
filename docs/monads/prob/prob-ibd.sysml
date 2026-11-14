@@ -1,9 +1,11 @@
-// SysML v2 — Prob monad IBD: what happens inside bind
+// SysML v2 — Prob monad IBD: inside bind
 // (>>=) :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b      m >>= f = join (fmap f m)
 //
-// Prob a = [(a, Double)] — a discrete probability distribution.
-//   • fmap applies f to every outcome, giving a distribution OVER distributions
-//   • join flattens it by the law of total probability:
+// Generic shape: see docs/19-monad/monad-ibd.sysml. Like List, but every branch carries
+// a weight:
+//   • each outcome a (probability pa) is fed to f; pa bypasses f
+//   • f returns a distribution over b; its probabilities are scaled by pa
+//   • all scaled branches are merged — the law of total probability
 //     P(B=b) = sum over a of P(B=b | A=a) * P(A=a)
 
 package ProbSignature {
@@ -12,32 +14,47 @@ package ProbSignature {
     part def bind {
         #FpNodePresentation { tooltip = "Prob a = [(a, p)] — each possible outcome a paired with its probability p. Probabilities sum to 1."; }
         port in  ma : "Prob a";
-        #FpNodePresentation { tooltip = "f : a ⟶ Prob b — user code; conditional distribution: given outcome a, returns a distribution over b"; }
+        #FpNodePresentation { tooltip = "f : a ⟶ Prob b — user code; conditional distribution: given outcome a, a distribution over b"; }
         port in  f  : "a ⟶ Prob b";
-        #FpNodePresentation { tooltip = "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it; never Prob (Prob b)"; }
+        #FpNodePresentation { tooltip = "Prob b — the marginal distribution over b"; }
         port out mb : "Prob b";
 
-        #FpNodePresentation { role = "function"; tooltip = "fmap f :: Prob a ⟶ Prob (Prob b)\n[(a, pa)]  →  [(f a, pa)]\nEach outcome a keeps its probability pa and is replaced by the distribution f a."; }
-        part fmap : "Prob a ⟶ Prob (Prob b)" {
-            port in  f : "a ⟶ Prob b";
-            port in  _ : "Prob a";
-            port out _ : "Prob (Prob b)";
+        #FpNodePresentation { role = "function"; tooltip = "Fan-out over the outcomes: each (a, pa) is emitted separately; the probability pa is kept apart from the value."; }
+        part outcomes : "(a, pa) in ma" {
+            port in  _  : "Prob a";
+            port out a  : "a";
+            port out pa : "pa";
         }
-        #FpNodePresentation { role = "function"; tooltip = "join :: Prob (Prob b) ⟶ Prob b — the Prob-specific part\n[(b, pa*pb) | (dist, pa) <- outer, (b, pb) <- dist]\nEach inner outcome is weighted by the probability of its branch — law of total probability."; }
-        part join : "Prob (Prob b) ⟶ Prob b" {
-            port in  _ : "Prob (Prob b)";
+        #FpNodePresentation { role = "function"; tooltip = "Applied once per outcome; returns the conditional distribution P(B | A=a)."; }
+        part call : "f a" {
+            port in  f : "a ⟶ Prob b";
+            port in  a : "a";
+            port out _ : "Prob b";
+        }
+        #FpNodePresentation { role = "function"; tooltip = "Multiply every probability pb in f a by pa: each (b, pb) becomes (b, pa*pb)."; }
+        part weight : "scale by pa" {
+            port in  d  : "Prob b";
+            port in  pa : "pa";
+            port out _  : "Prob b";
+        }
+        #FpNodePresentation { role = "function"; tooltip = "The Prob-specific join: concatenate all weighted branches and add the weights of equal outcomes b."; }
+        part merge_branches : "concat, add equal b" {
+            port in  _ : "Prob b";
             port out _ : "Prob b";
         }
 
-        connection connect ma      to fmap._ : "wrapped";
-        connection connect f       to fmap.f : "user code";
-        connection connect fmap._  to join._ : "nested (internal only)";
-        connection connect join._  to mb;
+        connection connect ma          to outcomes._ : "wrapped";
+        connection connect f           to call.f : "user code";
+        connection connect outcomes.a  to call.a : "once per outcome";
+        connection connect call._      to weight.d : "P(B | A=a)";
+        connection connect outcomes.pa to weight.pa : "pa bypasses f";
+        connection connect weight._    to merge_branches._ : "weighted branch";
+        connection connect merge_branches._ to mb;
     }
 
     #FpViewPresentation { name = "bind"; }
     view diagram : FpIbdView {
-        doc /*bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: fmap f, then join weights and merges branches — also called: flatMap, SelectMany, >>=*/
+        doc /*bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: each outcome is fed to f, its branch is scaled by pa, and all branches are merged — also called: flatMap, SelectMany, >>=*/
         expose bind;
         render fpIbdDiagram;
     }

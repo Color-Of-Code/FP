@@ -10,8 +10,35 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "(a, w1) ⟶ ((b, w2), w1)",
+              "id": "split",
+              "type": "(a, w1)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "(a, w1)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "w1",
+                  "type": "w1",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Take the pair apart: the value a is for f, the log w1 is set aside."
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +48,35 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "(a, w1)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
                   "kind": "port",
                   "id": "_",
-                  "type": "((b, w2), w1)",
+                  "type": "(b, w2)",
                   "direction": "out"
                 }
               ],
               "role": "function",
-              "tooltip": "fmap f :: (a, w1) ⟶ ((b, w2), w1)\\nApplies f to the value; the outer log w1 stays where it is, the new log w2 sits inside."
+              "tooltip": "Apply f to the value only — it never sees the earlier log."
             },
             {
               "kind": "part",
-              "id": "join",
-              "type": "((b, w2), w1) ⟶ (b, w1<>w2)",
+              "id": "combine",
+              "type": "(b, w1 <> w2)",
               "ports": [
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "((b, w2), w1)",
+                  "id": "w1",
+                  "type": "w1",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "r",
+                  "type": "(b, w2)",
                   "direction": "in"
                 },
                 {
@@ -54,7 +87,7 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: ((b, w2), w1) ⟶ (b, w1<>w2) — the Writer-specific part\\nMerges the outer and inner log with the monoid append, in execution order: w1 first, then w2."
+              "tooltip": "The Writer-specific join: keep b, append the logs in execution order — w1 <> w2 (Monoid append, e.g. list concatenation)."
             }
           ],
           "ports": [
@@ -77,42 +110,56 @@
               "id": "mb",
               "type": "(b, w1<>w2)",
               "direction": "out",
-              "tooltip": "(b, w1<>w2) — result b with the complete log: w1 from the first step appended with w2 from f"
+              "tooltip": "(b, w1<>w2) — result b with the complete log"
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "split._",
               "label": "wrapped"
             },
             {
               "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "split.a",
+              "to": "call.a",
+              "label": "value"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "split.w1",
+              "to": "combine.w1",
+              "label": "log bypasses f"
+            },
+            {
+              "kind": "connection",
+              "from": "call._",
+              "to": "combine.r",
+              "label": "result + new log"
+            },
+            {
+              "kind": "connection",
+              "from": "combine._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "split": "function",
+            "call": "function",
+            "combine": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: (a, w1) ⟶ ((b, w2), w1)\\nApplies f to the value; the outer log w1 stays where it is, the new log w2 sits inside.",
-            "join": "join :: ((b, w2), w1) ⟶ (b, w1<>w2) — the Writer-specific part\\nMerges the outer and inner log with the monoid append, in execution order: w1 first, then w2."
+            "split": "Take the pair apart: the value a is for f, the log w1 is set aside.",
+            "call": "Apply f to the value only — it never sees the earlier log.",
+            "combine": "The Writer-specific join: keep b, append the logs in execution order — w1 <> w2 (Monoid append, e.g. list concatenation)."
           }
         }
       ],
@@ -125,7 +172,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — inside bind: fmap f, then join appends the logs — also called: flatMap, >>=",
+          "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — inside bind: the value goes to f; the two logs bypass it and are appended — also called: flatMap, >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +180,18 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — inside bind: fmap f, then join appends the logs — also called: flatMap, >>=",
+    "title": "bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — inside bind: the value goes to f; the two logs bypass it and are appended — also called: flatMap, >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "split": "function",
+      "call": "function",
+      "combine": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: (a, w1) ⟶ ((b, w2), w1)\\nApplies f to the value; the outer log w1 stays where it is, the new log w2 sits inside.",
-      "join": "join :: ((b, w2), w1) ⟶ (b, w1<>w2) — the Writer-specific part\\nMerges the outer and inner log with the monoid append, in execution order: w1 first, then w2."
+      "split": "Take the pair apart: the value a is for f, the log w1 is set aside.",
+      "call": "Apply f to the value only — it never sees the earlier log.",
+      "combine": "The Writer-specific join: keep b, append the logs in execution order — w1 <> w2 (Monoid append, e.g. list concatenation)."
     }
   }
 }

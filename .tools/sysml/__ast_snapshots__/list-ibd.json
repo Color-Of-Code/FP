@@ -10,8 +10,29 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "List a ⟶ List (List b)",
+              "id": "each",
+              "type": "elements of ma",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "List a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a_i",
+                  "type": "a",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Fan-out: emits the elements one at a time. [a1, a2, a3] produces three separate a tokens; [] produces none."
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a_i",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +42,8 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "List a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "List (List b)",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "fmap f :: List a ⟶ List (List b)\\nmap f [a1, a2, a3]  =  [f a1, f a2, f a3]\\nOne inner list per element; the outer structure is kept."
-            },
-            {
-              "kind": "part",
-              "id": "join",
-              "type": "List (List b) ⟶ List b",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "List (List b)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +54,28 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: List (List b) ⟶ List b — the List-specific part\\nconcat [[b1, b2], [], [b3]]  =  [b1, b2, b3]\\nInner lists are concatenated in order."
+              "tooltip": "Applied once per element: f(a1), f(a2), f(a3), …\\nEach call returns its own List b."
+            },
+            {
+              "kind": "part",
+              "id": "flatten",
+              "type": "concat",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "List b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "List b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Fan-in: f(a1) ++ f(a2) ++ f(a3) — the per-element lists are concatenated in order. This is the List-specific join."
             }
           ],
           "ports": [
@@ -63,7 +84,7 @@
               "id": "ma",
               "type": "List a",
               "direction": "in",
-              "tooltip": "List a — zero or more possible values. An empty list short-circuits (no elements to process)."
+              "tooltip": "List a — zero or more possible values. An empty list means f is never called."
             },
             {
               "kind": "port",
@@ -77,42 +98,50 @@
               "id": "mb",
               "type": "List b",
               "direction": "out",
-              "tooltip": "List b — all branches expanded and flattened into a single list; never List (List b)"
+              "tooltip": "List b — all branches expanded and flattened into a single list"
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "each._",
               "label": "wrapped"
             },
             {
               "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "each.a_i",
+              "to": "call.a",
+              "label": "once per element"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "call._",
+              "to": "flatten._",
+              "label": "a List b per element"
+            },
+            {
+              "kind": "connection",
+              "from": "flatten._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "each": "function",
+            "call": "function",
+            "flatten": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: List a ⟶ List (List b)\\nmap f [a1, a2, a3]  =  [f a1, f a2, f a3]\\nOne inner list per element; the outer structure is kept.",
-            "join": "join :: List (List b) ⟶ List b — the List-specific part\\nconcat [[b1, b2], [], [b3]]  =  [b1, b2, b3]\\nInner lists are concatenated in order."
+            "each": "Fan-out: emits the elements one at a time. [a1, a2, a3] produces three separate a tokens; [] produces none.",
+            "call": "Applied once per element: f(a1), f(a2), f(a3), …\\nEach call returns its own List b.",
+            "flatten": "Fan-in: f(a1) ++ f(a2) ++ f(a3) — the per-element lists are concatenated in order. This is the List-specific join."
           }
         }
       ],
@@ -125,7 +154,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: map f, then concat — also called: flatMap, concatMap, SelectMany, List.collect, >>=",
+          "title": "bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: f is applied to every element and the resulting lists are concatenated — also called: flatMap, concatMap, SelectMany, List.collect, >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +162,18 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: map f, then concat — also called: flatMap, concatMap, SelectMany, List.collect, >>=",
+    "title": "bind :: List a ⟶ (a ⟶ List b) ⟶ List b — inside bind: f is applied to every element and the resulting lists are concatenated — also called: flatMap, concatMap, SelectMany, List.collect, >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "each": "function",
+      "call": "function",
+      "flatten": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: List a ⟶ List (List b)\\nmap f [a1, a2, a3]  =  [f a1, f a2, f a3]\\nOne inner list per element; the outer structure is kept.",
-      "join": "join :: List (List b) ⟶ List b — the List-specific part\\nconcat [[b1, b2], [], [b3]]  =  [b1, b2, b3]\\nInner lists are concatenated in order."
+      "each": "Fan-out: emits the elements one at a time. [a1, a2, a3] produces three separate a tokens; [] produces none.",
+      "call": "Applied once per element: f(a1), f(a2), f(a3), …\\nEach call returns its own List b.",
+      "flatten": "Fan-in: f(a1) ++ f(a2) ++ f(a3) — the per-element lists are concatenated in order. This is the List-specific join."
     }
   }
 }

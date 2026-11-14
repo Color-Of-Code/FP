@@ -10,8 +10,35 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "Prob a ⟶ Prob (Prob b)",
+              "id": "outcomes",
+              "type": "(a, pa) in ma",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Prob a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "pa",
+                  "type": "pa",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Fan-out over the outcomes: each (a, pa) is emitted separately; the probability pa is kept apart from the value."
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +48,8 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "Prob a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Prob (Prob b)",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "fmap f :: Prob a ⟶ Prob (Prob b)\\n[(a, pa)]  →  [(f a, pa)]\\nEach outcome a keeps its probability pa and is replaced by the distribution f a."
-            },
-            {
-              "kind": "part",
-              "id": "join",
-              "type": "Prob (Prob b) ⟶ Prob b",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Prob (Prob b)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +60,55 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: Prob (Prob b) ⟶ Prob b — the Prob-specific part\\n[(b, pa*pb) | (dist, pa) <- outer, (b, pb) <- dist]\\nEach inner outcome is weighted by the probability of its branch — law of total probability."
+              "tooltip": "Applied once per outcome; returns the conditional distribution P(B | A=a)."
+            },
+            {
+              "kind": "part",
+              "id": "weight",
+              "type": "scale by pa",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "d",
+                  "type": "Prob b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "pa",
+                  "type": "pa",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Prob b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Multiply every probability pb in f a by pa: each (b, pb) becomes (b, pa*pb)."
+            },
+            {
+              "kind": "part",
+              "id": "merge_branches",
+              "type": "concat, add equal b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Prob b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Prob b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "The Prob-specific join: concatenate all weighted branches and add the weights of equal outcomes b."
             }
           ],
           "ports": [
@@ -70,49 +124,71 @@
               "id": "f",
               "type": "a ⟶ Prob b",
               "direction": "in",
-              "tooltip": "f : a ⟶ Prob b — user code; conditional distribution: given outcome a, returns a distribution over b"
+              "tooltip": "f : a ⟶ Prob b — user code; conditional distribution: given outcome a, a distribution over b"
             },
             {
               "kind": "port",
               "id": "mb",
               "type": "Prob b",
               "direction": "out",
-              "tooltip": "Prob b — the marginal distribution over b, weighting each branch by the probability of reaching it; never Prob (Prob b)"
+              "tooltip": "Prob b — the marginal distribution over b"
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "outcomes._",
               "label": "wrapped"
             },
             {
               "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "outcomes.a",
+              "to": "call.a",
+              "label": "once per outcome"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "call._",
+              "to": "weight.d",
+              "label": "P(B | A=a)"
+            },
+            {
+              "kind": "connection",
+              "from": "outcomes.pa",
+              "to": "weight.pa",
+              "label": "pa bypasses f"
+            },
+            {
+              "kind": "connection",
+              "from": "weight._",
+              "to": "merge_branches._",
+              "label": "weighted branch"
+            },
+            {
+              "kind": "connection",
+              "from": "merge_branches._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "outcomes": "function",
+            "call": "function",
+            "weight": "function",
+            "merge_branches": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: Prob a ⟶ Prob (Prob b)\\n[(a, pa)]  →  [(f a, pa)]\\nEach outcome a keeps its probability pa and is replaced by the distribution f a.",
-            "join": "join :: Prob (Prob b) ⟶ Prob b — the Prob-specific part\\n[(b, pa*pb) | (dist, pa) <- outer, (b, pb) <- dist]\\nEach inner outcome is weighted by the probability of its branch — law of total probability."
+            "outcomes": "Fan-out over the outcomes: each (a, pa) is emitted separately; the probability pa is kept apart from the value.",
+            "call": "Applied once per outcome; returns the conditional distribution P(B | A=a).",
+            "weight": "Multiply every probability pb in f a by pa: each (b, pb) becomes (b, pa*pb).",
+            "merge_branches": "The Prob-specific join: concatenate all weighted branches and add the weights of equal outcomes b."
           }
         }
       ],
@@ -125,7 +201,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: fmap f, then join weights and merges branches — also called: flatMap, SelectMany, >>=",
+          "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: each outcome is fed to f, its branch is scaled by pa, and all branches are merged — also called: flatMap, SelectMany, >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +209,20 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: fmap f, then join weights and merges branches — also called: flatMap, SelectMany, >>=",
+    "title": "bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — inside bind: each outcome is fed to f, its branch is scaled by pa, and all branches are merged — also called: flatMap, SelectMany, >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "outcomes": "function",
+      "call": "function",
+      "weight": "function",
+      "merge_branches": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: Prob a ⟶ Prob (Prob b)\\n[(a, pa)]  →  [(f a, pa)]\\nEach outcome a keeps its probability pa and is replaced by the distribution f a.",
-      "join": "join :: Prob (Prob b) ⟶ Prob b — the Prob-specific part\\n[(b, pa*pb) | (dist, pa) <- outer, (b, pb) <- dist]\\nEach inner outcome is weighted by the probability of its branch — law of total probability."
+      "outcomes": "Fan-out over the outcomes: each (a, pa) is emitted separately; the probability pa is kept apart from the value.",
+      "call": "Applied once per outcome; returns the conditional distribution P(B | A=a).",
+      "weight": "Multiply every probability pb in f a by pa: each (b, pb) becomes (b, pa*pb).",
+      "merge_branches": "The Prob-specific join: concatenate all weighted branches and add the weights of equal outcomes b."
     }
   }
 }

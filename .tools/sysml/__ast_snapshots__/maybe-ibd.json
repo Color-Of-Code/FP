@@ -10,8 +10,35 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "Maybe a ⟶ Maybe (Maybe b)",
+              "id": "match",
+              "type": "case ma of",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "just",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "nothing",
+                  "type": "Nothing",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Pattern match on the constructor.\\nJust a  → the payload a leaves through 'just'\\nNothing → the 'nothing' exit fires; there is no a to pass on"
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +48,8 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "Maybe a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Maybe (Maybe b)",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "fmap f :: Maybe a ⟶ Maybe (Maybe b)\\nJust a  →  Just (f a)\\nNothing →  Nothing   (f is skipped)"
-            },
-            {
-              "kind": "part",
-              "id": "join",
-              "type": "Maybe (Maybe b) ⟶ Maybe b",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Maybe (Maybe b)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +60,28 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: Maybe (Maybe b) ⟶ Maybe b — the Maybe-specific part\\nJust (Just b) →  Just b\\nJust Nothing  →  Nothing\\nNothing       →  Nothing   (failure at either level propagates)"
+              "tooltip": "Apply f to the payload. Only reachable on the Just path — on Nothing, f is never called."
+            },
+            {
+              "kind": "part",
+              "id": "skip",
+              "type": "Nothing",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Nothing",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Short-circuit: the absence is returned unchanged, retyped as Maybe b."
             }
           ],
           "ports": [
@@ -63,7 +90,7 @@
               "id": "ma",
               "type": "Maybe a",
               "direction": "in",
-              "tooltip": "Maybe a — Just a (has a value) or Nothing (absent). If Nothing, f is never called."
+              "tooltip": "Maybe a — Just a (has a value) or Nothing (absent)"
             },
             {
               "kind": "port",
@@ -77,42 +104,55 @@
               "id": "mb",
               "type": "Maybe b",
               "direction": "out",
-              "tooltip": "Maybe b — Just b (every step succeeded) or Nothing (first failure propagated); never Maybe (Maybe b)"
+              "tooltip": "Maybe b — Just b (every step succeeded) or Nothing (first failure propagated)"
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "match._",
               "label": "wrapped"
             },
             {
               "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "match.just",
+              "to": "call.a",
+              "label": "payload"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "match.nothing",
+              "to": "skip._",
+              "label": "f skipped"
+            },
+            {
+              "kind": "connection",
+              "from": "call._",
+              "to": "mb"
+            },
+            {
+              "kind": "connection",
+              "from": "skip._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "match": "function",
+            "call": "function",
+            "skip": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: Maybe a ⟶ Maybe (Maybe b)\\nJust a  →  Just (f a)\\nNothing →  Nothing   (f is skipped)",
-            "join": "join :: Maybe (Maybe b) ⟶ Maybe b — the Maybe-specific part\\nJust (Just b) →  Just b\\nJust Nothing  →  Nothing\\nNothing       →  Nothing   (failure at either level propagates)"
+            "match": "Pattern match on the constructor.\\nJust a  → the payload a leaves through 'just'\\nNothing → the 'nothing' exit fires; there is no a to pass on",
+            "call": "Apply f to the payload. Only reachable on the Just path — on Nothing, f is never called.",
+            "skip": "Short-circuit: the absence is returned unchanged, retyped as Maybe b."
           }
         }
       ],
@@ -125,7 +165,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: fmap f, then join; Nothing short-circuits — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
+          "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: Just passes its payload to f; Nothing skips f — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +173,18 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: fmap f, then join; Nothing short-circuits — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
+    "title": "bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — inside bind: Just passes its payload to f; Nothing skips f — also called: flatMap, andThen / and_then, SelectMany, chain, >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "match": "function",
+      "call": "function",
+      "skip": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: Maybe a ⟶ Maybe (Maybe b)\\nJust a  →  Just (f a)\\nNothing →  Nothing   (f is skipped)",
-      "join": "join :: Maybe (Maybe b) ⟶ Maybe b — the Maybe-specific part\\nJust (Just b) →  Just b\\nJust Nothing  →  Nothing\\nNothing       →  Nothing   (failure at either level propagates)"
+      "match": "Pattern match on the constructor.\\nJust a  → the payload a leaves through 'just'\\nNothing → the 'nothing' exit fires; there is no a to pass on",
+      "call": "Apply f to the payload. Only reachable on the Just path — on Nothing, f is never called.",
+      "skip": "Short-circuit: the absence is returned unchanged, retyped as Maybe b."
     }
   }
 }

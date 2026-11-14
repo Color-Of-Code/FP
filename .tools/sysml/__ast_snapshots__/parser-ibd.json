@@ -10,8 +10,76 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "Parser a ⟶ Parser (Parser b)",
+              "id": "text",
+              "type": "String — supplied when run",
+              "ports": [],
+              "role": "value",
+              "tooltip": "The text to parse: the parameter of the returned parser. It is supplied when the parser is run, not when bind is called."
+            },
+            {
+              "kind": "part",
+              "id": "run_ma",
+              "type": "ma text",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "p",
+                  "type": "Parser a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "s",
+                  "type": "String",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe (a, String)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Run the first parser on the text: ma text."
+            },
+            {
+              "kind": "part",
+              "id": "match",
+              "type": "case of",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe (a, String)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "rest",
+                  "type": "String",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "nothing",
+                  "type": "Nothing",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Pattern match on the outcome.\\nJust (a, rest) → value and unconsumed rest leave separately\\nNothing        → the parse failed"
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +89,8 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "Parser a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Parser (Parser b)",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "fmap f :: Parser a ⟶ Parser (Parser b)\\nOn success (a, rest) returns (f a, rest): the next parser is built but not yet run. Failure stays Nothing."
-            },
-            {
-              "kind": "part",
-              "id": "join",
-              "type": "Parser (Parser b) ⟶ Parser b",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "Parser (Parser b)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +101,76 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: Parser (Parser b) ⟶ Parser b — the Parser-specific part\\njoin pp = \\\\input -> case pp input of\\n  Nothing        -> Nothing       -- propagate failure\\n  Just (p, rest) -> p rest        -- run the inner parser on the remainder"
+              "tooltip": "Apply f to the parsed value: yields the next parser, not yet run."
+            },
+            {
+              "kind": "part",
+              "id": "run_next",
+              "type": "(f a) rest",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "p",
+                  "type": "Parser b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "s",
+                  "type": "String",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe (b, String)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Run the next parser on the remainder: (f a) rest. This is the threading step of the join."
+            },
+            {
+              "kind": "part",
+              "id": "fail",
+              "type": "Nothing",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Nothing",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe (b, String)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Short-circuit: failure is propagated, f is skipped."
+            },
+            {
+              "kind": "part",
+              "id": "wrap",
+              "type": "λtext → Maybe (b, String)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Maybe (b, String)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "Parser b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Abstract over the text again: the outcome becomes the Parser b that bind returns."
             }
           ],
           "ports": [
@@ -77,42 +193,94 @@
               "id": "mb",
               "type": "Parser b",
               "direction": "out",
-              "tooltip": "Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume. Never Parser (Parser b)."
+              "tooltip": "Parser b — the composed parser; a function still waiting for the text to parse"
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "run_ma.p",
               "label": "wrapped"
             },
             {
               "kind": "connection",
+              "from": "text",
+              "to": "run_ma.s",
+              "label": "text"
+            },
+            {
+              "kind": "connection",
+              "from": "run_ma._",
+              "to": "match._",
+              "label": "outcome"
+            },
+            {
+              "kind": "connection",
+              "from": "match.a",
+              "to": "call.a",
+              "label": "parsed value"
+            },
+            {
+              "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "call._",
+              "to": "run_next.p",
+              "label": "next parser"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "match.rest",
+              "to": "run_next.s",
+              "label": "rest threaded"
+            },
+            {
+              "kind": "connection",
+              "from": "match.nothing",
+              "to": "fail._",
+              "label": "f skipped"
+            },
+            {
+              "kind": "connection",
+              "from": "run_next._",
+              "to": "wrap._",
+              "label": "success"
+            },
+            {
+              "kind": "connection",
+              "from": "fail._",
+              "to": "wrap._",
+              "label": "failure"
+            },
+            {
+              "kind": "connection",
+              "from": "wrap._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "text": "value",
+            "run_ma": "function",
+            "match": "function",
+            "call": "function",
+            "run_next": "function",
+            "fail": "function",
+            "wrap": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: Parser a ⟶ Parser (Parser b)\\nOn success (a, rest) returns (f a, rest): the next parser is built but not yet run. Failure stays Nothing.",
-            "join": "join :: Parser (Parser b) ⟶ Parser b — the Parser-specific part\\njoin pp = \\\\input -> case pp input of\\n  Nothing        -> Nothing       -- propagate failure\\n  Just (p, rest) -> p rest        -- run the inner parser on the remainder"
+            "text": "The text to parse: the parameter of the returned parser. It is supplied when the parser is run, not when bind is called.",
+            "run_ma": "Run the first parser on the text: ma text.",
+            "match": "Pattern match on the outcome.\\nJust (a, rest) → value and unconsumed rest leave separately\\nNothing        → the parse failed",
+            "call": "Apply f to the parsed value: yields the next parser, not yet run.",
+            "run_next": "Run the next parser on the remainder: (f a) rest. This is the threading step of the join.",
+            "fail": "Short-circuit: failure is propagated, f is skipped.",
+            "wrap": "Abstract over the text again: the outcome becomes the Parser b that bind returns."
           }
         }
       ],
@@ -125,7 +293,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: fmap f, then join runs the inner parser on the remaining input — also called: flatMap, Bind, >>=",
+          "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: the unconsumed rest is threaded into the next parser; failure skips it — also called: flatMap, Bind, >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +301,26 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: fmap f, then join runs the inner parser on the remaining input — also called: flatMap, Bind, >>=",
+    "title": "bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: the unconsumed rest is threaded into the next parser; failure skips it — also called: flatMap, Bind, >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "text": "value",
+      "run_ma": "function",
+      "match": "function",
+      "call": "function",
+      "run_next": "function",
+      "fail": "function",
+      "wrap": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: Parser a ⟶ Parser (Parser b)\\nOn success (a, rest) returns (f a, rest): the next parser is built but not yet run. Failure stays Nothing.",
-      "join": "join :: Parser (Parser b) ⟶ Parser b — the Parser-specific part\\njoin pp = \\\\input -> case pp input of\\n  Nothing        -> Nothing       -- propagate failure\\n  Just (p, rest) -> p rest        -- run the inner parser on the remainder"
+      "text": "The text to parse: the parameter of the returned parser. It is supplied when the parser is run, not when bind is called.",
+      "run_ma": "Run the first parser on the text: ma text.",
+      "match": "Pattern match on the outcome.\\nJust (a, rest) → value and unconsumed rest leave separately\\nNothing        → the parse failed",
+      "call": "Apply f to the parsed value: yields the next parser, not yet run.",
+      "run_next": "Run the next parser on the remainder: (f a) rest. This is the threading step of the join.",
+      "fail": "Short-circuit: failure is propagated, f is skipped.",
+      "wrap": "Abstract over the text again: the outcome becomes the Parser b that bind returns."
     }
   }
 }

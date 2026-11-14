@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1107 183" width="1107" height="183" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: fmap f, then join runs the inner parser on the remaining input — also called: flatMap, Bind, &gt;&gt;=</title>
-  <desc id="diagram-description">Functional programming diagram: bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: fmap f, then join runs the inner parser on the remaining input — also called: flatMap, Bind, &gt;&gt;=</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1960.6 232" width="1960.6" height="232" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: the unconsumed rest is threaded into the next parser; failure skips it — also called: flatMap, Bind, &gt;&gt;=</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — inside bind: the unconsumed rest is threaded into the next parser; failure skips it — also called: flatMap, Bind, &gt;&gt;=</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,61 +85,158 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="553.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b</text>
-  <text x="553.5" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: fmap f, then join runs the inner parser on the remaining input</text>
-  <text x="553.5" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, Bind, &gt;&gt;=</text>
+  <text x="980.3" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b</text>
+  <text x="980.3" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: the unconsumed rest is threaded into the next parser; failure skips it</text>
+  <text x="980.3" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: flatMap, Bind, &gt;&gt;=</text>
   <g transform="translate(0,60) scale(1)">
     <g transform="translate(98,0)">
-      <rect x="0" y="0" width="927" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="1780.6" height="172" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
         <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
       </g>
       <g class="edge">
-        <path d="M4.0,73.0 L147.0,73.0 Q153.0,73.0 153.0,67.0 L153.0,61.0 L153.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="78.5" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+        <path d="M4.0,65.0 L390.6,65.0 Q396.6,65.0 396.6,71.0 L396.6,80.0 L396.6,80.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="200.3" y="59" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
       </g>
       <g class="edge">
-        <path d="M4.0,43.0 L151.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="83.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+        <path d="M327.6,102.0 L335.6,102.0 Q337.6,102.0 337.6,100.0 L337.6,100.0 Q337.6,98.0 339.6,98.0 L394.6,98.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="372.1" y="92" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">text</text>
       </g>
       <g class="edge">
-        <path d="M421.0,52.0 L559.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="498" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">nested (internal only)</text>
+        <path d="M550.6,89.0 L623.6,89.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="595.1" y="83" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">outcome</text>
       </g>
       <g class="edge">
-        <path d="M829.0,52.0 L911.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <path d="M773.6,76.0 L781.6,76.0 Q787.6,76.0 787.6,70.0 L787.6,67.0 Q787.6,61.0 793.6,61.0 L865.6,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="832.6" y="55" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">parsed value</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,43.0 L865.6,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="440.8" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+      </g>
+      <g class="edge">
+        <path d="M1009.6,52.0 L1173.6,52.0 Q1179.6,52.0 1179.6,58.0 L1179.6,71.0 L1179.6,71.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="1096.6" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">next parser</text>
+      </g>
+      <g class="edge">
+        <path d="M773.6,89.0 L1177.6,89.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="983.5999999999999" y="83" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">rest threaded</text>
+      </g>
+      <g class="edge">
+        <path d="M773.6,102.0 L781.6,102.0 Q787.6,102.0 787.6,108.0 L787.6,111.0 Q787.6,117.0 793.6,117.0 L1022.1,117.0 Q1023.6,117.0 1023.6,118.5 L1023.6,120.0 L1023.6,120.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="905.6" y="111" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">f skipped</text>
+      </g>
+      <g class="edge">
+        <path d="M1363.6,80.0 L1428.6,80.0 Q1432.6,80.0 1432.6,84.0 L1432.6,88.0 L1432.6,88.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="1400.1" y="74" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">success</text>
+      </g>
+      <g class="edge">
+        <path d="M1165.6,120.0 L1177.6,120.0 Q1179.6,120.0 1179.6,118.0 L1179.6,118.0 Q1179.6,116.0 1181.6,116.0 L1426.6,116.0 Q1432.6,116.0 1432.6,110.0 L1432.6,88.0 L1432.6,88.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="1306.1" y="110" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">failure</text>
+      </g>
+      <g class="edge">
+        <path d="M1682.6,88.0 L1764.6,88.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="object-node">
+        <title>The text to parse: the parameter of the returned parser. It is supplied when the parser is run, not when bind is called.</title>
+        <rect x="70" y="83" width="257.6" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+        <text x="198.8" y="102" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">text : String — supplied when run</text>
       </g>
       <g class="action-node">
-        <title>fmap f :: Parser a ⟶ Parser (Parser b)\nOn success (a, rest) returns (f a, rest): the next parser is built but not yet run. Failure stays Nothing.</title>
-        <rect x="171" y="30" width="246" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="294" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : Parser a ⟶ Parser (Parser b)</text>
+        <title>Run the first parser on the text: ma text.</title>
+        <rect x="414.6" y="67" width="132" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="480.6" y="89" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_ma : ma text</text>
         <g class="pin pin-in">
-          <rect x="167" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="177" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+          <rect x="410.6" y="77.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="420.6" y="81.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">p</text>
         </g>
         <g class="pin pin-in">
-          <rect x="167" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="410.6" y="92.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="420.6" y="96.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">s</text>
         </g>
         <g class="pin pin-out">
-          <rect x="413" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="542.6" y="85" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="action-node">
-        <title>join :: Parser (Parser b) ⟶ Parser b — the Parser-specific part\njoin pp = \\input -&gt; case pp input of\n  Nothing        -&gt; Nothing       -- propagate failure\n  Just (p, rest) -&gt; p rest        -- run the inner parser on the remainder</title>
-        <rect x="579" y="30" width="246" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="702" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join : Parser (Parser b) ⟶ Parser b</text>
+        <title>Pattern match on the outcome.\nJust (a, rest) → value and unconsumed rest leave separately\nNothing        → the parse failed</title>
+        <rect x="643.6" y="67" width="126" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="706.6" y="89" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">match : case of</text>
         <g class="pin pin-in">
-          <rect x="575" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="639.6" y="85" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
         <g class="pin pin-out">
-          <rect x="821" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="765.6" y="74" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="763.6" y="78" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="765.6" y="85" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="763.6" y="89" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">rest</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="765.6" y="96" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="763.6" y="100" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">nothing</text>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Apply f to the parsed value: yields the next parser, not yet run.</title>
+        <rect x="885.6" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="945.6" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call : f a</text>
+        <g class="pin pin-in">
+          <rect x="881.6" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="891.6" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="881.6" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="891.6" y="59.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="1001.6" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Run the next parser on the remainder: (f a) rest. This is the threading step of the join.</title>
+        <rect x="1197.6" y="58" width="162" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="1278.6" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_next : (f a) rest</text>
+        <g class="pin pin-in">
+          <rect x="1193.6" y="68.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="1203.6" y="72.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">p</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="1193.6" y="83.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="1203.6" y="87.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">s</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="1355.6" y="76" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Short-circuit: failure is propagated, f is skipped.</title>
+        <rect x="1041.6" y="98" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="1101.6" y="120" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fail : Nothing</text>
+        <g class="pin pin-in">
+          <rect x="1037.6" y="116" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="1157.6" y="116" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Abstract over the text again: the outcome becomes the Parser b that bind returns.</title>
+        <rect x="1450.6" y="66" width="228" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="1564.6" y="88" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">wrap : λtext → Maybe (b, String)</text>
+        <g class="pin pin-in">
+          <rect x="1446.6" y="84" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="1674.6" y="84" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
         <title>Parser a = String ⟶ Maybe (a, String) — run on input; succeeds with (a, rest) or fails with Nothing</title>
-        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : Parser a</text>
+        <rect x="-4" y="61" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="59" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : Parser a</text>
       </g>
       <g class="port port-left">
         <title>f : a ⟶ Parser b — user code; given parsed value a, constructs the next parser</title>
@@ -147,9 +244,9 @@
         <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ Parser b</text>
       </g>
       <g class="port port-right">
-        <title>Parser b — the composed parser; on success returns (b, rest2) where rest2 is what f(a) didn't consume. Never Parser (Parser b).</title>
-        <rect x="923" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="934" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : Parser b</text>
+        <title>Parser b — the composed parser; a function still waiting for the text to parse</title>
+        <rect x="1776.6" y="84" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="1787.6" y="82" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : Parser b</text>
       </g>
     </g>
   </g>

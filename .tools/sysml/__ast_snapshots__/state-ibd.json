@@ -10,8 +10,49 @@
           "parts": [
             {
               "kind": "part",
-              "id": "fmap",
-              "type": "State s a ⟶ State s (State s b)",
+              "id": "s0",
+              "type": "s — supplied when run",
+              "ports": [],
+              "role": "value",
+              "tooltip": "The initial state: the parameter of the returned State. It is supplied when the State is run, not when bind is called."
+            },
+            {
+              "kind": "part",
+              "id": "run_ma",
+              "type": "ma s",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "m",
+                  "type": "State s a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "s",
+                  "type": "s",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "s1",
+                  "type": "s'",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Run the first computation: ma s0 = (a, s')."
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
               "ports": [
                 {
                   "kind": "port",
@@ -21,29 +62,8 @@
                 },
                 {
                   "kind": "port",
-                  "id": "_",
-                  "type": "State s a",
-                  "direction": "in"
-                },
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "State s (State s b)",
-                  "direction": "out"
-                }
-              ],
-              "role": "function",
-              "tooltip": "fmap f :: State s a ⟶ State s (State s b)\\nfmap f sa = \\\\s -> let (a, s') = sa s in (f a, s')\\nThe state s' passes through untouched; the result is the next State computation, not yet run."
-            },
-            {
-              "kind": "part",
-              "id": "join",
-              "type": "State s (State s b) ⟶ State s b",
-              "ports": [
-                {
-                  "kind": "port",
-                  "id": "_",
-                  "type": "State s (State s b)",
+                  "id": "a",
+                  "type": "a",
                   "direction": "in"
                 },
                 {
@@ -54,7 +74,67 @@
                 }
               ],
               "role": "function",
-              "tooltip": "join :: State s (State s b) ⟶ State s b — the State-specific part\\njoin mm = \\\\s -> let (m, s') = mm s   -- run the outer computation\\n                in  m s'              -- run the inner one with the NEW state s'"
+              "tooltip": "Apply f to the result: yields the next State computation, not yet run."
+            },
+            {
+              "kind": "part",
+              "id": "run_next",
+              "type": "(f a) s'",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "m",
+                  "type": "State s b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "s",
+                  "type": "s'",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "b",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "s2",
+                  "type": "s''",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "The State-specific join: run the computation f built with the state s' that the first step left behind — (f a) s' = (b, s'')."
+            },
+            {
+              "kind": "part",
+              "id": "wrap",
+              "type": "λs → (b, s'')",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "s2",
+                  "type": "s''",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "State s b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Abstract over s again: the result and the final state s'' become the State s b that bind returns."
             }
           ],
           "ports": [
@@ -77,42 +157,78 @@
               "id": "mb",
               "type": "State s b",
               "direction": "out",
-              "tooltip": "State s b — the composed computation; when run it produces (b, s''). Never State s (State s b)."
+              "tooltip": "State s b — the composed computation; a function still waiting for a state"
             }
           ],
           "connections": [
             {
               "kind": "connection",
               "from": "ma",
-              "to": "fmap._",
+              "to": "run_ma.m",
               "label": "wrapped"
             },
             {
               "kind": "connection",
+              "from": "s0",
+              "to": "run_ma.s",
+              "label": "initial state"
+            },
+            {
+              "kind": "connection",
+              "from": "run_ma.a",
+              "to": "call.a",
+              "label": "result"
+            },
+            {
+              "kind": "connection",
               "from": "f",
-              "to": "fmap.f",
+              "to": "call.f",
               "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "fmap._",
-              "to": "join._",
-              "label": "nested (internal only)"
+              "from": "call._",
+              "to": "run_next.m",
+              "label": "next State"
             },
             {
               "kind": "connection",
-              "from": "join._",
+              "from": "run_ma.s1",
+              "to": "run_next.s",
+              "label": "state threaded"
+            },
+            {
+              "kind": "connection",
+              "from": "run_next.b",
+              "to": "wrap.b",
+              "label": "result"
+            },
+            {
+              "kind": "connection",
+              "from": "run_next.s2",
+              "to": "wrap.s2",
+              "label": "final state"
+            },
+            {
+              "kind": "connection",
+              "from": "wrap._",
               "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "fmap": "function",
-            "join": "function"
+            "s0": "value",
+            "run_ma": "function",
+            "call": "function",
+            "run_next": "function",
+            "wrap": "function"
           },
           "tooltips": {
-            "fmap": "fmap f :: State s a ⟶ State s (State s b)\\nfmap f sa = \\\\s -> let (a, s') = sa s in (f a, s')\\nThe state s' passes through untouched; the result is the next State computation, not yet run.",
-            "join": "join :: State s (State s b) ⟶ State s b — the State-specific part\\njoin mm = \\\\s -> let (m, s') = mm s   -- run the outer computation\\n                in  m s'              -- run the inner one with the NEW state s'"
+            "s0": "The initial state: the parameter of the returned State. It is supplied when the State is run, not when bind is called.",
+            "run_ma": "Run the first computation: ma s0 = (a, s').",
+            "call": "Apply f to the result: yields the next State computation, not yet run.",
+            "run_next": "The State-specific join: run the computation f built with the state s' that the first step left behind — (f a) s' = (b, s'').",
+            "wrap": "Abstract over s again: the result and the final state s'' become the State s b that bind returns."
           }
         }
       ],
@@ -125,7 +241,7 @@
           "viewType": "FpIbdView",
           "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: fmap f, then join threads the state from outer to inner — also called: flatMap, >>=",
+          "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: the state s' left by the first step is threaded into the second — also called: flatMap, >>=",
           "name": "bind"
         }
       ]
@@ -133,16 +249,22 @@
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: fmap f, then join threads the state from outer to inner — also called: flatMap, >>=",
+    "title": "bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: the state s' left by the first step is threaded into the second — also called: flatMap, >>=",
     "name": "bind",
     "render": "bind",
     "shows": {
-      "fmap": "function",
-      "join": "function"
+      "s0": "value",
+      "run_ma": "function",
+      "call": "function",
+      "run_next": "function",
+      "wrap": "function"
     },
     "tooltips": {
-      "fmap": "fmap f :: State s a ⟶ State s (State s b)\\nfmap f sa = \\\\s -> let (a, s') = sa s in (f a, s')\\nThe state s' passes through untouched; the result is the next State computation, not yet run.",
-      "join": "join :: State s (State s b) ⟶ State s b — the State-specific part\\njoin mm = \\\\s -> let (m, s') = mm s   -- run the outer computation\\n                in  m s'              -- run the inner one with the NEW state s'"
+      "s0": "The initial state: the parameter of the returned State. It is supplied when the State is run, not when bind is called.",
+      "run_ma": "Run the first computation: ma s0 = (a, s').",
+      "call": "Apply f to the result: yields the next State computation, not yet run.",
+      "run_next": "The State-specific join: run the computation f built with the state s' that the first step left behind — (f a) s' = (b, s'').",
+      "wrap": "Abstract over s again: the result and the final state s'' become the State s b that bind returns."
     }
   }
 }

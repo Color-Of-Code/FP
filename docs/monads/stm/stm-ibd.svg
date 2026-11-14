@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 966 183" width="966" height="183" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: fmap f, then join runs both actions in one transaction — also called: &gt;&gt;=</title>
-  <desc id="diagram-description">Functional programming diagram: bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: fmap f, then join runs both actions in one transaction — also called: &gt;&gt;=</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1766.2 237" width="1766.2" height="237" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: both actions run against one shared transaction log that commits or retries as a whole — also called: &gt;&gt;=</title>
+  <desc id="diagram-description">Functional programming diagram: bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — inside bind: both actions run against one shared transaction log that commits or retries as a whole — also called: &gt;&gt;=</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,71 +85,140 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="483" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b</text>
-  <text x="483" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: fmap f, then join runs both actions in one transaction</text>
-  <text x="483" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: &gt;&gt;=</text>
+  <text x="883.1" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b</text>
+  <text x="883.1" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside bind: both actions run against one shared transaction log that commits or retries as a whole</text>
+  <text x="883.1" y="51" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">also called: &gt;&gt;=</text>
   <g transform="translate(0,60) scale(1)">
     <g transform="translate(82,0)">
-      <rect x="0" y="0" width="819" height="123" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <rect x="0" y="0" width="1619.2" height="177" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
       <g class="diagram-frame-tab tab-block">
         <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
         <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» bind</text>
       </g>
       <g class="edge">
-        <path d="M4.0,73.0 L147.0,73.0 Q153.0,73.0 153.0,67.0 L153.0,61.0 L153.0,61.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="78.5" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
+        <path d="M4.0,69.0 L319.2,69.0 Q325.2,69.0 325.2,75.0 L325.2,81.0 L325.2,81.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="164.60000000000002" y="63" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">wrapped</text>
       </g>
       <g class="edge">
-        <path d="M4.0,43.0 L151.0,43.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="83.5" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+        <path d="M241.2,106.0 L247.7,106.0 Q251.2,106.0 251.2,102.5 L251.2,102.5 Q251.2,99.0 254.7,99.0 L323.2,99.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="293.20000000000005" y="93" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">shared log</text>
       </g>
       <g class="edge">
-        <path d="M367.0,52.0 L505.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-        <text x="444" y="46" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">nested (internal only)</text>
+        <path d="M473.2,90.0 L545.2,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="517.2" y="84" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">result</text>
       </g>
       <g class="edge">
-        <path d="M721.0,52.0 L803.0,52.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <path d="M4.0,34.0 L541.2,34.0 Q547.2,34.0 547.2,40.0 L547.2,72.0 L547.2,72.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="275.6" y="28" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">user code</text>
+      </g>
+      <g class="edge">
+        <path d="M689.2,81.0 L772.2,81.0 Q778.2,81.0 778.2,87.0 L778.2,99.0 L778.2,99.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="735.7" y="75" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">next action</text>
+      </g>
+      <g class="edge">
+        <path d="M241.2,106.0 L246.2,106.0 Q251.2,106.0 251.2,111.0 L251.2,121.0 Q251.2,127.0 257.2,127.0 L773.2,127.0 Q778.2,127.0 778.2,122.0 L778.2,117.0 L778.2,117.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="514.7" y="121" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">same log</text>
+      </g>
+      <g class="edge">
+        <path d="M956.2,108.0 L1064.2,108.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="1018.2" y="102" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">tentative result</text>
+      </g>
+      <g class="edge">
+        <path d="M1268.2,108.0 L1341.2,108.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="1312.7" y="102" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">committed</text>
+      </g>
+      <g class="edge">
+        <path d="M1521.2,108.0 L1603.2,108.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="object-node">
+        <title>The transaction log: TVar reads and tentative writes are recorded here, not applied. One log is shared by both steps.</title>
+        <rect x="70.00000000000001" y="87" width="171.20000000000002" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+        <text x="155.60000000000002" y="106" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">log : transaction log</text>
       </g>
       <g class="action-node">
-        <title>fmap f :: STM a ⟶ STM (STM b)\nAn action that runs ma and returns f a — the next action — without running it.</title>
-        <rect x="171" y="30" width="192" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="267" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : STM a ⟶ STM (STM b)</text>
+        <title>Run the first action against the log, producing a.</title>
+        <rect x="343.20000000000005" y="68" width="126" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="406.20000000000005" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_ma : run ma</text>
         <g class="pin pin-in">
-          <rect x="167" y="40.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
-          <text x="177" y="44.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+          <rect x="339.20000000000005" y="78.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="349.20000000000005" y="82.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">m</text>
         </g>
         <g class="pin pin-in">
-          <rect x="167" y="55.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="339.20000000000005" y="93.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="349.20000000000005" y="97.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">log</text>
         </g>
         <g class="pin pin-out">
-          <rect x="359" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="465.20000000000005" y="86" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="action-node">
-        <title>join :: STM (STM b) ⟶ STM b — the STM-specific part\nRuns the outer action, then the inner action, within ONE transaction.\nIf any readTVar conflicts → the entire composed transaction retries from scratch.</title>
-        <rect x="525" y="30" width="192" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-        <text class="action-label" x="621" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join : STM (STM b) ⟶ STM b</text>
+        <title>Apply f to the result: yields the next atomic action, not yet run.</title>
+        <rect x="565.2" y="59" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="625.2" y="81" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">call : f a</text>
         <g class="pin pin-in">
-          <rect x="521" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="561.2" y="69.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="571.2" y="73.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="561.2" y="84.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="571.2" y="88.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">a</text>
         </g>
         <g class="pin pin-out">
-          <rect x="713" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <rect x="681.2" y="77" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>The STM-specific join: run the action f built against the SAME log, so both steps form one atomic unit.</title>
+        <rect x="796.2" y="86" width="156" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="874.2" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run_next : run (f a)</text>
+        <g class="pin pin-in">
+          <rect x="792.2" y="96.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="802.2" y="100.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">m</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="792.2" y="111.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="802.2" y="115.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">log</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="948.2" y="104" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>atomically: validate the log against the current TVar values. If nothing conflicts, publish all writes at once; otherwise (or on retry) discard the log and start over.</title>
+        <rect x="1084.2" y="86" width="180" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="1174.2" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">commit : commit or retry</text>
+        <g class="pin pin-in">
+          <rect x="1080.2" y="104" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="1260.2" y="104" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Package the whole script as one atomic action, to be run by atomically.</title>
+        <rect x="1361.2" y="86" width="156" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="1439.2" y="108" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">wrap : atomic action</text>
+        <g class="pin pin-in">
+          <rect x="1357.2" y="104" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="1513.2" y="104" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
         </g>
       </g>
       <g class="port port-left">
         <title>STM a — an atomic action on TVars (transactional variables). Not yet committed.</title>
-        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : STM a</text>
+        <rect x="-4" y="65" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="63" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">ma : STM a</text>
       </g>
       <g class="port port-left">
         <title>f : a ⟶ STM b — user code; given result a of the first action, constructs the next atomic step</title>
-        <rect x="-4" y="39" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="-7" y="37" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ STM b</text>
+        <rect x="-4" y="30" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="28" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : a ⟶ STM b</text>
       </g>
       <g class="port port-right">
-        <title>STM b — the composed atomic action. Runs inside atomically :: STM a -&gt; IO a. Never STM (STM b).</title>
-        <rect x="815" y="48" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
-        <text x="826" y="46" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : STM b</text>
+        <title>STM b — the composed atomic action. Runs inside atomically :: STM a -&gt; IO a.</title>
+        <rect x="1615.2" y="104" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="1626.2" y="102" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">mb : STM b</text>
       </g>
     </g>
   </g>

@@ -5,7 +5,7 @@ actually using mutable variables — state is threaded explicitly as a function 
 
 ![Running a State computation returns both its value and updated state](state/state.svg)
 
-![bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: fmap f, then join threads the state from outer to inner — also called: flatMap, >>=](state/state-ibd.svg)
+![bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — inside bind: the state s' left by the first step is threaded into the second — also called: flatMap, >>=](state/state-ibd.svg)
 
 ![State bind: s0 → run sa → (a, s1) → run f(a)(s1) → (b, s2) — also called: flatMap, >>=](state/state-bind.svg)
 

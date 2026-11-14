@@ -5,7 +5,7 @@ value** — carrying a description of what went wrong.
 
 ![Either bind propagates the first Left error and skips later functions](either/either.svg)
 
-![bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: fmap f, then join; Left short-circuits — also called: andThen / and_then, Bind, flatMap, >>=](either/either-ibd.svg)
+![bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — inside bind: Right passes its payload to f; Left skips f and keeps its error — also called: andThen / and_then, Bind, flatMap, >>=](either/either-ibd.svg)
 
 ![Either bind — also called: andThen / and_then, Bind, flatMap, >>=](either/either-bind.svg)
 
