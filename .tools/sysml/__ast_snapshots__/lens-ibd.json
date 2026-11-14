@@ -1,0 +1,258 @@
+{
+  "packages": [
+    {
+      "name": "LensSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "over",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "s",
+              "type": "s — supplied when called",
+              "ports": [],
+              "role": "value",
+              "tooltip": "The whole structure: supplied when the returned function is called, not when over is applied to l and f."
+            },
+            {
+              "kind": "part",
+              "id": "get",
+              "type": "get l s",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "l",
+                  "type": "Lens s a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "s",
+                  "type": "s",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "a",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "get l s :: a — read the focused field."
+            },
+            {
+              "kind": "part",
+              "id": "call",
+              "type": "f a",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "a",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Apply the update to the focus. f never sees the rest of s."
+            },
+            {
+              "kind": "part",
+              "id": "set",
+              "type": "set l a' s",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "l",
+                  "type": "Lens s a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "a",
+                  "type": "a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "s",
+                  "type": "s",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "s",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "set l a' s :: s — return a copy of s with the focus replaced by a'. Everything outside the focus comes from the original s; nothing is mutated."
+            },
+            {
+              "kind": "part",
+              "id": "wrap",
+              "type": "λs → s'",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "s",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "s ⟶ s",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Abstract over s again: the whole body becomes the function s ⟶ s that over returns."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "l",
+              "type": "Lens s a",
+              "direction": "in",
+              "tooltip": "l : Lens s a — focuses on one field of s: supplies both get and set"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ a",
+              "direction": "in",
+              "tooltip": "f : a ⟶ a — update applied to the focused field only"
+            },
+            {
+              "kind": "port",
+              "id": "h",
+              "type": "s ⟶ s",
+              "direction": "out",
+              "tooltip": "s ⟶ s — a new function; nothing has been read or replaced yet"
+            }
+          ],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "l",
+              "to": "get.l",
+              "label": "lens"
+            },
+            {
+              "kind": "connection",
+              "from": "s",
+              "to": "get.s",
+              "label": "read"
+            },
+            {
+              "kind": "connection",
+              "from": "get._",
+              "to": "call.a",
+              "label": "focus"
+            },
+            {
+              "kind": "connection",
+              "from": "f",
+              "to": "call.f",
+              "label": "update"
+            },
+            {
+              "kind": "connection",
+              "from": "l",
+              "to": "set.l",
+              "label": "same lens"
+            },
+            {
+              "kind": "connection",
+              "from": "call._",
+              "to": "set.a",
+              "label": "new focus a'"
+            },
+            {
+              "kind": "connection",
+              "from": "s",
+              "to": "set.s",
+              "label": "original bypasses f"
+            },
+            {
+              "kind": "connection",
+              "from": "set._",
+              "to": "wrap._",
+              "label": "updated copy"
+            },
+            {
+              "kind": "connection",
+              "from": "wrap._",
+              "to": "h"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "s": "value",
+            "get": "function",
+            "call": "function",
+            "set": "function",
+            "wrap": "function"
+          },
+          "tooltips": {
+            "s": "The whole structure: supplied when the returned function is called, not when over is applied to l and f.",
+            "get": "get l s :: a — read the focused field.",
+            "call": "Apply the update to the focus. f never sees the rest of s.",
+            "set": "set l a' s :: s — return a copy of s with the focus replaced by a'. Everything outside the focus comes from the original s; nothing is mutated.",
+            "wrap": "Abstract over s again: the whole body becomes the function s ⟶ s that over returns."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "LensSignature",
+          "viewType": "FpIbdView",
+          "expose": "over",
+          "rendering": "fpIbdDiagram",
+          "title": "over :: Lens s a ⟶ (a ⟶ a) ⟶ s ⟶ s — inside over: get the focus, apply f to it, then set the result back into the original s",
+          "name": "over"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "over :: Lens s a ⟶ (a ⟶ a) ⟶ s ⟶ s — inside over: get the focus, apply f to it, then set the result back into the original s",
+    "name": "over",
+    "render": "over",
+    "shows": {
+      "s": "value",
+      "get": "function",
+      "call": "function",
+      "set": "function",
+      "wrap": "function"
+    },
+    "tooltips": {
+      "s": "The whole structure: supplied when the returned function is called, not when over is applied to l and f.",
+      "get": "get l s :: a — read the focused field.",
+      "call": "Apply the update to the focus. f never sees the rest of s.",
+      "set": "set l a' s :: s — return a copy of s with the focus replaced by a'. Everything outside the focus comes from the original s; nothing is mutated.",
+      "wrap": "Abstract over s again: the whole body becomes the function s ⟶ s that over returns."
+    }
+  }
+}

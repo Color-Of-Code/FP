@@ -6,86 +6,243 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "FoldContext",
+          "name": "fold",
           "parts": [
             {
               "kind": "part",
-              "id": "f_val",
-              "type": "b ⟶ a ⟶ b",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(b ⟶ a ⟶ b) — combining function: takes accumulator and element, returns new accumulator"
-            },
-            {
-              "kind": "part",
-              "id": "init_val",
-              "type": "b",
-              "ports": [],
-              "role": "value",
-              "tooltip": "b — initial accumulator value (the \"zero\" of the fold)"
-            },
-            {
-              "kind": "part",
-              "id": "list_val",
-              "type": "[a]",
-              "ports": [],
-              "role": "type",
-              "tooltip": "[a] — the input list whose elements are consumed one by one"
-            },
-            {
-              "kind": "part",
-              "id": "fold",
-              "type": "FoldOp",
-              "ports": [],
+              "id": "split",
+              "type": "case xs of",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "[a]",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "nil",
+                  "type": "[]",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "x",
+                  "type": "a",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "rest",
+                  "type": "[a]",
+                  "direction": "out"
+                }
+              ],
               "role": "function",
-              "tooltip": "fold: reduce a list to a single value by repeatedly applying f"
+              "tooltip": "Pattern match on the list.\\n[]      → the 'nil' exit fires: nothing left to combine\\nx : rest → head x and tail rest leave separately"
             },
             {
               "kind": "part",
-              "id": "result",
-              "type": "b",
-              "ports": [],
-              "role": "value",
-              "tooltip": "b — the final accumulated result"
+              "id": "step",
+              "type": "f acc x",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "b ⟶ a ⟶ b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "acc",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "x",
+                  "type": "a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Combine the accumulator with the head: f acc x gives the next accumulator."
+            },
+            {
+              "kind": "part",
+              "id": "again",
+              "type": "fold f acc' rest",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "b ⟶ a ⟶ b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "acc",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "rest",
+                  "type": "[a]",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "The recursive call: fold itself, with the same f, the new accumulator and the shorter tail."
+            },
+            {
+              "kind": "part",
+              "id": "stop",
+              "type": "return acc",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "nil",
+                  "type": "[]",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "acc",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Base case: the list is exhausted, the accumulator is the result."
             }
           ],
-          "ports": [],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "b ⟶ a ⟶ b",
+              "direction": "in",
+              "tooltip": "f : b ⟶ a ⟶ b — combining function: takes accumulator and element, returns the new accumulator"
+            },
+            {
+              "kind": "port",
+              "id": "init",
+              "type": "b",
+              "direction": "in",
+              "tooltip": "init : b — initial accumulator, the \"zero\" of the fold"
+            },
+            {
+              "kind": "port",
+              "id": "xs",
+              "type": "[a]",
+              "direction": "in",
+              "tooltip": "xs : [a] — the input list, consumed one element per round"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "b",
+              "direction": "out",
+              "tooltip": "result : b — the final accumulated value"
+            }
+          ],
           "connections": [
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "fold"
+              "from": "xs",
+              "to": "split._",
+              "label": "list"
             },
             {
               "kind": "connection",
-              "from": "init_val",
-              "to": "fold"
+              "from": "f",
+              "to": "step.f",
+              "label": "combiner"
             },
             {
               "kind": "connection",
-              "from": "list_val",
-              "to": "fold"
+              "from": "init",
+              "to": "step.acc",
+              "label": "accumulator"
             },
             {
               "kind": "connection",
-              "from": "fold",
+              "from": "split.x",
+              "to": "step.x",
+              "label": "head"
+            },
+            {
+              "kind": "connection",
+              "from": "step._",
+              "to": "again.acc",
+              "label": "acc' (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "f",
+              "to": "again.f",
+              "label": "unchanged"
+            },
+            {
+              "kind": "connection",
+              "from": "split.rest",
+              "to": "again.rest",
+              "label": "shorter tail"
+            },
+            {
+              "kind": "connection",
+              "from": "split.nil",
+              "to": "stop.nil",
+              "label": "empty"
+            },
+            {
+              "kind": "connection",
+              "from": "init",
+              "to": "stop.acc",
+              "label": "accumulator"
+            },
+            {
+              "kind": "connection",
+              "from": "again._",
+              "to": "result"
+            },
+            {
+              "kind": "connection",
+              "from": "stop._",
               "to": "result"
             }
           ],
           "notes": [],
           "shows": {
-            "f_val": "hof",
-            "init_val": "value",
-            "list_val": "type",
-            "fold": "function",
-            "result": "value"
+            "split": "function",
+            "step": "function",
+            "again": "function",
+            "stop": "function"
           },
           "tooltips": {
-            "f_val": "(b ⟶ a ⟶ b) — combining function: takes accumulator and element, returns new accumulator",
-            "init_val": "b — initial accumulator value (the \"zero\" of the fold)",
-            "list_val": "[a] — the input list whose elements are consumed one by one",
-            "fold": "fold: reduce a list to a single value by repeatedly applying f",
-            "result": "b — the final accumulated result"
+            "split": "Pattern match on the list.\\n[]      → the 'nil' exit fires: nothing left to combine\\nx : rest → head x and tail rest leave separately",
+            "step": "Combine the accumulator with the head: f acc x gives the next accumulator.",
+            "again": "The recursive call: fold itself, with the same f, the new accumulator and the shorter tail.",
+            "stop": "Base case: the list is exhausted, the accumulator is the result."
           }
         }
       ],
@@ -96,30 +253,30 @@
           "id": "diagram",
           "packageName": "FoldSignature",
           "viewType": "FpIbdView",
-          "expose": "FoldContext",
+          "expose": "fold",
           "rendering": "fpIbdDiagram",
-          "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b"
+          "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b — inside fold: an empty list returns the accumulator; otherwise f combines it with the head and fold recurses on the tail",
+          "name": "fold"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b",
-    "render": "FoldContext",
+    "title": "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b — inside fold: an empty list returns the accumulator; otherwise f combines it with the head and fold recurses on the tail",
+    "name": "fold",
+    "render": "fold",
     "shows": {
-      "f_val": "hof",
-      "init_val": "value",
-      "list_val": "type",
-      "fold": "function",
-      "result": "value"
+      "split": "function",
+      "step": "function",
+      "again": "function",
+      "stop": "function"
     },
     "tooltips": {
-      "f_val": "(b ⟶ a ⟶ b) — combining function: takes accumulator and element, returns new accumulator",
-      "init_val": "b — initial accumulator value (the \"zero\" of the fold)",
-      "list_val": "[a] — the input list whose elements are consumed one by one",
-      "fold": "fold: reduce a list to a single value by repeatedly applying f",
-      "result": "b — the final accumulated result"
+      "split": "Pattern match on the list.\\n[]      → the 'nil' exit fires: nothing left to combine\\nx : rest → head x and tail rest leave separately",
+      "step": "Combine the accumulator with the head: f acc x gives the next accumulator.",
+      "again": "The recursive call: fold itself, with the same f, the new accumulator and the shorter tail.",
+      "stop": "Base case: the list is exhausted, the accumulator is the result."
     }
   }
 }

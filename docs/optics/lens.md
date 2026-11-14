@@ -25,6 +25,12 @@ type Lens' s a = forall f. Functor f => (a -> f a) -> s -> s
 -- address . city  :: Lens' Person City
 ```
 
+![over :: Lens s a ⟶ (a ⟶ a) ⟶ s ⟶ s — inside over: get the focus, apply f to it, then set the result back into the original s](lens/lens-ibd.svg)
+
+Inside `over`: the frame shows the body of the returned function as it runs on a structure `s`. `s`
+travels on two wires — one into `get`, one that bypasses `f` and meets the updated focus at `set` —
+so `f` only ever sees the focused field. The same lens supplies both `get` and `set`.
+
 ## Laws
 
 | Law    | Expression                        | Meaning                                     |

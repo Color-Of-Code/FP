@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1516 193" width="1516" height="193" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">first :: A b c ⟶ A (b, d) (c, d) — inside first: the arrow runs on b only; d bypasses it and rejoins the result</title>
+  <desc id="diagram-description">Functional programming diagram: first :: A b c ⟶ A (b, d) (c, d) — inside first: the arrow runs on b only; d bypasses it and rejoins the result</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="758" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">first :: A b c ⟶ A (b, d) (c, d)</text>
+  <text x="758" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside first: the arrow runs on b only; d bypasses it and rejoins the result</text>
+  <g transform="translate(0,44) scale(1)">
+    <g transform="translate(82,0)">
+      <rect x="0" y="0" width="1293" height="149" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <g class="diagram-frame-tab tab-block">
+        <path d="M0,0 L96.60000000000001,0 L96.60000000000001,12 L86.60000000000001,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="48.300000000000004" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» first</text>
+      </g>
+      <g class="edge">
+        <path d="M306.0,90.0 L350.0,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="334" y="84" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">pair</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,34.0 L601.0,34.0 Q607.0,34.0 607.0,40.0 L607.0,53.0 L607.0,53.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="305.5" y="28" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">arrow</text>
+      </g>
+      <g class="edge">
+        <path d="M494.0,81.0 L503.0,81.0 Q508.0,81.0 508.0,76.0 L508.0,76.0 Q508.0,71.0 513.0,71.0 L605.0,71.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="562.5" y="65" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">first component</text>
+      </g>
+      <g class="edge">
+        <path d="M494.0,99.0 L808.0,99.0 Q813.0,99.0 813.0,94.0 L813.0,89.0 L813.0,89.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="655.5" y="93" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">bypasses the arrow</text>
+      </g>
+      <g class="edge">
+        <path d="M749.0,62.0 L808.5,62.0 Q813.0,62.0 813.0,66.5 L813.0,71.0 L813.0,71.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="783" y="56" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">result</text>
+      </g>
+      <g class="edge">
+        <path d="M979.0,80.0 L1027.0,80.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="1011" y="74" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">pair</text>
+      </g>
+      <g class="edge">
+        <path d="M1195.0,80.0 L1277.0,80.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="object-node">
+        <title>The pair the lifted arrow runs on: supplied when it is called.</title>
+        <rect x="70" y="71" width="236" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+        <text x="188" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">p : (b, d) — supplied when run</text>
+      </g>
+      <g class="action-node">
+        <title>Take the pair apart: b is for the arrow, d is set aside.</title>
+        <rect x="370" y="68" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="430" y="90" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">split : (b, d)</text>
+        <g class="pin pin-in">
+          <rect x="366" y="86" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="486" y="78.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="484" y="82.66666666666667" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="486" y="93.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="484" y="97.33333333333333" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">d</text>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Run the arrow on b only — it never sees d.</title>
+        <rect x="625" y="40" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="685" y="62" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">run : arrow b</text>
+        <g class="pin pin-in">
+          <rect x="621" y="50.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="631" y="54.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">arrow</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="621" y="65.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="631" y="69.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">b</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="741" y="58" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Put the pair back together: the arrow's result and the untouched d.</title>
+        <rect x="831" y="58" width="144" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="903" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">join_pair : (c, d)</text>
+        <g class="pin pin-in">
+          <rect x="827" y="68.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="837" y="72.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">c</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="827" y="83.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="837" y="87.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">d</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="971" y="76" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Abstract over the pair again: the whole body becomes the lifted arrow that first returns.</title>
+        <rect x="1047" y="58" width="144" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="1119" y="80" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">wrap : λp → (c, d)</text>
+        <g class="pin pin-in">
+          <rect x="1043" y="76" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="1187" y="76" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="port port-left">
+        <title>A b c — an arrow from b to c (for plain functions: b ⟶ c)</title>
+        <rect x="-4" y="30" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="28" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">arrow : A b c</text>
+      </g>
+      <g class="port port-right">
+        <title>A (b, d) (c, d) — the same arrow lifted to pairs; the second component is passed through unchanged</title>
+        <rect x="1289" y="76" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="1300" y="74" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">paired : A (b, d) (c, d)</text>
+      </g>
+    </g>
+  </g>
+</svg>

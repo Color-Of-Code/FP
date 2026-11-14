@@ -13,6 +13,12 @@ and the `Cont` monad all reduce to the single mechanism of passing and calling c
 
 ![CPS structure](18-cps/cps.svg)
 
+![toCps :: (a ⟶ b) ⟶ (a ⟶ (b ⟶ r) ⟶ r) — inside toCps: f computes b, but b is handed to the continuation k instead of being returned](18-cps/cps-ibd.svg)
+
+Inside `toCps`: the frame shows the body of the CPS function as it runs, with its argument `x` and
+continuation `k` supplied at call time. `f x` still computes `b`, but `b` is handed to `k` instead
+of being returned — control passes forward and the answer `r` is whatever `k` produces.
+
 ## Direct style vs CPS
 
 ```text

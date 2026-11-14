@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 548.4 230" width="548.4" height="230" role="img" aria-labelledby="diagram-title diagram-description">
-  <title id="diagram-title">fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b</title>
-  <desc id="diagram-description">Functional programming diagram: fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1146 262" width="1146" height="262" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b — inside fold: an empty list returns the accumulator; otherwise f combines it with the head and fold recurses on the tail</title>
+  <desc id="diagram-description">Functional programming diagram: fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b — inside fold: an empty list returns the accumulator; otherwise f combines it with the head and fold recurses on the tail</desc>
   <style>:root {
   color-scheme: light;
   --fp-canvas: #ffffff;
@@ -85,50 +85,153 @@
       <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
     </marker>
   </defs>
-  <text x="274.2" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b</text>
-  <g transform="translate(0,28) scale(1)">
-    <rect x="0" y="0" width="548.4" height="202" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
-    <g class="diagram-frame-tab tab-block">
-      <path d="M0,0 L133.8,0 L133.8,12 L123.80000000000001,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
-      <text x="66.9" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» FoldContext</text>
-    </g>
-    <g class="edge hof-edge">
-      <path d="M212.4,153.0 L217.4,153.0 Q222.4,153.0 222.4,148.0 L222.4,112.0 L222.4,112.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
-    </g>
-    <g class="edge">
-      <path d="M212.4,101.0 L220.4,101.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M212.4,49.0 L217.4,49.0 Q222.4,49.0 222.4,54.0 L222.4,90.0 L222.4,90.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="edge">
-      <path d="M352.4,101.0 L356.4,101.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
-    </g>
-    <g class="object-node hof">
-      <title>(b ⟶ a ⟶ b) — combining function: takes accumulator and element, returns new accumulator</title>
-      <rect x="69.99999999999999" y="134" width="142.4" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
-      <text x="141.2" y="146" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
-      <text x="141.2" y="160" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">f_val : b ⟶ a ⟶ b</text>
-    </g>
-    <g class="object-node">
-      <title>b — initial accumulator value (the "zero" of the fold)</title>
-      <rect x="102.4" y="82" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="157.4" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">init_val : b</text>
-    </g>
-    <g class="object-node">
-      <title>[a] — the input list whose elements are consumed one by one</title>
-      <rect x="91.6" y="30" width="120.8" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="152" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">list_val : [a]</text>
-    </g>
-    <g class="action-node">
-      <title>fold: reduce a list to a single value by repeatedly applying f</title>
-      <rect x="232.39999999999998" y="79" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
-      <text class="action-label" x="292.4" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fold : FoldOp</text>
-    </g>
-    <g class="object-node">
-      <title>b — the final accumulated result</title>
-      <rect x="368.4" y="82" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
-      <text x="423.4" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">result : b</text>
+  <text x="573" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ [a] ⟶ b</text>
+  <text x="573" y="35" text-anchor="middle" font-size="11" font-weight="normal" font-family="sans-serif" fill="var(--fp-secondary-text)">inside fold: an empty list returns the accumulator; otherwise f combines it with the head and fold recurses on the tail</text>
+  <g transform="translate(0,44) scale(1)">
+    <g transform="translate(82,0)">
+      <rect x="0" y="0" width="999" height="218" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+      <g class="diagram-frame-tab tab-block">
+        <path d="M0,0 L90.4,0 L90.4,12 L80.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+        <text x="45.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» fold</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,129.0 L130.0,129.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="73" y="123" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">list</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,34.0 L127.5,34.0 Q132.0,34.0 132.0,38.5 L132.0,38.5 Q132.0,43.0 136.5,43.0 L306.0,43.0 Q312.0,43.0 312.0,49.0 L312.0,56.0 Q312.0,62.0 318.0,62.0 L400.0,62.0 Q401.0,62.0 401.0,61.0 L401.0,61.0 Q401.0,60.0 402.0,60.0 L403.5,60.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="222" y="37" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">combiner</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,73.0 L403.5,73.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="209.75" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">accumulator</text>
+      </g>
+      <g class="edge">
+        <path d="M298.0,129.0 L306.0,129.0 Q312.0,129.0 312.0,123.0 L312.0,88.0 Q312.0,82.0 318.0,82.0 L399.0,82.0 Q401.0,82.0 401.0,84.0 L401.0,84.8 Q401.0,86.0 402.3,86.0 L403.5,86.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="356.5" y="76" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">head</text>
+      </g>
+      <g class="edge">
+        <path d="M547.5,73.0 L693.0,73.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="628.25" y="67" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">acc' (internal only)</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,34.0 L689.0,34.0 Q695.0,34.0 695.0,40.0 L695.0,60.0 L695.0,60.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="349.5" y="28" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">unchanged</text>
+      </g>
+      <g class="edge">
+        <path d="M298.0,142.0 L316.0,142.0 Q322.0,142.0 322.0,136.0 L322.0,116.0 Q322.0,110.0 328.0,110.0 L689.0,110.0 Q695.0,110.0 695.0,104.0 L695.0,86.0 L695.0,86.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="508.5" y="104" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">shorter tail</text>
+      </g>
+      <g class="edge">
+        <path d="M298.0,116.0 L326.0,116.0 Q332.0,116.0 332.0,122.0 L332.0,131.0 Q332.0,137.0 338.0,137.0 L395.0,137.0 Q401.0,137.0 401.0,143.0 L401.0,157.0 L401.0,157.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="366.5" y="131" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">empty</text>
+      </g>
+      <g class="edge">
+        <path d="M4.0,73.0 L82.0,73.0 Q88.0,73.0 88.0,79.0 L88.0,159.0 Q88.0,165.0 94.0,165.0 L396.0,165.0 Q401.0,165.0 401.0,170.0 L401.0,175.0 L401.0,175.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+        <text x="244.5" y="159" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">accumulator</text>
+      </g>
+      <g class="edge">
+        <path d="M897.0,73.0 L905.0,73.0 Q911.0,73.0 911.0,79.0 L911.0,160.0 Q911.0,166.0 917.0,166.0 L983.0,166.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="edge">
+        <path d="M561.0,166.0 L983.0,166.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      </g>
+      <g class="action-node">
+        <title>Pattern match on the list.\n[]      → the 'nil' exit fires: nothing left to combine\nx : rest → head x and tail rest leave separately</title>
+        <rect x="150" y="107" width="144" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="222" y="129" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">split : case xs of</text>
+        <g class="pin pin-in">
+          <rect x="146" y="125" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+        <g class="pin pin-out">
+          <rect x="290" y="114" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="288" y="118" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">nil</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="290" y="125" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="288" y="129" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">x</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="290" y="136" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="288" y="140" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">rest</text>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Combine the accumulator with the head: f acc x gives the next accumulator.</title>
+        <rect x="423.5" y="51" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="483.5" y="73" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">step : f acc x</text>
+        <g class="pin pin-in">
+          <rect x="419.5" y="58" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="429.5" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="419.5" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="429.5" y="73" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">acc</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="419.5" y="80" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="429.5" y="84" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">x</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="539.5" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>The recursive call: fold itself, with the same f, the new accumulator and the shorter tail.</title>
+        <rect x="713" y="51" width="180" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="803" y="73" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">again : fold f acc' rest</text>
+        <g class="pin pin-in">
+          <rect x="709" y="58" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="719" y="62" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="709" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="719" y="73" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">acc</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="709" y="80" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="719" y="84" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">rest</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="889" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="action-node">
+        <title>Base case: the list is exhausted, the accumulator is the result.</title>
+        <rect x="419" y="144" width="138" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+        <text class="action-label" x="488" y="166" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">stop : return acc</text>
+        <g class="pin pin-in">
+          <rect x="415" y="154.66666666666666" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="425" y="158.66666666666666" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">nil</text>
+        </g>
+        <g class="pin pin-in">
+          <rect x="415" y="169.33333333333334" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+          <text x="425" y="173.33333333333334" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">acc</text>
+        </g>
+        <g class="pin pin-out">
+          <rect x="553" y="162" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        </g>
+      </g>
+      <g class="port port-left">
+        <title>f : b ⟶ a ⟶ b — combining function: takes accumulator and element, returns the new accumulator</title>
+        <rect x="-4" y="30" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="28" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">f : b ⟶ a ⟶ b</text>
+      </g>
+      <g class="port port-left">
+        <title>init : b — initial accumulator, the "zero" of the fold</title>
+        <rect x="-4" y="69" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="67" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">init : b</text>
+      </g>
+      <g class="port port-left">
+        <title>xs : [a] — the input list, consumed one element per round</title>
+        <rect x="-4" y="125" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="-7" y="123" font-size="9" font-family="sans-serif" text-anchor="end" fill="var(--fp-port-label)">xs : [a]</text>
+      </g>
+      <g class="port port-right">
+        <title>result : b — the final accumulated value</title>
+        <rect x="995" y="162" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1.5"/>
+        <text x="1006" y="160" font-size="9" font-family="sans-serif" text-anchor="start" fill="var(--fp-port-label)">result : b</text>
+      </g>
     </g>
   </g>
 </svg>

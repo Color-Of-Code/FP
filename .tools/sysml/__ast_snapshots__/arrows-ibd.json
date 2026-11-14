@@ -1,0 +1,233 @@
+{
+  "packages": [
+    {
+      "name": "ArrowsSignature",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "first",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "p",
+              "type": "(b, d) — supplied when run",
+              "ports": [],
+              "role": "value",
+              "tooltip": "The pair the lifted arrow runs on: supplied when it is called."
+            },
+            {
+              "kind": "part",
+              "id": "split",
+              "type": "(b, d)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "(b, d)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "b",
+                  "direction": "out"
+                },
+                {
+                  "kind": "port",
+                  "id": "d",
+                  "type": "d",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Take the pair apart: b is for the arrow, d is set aside."
+            },
+            {
+              "kind": "part",
+              "id": "run",
+              "type": "arrow b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "arrow",
+                  "type": "A b c",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "b",
+                  "type": "b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "c",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Run the arrow on b only — it never sees d."
+            },
+            {
+              "kind": "part",
+              "id": "join_pair",
+              "type": "(c, d)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "c",
+                  "type": "c",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "d",
+                  "type": "d",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "(c, d)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Put the pair back together: the arrow's result and the untouched d."
+            },
+            {
+              "kind": "part",
+              "id": "wrap",
+              "type": "λp → (c, d)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "(c, d)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "A (b, d) (c, d)",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "Abstract over the pair again: the whole body becomes the lifted arrow that first returns."
+            }
+          ],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "arrow",
+              "type": "A b c",
+              "direction": "in",
+              "tooltip": "A b c — an arrow from b to c (for plain functions: b ⟶ c)"
+            },
+            {
+              "kind": "port",
+              "id": "paired",
+              "type": "A (b, d) (c, d)",
+              "direction": "out",
+              "tooltip": "A (b, d) (c, d) — the same arrow lifted to pairs; the second component is passed through unchanged"
+            }
+          ],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "p",
+              "to": "split._",
+              "label": "pair"
+            },
+            {
+              "kind": "connection",
+              "from": "arrow",
+              "to": "run.arrow",
+              "label": "arrow"
+            },
+            {
+              "kind": "connection",
+              "from": "split.b",
+              "to": "run.b",
+              "label": "first component"
+            },
+            {
+              "kind": "connection",
+              "from": "split.d",
+              "to": "join_pair.d",
+              "label": "bypasses the arrow"
+            },
+            {
+              "kind": "connection",
+              "from": "run._",
+              "to": "join_pair.c",
+              "label": "result"
+            },
+            {
+              "kind": "connection",
+              "from": "join_pair._",
+              "to": "wrap._",
+              "label": "pair"
+            },
+            {
+              "kind": "connection",
+              "from": "wrap._",
+              "to": "paired"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "p": "value",
+            "split": "function",
+            "run": "function",
+            "join_pair": "function",
+            "wrap": "function"
+          },
+          "tooltips": {
+            "p": "The pair the lifted arrow runs on: supplied when it is called.",
+            "split": "Take the pair apart: b is for the arrow, d is set aside.",
+            "run": "Run the arrow on b only — it never sees d.",
+            "join_pair": "Put the pair back together: the arrow's result and the untouched d.",
+            "wrap": "Abstract over the pair again: the whole body becomes the lifted arrow that first returns."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ArrowsSignature",
+          "viewType": "FpIbdView",
+          "expose": "first",
+          "rendering": "fpIbdDiagram",
+          "title": "first :: A b c ⟶ A (b, d) (c, d) — inside first: the arrow runs on b only; d bypasses it and rejoins the result",
+          "name": "first"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "first :: A b c ⟶ A (b, d) (c, d) — inside first: the arrow runs on b only; d bypasses it and rejoins the result",
+    "name": "first",
+    "render": "first",
+    "shows": {
+      "p": "value",
+      "split": "function",
+      "run": "function",
+      "join_pair": "function",
+      "wrap": "function"
+    },
+    "tooltips": {
+      "p": "The pair the lifted arrow runs on: supplied when it is called.",
+      "split": "Take the pair apart: b is for the arrow, d is set aside.",
+      "run": "Run the arrow on b only — it never sees d.",
+      "join_pair": "Put the pair back together: the arrow's result and the untouched d.",
+      "wrap": "Abstract over the pair again: the whole body becomes the lifted arrow that first returns."
+    }
+  }
+}

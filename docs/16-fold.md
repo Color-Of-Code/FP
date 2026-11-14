@@ -8,7 +8,12 @@ accumulator.
 
 ![fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b](16-fold/fold.svg)
 
-![fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ \[a\] ⟶ b](16-fold/fold-ibd.svg)
+![fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ \[a\] ⟶ b — inside fold: an empty list returns the accumulator; otherwise f combines it with the head and fold recurses on the tail](16-fold/fold-ibd.svg)
+
+Inside `fold`: the ports on the frame are everything a caller sees. A case split on the list decides
+everything — an empty list returns the accumulator; otherwise `f` combines the accumulator with the
+head, and `fold` calls itself on that new accumulator and the shorter tail. `f` is passed along
+unchanged, and the intermediate accumulator never leaves the block.
 
 `map`, `filter`, `sum`, `product`, `length` and many other operations can all be expressed as a
 fold.

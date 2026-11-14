@@ -252,13 +252,18 @@ inside the block), as in the partial-application diagram in
 as internal parts wired together. Intermediate types that never leave the block (`M (M b)`,
 `T (F b)`, `F ((a ⟶ b), a)`) appear only on the internal wire, labelled `(internal only)`.
 
-| Combinator                | Internal decomposition                   | Diagram                                     |
-| ------------------------- | ---------------------------------------- | ------------------------------------------- |
-| `(∘)` compose             | `f x` → `g b` → `λx → c`                 | `docs/04-composition/composition-ibd.sysml` |
-| `bind` (generic)          | `fmap f` → `join`                        | `docs/19-monad/monad-ibd.sysml`             |
-| `bind` (a concrete monad) | the instance's own mechanism (see below) | `docs/monads/<name>/<name>-ibd.sysml`       |
-| `traverse f`              | `fmap f` → `sequence`                    | `docs/17-traversable/traversable-ibd.sysml` |
-| `<*>`                     | `pair` → `fmap apply`                    | `docs/15-applicative/applicative-ibd.sysml` |
+| Combinator                | Internal decomposition                    | Diagram                                                 |
+| ------------------------- | ----------------------------------------- | ------------------------------------------------------- |
+| `(∘)` compose             | `f x` → `g b` → `λx → c`                  | `docs/04-composition/composition-ibd.sysml`             |
+| `fold`                    | case split → `f acc x` → recursive `fold` | `docs/16-fold/fold-ibd.sysml`                           |
+| `toCps f`                 | `f x` → `k b` → `λx k → r`                | `docs/18-cps/cps-ibd.sysml`                             |
+| `first` (arrow)           | split pair → `arrow b` ∥ bypass → re-pair | `docs/26-arrows/arrows-ibd.sysml`                       |
+| `over` (lens)             | `get` → `f` → `set`, `s` bypasses `f`     | `docs/optics/lens/lens-ibd.sysml`                       |
+| `cata alg`                | `unFix` → `fmap (cata alg)` → `alg`       | `docs/28-recursion-schemes/recursion-schemes-ibd.sysml` |
+| `bind` (generic)          | `fmap f` → `join`                         | `docs/19-monad/monad-ibd.sysml`                         |
+| `bind` (a concrete monad) | the instance's own mechanism (see below)  | `docs/monads/<name>/<name>-ibd.sysml`                   |
+| `traverse f`              | `fmap f` → `sequence`                     | `docs/17-traversable/traversable-ibd.sysml`             |
+| `<*>`                     | `pair` → `fmap apply`                     | `docs/15-applicative/applicative-ibd.sysml`             |
 
 - **Generic vs. concrete.** A generic combinator shows the shared decomposition. A concrete instance
   must NOT repeat it: fuse `fmap` and `join` into the instance's real mechanism so the diagrams
@@ -272,7 +277,10 @@ as internal parts wired together. Intermediate types that never leave the block 
   part (`λr → b`, `λs → (b, s'')`, …) turns the body back into the `mb` that bind returns.
 - Never describe the generic step as "unwrapping" `M a` — there is no general `M a ⟶ a`. A concrete
   instance may pattern-match on its own constructors.
-- Do not decompose atomic operations (`fmap`, `fold`); a flat signature diagram is enough there.
+- **Recursion is a part that names the block itself** (`fold f acc' rest`, `fmap (cata alg)`); say
+  so in its tooltip. **Bypass wires** (`d` in `first`, `s` in `over`, `w1` in Writer) show a value
+  that a function never sees.
+- Do not decompose atomic operations such as `fmap`; a flat signature diagram is enough there.
 
 #### Activity constructs
 
