@@ -1,54 +1,75 @@
 /**
  * AST adapters — transform Langium-generated AST nodes into the
  * renderer-facing types defined in `../types/ast.ts`.
- *
- * Public surface:
- *   strOrIdent, optionalStrOrIdent  — string normalisation helpers
- *   adaptPackage, adaptDiagramMeta  — top-level adapters (called by parser.ts)
  */
 
 import * as G from "../generated/ast.ts";
-import { fromPairs } from "../lib/fp.ts";
+import { fromPairs, groupBy } from "../lib/fp.ts";
 import type {
-  Role, DiagramType,
-  PortDef, PortUsage, PartUsage, ConnectionUsage,
-  PartDef, ActionDef, ActionUsage, ObjectNode,
-  DecisionNode, MergeNode, FlowUsage, SuccessionUsage,
-  NoteUsage, LaneBlock,
-  ActivityDef, PackageDecl, DiagramMeta,
+  ActivityDef, ActionDef, ActionUsage, ConnectionUsage, DiagramMeta, DiagramType,
+  DecisionNode, FlowUsage, LaneBlock, MergeNode, NoteUsage, ObjectNode, PackageDecl,
+  PartDef, PartUsage, PortDef, PortUsage, Role, ViewUsage,
 } from "../types.ts";
 
-// ── String helpers ──────────────────────────────────────────────────────────
+const stripQuotes = (value: string | undefined): string =>
+  value?.startsWith('"') ? value.slice(1, -1).replace(/\\"/g, '"') : (value ?? "");
 
-const stripQuotes = (s: string | undefined): string =>
-  s?.startsWith('"') ? s.slice(1, -1).replace(/\\"/g, '"') : (s ?? "");
+export const strOrIdent = (value: string | undefined): string => stripQuotes(value);
 
-/** Normalise a `StrOrIdent` value (quoted string or bare identifier) to plain text. */
-export const strOrIdent: (value: string | undefined) => string = stripQuotes;
-
-/**
- * `strOrIdent` with an optional fallback when the input is `undefined`.
- * Replaces the repetitive `x !== undefined ? strOrIdent(x) : fallback` pattern.
- */
-export function optionalStrOrIdent(value: string | undefined, fallback?: string): string | undefined {
+export function optionalStrOrIdent(
+  value: string | undefined,
+  fallback?: string,
+): string | undefined {
   return value !== undefined ? strOrIdent(value) : fallback;
 }
 
-// ── Port-like adapter (shared by InlinePort & PinDecl) ──────────────────────
+interface PortLikeNode {
+  id?: string;
+  type?: string;
+  direction?: G.Direction;
+  metadata?: G.NodeMetadata[];
+}
 
-interface PortLikeNode { id?: string; type?: string; direction?: G.Direction }
+interface NodePresentation {
+  role?: Role;
+  tooltip?: string;
+  laneId?: string;
+  laneLabel?: string;
+}
+
+const ROLE_NAMES: readonly Role[] = [
+  "hof", "type", "value", "function", "initial", "final", "decision", "merge", "note",
+];
+
+function metadataField(metadata: readonly G.NodeMetadata[], key: string): string | undefined {
+  const field = metadata
+    .filter(item => item.name === "FpNodePresentation")
+    .flatMap(item => item.fields)
+    .find(item => item.key === key);
+  return optionalStrOrIdent(field?.value);
+}
+
+function nodePresentation(metadata: readonly G.NodeMetadata[] = []): NodePresentation {
+  const role = metadataField(metadata, "role");
+  return {
+    role: ROLE_NAMES.find(candidate => candidate === role),
+    tooltip: metadataField(metadata, "tooltip"),
+    laneId: metadataField(metadata, "laneId"),
+    laneLabel: metadataField(metadata, "laneLabel"),
+  };
+}
 
 function adaptPortLike(g: PortLikeNode): PortUsage {
   const id = g.id ?? "";
+  const presentation = nodePresentation(g.metadata);
   return {
     kind: "port",
     id,
     type: optionalStrOrIdent(g.type, id) ?? id,
     direction: g.direction,
+    ...presentation,
   };
 }
-
-// ── Individual adapters ─────────────────────────────────────────────────────
 
 function adaptPortDef(g: G.PortDef): PortDef {
   return { kind: "portDef", name: g.name ?? "" };
@@ -61,179 +82,228 @@ function adaptPartUsage(g: G.PartUsage): PartUsage {
     id,
     type: optionalStrOrIdent(g.type, id) ?? id,
     ports: g.ports.map(adaptPortLike),
+    ...nodePresentation(g.metadata),
   };
 }
 
 function adaptConnection(g: G.ConnectionUsage): ConnectionUsage {
   return {
     kind: "connection",
-    id:    g.cid ?? undefined,
-    from:  g.from ?? "",
-    to:    g.to ?? "",
-    via:   g.via ?? undefined,
+    id: g.cid ?? undefined,
+    from: g.from ?? "",
+    to: g.to ?? "",
+    via: g.via ?? undefined,
     label: optionalStrOrIdent(g.label),
   };
 }
 
 function adaptNote(g: G.NoteUsage): NoteUsage {
   return {
-    kind:   "note",
-    id:     g.id ?? "",
+    kind: "note",
+    id: g.id ?? "",
     target: g.target ?? "",
-    text:   strOrIdent(g.text),
-  };
-}
-
-function adaptActionDef(g: G.ActionDef): ActionDef {
-  return {
-    kind: "actionDef",
-    name: g.name ?? "",
-    pins: g.pins.map(adaptPortLike),
+    text: strOrIdent(g.text),
+    ...nodePresentation(g.metadata),
   };
 }
 
 function adaptActionUsage(g: G.ActionUsage): ActionUsage {
   const id = g.id ?? "";
-  return { kind: "action", id, type: optionalStrOrIdent(g.type, id) ?? id };
+  return {
+    kind: "action",
+    id,
+    type: optionalStrOrIdent(g.type, id) ?? id,
+    ...nodePresentation(g.metadata),
+  };
 }
 
-function adaptObjectNode(g: G.ObjectNode): ObjectNode {
-  const id = g.id ?? "";
-  return { kind: "object", id, type: optionalStrOrIdent(g.type) };
+function adaptObjectNode(g: G.ItemUsage): ObjectNode {
+  return {
+    kind: "object",
+    id: g.id ?? "",
+    type: optionalStrOrIdent(g.type),
+    ...nodePresentation(g.metadata),
+  };
 }
 
 function adaptDecisionNode(g: G.DecisionNode): DecisionNode {
   return {
-    kind:  "decision",
-    id:    g.id ?? "",
+    kind: "decision",
+    id: g.id ?? "",
     label: optionalStrOrIdent(g.label),
+    ...nodePresentation(g.metadata),
   };
 }
 
 function adaptMergeNode(g: G.MergeNode): MergeNode {
   return {
-    kind:  "merge",
-    id:    g.id ?? "",
+    kind: "merge",
+    id: g.id ?? "",
     label: optionalStrOrIdent(g.label),
+    ...nodePresentation(g.metadata),
   };
 }
 
 function adaptFlowUsage(g: G.FlowUsage): FlowUsage {
   return {
-    kind:  "flow",
-    from:  g.from ?? "",
-    to:    g.to ?? "",
+    kind: "flow",
+    from: g.from ?? "",
+    to: g.to ?? "",
     label: optionalStrOrIdent(g.label),
   };
 }
 
-function adaptSuccession(g: G.SuccessionUsage): SuccessionUsage {
-  return { kind: "succession", from: g.from ?? "", to: g.to ?? "" };
+function adaptSuccession(g: G.SuccessionUsage) {
+  return { kind: "succession" as const, from: g.from ?? "", to: g.to ?? "" };
 }
 
-function adaptLaneBlock(g: G.LaneBlock): LaneBlock {
+function pairsFor<T extends { id: string; role?: Role; tooltip?: string }>(
+  nodes: readonly T[],
+  field: "role" | "tooltip",
+): [string, Role | string][] {
+  return nodes.flatMap(node => {
+    const value = node[field];
+    return value !== undefined ? [[node.id, value]] : [];
+  });
+}
+
+function presentationMaps(nodes: readonly { id: string; role?: Role; tooltip?: string }[]): {
+  shows: Record<string, Role>;
+  tooltips: Record<string, string>;
+} {
   return {
-    kind:    "lane",
-    id:      g.id ?? "",
-    label:   optionalStrOrIdent(g.label),
-    members: (g.members ?? []).map(strOrIdent),
+    shows: fromPairs(
+      pairsFor(nodes, "role").filter((pair): pair is [string, Role] => typeof pair[1] === "string"),
+    ),
+    tooltips: fromPairs(
+      pairsFor(nodes, "tooltip").filter((pair): pair is [string, string] => typeof pair[1] === "string"),
+    ),
   };
 }
-
-// ── Partition helpers ───────────────────────────────────────────────────────
-
-/**
- * A dispatch table entry: a type guard paired with its adapter function.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- type erasure needed for heterogeneous dispatch
-type DispatchEntry<M, T> = readonly [(m: M) => m is M & object, (m: any) => T];
-
-/**
- * Partition an array of union-typed members into categorised arrays using
- * a table of type-guard → adapter pairs.  Each member is matched against
- * the guards in order; the first match wins.  Unmatched members are silently
- * ignored (Langium unions can contain future node types).
- *
- * Returns a tuple of arrays in the same order as the dispatch entries.
- */
-function partitionByKind<M, R extends readonly DispatchEntry<M, unknown>[]>(
-  members: readonly M[],
-  ...dispatch: R
-): { [K in keyof R]: R[K] extends DispatchEntry<M, infer T> ? T[] : never } {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mapped-tuple cast unavoidable
-  const result = dispatch.map(() => [] as unknown[]) as any;
-  members.forEach(m => {
-    const idx = dispatch.findIndex(d => d[0](m));
-    if (idx >= 0) result[idx].push(dispatch[idx][1](m));
-  });
-  return result;
-}
-
-// ── Composite adapters ──────────────────────────────────────────────────────
 
 function adaptPartDef(g: G.PartDef): PartDef {
   const [parts, ports, connections, notes] = partitionByKind(
     g.members,
-    [G.isPartUsage,      adaptPartUsage],
-    [G.isInlinePort,     adaptPortLike],
+    [G.isPartUsage, adaptPartUsage],
+    [G.isInlinePort, adaptPortLike],
     [G.isConnectionUsage, adaptConnection],
-    [G.isNoteUsage,      adaptNote],
+    [G.isNoteUsage, adaptNote],
   );
-  return { kind: "partDef", name: g.name ?? "", parts, ports, connections, notes };
+  const maps = presentationMaps([...parts, ...notes]);
+  return { kind: "partDef", name: g.name ?? "", parts, ports, connections, notes, ...maps };
 }
 
-function adaptActivityDef(g: G.ActivityDef): ActivityDef {
-  const [actions, objects, decisions, merges, flows, successions, notes, lanes] =
-    partitionByKind(
-      g.members,
-      [G.isActionUsage,     adaptActionUsage],
-      [G.isObjectNode,      adaptObjectNode],
-      [G.isDecisionNode,    adaptDecisionNode],
-      [G.isMergeNode,       adaptMergeNode],
-      [G.isFlowUsage,       adaptFlowUsage],
-      [G.isSuccessionUsage, adaptSuccession],
-      [G.isNoteUsage,       adaptNote],
-      [G.isLaneBlock,       adaptLaneBlock],
-    );
+function adaptActivityDef(g: G.ActionDef): ActivityDef {
+  const [actions, objects, decisions, merges, flows, successions, notes] = partitionByKind(
+    g.members,
+    [G.isActionUsage, adaptActionUsage],
+    [G.isItemUsage, adaptObjectNode],
+    [G.isDecisionNode, adaptDecisionNode],
+    [G.isMergeNode, adaptMergeNode],
+    [G.isFlowUsage, adaptFlowUsage],
+    [G.isSuccessionUsage, adaptSuccession],
+    [G.isNoteUsage, adaptNote],
+    [G.isPinDeclaration, adaptPortLike],
+  );
+  const nodes = [...actions, ...objects, ...decisions, ...merges, ...notes];
+  const laneEntries = nodes.flatMap(node =>
+    node.laneId && node.laneLabel
+      ? [{ id: node.laneId, label: node.laneLabel, member: node.id }]
+      : [],
+  );
+  const lanes = Object.entries(groupBy(laneEntries, entry => entry.id)).map(([id, entries]) => ({
+    kind: "lane" as const,
+    id,
+    label: entries[0]?.label,
+    members: entries.map(entry => entry.member),
+  }));
   return {
     kind: "activityDef",
     name: g.name ?? "",
-    actions, objects, decisions, merges, flows, successions, notes, lanes,
+    actions,
+    objects,
+    decisions,
+    merges,
+    flows,
+    successions,
+    notes,
+    lanes,
+    ...presentationMaps(nodes),
+  };
+}
+
+function adaptActionDef(g: G.ActionDef): ActionDef {
+  const pins = g.members.filter(G.isPinDeclaration).map(adaptPortLike);
+  const hasBodyNodes = g.members.some(member => !G.isPinDeclaration(member));
+  const activity = hasBodyNodes ? adaptActivityDef(g) : undefined;
+  return { kind: "actionDef", name: g.name ?? "", pins, activity };
+}
+
+function adaptViewUsage(g: G.ViewUsage, packageName: string): ViewUsage {
+  const options = g.metadata.find(metadata => metadata.name === "FpViewPresentation");
+  const option = (key: string) => optionalStrOrIdent(
+    options?.fields.find(field => field.key === key)?.value,
+  );
+  const doc = g.members.find(G.isDocumentation);
+  const docMatch = doc?.text.match(/^doc\s*\/\*([\s\S]*)\*\/$/);
+  return {
+    id: g.id ?? "",
+    packageName,
+    viewType: g.viewType ?? "",
+    expose: g.members.find(G.isExpose)?.target,
+    rendering: g.members.find(G.isRenderUsage)?.rendering,
+    title: docMatch?.[1] ?? doc?.text,
+    name: option("name"),
+    direction: option("direction") as "LR" | "TB" | undefined,
   };
 }
 
 export function adaptPackage(g: G.Package): PackageDecl {
-  const [portDefs, partDefs, actionDefs, activityDefs] = partitionByKind(
-    g.members,
-    [G.isPortDef,     adaptPortDef],
-    [G.isPartDef,     adaptPartDef],
-    [G.isActionDef,   adaptActionDef],
-    [G.isActivityDef, adaptActivityDef],
-  );
-  return { name: g.name ?? "", portDefs, partDefs, actionDefs, activityDefs };
-}
-
-export function adaptDiagramMeta(g: G.DiagramMeta | undefined): DiagramMeta {
-  if (!g) return { diagType: "activity", shows: {}, tooltips: {} };
-
-  const kvFields = g.fields.filter(G.isKvField);
-  const kvByKey = fromPairs(
-    kvFields.map(f => [f.key, strOrIdent(f.value)]),
-  );
-  const shows = fromPairs(
-    g.fields.filter(G.isShowField).map(f => [f.id ?? "", (f.role ?? "") as Role]),
-  );
-  const tooltips = fromPairs(
-    g.fields.filter(G.isTooltipField).map(f => [f.id ?? "", strOrIdent(f.text)]),
-  );
-
+  const portDefs = g.members.filter(G.isPortDef).map(adaptPortDef);
+  const partDefs = g.members.filter(G.isPartDef).map(adaptPartDef);
+  const actionDefs = g.members.filter(G.isActionDef).map(adaptActionDef);
+  const activityDefs = actionDefs.flatMap(action => action.activity ? [action.activity] : []);
+  const views = g.members.filter(G.isViewUsage).map(view => adaptViewUsage(view, g.name ?? ""));
   return {
-    diagType:  (kvByKey.type ?? "activity") as DiagramType,
-    title:     kvByKey.title,
-    name:      kvByKey.name,
-    direction: kvByKey.direction as "LR" | "TB" | undefined,
-    render:    kvByKey.render,
-    shows,
-    tooltips,
+    name: g.name ?? "",
+    portDefs,
+    partDefs,
+    actionDefs,
+    activityDefs,
+    views,
   };
 }
+
+export function adaptDiagramMeta(
+  view: ViewUsage | undefined,
+  graph: PartDef | ActivityDef | undefined,
+): DiagramMeta {
+  if (!view) return { diagType: "activity", shows: {}, tooltips: {} };
+  const diagType: DiagramType = view.viewType === "FpIbdView" ? "ibd" : "activity";
+  const exposeTarget = view.expose?.split("::").at(-1);
+  return {
+    diagType,
+    title: view.title,
+    name: view.name,
+    direction: view.direction,
+    render: exposeTarget,
+    shows: graph?.shows ?? {},
+    tooltips: graph?.tooltips ?? {},
+  };
+}
+
+/** Rebuild the heterogeneous member list without losing source order. */
+function partitionByKind<M, R extends readonly DispatchEntry<M, unknown>[]>(
+  members: readonly M[],
+  ...dispatch: R
+): { [K in keyof R]: R[K] extends DispatchEntry<M, infer T> ? T[] : never } {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mapped tuple cast unavoidable
+  const result = dispatch.map(() => [] as unknown[]) as any;
+  members.forEach(member => {
+    const index = dispatch.findIndex(entry => entry[0](member));
+    if (index >= 0) result[index].push(dispatch[index][1](member));
+  });
+  return result;
+}
+
+type DispatchEntry<M, T> = readonly [(member: M) => member is M & object, (member: any) => T];

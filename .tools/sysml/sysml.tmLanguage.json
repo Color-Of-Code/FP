@@ -10,7 +10,7 @@
     },
     {
       "name": "keyword.control.sysml",
-      "match": "\\b(action|activity|as|connect|connection|decision|def|diagram|direction|flow|from|ibd|in|inout|lane|layout|merge|name|note|object|on|out|package|part|port|render|show|succession|then|title|to|tooltip|type|via)\\b"
+      "match": "\\b(renderTarget|specializes|connection|succession|attribute|direction|frameName|rendering|metadata|connect|members|package|private|tooltip|action|decide|expose|import|layout|public|render|target|inout|label|merge|title|flow|from|item|kind|name|note|part|port|role|then|type|view|def|out|via|in|on|to)\\b"
     },
     {
       "name": "string.quoted.double.sysml",

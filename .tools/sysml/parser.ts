@@ -18,7 +18,7 @@ import { createDefaultCoreModule, createDefaultSharedCoreModule } from "langium"
 import { SysmlGeneratedModule, SysmlGeneratedSharedModule } from "./generated/module.ts";
 import type * as G from "./generated/ast.ts";
 import type { Model } from "./types.ts";
-import { adaptPackage, adaptDiagramMeta } from "./parser/adapters.ts";
+import { adaptDiagramMeta, adaptPackage } from "./parser/adapters.ts";
 
 // ── Langium services bootstrap ──────────────────────────────────────────────
 
@@ -80,8 +80,14 @@ export function parse(src: string): Model {
     throw new Error(`Parse error: ${e.message} (token '${e.token?.image ?? "<eof>"}')`);
   }
   const m = result.value;
+  const packages = m.packages.map(adaptPackage);
+  const view = packages.flatMap(pkg => pkg.views)[0];
+  const viewPackage = packages.find(pkg => pkg.name === view?.packageName);
+  const graph = view?.viewType === "FpIbdView"
+    ? viewPackage?.partDefs.find(def => def.name === view.expose?.split("::").at(-1))
+    : viewPackage?.activityDefs.find(def => def.name === view?.expose?.split("::").at(-1));
   return {
-    packages: m.packages.map(adaptPackage),
-    diagram:  adaptDiagramMeta(m.diagram),
+    packages,
+    diagram: adaptDiagramMeta(view, graph),
   };
 }

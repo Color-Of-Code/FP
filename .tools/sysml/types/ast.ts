@@ -22,6 +22,8 @@ export interface PortUsage {
   id: string;
   type: string;
   direction?: "in" | "out" | "inout";
+  role?: Role;
+  tooltip?: string;
 }
 
 export interface PartUsage {
@@ -29,6 +31,8 @@ export interface PartUsage {
   id: string;
   type: string;
   ports: PortUsage[];
+  role?: Role;
+  tooltip?: string;
 }
 
 export interface ConnectionUsage {
@@ -47,6 +51,8 @@ export interface PartDef {
   ports: PortUsage[];
   connections: ConnectionUsage[];
   notes: NoteUsage[];
+  shows: Record<string, Role>;
+  tooltips: Record<string, string>;
 }
 
 // ── Activity AST ───────────────────────────────────────────────────────────
@@ -55,30 +61,47 @@ export interface ActionDef {
   kind: "actionDef";
   name: string;
   pins: PortUsage[];
+  activity?: ActivityDef;
 }
 
 export interface ActionUsage {
   kind: "action";
   id: string;
   type: string;
+  role?: Role;
+  tooltip?: string;
+  laneId?: string;
+  laneLabel?: string;
 }
 
 export interface ObjectNode {
   kind: "object";
   id: string;
   type?: string;
+  role?: Role;
+  tooltip?: string;
+  laneId?: string;
+  laneLabel?: string;
 }
 
 export interface DecisionNode {
   kind: "decision";
   id: string;
   label?: string;
+  role?: Role;
+  tooltip?: string;
+  laneId?: string;
+  laneLabel?: string;
 }
 
 export interface MergeNode {
   kind: "merge";
   id: string;
   label?: string;
+  role?: Role;
+  tooltip?: string;
+  laneId?: string;
+  laneLabel?: string;
 }
 
 export interface FlowUsage {
@@ -104,6 +127,10 @@ export interface NoteUsage {
   id:     string;
   target: string;   // id of the node this note is anchored to
   text:   string;
+  role?: Role;
+  tooltip?: string;
+  laneId?: string;
+  laneLabel?: string;
 }
 
 /**
@@ -131,6 +158,8 @@ export interface ActivityDef {
   successions: SuccessionUsage[];
   notes: NoteUsage[];
   lanes: LaneBlock[];
+  shows: Record<string, Role>;
+  tooltips: Record<string, string>;
 }
 
 // ── Package / Model ────────────────────────────────────────────────────────
@@ -141,6 +170,18 @@ export interface PackageDecl {
   partDefs: PartDef[];
   actionDefs: ActionDef[];
   activityDefs: ActivityDef[];
+  views: ViewUsage[];
+}
+
+export interface ViewUsage {
+  id: string;
+  packageName: string;
+  viewType: string;
+  expose?: string;
+  rendering?: string;
+  title?: string;
+  name?: string;
+  direction?: "LR" | "TB";
 }
 
 export interface DiagramMeta {
