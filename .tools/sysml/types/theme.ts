@@ -1,11 +1,4 @@
-/**
- * Single source of truth for renderer dimensions and colours.
- *
- * The structured `theme` object groups related values so a future light/dark
- * variant or a print theme is a one-spot change.  Flat re-exports preserve
- * the existing `ACTION_W` / `COL.actionFill` style call sites in the
- * renderers — both views point at the same numbers.
- */
+/** Shared geometry, palette, and SVG presentation defaults. */
 
 export const theme = {
   dims: {
@@ -42,23 +35,145 @@ export const theme = {
      */
     arrowDepth:     12,
   },
-  colors: {
-    actionFill:  "#e8f5e9", actionStroke:  "#388e3c",
-    objFill:     "#f5f5f5", objStroke:     "#616161",
-    hofFill:     "#e0f2f1", hofStroke:     "#00796b",
-    pinFill:     "#e0e0e0", pinStroke:     "#424242",
-    frameFill:   "#fafafa", frameStroke:   "#9e9e9e",
-    initFill:    "#212121",
-    finalStroke: "#212121", finalFill:     "#212121",
-    edgeStroke:  "#424242",
-    hofEdge:     "#00796b",
-    labelFill:   "#333",
+  palette: {
+    light: {
+      canvas: "#ffffff",
+      actionFill: "#dafbe1",
+      actionStroke: "#1a7f37",
+      objFill: "#f6f8fa",
+      objStroke: "#57606a",
+      hofFill: "#ddf4ff",
+      hofStroke: "#0969da",
+      pinFill: "#eaeef2",
+      pinStroke: "#57606a",
+      frameFill: "#ffffff",
+      frameStroke: "#6e7781",
+      frameTabFill: "#eaeef2",
+      initFill: "#24292f",
+      finalStroke: "#24292f",
+      finalFill: "#24292f",
+      edgeStroke: "#57606a",
+      hofEdge: "#0969da",
+      labelFill: "#24292f",
+      secondaryText: "#57606a",
+      pinLabel: "#57606a",
+      portLabel: "#57606a",
+      decisionFill: "#fff8c5",
+      decisionStroke: "#9a6700",
+      decisionLabel: "#633c01",
+      noteFill: "#fff8c5",
+      noteFoldFill: "#ffdf5d",
+      noteStroke: "#9a6700",
+      noteLabel: "#633c01",
+      laneFill: "#f6f8fa",
+      laneStroke: "#6e7781",
+      laneHeader: "#eaeef2",
+      errorText: "#cf222e",
+    },
+    dark: {
+      canvas: "#0d1117",
+      actionFill: "#0f2d1f",
+      actionStroke: "#3fb950",
+      objFill: "#161b22",
+      objStroke: "#8b949e",
+      hofFill: "#082f49",
+      hofStroke: "#79c0ff",
+      pinFill: "#30363d",
+      pinStroke: "#8b949e",
+      frameFill: "#0d1117",
+      frameStroke: "#6e7681",
+      frameTabFill: "#21262d",
+      initFill: "#e6edf3",
+      finalStroke: "#e6edf3",
+      finalFill: "#e6edf3",
+      edgeStroke: "#8b949e",
+      hofEdge: "#79c0ff",
+      labelFill: "#e6edf3",
+      secondaryText: "#9198a1",
+      pinLabel: "#c9d1d9",
+      portLabel: "#c9d1d9",
+      decisionFill: "#3d2c00",
+      decisionStroke: "#d29922",
+      decisionLabel: "#f0c674",
+      noteFill: "#3d2c00",
+      noteFoldFill: "#573a00",
+      noteStroke: "#d29922",
+      noteLabel: "#f0c674",
+      laneFill: "#161b22",
+      laneStroke: "#6e7681",
+      laneHeader: "#21262d",
+      errorText: "#ff7b72",
+    },
+  },
+  dashes: {
+    controlFlow: "6,4",
+    noteAttachment: "3,3",
+  },
+  a11y: {
+    role: "img",
+    titleId: "diagram-title",
+    descriptionId: "diagram-description",
+    descriptionPrefix: "Functional programming diagram: ",
   },
 } as const;
 
-// ── Flat re-exports (backwards-compatible names) ────────────────────────────
+type Palette = typeof theme.palette.light;
+type ColorName = keyof Palette;
 
-export const COL = theme.colors;
+const cssVariableName = (name: string): string =>
+  `--fp-${name.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}`;
+
+const cssVariables = (palette: Palette): string =>
+  Object.entries(palette)
+    .map(([name, value]) => `  ${cssVariableName(name)}: ${value};`)
+    .join("\n");
+
+export const themeCss = `:root {
+  color-scheme: light;
+${cssVariables(theme.palette.light)}
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+${cssVariables(theme.palette.dark)}
+  }
+}`;
+
+const color = (name: ColorName): string => `var(${cssVariableName(name)})`;
+
+export const COL = {
+  actionFill: color("actionFill"),
+  actionStroke: color("actionStroke"),
+  objFill: color("objFill"),
+  objStroke: color("objStroke"),
+  hofFill: color("hofFill"),
+  hofStroke: color("hofStroke"),
+  pinFill: color("pinFill"),
+  pinStroke: color("pinStroke"),
+  frameFill: color("frameFill"),
+  frameStroke: color("frameStroke"),
+  frameTabFill: color("frameTabFill"),
+  initFill: color("initFill"),
+  finalStroke: color("finalStroke"),
+  finalFill: color("finalFill"),
+  edgeStroke: color("edgeStroke"),
+  hofEdge: color("hofEdge"),
+  labelFill: color("labelFill"),
+  secondaryText: color("secondaryText"),
+  pinLabel: color("pinLabel"),
+  portLabel: color("portLabel"),
+  decisionFill: color("decisionFill"),
+  decisionStroke: color("decisionStroke"),
+  decisionLabel: color("decisionLabel"),
+  noteFill: color("noteFill"),
+  noteFoldFill: color("noteFoldFill"),
+  noteStroke: color("noteStroke"),
+  noteLabel: color("noteLabel"),
+  laneFill: color("laneFill"),
+  laneStroke: color("laneStroke"),
+  laneHeader: color("laneHeader"),
+  errorText: color("errorText"),
+} as const;
 
 export const ACTION_W      = theme.dims.actionW;
 export const ACTION_H      = theme.dims.actionH;

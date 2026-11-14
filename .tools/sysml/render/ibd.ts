@@ -53,7 +53,7 @@ function appendPortSquares(
       "font-family": "sans-serif",
       "dominant-baseline": "middle",
       "text-anchor": anchor,
-      fill: "#444",
+      fill: COL.portLabel,
     });
   });
 }

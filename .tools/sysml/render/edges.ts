@@ -6,7 +6,7 @@
  * target node or pin square.
  */
 
-import { type GEdge, ARROW_DEPTH, PIN_SZ, COL } from "../types.ts";
+import { type GEdge, ARROW_DEPTH, PIN_SZ, COL, theme } from "../types.ts";
 import type { EdgePolyline } from "../layout.ts";
 import { maxBy, times } from "../lib/fp.ts";
 import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/svg.ts";
@@ -145,9 +145,9 @@ export function appendGEdge(
     appendElement(group, "path", {
       d: polylineToD(pts),
       fill: "none",
-      stroke: "#9e9e9e",
+      stroke: COL.secondaryText,
       "stroke-width": 1,
-      "stroke-dasharray": "3,3",
+      "stroke-dasharray": theme.dashes.noteAttachment,
       "stroke-linejoin": "round",
       "stroke-linecap": "round",
     });
@@ -180,7 +180,7 @@ export function appendGEdge(
     "stroke-linecap": "round",
     "marker-end": markerRef,
   });
-  if (!e.isObjectFlow) path.attr("stroke-dasharray", "6,4");
+  if (!e.isObjectFlow) path.attr("stroke-dasharray", theme.dashes.controlFlow);
 
   if (e.label) {
     const [lx, ly] = e.labelNearSource
@@ -202,7 +202,7 @@ export function appendGEdge(
       "dominant-baseline": "middle",
       "font-size": 9,
       "font-family": "sans-serif",
-      fill: "#333",
+      fill: COL.labelFill,
     });
   }
 }

@@ -187,7 +187,7 @@ function appendActionNode(parent: SvgParent, n: GNode): void {
       ...labelAttrs,
       "font-size": 8,
       "font-family": "sans-serif",
-      fill: "#555",
+      fill: COL.pinLabel,
     });
   };
 
@@ -290,8 +290,8 @@ function appendDiamondNode(parent: SvgParent, n: GNode): void {
   const group = appendGroup(parent, { class: `${n.kind}-node` }, n.tooltip);
   appendElement(group, "polygon", {
     points: pts,
-    fill: "#fff9c4",
-    stroke: "#f9a825",
+    fill: COL.decisionFill,
+    stroke: COL.decisionStroke,
     "stroke-width": 1.5,
   });
   if (n.label) {
@@ -302,7 +302,7 @@ function appendDiamondNode(parent: SvgParent, n: GNode): void {
       "font-size": 9,
       "font-family": "sans-serif",
       "dominant-baseline": "middle",
-      fill: "#5d4037",
+      fill: COL.decisionLabel,
     });
   }
 }
@@ -341,8 +341,8 @@ function appendNoteNode(parent: SvgParent, n: GNode): void {
     `${x0},${y0} ${x1 - FOLD},${y0} ${x1},${y0 + FOLD} ${x1},${y1} ${x0},${y1}`;
   appendElement(group, "polygon", {
     points: bodyPts,
-    fill: "#fffde7",
-    stroke: "#fbc02d",
+    fill: COL.noteFill,
+    stroke: COL.noteStroke,
     "stroke-width": 1.25,
   });
 
@@ -351,8 +351,8 @@ function appendNoteNode(parent: SvgParent, n: GNode): void {
     `${x1 - FOLD},${y0} ${x1 - FOLD},${y0 + FOLD} ${x1},${y0 + FOLD}`;
   appendElement(group, "polygon", {
     points: foldPts,
-    fill: "#fff59d",
-    stroke: "#fbc02d",
+    fill: COL.noteFoldFill,
+    stroke: COL.noteStroke,
     "stroke-width": 1.25,
   });
 
@@ -368,7 +368,7 @@ function appendNoteNode(parent: SvgParent, n: GNode): void {
       "font-size": 10,
       "font-family": "sans-serif",
       "dominant-baseline": "middle",
-      fill: "#5d4037",
+      fill: COL.noteLabel,
     });
   });
 }

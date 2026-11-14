@@ -42,7 +42,7 @@ export function appendDiagramFrame(
   const tab = appendGroup(parent, { class: `diagram-frame-tab tab-${stereotype}` });
   appendElement(tab, "path", {
     d: tabPath,
-    fill: "#e0e0e0",
+    fill: COL.frameTabFill,
     stroke: COL.frameStroke,
     "stroke-width": 1,
   });

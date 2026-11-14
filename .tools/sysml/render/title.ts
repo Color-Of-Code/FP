@@ -8,6 +8,7 @@
 
 import { appendElement, appendText, createSvgRoot, type SvgParent } from "../lib/svg.ts";
 import { appendArrowDefs } from "./arrows.ts";
+import { COL, theme, themeCss } from "../types.ts";
 
 // Title typography
 const TITLE_PRIMARY_PT   = 14;
@@ -81,9 +82,17 @@ export function createSvgDocument(title: string, W: number, H: number): SvgDocum
   const root = createSvgRoot(canvasW, totalH);
   const svg  = root.svg;
 
+  svg.attr("role", theme.a11y.role)
+    .attr("aria-labelledby", `${theme.a11y.titleId} ${theme.a11y.descriptionId}`);
+  appendText(svg, title, { id: theme.a11y.titleId }, "title");
+  appendText(
+    svg,
+    `${theme.a11y.descriptionPrefix}${title}`,
+    { id: theme.a11y.descriptionId },
+    "desc",
+  );
+  appendText(svg, themeCss, {}, "style");
   appendArrowDefs(svg);
-
-  appendElement(svg, "rect", { width: canvasW, height: totalH, fill: "white" });
 
   // Render each title line in its own <text> element, vertically stacked.
   lines.reduce((y, line) => {
@@ -96,7 +105,7 @@ export function createSvgDocument(title: string, W: number, H: number): SvgDocum
       "font-size":   line.primary ? TITLE_PRIMARY_PT : TITLE_SECONDARY_PT,
       "font-weight": line.primary ? "bold" : "normal",
       "font-family": "sans-serif",
-      fill:          line.primary ? "#222" : "#555",
+      fill:          line.primary ? COL.labelFill : COL.secondaryText,
     });
     return y + lh + TITLE_LINE_GAP;
   }, TITLE_PAD_TOP);
@@ -114,5 +123,5 @@ export function createSvgDocument(title: string, W: number, H: number): SvgDocum
 
 /** Append a simple status message inside the diagram content area. */
 export function appendStatusMessage(parent: SvgParent, message: string): void {
-  appendText(parent, message, { x: 20, y: 40, fill: "red" });
+  appendText(parent, message, { x: 20, y: 40, fill: COL.errorText });
 }

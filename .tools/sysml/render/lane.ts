@@ -13,9 +13,6 @@ import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/s
 import type { LaneGeom } from "../layout.ts";
 
 const LANE_LABEL_H = 18;
-const LANE_FILL    = "#f7f9fc";
-const LANE_STROKE  = "#bbbbbb";
-const LANE_HEADER  = "#e9eef5";
 
 /** Draw a single lane band behind the nodes that belong to it. */
 export function appendLaneBand(parent: SvgParent, lane: LaneGeom): void {
@@ -27,8 +24,8 @@ export function appendLaneBand(parent: SvgParent, lane: LaneGeom): void {
     y: lane.y,
     width: lane.w,
     height: lane.h,
-    fill: LANE_FILL,
-    stroke: LANE_STROKE,
+    fill: COL.laneFill,
+    stroke: COL.laneStroke,
     "stroke-width": 1,
     rx: 4,
     ry: 4,
@@ -40,8 +37,8 @@ export function appendLaneBand(parent: SvgParent, lane: LaneGeom): void {
       y: lane.y,
       width: lane.w,
       height: LANE_LABEL_H,
-      fill: LANE_HEADER,
-      stroke: LANE_STROKE,
+      fill: COL.laneHeader,
+      stroke: COL.laneStroke,
       "stroke-width": 1,
       rx: 4,
       ry: 4,
