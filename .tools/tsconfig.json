@@ -1,27 +1,24 @@
 {
+  // Type-check only. Sources run directly under Node 24 type stripping
+  // (`node --experimental-strip-types`) and Vitest, so the compiler must
+  // model Node's ESM resolution and reject non-erasable TypeScript syntax.
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "strict": true,
+    "target": "ES2024",
+    "lib": ["ES2024", "DOM"],
+    "module": "NodeNext",
     "noEmit": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
     "isolatedModules": true,
-    "verbatimModuleSyntax": false,
-    "lib": ["ES2022", "DOM"],
-    "types": ["node", "d3", "jsdom"]
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node"]
   },
-  "include": [
-    "*.d.ts",
-    "check-d2-ratchet.ts",
-    "check-diagrams.ts",
-    "sysml/**/*.ts",
-    "check-lang-order.ts",
-    "check-lang-order.test.ts",
-    "vitest.config.ts",
-    "eslint.config.ts"
-  ]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "coverage", "vscode-sysml"]
 }

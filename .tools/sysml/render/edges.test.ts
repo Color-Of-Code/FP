@@ -7,6 +7,7 @@ import {
   labelAnchor,
   firstSegmentMidpoint,
 } from "./edges.ts";
+import { requireAt } from "../lib/fp.ts";
 
 // ── shortenEnd ─────────────────────────────────────────────────────────────
 
@@ -30,7 +31,7 @@ describe("shortenEnd", () => {
 
   it("clamps depth to segment length", () => {
     const result = shortenEnd([[0, 0], [3, 0]], 10);
-    expect(result[1][0]).toBe(0); // clamped, not negative
+    expect(requireAt(result, 1)[0]).toBe(0); // clamped, not negative
   });
 });
 

@@ -12,10 +12,10 @@
  * existing renderer convention).
  */
 
-import ELK from "elkjs/lib/elk.bundled.js";
+import ElkBundle from "elkjs/lib/elk.bundled.js";
 import type { GNode, GEdge } from "./types.ts";
 import { nodeDims, EDGE_GAP, NODE_VGAP, PIN_SZ } from "./types.ts";
-import { indexBy, sortBy, times } from "./lib/fp.ts";
+import { indexBy, requireAt, sortBy, times } from "./lib/fp.ts";
 
 // ── Public types ──────────────────────────────────────────────────────────
 
@@ -216,7 +216,7 @@ export function buildElkGraph(
     readonly pinSideOverride: ReadonlyMap<string, string>;
     readonly objectSrcPort:   ReadonlyMap<number, string>;
     readonly objectPorts:     ReadonlyMap<string, readonly { side: string; portId: string }[]>;
-    readonly pinSidePatches:  ReadonlyMap<string, Record<string, string>>;
+    readonly pinSidePatches:  ReadonlyMap<string, NonNullable<GNode["pinSides"]>>;
   }
 
   const crossLane: CrossLaneState = useLanes
@@ -288,7 +288,7 @@ export function buildElkGraph(
   const { edgeSrcPort, edgeTgtPort } = portAssignments;
 
   // ── Build ELK children ─────────────────────────────────────────────────
-  const children: ElkNode[] = patchedNodes.map(n => {
+  const children = patchedNodes.map((n): ElkNode => {
     if (n.kind === "decision" || n.kind === "merge") {
       const inEdges  = edges.flatMap((e, idx) => e.to   === n.id ? [{ edge: e, idx }] : []);
       const outEdges = edges.flatMap((e, idx) => e.from === n.id ? [{ edge: e, idx }] : []);
@@ -533,7 +533,7 @@ function alignCrossLaneObjects(
       [...objectTargets.entries()]
         .filter(([, targets]) => targets.length === 1)
         .flatMap(([objectId, targets]) => {
-          const target = nix.get(targets[0]);
+          const target = nix.get(requireAt(targets, 0));
           return target ? [[objectId, { x: target.x }] as const] : [];
         }),
     );
@@ -568,7 +568,7 @@ function compactLowerLanes(
         .filter((node): node is GNode => Boolean(node));
       return members.slice(1).reduce((innerNodes, cur, i) => {
         const inner = indexNodes(innerNodes);
-        const prev  = inner.get(members[i].id)!;
+        const prev  = inner.get(requireAt(members, i).id)!;
         const edge  = edges.find(e => e.from === prev.id && e.to === cur.id);
         const labelSpan = edge?.label
           ? Math.ceil(edge.label.length * EDGE_LABEL_CHAR_W) + EDGE_LABEL_PAD + 24
@@ -708,9 +708,9 @@ export function computeCanvasAndLanes(
   const rawExtents = laneOrder.map(({ b }) => ({ minY: b.minY, maxY: b.maxY }));
 
   const adjustedBoxes = laneOrder.map(({ b }, k) => {
-    const curRaw  = rawExtents[k];
-    const prevRaw = k > 0 ? rawExtents[k - 1] : null;
-    const nextRaw = k + 1 < laneOrder.length ? rawExtents[k + 1] : null;
+    const curRaw  = requireAt(rawExtents, k);
+    const prevRaw = k > 0 ? requireAt(rawExtents, k - 1) : null;
+    const nextRaw = k + 1 < laneOrder.length ? requireAt(rawExtents, k + 1) : null;
     const top = prevRaw
       ? (prevRaw.maxY + curRaw.minY) / 2
       : Math.max(0, curRaw.minY - LANE_PAD_Y - LANE_HEADER_H - TOP_LANE_CLEARANCE);
@@ -723,7 +723,7 @@ export function computeCanvasAndLanes(
   // Re-order back to lane declaration order
   const adjustedByIdx = new Map(laneOrder.map(({ i }, k) => [i, adjustedBoxes[k]]));
   const laneGeoms: LaneGeom[] = laneBoxes.map((_, i) => {
-    const b = adjustedByIdx.get(i) ?? laneBoxes[i];
+    const b = adjustedByIdx.get(i) ?? requireAt(laneBoxes, i);
     return {
       id:    b.id,
       label: b.label,
@@ -759,7 +759,7 @@ export function extractEdgePaths(
       return [[origIdx, pts] as const];
     }),
   );
-  return times(edgeCount, i => (edgeMap.get(i) as EdgePolyline) ?? []);
+  return times(edgeCount, i => edgeMap.get(i) ?? []);
 }
 
 // ── Edge rewriting: same-lane straightening ───────────────────────────────
@@ -782,7 +782,7 @@ export function straightenLaneEdges(
   const nix = new Map(ctx.nodeIndex);
 
   return edgePaths.map((path, i) => {
-    const e = edges[i];
+    const e = requireAt(edges, i);
     const src = nix.get(e.from);
     const tgt = nix.get(e.to);
     if (!src || !tgt || path.length < 2) return path;
@@ -856,20 +856,19 @@ export function snapDecisionMergeEdges(
     const src = nodeIndex.get(e.from);
     const tgt = nodeIndex.get(e.to);
     if (!src || !tgt || src.kind !== "decision" || tgt.kind !== "merge") return e;
-    const path = edgePaths[i];
+    const path = requireAt(edgePaths, i);
     if (path.length < 2) return e;
     return { ...e, labelNearSource: true };
   });
 
   const snappedPaths = edgePaths.map((path, i) => {
-    const e = edges[i];
+    const e = requireAt(edges, i);
     const src = nodeIndex.get(e.from);
     const tgt = nodeIndex.get(e.to);
     if (!src || !tgt || src.kind !== "decision" || tgt.kind !== "merge") return path;
     if (path.length < 2) return path;
-    const [sx, sy] = path[0];
-    const [, ty] = path[path.length - 1];
-    const tx = path[path.length - 1][0];
+    const [sx, sy] = requireAt(path, 0);
+    const [tx, ty] = requireAt(path, path.length - 1);
     if (rankdir === "LR") {
       return sx === tx
         ? ([[sx, sy], [tx, ty]] as EdgePolyline)
@@ -885,7 +884,9 @@ export function snapDecisionMergeEdges(
 
 // ── Main pipeline ─────────────────────────────────────────────────────────
 
-const elk = new ELK();
+// elkjs is CommonJS with ESM-style typings; under NodeNext the default import is
+// `module.exports`, which the bundle also exposes as `.default`.
+const elk = new ElkBundle.default();
 
 /**
  * Run ELK layered + orthogonal routing on the graph.

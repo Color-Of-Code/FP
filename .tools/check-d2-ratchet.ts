@@ -30,7 +30,9 @@ const additions = current.filter((file) => !allowed.has(file));
 
 if (additions.length > 0) {
   console.error("D2 ratchet failed: new D2 files are not allowed.");
-  additions.forEach((file) => console.error(`  ${file}`));
+  additions.forEach((file) => {
+    console.error(`  ${file}`);
+  });
   process.exit(1);
 } else {
   const retiredCount = [...allowed].filter((file) => !current.includes(file)).length;

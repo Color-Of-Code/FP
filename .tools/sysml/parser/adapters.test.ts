@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { strOrIdent, optionalStrOrIdent, adaptPackage, adaptDiagramMeta } from "./adapters.ts";
+import { requireAt } from "../lib/fp.ts";
 
 // ── strOrIdent ──────────────────────────────────────────────────────────────
 
@@ -50,8 +51,8 @@ describe("optionalStrOrIdent", () => {
 // Minimal synthetic AST stubs — just enough for the adapter to process.
 // Uses the $type discriminator that Langium's generated isX guards check.
 
-const stub = <T>(type: string, props: Record<string, unknown> = {}): T =>
-  ({ $type: type, ...props }) as unknown as T;
+const stub = (type: string, props: Record<string, unknown> = {}): Record<string, unknown> =>
+  ({ $type: type, ...props });
 
 describe("adaptPackage", () => {
   it("partitions empty members", () => {
@@ -95,7 +96,7 @@ describe("adaptPackage", () => {
     const partDef = stub("PartDef", { name: "Board", members: [port, part, conn, note] });
     const pkg = stub("Package", { name: "P", members: [partDef] });
     const result = adaptPackage(pkg as never);
-    const pd = result.partDefs[0];
+    const pd = requireAt(result.partDefs, 0);
     expect(pd.ports).toHaveLength(1);
     expect(pd.parts).toHaveLength(1);
     expect(pd.connections).toHaveLength(1);
@@ -131,7 +132,7 @@ describe("adaptPackage", () => {
     });
     const pkg = stub("Package", { name: "P", members: [actDef] });
     const result = adaptPackage(pkg as never);
-    const ad = result.activityDefs[0];
+    const ad = requireAt(result.activityDefs, 0);
     expect(ad.kind).toBe("activityDef");
     expect(ad.name).toBe("myAct");
     expect(ad.actions).toHaveLength(1);
@@ -139,11 +140,11 @@ describe("adaptPackage", () => {
     expect(ad.decisions).toHaveLength(1);
     expect(ad.merges).toHaveLength(1);
     expect(ad.flows).toHaveLength(1);
-    expect(ad.flows[0].label).toBe("lbl");
+    expect(requireAt(ad.flows, 0).label).toBe("lbl");
     expect(ad.successions).toHaveLength(1);
     expect(ad.notes).toHaveLength(1);
     expect(ad.lanes).toHaveLength(1);
-    expect(ad.lanes[0]).toEqual({
+    expect(requireAt(ad.lanes, 0)).toEqual({
       kind: "lane",
       id: "plain",
       label: "Plain values",
@@ -158,7 +159,7 @@ describe("adaptPackage", () => {
     const actDef = stub("ActionDef", { name: "A", members: [action] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
     const result = adaptPackage(pkg as never);
-    expect(result.activityDefs[0].actions[0].type).toBe("doStuff");
+    expect(requireAt(requireAt(result.activityDefs, 0).actions, 0).type).toBe("doStuff");
   });
 
   it("uses explicit type for ActionUsage when provided", () => {
@@ -166,7 +167,7 @@ describe("adaptPackage", () => {
     const actDef = stub("ActionDef", { name: "A", members: [action] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
     const result = adaptPackage(pkg as never);
-    expect(result.activityDefs[0].actions[0].type).toBe("MyAction");
+    expect(requireAt(requireAt(result.activityDefs, 0).actions, 0).type).toBe("MyAction");
   });
 
   it("ObjectNode type is undefined when not provided", () => {
@@ -174,7 +175,7 @@ describe("adaptPackage", () => {
     const actDef = stub("ActionDef", { name: "A", members: [obj] });
     const pkg = stub("Package", { name: "P", members: [actDef] });
     const result = adaptPackage(pkg as never);
-    expect(result.activityDefs[0].objects[0].type).toBeUndefined();
+    expect(requireAt(requireAt(result.activityDefs, 0).objects, 0).type).toBeUndefined();
   });
 
   it("ConnectionUsage adapts via and label", () => {
@@ -184,7 +185,7 @@ describe("adaptPackage", () => {
     const partDef = stub("PartDef", { name: "X", members: [conn] });
     const pkg = stub("Package", { name: "P", members: [partDef] });
     const result = adaptPackage(pkg as never);
-    const c = result.partDefs[0].connections[0];
+    const c = requireAt(requireAt(result.partDefs, 0).connections, 0);
     expect(c.id).toBe("c1");
     expect(c.via).toBe("p");
     expect(c.label).toBe("Link");

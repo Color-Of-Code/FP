@@ -15,9 +15,10 @@ export default defineConfig(
   },
 
   // ── TypeScript recommended + stylistic ──────────────────────────────────
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
+    linterOptions: { reportUnusedDisableDirectives: "error" },
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -29,6 +30,17 @@ export default defineConfig(
   // ── Base rule overrides (all TS files) ──────────────────────────────────
   {
     rules: {
+      // Companions to `verbatimModuleSyntax`: Node type stripping keeps every
+      // import that is not explicitly marked as type-only.
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        { fixStyle: "inline-type-imports" },
+      ],
+      "@typescript-eslint/no-import-type-side-effects": "error",
+      "@typescript-eslint/restrict-template-expressions": [
+        "error",
+        { allowNumber: true },
+      ],
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",

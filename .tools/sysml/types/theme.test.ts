@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { theme, themeCss } from "./theme.ts";
+import { requireAt } from "../lib/fp.ts";
 
 type ColorName = keyof typeof theme.palette.light;
 
@@ -45,13 +46,16 @@ function luminance(hex: string): number {
   const linear = channels.map(channel =>
     channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4,
   );
-  const [red, green, blue] = linear;
+  const red = requireAt(linear, 0);
+  const green = requireAt(linear, 1);
+  const blue = requireAt(linear, 2);
   return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
 }
 
 function contrast(foreground: string, background: string): number {
   const values = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
-  const [lighter, darker] = values;
+  const lighter = requireAt(values, 0);
+  const darker = requireAt(values, 1);
   return (lighter + 0.05) / (darker + 0.05);
 }
 

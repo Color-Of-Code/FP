@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { assignActionPins, chooseSharedPin, chooseObjectIdPin } from "./pin.ts";
 import type { GEdge, GNode } from "../types.ts";
+import { requireAt } from "../lib/fp.ts";
 
 function makeAction(id: string, inPins: string[], outPins: string[]): GNode {
   return { id, label: id, kind: "action", isHof: false, x: 0, y: 0, w: 80, h: 40, inPins, outPins };
@@ -81,8 +82,8 @@ describe("assignActionPins", () => {
     const nodeMap = new Map<string, GNode>([["a1", a1], ["a2", a2]]);
     const edges = [makeEdge("a1", "a2")];
     const result = assignActionPins(edges, nodeMap);
-    expect(result[0].srcPin).toBe("shared");
-    expect(result[0].dstPin).toBe("shared");
+    expect(requireAt(result, 0).srcPin).toBe("shared");
+    expect(requireAt(result, 0).dstPin).toBe("shared");
   });
 
   it("assigns pin by object id match", () => {
@@ -91,7 +92,7 @@ describe("assignActionPins", () => {
     const nodeMap = new Map<string, GNode>([["input", obj], ["act", act]]);
     const edges = [makeEdge("input", "act")];
     const result = assignActionPins(edges, nodeMap);
-    expect(result[0].dstPin).toBe("input");
+    expect(requireAt(result, 0).dstPin).toBe("input");
   });
 
   it("distributes leftover edges to remaining pins", () => {
@@ -101,8 +102,8 @@ describe("assignActionPins", () => {
     const nodeMap = new Map<string, GNode>([["x", obj1], ["y", obj2], ["act", act]]);
     const edges = [makeEdge("x", "act"), makeEdge("y", "act")];
     const result = assignActionPins(edges, nodeMap);
-    expect(result[0].dstPin).toBe("p1");
-    expect(result[1].dstPin).toBe("p2");
+    expect(requireAt(result, 0).dstPin).toBe("p1");
+    expect(requireAt(result, 1).dstPin).toBe("p2");
   });
 
   it("skips non-object-flow edges", () => {
@@ -111,7 +112,7 @@ describe("assignActionPins", () => {
     const nodeMap = new Map<string, GNode>([["a1", a1], ["a2", a2]]);
     const edges: GEdge[] = [{ from: "a1", to: "a2", label: undefined, isHof: false, isObjectFlow: false }];
     const result = assignActionPins(edges, nodeMap);
-    expect(result[0].srcPin).toBeUndefined();
-    expect(result[0].dstPin).toBeUndefined();
+    expect(requireAt(result, 0).srcPin).toBeUndefined();
+    expect(requireAt(result, 0).dstPin).toBeUndefined();
   });
 });

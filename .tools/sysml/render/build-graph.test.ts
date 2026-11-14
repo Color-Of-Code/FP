@@ -3,6 +3,7 @@ import { shiftCoordinates, buildNoteNode } from "./build-graph.ts";
 import { pinPosition } from "./nodes.ts";
 import type { GNode } from "../types.ts";
 import type { LaneGeom } from "../layout.ts";
+import { requireAt } from "../lib/fp.ts";
 
 // ── shiftCoordinates ──────────────────────────────────────────────────────
 
@@ -12,11 +13,11 @@ describe("shiftCoordinates", () => {
       { id: "a", label: "", kind: "action", isHof: false, x: 10, y: 20, w: 50, h: 30, inPins: [], outPins: [] },
     ];
     const { shiftedNodes } = shiftCoordinates(nodes, [], [], 5, 7);
-    expect(shiftedNodes[0].x).toBe(15);
-    expect(shiftedNodes[0].y).toBe(27);
+    expect(requireAt(shiftedNodes, 0).x).toBe(15);
+    expect(requireAt(shiftedNodes, 0).y).toBe(27);
     // Original is unchanged
-    expect(nodes[0].x).toBe(10);
-    expect(nodes[0].y).toBe(20);
+    expect(requireAt(nodes, 0).x).toBe(10);
+    expect(requireAt(nodes, 0).y).toBe(20);
   });
 
   it("returns shifted edge polylines", () => {

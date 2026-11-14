@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { GNode, GEdge } from "./types.ts";
+import { requireAt } from "./lib/fp.ts";
 import {
   buildContext,
   computeCanvasAndLanes,
@@ -138,7 +139,7 @@ describe("snapDecisionMergeEdges", () => {
 
     // Should be rewritten to: drop to ty, then run to tx
     expect(snappedPaths[0]).toEqual([[100, 50], [100, 100], [200, 100]]);
-    expect(snappedEdges[0].labelNearSource).toBe(true);
+    expect(requireAt(snappedEdges, 0).labelNearSource).toBe(true);
   });
 
   it("rewrites to straight line when x matches in LR mode", () => {
@@ -208,11 +209,11 @@ describe("computeCanvasAndLanes", () => {
     const { laneGeoms } = computeCanvasAndLanes(nodes, ctx, 500, 200);
     expect(laneGeoms).toHaveLength(2);
     // Lane bands should stack: top lane's bottom ≈ bottom lane's top
-    const topBottom = laneGeoms[0].y + laneGeoms[0].h;
-    const botTop = laneGeoms[1].y;
+    const topBottom = requireAt(laneGeoms, 0).y + requireAt(laneGeoms, 0).h;
+    const botTop = requireAt(laneGeoms, 1).y;
     expect(Math.abs(topBottom - botTop)).toBeLessThan(1);
-    expect(laneGeoms[0].label).toBe("Plain");
-    expect(laneGeoms[1].label).toBe("Monad");
+    expect(requireAt(laneGeoms, 0).label).toBe("Plain");
+    expect(requireAt(laneGeoms, 1).label).toBe("Monad");
   });
 });
 

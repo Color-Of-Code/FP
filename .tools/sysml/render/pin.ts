@@ -43,8 +43,12 @@ export function assignActionPins(
     assignments.set(e, side === "in" ? { ...existing, dstPin: pin } : { ...existing, srcPin: pin });
   };
 
-  forEach(inByAction,  (es, nodeId) => matchSide(nodeId, es, nodeMap, "in",  assign));
-  forEach(outByAction, (es, nodeId) => matchSide(nodeId, es, nodeMap, "out", assign));
+  forEach(inByAction, (es, nodeId) => {
+    matchSide(nodeId, es, nodeMap, "in", assign);
+  });
+  forEach(outByAction, (es, nodeId) => {
+    matchSide(nodeId, es, nodeMap, "out", assign);
+  });
 
   return edges.map(e => {
     const patch = assignments.get(e);
@@ -59,7 +63,7 @@ export function assignActionPins(
 export function chooseSharedPin(
   e: GEdge, side: "in" | "out",
   pins: readonly string[], used: ReadonlySet<string>,
-  nodeMap: Map<string, GNode>,
+  nodeMap: ReadonlyMap<string, GNode>,
 ): string | undefined {
   const otherId = side === "in" ? e.from : e.to;
   const other   = nodeMap.get(otherId);
@@ -77,7 +81,7 @@ export function chooseSharedPin(
 export function chooseObjectIdPin(
   e: GEdge, side: "in" | "out",
   pins: readonly string[], used: ReadonlySet<string>,
-  nodeMap: Map<string, GNode>,
+  nodeMap: ReadonlyMap<string, GNode>,
 ): string | undefined {
   const otherId = side === "in" ? e.from : e.to;
   const other   = nodeMap.get(otherId);
@@ -116,7 +120,8 @@ function matchSide(
   // Second pass: distribute leftovers in declaration order.
   const free = pins.filter(p => !used.has(p));
   unmatched.forEach((e, i) => {
-    const pin = free[i] ?? pins[pins.length - 1];
+    const pin = free[i] ?? pins.at(-1);
+    if (pin === undefined) throw new Error(`No available pin for edge ${e.from} → ${e.to}`);
     assign(e, side, pin);
   });
 }

@@ -72,11 +72,13 @@ export function parse(src: string): Model {
     parserErrors: { message: string; token?: { image: string } }[];
   };
   if (result.lexerErrors.length > 0) {
-    const e = result.lexerErrors[0];
+    const e = result.lexerErrors.at(0);
+    if (!e) throw new Error("Lexer reported errors without an error detail");
     throw new Error(`Lexer error at ${e.line}:${e.column}: ${e.message}`);
   }
   if (result.parserErrors.length > 0) {
-    const e = result.parserErrors[0];
+    const e = result.parserErrors.at(0);
+    if (!e) throw new Error("Parser reported errors without an error detail");
     throw new Error(`Parse error: ${e.message} (token '${e.token?.image ?? "<eof>"}')`);
   }
   const m = result.value;

@@ -4,17 +4,17 @@
  */
 
 import * as G from "../generated/ast.ts";
-import { fromPairs, groupBy, sortBy } from "../lib/fp.ts";
+import { fromPairs, groupBy, isNil, sortBy } from "../lib/fp.ts";
 import type {
   ActivityDef, ActionDef, ActionUsage, ConnectionUsage, DiagramMeta, DiagramType,
-  DecisionNode, FlowUsage, LaneBlock, MergeNode, NoteUsage, ObjectNode, PackageDecl,
+  DecisionNode, FlowUsage, MergeNode, NoteUsage, ObjectNode, PackageDecl,
   PartDef, PartUsage, PortDef, PortUsage, Role, ViewUsage,
 } from "../types.ts";
 
 const stripQuotes = (value: string | undefined): string =>
   value?.startsWith('"') ? value.slice(1, -1).replace(/\\"/g, '"') : (value ?? "");
 
-export const strOrIdent = (value: string | undefined): string => stripQuotes(value);
+export const strOrIdent: (value: string | undefined) => string = stripQuotes;
 
 export function optionalStrOrIdent(
   value: string | undefined,
@@ -78,11 +78,11 @@ function adaptPortLike(g: PortLikeNode): PortUsage {
 }
 
 function adaptPortDef(g: G.PortDef): PortDef {
-  return { kind: "portDef", name: g.name ?? "" };
+  return { kind: "portDef", name: g.name };
 }
 
 function adaptPartUsage(g: G.PartUsage): PartUsage {
-  const id = g.id ?? "";
+  const id = g.id;
   return {
     kind: "part",
     id,
@@ -96,8 +96,8 @@ function adaptConnection(g: G.ConnectionUsage): ConnectionUsage {
   return {
     kind: "connection",
     id: g.cid ?? undefined,
-    from: g.from ?? "",
-    to: g.to ?? "",
+    from: g.from,
+    to: g.to,
     via: g.via ?? undefined,
     label: optionalStrOrIdent(g.label),
   };
@@ -106,15 +106,15 @@ function adaptConnection(g: G.ConnectionUsage): ConnectionUsage {
 function adaptNote(g: G.NoteUsage): NoteUsage {
   return {
     kind: "note",
-    id: g.id ?? "",
-    target: g.target ?? "",
+    id: g.id,
+    target: g.target,
     text: strOrIdent(g.text),
     ...nodePresentation(g.metadata),
   };
 }
 
 function adaptActionUsage(g: G.ActionUsage): ActionUsage {
-  const id = g.id ?? "";
+  const id = g.id;
   return {
     kind: "action",
     id,
@@ -126,7 +126,7 @@ function adaptActionUsage(g: G.ActionUsage): ActionUsage {
 function adaptObjectNode(g: G.ItemUsage): ObjectNode {
   return {
     kind: "object",
-    id: g.id ?? "",
+    id: g.id,
     type: optionalStrOrIdent(g.type),
     ...nodePresentation(g.metadata),
   };
@@ -135,7 +135,7 @@ function adaptObjectNode(g: G.ItemUsage): ObjectNode {
 function adaptDecisionNode(g: G.DecisionNode): DecisionNode {
   return {
     kind: "decision",
-    id: g.id ?? "",
+    id: g.id,
     label: optionalStrOrIdent(g.label),
     ...nodePresentation(g.metadata),
   };
@@ -144,7 +144,7 @@ function adaptDecisionNode(g: G.DecisionNode): DecisionNode {
 function adaptMergeNode(g: G.MergeNode): MergeNode {
   return {
     kind: "merge",
-    id: g.id ?? "",
+    id: g.id,
     label: optionalStrOrIdent(g.label),
     ...nodePresentation(g.metadata),
   };
@@ -153,23 +153,23 @@ function adaptMergeNode(g: G.MergeNode): MergeNode {
 function adaptFlowUsage(g: G.FlowUsage): FlowUsage {
   return {
     kind: "flow",
-    from: g.from ?? "",
-    to: g.to ?? "",
+    from: g.from,
+    to: g.to,
     label: optionalStrOrIdent(g.label),
   };
 }
 
 function adaptSuccession(g: G.SuccessionUsage) {
-  return { kind: "succession" as const, from: g.from ?? "", to: g.to ?? "" };
+  return { kind: "succession" as const, from: g.from, to: g.to };
 }
 
-function pairsFor<T extends { id: string; role?: Role; tooltip?: string }>(
-  nodes: readonly T[],
-  field: "role" | "tooltip",
-): [string, Role | string][] {
+function pairsFor<N extends { id: string }, V>(
+  nodes: readonly N[],
+  valueOf: (node: N) => V | undefined,
+): [string, V][] {
   return nodes.flatMap(node => {
-    const value = node[field];
-    return value !== undefined ? [[node.id, value]] : [];
+    const value = valueOf(node);
+    return isNil(value) ? [] : [[node.id, value]];
   });
 }
 
@@ -178,12 +178,8 @@ function presentationMaps(nodes: readonly { id: string; role?: Role; tooltip?: s
   tooltips: Record<string, string>;
 } {
   return {
-    shows: fromPairs(
-      pairsFor(nodes, "role").filter((pair): pair is [string, Role] => typeof pair[1] === "string"),
-    ),
-    tooltips: fromPairs(
-      pairsFor(nodes, "tooltip").filter((pair): pair is [string, string] => typeof pair[1] === "string"),
-    ),
+    shows: fromPairs(pairsFor(nodes, node => node.role)),
+    tooltips: fromPairs(pairsFor(nodes, node => node.tooltip)),
   };
 }
 
@@ -196,7 +192,7 @@ function adaptPartDef(g: G.PartDef): PartDef {
     [G.isNoteUsage, adaptNote],
   );
   const maps = presentationMaps([...parts, ...notes]);
-  return { kind: "partDef", name: g.name ?? "", parts, ports, connections, notes, ...maps };
+  return { kind: "partDef", name: g.name, parts, ports, connections, notes, ...maps };
 }
 
 function adaptActivityDef(g: G.ActionDef): ActivityDef {
@@ -235,7 +231,7 @@ function adaptActivityDef(g: G.ActionDef): ActivityDef {
   ).map(({ order: _order, ...lane }) => lane);
   return {
     kind: "activityDef",
-    name: g.name ?? "",
+    name: g.name,
     actions,
     objects,
     decisions,
@@ -252,7 +248,7 @@ function adaptActionDef(g: G.ActionDef): ActionDef {
   const pins = g.members.filter(G.isPinDeclaration).map(adaptPortLike);
   const hasBodyNodes = g.members.some(member => !G.isPinDeclaration(member));
   const activity = hasBodyNodes ? adaptActivityDef(g) : undefined;
-  return { kind: "actionDef", name: g.name ?? "", pins, activity };
+  return { kind: "actionDef", name: g.name, pins, activity };
 }
 
 function adaptViewUsage(g: G.ViewUsage, packageName: string): ViewUsage {
@@ -263,9 +259,9 @@ function adaptViewUsage(g: G.ViewUsage, packageName: string): ViewUsage {
   const doc = g.members.find(G.isDocumentation);
   const docMatch = doc?.text.match(/^doc\s*\/\*([\s\S]*)\*\/$/);
   return {
-    id: g.id ?? "",
+    id: g.id,
     packageName,
-    viewType: g.viewType ?? "",
+    viewType: g.viewType,
     expose: g.members.find(G.isExpose)?.target,
     rendering: g.members.find(G.isRenderUsage)?.rendering,
     title: docMatch?.[1] ?? doc?.text,
@@ -279,9 +275,9 @@ export function adaptPackage(g: G.Package): PackageDecl {
   const partDefs = g.members.filter(G.isPartDef).map(adaptPartDef);
   const actionDefs = g.members.filter(G.isActionDef).map(adaptActionDef);
   const activityDefs = actionDefs.flatMap(action => action.activity ? [action.activity] : []);
-  const views = g.members.filter(G.isViewUsage).map(view => adaptViewUsage(view, g.name ?? ""));
+  const views = g.members.filter(G.isViewUsage).map(view => adaptViewUsage(view, g.name));
   return {
-    name: g.name ?? "",
+    name: g.name,
     portDefs,
     partDefs,
     actionDefs,
@@ -313,13 +309,15 @@ function partitionByKind<M, R extends readonly DispatchEntry<M, unknown>[]>(
   members: readonly M[],
   ...dispatch: R
 ): { [K in keyof R]: R[K] extends DispatchEntry<M, infer T> ? T[] : never } {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mapped tuple cast unavoidable
-  const result = dispatch.map(() => [] as unknown[]) as any;
-  members.forEach(member => {
-    const index = dispatch.findIndex(entry => entry[0](member));
-    if (index >= 0) result[index].push(dispatch[index][1](member));
-  });
-  return result;
+  const owners = members.map(member => dispatch.findIndex(([matches]) => matches(member)));
+  const buckets = dispatch.map(([, adapt], index) =>
+    members
+      .filter((_, memberIndex) => owners[memberIndex] === index)
+      // Safe: the member satisfied this entry's type guard.
+      .map(member => (adapt as (member: M) => unknown)(member)),
+  );
+  return buckets as { [K in keyof R]: R[K] extends DispatchEntry<M, infer T> ? T[] : never };
 }
 
-type DispatchEntry<M, T> = readonly [(member: M) => member is M & object, (member: any) => T];
+// `never` accepts any single-argument adapter, whatever narrowed type it expects.
+type DispatchEntry<M, T> = readonly [(member: M) => member is M & object, (member: never) => T];

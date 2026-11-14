@@ -7,7 +7,7 @@
  * branches in the dispatcher need to change.
  */
 
-import { type DiagramMeta, type DiagramType, type Model } from "../types.ts";
+import type { DiagramMeta, DiagramType, Model } from "../types.ts";
 import { renderActivity } from "./activity.ts";
 import { renderIbd } from "./ibd.ts";
 import { appendStatusMessage, createSvgDocument, type RenderPlan } from "./title.ts";
@@ -57,7 +57,7 @@ const renderers: Record<DiagramType, DiagramRenderer> = {
 export async function modelToSvg(model: Model, baseName: string): Promise<string> {
   const diag     = model.diagram;
   const title    = diag.title ?? baseName;
-  const renderer = renderers[diag.diagType] ?? activityRenderer;
+  const renderer = renderers[diag.diagType];
   const plan     = await renderer.plan(model, diag);
 
   if (!plan) {

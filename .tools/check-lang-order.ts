@@ -113,7 +113,9 @@ if (isCli) {
       return checkFile(content, rel);
     });
 
-  allErrors.forEach(err => console.error(err));
+  allErrors.forEach(err => {
+    console.error(err);
+  });
 
   if (allErrors.length === 0) {
     console.log(

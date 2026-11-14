@@ -83,7 +83,7 @@ export async function renderActivity(
   diagram: DiagramMeta,
   actionDefs: Map<string, ActionDef>,
 ): Promise<RenderPlan> {
-  const hideInPinLabels = (actDef.lanes?.length ?? 0) > 0;
+  const hideInPinLabels = actDef.lanes.length > 0;
 
   // ── Nodes ──────────────────────────────────────────────────────────────
   const actionNodes   = actDef.actions.map(buildActionNode(actionDefs, diagram, hideInPinLabels));
@@ -105,7 +105,7 @@ export async function renderActivity(
   const pinnedEdges = assignActionPins(edges, nodeMap);
 
   // ── Lanes (swimlane decoration) ─────────────────────────────────────────
-  const laneSpecs: LaneSpec[] = (actDef.lanes ?? []).map(l => ({
+  const laneSpecs: LaneSpec[] = actDef.lanes.map(l => ({
     id: l.id, label: l.label, members: l.members,
   }));
 

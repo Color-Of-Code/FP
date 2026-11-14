@@ -49,7 +49,8 @@ choices, see [decisions/](decisions/README.md).
 | `Makefile`                    | One entry point per task; orchestrates everything        |
 | `package.json`                | Root of the pnpm workspace (`fp-tools`)                  |
 | `pnpm-workspace.yaml`         | Declares `vscode-sysml/` as a workspace member           |
-| `tsconfig.json`               | TS config for `--experimental-strip-types` + strict mode |
+| `tsconfig.json`               | Node 24 / NodeNext type stripping, strict indexed access |
+| `eslint.config.ts`            | Strict type-aware ESLint + functional and lodash rules   |
 | `vitest.config.ts`            | Snapshot test runner config                              |
 | `check-lang-order.ts`         | Lints 9-language sections in `docs/*.md`                 |
 | `langium-config.json`         | Drives `langium-cli generate`                            |

@@ -25,12 +25,16 @@ function findFiles(directory: string, extensions: readonly string[]): string[] {
 function parseImages(markdown: string): MarkdownImage[] {
   const imagePattern = /!\[((?:\\.|[^\\\]])*)\]\(([^)]+)\)/g;
   return [...markdown.matchAll(imagePattern)]
-    .map((match) => ({
-      alt: match[1].replace(/\\(.)/g, "$1"),
-      href: match[2].trim().replace(/^<|>$/g, ""),
-      line: markdown.slice(0, match.index).split("\n").length,
-    }))
-    .filter((image) => image.href.toLowerCase().split(/[?#]/, 1)[0].endsWith(".svg"));
+    .flatMap((match) => {
+      const [alt, href] = match.slice(1);
+      if (alt === undefined || href === undefined) return [];
+      return [{
+        alt: alt.replace(/\\(.)/g, "$1"),
+        href: href.trim().replace(/^<|>$/g, ""),
+        line: markdown.slice(0, match.index).split("\n").length,
+      }];
+    })
+    .filter((image) => image.href.toLowerCase().split(/[?#]/, 1).at(0)?.endsWith(".svg") ?? false);
 }
 
 function nodeCount(model: ReturnType<typeof parse>): number | undefined {
@@ -177,7 +181,9 @@ const errors = [
 
 if (errors.length > 0) {
   console.error(`Diagram lint failed with ${errors.length} error(s):`);
-  errors.forEach((error) => console.error(`  ${error}`));
+  errors.forEach((error) => {
+    console.error(`  ${error}`);
+  });
   process.exitCode = 1;
 } else {
   console.log(

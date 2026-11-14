@@ -8,7 +8,7 @@
 
 import { type GEdge, ARROW_DEPTH, PIN_SZ, COL, theme } from "../types.ts";
 import type { EdgePolyline } from "../layout.ts";
-import { maxBy, times } from "../lib/fp.ts";
+import { maxBy, requireAt, times } from "../lib/fp.ts";
 import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/svg.ts";
 
 // ── Path utilities ─────────────────────────────────────────────────────────
@@ -19,8 +19,8 @@ import { appendElement, appendGroup, appendText, type SvgParent } from "../lib/s
  */
 export function shortenEnd(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
   if (pts.length < 2) return pts.map(p => [p[0], p[1]] as [number, number]);
-  const [px, py] = pts[pts.length - 2];
-  const [ex, ey] = pts[pts.length - 1];
+  const [px, py] = requireAt(pts, pts.length - 2);
+  const [ex, ey] = requireAt(pts, pts.length - 1);
   const dx = ex - px, dy = ey - py;
   const len = Math.hypot(dx, dy) || 1;
   const k = Math.max(0, len - depth) / len;
@@ -38,8 +38,8 @@ export function shortenEnd(pts: readonly (readonly [number, number])[], depth: n
 export function extendStart(pts: readonly (readonly [number, number])[], depth: number): [number, number][] {
   const out = pts.map(p => [p[0], p[1]] as [number, number]);
   if (out.length < 2 || depth <= 0) return out;
-  const [sx, sy] = out[0];
-  const [nx, ny] = out[1];
+  const [sx, sy] = requireAt(out, 0);
+  const [nx, ny] = requireAt(out, 1);
   const dx = nx - sx, dy = ny - sy;
   const len = Math.hypot(dx, dy) || 1;
   return [
@@ -51,7 +51,7 @@ export function extendStart(pts: readonly (readonly [number, number])[], depth: 
 /** Build the SVG path `d` attribute from a polyline. */
 export function polylineToD(pts: readonly (readonly [number, number])[]): string {
   if (pts.length === 0) return "";
-  const [x0, y0] = pts[0];
+  const [x0, y0] = requireAt(pts, 0);
   const tail = pts.slice(1).map(([x, y]) => `L${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
   return `M${x0.toFixed(1)},${y0.toFixed(1)} ${tail}`.trimEnd();
 }
@@ -69,13 +69,13 @@ export function roundedPolylineToD(
   if (pts.length <= 2) return polylineToD(pts);
 
   const fmt = (n: number) => n.toFixed(1);
-  const [x0, y0] = pts[0];
+  const [x0, y0] = requireAt(pts, 0);
 
   const corners = times(pts.length - 2, idx => {
     const i = idx + 1;
-    const [px, py] = pts[i - 1];
-    const [cx, cy] = pts[i];
-    const [nx, ny] = pts[i + 1];
+    const [px, py] = requireAt(pts, i - 1);
+    const [cx, cy] = requireAt(pts, i);
+    const [nx, ny] = requireAt(pts, i + 1);
 
     const inDx = cx - px, inDy = cy - py;
     const outDx = nx - cx, outDy = ny - cy;
@@ -96,7 +96,7 @@ export function roundedPolylineToD(
     return ` L${fmt(ax)},${fmt(ay)} Q${fmt(cx)},${fmt(cy)} ${fmt(bx)},${fmt(by)}`;
   });
 
-  const [xn, yn] = pts[pts.length - 1];
+  const [xn, yn] = requireAt(pts, pts.length - 1);
   return `M${fmt(x0)},${fmt(y0)}${corners.join("")} L${fmt(xn)},${fmt(yn)}`;
 }
 
@@ -107,8 +107,8 @@ const CORNER_RADIUS = 6;
 export function labelAnchor(pts: readonly (readonly [number, number])[]): [number, number] {
   if (pts.length < 2) return [0, 0];
   const segments = times(pts.length - 1, i => {
-    const [ax, ay] = pts[i];
-    const [bx, by] = pts[i + 1];
+    const [ax, ay] = requireAt(pts, i);
+    const [bx, by] = requireAt(pts, i + 1);
     return { len: Math.hypot(bx - ax, by - ay), mid: [(ax + bx) / 2, (ay + by) / 2] as [number, number] };
   });
   const best = maxBy(segments, s => s.len)!;
@@ -120,8 +120,8 @@ export function firstSegmentMidpoint(
   pts: readonly (readonly [number, number])[],
 ): [number, number] {
   if (pts.length < 2) return [0, 0];
-  const [ax, ay] = pts[0];
-  const [bx, by] = pts[1];
+  const [ax, ay] = requireAt(pts, 0);
+  const [bx, by] = requireAt(pts, 1);
   return [(ax + bx) / 2, (ay + by) / 2];
 }
 
@@ -191,7 +191,7 @@ export function appendGEdge(
     const verticalFirst =
       e.labelNearSource &&
       pts.length >= 2 &&
-      Math.abs(pts[0][0] - pts[1][0]) < 0.5;
+      Math.abs(requireAt(pts, 0)[0] - requireAt(pts, 1)[0]) < 0.5;
     const tx = verticalFirst ? lx + 4 : lx;
     const ty = verticalFirst ? ly     : ly - 6;
     const anchor = verticalFirst ? "start" : "middle";

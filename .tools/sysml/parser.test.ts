@@ -12,6 +12,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { parse } from "./parser.ts";
+import { requireAt } from "./lib/fp.ts";
 import { findSysmlFiles, repoRoot } from "./test-utils/fixtures.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -82,7 +83,7 @@ describe("SysML → AST snapshots", () => {
         shows: { f: "hof", map: "function" },
         tooltips: { f: "Function argument" },
       });
-      expect(model.packages[0].activityDefs[0].lanes).toEqual([
+      expect(requireAt(requireAt(model.packages, 0).activityDefs, 0).lanes).toEqual([
         { kind: "lane", id: "plain", label: "Plain values", members: ["f", "map"] },
       ]);
     });

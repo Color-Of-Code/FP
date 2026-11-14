@@ -33,12 +33,12 @@ function serializeSvg(svg: SVGSVGElement): string {
 /** Create a standalone SVG root document and serializer. */
 export function createSvgRoot(width: number, height: number): SvgRoot {
   const dom = new JSDOM("<!DOCTYPE html><html><body></body></html>");
-  const svg = select(dom.window.document.body)
-    .append("svg")
+  const svg: SvgParent = select<BaseType, unknown>(dom.window.document.body)
+    .append<BaseType>("svg")
     .attr("xmlns", "http://www.w3.org/2000/svg")
     .attr("viewBox", `0 0 ${width} ${height}`)
     .attr("width", width)
-    .attr("height", height) as SvgParent;
+    .attr("height", height);
 
   return {
     svg,

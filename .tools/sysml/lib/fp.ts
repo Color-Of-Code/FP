@@ -7,7 +7,7 @@
  */
 
 // ── Eager utilities (lodash-es) ───────────────────────────────────────────
-export { forEach, fromPairs, groupBy, keyBy, mapValues, maxBy, partition, sortBy, times } from "lodash-es";
+export { forEach, fromPairs, groupBy, isNil, keyBy, mapValues, maxBy, partition, sortBy, times } from "lodash-es";
 
 // ── Pipelines + ADTs (fp-ts) ──────────────────────────────────────────────
 export { pipe, flow, identity, constant } from "fp-ts/lib/function.js";
@@ -44,5 +44,11 @@ export const lookup = <K, V>(m: ReadonlyMap<K, V>) =>
 export const bothInMap = <V>(m: ReadonlyMap<string, V>) =>
   (ids: { from: string; to: string }): boolean =>
     m.has(ids.from) && m.has(ids.to);
+
+export function requireAt<T>(values: readonly T[], index: number): T {
+  const value = values[index];
+  if (value === undefined) throw new RangeError(`No value at index ${index}`);
+  return value;
+}
 
 
