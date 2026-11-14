@@ -11,8 +11,6 @@ function** and collecting the results — while preserving the container's shape
 
 ![sequence :: T(Fa) ⟶ F(Ta)  (= traverse id)](17-traversable/traversable-2.svg)
 
-![traversable requirements](17-traversable/traversable-3.svg)
-
 ![traverse :: (a ⟶ Fb) ⟶ Ta ⟶ F(Tb)](17-traversable/traversable-ibd.svg)
 
 Two core operations:

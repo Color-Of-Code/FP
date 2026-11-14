@@ -1,14 +1,13 @@
 # Diagram Conventions
 
-During the migration, diagrams in `docs/` use D2 or the SysML-based renderer:
+Diagrams in `docs/` use the SysML-based renderer:
 
-| Format    | Source ext | Toolchain             | Used for                                                                               |
-| --------- | ---------- | --------------------- | -------------------------------------------------------------------------------------- |
-| D2        | `.d2`      | `d2 --layout=elk`     | Concepts not yet migrated                                                              |
-| SysML v2* | `.sysml`   | `.tools/sysml/cli.ts` | All 88 existing SysML sources use `view` / `render`; D2 migration is still in progress |
+| Format    | Source ext | Toolchain             | Used for                                       |
+| --------- | ---------- | --------------------- | ---------------------------------------------- |
+| SysML v2* | `.sysml`   | `.tools/sysml/cli.ts` | All diagrams in `docs/`; use `view` / `render` |
 
-Both produce `.svg` files embedded in Markdown docs. *The local parser supports a narrow SysML v2
-textual subset and project-specific presentation metadata; see
+The renderer produces `.svg` files embedded in Markdown docs. *The local parser supports a narrow
+SysML v2 textual subset and project-specific presentation metadata; see
 [the grammar reference](../.tools/sysml/grammar.md).
 
 ## File locations
@@ -16,23 +15,24 @@ textual subset and project-specific presentation metadata; see
 Diagram sources and the generated SVGs live in a per-chapter folder named after the chapter filename
 stem, sitting next to the Markdown page itself:
 
-| Doc type              | Diagram source location                     | SVG output location              |
-| --------------------- | ------------------------------------------- | -------------------------------- |
-| `docs/NN-name.md`     | `docs/NN-name/<diagram>.d2` or `.sysml`     | `docs/NN-name/<diagram>.svg`     |
-| `docs/monads/name.md` | `docs/monads/name/<diagram>.d2` or `.sysml` | `docs/monads/name/<diagram>.svg` |
-| `docs/optics/name.md` | `docs/optics/name/<diagram>.d2`             | `docs/optics/name/<diagram>.svg` |
+| Doc type              | Diagram source location            | SVG output location              |
+| --------------------- | ---------------------------------- | -------------------------------- |
+| `docs/NN-name.md`     | `docs/NN-name/<diagram>.sysml`     | `docs/NN-name/<diagram>.svg`     |
+| `docs/monads/name.md` | `docs/monads/name/<diagram>.sysml` | `docs/monads/name/<diagram>.svg` |
+| `docs/optics/name.md` | `docs/optics/name/<diagram>.sysml` | `docs/optics/name/<diagram>.svg` |
 
 Each SVG is committed alongside its source. Adding a new chapter is self-contained: drop the
 `<chapter>.md` and a sibling `<chapter>/` folder with the diagrams in it; the build picks them up
 automatically.
 
-Each concept gets **at minimum two diagrams**:
+Use a concept diagram and a motivation diagram when they each explain a distinct part of the idea:
 
-- `name.d2` / `name.svg` — the concept itself (types, operations, flow)
-- `name-motivation.d2` / `name-motivation.svg` — before/after showing why the concept exists
+- `name.sysml` / `name.svg` — the concept itself (types, operations, flow)
+- `name-motivation.sysml` / `name-motivation.svg` — before/after showing why the concept exists
 
-Monad detail pages additionally use SysML for the two monad operations and their shared type
-signature:
+This is a guide, not a diagram quota. Use a Markdown table, code example, or prose instead when it
+explains the point more clearly; do not keep a redundant diagram just to reach two. Monad detail
+pages may also use SysML for the two monad operations and their shared type signature:
 
 - `name-pure.sysml` / `name-pure.svg` — activity: `pure :: a ⟶ Maybe a` (wrap in context)
 - `name-bind.sysml` / `name-bind.svg` — activity: `bind` (pattern match, apply, short-circuit)
@@ -304,17 +304,16 @@ make -C .tools sysml
 # Diagram metadata, alt text, source links, and node budget
 make -C .tools lint-diagrams
 
-# Everything (D2 + SysML + format + lint)
+# Everything (SVGs + format + lint)
 make -C .tools all
 ```
 
 ---
 
-## D2 source format
+## Legacy D2 tooling (scheduled for removal)
 
-> **Deprecated for new and updated diagrams.** D2 remains only for existing `docs/` diagrams while
-> they are migrated. Do not add or modify `.d2` files; use the SysML-based renderer above. The D2
-> ratchet checks that this inventory only shrinks.
+> No D2 diagrams remain in `docs/`. `docs/styles.d2` is retained temporarily for the planned tooling
+> cutover; do not add or modify `.d2` files. Use the SysML-based renderer above.
 
 (Each diagram source sits in the per-chapter folder next to its `.md` page, e.g.
 `docs/16-fold/fold-ibd.sysml` for `docs/16-fold.md`, and `docs/monads/maybe/maybe-bind.sysml` for

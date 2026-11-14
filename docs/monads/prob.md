@@ -4,7 +4,7 @@ The **Probability monad** (also called the Distribution monad) models **discrete
 distributions**. Each possible value is paired with its probability, and `bind` implements
 conditional probability — weighting each outcome by the probability of reaching it.
 
-![prob monad](prob/prob.svg)
+![uniform assigns weights and probability sums matching outcomes](prob/prob.svg)
 
 ![bind :: Prob a ⟶ (a ⟶ Prob b) ⟶ Prob b — also called: flatMap, SelectMany, >>=](prob/prob-ibd.svg)
 

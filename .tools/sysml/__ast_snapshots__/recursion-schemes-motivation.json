@@ -1,0 +1,203 @@
+{
+  "packages": [
+    {
+      "name": "RecursionSchemesMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Cata",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "expr",
+              "type": "Fix ExprF",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "algebra",
+              "type": "ExprF Int -> Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "EvaluateWithCata",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "EvaluateWithCata",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "cata",
+                "type": "Cata",
+                "role": "function",
+                "tooltip": "cata owns the traversal; the algebra contains no recursive calls."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "expr",
+                "type": "Fix ExprF",
+                "role": "type",
+                "tooltip": "The recursive expression contains the shape and child expressions."
+              },
+              {
+                "kind": "object",
+                "id": "evalAlg",
+                "type": "ExprF Int -> Int",
+                "role": "hof",
+                "tooltip": "evalAlg handles one ExprF layer after the recursive children have been folded."
+              },
+              {
+                "kind": "object",
+                "id": "value",
+                "type": "Int"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "expr",
+                "to": "cata"
+              },
+              {
+                "kind": "flow",
+                "from": "evalAlg",
+                "to": "cata"
+              },
+              {
+                "kind": "flow",
+                "from": "cata",
+                "to": "value"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "cata": "function",
+              "expr": "type",
+              "evalAlg": "hof"
+            },
+            "tooltips": {
+              "cata": "cata owns the traversal; the algebra contains no recursive calls.",
+              "expr": "The recursive expression contains the shape and child expressions.",
+              "evalAlg": "evalAlg handles one ExprF layer after the recursive children have been folded."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "EvaluateWithCata",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "cata",
+              "type": "Cata",
+              "role": "function",
+              "tooltip": "cata owns the traversal; the algebra contains no recursive calls."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "expr",
+              "type": "Fix ExprF",
+              "role": "type",
+              "tooltip": "The recursive expression contains the shape and child expressions."
+            },
+            {
+              "kind": "object",
+              "id": "evalAlg",
+              "type": "ExprF Int -> Int",
+              "role": "hof",
+              "tooltip": "evalAlg handles one ExprF layer after the recursive children have been folded."
+            },
+            {
+              "kind": "object",
+              "id": "value",
+              "type": "Int"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "expr",
+              "to": "cata"
+            },
+            {
+              "kind": "flow",
+              "from": "evalAlg",
+              "to": "cata"
+            },
+            {
+              "kind": "flow",
+              "from": "cata",
+              "to": "value"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "cata": "function",
+            "expr": "type",
+            "evalAlg": "hof"
+          },
+          "tooltips": {
+            "cata": "cata owns the traversal; the algebra contains no recursive calls.",
+            "expr": "The recursive expression contains the shape and child expressions.",
+            "evalAlg": "evalAlg handles one ExprF layer after the recursive children have been folded."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "RecursionSchemesMotivation",
+          "viewType": "FpActivityView",
+          "expose": "EvaluateWithCata",
+          "rendering": "fpActivityDiagram",
+          "title": "recursion schemes motivation",
+          "name": "cata",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "recursion schemes motivation",
+    "name": "cata",
+    "direction": "LR",
+    "render": "EvaluateWithCata",
+    "shows": {
+      "cata": "function",
+      "expr": "type",
+      "evalAlg": "hof"
+    },
+    "tooltips": {
+      "cata": "cata owns the traversal; the algebra contains no recursive calls.",
+      "expr": "The recursive expression contains the shape and child expressions.",
+      "evalAlg": "evalAlg handles one ExprF layer after the recursive children have been folded."
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "packages": [
+    {
+      "name": "IsoOptic",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "EmailIso",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "email",
+              "type": "Email",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "iso",
+              "type": "Iso Email String",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "viewOp",
+              "type": "view",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "text",
+              "type": "String",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "reviewOp",
+              "type": "review",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "rebuiltEmail",
+              "type": "Email",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "iso",
+              "to": "viewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "email",
+              "to": "viewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "viewOp",
+              "to": "text"
+            },
+            {
+              "kind": "connection",
+              "from": "iso",
+              "to": "reviewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "text",
+              "to": "reviewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "reviewOp",
+              "to": "rebuiltEmail"
+            }
+          ],
+          "notes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "IsoOptic",
+          "viewType": "FpIbdView",
+          "expose": "EmailIso",
+          "rendering": "fpIbdDiagram",
+          "title": "Iso converts losslessly in both directions"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "Iso converts losslessly in both directions",
+    "render": "EmailIso",
+    "shows": {},
+    "tooltips": {}
+  }
+}

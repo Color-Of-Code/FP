@@ -1,0 +1,340 @@
+{
+  "packages": [
+    {
+      "name": "MonadMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "MapEffect",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Maybe a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a -> Maybe b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "nested",
+              "type": "Maybe (Maybe b)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Flatten",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "nested",
+              "type": "Maybe (Maybe b)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Maybe a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a -> Maybe b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "BindComparison",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "BindComparison",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "fmap",
+                "type": "MapEffect",
+                "role": "function",
+                "tooltip": "fmap applies f but leaves a nested Maybe."
+              },
+              {
+                "kind": "action",
+                "id": "flatten",
+                "type": "Flatten"
+              },
+              {
+                "kind": "action",
+                "id": "bind",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": "bind combines mapping and flattening in one step."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "ma",
+                "type": "Maybe a",
+                "role": "type"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "a -> Maybe b",
+                "role": "hof",
+                "tooltip": "The next computation may itself return Nothing."
+              },
+              {
+                "kind": "object",
+                "id": "nested",
+                "type": "Maybe (Maybe b)"
+              },
+              {
+                "kind": "object",
+                "id": "flattened",
+                "type": "Maybe b"
+              },
+              {
+                "kind": "object",
+                "id": "bound",
+                "type": "Maybe b"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "ma",
+                "to": "fmap"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "fmap"
+              },
+              {
+                "kind": "flow",
+                "from": "fmap",
+                "to": "nested"
+              },
+              {
+                "kind": "flow",
+                "from": "nested",
+                "to": "flatten"
+              },
+              {
+                "kind": "flow",
+                "from": "flatten",
+                "to": "flattened"
+              },
+              {
+                "kind": "flow",
+                "from": "ma",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "bind",
+                "to": "bound"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "fmap": "function",
+              "bind": "function",
+              "ma": "type",
+              "f": "hof"
+            },
+            "tooltips": {
+              "fmap": "fmap applies f but leaves a nested Maybe.",
+              "bind": "bind combines mapping and flattening in one step.",
+              "f": "The next computation may itself return Nothing."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "BindComparison",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "fmap",
+              "type": "MapEffect",
+              "role": "function",
+              "tooltip": "fmap applies f but leaves a nested Maybe."
+            },
+            {
+              "kind": "action",
+              "id": "flatten",
+              "type": "Flatten"
+            },
+            {
+              "kind": "action",
+              "id": "bind",
+              "type": "Bind",
+              "role": "function",
+              "tooltip": "bind combines mapping and flattening in one step."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "ma",
+              "type": "Maybe a",
+              "role": "type"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "a -> Maybe b",
+              "role": "hof",
+              "tooltip": "The next computation may itself return Nothing."
+            },
+            {
+              "kind": "object",
+              "id": "nested",
+              "type": "Maybe (Maybe b)"
+            },
+            {
+              "kind": "object",
+              "id": "flattened",
+              "type": "Maybe b"
+            },
+            {
+              "kind": "object",
+              "id": "bound",
+              "type": "Maybe b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "ma",
+              "to": "fmap"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "fmap"
+            },
+            {
+              "kind": "flow",
+              "from": "fmap",
+              "to": "nested"
+            },
+            {
+              "kind": "flow",
+              "from": "nested",
+              "to": "flatten"
+            },
+            {
+              "kind": "flow",
+              "from": "flatten",
+              "to": "flattened"
+            },
+            {
+              "kind": "flow",
+              "from": "ma",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "bound"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "fmap": "function",
+            "bind": "function",
+            "ma": "type",
+            "f": "hof"
+          },
+          "tooltips": {
+            "fmap": "fmap applies f but leaves a nested Maybe.",
+            "bind": "bind combines mapping and flattening in one step.",
+            "f": "The next computation may itself return Nothing."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MonadMotivation",
+          "viewType": "FpActivityView",
+          "expose": "BindComparison",
+          "rendering": "fpActivityDiagram",
+          "title": "monad motivation",
+          "name": "bind",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "monad motivation",
+    "name": "bind",
+    "direction": "LR",
+    "render": "BindComparison",
+    "shows": {
+      "fmap": "function",
+      "bind": "function",
+      "ma": "type",
+      "f": "hof"
+    },
+    "tooltips": {
+      "fmap": "fmap applies f but leaves a nested Maybe.",
+      "bind": "bind combines mapping and flattening in one step.",
+      "f": "The next computation may itself return Nothing."
+    }
+  }
+}

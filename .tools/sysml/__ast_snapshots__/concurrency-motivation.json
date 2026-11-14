@@ -1,0 +1,351 @@
+{
+  "packages": [
+    {
+      "name": "ConcurrencyMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Locking",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "shared",
+              "type": "Shared State",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "outcome",
+              "type": "Race or deadlock",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "PureParallelism",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "Immutable Values",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "results",
+              "type": "Parallel Results",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Transaction",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "shared",
+              "type": "Shared State",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Atomic Result",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ActorMessage",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "message",
+              "type": "Immutable Message",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "delivered",
+              "type": "Isolated State",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ConcurrencyChoices",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ConcurrencyChoices",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "locking",
+                "type": "Locking",
+                "role": "function",
+                "tooltip": "Locks require coordination and can be misused."
+              },
+              {
+                "kind": "action",
+                "id": "parallel",
+                "type": "PureParallelism"
+              },
+              {
+                "kind": "action",
+                "id": "transaction",
+                "type": "Transaction"
+              },
+              {
+                "kind": "action",
+                "id": "actor",
+                "type": "ActorMessage"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "shared",
+                "type": "Shared State"
+              },
+              {
+                "kind": "object",
+                "id": "unsafe",
+                "type": "Race or deadlock"
+              },
+              {
+                "kind": "object",
+                "id": "values",
+                "type": "Immutable Values"
+              },
+              {
+                "kind": "object",
+                "id": "results",
+                "type": "Parallel Results"
+              },
+              {
+                "kind": "object",
+                "id": "atomic",
+                "type": "Atomic Result"
+              },
+              {
+                "kind": "object",
+                "id": "message",
+                "type": "Immutable Message"
+              },
+              {
+                "kind": "object",
+                "id": "isolated",
+                "type": "Isolated State"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "shared",
+                "to": "locking"
+              },
+              {
+                "kind": "flow",
+                "from": "locking",
+                "to": "unsafe"
+              },
+              {
+                "kind": "flow",
+                "from": "values",
+                "to": "parallel"
+              },
+              {
+                "kind": "flow",
+                "from": "parallel",
+                "to": "results"
+              },
+              {
+                "kind": "flow",
+                "from": "shared",
+                "to": "transaction"
+              },
+              {
+                "kind": "flow",
+                "from": "transaction",
+                "to": "atomic"
+              },
+              {
+                "kind": "flow",
+                "from": "message",
+                "to": "actor"
+              },
+              {
+                "kind": "flow",
+                "from": "actor",
+                "to": "isolated"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "locking": "function"
+            },
+            "tooltips": {
+              "locking": "Locks require coordination and can be misused."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ConcurrencyChoices",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "locking",
+              "type": "Locking",
+              "role": "function",
+              "tooltip": "Locks require coordination and can be misused."
+            },
+            {
+              "kind": "action",
+              "id": "parallel",
+              "type": "PureParallelism"
+            },
+            {
+              "kind": "action",
+              "id": "transaction",
+              "type": "Transaction"
+            },
+            {
+              "kind": "action",
+              "id": "actor",
+              "type": "ActorMessage"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "shared",
+              "type": "Shared State"
+            },
+            {
+              "kind": "object",
+              "id": "unsafe",
+              "type": "Race or deadlock"
+            },
+            {
+              "kind": "object",
+              "id": "values",
+              "type": "Immutable Values"
+            },
+            {
+              "kind": "object",
+              "id": "results",
+              "type": "Parallel Results"
+            },
+            {
+              "kind": "object",
+              "id": "atomic",
+              "type": "Atomic Result"
+            },
+            {
+              "kind": "object",
+              "id": "message",
+              "type": "Immutable Message"
+            },
+            {
+              "kind": "object",
+              "id": "isolated",
+              "type": "Isolated State"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "shared",
+              "to": "locking"
+            },
+            {
+              "kind": "flow",
+              "from": "locking",
+              "to": "unsafe"
+            },
+            {
+              "kind": "flow",
+              "from": "values",
+              "to": "parallel"
+            },
+            {
+              "kind": "flow",
+              "from": "parallel",
+              "to": "results"
+            },
+            {
+              "kind": "flow",
+              "from": "shared",
+              "to": "transaction"
+            },
+            {
+              "kind": "flow",
+              "from": "transaction",
+              "to": "atomic"
+            },
+            {
+              "kind": "flow",
+              "from": "message",
+              "to": "actor"
+            },
+            {
+              "kind": "flow",
+              "from": "actor",
+              "to": "isolated"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "locking": "function"
+          },
+          "tooltips": {
+            "locking": "Locks require coordination and can be misused."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ConcurrencyMotivation",
+          "viewType": "FpActivityView",
+          "expose": "ConcurrencyChoices",
+          "rendering": "fpActivityDiagram",
+          "title": "concurrency motivation",
+          "name": "concurrency",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "concurrency motivation",
+    "name": "concurrency",
+    "direction": "LR",
+    "render": "ConcurrencyChoices",
+    "shows": {
+      "locking": "function"
+    },
+    "tooltips": {
+      "locking": "Locks require coordination and can be misused."
+    }
+  }
+}

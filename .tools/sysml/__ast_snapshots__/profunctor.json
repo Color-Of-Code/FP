@@ -1,0 +1,108 @@
+{
+  "packages": [
+    {
+      "name": "ProfunctorOptic",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "OpticType",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "focused",
+              "type": "P a b",
+              "ports": [],
+              "role": "type",
+              "tooltip": "A profunctor with the optic's focused input and output types."
+            },
+            {
+              "kind": "part",
+              "id": "whole",
+              "type": "P s t",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The whole structure's input and output types."
+            },
+            {
+              "kind": "part",
+              "id": "constraint",
+              "type": "forall P. C P",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The optic is polymorphic in P, subject to a constraint such as Strong or Choice."
+            },
+            {
+              "kind": "part",
+              "id": "optic",
+              "type": "Optic C s t a b",
+              "ports": [],
+              "role": "function",
+              "tooltip": "An optic transforms the focused profunctor into the whole-structure profunctor."
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "focused",
+              "to": "optic"
+            },
+            {
+              "kind": "connection",
+              "from": "constraint",
+              "to": "optic"
+            },
+            {
+              "kind": "connection",
+              "from": "optic",
+              "to": "whole"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "focused": "type",
+            "whole": "type",
+            "constraint": "type",
+            "optic": "function"
+          },
+          "tooltips": {
+            "focused": "A profunctor with the optic's focused input and output types.",
+            "whole": "The whole structure's input and output types.",
+            "constraint": "The optic is polymorphic in P, subject to a constraint such as Strong or Choice.",
+            "optic": "An optic transforms the focused profunctor into the whole-structure profunctor."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ProfunctorOptic",
+          "viewType": "FpIbdView",
+          "expose": "OpticType",
+          "rendering": "fpIbdDiagram",
+          "title": "profunctor"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "profunctor",
+    "render": "OpticType",
+    "shows": {
+      "focused": "type",
+      "whole": "type",
+      "constraint": "type",
+      "optic": "function"
+    },
+    "tooltips": {
+      "focused": "A profunctor with the optic's focused input and output types.",
+      "whole": "The whole structure's input and output types.",
+      "constraint": "The optic is polymorphic in P, subject to a constraint such as Strong or Choice.",
+      "optic": "An optic transforms the focused profunctor into the whole-structure profunctor."
+    }
+  }
+}

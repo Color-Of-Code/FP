@@ -1,0 +1,219 @@
+{
+  "packages": [
+    {
+      "name": "StateOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunState",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "computation",
+              "type": "State s a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "initial",
+              "type": "s",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "resultState",
+              "type": "(a, s)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "StateProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "StateProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "runState",
+                "type": "RunState",
+                "role": "function",
+                "tooltip": "Run the computation with s₀. The output pair contains both the result and final state."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "computation",
+                "type": "State Int Int",
+                "role": "function",
+                "tooltip": "A State computation is a function s ⟶ (a, s); this example increments the counter and returns it."
+              },
+              {
+                "kind": "object",
+                "id": "initial",
+                "type": "Int",
+                "role": "value",
+                "tooltip": "Initial counter state s₀ = 0."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "(Int, Int)",
+                "role": "value",
+                "tooltip": "(result = 1, final state = 1)"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "computation",
+                "to": "runState",
+                "label": "State Int Int"
+              },
+              {
+                "kind": "flow",
+                "from": "initial",
+                "to": "runState",
+                "label": "Int"
+              },
+              {
+                "kind": "flow",
+                "from": "runState",
+                "to": "result",
+                "label": "(Int, Int)"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "runState": "function",
+              "computation": "function",
+              "initial": "value",
+              "result": "value"
+            },
+            "tooltips": {
+              "runState": "Run the computation with s₀. The output pair contains both the result and final state.",
+              "computation": "A State computation is a function s ⟶ (a, s); this example increments the counter and returns it.",
+              "initial": "Initial counter state s₀ = 0.",
+              "result": "(result = 1, final state = 1)"
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "StateProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "runState",
+              "type": "RunState",
+              "role": "function",
+              "tooltip": "Run the computation with s₀. The output pair contains both the result and final state."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "computation",
+              "type": "State Int Int",
+              "role": "function",
+              "tooltip": "A State computation is a function s ⟶ (a, s); this example increments the counter and returns it."
+            },
+            {
+              "kind": "object",
+              "id": "initial",
+              "type": "Int",
+              "role": "value",
+              "tooltip": "Initial counter state s₀ = 0."
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "(Int, Int)",
+              "role": "value",
+              "tooltip": "(result = 1, final state = 1)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "computation",
+              "to": "runState",
+              "label": "State Int Int"
+            },
+            {
+              "kind": "flow",
+              "from": "initial",
+              "to": "runState",
+              "label": "Int"
+            },
+            {
+              "kind": "flow",
+              "from": "runState",
+              "to": "result",
+              "label": "(Int, Int)"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "runState": "function",
+            "computation": "function",
+            "initial": "value",
+            "result": "value"
+          },
+          "tooltips": {
+            "runState": "Run the computation with s₀. The output pair contains both the result and final state.",
+            "computation": "A State computation is a function s ⟶ (a, s); this example increments the counter and returns it.",
+            "initial": "Initial counter state s₀ = 0.",
+            "result": "(result = 1, final state = 1)"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "StateOverview",
+          "viewType": "FpActivityView",
+          "expose": "StateProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Running a State computation returns both its value and updated state",
+          "name": "State",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "Running a State computation returns both its value and updated state",
+    "name": "State",
+    "direction": "LR",
+    "render": "StateProcess",
+    "shows": {
+      "runState": "function",
+      "computation": "function",
+      "initial": "value",
+      "result": "value"
+    },
+    "tooltips": {
+      "runState": "Run the computation with s₀. The output pair contains both the result and final state.",
+      "computation": "A State computation is a function s ⟶ (a, s); this example increments the counter and returns it.",
+      "initial": "Initial counter state s₀ = 0.",
+      "result": "(result = 1, final state = 1)"
+    }
+  }
+}

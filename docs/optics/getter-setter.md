@@ -9,7 +9,7 @@
   also a valid Setter, but a Setter may target external mutable state where reading back is not
   meaningful.
 
-![getter setter](getter-setter/getter-setter.svg)
+![Getter reads one value; Setter modifies focused values](getter-setter/getter-setter.svg)
 
 ## Types
 
@@ -97,8 +97,6 @@ prices' = map (+ tax) (map (* 1.1) prices)
 -- pricesS = sets (map)  (lift list's map into a Setter)
 -- over (mapped . price) (* 1.1) orders   -- single-pass, composable
 ```
-
-![getter setter motivation](getter-setter/getter-setter-motivation.svg)
 
 ## Examples
 

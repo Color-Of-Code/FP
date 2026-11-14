@@ -1,139 +1,170 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 962 798"><svg class="d2-2019014646 d2-svg" width="962" height="798" viewBox="-89 -89 962 798"><rect x="-89.000000" y="-89.000000" width="962.000000" height="798.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
-.d2-2019014646 .text {
-	font-family: "d2-2019014646-font-regular";
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056.8 186" width="1056.8" height="186" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">uniform assigns weights and probability sums matching outcomes</title>
+  <desc id="diagram-description">Functional programming diagram: uniform assigns weights and probability sums matching outcomes</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
 }
-@font-face {
-	font-family: d2-2019014646-font-regular;
-	src: url("data:application/font-woff;base64,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");
-}
-.appendix-icon {
-	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
-}
-.d2-2019014646 .text-bold {
-	font-family: "d2-2019014646-font-bold";
-}
-@font-face {
-	font-family: d2-2019014646-font-bold;
-	src: url("data:application/font-woff;base64,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");
-}]]></style><style type="text/css"><![CDATA[.shape {
-  shape-rendering: geometricPrecision;
-  stroke-linejoin: round;
-}
-.connection {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.blend {
-  mix-blend-mode: multiply;
-  opacity: 0.5;
-}
-
-		.d2-2019014646 .fill-N1{fill:#0A0F25;}
-		.d2-2019014646 .fill-N2{fill:#676C7E;}
-		.d2-2019014646 .fill-N3{fill:#9499AB;}
-		.d2-2019014646 .fill-N4{fill:#CFD2DD;}
-		.d2-2019014646 .fill-N5{fill:#DEE1EB;}
-		.d2-2019014646 .fill-N6{fill:#EEF1F8;}
-		.d2-2019014646 .fill-N7{fill:#FFFFFF;}
-		.d2-2019014646 .fill-B1{fill:#0D32B2;}
-		.d2-2019014646 .fill-B2{fill:#0D32B2;}
-		.d2-2019014646 .fill-B3{fill:#E3E9FD;}
-		.d2-2019014646 .fill-B4{fill:#E3E9FD;}
-		.d2-2019014646 .fill-B5{fill:#EDF0FD;}
-		.d2-2019014646 .fill-B6{fill:#F7F8FE;}
-		.d2-2019014646 .fill-AA2{fill:#4A6FF3;}
-		.d2-2019014646 .fill-AA4{fill:#EDF0FD;}
-		.d2-2019014646 .fill-AA5{fill:#F7F8FE;}
-		.d2-2019014646 .fill-AB4{fill:#EDF0FD;}
-		.d2-2019014646 .fill-AB5{fill:#F7F8FE;}
-		.d2-2019014646 .stroke-N1{stroke:#0A0F25;}
-		.d2-2019014646 .stroke-N2{stroke:#676C7E;}
-		.d2-2019014646 .stroke-N3{stroke:#9499AB;}
-		.d2-2019014646 .stroke-N4{stroke:#CFD2DD;}
-		.d2-2019014646 .stroke-N5{stroke:#DEE1EB;}
-		.d2-2019014646 .stroke-N6{stroke:#EEF1F8;}
-		.d2-2019014646 .stroke-N7{stroke:#FFFFFF;}
-		.d2-2019014646 .stroke-B1{stroke:#0D32B2;}
-		.d2-2019014646 .stroke-B2{stroke:#0D32B2;}
-		.d2-2019014646 .stroke-B3{stroke:#E3E9FD;}
-		.d2-2019014646 .stroke-B4{stroke:#E3E9FD;}
-		.d2-2019014646 .stroke-B5{stroke:#EDF0FD;}
-		.d2-2019014646 .stroke-B6{stroke:#F7F8FE;}
-		.d2-2019014646 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-2019014646 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-2019014646 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-2019014646 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-2019014646 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-2019014646 .background-color-N1{background-color:#0A0F25;}
-		.d2-2019014646 .background-color-N2{background-color:#676C7E;}
-		.d2-2019014646 .background-color-N3{background-color:#9499AB;}
-		.d2-2019014646 .background-color-N4{background-color:#CFD2DD;}
-		.d2-2019014646 .background-color-N5{background-color:#DEE1EB;}
-		.d2-2019014646 .background-color-N6{background-color:#EEF1F8;}
-		.d2-2019014646 .background-color-N7{background-color:#FFFFFF;}
-		.d2-2019014646 .background-color-B1{background-color:#0D32B2;}
-		.d2-2019014646 .background-color-B2{background-color:#0D32B2;}
-		.d2-2019014646 .background-color-B3{background-color:#E3E9FD;}
-		.d2-2019014646 .background-color-B4{background-color:#E3E9FD;}
-		.d2-2019014646 .background-color-B5{background-color:#EDF0FD;}
-		.d2-2019014646 .background-color-B6{background-color:#F7F8FE;}
-		.d2-2019014646 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-2019014646 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-2019014646 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-2019014646 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-2019014646 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-2019014646 .color-N1{color:#0A0F25;}
-		.d2-2019014646 .color-N2{color:#676C7E;}
-		.d2-2019014646 .color-N3{color:#9499AB;}
-		.d2-2019014646 .color-N4{color:#CFD2DD;}
-		.d2-2019014646 .color-N5{color:#DEE1EB;}
-		.d2-2019014646 .color-N6{color:#EEF1F8;}
-		.d2-2019014646 .color-N7{color:#FFFFFF;}
-		.d2-2019014646 .color-B1{color:#0D32B2;}
-		.d2-2019014646 .color-B2{color:#0D32B2;}
-		.d2-2019014646 .color-B3{color:#E3E9FD;}
-		.d2-2019014646 .color-B4{color:#E3E9FD;}
-		.d2-2019014646 .color-B5{color:#EDF0FD;}
-		.d2-2019014646 .color-B6{color:#F7F8FE;}
-		.d2-2019014646 .color-AA2{color:#4A6FF3;}
-		.d2-2019014646 .color-AA4{color:#EDF0FD;}
-		.d2-2019014646 .color-AA5{color:#F7F8FE;}
-		.d2-2019014646 .color-AB4{color:#EDF0FD;}
-		.d2-2019014646 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-2019014646);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-2019014646);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-2019014646);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-2019014646);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-2019014646);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-2019014646);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-2019014646);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-2019014646);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><defs>
-	<filter id="shadow-filter" width="200%" height="200%" x="-50%" y="-50%">
-		<feGaussianBlur stdDeviation="1.7 " in="SourceGraphic"></feGaussianBlur>
-		<feFlood flood-color="#3d4574" flood-opacity="0.4" result="ShadowFeFlood" in="SourceGraphic"></feFlood>
-		<feComposite in="ShadowFeFlood" in2="SourceAlpha" operator="in" result="ShadowFeComposite"></feComposite>
-		<feOffset dx="3" dy="5" result="ShadowFeOffset" in="ShadowFeComposite"></feOffset>
-		<feBlend in="SourceGraphic" in2="ShadowFeOffset" mode="normal" result="ShadowFeBlend"></feBlend>
-	</filter>
-</defs><g class="cHJpbWl0aXZlcw=="><g class="shape" ><rect x="12.000000" y="12.000000" width="760.000000" height="596.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="392.000000" y="45.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">primitive operations</text></g><g class="cHJpbWl0aXZlcy51bmlmb3Jt"><g class="shape" ><rect x="62.000000" y="62.000000" width="660.000000" height="296.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="392.000000" y="91.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">uniform xs -&gt; Prob a</text></g><g class="cHJpbWl0aXZlcy5wcm9iX29w"><g class="shape" ><rect x="130.000000" y="378.000000" width="524.000000" height="180.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="392.000000" y="407.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">probability pred dist -&gt; Double</text></g><g class="cHJpbWl0aXZlcy51bmlmb3JtLnhz value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="61.000000" ry="61.000000" cx="173.000000" cy="210.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="173.000000" y="215.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">[x1, x2, ..., xn]</text></g><g class="cHJpbWl0aXZlcy51bmlmb3JtLm9w function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="304.000000" y="177.000000" width="102.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="355.000000" y="215.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">uniform</text><title>Assign equal probability 1/n to each element.</title></g><g class="cHJpbWl0aXZlcy51bmlmb3JtLm91dA== value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="98.000000" ry="98.000000" cx="574.000000" cy="210.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="574.000000" y="215.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">[(x1, 1/n), ..., (xn, 1/n)]</text></g><g class="cHJpbWl0aXZlcy5wcm9iX29wLmRpc3Qy type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="220.000000" cy="468.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="220.000000" cy="468.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="220.000000" y="473.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Prob a</text></g><g class="cHJpbWl0aXZlcy5wcm9iX29wLm9wMg== function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="330.000000" y="435.000000" width="124.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="392.000000" y="473.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">probability</text><title>Sum the probabilities of all outcomes where pred holds.</title></g><g class="cHJpbWl0aXZlcy5wcm9iX29wLnA= value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="564.000000" cy="468.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="564.000000" y="473.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Double</text></g><g class="cHJpbWl0aXZlcy51bmlmb3JtLih4cyAtJmd0OyBvcClbMF0="><marker id="mk-d2-2019014646-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 235.500000 210.000000 L 300.500000 210.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2019014646-3488378134)" mask="url(#d2-2019014646)" /></g><g class="cHJpbWl0aXZlcy51bmlmb3JtLihvcCAtJmd0OyBvdXQpWzBd"><path d="M 407.500000 210.000000 L 472.500000 210.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2019014646-3488378134)" mask="url(#d2-2019014646)" /></g><g class="cHJpbWl0aXZlcy5wcm9iX29wLihkaXN0MiAtJmd0OyBvcDIpWzBd"><path d="M 261.500000 468.000000 L 326.500000 468.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2019014646-3488378134)" mask="url(#d2-2019014646)" /></g><g class="cHJpbWl0aXZlcy5wcm9iX29wLihvcDIgLSZndDsgcClbMF0="><path d="M 455.500000 468.000000 L 520.500000 468.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2019014646-3488378134)" mask="url(#d2-2019014646)" /></g><g transform="translate(390 161)" class="appendix-icon"><title>Assign equal probability 1/n to each element.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2019014646-OBZGS3LJORUXMZLTFZ2W42LGN5ZG2LTPOA)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2019014646-OBZGS3LJORUXMZLTFZ2W42LGN5ZG2LTPOA">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="528.4" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">uniform assigns weights and probability sums matching outcomes</text>
+  <g transform="translate(0,28) scale(1)">
+    <rect x="0" y="0" width="1056.8" height="158" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-activity">
+      <path d="M0,0 L152.4,0 L152.4,12 L142.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+      <text x="76.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«activity» Probability</text>
+    </g>
+    <g class="edge">
+      <path d="M146.0,74.0 L230.0,74.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="194" y="68" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">List Outcome</text>
+    </g>
+    <g class="edge">
+      <path d="M374.0,68.0 L471.4,68.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="430.7" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Prob Outcome</text>
+    </g>
+    <g class="edge">
+      <path d="M593.4,68.0 L696.8,68.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="651.0999999999999" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Prob Outcome</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M598.8,120.0 L692.8,120.0 Q698.8,120.0 698.8,114.0 L698.8,83.0 L698.8,83.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="648.8" y="114" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Outcome ⟶ Bool</text>
+    </g>
+    <g class="edge">
+      <path d="M840.8,72.0 L898.8,72.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="877.8" y="66" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Double</text>
+    </g>
+    <g class="edge">
+      <path d="M370.0,84.0 L382.0,84.0 Q388.0,84.0 388.0,78.0 L388.0,46.0 Q388.0,40.0 394.0,40.0 L692.8,40.0 Q698.8,40.0 698.8,46.0 L698.8,54.0 Q698.8,57.0 701.8,57.0 L704.8,57.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+    </g>
+    <g class="action-node">
+      <title>Assign equal weight 1/n to every possible outcome.</title>
+      <rect x="250" y="52" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="310" y="74" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">uniform</text>
+      <g class="pin pin-in">
+        <rect x="246" y="70" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="256" y="74" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">values</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="366" y="70" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="364" y="74" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">dist</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>Sum the weights of outcomes for which the predicate is true.</title>
+      <rect x="716.8" y="50" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="776.8" y="72" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">probability</text>
+      <g class="pin pin-in">
+        <rect x="712.8" y="60.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="722.8" y="64.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">dist</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="712.8" y="75.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="722.8" y="79.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">pred</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="832.8" y="68" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="830.8" y="72" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">p</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>[Heads, Tails]</title>
+      <rect x="36" y="55" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="91" y="74" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">List Outcome</text>
+    </g>
+    <g class="object-node">
+      <title>A distribution of outcomes with probabilities that sum to 1.</title>
+      <rect x="483.4" y="49" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="538.4" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Prob Outcome</text>
+    </g>
+    <g class="object-node hof">
+      <title>isHeads : Outcome ⟶ Bool</title>
+      <rect x="478" y="101" width="120.8" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="538.4" y="113" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="538.4" y="127" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Outcome ⟶ Bool</text>
+    </g>
+    <g class="object-node">
+      <title>The total probability of Heads; for a fair two-outcome list this is 0.5.</title>
+      <rect x="910.8" y="53" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="965.8" y="72" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Double</text>
+    </g>
+  </g>
 </svg>
-</g><g transform="translate(438 419)" class="appendix-icon"><title>Sum the probabilities of all outcomes where pred holds.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2019014646-OBZGS3LJORUXMZLTFZYHE33CL5XXALTPOAZA)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2019014646-OBZGS3LJORUXMZLTFZYHE33CL5XXALTPOAZA">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><mask id="d2-2019014646" maskUnits="userSpaceOnUse" x="-89" y="-89" width="962" height="798">
-<rect x="-89" y="-89" width="962" height="798" fill="white"></rect>
-
-</mask></svg></svg>

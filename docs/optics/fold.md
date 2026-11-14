@@ -5,7 +5,7 @@ _aggregate_ them, but provides no way to set or modify them. It is the weakest o
 you observe multiple values — a strict generalisation of `Getter` (one value) and a weaker version
 of `Traversal` (which also allows writes).
 
-![fold](fold/fold.svg)
+![Fold composes read-only paths to collect zero or more values](fold/fold-optic.svg)
 
 ## Type
 
@@ -58,8 +58,6 @@ count        = lengthOf pricesF cart
 firstPrice   = preview  pricesF cart
 -- The path is a value; any fold function works with it.
 ```
-
-![fold motivation](fold/fold-motivation.svg)
 
 ## Examples
 

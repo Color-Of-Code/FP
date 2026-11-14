@@ -4,7 +4,7 @@ The **Continuation monad** (`Cont`) models computations as **functions that take
 continuation** — a callback that says "what to do with the result next". Making continuations
 explicit gives first-class control over the flow of a program.
 
-![cont monad](cont/cont.svg)
+![A Cont computation waits for its continuation to produce the final result](cont/cont.svg)
 
 ![bind :: Cont r a ⟶ (a ⟶ Cont r b) ⟶ Cont r b — also called: Bind, >>=](cont/cont-ibd.svg)
 

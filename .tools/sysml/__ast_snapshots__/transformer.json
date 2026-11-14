@@ -1,0 +1,111 @@
+{
+  "packages": [
+    {
+      "name": "TransformerStack",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "AppStack",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "reader",
+              "type": "ReaderT r",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The outer layer provides the environment."
+            },
+            {
+              "kind": "part",
+              "id": "except",
+              "type": "ExceptT e",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The next layer adds typed failure."
+            },
+            {
+              "kind": "part",
+              "id": "writer",
+              "type": "WriterT w",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The inner effect accumulates a log."
+            },
+            {
+              "kind": "part",
+              "id": "base",
+              "type": "Identity",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The base monad supplies the final interpretation."
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "reader",
+              "to": "except",
+              "label": "wraps"
+            },
+            {
+              "kind": "connection",
+              "from": "except",
+              "to": "writer",
+              "label": "wraps"
+            },
+            {
+              "kind": "connection",
+              "from": "writer",
+              "to": "base",
+              "label": "base"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "reader": "type",
+            "except": "type",
+            "writer": "type",
+            "base": "type"
+          },
+          "tooltips": {
+            "reader": "The outer layer provides the environment.",
+            "except": "The next layer adds typed failure.",
+            "writer": "The inner effect accumulates a log.",
+            "base": "The base monad supplies the final interpretation."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TransformerStack",
+          "viewType": "FpIbdView",
+          "expose": "AppStack",
+          "rendering": "fpIbdDiagram",
+          "title": "transformer stack"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "transformer stack",
+    "render": "AppStack",
+    "shows": {
+      "reader": "type",
+      "except": "type",
+      "writer": "type",
+      "base": "type"
+    },
+    "tooltips": {
+      "reader": "The outer layer provides the environment.",
+      "except": "The next layer adds typed failure.",
+      "writer": "The inner effect accumulates a log.",
+      "base": "The base monad supplies the final interpretation."
+    }
+  }
+}

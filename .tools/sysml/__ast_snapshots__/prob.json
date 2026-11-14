@@ -1,0 +1,313 @@
+{
+  "packages": [
+    {
+      "name": "ProbabilityOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Uniform",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "List a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "dist",
+              "type": "Prob a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Probability",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "dist",
+              "type": "Prob a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pred",
+              "type": "a ⟶ Bool",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "p",
+              "type": "Double",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ProbabilityProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ProbabilityProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "uniform",
+                "type": "Uniform",
+                "role": "function",
+                "tooltip": "Assign equal weight 1/n to every possible outcome."
+              },
+              {
+                "kind": "action",
+                "id": "probability",
+                "type": "Probability",
+                "role": "function",
+                "tooltip": "Sum the weights of outcomes for which the predicate is true."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "values",
+                "type": "List Outcome",
+                "role": "value",
+                "tooltip": "[Heads, Tails]"
+              },
+              {
+                "kind": "object",
+                "id": "dist",
+                "type": "Prob Outcome",
+                "role": "type",
+                "tooltip": "A distribution of outcomes with probabilities that sum to 1."
+              },
+              {
+                "kind": "object",
+                "id": "predicate",
+                "type": "Outcome ⟶ Bool",
+                "role": "hof",
+                "tooltip": "isHeads : Outcome ⟶ Bool"
+              },
+              {
+                "kind": "object",
+                "id": "p",
+                "type": "Double",
+                "role": "value",
+                "tooltip": "The total probability of Heads; for a fair two-outcome list this is 0.5."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "values",
+                "to": "uniform",
+                "label": "List Outcome"
+              },
+              {
+                "kind": "flow",
+                "from": "uniform",
+                "to": "dist",
+                "label": "Prob Outcome"
+              },
+              {
+                "kind": "flow",
+                "from": "dist",
+                "to": "probability",
+                "label": "Prob Outcome"
+              },
+              {
+                "kind": "flow",
+                "from": "predicate",
+                "to": "probability",
+                "label": "Outcome ⟶ Bool"
+              },
+              {
+                "kind": "flow",
+                "from": "probability",
+                "to": "p",
+                "label": "Double"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "uniform",
+                "to": "probability"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "uniform": "function",
+              "probability": "function",
+              "values": "value",
+              "dist": "type",
+              "predicate": "hof",
+              "p": "value"
+            },
+            "tooltips": {
+              "uniform": "Assign equal weight 1/n to every possible outcome.",
+              "probability": "Sum the weights of outcomes for which the predicate is true.",
+              "values": "[Heads, Tails]",
+              "dist": "A distribution of outcomes with probabilities that sum to 1.",
+              "predicate": "isHeads : Outcome ⟶ Bool",
+              "p": "The total probability of Heads; for a fair two-outcome list this is 0.5."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ProbabilityProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "uniform",
+              "type": "Uniform",
+              "role": "function",
+              "tooltip": "Assign equal weight 1/n to every possible outcome."
+            },
+            {
+              "kind": "action",
+              "id": "probability",
+              "type": "Probability",
+              "role": "function",
+              "tooltip": "Sum the weights of outcomes for which the predicate is true."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "values",
+              "type": "List Outcome",
+              "role": "value",
+              "tooltip": "[Heads, Tails]"
+            },
+            {
+              "kind": "object",
+              "id": "dist",
+              "type": "Prob Outcome",
+              "role": "type",
+              "tooltip": "A distribution of outcomes with probabilities that sum to 1."
+            },
+            {
+              "kind": "object",
+              "id": "predicate",
+              "type": "Outcome ⟶ Bool",
+              "role": "hof",
+              "tooltip": "isHeads : Outcome ⟶ Bool"
+            },
+            {
+              "kind": "object",
+              "id": "p",
+              "type": "Double",
+              "role": "value",
+              "tooltip": "The total probability of Heads; for a fair two-outcome list this is 0.5."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "values",
+              "to": "uniform",
+              "label": "List Outcome"
+            },
+            {
+              "kind": "flow",
+              "from": "uniform",
+              "to": "dist",
+              "label": "Prob Outcome"
+            },
+            {
+              "kind": "flow",
+              "from": "dist",
+              "to": "probability",
+              "label": "Prob Outcome"
+            },
+            {
+              "kind": "flow",
+              "from": "predicate",
+              "to": "probability",
+              "label": "Outcome ⟶ Bool"
+            },
+            {
+              "kind": "flow",
+              "from": "probability",
+              "to": "p",
+              "label": "Double"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "uniform",
+              "to": "probability"
+            }
+          ],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "uniform": "function",
+            "probability": "function",
+            "values": "value",
+            "dist": "type",
+            "predicate": "hof",
+            "p": "value"
+          },
+          "tooltips": {
+            "uniform": "Assign equal weight 1/n to every possible outcome.",
+            "probability": "Sum the weights of outcomes for which the predicate is true.",
+            "values": "[Heads, Tails]",
+            "dist": "A distribution of outcomes with probabilities that sum to 1.",
+            "predicate": "isHeads : Outcome ⟶ Bool",
+            "p": "The total probability of Heads; for a fair two-outcome list this is 0.5."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ProbabilityOverview",
+          "viewType": "FpActivityView",
+          "expose": "ProbabilityProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "uniform assigns weights and probability sums matching outcomes",
+          "name": "Probability",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "uniform assigns weights and probability sums matching outcomes",
+    "name": "Probability",
+    "direction": "LR",
+    "render": "ProbabilityProcess",
+    "shows": {
+      "uniform": "function",
+      "probability": "function",
+      "values": "value",
+      "dist": "type",
+      "predicate": "hof",
+      "p": "value"
+    },
+    "tooltips": {
+      "uniform": "Assign equal weight 1/n to every possible outcome.",
+      "probability": "Sum the weights of outcomes for which the predicate is true.",
+      "values": "[Heads, Tails]",
+      "dist": "A distribution of outcomes with probabilities that sum to 1.",
+      "predicate": "isHeads : Outcome ⟶ Bool",
+      "p": "The total probability of Heads; for a fair two-outcome list this is 0.5."
+    }
+  }
+}

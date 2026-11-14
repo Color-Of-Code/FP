@@ -1,0 +1,151 @@
+{
+  "packages": [
+    {
+      "name": "LensOptic",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "ComposedLens",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "addressL",
+              "type": "Lens Person Address",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "cityL",
+              "type": "Lens Address City",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "compose",
+              "type": "lens composition",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "personCityL",
+              "type": "Lens Person City",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "person",
+              "type": "Person",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "getOp",
+              "type": "get",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "city",
+              "type": "City",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "replacementCity",
+              "type": "City",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "setOp",
+              "type": "set",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "updatedPerson",
+              "type": "Person",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "addressL",
+              "to": "compose"
+            },
+            {
+              "kind": "connection",
+              "from": "cityL",
+              "to": "compose"
+            },
+            {
+              "kind": "connection",
+              "from": "compose",
+              "to": "personCityL"
+            },
+            {
+              "kind": "connection",
+              "from": "personCityL",
+              "to": "getOp"
+            },
+            {
+              "kind": "connection",
+              "from": "person",
+              "to": "getOp"
+            },
+            {
+              "kind": "connection",
+              "from": "getOp",
+              "to": "city"
+            },
+            {
+              "kind": "connection",
+              "from": "personCityL",
+              "to": "setOp"
+            },
+            {
+              "kind": "connection",
+              "from": "person",
+              "to": "setOp"
+            },
+            {
+              "kind": "connection",
+              "from": "replacementCity",
+              "to": "setOp"
+            },
+            {
+              "kind": "connection",
+              "from": "setOp",
+              "to": "updatedPerson"
+            }
+          ],
+          "notes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "LensOptic",
+          "viewType": "FpIbdView",
+          "expose": "ComposedLens",
+          "rendering": "fpIbdDiagram",
+          "title": "Lens composes field paths for get and set"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "Lens composes field paths for get and set",
+    "render": "ComposedLens",
+    "shows": {},
+    "tooltips": {}
+  }
+}

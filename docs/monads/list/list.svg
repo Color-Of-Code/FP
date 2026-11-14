@@ -1,126 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1204 1032"><svg class="d2-2307821117 d2-svg" width="1204" height="1032" viewBox="-89 -89 1204 1032"><rect x="-89.000000" y="-89.000000" width="1204.000000" height="1032.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
-.d2-2307821117 .text {
-	font-family: "d2-2307821117-font-regular";
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 624.8 177" width="624.8" height="177" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">List bind applies a function to each element and concatenates the results</title>
+  <desc id="diagram-description">Functional programming diagram: List bind applies a function to each element and concatenates the results</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
 }
-@font-face {
-	font-family: d2-2307821117-font-regular;
-	src: url("data:application/font-woff;base64,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");
-}
-.appendix-icon {
-	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
-}
-.d2-2307821117 .text-bold {
-	font-family: "d2-2307821117-font-bold";
-}
-@font-face {
-	font-family: d2-2307821117-font-bold;
-	src: url("data:application/font-woff;base64,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");
-}]]></style><style type="text/css"><![CDATA[.shape {
-  shape-rendering: geometricPrecision;
-  stroke-linejoin: round;
-}
-.connection {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.blend {
-  mix-blend-mode: multiply;
-  opacity: 0.5;
-}
-
-		.d2-2307821117 .fill-N1{fill:#0A0F25;}
-		.d2-2307821117 .fill-N2{fill:#676C7E;}
-		.d2-2307821117 .fill-N3{fill:#9499AB;}
-		.d2-2307821117 .fill-N4{fill:#CFD2DD;}
-		.d2-2307821117 .fill-N5{fill:#DEE1EB;}
-		.d2-2307821117 .fill-N6{fill:#EEF1F8;}
-		.d2-2307821117 .fill-N7{fill:#FFFFFF;}
-		.d2-2307821117 .fill-B1{fill:#0D32B2;}
-		.d2-2307821117 .fill-B2{fill:#0D32B2;}
-		.d2-2307821117 .fill-B3{fill:#E3E9FD;}
-		.d2-2307821117 .fill-B4{fill:#E3E9FD;}
-		.d2-2307821117 .fill-B5{fill:#EDF0FD;}
-		.d2-2307821117 .fill-B6{fill:#F7F8FE;}
-		.d2-2307821117 .fill-AA2{fill:#4A6FF3;}
-		.d2-2307821117 .fill-AA4{fill:#EDF0FD;}
-		.d2-2307821117 .fill-AA5{fill:#F7F8FE;}
-		.d2-2307821117 .fill-AB4{fill:#EDF0FD;}
-		.d2-2307821117 .fill-AB5{fill:#F7F8FE;}
-		.d2-2307821117 .stroke-N1{stroke:#0A0F25;}
-		.d2-2307821117 .stroke-N2{stroke:#676C7E;}
-		.d2-2307821117 .stroke-N3{stroke:#9499AB;}
-		.d2-2307821117 .stroke-N4{stroke:#CFD2DD;}
-		.d2-2307821117 .stroke-N5{stroke:#DEE1EB;}
-		.d2-2307821117 .stroke-N6{stroke:#EEF1F8;}
-		.d2-2307821117 .stroke-N7{stroke:#FFFFFF;}
-		.d2-2307821117 .stroke-B1{stroke:#0D32B2;}
-		.d2-2307821117 .stroke-B2{stroke:#0D32B2;}
-		.d2-2307821117 .stroke-B3{stroke:#E3E9FD;}
-		.d2-2307821117 .stroke-B4{stroke:#E3E9FD;}
-		.d2-2307821117 .stroke-B5{stroke:#EDF0FD;}
-		.d2-2307821117 .stroke-B6{stroke:#F7F8FE;}
-		.d2-2307821117 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-2307821117 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-2307821117 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-2307821117 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-2307821117 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-2307821117 .background-color-N1{background-color:#0A0F25;}
-		.d2-2307821117 .background-color-N2{background-color:#676C7E;}
-		.d2-2307821117 .background-color-N3{background-color:#9499AB;}
-		.d2-2307821117 .background-color-N4{background-color:#CFD2DD;}
-		.d2-2307821117 .background-color-N5{background-color:#DEE1EB;}
-		.d2-2307821117 .background-color-N6{background-color:#EEF1F8;}
-		.d2-2307821117 .background-color-N7{background-color:#FFFFFF;}
-		.d2-2307821117 .background-color-B1{background-color:#0D32B2;}
-		.d2-2307821117 .background-color-B2{background-color:#0D32B2;}
-		.d2-2307821117 .background-color-B3{background-color:#E3E9FD;}
-		.d2-2307821117 .background-color-B4{background-color:#E3E9FD;}
-		.d2-2307821117 .background-color-B5{background-color:#EDF0FD;}
-		.d2-2307821117 .background-color-B6{background-color:#F7F8FE;}
-		.d2-2307821117 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-2307821117 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-2307821117 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-2307821117 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-2307821117 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-2307821117 .color-N1{color:#0A0F25;}
-		.d2-2307821117 .color-N2{color:#676C7E;}
-		.d2-2307821117 .color-N3{color:#9499AB;}
-		.d2-2307821117 .color-N4{color:#CFD2DD;}
-		.d2-2307821117 .color-N5{color:#DEE1EB;}
-		.d2-2307821117 .color-N6{color:#EEF1F8;}
-		.d2-2307821117 .color-N7{color:#FFFFFF;}
-		.d2-2307821117 .color-B1{color:#0D32B2;}
-		.d2-2307821117 .color-B2{color:#0D32B2;}
-		.d2-2307821117 .color-B3{color:#E3E9FD;}
-		.d2-2307821117 .color-B4{color:#E3E9FD;}
-		.d2-2307821117 .color-B5{color:#EDF0FD;}
-		.d2-2307821117 .color-B6{color:#F7F8FE;}
-		.d2-2307821117 .color-AA2{color:#4A6FF3;}
-		.d2-2307821117 .color-AA4{color:#EDF0FD;}
-		.d2-2307821117 .color-AA5{color:#F7F8FE;}
-		.d2-2307821117 .color-AB4{color:#EDF0FD;}
-		.d2-2307821117 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-2307821117);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-2307821117);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-2307821117);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-2307821117);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-2307821117);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-2307821117);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-2307821117);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-2307821117);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><defs>
-	<filter id="shadow-filter" width="200%" height="200%" x="-50%" y="-50%">
-		<feGaussianBlur stdDeviation="1.7 " in="SourceGraphic"></feGaussianBlur>
-		<feFlood flood-color="#3d4574" flood-opacity="0.4" result="ShadowFeFlood" in="SourceGraphic"></feFlood>
-		<feComposite in="ShadowFeFlood" in2="SourceAlpha" operator="in" result="ShadowFeComposite"></feComposite>
-		<feOffset dx="3" dy="5" result="ShadowFeOffset" in="ShadowFeComposite"></feOffset>
-		<feBlend in="SourceGraphic" in2="ShadowFeOffset" mode="normal" result="ShadowFeBlend"></feBlend>
-	</filter>
-</defs><g class="ZXhhbXBsZQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="1002.000000" height="480.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="513.000000" y="45.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">expand each x to x and x*10</text></g><g class="ZXhhbXBsZTI="><g class="shape" ><rect x="138.000000" y="512.000000" width="750.000000" height="330.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="513.000000" y="545.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">cartesian product</text></g><g class="ZXhhbXBsZS5pbnB1dA== type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="102.000000" cy="252.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="102.000000" cy="252.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="102.000000" y="257.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">List [1, 2]</text></g><g class="ZXhhbXBsZS5lMQ=="><g class="shape" ><rect x="222.000000" y="62.000000" width="521.000000" height="180.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="482.500000" y="91.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">element 1</text></g><g class="ZXhhbXBsZS5lMg=="><g class="shape" ><rect x="222.000000" y="262.000000" width="521.000000" height="180.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="482.500000" y="291.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">element 2</text></g><g class="ZXhhbXBsZS5yZXN1bHQ= type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="70.500000" ry="70.500000" cx="893.500000" cy="251.500000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="65.500000" ry="65.500000" cx="893.500000" cy="251.500000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="893.500000" y="256.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">List [1, 10, 2, 20]</text></g><g class="ZXhhbXBsZTIubGE= type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="228.000000" cy="677.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="228.000000" cy="677.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="228.000000" y="682.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">List [1, 2]</text></g><g class="ZXhhbXBsZTIuYmluZDE= function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="338.000000" y="644.000000" width="200.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="438.000000" y="682.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">bind (x -&gt; [(x,a),(x,b)])</text><title>For each x in the input list, produce pairs with every element of the second list, then flatten all results.</title></g><g class="ZXhhbXBsZTIucmVzdWx0Mg== type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="115.000000" ry="115.000000" cx="723.000000" cy="677.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="110.000000" ry="110.000000" cx="723.000000" cy="677.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="723.000000" y="682.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">List [(1,a),(1,b),(2,a),(2,b)]</text></g><g class="ZXhhbXBsZS5lMS52MQ== value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="312.000000" cy="152.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="312.000000" y="157.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">1</text></g><g class="ZXhhbXBsZS5lMS5mMQ== function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="422.000000" y="119.000000" width="121.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="482.500000" y="157.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">f 1 = [1, 10]</text></g><g class="ZXhhbXBsZS5lMS5vdXQx value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="653.000000" cy="152.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="653.000000" y="157.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">[1, 10]</text></g><g class="ZXhhbXBsZS5lMi52Mg== value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="312.000000" cy="352.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="312.000000" y="357.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">2</text></g><g class="ZXhhbXBsZS5lMi5mMg== function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="422.000000" y="319.000000" width="121.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="482.500000" y="357.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">f 2 = [2, 20]</text></g><g class="ZXhhbXBsZS5lMi5vdXQy value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="653.000000" cy="352.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="653.000000" y="357.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">[2, 20]</text></g><g class="ZXhhbXBsZS4oaW5wdXQgLSZndDsgZTEpWzBd"><marker id="mk-d2-2307821117-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 141.499953 238.988072 L 172.000316 238.745522 S 182.000000 238.666000 182.000000 228.666000 L 182.000000 162.000000 S 182.000000 152.000000 192.000000 152.000000 L 218.000000 152.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZS4oaW5wdXQgLSZndDsgZTIpWzBd"><path d="M 141.499953 265.011893 L 172.000314 265.253723 S 182.000000 265.333008 182.000000 275.333008 L 182.000000 342.000000 S 182.000000 352.000000 192.000000 352.000000 L 218.000000 352.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZS5lMS4odjEgLSZndDsgZjEpWzBd"><path d="M 353.500000 152.000000 L 418.500000 152.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZS5lMS4oZjEgLSZndDsgb3V0MSlbMF0="><path d="M 544.500000 152.000000 L 609.500000 152.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZS5lMi4odjIgLSZndDsgZjIpWzBd"><path d="M 353.500000 352.000000 L 418.500000 352.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZS5lMi4oZjIgLSZndDsgb3V0MilbMF0="><path d="M 544.500000 352.000000 L 609.500000 352.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZS4oZTEgLSZndDsgcmVzdWx0KVswXQ=="><path d="M 745.000000 152.000000 L 773.000000 152.000000 S 783.000000 152.000000 783.000000 162.000000 L 783.000000 218.500000 S 783.000000 228.500000 792.999354 228.613629 L 823.500226 228.960230" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZS4oZTIgLSZndDsgcmVzdWx0KVswXQ=="><path d="M 745.000000 352.000000 L 773.000000 352.000000 S 783.000000 352.000000 783.000000 342.000000 L 783.000000 285.500000 S 783.000000 275.500000 792.999354 275.613629 L 823.500226 275.960230" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZTIuKGxhIC0mZ3Q7IGJpbmQxKVswXQ=="><path d="M 269.500000 677.000000 L 334.500000 677.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g class="ZXhhbXBsZTIuKGJpbmQxIC0mZ3Q7IHJlc3VsdDIpWzBd"><path d="M 539.500000 677.000000 L 604.500000 677.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2307821117-3488378134)" mask="url(#d2-2307821117)" /></g><g transform="translate(522 628)" class="appendix-icon"><title>For each x in the input list, produce pairs with every element of the second list, then flatten all results.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2307821117-MV4GC3LQNRSTELTCNFXGIMI)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2307821117-MV4GC3LQNRSTELTCNFXGIMI">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="312.4" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">List bind applies a function to each element and concatenates the results</text>
+  <g transform="translate(0,28) scale(1)">
+    <rect x="0" y="0" width="624.8" height="149" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-activity">
+      <path d="M0,0 L140,0 L140,12 L130,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+      <text x="70" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«activity» List bind</text>
+    </g>
+    <g class="edge">
+      <path d="M156.8,59.0 L254.8,59.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="211.8" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">List Int</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M156.8,111.0 L250.8,111.0 Q256.8,111.0 256.8,105.0 L256.8,77.0 L256.8,77.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="206.8" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Int ⟶ List Int</text>
+    </g>
+    <g class="edge">
+      <path d="M398.8,68.0 L466.8,68.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="440.8" y="62" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">List Int</text>
+    </g>
+    <g class="action-node">
+      <title>List bind is concatMap: apply f to every element, then flatten the produced lists.</title>
+      <rect x="274.8" y="46" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="334.8" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind</text>
+      <g class="pin pin-in">
+        <rect x="270.8" y="56.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="280.8" y="60.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">values</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="270.8" y="71.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="280.8" y="75.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="390.8" y="64" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="388.8" y="68" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">result</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>List [1, 2] — bind applies the function once to each element.</title>
+      <rect x="46.8" y="40" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="101.8" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">List Int</text>
+    </g>
+    <g class="object-node hof">
+      <title>expand(x) = [x, x * 10]</title>
+      <rect x="36.00000000000001" y="92" width="120.8" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="96.4" y="104" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="96.4" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Int ⟶ List Int</text>
+    </g>
+    <g class="object-node">
+      <title>List [1, 10, 2, 20] — all produced lists concatenated in input order.</title>
+      <rect x="478.79999999999995" y="49" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="533.8" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">List Int</text>
+    </g>
+  </g>
 </svg>
-</g><mask id="d2-2307821117" maskUnits="userSpaceOnUse" x="-89" y="-89" width="1204" height="1032">
-<rect x="-89" y="-89" width="1204" height="1032" fill="white"></rect>
-
-</mask></svg></svg>

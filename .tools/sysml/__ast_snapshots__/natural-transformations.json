@@ -1,0 +1,334 @@
+{
+  "packages": [
+    {
+      "name": "NaturalTransformations",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "MapF",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "function",
+              "type": "a ⟶ b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "F a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "F b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "AlphaB",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "F b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "G b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "AlphaA",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "F a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "G a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "MapG",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "function",
+              "type": "a ⟶ b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "G a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "G b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "NaturalitySquare",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "NaturalitySquare",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "fmapF",
+                "type": "MapF"
+              },
+              {
+                "kind": "action",
+                "id": "alphaB",
+                "type": "AlphaB"
+              },
+              {
+                "kind": "action",
+                "id": "alphaA",
+                "type": "AlphaA"
+              },
+              {
+                "kind": "action",
+                "id": "fmapG",
+                "type": "MapG"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "fa",
+                "type": "F a",
+                "role": "value"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "f :: a ⟶ b",
+                "role": "hof",
+                "tooltip": "The same ordinary function is used on both routes."
+              },
+              {
+                "kind": "object",
+                "id": "equals",
+                "type": "=",
+                "role": "function",
+                "tooltip": "Both routes produce the same G b."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "fa",
+                "to": "fmapF"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "fmapF"
+              },
+              {
+                "kind": "flow",
+                "from": "fmapF",
+                "to": "alphaB"
+              },
+              {
+                "kind": "flow",
+                "from": "fa",
+                "to": "alphaA"
+              },
+              {
+                "kind": "flow",
+                "from": "alphaA",
+                "to": "fmapG"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "fmapG"
+              },
+              {
+                "kind": "flow",
+                "from": "alphaB",
+                "to": "equals"
+              },
+              {
+                "kind": "flow",
+                "from": "fmapG",
+                "to": "equals"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "fa": "value",
+              "f": "hof",
+              "equals": "function"
+            },
+            "tooltips": {
+              "f": "The same ordinary function is used on both routes.",
+              "equals": "Both routes produce the same G b."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "NaturalitySquare",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "fmapF",
+              "type": "MapF"
+            },
+            {
+              "kind": "action",
+              "id": "alphaB",
+              "type": "AlphaB"
+            },
+            {
+              "kind": "action",
+              "id": "alphaA",
+              "type": "AlphaA"
+            },
+            {
+              "kind": "action",
+              "id": "fmapG",
+              "type": "MapG"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "fa",
+              "type": "F a",
+              "role": "value"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "f :: a ⟶ b",
+              "role": "hof",
+              "tooltip": "The same ordinary function is used on both routes."
+            },
+            {
+              "kind": "object",
+              "id": "equals",
+              "type": "=",
+              "role": "function",
+              "tooltip": "Both routes produce the same G b."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "fa",
+              "to": "fmapF"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "fmapF"
+            },
+            {
+              "kind": "flow",
+              "from": "fmapF",
+              "to": "alphaB"
+            },
+            {
+              "kind": "flow",
+              "from": "fa",
+              "to": "alphaA"
+            },
+            {
+              "kind": "flow",
+              "from": "alphaA",
+              "to": "fmapG"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "fmapG"
+            },
+            {
+              "kind": "flow",
+              "from": "alphaB",
+              "to": "equals"
+            },
+            {
+              "kind": "flow",
+              "from": "fmapG",
+              "to": "equals"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "fa": "value",
+            "f": "hof",
+            "equals": "function"
+          },
+          "tooltips": {
+            "f": "The same ordinary function is used on both routes.",
+            "equals": "Both routes produce the same G b."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "NaturalTransformations",
+          "viewType": "FpActivityView",
+          "expose": "NaturalitySquare",
+          "rendering": "fpActivityDiagram",
+          "title": " The naturality square: both routes produce the same G b "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " The naturality square: both routes produce the same G b ",
+    "render": "NaturalitySquare",
+    "shows": {
+      "fa": "value",
+      "f": "hof",
+      "equals": "function"
+    },
+    "tooltips": {
+      "f": "The same ordinary function is used on both routes.",
+      "equals": "Both routes produce the same G b."
+    }
+  }
+}

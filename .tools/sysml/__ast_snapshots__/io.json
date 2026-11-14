@@ -1,0 +1,295 @@
+{
+  "packages": [
+    {
+      "name": "IOOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "IOBind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ia",
+              "type": "IO a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ IO b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "ib",
+              "type": "IO b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "IOProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "IOProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bind1",
+                "type": "IOBind",
+                "role": "function",
+                "tooltip": "Sequence the read action, then construct the next IO action from its result."
+              },
+              {
+                "kind": "action",
+                "id": "bind2",
+                "type": "IOBind",
+                "role": "function",
+                "tooltip": "Sequence the greeting action with the confirmation action."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "readLine",
+                "type": "IO String",
+                "role": "type",
+                "tooltip": "getLine : IO String — a description of reading a line, not an already-read string."
+              },
+              {
+                "kind": "object",
+                "id": "greet",
+                "type": "String ⟶ IO Unit",
+                "role": "hof",
+                "tooltip": "greet : String ⟶ IO Unit — constructs an output action using the name."
+              },
+              {
+                "kind": "object",
+                "id": "confirm",
+                "type": "Unit ⟶ IO Unit",
+                "role": "hof",
+                "tooltip": "confirm : Unit ⟶ IO Unit — constructs the final output action."
+              },
+              {
+                "kind": "object",
+                "id": "program",
+                "type": "IO Unit",
+                "role": "type",
+                "tooltip": "The complete description of the sequenced effects; running it performs them in order."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "readLine",
+                "to": "bind1",
+                "label": "IO String"
+              },
+              {
+                "kind": "flow",
+                "from": "greet",
+                "to": "bind1",
+                "label": "String ⟶ IO Unit"
+              },
+              {
+                "kind": "flow",
+                "from": "bind1",
+                "to": "bind2",
+                "label": "IO Unit"
+              },
+              {
+                "kind": "flow",
+                "from": "confirm",
+                "to": "bind2",
+                "label": "Unit ⟶ IO Unit"
+              },
+              {
+                "kind": "flow",
+                "from": "bind2",
+                "to": "program",
+                "label": "IO Unit"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "bind1",
+                "to": "bind2"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "bind1": "function",
+              "bind2": "function",
+              "readLine": "type",
+              "greet": "hof",
+              "confirm": "hof",
+              "program": "type"
+            },
+            "tooltips": {
+              "bind1": "Sequence the read action, then construct the next IO action from its result.",
+              "bind2": "Sequence the greeting action with the confirmation action.",
+              "readLine": "getLine : IO String — a description of reading a line, not an already-read string.",
+              "greet": "greet : String ⟶ IO Unit — constructs an output action using the name.",
+              "confirm": "confirm : Unit ⟶ IO Unit — constructs the final output action.",
+              "program": "The complete description of the sequenced effects; running it performs them in order."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "IOProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind1",
+              "type": "IOBind",
+              "role": "function",
+              "tooltip": "Sequence the read action, then construct the next IO action from its result."
+            },
+            {
+              "kind": "action",
+              "id": "bind2",
+              "type": "IOBind",
+              "role": "function",
+              "tooltip": "Sequence the greeting action with the confirmation action."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "readLine",
+              "type": "IO String",
+              "role": "type",
+              "tooltip": "getLine : IO String — a description of reading a line, not an already-read string."
+            },
+            {
+              "kind": "object",
+              "id": "greet",
+              "type": "String ⟶ IO Unit",
+              "role": "hof",
+              "tooltip": "greet : String ⟶ IO Unit — constructs an output action using the name."
+            },
+            {
+              "kind": "object",
+              "id": "confirm",
+              "type": "Unit ⟶ IO Unit",
+              "role": "hof",
+              "tooltip": "confirm : Unit ⟶ IO Unit — constructs the final output action."
+            },
+            {
+              "kind": "object",
+              "id": "program",
+              "type": "IO Unit",
+              "role": "type",
+              "tooltip": "The complete description of the sequenced effects; running it performs them in order."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "readLine",
+              "to": "bind1",
+              "label": "IO String"
+            },
+            {
+              "kind": "flow",
+              "from": "greet",
+              "to": "bind1",
+              "label": "String ⟶ IO Unit"
+            },
+            {
+              "kind": "flow",
+              "from": "bind1",
+              "to": "bind2",
+              "label": "IO Unit"
+            },
+            {
+              "kind": "flow",
+              "from": "confirm",
+              "to": "bind2",
+              "label": "Unit ⟶ IO Unit"
+            },
+            {
+              "kind": "flow",
+              "from": "bind2",
+              "to": "program",
+              "label": "IO Unit"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "bind1",
+              "to": "bind2"
+            }
+          ],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "bind1": "function",
+            "bind2": "function",
+            "readLine": "type",
+            "greet": "hof",
+            "confirm": "hof",
+            "program": "type"
+          },
+          "tooltips": {
+            "bind1": "Sequence the read action, then construct the next IO action from its result.",
+            "bind2": "Sequence the greeting action with the confirmation action.",
+            "readLine": "getLine : IO String — a description of reading a line, not an already-read string.",
+            "greet": "greet : String ⟶ IO Unit — constructs an output action using the name.",
+            "confirm": "confirm : Unit ⟶ IO Unit — constructs the final output action.",
+            "program": "The complete description of the sequenced effects; running it performs them in order."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "IOOverview",
+          "viewType": "FpActivityView",
+          "expose": "IOProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "IO computations describe effects and bind sequences them explicitly",
+          "name": "IO",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "IO computations describe effects and bind sequences them explicitly",
+    "name": "IO",
+    "direction": "LR",
+    "render": "IOProcess",
+    "shows": {
+      "bind1": "function",
+      "bind2": "function",
+      "readLine": "type",
+      "greet": "hof",
+      "confirm": "hof",
+      "program": "type"
+    },
+    "tooltips": {
+      "bind1": "Sequence the read action, then construct the next IO action from its result.",
+      "bind2": "Sequence the greeting action with the confirmation action.",
+      "readLine": "getLine : IO String — a description of reading a line, not an already-read string.",
+      "greet": "greet : String ⟶ IO Unit — constructs an output action using the name.",
+      "confirm": "confirm : Unit ⟶ IO Unit — constructs the final output action.",
+      "program": "The complete description of the sequenced effects; running it performs them in order."
+    }
+  }
+}

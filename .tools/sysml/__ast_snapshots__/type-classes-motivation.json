@@ -1,0 +1,126 @@
+{
+  "packages": [
+    {
+      "name": "TypeClassesMotivation",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "PolymorphicDispatch",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "showInt",
+              "type": "showInt :: Int ⟶ String",
+              "ports": [],
+              "role": "function",
+              "tooltip": "Manual dispatch requires a separate function for each type."
+            },
+            {
+              "kind": "part",
+              "id": "showBool",
+              "type": "showBool :: Bool ⟶ String",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "showClass",
+              "type": "class Show a where show :: a ⟶ String",
+              "ports": [],
+              "role": "type",
+              "tooltip": "A type class groups the shared operation behind one contract."
+            },
+            {
+              "kind": "part",
+              "id": "intInstance",
+              "type": "instance Show Int",
+              "ports": [],
+              "role": "function"
+            },
+            {
+              "kind": "part",
+              "id": "boolInstance",
+              "type": "instance Show Bool",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "print",
+              "type": "print :: Show a ⇒ a ⟶ IO ()",
+              "ports": [],
+              "role": "value",
+              "tooltip": "One polymorphic client works with every Show instance."
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "showClass",
+              "to": "intInstance",
+              "label": "implements"
+            },
+            {
+              "kind": "connection",
+              "from": "showClass",
+              "to": "boolInstance",
+              "label": "implements"
+            },
+            {
+              "kind": "connection",
+              "from": "intInstance",
+              "to": "print",
+              "label": "dispatch"
+            },
+            {
+              "kind": "connection",
+              "from": "boolInstance",
+              "to": "print",
+              "label": "dispatch"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "showInt": "function",
+            "showClass": "type",
+            "intInstance": "function",
+            "print": "value"
+          },
+          "tooltips": {
+            "showInt": "Manual dispatch requires a separate function for each type.",
+            "showClass": "A type class groups the shared operation behind one contract.",
+            "print": "One polymorphic client works with every Show instance."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TypeClassesMotivation",
+          "viewType": "FpIbdView",
+          "expose": "PolymorphicDispatch",
+          "rendering": "fpIbdDiagram",
+          "title": " Type classes replace manual dispatch with polymorphic use "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": " Type classes replace manual dispatch with polymorphic use ",
+    "render": "PolymorphicDispatch",
+    "shows": {
+      "showInt": "function",
+      "showClass": "type",
+      "intInstance": "function",
+      "print": "value"
+    },
+    "tooltips": {
+      "showInt": "Manual dispatch requires a separate function for each type.",
+      "showClass": "A type class groups the shared operation behind one contract.",
+      "print": "One polymorphic client works with every Show instance."
+    }
+  }
+}

@@ -3,7 +3,7 @@
 The **Writer monad** models computations that produce a result **alongside an accumulated log** (or
 any other monoidal side output such as metrics, warnings, or a list of events).
 
-![writer monad](writer/writer.svg)
+![Writer bind combines each step's log with the result in order](writer/writer.svg)
 
 ![bind :: (a, w1) ⟶ (a ⟶ (b, w2)) ⟶ (b, w1<>w2) — also called: flatMap, >>=](writer/writer-ibd.svg)
 

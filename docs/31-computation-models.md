@@ -12,11 +12,12 @@ means to compute. Functional programming is grounded in the **λ-calculus** (Chu
 Turing machine. That choice has consequences: computation is substitution, not mutation; equational
 reasoning is the default; and types are sets of proofs.
 
-![computation models](31-computation-models/computation-models.svg)
-
 ## Three families of computation models
 
-![computation models motivation](31-computation-models/computation-models-motivation.svg)
+| Model          | Primitive operation             | Computation expressed as            |
+| -------------- | ------------------------------- | ----------------------------------- |
+| Turing machine | Read/write a tape; change state | State transitions over mutable tape |
+| λ-calculus     | Apply a function to an argument | β-reduction by substitution         |
 
 | Family         | Key models                                                           | FP connection                                               |
 | -------------- | -------------------------------------------------------------------- | ----------------------------------------------------------- |
@@ -38,9 +39,9 @@ $$(\lambda x.\, e_1)\; e_2 \;\longrightarrow_\beta\; e_1[e_2 / x]$$
 has no side effects, **every expression is equal to its fully-reduced form** — this is exactly what
 [3. Equational Reasoning](./03-equational-reasoning.md) exploits.
 
-**η-equivalence** says two functions are equal if they agree on all inputs:
-$f \equiv_\eta g \iff \forall x,\; f\,x = g\,x$. This underlies the validity of point-free
-definitions and is why **referential transparency** holds.
+**η-equivalence** says two functions are equal if they agree on all inputs: $f \equiv_\eta g \iff
+\forall x,\; f\,x = g\,x$. This underlies the validity of point-free definitions and is why
+**referential transparency** holds.
 
 ## Church numerals — numbers from pure functions
 
@@ -900,16 +901,16 @@ func main() {
 | β-reduction | $(\lambda x.\,e_1)\,e_2 \to e_1[e_2/x]$ — the fundamental computation step | |
 η-equivalence | $f \equiv \lambda x.\,f\,x$ — extensional equality; basis of point-free style | |
 Church-Turing thesis | λ-calculus, Turing machines, and μ-recursive functions compute the same class
-of functions | | Church numerals | Natural numbers as iteration count:
-$\mathbf{n} = \lambda f.\lambda x.\, f^n(x)$ | | SKI combinators | Turing-complete point-free basis;
-`I=id`, `K=const`, `S≈(<*>)` | | Y combinator | $Y\,f = f\,(Y\,f)$ — fixed point; recursion without
-naming; works under lazy evaluation | | Z combinator | Strict variant of Y; needed in call-by-value
-languages | | System F | Polymorphic λ-calculus; formal basis of `forall` types and parametricity |
-| Normal order | Outermost-first reduction = lazy evaluation | | Applicative order | Innermost-first
-reduction = strict evaluation | | Interaction nets | Graph-rewriting model: agents connected by
-ports; active pairs reduce locally and in parallel | | Interaction combinators | Universal basis: ε
-(erase), δ (duplicate), γ (construct) — Turing-complete in 6 rules | | HVM / Bend | Runtime that
-maps active pairs to GPU threads; structural parallelism without a scheduler |
+of functions | | Church numerals | Natural numbers as iteration count: $\mathbf{n} = \lambda
+f.\lambda x.\, f^n(x)$ | | SKI combinators | Turing-complete point-free basis; `I=id`, `K=const`,
+`S≈(<*>)` | | Y combinator | $Y\,f = f\,(Y\,f)$ — fixed point; recursion without naming; works under
+lazy evaluation | | Z combinator | Strict variant of Y; needed in call-by-value languages | | System
+F | Polymorphic λ-calculus; formal basis of `forall` types and parametricity | | Normal order |
+Outermost-first reduction = lazy evaluation | | Applicative order | Innermost-first reduction =
+strict evaluation | | Interaction nets | Graph-rewriting model: agents connected by ports; active
+pairs reduce locally and in parallel | | Interaction combinators | Universal basis: ε (erase), δ
+(duplicate), γ (construct) — Turing-complete in 6 rules | | HVM / Bend | Runtime that maps active
+pairs to GPU threads; structural parallelism without a scheduler |
 
 ## See also
 

@@ -1,0 +1,205 @@
+{
+  "packages": [
+    {
+      "name": "SemigroupMonoidMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Mconcat",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "combine",
+              "type": "a ⟶ a ⟶ a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "identity",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "List a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "GenericAggregation",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "GenericAggregation",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "mconcat",
+                "type": "Mconcat",
+                "role": "function",
+                "tooltip": "One aggregation function works for any Monoid instance."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "combine",
+                "type": "(<>) :: a ⟶ a ⟶ a",
+                "role": "hof",
+                "tooltip": "The type's associative operation is supplied as a value."
+              },
+              {
+                "kind": "object",
+                "id": "identity",
+                "type": "mempty :: a",
+                "role": "value",
+                "tooltip": "The monoid identity starts the fold."
+              },
+              {
+                "kind": "object",
+                "id": "values",
+                "type": "values :: List a"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "combine",
+                "to": "mconcat"
+              },
+              {
+                "kind": "flow",
+                "from": "identity",
+                "to": "mconcat"
+              },
+              {
+                "kind": "flow",
+                "from": "values",
+                "to": "mconcat"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "mconcat": "function",
+              "combine": "hof",
+              "identity": "value"
+            },
+            "tooltips": {
+              "mconcat": "One aggregation function works for any Monoid instance.",
+              "combine": "The type's associative operation is supplied as a value.",
+              "identity": "The monoid identity starts the fold."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "GenericAggregation",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "mconcat",
+              "type": "Mconcat",
+              "role": "function",
+              "tooltip": "One aggregation function works for any Monoid instance."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "combine",
+              "type": "(<>) :: a ⟶ a ⟶ a",
+              "role": "hof",
+              "tooltip": "The type's associative operation is supplied as a value."
+            },
+            {
+              "kind": "object",
+              "id": "identity",
+              "type": "mempty :: a",
+              "role": "value",
+              "tooltip": "The monoid identity starts the fold."
+            },
+            {
+              "kind": "object",
+              "id": "values",
+              "type": "values :: List a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "combine",
+              "to": "mconcat"
+            },
+            {
+              "kind": "flow",
+              "from": "identity",
+              "to": "mconcat"
+            },
+            {
+              "kind": "flow",
+              "from": "values",
+              "to": "mconcat"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "mconcat": "function",
+            "combine": "hof",
+            "identity": "value"
+          },
+          "tooltips": {
+            "mconcat": "One aggregation function works for any Monoid instance.",
+            "combine": "The type's associative operation is supplied as a value.",
+            "identity": "The monoid identity starts the fold."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "SemigroupMonoidMotivation",
+          "viewType": "FpActivityView",
+          "expose": "GenericAggregation",
+          "rendering": "fpActivityDiagram",
+          "title": " One mconcat works for every Monoid instance "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " One mconcat works for every Monoid instance ",
+    "render": "GenericAggregation",
+    "shows": {
+      "mconcat": "function",
+      "combine": "hof",
+      "identity": "value"
+    },
+    "tooltips": {
+      "mconcat": "One aggregation function works for any Monoid instance.",
+      "combine": "The type's associative operation is supplied as a value.",
+      "identity": "The monoid identity starts the fold."
+    }
+  }
+}

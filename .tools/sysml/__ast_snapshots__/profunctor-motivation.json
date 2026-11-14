@@ -1,0 +1,234 @@
+{
+  "packages": [
+    {
+      "name": "ProfunctorMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Dimap",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "before",
+              "type": "A' -> A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "after",
+              "type": "B -> B'",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "pab",
+              "type": "P A B",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "P A' B'",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "AdaptBothEnds",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "AdaptBothEnds",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "dimap",
+                "type": "Dimap",
+                "role": "function",
+                "tooltip": "dimap adapts the input and output sides independently."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "before",
+                "type": "A' -> A",
+                "role": "hof",
+                "tooltip": "Pre-map converts the new input A' to the input A expected by P."
+              },
+              {
+                "kind": "object",
+                "id": "after",
+                "type": "B -> B'",
+                "role": "hof",
+                "tooltip": "Post-map converts P's output B to the new output B'."
+              },
+              {
+                "kind": "object",
+                "id": "pab",
+                "type": "P A B",
+                "role": "type"
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "P A' B'"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "before",
+                "to": "dimap"
+              },
+              {
+                "kind": "flow",
+                "from": "after",
+                "to": "dimap"
+              },
+              {
+                "kind": "flow",
+                "from": "pab",
+                "to": "dimap"
+              },
+              {
+                "kind": "flow",
+                "from": "dimap",
+                "to": "result"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "dimap": "function",
+              "before": "hof",
+              "after": "hof",
+              "pab": "type"
+            },
+            "tooltips": {
+              "dimap": "dimap adapts the input and output sides independently.",
+              "before": "Pre-map converts the new input A' to the input A expected by P.",
+              "after": "Post-map converts P's output B to the new output B'."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "AdaptBothEnds",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "dimap",
+              "type": "Dimap",
+              "role": "function",
+              "tooltip": "dimap adapts the input and output sides independently."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "before",
+              "type": "A' -> A",
+              "role": "hof",
+              "tooltip": "Pre-map converts the new input A' to the input A expected by P."
+            },
+            {
+              "kind": "object",
+              "id": "after",
+              "type": "B -> B'",
+              "role": "hof",
+              "tooltip": "Post-map converts P's output B to the new output B'."
+            },
+            {
+              "kind": "object",
+              "id": "pab",
+              "type": "P A B",
+              "role": "type"
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "P A' B'"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "before",
+              "to": "dimap"
+            },
+            {
+              "kind": "flow",
+              "from": "after",
+              "to": "dimap"
+            },
+            {
+              "kind": "flow",
+              "from": "pab",
+              "to": "dimap"
+            },
+            {
+              "kind": "flow",
+              "from": "dimap",
+              "to": "result"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "dimap": "function",
+            "before": "hof",
+            "after": "hof",
+            "pab": "type"
+          },
+          "tooltips": {
+            "dimap": "dimap adapts the input and output sides independently.",
+            "before": "Pre-map converts the new input A' to the input A expected by P.",
+            "after": "Post-map converts P's output B to the new output B'."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ProfunctorMotivation",
+          "viewType": "FpActivityView",
+          "expose": "AdaptBothEnds",
+          "rendering": "fpActivityDiagram",
+          "title": "profunctor motivation",
+          "name": "dimap",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "profunctor motivation",
+    "name": "dimap",
+    "direction": "LR",
+    "render": "AdaptBothEnds",
+    "shows": {
+      "dimap": "function",
+      "before": "hof",
+      "after": "hof",
+      "pab": "type"
+    },
+    "tooltips": {
+      "dimap": "dimap adapts the input and output sides independently.",
+      "before": "Pre-map converts the new input A' to the input A expected by P.",
+      "after": "Post-map converts P's output B to the new output B'."
+    }
+  }
+}

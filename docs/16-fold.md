@@ -8,8 +8,6 @@ accumulator.
 
 ![fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b](16-fold/fold.svg)
 
-![fold type signature and derived operations](16-fold/fold-2.svg)
-
 ![fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ \[a\] ⟶ b](16-fold/fold-ibd.svg)
 
 `map`, `filter`, `sum`, `product`, `length` and many other operations can all be expressed as a

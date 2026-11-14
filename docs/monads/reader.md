@@ -4,7 +4,7 @@ The **Reader monad** (`Environment` monad) models computations that depend on a 
 environment** — configuration, dependency injection, or any context that all steps need but none
 should modify.
 
-![reader monad](reader/reader.svg)
+![Reader runs a computation with an environment to produce a value](reader/reader.svg)
 
 ![bind :: Reader r a ⟶ (a ⟶ Reader r b) ⟶ Reader r b — also called: flatMap, >>=](reader/reader-ibd.svg)
 

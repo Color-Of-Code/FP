@@ -1,0 +1,282 @@
+{
+  "packages": [
+    {
+      "name": "TraversableMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ManualTraverse",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "xs",
+              "type": "List Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "validate",
+              "type": "Int -> Maybe Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe (List Int)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Traverse",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "xs",
+              "type": "List Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "validate",
+              "type": "Int -> Maybe Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe (List Int)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ValidationComparison",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ValidationComparison",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "manual",
+                "type": "ManualTraverse",
+                "role": "function",
+                "tooltip": "The manual loop checks each result and reconstructs the list."
+              },
+              {
+                "kind": "action",
+                "id": "traverse",
+                "type": "Traverse",
+                "role": "function",
+                "tooltip": "traverse performs the same walk and combines the Maybe effects."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "xs",
+                "type": "List Int",
+                "role": "type"
+              },
+              {
+                "kind": "object",
+                "id": "validate",
+                "type": "Int -> Maybe Int",
+                "role": "hof",
+                "tooltip": "A validation that may fail for each element."
+              },
+              {
+                "kind": "object",
+                "id": "manualResult",
+                "type": "Maybe (List Int)"
+              },
+              {
+                "kind": "object",
+                "id": "traversedResult",
+                "type": "Maybe (List Int)"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "xs",
+                "to": "manual"
+              },
+              {
+                "kind": "flow",
+                "from": "validate",
+                "to": "manual"
+              },
+              {
+                "kind": "flow",
+                "from": "manual",
+                "to": "manualResult"
+              },
+              {
+                "kind": "flow",
+                "from": "xs",
+                "to": "traverse"
+              },
+              {
+                "kind": "flow",
+                "from": "validate",
+                "to": "traverse"
+              },
+              {
+                "kind": "flow",
+                "from": "traverse",
+                "to": "traversedResult"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "manual": "function",
+              "traverse": "function",
+              "xs": "type",
+              "validate": "hof"
+            },
+            "tooltips": {
+              "manual": "The manual loop checks each result and reconstructs the list.",
+              "traverse": "traverse performs the same walk and combines the Maybe effects.",
+              "validate": "A validation that may fail for each element."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ValidationComparison",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "manual",
+              "type": "ManualTraverse",
+              "role": "function",
+              "tooltip": "The manual loop checks each result and reconstructs the list."
+            },
+            {
+              "kind": "action",
+              "id": "traverse",
+              "type": "Traverse",
+              "role": "function",
+              "tooltip": "traverse performs the same walk and combines the Maybe effects."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "xs",
+              "type": "List Int",
+              "role": "type"
+            },
+            {
+              "kind": "object",
+              "id": "validate",
+              "type": "Int -> Maybe Int",
+              "role": "hof",
+              "tooltip": "A validation that may fail for each element."
+            },
+            {
+              "kind": "object",
+              "id": "manualResult",
+              "type": "Maybe (List Int)"
+            },
+            {
+              "kind": "object",
+              "id": "traversedResult",
+              "type": "Maybe (List Int)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "xs",
+              "to": "manual"
+            },
+            {
+              "kind": "flow",
+              "from": "validate",
+              "to": "manual"
+            },
+            {
+              "kind": "flow",
+              "from": "manual",
+              "to": "manualResult"
+            },
+            {
+              "kind": "flow",
+              "from": "xs",
+              "to": "traverse"
+            },
+            {
+              "kind": "flow",
+              "from": "validate",
+              "to": "traverse"
+            },
+            {
+              "kind": "flow",
+              "from": "traverse",
+              "to": "traversedResult"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "manual": "function",
+            "traverse": "function",
+            "xs": "type",
+            "validate": "hof"
+          },
+          "tooltips": {
+            "manual": "The manual loop checks each result and reconstructs the list.",
+            "traverse": "traverse performs the same walk and combines the Maybe effects.",
+            "validate": "A validation that may fail for each element."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TraversableMotivation",
+          "viewType": "FpActivityView",
+          "expose": "ValidationComparison",
+          "rendering": "fpActivityDiagram",
+          "title": "traversable motivation",
+          "name": "traverse",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "traversable motivation",
+    "name": "traverse",
+    "direction": "LR",
+    "render": "ValidationComparison",
+    "shows": {
+      "manual": "function",
+      "traverse": "function",
+      "xs": "type",
+      "validate": "hof"
+    },
+    "tooltips": {
+      "manual": "The manual loop checks each result and reconstructs the list.",
+      "traverse": "traverse performs the same walk and combines the Maybe effects.",
+      "validate": "A validation that may fail for each element."
+    }
+  }
+}

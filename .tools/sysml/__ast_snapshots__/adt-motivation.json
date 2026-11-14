@@ -1,0 +1,297 @@
+{
+  "packages": [
+    {
+      "name": "AdtMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "SafeDivide",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "numerator",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "denominator",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Maybe Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "MatchMaybe",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "handled result",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "NullableDivide",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "numerator",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "denominator",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Int or null",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "UncheckedUse",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Int or null",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "runtime failure if null",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "AbsenceHandling",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "AbsenceHandling",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "divide",
+                "type": "SafeDivide"
+              },
+              {
+                "kind": "action",
+                "id": "match",
+                "type": "MatchMaybe"
+              },
+              {
+                "kind": "action",
+                "id": "nullableDivide",
+                "type": "NullableDivide"
+              },
+              {
+                "kind": "action",
+                "id": "unchecked",
+                "type": "UncheckedUse"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "numerator",
+                "type": "10"
+              },
+              {
+                "kind": "object",
+                "id": "denominator",
+                "type": "0"
+              }
+            ],
+            "decisions": [
+              {
+                "kind": "decision",
+                "id": "outcome"
+              }
+            ],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "numerator",
+                "to": "divide"
+              },
+              {
+                "kind": "flow",
+                "from": "denominator",
+                "to": "divide"
+              },
+              {
+                "kind": "flow",
+                "from": "divide",
+                "to": "outcome"
+              },
+              {
+                "kind": "flow",
+                "from": "outcome",
+                "to": "match",
+                "label": "Nothing or Just — handle both"
+              },
+              {
+                "kind": "flow",
+                "from": "numerator",
+                "to": "nullableDivide"
+              },
+              {
+                "kind": "flow",
+                "from": "denominator",
+                "to": "nullableDivide"
+              },
+              {
+                "kind": "flow",
+                "from": "nullableDivide",
+                "to": "unchecked",
+                "label": "nullable result — unchecked"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {},
+            "tooltips": {}
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "AbsenceHandling",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "divide",
+              "type": "SafeDivide"
+            },
+            {
+              "kind": "action",
+              "id": "match",
+              "type": "MatchMaybe"
+            },
+            {
+              "kind": "action",
+              "id": "nullableDivide",
+              "type": "NullableDivide"
+            },
+            {
+              "kind": "action",
+              "id": "unchecked",
+              "type": "UncheckedUse"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "numerator",
+              "type": "10"
+            },
+            {
+              "kind": "object",
+              "id": "denominator",
+              "type": "0"
+            }
+          ],
+          "decisions": [
+            {
+              "kind": "decision",
+              "id": "outcome"
+            }
+          ],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "numerator",
+              "to": "divide"
+            },
+            {
+              "kind": "flow",
+              "from": "denominator",
+              "to": "divide"
+            },
+            {
+              "kind": "flow",
+              "from": "divide",
+              "to": "outcome"
+            },
+            {
+              "kind": "flow",
+              "from": "outcome",
+              "to": "match",
+              "label": "Nothing or Just — handle both"
+            },
+            {
+              "kind": "flow",
+              "from": "numerator",
+              "to": "nullableDivide"
+            },
+            {
+              "kind": "flow",
+              "from": "denominator",
+              "to": "nullableDivide"
+            },
+            {
+              "kind": "flow",
+              "from": "nullableDivide",
+              "to": "unchecked",
+              "label": "nullable result — unchecked"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "AdtMotivation",
+          "viewType": "FpActivityView",
+          "expose": "AbsenceHandling",
+          "rendering": "fpActivityDiagram",
+          "title": " Sum types make absence explicit "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Sum types make absence explicit ",
+    "render": "AbsenceHandling",
+    "shows": {},
+    "tooltips": {}
+  }
+}

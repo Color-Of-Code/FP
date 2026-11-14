@@ -1,0 +1,111 @@
+{
+  "packages": [
+    {
+      "name": "TypeClasses",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "InstanceDispatch",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "showClass",
+              "type": "Show: show :: a ⟶ String",
+              "ports": [],
+              "role": "type",
+              "tooltip": "A type class declares operations required of its instances."
+            },
+            {
+              "kind": "part",
+              "id": "intInstance",
+              "type": "Show Int",
+              "ports": [],
+              "role": "function",
+              "tooltip": "An implementation supplies the class operation for Int."
+            },
+            {
+              "kind": "part",
+              "id": "boolInstance",
+              "type": "Show Bool",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "client",
+              "type": "printAll :: Show a ⇒ [a] ⟶ IO ()",
+              "ports": [],
+              "role": "value",
+              "tooltip": "The caller depends on the contract, not a specific type."
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "showClass",
+              "to": "intInstance",
+              "label": "implements"
+            },
+            {
+              "kind": "connection",
+              "from": "showClass",
+              "to": "boolInstance",
+              "label": "implements"
+            },
+            {
+              "kind": "connection",
+              "from": "intInstance",
+              "to": "client",
+              "label": "selected by type"
+            },
+            {
+              "kind": "connection",
+              "from": "boolInstance",
+              "to": "client",
+              "label": "selected by type"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "showClass": "type",
+            "intInstance": "function",
+            "client": "value"
+          },
+          "tooltips": {
+            "showClass": "A type class declares operations required of its instances.",
+            "intInstance": "An implementation supplies the class operation for Int.",
+            "client": "The caller depends on the contract, not a specific type."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TypeClasses",
+          "viewType": "FpIbdView",
+          "expose": "InstanceDispatch",
+          "rendering": "fpIbdDiagram",
+          "title": " Type classes define operations and select instances "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": " Type classes define operations and select instances ",
+    "render": "InstanceDispatch",
+    "shows": {
+      "showClass": "type",
+      "intInstance": "function",
+      "client": "value"
+    },
+    "tooltips": {
+      "showClass": "A type class declares operations required of its instances.",
+      "intInstance": "An implementation supplies the class operation for Int.",
+      "client": "The caller depends on the contract, not a specific type."
+    }
+  }
+}

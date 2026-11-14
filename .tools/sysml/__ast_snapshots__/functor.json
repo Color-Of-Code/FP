@@ -1,0 +1,189 @@
+{
+  "packages": [
+    {
+      "name": "Functor",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "MapList",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "function",
+              "type": "Int ⟶ Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "List Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "List Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Mapping",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "Mapping",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "fmap",
+                "type": "MapList",
+                "role": "function",
+                "tooltip": "fmap applies the function to elements while preserving list shape."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "double",
+                "type": "double :: Int ⟶ Int",
+                "role": "hof",
+                "tooltip": "An ordinary function is supplied to fmap."
+              },
+              {
+                "kind": "object",
+                "id": "values",
+                "type": "[1, 2, 3]"
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "[2, 4, 6]"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "double",
+                "to": "fmap"
+              },
+              {
+                "kind": "flow",
+                "from": "values",
+                "to": "fmap"
+              },
+              {
+                "kind": "flow",
+                "from": "fmap",
+                "to": "result"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "fmap": "function",
+              "double": "hof"
+            },
+            "tooltips": {
+              "fmap": "fmap applies the function to elements while preserving list shape.",
+              "double": "An ordinary function is supplied to fmap."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "Mapping",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "fmap",
+              "type": "MapList",
+              "role": "function",
+              "tooltip": "fmap applies the function to elements while preserving list shape."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "double",
+              "type": "double :: Int ⟶ Int",
+              "role": "hof",
+              "tooltip": "An ordinary function is supplied to fmap."
+            },
+            {
+              "kind": "object",
+              "id": "values",
+              "type": "[1, 2, 3]"
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "[2, 4, 6]"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "double",
+              "to": "fmap"
+            },
+            {
+              "kind": "flow",
+              "from": "values",
+              "to": "fmap"
+            },
+            {
+              "kind": "flow",
+              "from": "fmap",
+              "to": "result"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "fmap": "function",
+            "double": "hof"
+          },
+          "tooltips": {
+            "fmap": "fmap applies the function to elements while preserving list shape.",
+            "double": "An ordinary function is supplied to fmap."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "Functor",
+          "viewType": "FpActivityView",
+          "expose": "Mapping",
+          "rendering": "fpActivityDiagram",
+          "title": " Mapping a function inside a list preserves its shape "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Mapping a function inside a list preserves its shape ",
+    "render": "Mapping",
+    "shows": {
+      "fmap": "function",
+      "double": "hof"
+    },
+    "tooltips": {
+      "fmap": "fmap applies the function to elements while preserving list shape.",
+      "double": "An ordinary function is supplied to fmap."
+    }
+  }
+}

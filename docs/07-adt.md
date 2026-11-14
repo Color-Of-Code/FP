@@ -12,7 +12,10 @@
 An **algebraic data type** (ADT) is a type built by combining simpler types in two fundamental ways.
 They are the primary tool for modelling data in functional programming.
 
-![algebraic data types](07-adt/adt.svg)
+| ADT form | Logical reading | Example                                                 |
+| -------- | --------------- | ------------------------------------------------------- |
+| Product  | AND             | `Point = (x: Int, y: Int)` — both fields are present    |
+| Sum      | OR              | `Shape = Circle \| Rectangle \| Triangle` — one variant |
 
 ## Product types
 
@@ -95,7 +98,7 @@ case safeDivide 10 0 of
     Just x  -> show (x + 1)   -- x is only in scope inside Just branch
 ```
 
-![ADT motivation](07-adt/adt-motivation.svg)
+![Sum types make absence explicit](07-adt/adt-motivation.svg)
 
 ## Examples
 

@@ -1,0 +1,297 @@
+{
+  "packages": [
+    {
+      "name": "FoldMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "HandWrittenSum",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "xs",
+              "type": "List Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sum",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "FoldSum",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "xs",
+              "type": "List Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "Int -> Int -> Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "z",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "sum",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "SumComparison",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "SumComparison",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "manual",
+                "type": "HandWrittenSum",
+                "role": "function",
+                "tooltip": "A dedicated loop repeats the traversal for this aggregation."
+              },
+              {
+                "kind": "action",
+                "id": "fold",
+                "type": "FoldSum",
+                "role": "function",
+                "tooltip": "fold reuses the traversal and supplies only the combining function and initial value."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "xs",
+                "type": "List Int",
+                "role": "type"
+              },
+              {
+                "kind": "object",
+                "id": "manualSum",
+                "type": "Int"
+              },
+              {
+                "kind": "object",
+                "id": "plus",
+                "type": "Int -> Int -> Int",
+                "role": "hof",
+                "tooltip": "(+) combines the accumulator with each list element."
+              },
+              {
+                "kind": "object",
+                "id": "zero",
+                "type": "Int",
+                "role": "value"
+              },
+              {
+                "kind": "object",
+                "id": "foldSum",
+                "type": "Int"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "xs",
+                "to": "manual"
+              },
+              {
+                "kind": "flow",
+                "from": "manual",
+                "to": "manualSum"
+              },
+              {
+                "kind": "flow",
+                "from": "xs",
+                "to": "fold"
+              },
+              {
+                "kind": "flow",
+                "from": "plus",
+                "to": "fold"
+              },
+              {
+                "kind": "flow",
+                "from": "zero",
+                "to": "fold"
+              },
+              {
+                "kind": "flow",
+                "from": "fold",
+                "to": "foldSum"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "manual": "function",
+              "fold": "function",
+              "xs": "type",
+              "plus": "hof",
+              "zero": "value"
+            },
+            "tooltips": {
+              "manual": "A dedicated loop repeats the traversal for this aggregation.",
+              "fold": "fold reuses the traversal and supplies only the combining function and initial value.",
+              "plus": "(+) combines the accumulator with each list element."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "SumComparison",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "manual",
+              "type": "HandWrittenSum",
+              "role": "function",
+              "tooltip": "A dedicated loop repeats the traversal for this aggregation."
+            },
+            {
+              "kind": "action",
+              "id": "fold",
+              "type": "FoldSum",
+              "role": "function",
+              "tooltip": "fold reuses the traversal and supplies only the combining function and initial value."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "xs",
+              "type": "List Int",
+              "role": "type"
+            },
+            {
+              "kind": "object",
+              "id": "manualSum",
+              "type": "Int"
+            },
+            {
+              "kind": "object",
+              "id": "plus",
+              "type": "Int -> Int -> Int",
+              "role": "hof",
+              "tooltip": "(+) combines the accumulator with each list element."
+            },
+            {
+              "kind": "object",
+              "id": "zero",
+              "type": "Int",
+              "role": "value"
+            },
+            {
+              "kind": "object",
+              "id": "foldSum",
+              "type": "Int"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "xs",
+              "to": "manual"
+            },
+            {
+              "kind": "flow",
+              "from": "manual",
+              "to": "manualSum"
+            },
+            {
+              "kind": "flow",
+              "from": "xs",
+              "to": "fold"
+            },
+            {
+              "kind": "flow",
+              "from": "plus",
+              "to": "fold"
+            },
+            {
+              "kind": "flow",
+              "from": "zero",
+              "to": "fold"
+            },
+            {
+              "kind": "flow",
+              "from": "fold",
+              "to": "foldSum"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "manual": "function",
+            "fold": "function",
+            "xs": "type",
+            "plus": "hof",
+            "zero": "value"
+          },
+          "tooltips": {
+            "manual": "A dedicated loop repeats the traversal for this aggregation.",
+            "fold": "fold reuses the traversal and supplies only the combining function and initial value.",
+            "plus": "(+) combines the accumulator with each list element."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FoldMotivation",
+          "viewType": "FpActivityView",
+          "expose": "SumComparison",
+          "rendering": "fpActivityDiagram",
+          "title": "fold motivation",
+          "name": "fold",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "fold motivation",
+    "name": "fold",
+    "direction": "LR",
+    "render": "SumComparison",
+    "shows": {
+      "manual": "function",
+      "fold": "function",
+      "xs": "type",
+      "plus": "hof",
+      "zero": "value"
+    },
+    "tooltips": {
+      "manual": "A dedicated loop repeats the traversal for this aggregation.",
+      "fold": "fold reuses the traversal and supplies only the combining function and initial value.",
+      "plus": "(+) combines the accumulator with each list element."
+    }
+  }
+}

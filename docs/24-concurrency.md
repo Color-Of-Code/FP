@@ -4,8 +4,6 @@ Functional programming changes the concurrency story fundamentally: **immutable 
 between threads without locks**, and **pure functions can be parallelised without coordination**.
 This chapter covers the FP-native approaches to concurrent and parallel programming.
 
-![concurrency](24-concurrency/concurrency.svg)
-
 ## The core insight
 
 Shared mutable state is the root cause of data races, deadlocks, and heisenbugs. FP avoids the

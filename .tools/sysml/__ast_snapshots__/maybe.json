@@ -1,0 +1,369 @@
+{
+  "packages": [
+    {
+      "name": "MaybeOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "MaybeBind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Maybe a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Maybe b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "Maybe b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "MaybeProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "MaybeProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bind1",
+                "type": "MaybeBind",
+                "role": "function",
+                "tooltip": "bind applies safeDivide(2) to Just 10, producing Just 5."
+              },
+              {
+                "kind": "action",
+                "id": "bind2",
+                "type": "MaybeBind",
+                "role": "function",
+                "tooltip": "bind applies safeDivide(0) to Just 5; division by zero returns Nothing."
+              },
+              {
+                "kind": "action",
+                "id": "bind3",
+                "type": "MaybeBind",
+                "role": "function",
+                "tooltip": "Nothing passes through unchanged; the next function is not called."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "input",
+                "type": "Maybe Int",
+                "role": "value",
+                "tooltip": "Just 10"
+              },
+              {
+                "kind": "object",
+                "id": "divideByTwo",
+                "type": "Int ⟶ Maybe Int",
+                "role": "hof",
+                "tooltip": "safeDivide(2) : Int ⟶ Maybe Int"
+              },
+              {
+                "kind": "object",
+                "id": "divideByZero",
+                "type": "Int ⟶ Maybe Int",
+                "role": "hof",
+                "tooltip": "safeDivide(0) : Int ⟶ Maybe Int"
+              },
+              {
+                "kind": "object",
+                "id": "divideByOne",
+                "type": "Int ⟶ Maybe Int",
+                "role": "hof",
+                "tooltip": "safeDivide(1) : Int ⟶ Maybe Int — skipped because the input is Nothing."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "Maybe Int",
+                "role": "type",
+                "tooltip": "Nothing — the first failed step short-circuits the remaining chain."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "input",
+                "to": "bind1",
+                "label": "Maybe Int"
+              },
+              {
+                "kind": "flow",
+                "from": "divideByTwo",
+                "to": "bind1",
+                "label": "Int ⟶ Maybe Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bind1",
+                "to": "bind2",
+                "label": "Maybe Int"
+              },
+              {
+                "kind": "flow",
+                "from": "divideByZero",
+                "to": "bind2",
+                "label": "Int ⟶ Maybe Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bind2",
+                "to": "bind3",
+                "label": "Maybe Int"
+              },
+              {
+                "kind": "flow",
+                "from": "divideByOne",
+                "to": "bind3",
+                "label": "Int ⟶ Maybe Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bind3",
+                "to": "result",
+                "label": "Maybe Int"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "bind1",
+                "to": "bind2"
+              },
+              {
+                "kind": "succession",
+                "from": "bind2",
+                "to": "bind3"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "bind1": "function",
+              "bind2": "function",
+              "bind3": "function",
+              "input": "value",
+              "divideByTwo": "hof",
+              "divideByZero": "hof",
+              "divideByOne": "hof",
+              "result": "type"
+            },
+            "tooltips": {
+              "bind1": "bind applies safeDivide(2) to Just 10, producing Just 5.",
+              "bind2": "bind applies safeDivide(0) to Just 5; division by zero returns Nothing.",
+              "bind3": "Nothing passes through unchanged; the next function is not called.",
+              "input": "Just 10",
+              "divideByTwo": "safeDivide(2) : Int ⟶ Maybe Int",
+              "divideByZero": "safeDivide(0) : Int ⟶ Maybe Int",
+              "divideByOne": "safeDivide(1) : Int ⟶ Maybe Int — skipped because the input is Nothing.",
+              "result": "Nothing — the first failed step short-circuits the remaining chain."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "MaybeProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind1",
+              "type": "MaybeBind",
+              "role": "function",
+              "tooltip": "bind applies safeDivide(2) to Just 10, producing Just 5."
+            },
+            {
+              "kind": "action",
+              "id": "bind2",
+              "type": "MaybeBind",
+              "role": "function",
+              "tooltip": "bind applies safeDivide(0) to Just 5; division by zero returns Nothing."
+            },
+            {
+              "kind": "action",
+              "id": "bind3",
+              "type": "MaybeBind",
+              "role": "function",
+              "tooltip": "Nothing passes through unchanged; the next function is not called."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "input",
+              "type": "Maybe Int",
+              "role": "value",
+              "tooltip": "Just 10"
+            },
+            {
+              "kind": "object",
+              "id": "divideByTwo",
+              "type": "Int ⟶ Maybe Int",
+              "role": "hof",
+              "tooltip": "safeDivide(2) : Int ⟶ Maybe Int"
+            },
+            {
+              "kind": "object",
+              "id": "divideByZero",
+              "type": "Int ⟶ Maybe Int",
+              "role": "hof",
+              "tooltip": "safeDivide(0) : Int ⟶ Maybe Int"
+            },
+            {
+              "kind": "object",
+              "id": "divideByOne",
+              "type": "Int ⟶ Maybe Int",
+              "role": "hof",
+              "tooltip": "safeDivide(1) : Int ⟶ Maybe Int — skipped because the input is Nothing."
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "Maybe Int",
+              "role": "type",
+              "tooltip": "Nothing — the first failed step short-circuits the remaining chain."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "input",
+              "to": "bind1",
+              "label": "Maybe Int"
+            },
+            {
+              "kind": "flow",
+              "from": "divideByTwo",
+              "to": "bind1",
+              "label": "Int ⟶ Maybe Int"
+            },
+            {
+              "kind": "flow",
+              "from": "bind1",
+              "to": "bind2",
+              "label": "Maybe Int"
+            },
+            {
+              "kind": "flow",
+              "from": "divideByZero",
+              "to": "bind2",
+              "label": "Int ⟶ Maybe Int"
+            },
+            {
+              "kind": "flow",
+              "from": "bind2",
+              "to": "bind3",
+              "label": "Maybe Int"
+            },
+            {
+              "kind": "flow",
+              "from": "divideByOne",
+              "to": "bind3",
+              "label": "Int ⟶ Maybe Int"
+            },
+            {
+              "kind": "flow",
+              "from": "bind3",
+              "to": "result",
+              "label": "Maybe Int"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "bind1",
+              "to": "bind2"
+            },
+            {
+              "kind": "succession",
+              "from": "bind2",
+              "to": "bind3"
+            }
+          ],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "bind1": "function",
+            "bind2": "function",
+            "bind3": "function",
+            "input": "value",
+            "divideByTwo": "hof",
+            "divideByZero": "hof",
+            "divideByOne": "hof",
+            "result": "type"
+          },
+          "tooltips": {
+            "bind1": "bind applies safeDivide(2) to Just 10, producing Just 5.",
+            "bind2": "bind applies safeDivide(0) to Just 5; division by zero returns Nothing.",
+            "bind3": "Nothing passes through unchanged; the next function is not called.",
+            "input": "Just 10",
+            "divideByTwo": "safeDivide(2) : Int ⟶ Maybe Int",
+            "divideByZero": "safeDivide(0) : Int ⟶ Maybe Int",
+            "divideByOne": "safeDivide(1) : Int ⟶ Maybe Int — skipped because the input is Nothing.",
+            "result": "Nothing — the first failed step short-circuits the remaining chain."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "MaybeOverview",
+          "viewType": "FpActivityView",
+          "expose": "MaybeProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Maybe bind propagates Nothing and skips the remaining functions",
+          "name": "Maybe bind",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "Maybe bind propagates Nothing and skips the remaining functions",
+    "name": "Maybe bind",
+    "direction": "LR",
+    "render": "MaybeProcess",
+    "shows": {
+      "bind1": "function",
+      "bind2": "function",
+      "bind3": "function",
+      "input": "value",
+      "divideByTwo": "hof",
+      "divideByZero": "hof",
+      "divideByOne": "hof",
+      "result": "type"
+    },
+    "tooltips": {
+      "bind1": "bind applies safeDivide(2) to Just 10, producing Just 5.",
+      "bind2": "bind applies safeDivide(0) to Just 5; division by zero returns Nothing.",
+      "bind3": "Nothing passes through unchanged; the next function is not called.",
+      "input": "Just 10",
+      "divideByTwo": "safeDivide(2) : Int ⟶ Maybe Int",
+      "divideByZero": "safeDivide(0) : Int ⟶ Maybe Int",
+      "divideByOne": "safeDivide(1) : Int ⟶ Maybe Int — skipped because the input is Nothing.",
+      "result": "Nothing — the first failed step short-circuits the remaining chain."
+    }
+  }
+}

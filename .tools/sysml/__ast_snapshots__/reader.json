@@ -1,0 +1,219 @@
+{
+  "packages": [
+    {
+      "name": "ReaderOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunReader",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "reader",
+              "type": "Reader r a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "env",
+              "type": "r",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ReaderProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ReaderProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "runReader",
+                "type": "RunReader",
+                "role": "function",
+                "tooltip": "Supply the environment to the Reader function; it is not stored or modified by the computation."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "reader",
+                "type": "Reader Config String",
+                "role": "function",
+                "tooltip": "A suspended Reader computation: a function from Config to String."
+              },
+              {
+                "kind": "object",
+                "id": "env",
+                "type": "Config",
+                "role": "value",
+                "tooltip": "The shared environment supplied when the Reader computation runs."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "String",
+                "role": "value",
+                "tooltip": "The result produced by applying the Reader computation to this environment."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "reader",
+                "to": "runReader",
+                "label": "Reader Config String"
+              },
+              {
+                "kind": "flow",
+                "from": "env",
+                "to": "runReader",
+                "label": "Config"
+              },
+              {
+                "kind": "flow",
+                "from": "runReader",
+                "to": "result",
+                "label": "String"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "runReader": "function",
+              "reader": "function",
+              "env": "value",
+              "result": "value"
+            },
+            "tooltips": {
+              "runReader": "Supply the environment to the Reader function; it is not stored or modified by the computation.",
+              "reader": "A suspended Reader computation: a function from Config to String.",
+              "env": "The shared environment supplied when the Reader computation runs.",
+              "result": "The result produced by applying the Reader computation to this environment."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ReaderProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "runReader",
+              "type": "RunReader",
+              "role": "function",
+              "tooltip": "Supply the environment to the Reader function; it is not stored or modified by the computation."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "reader",
+              "type": "Reader Config String",
+              "role": "function",
+              "tooltip": "A suspended Reader computation: a function from Config to String."
+            },
+            {
+              "kind": "object",
+              "id": "env",
+              "type": "Config",
+              "role": "value",
+              "tooltip": "The shared environment supplied when the Reader computation runs."
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "String",
+              "role": "value",
+              "tooltip": "The result produced by applying the Reader computation to this environment."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "reader",
+              "to": "runReader",
+              "label": "Reader Config String"
+            },
+            {
+              "kind": "flow",
+              "from": "env",
+              "to": "runReader",
+              "label": "Config"
+            },
+            {
+              "kind": "flow",
+              "from": "runReader",
+              "to": "result",
+              "label": "String"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "runReader": "function",
+            "reader": "function",
+            "env": "value",
+            "result": "value"
+          },
+          "tooltips": {
+            "runReader": "Supply the environment to the Reader function; it is not stored or modified by the computation.",
+            "reader": "A suspended Reader computation: a function from Config to String.",
+            "env": "The shared environment supplied when the Reader computation runs.",
+            "result": "The result produced by applying the Reader computation to this environment."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ReaderOverview",
+          "viewType": "FpActivityView",
+          "expose": "ReaderProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Reader runs a computation with an environment to produce a value",
+          "name": "Reader",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "Reader runs a computation with an environment to produce a value",
+    "name": "Reader",
+    "direction": "LR",
+    "render": "ReaderProcess",
+    "shows": {
+      "runReader": "function",
+      "reader": "function",
+      "env": "value",
+      "result": "value"
+    },
+    "tooltips": {
+      "runReader": "Supply the environment to the Reader function; it is not stored or modified by the computation.",
+      "reader": "A suspended Reader computation: a function from Config to String.",
+      "env": "The shared environment supplied when the Reader computation runs.",
+      "result": "The result produced by applying the Reader computation to this environment."
+    }
+  }
+}

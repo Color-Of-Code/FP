@@ -17,7 +17,7 @@ Every abstraction in the rest of this track — Semigroup, Monoid, Functor, Appl
 Traversable, Monad — is a type class. Understanding the mechanism here makes all of those chapters
 coherent.
 
-![type classes](09-type-classes/type-classes.svg)
+![Type classes define operations and select instances](09-type-classes/type-classes.svg)
 
 ## Anatomy
 
@@ -106,7 +106,7 @@ sort ["banana", "apple"]    -- uses Ord String
 sort [User{age=30}, ...]    -- uses Ord User  (if we write an instance)
 ```
 
-![type classes motivation](09-type-classes/type-classes-motivation.svg)
+![Type classes replace manual dispatch with polymorphic use](09-type-classes/type-classes-motivation.svg)
 
 ## Examples
 

@@ -1,0 +1,295 @@
+{
+  "packages": [
+    {
+      "name": "WriterOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "WriterBind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "wa",
+              "type": "Writer w a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Writer w b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "wb",
+              "type": "Writer w b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "WriterProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "WriterProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bind1",
+                "type": "WriterBind",
+                "role": "function",
+                "tooltip": "Apply doubleWithLog, then append its log fragment to the existing log."
+              },
+              {
+                "kind": "action",
+                "id": "bind2",
+                "type": "WriterBind",
+                "role": "function",
+                "tooltip": "Apply addOneWithLog and append this step's log after the first step's log."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "input",
+                "type": "Writer [String] Int",
+                "role": "value",
+                "tooltip": "(3, []) — the starting result and empty log."
+              },
+              {
+                "kind": "object",
+                "id": "doubleWithLog",
+                "type": "Int ⟶ Writer [String] Int",
+                "role": "hof",
+                "tooltip": "doubleWithLog : Int ⟶ Writer [String] Int; for 3 it yields (6, [\"doubled 3\"])."
+              },
+              {
+                "kind": "object",
+                "id": "addOneWithLog",
+                "type": "Int ⟶ Writer [String] Int",
+                "role": "hof",
+                "tooltip": "addOneWithLog : Int ⟶ Writer [String] Int; for 6 it yields (7, [\"added 1 to 6\"])."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "Writer [String] Int",
+                "role": "type",
+                "tooltip": "(7, [\"doubled 3\", \"added 1 to 6\"]) — result plus logs accumulated in order."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "input",
+                "to": "bind1",
+                "label": "Writer [String] Int"
+              },
+              {
+                "kind": "flow",
+                "from": "doubleWithLog",
+                "to": "bind1",
+                "label": "Int ⟶ Writer [String] Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bind1",
+                "to": "bind2",
+                "label": "Writer [String] Int"
+              },
+              {
+                "kind": "flow",
+                "from": "addOneWithLog",
+                "to": "bind2",
+                "label": "Int ⟶ Writer [String] Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bind2",
+                "to": "result",
+                "label": "Writer [String] Int"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "bind1",
+                "to": "bind2"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "bind1": "function",
+              "bind2": "function",
+              "input": "value",
+              "doubleWithLog": "hof",
+              "addOneWithLog": "hof",
+              "result": "type"
+            },
+            "tooltips": {
+              "bind1": "Apply doubleWithLog, then append its log fragment to the existing log.",
+              "bind2": "Apply addOneWithLog and append this step's log after the first step's log.",
+              "input": "(3, []) — the starting result and empty log.",
+              "doubleWithLog": "doubleWithLog : Int ⟶ Writer [String] Int; for 3 it yields (6, [\"doubled 3\"]).",
+              "addOneWithLog": "addOneWithLog : Int ⟶ Writer [String] Int; for 6 it yields (7, [\"added 1 to 6\"]).",
+              "result": "(7, [\"doubled 3\", \"added 1 to 6\"]) — result plus logs accumulated in order."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "WriterProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind1",
+              "type": "WriterBind",
+              "role": "function",
+              "tooltip": "Apply doubleWithLog, then append its log fragment to the existing log."
+            },
+            {
+              "kind": "action",
+              "id": "bind2",
+              "type": "WriterBind",
+              "role": "function",
+              "tooltip": "Apply addOneWithLog and append this step's log after the first step's log."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "input",
+              "type": "Writer [String] Int",
+              "role": "value",
+              "tooltip": "(3, []) — the starting result and empty log."
+            },
+            {
+              "kind": "object",
+              "id": "doubleWithLog",
+              "type": "Int ⟶ Writer [String] Int",
+              "role": "hof",
+              "tooltip": "doubleWithLog : Int ⟶ Writer [String] Int; for 3 it yields (6, [\"doubled 3\"])."
+            },
+            {
+              "kind": "object",
+              "id": "addOneWithLog",
+              "type": "Int ⟶ Writer [String] Int",
+              "role": "hof",
+              "tooltip": "addOneWithLog : Int ⟶ Writer [String] Int; for 6 it yields (7, [\"added 1 to 6\"])."
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "Writer [String] Int",
+              "role": "type",
+              "tooltip": "(7, [\"doubled 3\", \"added 1 to 6\"]) — result plus logs accumulated in order."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "input",
+              "to": "bind1",
+              "label": "Writer [String] Int"
+            },
+            {
+              "kind": "flow",
+              "from": "doubleWithLog",
+              "to": "bind1",
+              "label": "Int ⟶ Writer [String] Int"
+            },
+            {
+              "kind": "flow",
+              "from": "bind1",
+              "to": "bind2",
+              "label": "Writer [String] Int"
+            },
+            {
+              "kind": "flow",
+              "from": "addOneWithLog",
+              "to": "bind2",
+              "label": "Int ⟶ Writer [String] Int"
+            },
+            {
+              "kind": "flow",
+              "from": "bind2",
+              "to": "result",
+              "label": "Writer [String] Int"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "bind1",
+              "to": "bind2"
+            }
+          ],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "bind1": "function",
+            "bind2": "function",
+            "input": "value",
+            "doubleWithLog": "hof",
+            "addOneWithLog": "hof",
+            "result": "type"
+          },
+          "tooltips": {
+            "bind1": "Apply doubleWithLog, then append its log fragment to the existing log.",
+            "bind2": "Apply addOneWithLog and append this step's log after the first step's log.",
+            "input": "(3, []) — the starting result and empty log.",
+            "doubleWithLog": "doubleWithLog : Int ⟶ Writer [String] Int; for 3 it yields (6, [\"doubled 3\"]).",
+            "addOneWithLog": "addOneWithLog : Int ⟶ Writer [String] Int; for 6 it yields (7, [\"added 1 to 6\"]).",
+            "result": "(7, [\"doubled 3\", \"added 1 to 6\"]) — result plus logs accumulated in order."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "WriterOverview",
+          "viewType": "FpActivityView",
+          "expose": "WriterProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Writer bind combines each step's log with the result in order",
+          "name": "Writer bind",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "Writer bind combines each step's log with the result in order",
+    "name": "Writer bind",
+    "direction": "LR",
+    "render": "WriterProcess",
+    "shows": {
+      "bind1": "function",
+      "bind2": "function",
+      "input": "value",
+      "doubleWithLog": "hof",
+      "addOneWithLog": "hof",
+      "result": "type"
+    },
+    "tooltips": {
+      "bind1": "Apply doubleWithLog, then append its log fragment to the existing log.",
+      "bind2": "Apply addOneWithLog and append this step's log after the first step's log.",
+      "input": "(3, []) — the starting result and empty log.",
+      "doubleWithLog": "doubleWithLog : Int ⟶ Writer [String] Int; for 3 it yields (6, [\"doubled 3\"]).",
+      "addOneWithLog": "addOneWithLog : Int ⟶ Writer [String] Int; for 6 it yields (7, [\"added 1 to 6\"]).",
+      "result": "(7, [\"doubled 3\", \"added 1 to 6\"]) — result plus logs accumulated in order."
+    }
+  }
+}

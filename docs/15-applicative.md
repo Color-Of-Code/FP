@@ -11,7 +11,11 @@ applying **wrapped functions** to **wrapped values**.
 
 ![fmap :: (a ⟶ b) ⟶ Fa ⟶ Fb  |  pure :: a ⟶ Fa](15-applicative/applicative-2.svg)
 
-![typeclass hierarchy](15-applicative/applicative-3.svg)
+| Abstraction   | Adds to the previous level                 |
+| ------------- | ------------------------------------------ |
+| `Functor`     | `fmap`                                     |
+| `Applicative` | `pure` and `<*>`                           |
+| `Monad`       | `bind` (`>>=`); every Monad is Applicative |
 
 ![(<\*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb](15-applicative/applicative-ibd.svg)
 

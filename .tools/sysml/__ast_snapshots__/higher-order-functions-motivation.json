@@ -1,0 +1,99 @@
+{
+  "packages": [
+    {
+      "name": "HigherOrderFunctionsMotivation",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "MapAlternatives",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "mapInts",
+              "type": "List Int ⟶ List Int",
+              "ports": [],
+              "role": "function",
+              "tooltip": "Specialized mapping repeats the same structure for each container type."
+            },
+            {
+              "kind": "part",
+              "id": "mapStrings",
+              "type": "List String ⟶ List String",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "mapUsers",
+              "type": "List User ⟶ List User",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f",
+              "type": "a ⟶ b",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "One function argument works for every element type."
+            },
+            {
+              "kind": "part",
+              "id": "genericMap",
+              "type": "(a ⟶ b) ⟶ List a ⟶ List b",
+              "ports": [],
+              "role": "function",
+              "tooltip": "The generic map applies f to any list element type."
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "f",
+              "to": "genericMap",
+              "label": "function argument"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "mapInts": "function",
+            "f": "hof",
+            "genericMap": "function"
+          },
+          "tooltips": {
+            "mapInts": "Specialized mapping repeats the same structure for each container type.",
+            "f": "One function argument works for every element type.",
+            "genericMap": "The generic map applies f to any list element type."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "HigherOrderFunctionsMotivation",
+          "viewType": "FpIbdView",
+          "expose": "MapAlternatives",
+          "rendering": "fpIbdDiagram",
+          "title": " One generic map replaces type-specific maps "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": " One generic map replaces type-specific maps ",
+    "render": "MapAlternatives",
+    "shows": {
+      "mapInts": "function",
+      "f": "hof",
+      "genericMap": "function"
+    },
+    "tooltips": {
+      "mapInts": "Specialized mapping repeats the same structure for each container type.",
+      "f": "One function argument works for every element type.",
+      "genericMap": "The generic map applies f to any list element type."
+    }
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "packages": [
+    {
+      "name": "ParserOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunParser",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "parser",
+              "type": "Parser a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "input",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe (a, String)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ParserProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ParserProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "runParser",
+                "type": "RunParser",
+                "role": "function",
+                "tooltip": "Run the parser against the input string."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "input",
+                "type": "String",
+                "role": "value",
+                "tooltip": "42 rest — the complete input supplied to the parser."
+              },
+              {
+                "kind": "object",
+                "id": "parser",
+                "type": "Parser Int",
+                "role": "function",
+                "tooltip": "A parser is a function from input text to either failure or a parsed value paired with the unconsumed suffix."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "Maybe (Int, String)",
+                "role": "type",
+                "tooltip": "Just (42, \" rest\") — the parsed value and the text the parser did not consume."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "input",
+                "to": "runParser",
+                "label": "String"
+              },
+              {
+                "kind": "flow",
+                "from": "parser",
+                "to": "runParser",
+                "label": "Parser Int"
+              },
+              {
+                "kind": "flow",
+                "from": "runParser",
+                "to": "result",
+                "label": "Maybe (Int, String)"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "runParser": "function",
+              "input": "value",
+              "parser": "function",
+              "result": "type"
+            },
+            "tooltips": {
+              "runParser": "Run the parser against the input string.",
+              "input": "42 rest — the complete input supplied to the parser.",
+              "parser": "A parser is a function from input text to either failure or a parsed value paired with the unconsumed suffix.",
+              "result": "Just (42, \" rest\") — the parsed value and the text the parser did not consume."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ParserProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "runParser",
+              "type": "RunParser",
+              "role": "function",
+              "tooltip": "Run the parser against the input string."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "input",
+              "type": "String",
+              "role": "value",
+              "tooltip": "42 rest — the complete input supplied to the parser."
+            },
+            {
+              "kind": "object",
+              "id": "parser",
+              "type": "Parser Int",
+              "role": "function",
+              "tooltip": "A parser is a function from input text to either failure or a parsed value paired with the unconsumed suffix."
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "Maybe (Int, String)",
+              "role": "type",
+              "tooltip": "Just (42, \" rest\") — the parsed value and the text the parser did not consume."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "input",
+              "to": "runParser",
+              "label": "String"
+            },
+            {
+              "kind": "flow",
+              "from": "parser",
+              "to": "runParser",
+              "label": "Parser Int"
+            },
+            {
+              "kind": "flow",
+              "from": "runParser",
+              "to": "result",
+              "label": "Maybe (Int, String)"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "runParser": "function",
+            "input": "value",
+            "parser": "function",
+            "result": "type"
+          },
+          "tooltips": {
+            "runParser": "Run the parser against the input string.",
+            "input": "42 rest — the complete input supplied to the parser.",
+            "parser": "A parser is a function from input text to either failure or a parsed value paired with the unconsumed suffix.",
+            "result": "Just (42, \" rest\") — the parsed value and the text the parser did not consume."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ParserOverview",
+          "viewType": "FpActivityView",
+          "expose": "ParserProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "A Parser a consumes input and returns a value with the unconsumed suffix",
+          "name": "Parser",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "A Parser a consumes input and returns a value with the unconsumed suffix",
+    "name": "Parser",
+    "direction": "LR",
+    "render": "ParserProcess",
+    "shows": {
+      "runParser": "function",
+      "input": "value",
+      "parser": "function",
+      "result": "type"
+    },
+    "tooltips": {
+      "runParser": "Run the parser against the input string.",
+      "input": "42 rest — the complete input supplied to the parser.",
+      "parser": "A parser is a function from input text to either failure or a parsed value paired with the unconsumed suffix.",
+      "result": "Just (42, \" rest\") — the parsed value and the text the parser did not consume."
+    }
+  }
+}

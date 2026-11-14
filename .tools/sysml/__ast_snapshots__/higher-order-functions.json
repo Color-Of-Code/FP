@@ -1,0 +1,217 @@
+{
+  "packages": [
+    {
+      "name": "HigherOrderFunctions",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Map",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "function",
+              "type": "a ⟶ b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "container",
+              "type": "Container a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "Container b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Const",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "b ⟶ a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "HigherOrderExamples",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "HigherOrderExamples",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "map",
+                "type": "Map",
+                "role": "function",
+                "tooltip": "map accepts a function value and applies it to the container."
+              },
+              {
+                "kind": "action",
+                "id": "constant",
+                "type": "Const"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "f :: a ⟶ b",
+                "role": "hof",
+                "tooltip": "A function passed to map as an argument."
+              },
+              {
+                "kind": "object",
+                "id": "values",
+                "type": "Container a"
+              },
+              {
+                "kind": "object",
+                "id": "x",
+                "type": "a"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "map"
+              },
+              {
+                "kind": "flow",
+                "from": "values",
+                "to": "map"
+              },
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "constant"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "map": "function",
+              "f": "hof"
+            },
+            "tooltips": {
+              "map": "map accepts a function value and applies it to the container.",
+              "f": "A function passed to map as an argument."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "HigherOrderExamples",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "map",
+              "type": "Map",
+              "role": "function",
+              "tooltip": "map accepts a function value and applies it to the container."
+            },
+            {
+              "kind": "action",
+              "id": "constant",
+              "type": "Const"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "f :: a ⟶ b",
+              "role": "hof",
+              "tooltip": "A function passed to map as an argument."
+            },
+            {
+              "kind": "object",
+              "id": "values",
+              "type": "Container a"
+            },
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "a"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "map"
+            },
+            {
+              "kind": "flow",
+              "from": "values",
+              "to": "map"
+            },
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "constant"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "map": "function",
+            "f": "hof"
+          },
+          "tooltips": {
+            "map": "map accepts a function value and applies it to the container.",
+            "f": "A function passed to map as an argument."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "HigherOrderFunctions",
+          "viewType": "FpActivityView",
+          "expose": "HigherOrderExamples",
+          "rendering": "fpActivityDiagram",
+          "title": " Higher-order functions accept and return functions "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Higher-order functions accept and return functions ",
+    "render": "HigherOrderExamples",
+    "shows": {
+      "map": "function",
+      "f": "hof"
+    },
+    "tooltips": {
+      "map": "map accepts a function value and applies it to the container.",
+      "f": "A function passed to map as an argument."
+    }
+  }
+}

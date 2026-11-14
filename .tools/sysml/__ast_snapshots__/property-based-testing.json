@@ -1,0 +1,307 @@
+{
+  "packages": [
+    {
+      "name": "PropertyBasedTesting",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Generate",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "property",
+              "type": "property :: input ⟶ Bool",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "generated inputs",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Check",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "property",
+              "type": "input ⟶ Bool",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "inputs",
+              "type": "generated inputs",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "pass or fail",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Shrink",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "failure",
+              "type": "failing input",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "minimal counterexample",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Report",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "counterexample",
+              "type": "minimal counterexample",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "counterexample and seed",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "PropertyWorkflow",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "PropertyWorkflow",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "generate",
+                "type": "Generate"
+              },
+              {
+                "kind": "action",
+                "id": "check",
+                "type": "Check"
+              },
+              {
+                "kind": "action",
+                "id": "shrink",
+                "type": "Shrink"
+              },
+              {
+                "kind": "action",
+                "id": "report",
+                "type": "Report"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "property",
+                "type": "property: input ⟶ Bool",
+                "role": "hof",
+                "tooltip": "A universally stated law expressed as an executable predicate."
+              },
+              {
+                "kind": "object",
+                "id": "passed",
+                "type": "all generated cases pass"
+              }
+            ],
+            "decisions": [
+              {
+                "kind": "decision",
+                "id": "outcome"
+              }
+            ],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "property",
+                "to": "generate"
+              },
+              {
+                "kind": "flow",
+                "from": "generate",
+                "to": "check"
+              },
+              {
+                "kind": "flow",
+                "from": "property",
+                "to": "check"
+              },
+              {
+                "kind": "flow",
+                "from": "check",
+                "to": "outcome"
+              },
+              {
+                "kind": "flow",
+                "from": "outcome",
+                "to": "passed",
+                "label": "all pass"
+              },
+              {
+                "kind": "flow",
+                "from": "outcome",
+                "to": "shrink",
+                "label": "a case fails"
+              },
+              {
+                "kind": "flow",
+                "from": "shrink",
+                "to": "report"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "property": "hof"
+            },
+            "tooltips": {
+              "property": "A universally stated law expressed as an executable predicate."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "PropertyWorkflow",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "generate",
+              "type": "Generate"
+            },
+            {
+              "kind": "action",
+              "id": "check",
+              "type": "Check"
+            },
+            {
+              "kind": "action",
+              "id": "shrink",
+              "type": "Shrink"
+            },
+            {
+              "kind": "action",
+              "id": "report",
+              "type": "Report"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "property",
+              "type": "property: input ⟶ Bool",
+              "role": "hof",
+              "tooltip": "A universally stated law expressed as an executable predicate."
+            },
+            {
+              "kind": "object",
+              "id": "passed",
+              "type": "all generated cases pass"
+            }
+          ],
+          "decisions": [
+            {
+              "kind": "decision",
+              "id": "outcome"
+            }
+          ],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "property",
+              "to": "generate"
+            },
+            {
+              "kind": "flow",
+              "from": "generate",
+              "to": "check"
+            },
+            {
+              "kind": "flow",
+              "from": "property",
+              "to": "check"
+            },
+            {
+              "kind": "flow",
+              "from": "check",
+              "to": "outcome"
+            },
+            {
+              "kind": "flow",
+              "from": "outcome",
+              "to": "passed",
+              "label": "all pass"
+            },
+            {
+              "kind": "flow",
+              "from": "outcome",
+              "to": "shrink",
+              "label": "a case fails"
+            },
+            {
+              "kind": "flow",
+              "from": "shrink",
+              "to": "report"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "property": "hof"
+          },
+          "tooltips": {
+            "property": "A universally stated law expressed as an executable predicate."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "PropertyBasedTesting",
+          "viewType": "FpActivityView",
+          "expose": "PropertyWorkflow",
+          "rendering": "fpActivityDiagram",
+          "title": " Property tests generate cases and shrink failures "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Property tests generate cases and shrink failures ",
+    "render": "PropertyWorkflow",
+    "shows": {
+      "property": "hof"
+    },
+    "tooltips": {
+      "property": "A universally stated law expressed as an executable predicate."
+    }
+  }
+}

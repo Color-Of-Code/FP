@@ -1,0 +1,113 @@
+{
+  "packages": [
+    {
+      "name": "PrismOptic",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "CirclePrism",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "shape",
+              "type": "Shape",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "circle",
+              "type": "Prism Shape Double",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "previewOp",
+              "type": "preview",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "maybeRadius",
+              "type": "Maybe Double",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "radius",
+              "type": "Double",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "reviewOp",
+              "type": "review",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "constructedShape",
+              "type": "Shape",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "circle",
+              "to": "previewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "shape",
+              "to": "previewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "previewOp",
+              "to": "maybeRadius"
+            },
+            {
+              "kind": "connection",
+              "from": "circle",
+              "to": "reviewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "radius",
+              "to": "reviewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "reviewOp",
+              "to": "constructedShape"
+            }
+          ],
+          "notes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "PrismOptic",
+          "viewType": "FpIbdView",
+          "expose": "CirclePrism",
+          "rendering": "fpIbdDiagram",
+          "title": "Prism previews one constructor and can fail"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "Prism previews one constructor and can fail",
+    "render": "CirclePrism",
+    "shows": {},
+    "tooltips": {}
+  }
+}

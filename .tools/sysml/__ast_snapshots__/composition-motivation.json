@@ -1,0 +1,249 @@
+{
+  "packages": [
+    {
+      "name": "CompositionMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Compose",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "first",
+              "type": "a ⟶ b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "second",
+              "type": "b ⟶ c",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "a ⟶ c",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Pipelines",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "Pipelines",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "composeVT",
+                "type": "Compose",
+                "role": "function",
+                "tooltip": "Compose reusable functions into a pipeline instead of defining each wrapper."
+              },
+              {
+                "kind": "action",
+                "id": "composeFormat",
+                "type": "Compose"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "validateAndTrim",
+                "type": "validate_and_trim :: a ⟶ c"
+              },
+              {
+                "kind": "object",
+                "id": "validateTrimFormat",
+                "type": "validate_trim_format :: a ⟶ d"
+              },
+              {
+                "kind": "object",
+                "id": "validate",
+                "type": "validate :: a ⟶ b",
+                "role": "hof",
+                "tooltip": "Reusable validation step."
+              },
+              {
+                "kind": "object",
+                "id": "trim",
+                "type": "trim :: b ⟶ c",
+                "role": "hof",
+                "tooltip": "Reusable trim step."
+              },
+              {
+                "kind": "object",
+                "id": "format",
+                "type": "format :: c ⟶ d",
+                "role": "hof",
+                "tooltip": "Reusable formatting step."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "validate",
+                "to": "composeVT"
+              },
+              {
+                "kind": "flow",
+                "from": "trim",
+                "to": "composeVT"
+              },
+              {
+                "kind": "flow",
+                "from": "composeVT",
+                "to": "composeFormat"
+              },
+              {
+                "kind": "flow",
+                "from": "format",
+                "to": "composeFormat"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "composeVT": "function",
+              "validate": "hof",
+              "trim": "hof",
+              "format": "hof"
+            },
+            "tooltips": {
+              "composeVT": "Compose reusable functions into a pipeline instead of defining each wrapper.",
+              "validate": "Reusable validation step.",
+              "trim": "Reusable trim step.",
+              "format": "Reusable formatting step."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "Pipelines",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "composeVT",
+              "type": "Compose",
+              "role": "function",
+              "tooltip": "Compose reusable functions into a pipeline instead of defining each wrapper."
+            },
+            {
+              "kind": "action",
+              "id": "composeFormat",
+              "type": "Compose"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "validateAndTrim",
+              "type": "validate_and_trim :: a ⟶ c"
+            },
+            {
+              "kind": "object",
+              "id": "validateTrimFormat",
+              "type": "validate_trim_format :: a ⟶ d"
+            },
+            {
+              "kind": "object",
+              "id": "validate",
+              "type": "validate :: a ⟶ b",
+              "role": "hof",
+              "tooltip": "Reusable validation step."
+            },
+            {
+              "kind": "object",
+              "id": "trim",
+              "type": "trim :: b ⟶ c",
+              "role": "hof",
+              "tooltip": "Reusable trim step."
+            },
+            {
+              "kind": "object",
+              "id": "format",
+              "type": "format :: c ⟶ d",
+              "role": "hof",
+              "tooltip": "Reusable formatting step."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "validate",
+              "to": "composeVT"
+            },
+            {
+              "kind": "flow",
+              "from": "trim",
+              "to": "composeVT"
+            },
+            {
+              "kind": "flow",
+              "from": "composeVT",
+              "to": "composeFormat"
+            },
+            {
+              "kind": "flow",
+              "from": "format",
+              "to": "composeFormat"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "composeVT": "function",
+            "validate": "hof",
+            "trim": "hof",
+            "format": "hof"
+          },
+          "tooltips": {
+            "composeVT": "Compose reusable functions into a pipeline instead of defining each wrapper.",
+            "validate": "Reusable validation step.",
+            "trim": "Reusable trim step.",
+            "format": "Reusable formatting step."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "CompositionMotivation",
+          "viewType": "FpActivityView",
+          "expose": "Pipelines",
+          "rendering": "fpActivityDiagram",
+          "title": " Composition replaces one-off wrapper functions "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Composition replaces one-off wrapper functions ",
+    "render": "Pipelines",
+    "shows": {
+      "composeVT": "function",
+      "validate": "hof",
+      "trim": "hof",
+      "format": "hof"
+    },
+    "tooltips": {
+      "composeVT": "Compose reusable functions into a pipeline instead of defining each wrapper.",
+      "validate": "Reusable validation step.",
+      "trim": "Reusable trim step.",
+      "format": "Reusable formatting step."
+    }
+  }
+}

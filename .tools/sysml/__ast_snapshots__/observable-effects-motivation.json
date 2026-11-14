@@ -1,0 +1,225 @@
+{
+  "packages": [
+    {
+      "name": "ObservableEffectsMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "NaiveCompare",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "pairs",
+              "type": "Byte Pairs",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "equal",
+              "type": "Boolean",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ConstantTimeCompare",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "pairs",
+              "type": "Byte Pairs",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "equal",
+              "type": "Boolean",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ComparisonTiming",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ComparisonTiming",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "naive",
+                "type": "NaiveCompare",
+                "role": "function",
+                "tooltip": "A short-circuiting comparison stops at the first mismatch."
+              },
+              {
+                "kind": "action",
+                "id": "constantTime",
+                "type": "ConstantTimeCompare",
+                "role": "function",
+                "tooltip": "Accumulate differences across every byte without a secret-dependent early exit."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "pairs",
+                "type": "Byte Pairs"
+              },
+              {
+                "kind": "object",
+                "id": "naiveResult",
+                "type": "Boolean"
+              },
+              {
+                "kind": "object",
+                "id": "constantResult",
+                "type": "Boolean"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "pairs",
+                "to": "naive"
+              },
+              {
+                "kind": "flow",
+                "from": "naive",
+                "to": "naiveResult"
+              },
+              {
+                "kind": "flow",
+                "from": "pairs",
+                "to": "constantTime"
+              },
+              {
+                "kind": "flow",
+                "from": "constantTime",
+                "to": "constantResult"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "naive": "function",
+              "constantTime": "function"
+            },
+            "tooltips": {
+              "naive": "A short-circuiting comparison stops at the first mismatch.",
+              "constantTime": "Accumulate differences across every byte without a secret-dependent early exit."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ComparisonTiming",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "naive",
+              "type": "NaiveCompare",
+              "role": "function",
+              "tooltip": "A short-circuiting comparison stops at the first mismatch."
+            },
+            {
+              "kind": "action",
+              "id": "constantTime",
+              "type": "ConstantTimeCompare",
+              "role": "function",
+              "tooltip": "Accumulate differences across every byte without a secret-dependent early exit."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "pairs",
+              "type": "Byte Pairs"
+            },
+            {
+              "kind": "object",
+              "id": "naiveResult",
+              "type": "Boolean"
+            },
+            {
+              "kind": "object",
+              "id": "constantResult",
+              "type": "Boolean"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "pairs",
+              "to": "naive"
+            },
+            {
+              "kind": "flow",
+              "from": "naive",
+              "to": "naiveResult"
+            },
+            {
+              "kind": "flow",
+              "from": "pairs",
+              "to": "constantTime"
+            },
+            {
+              "kind": "flow",
+              "from": "constantTime",
+              "to": "constantResult"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "naive": "function",
+            "constantTime": "function"
+          },
+          "tooltips": {
+            "naive": "A short-circuiting comparison stops at the first mismatch.",
+            "constantTime": "Accumulate differences across every byte without a secret-dependent early exit."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ObservableEffectsMotivation",
+          "viewType": "FpActivityView",
+          "expose": "ComparisonTiming",
+          "rendering": "fpActivityDiagram",
+          "title": "observable effects motivation",
+          "name": "comparison timing",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "observable effects motivation",
+    "name": "comparison timing",
+    "direction": "LR",
+    "render": "ComparisonTiming",
+    "shows": {
+      "naive": "function",
+      "constantTime": "function"
+    },
+    "tooltips": {
+      "naive": "A short-circuiting comparison stops at the first mismatch.",
+      "constantTime": "Accumulate differences across every byte without a secret-dependent early exit."
+    }
+  }
+}

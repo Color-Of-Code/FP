@@ -1,0 +1,268 @@
+{
+  "packages": [
+    {
+      "name": "Composition",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Compose",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "first",
+              "type": "a ⟶ b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "second",
+              "type": "b ⟶ c",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "a ⟶ c",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Apply",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "function",
+              "type": "a ⟶ c",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "c",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CompositionFlow",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "CompositionFlow",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "compose",
+                "type": "Compose",
+                "role": "function",
+                "tooltip": "Composition creates a new function h = g ∘ f."
+              },
+              {
+                "kind": "action",
+                "id": "apply",
+                "type": "Apply"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "f :: a ⟶ b",
+                "role": "hof",
+                "tooltip": "f transforms a value from a to b."
+              },
+              {
+                "kind": "object",
+                "id": "g",
+                "type": "g :: b ⟶ c",
+                "role": "hof",
+                "tooltip": "g transforms the intermediate b to c."
+              },
+              {
+                "kind": "object",
+                "id": "x",
+                "type": "a",
+                "role": "value"
+              },
+              {
+                "kind": "object",
+                "id": "h",
+                "type": "h = g ∘ f :: a ⟶ c"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "compose"
+              },
+              {
+                "kind": "flow",
+                "from": "g",
+                "to": "compose"
+              },
+              {
+                "kind": "flow",
+                "from": "compose",
+                "to": "h"
+              },
+              {
+                "kind": "flow",
+                "from": "h",
+                "to": "apply"
+              },
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "apply"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "compose": "function",
+              "f": "hof",
+              "g": "hof",
+              "x": "value"
+            },
+            "tooltips": {
+              "compose": "Composition creates a new function h = g ∘ f.",
+              "f": "f transforms a value from a to b.",
+              "g": "g transforms the intermediate b to c."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "CompositionFlow",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "compose",
+              "type": "Compose",
+              "role": "function",
+              "tooltip": "Composition creates a new function h = g ∘ f."
+            },
+            {
+              "kind": "action",
+              "id": "apply",
+              "type": "Apply"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "f :: a ⟶ b",
+              "role": "hof",
+              "tooltip": "f transforms a value from a to b."
+            },
+            {
+              "kind": "object",
+              "id": "g",
+              "type": "g :: b ⟶ c",
+              "role": "hof",
+              "tooltip": "g transforms the intermediate b to c."
+            },
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "a",
+              "role": "value"
+            },
+            {
+              "kind": "object",
+              "id": "h",
+              "type": "h = g ∘ f :: a ⟶ c"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "compose"
+            },
+            {
+              "kind": "flow",
+              "from": "g",
+              "to": "compose"
+            },
+            {
+              "kind": "flow",
+              "from": "compose",
+              "to": "h"
+            },
+            {
+              "kind": "flow",
+              "from": "h",
+              "to": "apply"
+            },
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "apply"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "compose": "function",
+            "f": "hof",
+            "g": "hof",
+            "x": "value"
+          },
+          "tooltips": {
+            "compose": "Composition creates a new function h = g ∘ f.",
+            "f": "f transforms a value from a to b.",
+            "g": "g transforms the intermediate b to c."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "Composition",
+          "viewType": "FpActivityView",
+          "expose": "CompositionFlow",
+          "rendering": "fpActivityDiagram",
+          "title": " Function composition applies f then g "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Function composition applies f then g ",
+    "render": "CompositionFlow",
+    "shows": {
+      "compose": "function",
+      "f": "hof",
+      "g": "hof",
+      "x": "value"
+    },
+    "tooltips": {
+      "compose": "Composition creates a new function h = g ∘ f.",
+      "f": "f transforms a value from a to b.",
+      "g": "g transforms the intermediate b to c."
+    }
+  }
+}

@@ -1,126 +1,209 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1537 382"><svg class="d2-757797023 d2-svg" width="1537" height="382" viewBox="-89 -89 1537 382"><rect x="-89.000000" y="-89.000000" width="1537.000000" height="382.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
-.d2-757797023 .text {
-	font-family: "d2-757797023-font-regular";
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1152 214" width="1152" height="214" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">Maybe bind propagates Nothing and skips the remaining functions</title>
+  <desc id="diagram-description">Functional programming diagram: Maybe bind propagates Nothing and skips the remaining functions</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
 }
-@font-face {
-	font-family: d2-757797023-font-regular;
-	src: url("data:application/font-woff;base64,d09GRgABAAAAAA2cAAoAAAAAFLQAAguFAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAAA9AAAAGAAAABgXd/Vo2NtYXAAAAFUAAAAngAAAMgDWCQHZ2x5ZgAAAfQAAAcjAAAJbKCpwJFoZWFkAAAJGAAAADYAAAA2G4Ue32hoZWEAAAlQAAAAJAAAACQKhAXiaG10eAAACXQAAACAAAAAgDiuBmlsb2NhAAAJ9AAAAEIAAABCKiwnqG1heHAAAAo4AAAAIAAAACAAOAD2bmFtZQAAClgAAAMjAAAIFAbDVU1wb3N0AAANfAAAAB0AAAAg/9EAMgADAgkBkAAFAAACigJYAAAASwKKAlgAAAFeADIBIwAAAgsFAwMEAwICBGAAAvcAAAADAAAAAAAAAABBREJPAEAAIP//Au7/BgAAA9gBESAAAZ8AAAAAAeYClAAAACAAA3icdM09SsMAGIDhJyb+RKNGjf8RcgIRwRs4OXgHRyGIOAheRrT0DIVC6VnapXTqFb5CCt36rs/wIpFKUMiMUCulCo17j548e/HqXevTt5+miqDTh7W+aX34WmlMYxHzmMU4hjGIfvTiP/7id5J3n80laleu3bi1JZXZtmPXnty+A4VDR46VTpw6Uzl34dIdSwAAAP//AQAA//9YDCRrAAB4nGRVb2wbdxl+fz9ffE3tNLn6/tiJ/939Ep/txHHi8/mc2jk3iZ2mqROnTrI2aZv+pS6MVlvKVlUt7YduaxlFBFQkJCjqRD+sEmOaJm1DEx8ojIV/lSZNG0hI26cwsYGQsRhoyhnd2UkT+GTJ+r3v87zP+zzvQQssAGAV3wEbtEI77AYOQGFEpkeUZUJriqYRwabJiKEX0J+NFYT2J6lUihoc/XT08vXr6PA1fGf9q3ueq1TeWbp0yfjW2idGAj36BDAsAuAkXoEdwJgdlQTPsXYiK4mUmgwRsnj/+z+6+735AxcvXrx4AK88+OHdn+a/efXq8wCAIFCvoW/gFWgHECRZ43mzilEY1m5//8qeLJ8manKuZ8b55ahMRg6gd43B9JIGyMKM4RVwWYguQQmFzDJikwnPc8ziE3/bR9no0hN/30dRNF4xztxKPJlEs+tPobs3B88ljQeAIVmvoddQFTqh20QPqcmUlgyFiGSn5VTKHIMhMrHb5URKU+12juUfDh/89g+Y3nB00heUTu9ZmMnTNukgT3Ry+WTCuX9kZp4JpEmQHeIj548YH+zxRkelwM32bDzSAxjK9Rr6Aq+CC4IALVJIJjRhFI5uYLEWkKmYZKc5nkcRaX/QRo+WsVgKHz+VOT6eLWUKgb0kmHOKvgRefXjYJ7/w9OyzeqGyOHNaCta9Alia9tdr6FVUBa+FYo5lAgi0NZo5hpJIaYLdjnbvPZcdeVIfKHiiXNzXV5Bnx6Q9fLc448wuz5SXs5KQcrnj8+nZio/VfCIAhni9hv60MUNDM6u5rCobYmnqJtC/j1zInNSiepCazdM2b9GzNxsY8su50Ljz+culi7q/c/bt9fSQN1IYM7xCfDZ96DRgi/9vURXcENg2AcfaaZHfYG8TLamQMPIVPXdGO/YlhI23Wg6Nk0yXL1D6HaJyQ8pB5/ByaWZZv3quzdM6dZRjUqwfhSanSpZOfgCUw+83ckBUTU02dSISxykcYU6Mjhb2C9GO3V3efKWCfqy3TE0eaqVzzqWpMeMYANggVg+iz1AVBmEYpjZdpIa2/FhNFc70JWu3E0lu7KC5c9vGzjmWdzUTI4Uab/618FRI3O2RXG45MTfIdrc9OMMIAzMJWWrb3TO4ND+fvVCMDmd7e7PDqfE5JT63S+zodB/4OJ8LDPGUI+wN9LdRbL5XnY7SLbkONZAsRhhHFyv4teFYMY5ey6lqNquqOePWcEjqpChXlJP7LW3KAOhDvAqsla8NjzKEafiTKZdtZCoxta/cN9CT6cGrD8+I8ZPHjN+jSF4P9Rj3oF6HAgC8jt/AIVNpsEPgasOf5XoN/ohXG5m3YrtpyQf9kfKuVoqmHTt455CKz67fcTEI6RS1wQlVm5wE5f845Wkbmd4khdbGyXZOTW/9A1WhHbq2eWt7/jiWR+2ZSi5XyWTP5nJns7mpqZw+Pd3MRXa5PLOczVdm586dm5utgJVtBX2Bqs1cPGZnbTwkC5xra7ZNpmKpd+lU5nhaGpPwJSvauW5R/wN+Pe0N33y6/Kzu75y/j+z/k21TgyVUbV7aBkoz2Q0BPBMRn9DhZNsDYx60drg/tXOCohK6sdqo99Zr6AaqQtTSfuPgJkMhuR9v+r8pAS/4sTnAe8klEgnmewcGRKVLGo0ulGLT3rAnFezv9Q90kXwsUnLKXs0jxgIeSdjZJqqRTCkoJF3uqFfwcY42UeuXR8MWvrteQwV8AYTm7omqaYoVtk0PfDo9PFHcWbhxQ4y2+Z0dbNy5OIHa9JZbt8aMamywldJph9XrQL2GHqE10w/bfMQ0T9HHUxOzvQOhjGTqIhWdJ4+hpPFhXpd70YLRWQwPAAInAHoXrUEbgGJTXDxvSqq5FNvbr84fdQgOyiHsPHrwJ2jN+Kx7gpCJbsQanWZdPW7VdW3VUdO2tdiFFzt8zo4dbGsk1e745fxph8dBOdidh2beZOKF9+zUCG7JxLrRX4x/BiYkcSKI2tarA8WY6ae+eg29g18Ex4ZSyaadtnr0PyfOnz9x/Pz54+l8Pp0uFJyv3Hvp5ZdfuvfK6PXbt69cuX37uqVTCQC9ia+ZsyrmmVZTKc0Mdem7X+sb6cw9l0cfqDuEjvVf5xse6QZAv8IvmrMpqo6btpU3DW0eA4ULn3hhPDscznvj4SP6wtmxZ4qdac/PBk985xlFG48F431qZT575WYJU/sAgadeQ7/A15pfjce+szq7RI7Qj2P41+IZMewrpjMHJ3Ux7uvjUO5zRuj3aQup4VPOlJjyxkpjo5Osy4uUfT937uo9XCicTDS4j9Rr8BYsg2O7al/3EOJxE+IkXT5CfF3EfBuBj/DnyA02AE0VuQh+9NHQUCNjcB+tmf8rjMKUy2jN3Hn9N3gSNPyG2ZvZ0tsdCLjdgQCe9Hncfr/b44P/AgAA//8BAAD//0KB9SkAAAEAAAACC4WCdXKzXw889QADA+gAAAAA2F2goQAAAADdZi82/jr+2whvA8gAAAADAAIAAAAAAAAAAQAAA9j+7wAACJj+Ov46CG8AAQAAAAAAAAAAAAAAAAAAACACjQBZAMgAAAJnAFoB4AAfAocAWgH4ADQCKQBSAcgALgIrAC8B8AAuASQAHgH4AC0CIABSAPYARQD/AFICIwBSAh4ALgIrAFIBWwBSAaMAHAFSABgCIABLAdMADAHTAAwB8QAsAfEATwHxACQB8QAZAPkAQQMgACkA9gBSAAD/yQAAACwALABKAGYAiADAAPQBIgFUAYgBqgIWAjgCRAJgAoICrgLiAwIDQgNoA4oDpgPWA/wEFAQ+BHIEiASUBKAEtgAAAAEAAAAgAIwADABmAAcAAQAAAAAAAAAAAAAAAAAEAAN4nJyU3U4bVxSFPwfbbVQ1FxWKyA06l22VjN0IogSuTAmKVYRTj9Mfqao0eMY/Yjwz8gxQqj5Ar/sWfYtc9Tn6EFWvq7O8DTaqFIEQsM6cvfdZZ6+1D7DJv2xQqz8E/mr+YLjGdnPP8AMeNZ8a3uC48bfh+kpMg7jxm+EmXzb6hj/iff0Pwx+zU//Z8EO26keGP+F5fdPwpxuOfww/Yof3C1yDl/xuuMYWheEHbPKT4Q0eYzVrdR7TNtzgM7YNN9kGBkypSJmSMcYxYsqYc+YklIQkzJkyIiHG0aVDSqWvGZGQY/y/XyNCKuZEqjihwpESkhJRMrGKvyor561OHGk1t70OFRMiTpVxRkSGI2dMTkbCmepUVBTs0aJFyVB8CypKAkqmpATkzBnToscRxwyYMKXEcaRKnllIzoiKSyKd7yzCd2ZIQkZprM7JiMXTiV+i7C7HOHoUil2tfLxW4SmO75TtueWK/YpAv26F2fq5SzYRF+pnqq6k2rmUghPt+nM7fCtcsYe7V3/WmXy4R7H+V6p8yrn0j6VUJiYZzm3RIZSDQvcEx4HWXUJ15Hu6DHhDj3cMtO7Qp0+HEwZ0ea3cHn0cX9PjhENldIUXe0dyzAk/4viGrmJ87cT6s1As4RcKc3cpjnPdY0ahnnvmge6a6IZ3V9jPUL7mjlI5Q82Rj3TSL9OcRYzNFYUYztTLpTdK619sjpjpLl7bm30/DRc2e8spviLXDHu3Ljh55RaMPqRqcMszl/oJiIjJOVXEkJwZLSquxPstEeekOA7VvTeakorOdY4/50ouSZiJQZdMdeYU+huZb0LjPlzzvbO3JFa+Z3p2fav7nOLUqxuN3ql7y73QupysKNAyVfMVNw3FNTPvJ5qpVf6hcku9bjnP6JNI9VQ3uP0OPCegzQ677DPROUPtXNgb0dY70eYV++rBGYmiRnJ1YhV2CXjBLru84sVazQ6HHNBj/w4cF1k9Dnh9a2ddp2UVZ3X+FJu2+DqeXa9e3luvz+/gyy80UTcvY1/a+G5fWLUb/58QMfNc3NbqndwTgv8AAAD//wEAAP//B1tMMAB4nGJgZgCD/+cYjBiwAAAAAAD//wEAAP//LwECAwAAAA==");
-}
-.appendix-icon {
-	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
-}
-.d2-757797023 .text-bold {
-	font-family: "d2-757797023-font-bold";
-}
-@font-face {
-	font-family: d2-757797023-font-bold;
-	src: url("data:application/font-woff;base64,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");
-}]]></style><style type="text/css"><![CDATA[.shape {
-  shape-rendering: geometricPrecision;
-  stroke-linejoin: round;
-}
-.connection {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.blend {
-  mix-blend-mode: multiply;
-  opacity: 0.5;
-}
-
-		.d2-757797023 .fill-N1{fill:#0A0F25;}
-		.d2-757797023 .fill-N2{fill:#676C7E;}
-		.d2-757797023 .fill-N3{fill:#9499AB;}
-		.d2-757797023 .fill-N4{fill:#CFD2DD;}
-		.d2-757797023 .fill-N5{fill:#DEE1EB;}
-		.d2-757797023 .fill-N6{fill:#EEF1F8;}
-		.d2-757797023 .fill-N7{fill:#FFFFFF;}
-		.d2-757797023 .fill-B1{fill:#0D32B2;}
-		.d2-757797023 .fill-B2{fill:#0D32B2;}
-		.d2-757797023 .fill-B3{fill:#E3E9FD;}
-		.d2-757797023 .fill-B4{fill:#E3E9FD;}
-		.d2-757797023 .fill-B5{fill:#EDF0FD;}
-		.d2-757797023 .fill-B6{fill:#F7F8FE;}
-		.d2-757797023 .fill-AA2{fill:#4A6FF3;}
-		.d2-757797023 .fill-AA4{fill:#EDF0FD;}
-		.d2-757797023 .fill-AA5{fill:#F7F8FE;}
-		.d2-757797023 .fill-AB4{fill:#EDF0FD;}
-		.d2-757797023 .fill-AB5{fill:#F7F8FE;}
-		.d2-757797023 .stroke-N1{stroke:#0A0F25;}
-		.d2-757797023 .stroke-N2{stroke:#676C7E;}
-		.d2-757797023 .stroke-N3{stroke:#9499AB;}
-		.d2-757797023 .stroke-N4{stroke:#CFD2DD;}
-		.d2-757797023 .stroke-N5{stroke:#DEE1EB;}
-		.d2-757797023 .stroke-N6{stroke:#EEF1F8;}
-		.d2-757797023 .stroke-N7{stroke:#FFFFFF;}
-		.d2-757797023 .stroke-B1{stroke:#0D32B2;}
-		.d2-757797023 .stroke-B2{stroke:#0D32B2;}
-		.d2-757797023 .stroke-B3{stroke:#E3E9FD;}
-		.d2-757797023 .stroke-B4{stroke:#E3E9FD;}
-		.d2-757797023 .stroke-B5{stroke:#EDF0FD;}
-		.d2-757797023 .stroke-B6{stroke:#F7F8FE;}
-		.d2-757797023 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-757797023 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-757797023 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-757797023 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-757797023 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-757797023 .background-color-N1{background-color:#0A0F25;}
-		.d2-757797023 .background-color-N2{background-color:#676C7E;}
-		.d2-757797023 .background-color-N3{background-color:#9499AB;}
-		.d2-757797023 .background-color-N4{background-color:#CFD2DD;}
-		.d2-757797023 .background-color-N5{background-color:#DEE1EB;}
-		.d2-757797023 .background-color-N6{background-color:#EEF1F8;}
-		.d2-757797023 .background-color-N7{background-color:#FFFFFF;}
-		.d2-757797023 .background-color-B1{background-color:#0D32B2;}
-		.d2-757797023 .background-color-B2{background-color:#0D32B2;}
-		.d2-757797023 .background-color-B3{background-color:#E3E9FD;}
-		.d2-757797023 .background-color-B4{background-color:#E3E9FD;}
-		.d2-757797023 .background-color-B5{background-color:#EDF0FD;}
-		.d2-757797023 .background-color-B6{background-color:#F7F8FE;}
-		.d2-757797023 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-757797023 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-757797023 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-757797023 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-757797023 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-757797023 .color-N1{color:#0A0F25;}
-		.d2-757797023 .color-N2{color:#676C7E;}
-		.d2-757797023 .color-N3{color:#9499AB;}
-		.d2-757797023 .color-N4{color:#CFD2DD;}
-		.d2-757797023 .color-N5{color:#DEE1EB;}
-		.d2-757797023 .color-N6{color:#EEF1F8;}
-		.d2-757797023 .color-N7{color:#FFFFFF;}
-		.d2-757797023 .color-B1{color:#0D32B2;}
-		.d2-757797023 .color-B2{color:#0D32B2;}
-		.d2-757797023 .color-B3{color:#E3E9FD;}
-		.d2-757797023 .color-B4{color:#E3E9FD;}
-		.d2-757797023 .color-B5{color:#EDF0FD;}
-		.d2-757797023 .color-B6{color:#F7F8FE;}
-		.d2-757797023 .color-AA2{color:#4A6FF3;}
-		.d2-757797023 .color-AA4{color:#EDF0FD;}
-		.d2-757797023 .color-AA5{color:#F7F8FE;}
-		.d2-757797023 .color-AB4{color:#EDF0FD;}
-		.d2-757797023 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-757797023);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-757797023);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-757797023);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-757797023);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-757797023);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-757797023);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-757797023);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-757797023);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><defs>
-	<filter id="shadow-filter" width="200%" height="200%" x="-50%" y="-50%">
-		<feGaussianBlur stdDeviation="1.7 " in="SourceGraphic"></feGaussianBlur>
-		<feFlood flood-color="#3d4574" flood-opacity="0.4" result="ShadowFeFlood" in="SourceGraphic"></feFlood>
-		<feComposite in="ShadowFeFlood" in2="SourceAlpha" operator="in" result="ShadowFeComposite"></feComposite>
-		<feOffset dx="3" dy="5" result="ShadowFeOffset" in="ShadowFeComposite"></feOffset>
-		<feBlend in="SourceGraphic" in2="ShadowFeOffset" mode="normal" result="ShadowFeBlend"></feBlend>
-	</filter>
-</defs><g class="ZXhhbXBsZQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="1335.000000" height="180.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="679.500000" y="45.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">safeDivide 10 then 0 then 1</text></g><g class="ZXhhbXBsZS5qMTA= value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="102.000000" cy="102.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="102.000000" y="107.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Just 10</text></g><g class="ZXhhbXBsZS5kaXYy function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="212.000000" y="69.000000" width="165.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="294.500000" y="107.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">bind safeDivide 2</text></g><g class="ZXhhbXBsZS5qNQ== value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="487.000000" cy="102.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="487.000000" y="107.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Just 5</text></g><g class="ZXhhbXBsZS5kaXYw function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="597.000000" y="69.000000" width="165.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="679.500000" y="107.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">bind safeDivide 0</text></g><g class="ZXhhbXBsZS5ub3RoaW5n type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="872.000000" cy="102.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="872.000000" cy="102.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="872.000000" y="107.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Nothing</text></g><g class="ZXhhbXBsZS5kaXYx function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="982.000000" y="69.000000" width="165.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="1064.500000" y="107.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">bind safeDivide 1</text><title>f is not called — Nothing is already present.</title></g><g class="ZXhhbXBsZS5ub3RoaW5nMg== type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="1257.000000" cy="102.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="1257.000000" cy="102.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1257.000000" y="107.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Nothing</text></g><g class="ZXhhbXBsZS4oajEwIC0mZ3Q7IGRpdjIpWzBd"><marker id="mk-d2-757797023-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 143.500000 102.000000 L 208.500000 102.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-757797023-3488378134)" mask="url(#d2-757797023)" /></g><g class="ZXhhbXBsZS4oZGl2MiAtJmd0OyBqNSlbMF0="><path d="M 378.500000 102.000000 L 443.500000 102.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-757797023-3488378134)" mask="url(#d2-757797023)" /></g><g class="ZXhhbXBsZS4oajUgLSZndDsgZGl2MClbMF0="><path d="M 528.500000 102.000000 L 593.500000 102.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-757797023-3488378134)" mask="url(#d2-757797023)" /></g><g class="ZXhhbXBsZS4oZGl2MCAtJmd0OyBub3RoaW5nKVswXQ=="><path d="M 763.500000 102.000000 L 828.500000 102.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-757797023-3488378134)" mask="url(#d2-757797023)" /></g><g class="ZXhhbXBsZS4obm90aGluZyAtJmd0OyBkaXYxKVswXQ=="><path d="M 913.500000 102.000000 L 978.500000 102.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-757797023-3488378134)" mask="url(#d2-757797023)" /></g><g class="ZXhhbXBsZS4oZGl2MSAtJmd0OyBub3RoaW5nMilbMF0="><path d="M 1148.500000 102.000000 L 1213.500000 102.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-757797023-3488378134)" mask="url(#d2-757797023)" /></g><g transform="translate(1131 53)" class="appendix-icon"><title>f is not called — Nothing is already present.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-757797023-MV4GC3LQNRSS4ZDJOYYQ)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-757797023-MV4GC3LQNRSS4ZDJOYYQ">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="576" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">Maybe bind propagates Nothing and skips the remaining functions</text>
+  <g transform="translate(0,28) scale(1)">
+    <rect x="0" y="0" width="1152" height="186" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-activity">
+      <path d="M0,0 L146.20000000000002,0 L146.20000000000002,12 L136.20000000000002,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+      <text x="73.10000000000001" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«activity» Maybe bind</text>
+    </g>
+    <g class="edge">
+      <path d="M164.0,59.0 L267.0,59.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="221.5" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Maybe Int</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M164.0,111.0 L263.0,111.0 Q269.0,111.0 269.0,105.0 L269.0,77.0 L269.0,77.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="216.5" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Int ⟶ Maybe Int</text>
+    </g>
+    <g class="edge">
+      <path d="M411.0,62.0 L419.0,62.0 Q425.0,62.0 425.0,68.0 L425.0,83.0 Q425.0,89.0 431.0,89.0 L522.0,89.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="479.5" y="83" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Maybe Int</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M407.0,123.0 L518.0,123.0 Q524.0,123.0 524.0,117.0 L524.0,104.0 L524.0,104.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="465.5" y="117" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Int ⟶ Maybe Int</text>
+    </g>
+    <g class="edge">
+      <path d="M666.0,87.0 L674.0,87.0 Q680.0,87.0 680.0,93.0 L680.0,108.0 Q680.0,114.0 686.0,114.0 L777.0,114.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="734.5" y="108" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Maybe Int</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M662.0,148.0 L773.0,148.0 Q779.0,148.0 779.0,142.0 L779.0,129.0 L779.0,129.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="720.5" y="142" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Int ⟶ Maybe Int</text>
+    </g>
+    <g class="edge">
+      <path d="M921.0,118.0 L994.0,118.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="965.5" y="112" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Maybe Int</text>
+    </g>
+    <g class="edge">
+      <path d="M407.0,78.0 L530.0,78.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+    </g>
+    <g class="edge">
+      <path d="M662.0,103.0 L785.0,103.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+    </g>
+    <g class="action-node">
+      <title>bind applies safeDivide(2) to Just 10, producing Just 5.</title>
+      <rect x="287" y="46" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="347" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind1</text>
+      <g class="pin pin-in">
+        <rect x="283" y="56.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="293" y="60.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">ma</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="283" y="71.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="293" y="75.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="403" y="64" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="401" y="68" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">mb</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>bind applies safeDivide(0) to Just 5; division by zero returns Nothing.</title>
+      <rect x="542" y="71" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="602" y="93" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind2</text>
+      <g class="pin pin-in">
+        <rect x="538" y="81.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="548" y="85.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">ma</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="538" y="96.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="548" y="100.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="658" y="89" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="656" y="93" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">mb</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>Nothing passes through unchanged; the next function is not called.</title>
+      <rect x="797" y="96" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="857" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind3</text>
+      <g class="pin pin-in">
+        <rect x="793" y="106.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="803" y="110.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">ma</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="793" y="121.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="803" y="125.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="913" y="114" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="911" y="118" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">mb</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>Just 10</title>
+      <rect x="54" y="40" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="109" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Maybe Int</text>
+    </g>
+    <g class="object-node hof">
+      <title>safeDivide(2) : Int ⟶ Maybe Int</title>
+      <rect x="36" y="92" width="128" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="100" y="104" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="100" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Int ⟶ Maybe Int</text>
+    </g>
+    <g class="object-node hof">
+      <title>safeDivide(0) : Int ⟶ Maybe Int</title>
+      <rect x="279" y="104" width="128" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="343" y="116" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="343" y="130" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Int ⟶ Maybe Int</text>
+    </g>
+    <g class="object-node hof">
+      <title>safeDivide(1) : Int ⟶ Maybe Int — skipped because the input is Nothing.</title>
+      <rect x="534" y="129" width="128" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="598" y="141" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="598" y="155" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Int ⟶ Maybe Int</text>
+    </g>
+    <g class="object-node">
+      <title>Nothing — the first failed step short-circuits the remaining chain.</title>
+      <rect x="1006" y="99" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="1061" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Maybe Int</text>
+    </g>
+  </g>
 </svg>
-</g><mask id="d2-757797023" maskUnits="userSpaceOnUse" x="-89" y="-89" width="1537" height="382">
-<rect x="-89" y="-89" width="1537" height="382" fill="white"></rect>
-
-</mask></svg></svg>

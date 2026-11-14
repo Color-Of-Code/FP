@@ -1,0 +1,339 @@
+{
+  "packages": [
+    {
+      "name": "ArrowOperations",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Arr",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "B -> C",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "arrow",
+              "type": "A B C",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "First",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "arrow",
+              "type": "A B C",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "paired",
+              "type": "A (B,D) (C,D)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Compose",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "left",
+              "type": "A B C",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "right",
+              "type": "A C D",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "A B D",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ArrowInterface",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ArrowInterface",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "arr",
+                "type": "Arr",
+                "role": "function",
+                "tooltip": "arr embeds an ordinary function as an arrow."
+              },
+              {
+                "kind": "action",
+                "id": "first",
+                "type": "First",
+                "role": "function",
+                "tooltip": "first applies the arrow to one component and passes the other through unchanged."
+              },
+              {
+                "kind": "action",
+                "id": "compose",
+                "type": "Compose",
+                "role": "function",
+                "tooltip": ">>> composes arrows sequentially."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "B -> C",
+                "role": "hof",
+                "tooltip": "A pure function is embedded into the arrow abstraction."
+              },
+              {
+                "kind": "object",
+                "id": "arrow",
+                "type": "A B C"
+              },
+              {
+                "kind": "object",
+                "id": "paired",
+                "type": "A (B,D) (C,D)"
+              },
+              {
+                "kind": "object",
+                "id": "next",
+                "type": "A C D",
+                "role": "hof",
+                "tooltip": "The next arrow consumes the previous arrow's output type."
+              },
+              {
+                "kind": "object",
+                "id": "composed",
+                "type": "A B D"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "arr"
+              },
+              {
+                "kind": "flow",
+                "from": "arr",
+                "to": "arrow"
+              },
+              {
+                "kind": "flow",
+                "from": "arrow",
+                "to": "first"
+              },
+              {
+                "kind": "flow",
+                "from": "first",
+                "to": "paired"
+              },
+              {
+                "kind": "flow",
+                "from": "arrow",
+                "to": "compose"
+              },
+              {
+                "kind": "flow",
+                "from": "next",
+                "to": "compose"
+              },
+              {
+                "kind": "flow",
+                "from": "compose",
+                "to": "composed"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "arr": "function",
+              "first": "function",
+              "compose": "function",
+              "f": "hof",
+              "next": "hof"
+            },
+            "tooltips": {
+              "arr": "arr embeds an ordinary function as an arrow.",
+              "first": "first applies the arrow to one component and passes the other through unchanged.",
+              "compose": ">>> composes arrows sequentially.",
+              "f": "A pure function is embedded into the arrow abstraction.",
+              "next": "The next arrow consumes the previous arrow's output type."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ArrowInterface",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "arr",
+              "type": "Arr",
+              "role": "function",
+              "tooltip": "arr embeds an ordinary function as an arrow."
+            },
+            {
+              "kind": "action",
+              "id": "first",
+              "type": "First",
+              "role": "function",
+              "tooltip": "first applies the arrow to one component and passes the other through unchanged."
+            },
+            {
+              "kind": "action",
+              "id": "compose",
+              "type": "Compose",
+              "role": "function",
+              "tooltip": ">>> composes arrows sequentially."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "B -> C",
+              "role": "hof",
+              "tooltip": "A pure function is embedded into the arrow abstraction."
+            },
+            {
+              "kind": "object",
+              "id": "arrow",
+              "type": "A B C"
+            },
+            {
+              "kind": "object",
+              "id": "paired",
+              "type": "A (B,D) (C,D)"
+            },
+            {
+              "kind": "object",
+              "id": "next",
+              "type": "A C D",
+              "role": "hof",
+              "tooltip": "The next arrow consumes the previous arrow's output type."
+            },
+            {
+              "kind": "object",
+              "id": "composed",
+              "type": "A B D"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "arr"
+            },
+            {
+              "kind": "flow",
+              "from": "arr",
+              "to": "arrow"
+            },
+            {
+              "kind": "flow",
+              "from": "arrow",
+              "to": "first"
+            },
+            {
+              "kind": "flow",
+              "from": "first",
+              "to": "paired"
+            },
+            {
+              "kind": "flow",
+              "from": "arrow",
+              "to": "compose"
+            },
+            {
+              "kind": "flow",
+              "from": "next",
+              "to": "compose"
+            },
+            {
+              "kind": "flow",
+              "from": "compose",
+              "to": "composed"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "arr": "function",
+            "first": "function",
+            "compose": "function",
+            "f": "hof",
+            "next": "hof"
+          },
+          "tooltips": {
+            "arr": "arr embeds an ordinary function as an arrow.",
+            "first": "first applies the arrow to one component and passes the other through unchanged.",
+            "compose": ">>> composes arrows sequentially.",
+            "f": "A pure function is embedded into the arrow abstraction.",
+            "next": "The next arrow consumes the previous arrow's output type."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ArrowOperations",
+          "viewType": "FpActivityView",
+          "expose": "ArrowInterface",
+          "rendering": "fpActivityDiagram",
+          "title": "arrows",
+          "name": "Arrow",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "arrows",
+    "name": "Arrow",
+    "direction": "LR",
+    "render": "ArrowInterface",
+    "shows": {
+      "arr": "function",
+      "first": "function",
+      "compose": "function",
+      "f": "hof",
+      "next": "hof"
+    },
+    "tooltips": {
+      "arr": "arr embeds an ordinary function as an arrow.",
+      "first": "first applies the arrow to one component and passes the other through unchanged.",
+      "compose": ">>> composes arrows sequentially.",
+      "f": "A pure function is embedded into the arrow abstraction.",
+      "next": "The next arrow consumes the previous arrow's output type."
+    }
+  }
+}

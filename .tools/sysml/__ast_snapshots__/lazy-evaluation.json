@@ -1,0 +1,305 @@
+{
+  "packages": [
+    {
+      "name": "LazyEvaluation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "EvaluateNow",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "arguments",
+              "type": "1 + 1, 2 * 3",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "2, 6",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CallWithValues",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "arguments",
+              "type": "2, 6",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "f(2, 6)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Defer",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "arguments",
+              "type": "1 + 1, 2 * 3",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "thunks",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Demand",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "thunks",
+              "type": "thunks",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "only the demanded argument is forced",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Take",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "stream",
+              "type": "0 : 1 : 2 : …",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "count",
+              "type": "5",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "[0, 1, 2, 3, 4]",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "EvaluationStrategies",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "EvaluationStrategies",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "eager",
+                "type": "EvaluateNow"
+              },
+              {
+                "kind": "action",
+                "id": "call",
+                "type": "CallWithValues"
+              },
+              {
+                "kind": "action",
+                "id": "defer",
+                "type": "Defer"
+              },
+              {
+                "kind": "action",
+                "id": "demand",
+                "type": "Demand"
+              },
+              {
+                "kind": "action",
+                "id": "takeFive",
+                "type": "Take"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "expressions",
+                "type": "f(1 + 1, 2 * 3)"
+              },
+              {
+                "kind": "object",
+                "id": "naturals",
+                "type": "nats = 0 : 1 : 2 : …"
+              },
+              {
+                "kind": "object",
+                "id": "count",
+                "type": "5"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "expressions",
+                "to": "eager"
+              },
+              {
+                "kind": "flow",
+                "from": "eager",
+                "to": "call"
+              },
+              {
+                "kind": "flow",
+                "from": "expressions",
+                "to": "defer"
+              },
+              {
+                "kind": "flow",
+                "from": "defer",
+                "to": "demand"
+              },
+              {
+                "kind": "flow",
+                "from": "naturals",
+                "to": "takeFive"
+              },
+              {
+                "kind": "flow",
+                "from": "count",
+                "to": "takeFive"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {},
+            "tooltips": {}
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "EvaluationStrategies",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "eager",
+              "type": "EvaluateNow"
+            },
+            {
+              "kind": "action",
+              "id": "call",
+              "type": "CallWithValues"
+            },
+            {
+              "kind": "action",
+              "id": "defer",
+              "type": "Defer"
+            },
+            {
+              "kind": "action",
+              "id": "demand",
+              "type": "Demand"
+            },
+            {
+              "kind": "action",
+              "id": "takeFive",
+              "type": "Take"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "expressions",
+              "type": "f(1 + 1, 2 * 3)"
+            },
+            {
+              "kind": "object",
+              "id": "naturals",
+              "type": "nats = 0 : 1 : 2 : …"
+            },
+            {
+              "kind": "object",
+              "id": "count",
+              "type": "5"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "expressions",
+              "to": "eager"
+            },
+            {
+              "kind": "flow",
+              "from": "eager",
+              "to": "call"
+            },
+            {
+              "kind": "flow",
+              "from": "expressions",
+              "to": "defer"
+            },
+            {
+              "kind": "flow",
+              "from": "defer",
+              "to": "demand"
+            },
+            {
+              "kind": "flow",
+              "from": "naturals",
+              "to": "takeFive"
+            },
+            {
+              "kind": "flow",
+              "from": "count",
+              "to": "takeFive"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "LazyEvaluation",
+          "viewType": "FpActivityView",
+          "expose": "EvaluationStrategies",
+          "rendering": "fpActivityDiagram",
+          "title": " Eager and lazy evaluation defer work differently "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Eager and lazy evaluation defer work differently ",
+    "render": "EvaluationStrategies",
+    "shows": {},
+    "tooltips": {}
+  }
+}

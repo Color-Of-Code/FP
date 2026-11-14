@@ -1,0 +1,399 @@
+{
+  "packages": [
+    {
+      "name": "TransformerMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ManualProcess",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "input",
+              "type": "Input",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "state",
+              "type": "State",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "log",
+              "type": "Log",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Either Error (Value, State, Log)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Step",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "Value",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Value",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "App a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a -> App b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "App b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "RunStack",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "computation",
+              "type": "App b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Either Error (Value, State, Log)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ThreadingComparison",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ThreadingComparison",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "manual",
+                "type": "ManualProcess",
+                "role": "function",
+                "tooltip": "Manual code threads state and log and checks for failure at every step."
+              },
+              {
+                "kind": "action",
+                "id": "bind",
+                "type": "Bind",
+                "role": "function",
+                "tooltip": "bind threads the configured effects and short-circuits on failure."
+              },
+              {
+                "kind": "action",
+                "id": "run",
+                "type": "RunStack"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "input",
+                "type": "Input"
+              },
+              {
+                "kind": "object",
+                "id": "state",
+                "type": "State"
+              },
+              {
+                "kind": "object",
+                "id": "log",
+                "type": "Log"
+              },
+              {
+                "kind": "object",
+                "id": "manualResult",
+                "type": "Either Error (Value, State, Log)"
+              },
+              {
+                "kind": "object",
+                "id": "first",
+                "type": "App a"
+              },
+              {
+                "kind": "object",
+                "id": "step",
+                "type": "Value -> App Value",
+                "role": "hof",
+                "tooltip": "Each step returns the same combined effect stack."
+              },
+              {
+                "kind": "object",
+                "id": "combined",
+                "type": "App Value"
+              },
+              {
+                "kind": "object",
+                "id": "stackResult",
+                "type": "Either Error (Value, State, Log)"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "input",
+                "to": "manual"
+              },
+              {
+                "kind": "flow",
+                "from": "state",
+                "to": "manual"
+              },
+              {
+                "kind": "flow",
+                "from": "log",
+                "to": "manual"
+              },
+              {
+                "kind": "flow",
+                "from": "manual",
+                "to": "manualResult"
+              },
+              {
+                "kind": "flow",
+                "from": "first",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "step",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "bind",
+                "to": "combined"
+              },
+              {
+                "kind": "flow",
+                "from": "combined",
+                "to": "run"
+              },
+              {
+                "kind": "flow",
+                "from": "run",
+                "to": "stackResult"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "manual": "function",
+              "bind": "function",
+              "step": "hof"
+            },
+            "tooltips": {
+              "manual": "Manual code threads state and log and checks for failure at every step.",
+              "bind": "bind threads the configured effects and short-circuits on failure.",
+              "step": "Each step returns the same combined effect stack."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ThreadingComparison",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "manual",
+              "type": "ManualProcess",
+              "role": "function",
+              "tooltip": "Manual code threads state and log and checks for failure at every step."
+            },
+            {
+              "kind": "action",
+              "id": "bind",
+              "type": "Bind",
+              "role": "function",
+              "tooltip": "bind threads the configured effects and short-circuits on failure."
+            },
+            {
+              "kind": "action",
+              "id": "run",
+              "type": "RunStack"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "input",
+              "type": "Input"
+            },
+            {
+              "kind": "object",
+              "id": "state",
+              "type": "State"
+            },
+            {
+              "kind": "object",
+              "id": "log",
+              "type": "Log"
+            },
+            {
+              "kind": "object",
+              "id": "manualResult",
+              "type": "Either Error (Value, State, Log)"
+            },
+            {
+              "kind": "object",
+              "id": "first",
+              "type": "App a"
+            },
+            {
+              "kind": "object",
+              "id": "step",
+              "type": "Value -> App Value",
+              "role": "hof",
+              "tooltip": "Each step returns the same combined effect stack."
+            },
+            {
+              "kind": "object",
+              "id": "combined",
+              "type": "App Value"
+            },
+            {
+              "kind": "object",
+              "id": "stackResult",
+              "type": "Either Error (Value, State, Log)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "input",
+              "to": "manual"
+            },
+            {
+              "kind": "flow",
+              "from": "state",
+              "to": "manual"
+            },
+            {
+              "kind": "flow",
+              "from": "log",
+              "to": "manual"
+            },
+            {
+              "kind": "flow",
+              "from": "manual",
+              "to": "manualResult"
+            },
+            {
+              "kind": "flow",
+              "from": "first",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "step",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "combined"
+            },
+            {
+              "kind": "flow",
+              "from": "combined",
+              "to": "run"
+            },
+            {
+              "kind": "flow",
+              "from": "run",
+              "to": "stackResult"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "manual": "function",
+            "bind": "function",
+            "step": "hof"
+          },
+          "tooltips": {
+            "manual": "Manual code threads state and log and checks for failure at every step.",
+            "bind": "bind threads the configured effects and short-circuits on failure.",
+            "step": "Each step returns the same combined effect stack."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TransformerMotivation",
+          "viewType": "FpActivityView",
+          "expose": "ThreadingComparison",
+          "rendering": "fpActivityDiagram",
+          "title": "transformer motivation",
+          "name": "transformers",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "transformer motivation",
+    "name": "transformers",
+    "direction": "LR",
+    "render": "ThreadingComparison",
+    "shows": {
+      "manual": "function",
+      "bind": "function",
+      "step": "hof"
+    },
+    "tooltips": {
+      "manual": "Manual code threads state and log and checks for failure at every step.",
+      "bind": "bind threads the configured effects and short-circuits on failure.",
+      "step": "Each step returns the same combined effect stack."
+    }
+  }
+}

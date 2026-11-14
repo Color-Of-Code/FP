@@ -1,178 +1,175 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1458 554"><svg class="d2-2454414631 d2-svg" width="1458" height="554" viewBox="-89 -89 1458 554"><rect x="-89.000000" y="-89.000000" width="1458.000000" height="554.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
-.d2-2454414631 .text {
-	font-family: "d2-2454414631-font-regular";
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 894.2 189" width="894.2" height="189" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">IO computations describe effects and bind sequences them explicitly</title>
+  <desc id="diagram-description">Functional programming diagram: IO computations describe effects and bind sequences them explicitly</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
 }
-@font-face {
-	font-family: d2-2454414631-font-regular;
-	src: url("data:application/font-woff;base64,d09GRgABAAAAABB8AAoAAAAAGQgAAguFAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAAA9AAAAGAAAABgXd/Vo2NtYXAAAAFUAAAAuAAAAPIEmgWvZ2x5ZgAAAgwAAAmiAAANQDX7G/BoZWFkAAALsAAAADYAAAA2G4Ue32hoZWEAAAvoAAAAJAAAACQKhAXwaG10eAAADAwAAACrAAAAuE+uCclsb2NhAAAMuAAAAF4AAABeU8RQsG1heHAAAA0YAAAAIAAAACAARgD2bmFtZQAADTgAAAMjAAAIFAbDVU1wb3N0AAAQXAAAAB0AAAAg/9EAMgADAgkBkAAFAAACigJYAAAASwKKAlgAAAFeADIBIwAAAgsFAwMEAwICBGAAAvcAAAADAAAAAAAAAABBREJPAEAAIP//Au7/BgAAA9gBESAAAZ8AAAAAAeYClAAAACAAA3icfM05SgRRGIXR8+yyndp5ntt26hIRDExqAyIUKOgGDAUDMREXpOICRMTVmBiJoWD0i28BfZObHPiQNCS0FD7R1lbk7yjtO3CkcqJ25sKVG3fuI7LY0M3iUOVY7dS5S9du/0V8aErxGz/xHV/xHm/xGi/xHE/xGA+52XvJrq7Snm1b1nOvY9OOPg2Ffk0DBg0ZNqJl1JhxEyZNmTZj1px5CxYtWbZi1Rp/AAAA//8BAAD//2IEKDR4nHRXfWxb5fU+72vHN6mdJrf+uLbjr3uv4+vP2PH1vTeJHbvxV9zUiR07aT5oU9qGpi39VZAfFJWxVhpdWzGNhQkJxNCGNCTGPtQCUgGhTRrbum4wJqYNNo0itj8CGp22ZdE2CXI93WsnTdn2142i9z3neZ7znHNeQxvMAWABPw4a6IAu2AVmAJ6kyV6a41hC4iWJpTQSh0hiDr0nryC0J6EVRW1/9uPsmXPn0OxZ/PjGyaHzS0s/WXjgAfnLqx/JcfTWR4Ag0VjHPvw0eADaGJ9PSIgiH7dQhM/HMjqd2WTh46IksAJP6nRo/74L5YlLM/kDjj5bNp49LNx7nN1t/NK77uOGySfvPvFkjXeJdu/I6dpDj5l3facg36RDAAjmAXAcr4Bewayg5kmWpMn5OuqfmpJ/iVfkPyPjxj1IkN+A1nn4Hl4BTfP8fB2vbNzT/D96E69AWyuOeb6O3Hhl4+VRAACscrkLPw1d4LyNjcVs0um4uCgKCYWV2WSxoHLt3OjouVr9bKl0tp6ciZ2YnT0RmzVMPXX8+BOTk08cP/7U1J7cmdqDjz76YO1Mrhlf4aFXeZhUBM3ILEuSfFyNzc6/NnYqfeHkycP76jP7FvCKd7q0tCh/ikojxVFJ5RZsrKO/4KchoiLkJIuledfHcX34dvUVnBTlwgp61F04HYqzB/mRkrPfveAeDggLyeQiG3Ht6ZNydNx+wDfsFRcNQnioN5KMMX7HzkBnMBuLVyIRr+ikE2F3wK73d0dG+hPTcUDgAECf4hUgFCasQJtZ8o/X0AfX8FixuHF1S0/0AloDO3gBKEaRU0qo0AhOBWomWY5VpZUE1SyvD09+5WtkyB8cc3qYI0Nz1TyhYSYtbJo9cyhu2DNSnSbdA6zHNGgJ/N8d8jtDjmCWcV/sSkUDvYCh1lhHn+DrYGy5kWMJluTNRDNXs4bNEhJmiwUFmD0eDZGtYbriP3g4ebCYqiQL7t2sJ2OgnXF8/fVZJ3fh3vrpdGFpvnqE8TQcFKg16Guso8toTdHgf3ue0unQrt3HUiN3p2MFW9AcdYYLXD3HDFm8dNWQWq7WllMMJRqt0emB+pLTJDlpRbNoYx39bpNDUzM1OCfwm2JJwlaif91xKnlICqY92nqe0DjKtt0p96CLy/iKhi+eqfx/2mWvv7YxMOgIFHKyg4rWB2aOAFbx/xytgRXctzEwm3QEbdlEr6FVqRA1ciKdWZQO3IWw/ErbTJFN9jjdlTeQNjPITxqGlyvV5fRDxzptHeP7zaRociHf2HhF1ckFgDL4181ZwwqSkGjpxDJmM29myTuz2cIeKti9q8eRX1pC30y3jY/NdBAZw8J4Tj4AABqINDzoJlqDfhiG8S0XCb5tHzUob2abfcoyXLMGrZpr4rfa1thqM8bXPPOPuXt89C4bY7Ry8al+k7fz+UWSilXjHNO5q7d/YXo6daocHE6FQqlhsTjFR6d20t12694P8hn3oEWr9zvcfZ1aUz4kTASJtky34E6UA6S+x0S5pOFIOYpeyAhCKiUIGfnSsI+xa7XGoJnrU7WpAaB38fXWJNj0KMmSTX+StZqGHY+Pj9bCsd5kL77++iIdPXRAfhMF8mlfr/wMNBpQAICX8FXsgxAA6CD8UNOftcY6/BZfh66mXiRPblny+b5AbWeHliD07RbDoICPbjxuJBFKa7VNTPhvaA1oFRPFN5W9DRmx9a3lCY2nHBrIdPkmwnv31MJ9Yr4Wjop5tFpko/3hQGIT7l75mdZnkzdaa/Fu5djOO09o2Ikt4mqw23i3/PtXtAZd0PNf5/RWvVFXcimTWUqmjmYyR1OZ8fFMemKi1Xup5Vp1OZVfqk8dOzZVXwJ1fvDoE7TW6r1b6FRX+TjKbNw+PxSkdCW0cDh5cIDJMfgBdXxkvHT6F/ilAYf/4r2102mXffpZpPvM/FA0WEBrQG7ToDU9mgLYSgEn1W0wdblzNrQ62yfuKGm18bR8vXnf0VhHD6M1CKr13b4D1BXwmQ3QXABvJxbYgCcfisVovofJBucqkQmH3yZ6+kKuWA+bjwQqBs4h2eiI28ZQOzppIZCseKiE0Rp0UE6zvpOW+risX81vbayjAj4FVMtfrCBJvNrQWz77eGK4VN5RePhhOtjpMnSboob5EupMt126lJPXIv0d2jShV2Ptbayjt9Cq4ofbvEq2xt0H46V6KOZLMoouTNlw6ABKyO/m01wIzcn2sj8GCAwA6KdoFToBeA1vtFgUSSUjr3nt8vR+PaXX6qkd+ye/i1blm94Sy5a8yCTbFR4A+CpaVf2+/d62CKzG51NgEJpvXJwqte8ktO3dHXur5Q6yXdveRYxOfGGx2NHVoW3v3pFHq/KHTI5hcgyybfvLjtrYfG9vgZU/VbA2oirWnu21k6TbYO/E891OQ3e7qSMgdul/NH1Eb9Nr9aYdM9WXyWjhbZ12BLclI170ofx3d4mhSx7UubEWK0cUPSsA6GV8VtGEV1aGIIqSMmAqX70vPGLPnM+jd4R2qnvjWr7pJS8A+jF+RMHDC2ncsje3ZXxlMPFm/50Xiqlhf94R9d+Rnjuau79sH7C92n/nY/fzUjHiiYaFpenU5y5WsHYUENgb6+gH+JH/9CcrbD2ibqVQeknJdLN81BN0TgwMjXFz5XyFSfL+nDPcOz9QP7k7MVQdOGiQWNHVt1vwDXoyHpGOil5ngo1Mjw+NmbSd9exALQxY6Sn0G3wWOhRHSbyyJZTyGQVaQIoOrPnYdS3SGuw7efkPiNw/M7P2qr1ko8KUnLgioifl+7JXFF1sjXX0Q3y2tYVvcVChG2kzS9waOX8qL9J+Z3kgOTmWpqPOsBll/klSfU5pThw+bBBp0RGp5LJjJqMD8aPfN+wMzRYKh+JN/Uca6/AKLCtv2+Zua4ryeRvL2qwsa2B7nCzr7GGVs9HGPrgGy7ALgOJEkdMx7LYrOVMohrAOW1mvzdNb/HbMmPEjp6PHnYjsPgTKvlBzod9jTq36cdApX8Aw3ViHN/HXoU1RT9JwPKEhtgW+T4/rWO9oIbqGHlxYkC/8ahNYowFVdBnN4RfBp7xKgYAIvNDaQ1XUgd9T+pJqLmxKXbvUO+liMc0PDQ4OXbnrxvnz7y9aD95YXr5xEBD4GlW40brDqWZRtDebdHPqeT5dLF5pnbYuvn/+/I3mPIVn0erme79WQ6tKfzd+hsdAwlcVbcltfKxut9XqduMxp83qclltTgVrFV2Gb+EXld8GRo7jCeJIt2ZW040uP7d//3P/BgAA//8BAAD//4/iwj8AAAABAAAAAguF1AJ+B18PPPUAAwPoAAAAANhdoKEAAAAA3WYvNv46/tsIbwPIAAAAAwACAAAAAAAAAAEAAAPY/u8AAAiY/jr+OghvAAEAAAAAAAAAAAAAAAAAAAAueJwcyqFOw1AUx+Hf/yAwGAwppGlKaEiA0GsaHAKBQtCcBMHlCXiXzc/P7Uk6M7N3mN41Tau6dOozny35pQP7p7EFUZdEHYi2orE3ot3wbBm5Bhp7wtVR2wtBR2pVFBp4tRKn55MJv3jH7QG34vxcf7jW5HIyK/nSnivbkc0q8a1EpcSdEtdK3DLywUiY1T0/2tAq4Ao80uMwbRlpTwAAAP//AQAA//9yUiWsAAAAACwALABeAHYAggCSAMIA5AEoAToBcgGmAdQCBgI6AlwCyALqAvYDEgNEA2YDkgPGA+YEJgRMBG4EigTEBPQFDAU2BXQFmAXMBeIGAgYOBi4GOgZUBm4GegaQBqAAAAABAAAALgCMAAwAZgAHAAEAAAAAAAAAAAAAAAAABAADeJyclN1OG1cUhT8H221UNRcVisgNOpdtlYzdCKIErkwJilWEU4/TH6mqNHjGP2I8M/IMUKo+QK/7Fn2LXPU5+hBVr6uzvA02qhSBELDOnL33WWevtQ+wyb9sUKs/BP5q/mC4xnZzz/ADHjWfGt7guPG34fpKTIO48ZvhJl82+oY/4n39D8Mfs1P/2fBDtupHhj/heX3T8Kcbjn8MP2KH9wtcg5f8brjGFoXhB2zyk+ENHmM1a3Ue0zbc4DO2DTfZBgZMqUiZkjHGMWLKmHPmJJSEJMyZMiIhxtGlQ0qlrxmRkGP8v18jQirmRKo4ocKREpISUTKxir8qK+etThxpNbe9DhUTIk6VcUZEhiNnTE5GwpnqVFQU7NGiRclQfAsqSgJKpqQE5MwZ06LHEccMmDClxHGkSp5ZSM6Iiksine8swndmSEJGaazOyYjF04lfouwuxzh6FIpdrXy8VuEpju+U7bnliv2KQL9uhdn6uUs2ERfqZ6qupNq5lIIT7fpzO3wrXLGHu1d/1pl8uEex/leqfMq59I+lVCYmGc5t0SGUg0L3BMeB1l1CdeR7ugx4Q493DLTu0KdPhxMGdHmt3B59HF/T44RDZXSFF3tHcswJP+L4hq5ifO3E+rNQLOEXCnN3KY5z3WNGoZ575oHumuiGd1fYz1C+5o5SOUPNkY900i/TnEWMzRWFGM7Uy6U3SutfbI6Y6S5e25t9Pw0XNnvLKb4i1wx7ty44eeUWjD6kanDLM5f6CYiIyTlVxJCcGS0qrsT7LRHnpDgO1b03mpKKznWOP+dKLkmYiUGXTHXmFPobmW9C4z5c872ztyRWvmd6dn2r+5zi1Ksbjd6pe8u90LqcrCjQMlXzFTcNxTUz7yeaqVX+oXJLvW45z+iTSPVUN7j9DjwnoM0Ou+wz0TlD7VzYG9HWO9HmFfvqwRmJokZydWIVdgl4wS67vOLFWs0OhxzQY/8OHBdZPQ54fWtnXadlFWd1/hSbtvg6nl2vXt5br8/v4MsvNFE3L2Nf2vhuX1i1G/+fEDHzXNzW6p3cE4L/AAAA//8BAAD//wdbTDAAeJxiYGYAg//nGIwYsAAAAAAA//8BAAD//y8BAgMAAAA=");
-}
-.appendix-icon {
-	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
-}
-.d2-2454414631 .text-bold {
-	font-family: "d2-2454414631-font-bold";
-}
-@font-face {
-	font-family: d2-2454414631-font-bold;
-	src: url("data:application/font-woff;base64,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");
-}]]></style><style type="text/css"><![CDATA[.shape {
-  shape-rendering: geometricPrecision;
-  stroke-linejoin: round;
-}
-.connection {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.blend {
-  mix-blend-mode: multiply;
-  opacity: 0.5;
-}
-
-		.d2-2454414631 .fill-N1{fill:#0A0F25;}
-		.d2-2454414631 .fill-N2{fill:#676C7E;}
-		.d2-2454414631 .fill-N3{fill:#9499AB;}
-		.d2-2454414631 .fill-N4{fill:#CFD2DD;}
-		.d2-2454414631 .fill-N5{fill:#DEE1EB;}
-		.d2-2454414631 .fill-N6{fill:#EEF1F8;}
-		.d2-2454414631 .fill-N7{fill:#FFFFFF;}
-		.d2-2454414631 .fill-B1{fill:#0D32B2;}
-		.d2-2454414631 .fill-B2{fill:#0D32B2;}
-		.d2-2454414631 .fill-B3{fill:#E3E9FD;}
-		.d2-2454414631 .fill-B4{fill:#E3E9FD;}
-		.d2-2454414631 .fill-B5{fill:#EDF0FD;}
-		.d2-2454414631 .fill-B6{fill:#F7F8FE;}
-		.d2-2454414631 .fill-AA2{fill:#4A6FF3;}
-		.d2-2454414631 .fill-AA4{fill:#EDF0FD;}
-		.d2-2454414631 .fill-AA5{fill:#F7F8FE;}
-		.d2-2454414631 .fill-AB4{fill:#EDF0FD;}
-		.d2-2454414631 .fill-AB5{fill:#F7F8FE;}
-		.d2-2454414631 .stroke-N1{stroke:#0A0F25;}
-		.d2-2454414631 .stroke-N2{stroke:#676C7E;}
-		.d2-2454414631 .stroke-N3{stroke:#9499AB;}
-		.d2-2454414631 .stroke-N4{stroke:#CFD2DD;}
-		.d2-2454414631 .stroke-N5{stroke:#DEE1EB;}
-		.d2-2454414631 .stroke-N6{stroke:#EEF1F8;}
-		.d2-2454414631 .stroke-N7{stroke:#FFFFFF;}
-		.d2-2454414631 .stroke-B1{stroke:#0D32B2;}
-		.d2-2454414631 .stroke-B2{stroke:#0D32B2;}
-		.d2-2454414631 .stroke-B3{stroke:#E3E9FD;}
-		.d2-2454414631 .stroke-B4{stroke:#E3E9FD;}
-		.d2-2454414631 .stroke-B5{stroke:#EDF0FD;}
-		.d2-2454414631 .stroke-B6{stroke:#F7F8FE;}
-		.d2-2454414631 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-2454414631 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-2454414631 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-2454414631 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-2454414631 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-2454414631 .background-color-N1{background-color:#0A0F25;}
-		.d2-2454414631 .background-color-N2{background-color:#676C7E;}
-		.d2-2454414631 .background-color-N3{background-color:#9499AB;}
-		.d2-2454414631 .background-color-N4{background-color:#CFD2DD;}
-		.d2-2454414631 .background-color-N5{background-color:#DEE1EB;}
-		.d2-2454414631 .background-color-N6{background-color:#EEF1F8;}
-		.d2-2454414631 .background-color-N7{background-color:#FFFFFF;}
-		.d2-2454414631 .background-color-B1{background-color:#0D32B2;}
-		.d2-2454414631 .background-color-B2{background-color:#0D32B2;}
-		.d2-2454414631 .background-color-B3{background-color:#E3E9FD;}
-		.d2-2454414631 .background-color-B4{background-color:#E3E9FD;}
-		.d2-2454414631 .background-color-B5{background-color:#EDF0FD;}
-		.d2-2454414631 .background-color-B6{background-color:#F7F8FE;}
-		.d2-2454414631 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-2454414631 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-2454414631 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-2454414631 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-2454414631 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-2454414631 .color-N1{color:#0A0F25;}
-		.d2-2454414631 .color-N2{color:#676C7E;}
-		.d2-2454414631 .color-N3{color:#9499AB;}
-		.d2-2454414631 .color-N4{color:#CFD2DD;}
-		.d2-2454414631 .color-N5{color:#DEE1EB;}
-		.d2-2454414631 .color-N6{color:#EEF1F8;}
-		.d2-2454414631 .color-N7{color:#FFFFFF;}
-		.d2-2454414631 .color-B1{color:#0D32B2;}
-		.d2-2454414631 .color-B2{color:#0D32B2;}
-		.d2-2454414631 .color-B3{color:#E3E9FD;}
-		.d2-2454414631 .color-B4{color:#E3E9FD;}
-		.d2-2454414631 .color-B5{color:#EDF0FD;}
-		.d2-2454414631 .color-B6{color:#F7F8FE;}
-		.d2-2454414631 .color-AA2{color:#4A6FF3;}
-		.d2-2454414631 .color-AA4{color:#EDF0FD;}
-		.d2-2454414631 .color-AA5{color:#F7F8FE;}
-		.d2-2454414631 .color-AB4{color:#EDF0FD;}
-		.d2-2454414631 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-2454414631);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-2454414631);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-2454414631);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-2454414631);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-2454414631);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-2454414631);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-2454414631);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-2454414631);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><defs>
-	<filter id="shadow-filter" width="200%" height="200%" x="-50%" y="-50%">
-		<feGaussianBlur stdDeviation="1.7 " in="SourceGraphic"></feGaussianBlur>
-		<feFlood flood-color="#3d4574" flood-opacity="0.4" result="ShadowFeFlood" in="SourceGraphic"></feFlood>
-		<feComposite in="ShadowFeFlood" in2="SourceAlpha" operator="in" result="ShadowFeComposite"></feComposite>
-		<feOffset dx="3" dy="5" result="ShadowFeOffset" in="ShadowFeComposite"></feOffset>
-		<feBlend in="SourceGraphic" in2="ShadowFeOffset" mode="normal" result="ShadowFeBlend"></feBlend>
-	</filter>
-</defs><g class="ZXhhbXBsZQ=="><g class="shape" ><rect x="12.000000" y="12.000000" width="1256.000000" height="166.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="640.000000" y="45.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">greet the user</text></g><g class="ZXhhbXBsZTI="><g class="shape" ><rect x="75.000000" y="198.000000" width="1130.000000" height="166.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="640.000000" y="231.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">read and parse a number</text></g><g class="ZXhhbXBsZS5yZWFk function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="62.000000" y="62.000000" width="178.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="151.000000" y="100.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">getLine :: IO String</text></g><g class="ZXhhbXBsZS5iaW5kMQ== function f2" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="310.000000" y="62.000000" width="76.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#99ff99" class=" stroke-B1" style="stroke-width:1;" /></g><text x="348.000000" y="100.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">bind</text><title>The String read from stdin is passed to the greeting action.</title></g><g class="ZXhhbXBsZS5ncmVldA== function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="456.000000" y="62.000000" width="258.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="585.000000" y="100.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">putStrLn &#34;Hello, name&#34; :: IO ()</text></g><g class="ZXhhbXBsZS5iaW5kMg== function f2" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="784.000000" y="62.000000" width="76.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#99ff99" class=" stroke-B1" style="stroke-width:1;" /></g><text x="822.000000" y="100.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">bind</text><title>The () result of putStrLn is passed (ignored) to the confirmation action.</title></g><g class="ZXhhbXBsZS5jb25maXJt function h" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="930.000000" y="62.000000" width="288.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4f461" class=" stroke-B1" style="stroke-width:1;" /></g><text x="1074.000000" y="100.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">putStrLn &#34;Have a nice day!&#34; :: IO ()</text></g><g class="ZXhhbXBsZTIuc3RlcDE= function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="125.000000" y="248.000000" width="178.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="214.000000" y="286.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">getLine :: IO String</text><title>Side effect: reads a line from stdin.</title></g><g class="ZXhhbXBsZTIuYmluZDE= function f2" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="373.000000" y="248.000000" width="76.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#99ff99" class=" stroke-B1" style="stroke-width:1;" /></g><text x="411.000000" y="286.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">bind</text></g><g class="ZXhhbXBsZTIuc3RlcDI= function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="519.000000" y="248.000000" width="216.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="627.000000" y="286.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">putStrLn &#34;Got: n&#34; :: IO ()</text><title>Side effect: writes to stdout.</title></g><g class="ZXhhbXBsZTIuYmluZDI= function f2" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="805.000000" y="248.000000" width="76.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#99ff99" class=" stroke-B1" style="stroke-width:1;" /></g><text x="843.000000" y="286.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">bind</text></g><g class="ZXhhbXBsZTIuc3RlcDM= function h" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="951.000000" y="248.000000" width="204.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4f461" class=" stroke-B1" style="stroke-width:1;" /></g><text x="1053.000000" y="286.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">return (read n) :: IO Int</text><title>Pure: parses the string to Int and wraps in IO.</title></g><g class="ZXhhbXBsZS4ocmVhZCAtJmd0OyBiaW5kMSlbMF0="><marker id="mk-d2-2454414631-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 241.500000 95.000000 L 306.500000 95.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2454414631-3488378134)" mask="url(#d2-2454414631)" /></g><g class="ZXhhbXBsZS4oYmluZDEgLSZndDsgZ3JlZXQpWzBd"><path d="M 387.500000 95.000000 L 452.500000 95.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2454414631-3488378134)" mask="url(#d2-2454414631)" /></g><g class="ZXhhbXBsZS4oZ3JlZXQgLSZndDsgYmluZDIpWzBd"><path d="M 715.500000 95.000000 L 780.500000 95.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2454414631-3488378134)" mask="url(#d2-2454414631)" /></g><g class="ZXhhbXBsZS4oYmluZDIgLSZndDsgY29uZmlybSlbMF0="><path d="M 861.500000 95.000000 L 926.500000 95.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2454414631-3488378134)" mask="url(#d2-2454414631)" /></g><g class="ZXhhbXBsZTIuKHN0ZXAxIC0mZ3Q7IGJpbmQxKVswXQ=="><path d="M 304.500000 281.000000 L 369.500000 281.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2454414631-3488378134)" mask="url(#d2-2454414631)" /></g><g class="ZXhhbXBsZTIuKGJpbmQxIC0mZ3Q7IHN0ZXAyKVswXQ=="><path d="M 450.500000 281.000000 L 515.500000 281.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2454414631-3488378134)" mask="url(#d2-2454414631)" /></g><g class="ZXhhbXBsZTIuKHN0ZXAyIC0mZ3Q7IGJpbmQyKVswXQ=="><path d="M 736.500000 281.000000 L 801.500000 281.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2454414631-3488378134)" mask="url(#d2-2454414631)" /></g><g class="ZXhhbXBsZTIuKGJpbmQyIC0mZ3Q7IHN0ZXAzKVswXQ=="><path d="M 882.500000 281.000000 L 947.500000 281.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2454414631-3488378134)" mask="url(#d2-2454414631)" /></g><g transform="translate(370 46)" class="appendix-icon"><title>The String read from stdin is passed to the greeting action.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSS4YTJNZSDC)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSS4YTJNZSDC">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="447.1" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">IO computations describe effects and bind sequences them explicitly</text>
+  <g transform="translate(0,28) scale(1)">
+    <rect x="0" y="0" width="894.2" height="161" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-activity">
+      <path d="M0,0 L96.60000000000001,0 L96.60000000000001,12 L86.60000000000001,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+      <text x="48.300000000000004" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«activity» IO</text>
+    </g>
+    <g class="edge">
+      <path d="M171.2,59.0 L279.2,59.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="231.2" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">IO String</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M171.2,111.0 L275.2,111.0 Q281.2,111.0 281.2,105.0 L281.2,77.0 L281.2,77.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="226.2" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">String ⟶ IO Unit</text>
+    </g>
+    <g class="edge">
+      <path d="M423.2,62.0 L431.2,62.0 Q437.2,62.0 437.2,68.0 L437.2,83.0 Q437.2,89.0 443.2,89.0 L529.2,89.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="489.20000000000005" y="83" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">IO Unit</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M419.2,123.0 L525.2,123.0 Q531.2,123.0 531.2,117.0 L531.2,104.0 L531.2,104.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="475.20000000000005" y="117" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Unit ⟶ IO Unit</text>
+    </g>
+    <g class="edge">
+      <path d="M673.2,93.0 L736.2,93.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="712.7" y="87" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">IO Unit</text>
+    </g>
+    <g class="edge">
+      <path d="M419.2,78.0 L537.2,78.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+    </g>
+    <g class="action-node">
+      <title>Sequence the read action, then construct the next IO action from its result.</title>
+      <rect x="299.2" y="46" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="359.2" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind1</text>
+      <g class="pin pin-in">
+        <rect x="295.2" y="56.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="305.2" y="60.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">ia</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="295.2" y="71.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="305.2" y="75.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="415.2" y="64" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="413.2" y="68" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">ib</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>Sequence the greeting action with the confirmation action.</title>
+      <rect x="549.2" y="71" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="609.2" y="93" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind2</text>
+      <g class="pin pin-in">
+        <rect x="545.2" y="81.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="555.2" y="85.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">ia</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="545.2" y="96.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="555.2" y="100.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="665.2" y="89" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="663.2" y="93" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">ib</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>getLine : IO String — a description of reading a line, not an already-read string.</title>
+      <rect x="61.19999999999999" y="40" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="116.19999999999999" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">IO String</text>
+    </g>
+    <g class="object-node hof">
+      <title>greet : String ⟶ IO Unit — constructs an output action using the name.</title>
+      <rect x="36" y="92" width="135.2" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="103.6" y="104" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="103.6" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">String ⟶ IO Unit</text>
+    </g>
+    <g class="object-node hof">
+      <title>confirm : Unit ⟶ IO Unit — constructs the final output action.</title>
+      <rect x="298.4" y="104" width="120.8" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="358.79999999999995" y="116" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="358.79999999999995" y="130" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Unit ⟶ IO Unit</text>
+    </g>
+    <g class="object-node">
+      <title>The complete description of the sequenced effects; running it performs them in order.</title>
+      <rect x="748.2" y="74" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="803.2" y="93" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">IO Unit</text>
+    </g>
+  </g>
 </svg>
-</g><g transform="translate(844 46)" class="appendix-icon"><title>The () result of putStrLn is passed (ignored) to the confirmation action.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSS4YTJNZSDE)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSS4YTJNZSDE">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><g transform="translate(287 232)" class="appendix-icon"><title>Side effect: reads a line from stdin.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSTELTTORSXAMI)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSTELTTORSXAMI">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><g transform="translate(719 232)" class="appendix-icon"><title>Side effect: writes to stdout.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSTELTTORSXAMQ)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSTELTTORSXAMQ">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><g transform="translate(1139 232)" class="appendix-icon"><title>Pure: parses the string to Int and wraps in IO.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSTELTTORSXAMY)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2454414631-MV4GC3LQNRSTELTTORSXAMY">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><mask id="d2-2454414631" maskUnits="userSpaceOnUse" x="-89" y="-89" width="1458" height="554">
-<rect x="-89" y="-89" width="1458" height="554" fill="white"></rect>
-
-</mask></svg></svg>

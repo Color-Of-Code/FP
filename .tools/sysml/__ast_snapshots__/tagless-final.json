@@ -1,0 +1,235 @@
+{
+  "packages": [
+    {
+      "name": "TaglessFinal",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "InterpretProduction",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "program",
+              "type": "forall F. Algebra F => F Result",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "IO Result",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "InterpretTest",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "program",
+              "type": "forall F. Algebra F => F Result",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "State Log Result",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ProgramInterpretations",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ProgramInterpretations",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "production",
+                "type": "InterpretProduction",
+                "role": "function",
+                "tooltip": "Choose IO-backed instances for production."
+              },
+              {
+                "kind": "action",
+                "id": "test",
+                "type": "InterpretTest",
+                "role": "function",
+                "tooltip": "Choose a pure state-backed interpreter for tests."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "program",
+                "type": "forall F. Algebra F => F Result",
+                "role": "function",
+                "tooltip": "One polymorphic program describes the required algebra, not a concrete effect."
+              },
+              {
+                "kind": "object",
+                "id": "ioResult",
+                "type": "IO Result"
+              },
+              {
+                "kind": "object",
+                "id": "testResult",
+                "type": "State Log Result"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "program",
+                "to": "production"
+              },
+              {
+                "kind": "flow",
+                "from": "production",
+                "to": "ioResult"
+              },
+              {
+                "kind": "flow",
+                "from": "program",
+                "to": "test"
+              },
+              {
+                "kind": "flow",
+                "from": "test",
+                "to": "testResult"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "production": "function",
+              "test": "function",
+              "program": "function"
+            },
+            "tooltips": {
+              "production": "Choose IO-backed instances for production.",
+              "test": "Choose a pure state-backed interpreter for tests.",
+              "program": "One polymorphic program describes the required algebra, not a concrete effect."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ProgramInterpretations",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "production",
+              "type": "InterpretProduction",
+              "role": "function",
+              "tooltip": "Choose IO-backed instances for production."
+            },
+            {
+              "kind": "action",
+              "id": "test",
+              "type": "InterpretTest",
+              "role": "function",
+              "tooltip": "Choose a pure state-backed interpreter for tests."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "program",
+              "type": "forall F. Algebra F => F Result",
+              "role": "function",
+              "tooltip": "One polymorphic program describes the required algebra, not a concrete effect."
+            },
+            {
+              "kind": "object",
+              "id": "ioResult",
+              "type": "IO Result"
+            },
+            {
+              "kind": "object",
+              "id": "testResult",
+              "type": "State Log Result"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "program",
+              "to": "production"
+            },
+            {
+              "kind": "flow",
+              "from": "production",
+              "to": "ioResult"
+            },
+            {
+              "kind": "flow",
+              "from": "program",
+              "to": "test"
+            },
+            {
+              "kind": "flow",
+              "from": "test",
+              "to": "testResult"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "production": "function",
+            "test": "function",
+            "program": "function"
+          },
+          "tooltips": {
+            "production": "Choose IO-backed instances for production.",
+            "test": "Choose a pure state-backed interpreter for tests.",
+            "program": "One polymorphic program describes the required algebra, not a concrete effect."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TaglessFinal",
+          "viewType": "FpActivityView",
+          "expose": "ProgramInterpretations",
+          "rendering": "fpActivityDiagram",
+          "title": "tagless final",
+          "name": "tagless final",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "tagless final",
+    "name": "tagless final",
+    "direction": "LR",
+    "render": "ProgramInterpretations",
+    "shows": {
+      "production": "function",
+      "test": "function",
+      "program": "function"
+    },
+    "tooltips": {
+      "production": "Choose IO-backed instances for production.",
+      "test": "Choose a pure state-backed interpreter for tests.",
+      "program": "One polymorphic program describes the required algebra, not a concrete effect."
+    }
+  }
+}

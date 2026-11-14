@@ -3,7 +3,7 @@
 The **Maybe monad** (`Option` in some languages) models computations that may **fail silently** —
 producing either a value or nothing at all.
 
-![maybe monad](maybe/maybe.svg)
+![Maybe bind propagates Nothing and skips the remaining functions](maybe/maybe.svg)
 
 ![bind :: Maybe a ⟶ (a ⟶ Maybe b) ⟶ Maybe b — also called: flatMap, andThen / and_then, SelectMany, chain, >>=](maybe/maybe-ibd.svg)
 

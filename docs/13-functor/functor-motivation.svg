@@ -1,165 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 2264 786"><svg class="d2-1825209385 d2-svg" width="2264" height="786" viewBox="-89 -89 2264 786"><rect x="-89.000000" y="-89.000000" width="2264.000000" height="786.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
-.d2-1825209385 .text {
-	font-family: "d2-1825209385-font-regular";
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 491 312" width="491" height="312" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title"> fmap replaces container-specific mapping code </title>
+  <desc id="diagram-description">Functional programming diagram:  fmap replaces container-specific mapping code </desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
 }
-@font-face {
-	font-family: d2-1825209385-font-regular;
-	src: url("data:application/font-woff;base64,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");
-}
-.appendix-icon {
-	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
-}
-.d2-1825209385 .text-bold {
-	font-family: "d2-1825209385-font-bold";
-}
-@font-face {
-	font-family: d2-1825209385-font-bold;
-	src: url("data:application/font-woff;base64,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");
-}]]></style><style type="text/css"><![CDATA[.shape {
-  shape-rendering: geometricPrecision;
-  stroke-linejoin: round;
-}
-.connection {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.blend {
-  mix-blend-mode: multiply;
-  opacity: 0.5;
-}
-
-		.d2-1825209385 .fill-N1{fill:#0A0F25;}
-		.d2-1825209385 .fill-N2{fill:#676C7E;}
-		.d2-1825209385 .fill-N3{fill:#9499AB;}
-		.d2-1825209385 .fill-N4{fill:#CFD2DD;}
-		.d2-1825209385 .fill-N5{fill:#DEE1EB;}
-		.d2-1825209385 .fill-N6{fill:#EEF1F8;}
-		.d2-1825209385 .fill-N7{fill:#FFFFFF;}
-		.d2-1825209385 .fill-B1{fill:#0D32B2;}
-		.d2-1825209385 .fill-B2{fill:#0D32B2;}
-		.d2-1825209385 .fill-B3{fill:#E3E9FD;}
-		.d2-1825209385 .fill-B4{fill:#E3E9FD;}
-		.d2-1825209385 .fill-B5{fill:#EDF0FD;}
-		.d2-1825209385 .fill-B6{fill:#F7F8FE;}
-		.d2-1825209385 .fill-AA2{fill:#4A6FF3;}
-		.d2-1825209385 .fill-AA4{fill:#EDF0FD;}
-		.d2-1825209385 .fill-AA5{fill:#F7F8FE;}
-		.d2-1825209385 .fill-AB4{fill:#EDF0FD;}
-		.d2-1825209385 .fill-AB5{fill:#F7F8FE;}
-		.d2-1825209385 .stroke-N1{stroke:#0A0F25;}
-		.d2-1825209385 .stroke-N2{stroke:#676C7E;}
-		.d2-1825209385 .stroke-N3{stroke:#9499AB;}
-		.d2-1825209385 .stroke-N4{stroke:#CFD2DD;}
-		.d2-1825209385 .stroke-N5{stroke:#DEE1EB;}
-		.d2-1825209385 .stroke-N6{stroke:#EEF1F8;}
-		.d2-1825209385 .stroke-N7{stroke:#FFFFFF;}
-		.d2-1825209385 .stroke-B1{stroke:#0D32B2;}
-		.d2-1825209385 .stroke-B2{stroke:#0D32B2;}
-		.d2-1825209385 .stroke-B3{stroke:#E3E9FD;}
-		.d2-1825209385 .stroke-B4{stroke:#E3E9FD;}
-		.d2-1825209385 .stroke-B5{stroke:#EDF0FD;}
-		.d2-1825209385 .stroke-B6{stroke:#F7F8FE;}
-		.d2-1825209385 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-1825209385 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-1825209385 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-1825209385 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-1825209385 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-1825209385 .background-color-N1{background-color:#0A0F25;}
-		.d2-1825209385 .background-color-N2{background-color:#676C7E;}
-		.d2-1825209385 .background-color-N3{background-color:#9499AB;}
-		.d2-1825209385 .background-color-N4{background-color:#CFD2DD;}
-		.d2-1825209385 .background-color-N5{background-color:#DEE1EB;}
-		.d2-1825209385 .background-color-N6{background-color:#EEF1F8;}
-		.d2-1825209385 .background-color-N7{background-color:#FFFFFF;}
-		.d2-1825209385 .background-color-B1{background-color:#0D32B2;}
-		.d2-1825209385 .background-color-B2{background-color:#0D32B2;}
-		.d2-1825209385 .background-color-B3{background-color:#E3E9FD;}
-		.d2-1825209385 .background-color-B4{background-color:#E3E9FD;}
-		.d2-1825209385 .background-color-B5{background-color:#EDF0FD;}
-		.d2-1825209385 .background-color-B6{background-color:#F7F8FE;}
-		.d2-1825209385 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-1825209385 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-1825209385 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-1825209385 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-1825209385 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-1825209385 .color-N1{color:#0A0F25;}
-		.d2-1825209385 .color-N2{color:#676C7E;}
-		.d2-1825209385 .color-N3{color:#9499AB;}
-		.d2-1825209385 .color-N4{color:#CFD2DD;}
-		.d2-1825209385 .color-N5{color:#DEE1EB;}
-		.d2-1825209385 .color-N6{color:#EEF1F8;}
-		.d2-1825209385 .color-N7{color:#FFFFFF;}
-		.d2-1825209385 .color-B1{color:#0D32B2;}
-		.d2-1825209385 .color-B2{color:#0D32B2;}
-		.d2-1825209385 .color-B3{color:#E3E9FD;}
-		.d2-1825209385 .color-B4{color:#E3E9FD;}
-		.d2-1825209385 .color-B5{color:#EDF0FD;}
-		.d2-1825209385 .color-B6{color:#F7F8FE;}
-		.d2-1825209385 .color-AA2{color:#4A6FF3;}
-		.d2-1825209385 .color-AA4{color:#EDF0FD;}
-		.d2-1825209385 .color-AA5{color:#F7F8FE;}
-		.d2-1825209385 .color-AB4{color:#EDF0FD;}
-		.d2-1825209385 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-1825209385);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-1825209385);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-1825209385);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-1825209385);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-1825209385);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-1825209385);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-1825209385);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-1825209385);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><defs>
-	<filter id="shadow-filter" width="200%" height="200%" x="-50%" y="-50%">
-		<feGaussianBlur stdDeviation="1.7 " in="SourceGraphic"></feGaussianBlur>
-		<feFlood flood-color="#3d4574" flood-opacity="0.4" result="ShadowFeFlood" in="SourceGraphic"></feFlood>
-		<feComposite in="ShadowFeFlood" in2="SourceAlpha" operator="in" result="ShadowFeComposite"></feComposite>
-		<feOffset dx="3" dy="5" result="ShadowFeOffset" in="ShadowFeComposite"></feOffset>
-		<feBlend in="SourceGraphic" in2="ShadowFeOffset" mode="normal" result="ShadowFeBlend"></feBlend>
-	</filter>
-</defs><g class="YmVmb3Jl"><g class="shape" ><rect x="12.000000" y="12.000000" width="1237.000000" height="584.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="630.500000" y="45.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">without fmap: a separate map function per container</text></g><g class="YWZ0ZXI="><g class="shape" ><rect x="1269.000000" y="21.000000" width="805.000000" height="566.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="1671.500000" y="54.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">with fmap: one function works for any functor</text></g><g class="YmVmb3JlLm1s"><g class="shape" ><rect x="62.000000" y="71.000000" width="323.000000" height="466.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="223.500000" y="100.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">map_list :: List&lt;a&gt; ⟶ List&lt;b&gt;</text></g><g class="YmVmb3JlLm1t"><g class="shape" ><rect x="405.000000" y="62.000000" width="422.000000" height="484.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="616.000000" y="91.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">map_maybe :: Maybe&lt;a&gt; ⟶ Maybe&lt;b&gt;</text></g><g class="YmVmb3JlLm10"><g class="shape" ><rect x="847.000000" y="71.000000" width="352.000000" height="466.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1023.000000" y="100.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">map_tree :: Tree&lt;a&gt; ⟶ Tree&lt;b&gt;</text></g><g class="YWZ0ZXIuZm1hcF9kZWY="><g class="shape" ><rect x="1319.000000" y="71.000000" width="205.000000" height="466.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1421.500000" y="100.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">fmap f :: Fa ⟶ Fb</text></g><g class="YWZ0ZXIubm90ZQ== comment"><g class="shape" ></g><text x="1696.500000" y="309.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:14px">adding a new container requires zero new map code</text></g><g class="YmVmb3JlLm1sLmxh type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="223.000000" cy="161.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="223.000000" cy="161.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="223.000000" y="166.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">List&lt;a&gt;</text></g><g class="YmVmb3JlLm1sLm1s function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="170.000000" y="271.000000" width="106.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="223.000000" y="309.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">map_list</text><title>re-implemented specifically for List</title></g><g class="YmVmb3JlLm1sLmxi type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="223.000000" cy="447.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="223.000000" cy="447.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="223.000000" y="452.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">List&lt;b&gt;</text></g><g class="YmVmb3JlLm1tLm1h type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="44.000000" ry="44.000000" cx="616.000000" cy="156.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="39.000000" ry="39.000000" cx="616.000000" cy="156.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="616.000000" y="161.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Maybe&lt;a&gt;</text></g><g class="YmVmb3JlLm1tLm1t function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="550.000000" y="270.000000" width="131.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="615.500000" y="308.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">map_maybe</text><title>same logic, re-implemented for Maybe</title></g><g class="YmVmb3JlLm1tLm1i type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="45.000000" ry="45.000000" cx="616.000000" cy="451.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="40.000000" ry="40.000000" cx="616.000000" cy="451.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="616.000000" y="456.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Maybe&lt;b&gt;</text></g><g class="YmVmb3JlLm10LnRh type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="1023.000000" cy="161.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="1023.000000" cy="161.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1023.000000" y="166.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Tree&lt;a&gt;</text></g><g class="YmVmb3JlLm10Lm10 function h" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="966.000000" y="271.000000" width="113.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4f461" class=" stroke-B1" style="stroke-width:1;" /></g><text x="1022.500000" y="309.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">map_tree</text><title>same logic again, re-implemented for Tree</title></g><g class="YmVmb3JlLm10LnRi type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="1023.000000" cy="447.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="1023.000000" cy="447.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1023.000000" y="452.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Tree&lt;b&gt;</text></g><g class="YWZ0ZXIuZm1hcF9kZWYuZmE= type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="1421.000000" cy="161.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="1421.000000" cy="161.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1421.000000" y="166.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Fa</text></g><g class="YWZ0ZXIuZm1hcF9kZWYuZm1hcA== function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="1376.000000" y="271.000000" width="91.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="1421.500000" y="309.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">fmap f</text><title>works for List, Maybe, Tree — and any other lawful functor</title></g><g class="YWZ0ZXIuZm1hcF9kZWYuZmI= type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="1421.000000" cy="447.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="1421.000000" cy="447.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1421.000000" y="452.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Fb</text></g><g class="YmVmb3JlLm1sLihsYSAtJmd0OyBtbClbMF0="><marker id="mk-d2-1825209385-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 223.978574 202.499847 L 223.049995 267.500357" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1825209385-3488378134)" mask="url(#d2-1825209385)" /></g><g class="YmVmb3JlLm1sLihtbCAtJmd0OyBsYilbMF0="><path d="M 223.510714 338.499962 L 223.975001 403.500089" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1825209385-3488378134)" mask="url(#d2-1825209385)" /></g><g class="YmVmb3JlLm1tLihtYSAtJmd0OyBtbSlbMF0="><path d="M 616.000000 201.500000 L 616.000000 266.500000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1825209385-3488378134)" mask="url(#d2-1825209385)" /></g><g class="YmVmb3JlLm1tLihtbSAtJmd0OyBtYilbMF0="><path d="M 616.000000 337.500000 L 616.000000 402.500000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1825209385-3488378134)" mask="url(#d2-1825209385)" /></g><g class="YmVmb3JlLm10Lih0YSAtJmd0OyBtdClbMF0="><path d="M 1023.000000 202.500000 L 1023.000000 267.500000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1825209385-3488378134)" mask="url(#d2-1825209385)" /></g><g class="YmVmb3JlLm10LihtdCAtJmd0OyB0YilbMF0="><path d="M 1023.000000 338.500000 L 1023.000000 403.500000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1825209385-3488378134)" mask="url(#d2-1825209385)" /></g><g class="YWZ0ZXIuZm1hcF9kZWYuKGZhIC0mZ3Q7IGZtYXApWzBd"><path d="M 1421.978574 202.499847 L 1421.049995 267.500357" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1825209385-3488378134)" mask="url(#d2-1825209385)" /></g><g class="YWZ0ZXIuZm1hcF9kZWYuKGZtYXAgLSZndDsgZmIpWzBd"><path d="M 1421.510714 338.499962 L 1421.975001 403.500089" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1825209385-3488378134)" mask="url(#d2-1825209385)" /></g><g transform="translate(260 255)" class="appendix-icon"><title>re-implemented specifically for List</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-1825209385-MJSWM33SMUXG23BONVWA)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-1825209385-MJSWM33SMUXG23BONVWA">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="245.5" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)"> fmap replaces container-specific mapping code </text>
+  <g transform="translate(0,28) scale(1)">
+    <rect x="0" y="0" width="491" height="284" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-block">
+      <path d="M0,0 L152.4,0 L152.4,12 L142.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+      <text x="76.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» GenericMapping</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M180.0,232.0 L289.0,232.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="240.5" y="226" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">function argument</text>
+    </g>
+    <g class="action-node">
+      <title>The same mapping logic is duplicated for each container.</title>
+      <rect x="70" y="30" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="130" y="52" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">listMap : map_list :: List a ⟶ List b</text>
+    </g>
+    <g class="object-node">
+      <rect x="70" y="152" width="315.2" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="227.6" y="171" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">maybeMap : map_maybe :: Maybe a ⟶ Maybe b</text>
+    </g>
+    <g class="object-node">
+      <rect x="70" y="94" width="286.40000000000003" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="213.20000000000002" y="113" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">treeMap : map_tree :: Tree a ⟶ Tree b</text>
+    </g>
+    <g class="object-node hof">
+      <title>One plain function is reused inside every functor.</title>
+      <rect x="70" y="213" width="110" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="125" y="225" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="125" y="239" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">f : a ⟶ b</text>
+    </g>
+    <g class="action-node">
+      <title>fmap lifts f according to the container's structure.</title>
+      <rect x="301" y="210" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="361" y="232" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">fmap : fmap :: (a ⟶ b) ⟶ F a ⟶ F b</text>
+    </g>
+  </g>
 </svg>
-</g><g transform="translate(665 254)" class="appendix-icon"><title>same logic, re-implemented for Maybe</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-1825209385-MJSWM33SMUXG23JONVWQ)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-1825209385-MJSWM33SMUXG23JONVWQ">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><g transform="translate(1063 255)" class="appendix-icon"><title>same logic again, re-implemented for Tree</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-1825209385-MJSWM33SMUXG25BONV2A)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-1825209385-MJSWM33SMUXG25BONV2A">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><g transform="translate(1451 255)" class="appendix-icon"><title>works for List, Maybe, Tree — and any other lawful functor</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-1825209385-MFTHIZLSFZTG2YLQL5SGKZROMZWWC4A)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-1825209385-MFTHIZLSFZTG2YLQL5SGKZROMZWWC4A">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><mask id="d2-1825209385" maskUnits="userSpaceOnUse" x="-89" y="-89" width="2264" height="786">
-<rect x="-89" y="-89" width="2264" height="786" fill="white"></rect>
-
-</mask></svg></svg>

@@ -1,0 +1,369 @@
+{
+  "packages": [
+    {
+      "name": "EitherOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "EitherBind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "Either Error a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ Either Error b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "Either Error b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "EitherProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "EitherProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bind1",
+                "type": "EitherBind",
+                "role": "function",
+                "tooltip": "bind calls parseAge for Right; it propagates Left without calling the function."
+              },
+              {
+                "kind": "action",
+                "id": "bind2",
+                "type": "EitherBind",
+                "role": "function",
+                "tooltip": "The Left parse error passes through unchanged; validateAge is not called."
+              },
+              {
+                "kind": "action",
+                "id": "bind3",
+                "type": "EitherBind",
+                "role": "function",
+                "tooltip": "bind propagates the same Left error and does not call formatAge."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "input",
+                "type": "Either Error String",
+                "role": "value",
+                "tooltip": "Right \"abc\" — begin by parsing text that is not a number."
+              },
+              {
+                "kind": "object",
+                "id": "parseAge",
+                "type": "String ⟶ Either Error Int",
+                "role": "hof",
+                "tooltip": "parseAge: String ⟶ Either Error Int"
+              },
+              {
+                "kind": "object",
+                "id": "validateAge",
+                "type": "Int ⟶ Either Error Int",
+                "role": "hof",
+                "tooltip": "validateAge: Int ⟶ Either Error Int; skipped after a Left."
+              },
+              {
+                "kind": "object",
+                "id": "formatAge",
+                "type": "Int ⟶ Either Error String",
+                "role": "hof",
+                "tooltip": "formatAge: Int ⟶ Either Error String; skipped after a Left."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "Either Error String",
+                "role": "type",
+                "tooltip": "Left \"not a number\" — the first error is preserved."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "input",
+                "to": "bind1",
+                "label": "Either Error String"
+              },
+              {
+                "kind": "flow",
+                "from": "parseAge",
+                "to": "bind1",
+                "label": "String ⟶ Either Error Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bind1",
+                "to": "bind2",
+                "label": "Either Error Int"
+              },
+              {
+                "kind": "flow",
+                "from": "validateAge",
+                "to": "bind2",
+                "label": "Int ⟶ Either Error Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bind2",
+                "to": "bind3",
+                "label": "Either Error Int"
+              },
+              {
+                "kind": "flow",
+                "from": "formatAge",
+                "to": "bind3",
+                "label": "Int ⟶ Either Error String"
+              },
+              {
+                "kind": "flow",
+                "from": "bind3",
+                "to": "result",
+                "label": "Either Error String"
+              }
+            ],
+            "successions": [
+              {
+                "kind": "succession",
+                "from": "bind1",
+                "to": "bind2"
+              },
+              {
+                "kind": "succession",
+                "from": "bind2",
+                "to": "bind3"
+              }
+            ],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "bind1": "function",
+              "bind2": "function",
+              "bind3": "function",
+              "input": "value",
+              "parseAge": "hof",
+              "validateAge": "hof",
+              "formatAge": "hof",
+              "result": "type"
+            },
+            "tooltips": {
+              "bind1": "bind calls parseAge for Right; it propagates Left without calling the function.",
+              "bind2": "The Left parse error passes through unchanged; validateAge is not called.",
+              "bind3": "bind propagates the same Left error and does not call formatAge.",
+              "input": "Right \"abc\" — begin by parsing text that is not a number.",
+              "parseAge": "parseAge: String ⟶ Either Error Int",
+              "validateAge": "validateAge: Int ⟶ Either Error Int; skipped after a Left.",
+              "formatAge": "formatAge: Int ⟶ Either Error String; skipped after a Left.",
+              "result": "Left \"not a number\" — the first error is preserved."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "EitherProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind1",
+              "type": "EitherBind",
+              "role": "function",
+              "tooltip": "bind calls parseAge for Right; it propagates Left without calling the function."
+            },
+            {
+              "kind": "action",
+              "id": "bind2",
+              "type": "EitherBind",
+              "role": "function",
+              "tooltip": "The Left parse error passes through unchanged; validateAge is not called."
+            },
+            {
+              "kind": "action",
+              "id": "bind3",
+              "type": "EitherBind",
+              "role": "function",
+              "tooltip": "bind propagates the same Left error and does not call formatAge."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "input",
+              "type": "Either Error String",
+              "role": "value",
+              "tooltip": "Right \"abc\" — begin by parsing text that is not a number."
+            },
+            {
+              "kind": "object",
+              "id": "parseAge",
+              "type": "String ⟶ Either Error Int",
+              "role": "hof",
+              "tooltip": "parseAge: String ⟶ Either Error Int"
+            },
+            {
+              "kind": "object",
+              "id": "validateAge",
+              "type": "Int ⟶ Either Error Int",
+              "role": "hof",
+              "tooltip": "validateAge: Int ⟶ Either Error Int; skipped after a Left."
+            },
+            {
+              "kind": "object",
+              "id": "formatAge",
+              "type": "Int ⟶ Either Error String",
+              "role": "hof",
+              "tooltip": "formatAge: Int ⟶ Either Error String; skipped after a Left."
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "Either Error String",
+              "role": "type",
+              "tooltip": "Left \"not a number\" — the first error is preserved."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "input",
+              "to": "bind1",
+              "label": "Either Error String"
+            },
+            {
+              "kind": "flow",
+              "from": "parseAge",
+              "to": "bind1",
+              "label": "String ⟶ Either Error Int"
+            },
+            {
+              "kind": "flow",
+              "from": "bind1",
+              "to": "bind2",
+              "label": "Either Error Int"
+            },
+            {
+              "kind": "flow",
+              "from": "validateAge",
+              "to": "bind2",
+              "label": "Int ⟶ Either Error Int"
+            },
+            {
+              "kind": "flow",
+              "from": "bind2",
+              "to": "bind3",
+              "label": "Either Error Int"
+            },
+            {
+              "kind": "flow",
+              "from": "formatAge",
+              "to": "bind3",
+              "label": "Int ⟶ Either Error String"
+            },
+            {
+              "kind": "flow",
+              "from": "bind3",
+              "to": "result",
+              "label": "Either Error String"
+            }
+          ],
+          "successions": [
+            {
+              "kind": "succession",
+              "from": "bind1",
+              "to": "bind2"
+            },
+            {
+              "kind": "succession",
+              "from": "bind2",
+              "to": "bind3"
+            }
+          ],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "bind1": "function",
+            "bind2": "function",
+            "bind3": "function",
+            "input": "value",
+            "parseAge": "hof",
+            "validateAge": "hof",
+            "formatAge": "hof",
+            "result": "type"
+          },
+          "tooltips": {
+            "bind1": "bind calls parseAge for Right; it propagates Left without calling the function.",
+            "bind2": "The Left parse error passes through unchanged; validateAge is not called.",
+            "bind3": "bind propagates the same Left error and does not call formatAge.",
+            "input": "Right \"abc\" — begin by parsing text that is not a number.",
+            "parseAge": "parseAge: String ⟶ Either Error Int",
+            "validateAge": "validateAge: Int ⟶ Either Error Int; skipped after a Left.",
+            "formatAge": "formatAge: Int ⟶ Either Error String; skipped after a Left.",
+            "result": "Left \"not a number\" — the first error is preserved."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "EitherOverview",
+          "viewType": "FpActivityView",
+          "expose": "EitherProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Either bind propagates the first Left error and skips later functions",
+          "name": "Either",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "Either bind propagates the first Left error and skips later functions",
+    "name": "Either",
+    "direction": "LR",
+    "render": "EitherProcess",
+    "shows": {
+      "bind1": "function",
+      "bind2": "function",
+      "bind3": "function",
+      "input": "value",
+      "parseAge": "hof",
+      "validateAge": "hof",
+      "formatAge": "hof",
+      "result": "type"
+    },
+    "tooltips": {
+      "bind1": "bind calls parseAge for Right; it propagates Left without calling the function.",
+      "bind2": "The Left parse error passes through unchanged; validateAge is not called.",
+      "bind3": "bind propagates the same Left error and does not call formatAge.",
+      "input": "Right \"abc\" — begin by parsing text that is not a number.",
+      "parseAge": "parseAge: String ⟶ Either Error Int",
+      "validateAge": "validateAge: Int ⟶ Either Error Int; skipped after a Left.",
+      "formatAge": "formatAge: Int ⟶ Either Error String; skipped after a Left.",
+      "result": "Left \"not a number\" — the first error is preserved."
+    }
+  }
+}

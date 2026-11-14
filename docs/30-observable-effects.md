@@ -7,8 +7,6 @@ and emits electromagnetic radiation. Most programs can safely ignore these physi
 functional abstraction holds perfectly. Some domains cannot: cryptographic code that leaks timing
 data can allow an attacker to recover a secret key in seconds.
 
-![observable effects](30-observable-effects/observable-effects.svg)
-
 ## The effect spectrum
 
 | Layer             | Example effects                                   | Usually ignored?                    |

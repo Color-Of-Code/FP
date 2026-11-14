@@ -67,8 +67,6 @@ def greet[F[_]: Monad: Console](name: String): F[Unit] =
 
 ## Motivation
 
-![tagless final motivation](23-tagless-final/tagless-final-motivation.svg)
-
 Without tagless final, adding a new effect to a concrete implementation touches every call site.
 With tagless final, programs are written once against an algebra; the effect stack is an
 implementation detail chosen at the application's outermost layer.

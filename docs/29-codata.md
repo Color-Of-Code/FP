@@ -12,8 +12,6 @@ exact dual: defined by **destructors/observations** — how values are _taken ap
 explains why infinite structures such as streams, infinite trees, and comonads are mathematically
 principled, not just a pragmatic trick.
 
-![codata](29-codata/codata.svg)
-
 ## The core duality
 
 |                       | Data (inductive)                 | Codata (coinductive)                                |

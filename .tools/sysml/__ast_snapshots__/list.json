@@ -1,0 +1,219 @@
+{
+  "packages": [
+    {
+      "name": "ListOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ListBind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "List a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ List b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "List b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ListProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ListProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "bind",
+                "type": "ListBind",
+                "role": "function",
+                "tooltip": "List bind is concatMap: apply f to every element, then flatten the produced lists."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "values",
+                "type": "List Int",
+                "role": "value",
+                "tooltip": "List [1, 2] — bind applies the function once to each element."
+              },
+              {
+                "kind": "object",
+                "id": "expand",
+                "type": "Int ⟶ List Int",
+                "role": "hof",
+                "tooltip": "expand(x) = [x, x * 10]"
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "List Int",
+                "role": "type",
+                "tooltip": "List [1, 10, 2, 20] — all produced lists concatenated in input order."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "values",
+                "to": "bind",
+                "label": "List Int"
+              },
+              {
+                "kind": "flow",
+                "from": "expand",
+                "to": "bind",
+                "label": "Int ⟶ List Int"
+              },
+              {
+                "kind": "flow",
+                "from": "bind",
+                "to": "result",
+                "label": "List Int"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "bind": "function",
+              "values": "value",
+              "expand": "hof",
+              "result": "type"
+            },
+            "tooltips": {
+              "bind": "List bind is concatMap: apply f to every element, then flatten the produced lists.",
+              "values": "List [1, 2] — bind applies the function once to each element.",
+              "expand": "expand(x) = [x, x * 10]",
+              "result": "List [1, 10, 2, 20] — all produced lists concatenated in input order."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ListProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "bind",
+              "type": "ListBind",
+              "role": "function",
+              "tooltip": "List bind is concatMap: apply f to every element, then flatten the produced lists."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "values",
+              "type": "List Int",
+              "role": "value",
+              "tooltip": "List [1, 2] — bind applies the function once to each element."
+            },
+            {
+              "kind": "object",
+              "id": "expand",
+              "type": "Int ⟶ List Int",
+              "role": "hof",
+              "tooltip": "expand(x) = [x, x * 10]"
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "List Int",
+              "role": "type",
+              "tooltip": "List [1, 10, 2, 20] — all produced lists concatenated in input order."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "values",
+              "to": "bind",
+              "label": "List Int"
+            },
+            {
+              "kind": "flow",
+              "from": "expand",
+              "to": "bind",
+              "label": "Int ⟶ List Int"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "result",
+              "label": "List Int"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "bind": "function",
+            "values": "value",
+            "expand": "hof",
+            "result": "type"
+          },
+          "tooltips": {
+            "bind": "List bind is concatMap: apply f to every element, then flatten the produced lists.",
+            "values": "List [1, 2] — bind applies the function once to each element.",
+            "expand": "expand(x) = [x, x * 10]",
+            "result": "List [1, 10, 2, 20] — all produced lists concatenated in input order."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ListOverview",
+          "viewType": "FpActivityView",
+          "expose": "ListProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "List bind applies a function to each element and concatenates the results",
+          "name": "List bind",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "List bind applies a function to each element and concatenates the results",
+    "name": "List bind",
+    "direction": "LR",
+    "render": "ListProcess",
+    "shows": {
+      "bind": "function",
+      "values": "value",
+      "expand": "hof",
+      "result": "type"
+    },
+    "tooltips": {
+      "bind": "List bind is concatMap: apply f to every element, then flatten the produced lists.",
+      "values": "List [1, 2] — bind applies the function once to each element.",
+      "expand": "expand(x) = [x, x * 10]",
+      "result": "List [1, 10, 2, 20] — all produced lists concatenated in input order."
+    }
+  }
+}

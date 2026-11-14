@@ -64,8 +64,6 @@ feedback loops, enabling stream processors and automata.
 
 ## Motivation
 
-![arrows motivation](26-arrows/arrows-motivation.svg)
-
 Monads model effectful computations where each step can choose the next step based on the _value_
 produced. But sometimes you want to analyse or transform the **shape** of a computation statically —
 before running it. Arrows make the input and output types explicit in the computation itself, which

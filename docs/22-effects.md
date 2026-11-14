@@ -11,8 +11,6 @@ so every combination must be addressed explicitly.
 
 This chapter describes the problem and three approaches to solving it.
 
-![composing effects](22-effects/effects.svg)
-
 ## The problem
 
 Each monad from [19. Monad](./19-monad.md) models exactly one effect.
@@ -53,8 +51,6 @@ can have different semantics: `StateT (ExceptT M)` discards state on failure, wh
 `ExceptT (StateT M)` preserves it.
 
 ## Approaches at a glance
-
-![effects motivation](22-effects/effects-motivation.svg)
 
 |                           | Monad Transformers                       | Free Monad                                | Algebraic Effects                        |
 | ------------------------- | ---------------------------------------- | ----------------------------------------- | ---------------------------------------- |

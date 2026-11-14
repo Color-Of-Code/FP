@@ -3,7 +3,7 @@
 The **State monad** models computations that read and write a **shared mutable state** without
 actually using mutable variables — state is threaded explicitly as a function argument.
 
-![state monad](state/state.svg)
+![Running a State computation returns both its value and updated state](state/state.svg)
 
 ![bind :: State s a ⟶ (a ⟶ State s b) ⟶ State s b — also called: flatMap, >>=](state/state-ibd.svg)
 

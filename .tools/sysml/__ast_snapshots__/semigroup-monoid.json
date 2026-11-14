@@ -1,0 +1,369 @@
+{
+  "packages": [
+    {
+      "name": "SemigroupMonoid",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Combine",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "left",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "right",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Laws",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "Laws",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "xy",
+                "type": "Combine"
+              },
+              {
+                "kind": "action",
+                "id": "leftAssoc",
+                "type": "Combine"
+              },
+              {
+                "kind": "action",
+                "id": "yz",
+                "type": "Combine"
+              },
+              {
+                "kind": "action",
+                "id": "rightAssoc",
+                "type": "Combine"
+              },
+              {
+                "kind": "action",
+                "id": "leftIdentity",
+                "type": "Combine"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "x",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "y",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "z",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "empty",
+                "type": "mempty"
+              },
+              {
+                "kind": "object",
+                "id": "assocEquals",
+                "type": "=",
+                "role": "function",
+                "tooltip": "Both associations produce the same result."
+              },
+              {
+                "kind": "object",
+                "id": "identityEquals",
+                "type": "=",
+                "role": "function",
+                "tooltip": "Combining with mempty leaves x unchanged."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "xy"
+              },
+              {
+                "kind": "flow",
+                "from": "y",
+                "to": "xy"
+              },
+              {
+                "kind": "flow",
+                "from": "xy",
+                "to": "leftAssoc"
+              },
+              {
+                "kind": "flow",
+                "from": "z",
+                "to": "leftAssoc"
+              },
+              {
+                "kind": "flow",
+                "from": "y",
+                "to": "yz"
+              },
+              {
+                "kind": "flow",
+                "from": "z",
+                "to": "yz"
+              },
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "rightAssoc"
+              },
+              {
+                "kind": "flow",
+                "from": "yz",
+                "to": "rightAssoc"
+              },
+              {
+                "kind": "flow",
+                "from": "leftAssoc",
+                "to": "assocEquals"
+              },
+              {
+                "kind": "flow",
+                "from": "rightAssoc",
+                "to": "assocEquals"
+              },
+              {
+                "kind": "flow",
+                "from": "empty",
+                "to": "leftIdentity"
+              },
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "leftIdentity"
+              },
+              {
+                "kind": "flow",
+                "from": "leftIdentity",
+                "to": "identityEquals"
+              },
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "identityEquals"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "assocEquals": "function",
+              "identityEquals": "function"
+            },
+            "tooltips": {
+              "assocEquals": "Both associations produce the same result.",
+              "identityEquals": "Combining with mempty leaves x unchanged."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "Laws",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "xy",
+              "type": "Combine"
+            },
+            {
+              "kind": "action",
+              "id": "leftAssoc",
+              "type": "Combine"
+            },
+            {
+              "kind": "action",
+              "id": "yz",
+              "type": "Combine"
+            },
+            {
+              "kind": "action",
+              "id": "rightAssoc",
+              "type": "Combine"
+            },
+            {
+              "kind": "action",
+              "id": "leftIdentity",
+              "type": "Combine"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "y",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "z",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "empty",
+              "type": "mempty"
+            },
+            {
+              "kind": "object",
+              "id": "assocEquals",
+              "type": "=",
+              "role": "function",
+              "tooltip": "Both associations produce the same result."
+            },
+            {
+              "kind": "object",
+              "id": "identityEquals",
+              "type": "=",
+              "role": "function",
+              "tooltip": "Combining with mempty leaves x unchanged."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "xy"
+            },
+            {
+              "kind": "flow",
+              "from": "y",
+              "to": "xy"
+            },
+            {
+              "kind": "flow",
+              "from": "xy",
+              "to": "leftAssoc"
+            },
+            {
+              "kind": "flow",
+              "from": "z",
+              "to": "leftAssoc"
+            },
+            {
+              "kind": "flow",
+              "from": "y",
+              "to": "yz"
+            },
+            {
+              "kind": "flow",
+              "from": "z",
+              "to": "yz"
+            },
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "rightAssoc"
+            },
+            {
+              "kind": "flow",
+              "from": "yz",
+              "to": "rightAssoc"
+            },
+            {
+              "kind": "flow",
+              "from": "leftAssoc",
+              "to": "assocEquals"
+            },
+            {
+              "kind": "flow",
+              "from": "rightAssoc",
+              "to": "assocEquals"
+            },
+            {
+              "kind": "flow",
+              "from": "empty",
+              "to": "leftIdentity"
+            },
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "leftIdentity"
+            },
+            {
+              "kind": "flow",
+              "from": "leftIdentity",
+              "to": "identityEquals"
+            },
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "identityEquals"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "assocEquals": "function",
+            "identityEquals": "function"
+          },
+          "tooltips": {
+            "assocEquals": "Both associations produce the same result.",
+            "identityEquals": "Combining with mempty leaves x unchanged."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "SemigroupMonoid",
+          "viewType": "FpActivityView",
+          "expose": "Laws",
+          "rendering": "fpActivityDiagram",
+          "title": " Semigroup associativity and monoid identity laws "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Semigroup associativity and monoid identity laws ",
+    "render": "Laws",
+    "shows": {
+      "assocEquals": "function",
+      "identityEquals": "function"
+    },
+    "tooltips": {
+      "assocEquals": "Both associations produce the same result.",
+      "identityEquals": "Combining with mempty leaves x unchanged."
+    }
+  }
+}

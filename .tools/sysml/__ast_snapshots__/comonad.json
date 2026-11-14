@@ -1,0 +1,271 @@
+{
+  "packages": [
+    {
+      "name": "ComonadOperations",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Extract",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "wa",
+              "type": "W a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Extend",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "wa",
+              "type": "W a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "W a -> b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "wb",
+              "type": "W b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ComonadProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ComonadProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "extract",
+                "type": "Extract",
+                "role": "function",
+                "tooltip": "extract observes the focused value."
+              },
+              {
+                "kind": "action",
+                "id": "extend",
+                "type": "Extend",
+                "role": "function",
+                "tooltip": "extend applies f at each shifted focus, preserving the context shape."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "wa",
+                "type": "W a",
+                "role": "type",
+                "tooltip": "A value together with its surrounding context."
+              },
+              {
+                "kind": "object",
+                "id": "a",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "f",
+                "type": "W a -> b",
+                "role": "hof",
+                "tooltip": "A computation that can inspect the whole context."
+              },
+              {
+                "kind": "object",
+                "id": "wb",
+                "type": "W b"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "wa",
+                "to": "extract"
+              },
+              {
+                "kind": "flow",
+                "from": "extract",
+                "to": "a"
+              },
+              {
+                "kind": "flow",
+                "from": "wa",
+                "to": "extend"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "extend"
+              },
+              {
+                "kind": "flow",
+                "from": "extend",
+                "to": "wb"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "extract": "function",
+              "extend": "function",
+              "wa": "type",
+              "f": "hof"
+            },
+            "tooltips": {
+              "extract": "extract observes the focused value.",
+              "extend": "extend applies f at each shifted focus, preserving the context shape.",
+              "wa": "A value together with its surrounding context.",
+              "f": "A computation that can inspect the whole context."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ComonadProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "extract",
+              "type": "Extract",
+              "role": "function",
+              "tooltip": "extract observes the focused value."
+            },
+            {
+              "kind": "action",
+              "id": "extend",
+              "type": "Extend",
+              "role": "function",
+              "tooltip": "extend applies f at each shifted focus, preserving the context shape."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "wa",
+              "type": "W a",
+              "role": "type",
+              "tooltip": "A value together with its surrounding context."
+            },
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "f",
+              "type": "W a -> b",
+              "role": "hof",
+              "tooltip": "A computation that can inspect the whole context."
+            },
+            {
+              "kind": "object",
+              "id": "wb",
+              "type": "W b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "wa",
+              "to": "extract"
+            },
+            {
+              "kind": "flow",
+              "from": "extract",
+              "to": "a"
+            },
+            {
+              "kind": "flow",
+              "from": "wa",
+              "to": "extend"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "extend"
+            },
+            {
+              "kind": "flow",
+              "from": "extend",
+              "to": "wb"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "extract": "function",
+            "extend": "function",
+            "wa": "type",
+            "f": "hof"
+          },
+          "tooltips": {
+            "extract": "extract observes the focused value.",
+            "extend": "extend applies f at each shifted focus, preserving the context shape.",
+            "wa": "A value together with its surrounding context.",
+            "f": "A computation that can inspect the whole context."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ComonadOperations",
+          "viewType": "FpActivityView",
+          "expose": "ComonadProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "comonad",
+          "name": "comonad",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "comonad",
+    "name": "comonad",
+    "direction": "LR",
+    "render": "ComonadProcess",
+    "shows": {
+      "extract": "function",
+      "extend": "function",
+      "wa": "type",
+      "f": "hof"
+    },
+    "tooltips": {
+      "extract": "extract observes the focused value.",
+      "extend": "extend applies f at each shifted focus, preserving the context shape.",
+      "wa": "A value together with its surrounding context.",
+      "f": "A computation that can inspect the whole context."
+    }
+  }
+}

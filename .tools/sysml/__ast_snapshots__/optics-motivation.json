@@ -1,0 +1,303 @@
+{
+  "packages": [
+    {
+      "name": "OpticsMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RebuildPerson",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "person",
+              "type": "Person",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "city",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "updated",
+              "type": "Person",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "SetCity",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "person",
+              "type": "Person",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "lens",
+              "type": "Lens Person String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "city",
+              "type": "String",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "updated",
+              "type": "Person",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "NestedUpdate",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "NestedUpdate",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "rebuild",
+                "type": "RebuildPerson",
+                "role": "function",
+                "tooltip": "Without a lens, every intermediate immutable record must be reconstructed."
+              },
+              {
+                "kind": "action",
+                "id": "set",
+                "type": "SetCity",
+                "role": "function",
+                "tooltip": "set updates the focused field and returns a new Person."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "person",
+                "type": "Person"
+              },
+              {
+                "kind": "object",
+                "id": "city",
+                "type": "String"
+              },
+              {
+                "kind": "object",
+                "id": "rebuilt",
+                "type": "Person"
+              },
+              {
+                "kind": "object",
+                "id": "path",
+                "type": "Lens Person String",
+                "role": "hof",
+                "tooltip": "A composed lens focuses from Person through Address to the city name."
+              },
+              {
+                "kind": "object",
+                "id": "updated",
+                "type": "Person"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "person",
+                "to": "rebuild"
+              },
+              {
+                "kind": "flow",
+                "from": "city",
+                "to": "rebuild"
+              },
+              {
+                "kind": "flow",
+                "from": "rebuild",
+                "to": "rebuilt"
+              },
+              {
+                "kind": "flow",
+                "from": "person",
+                "to": "set"
+              },
+              {
+                "kind": "flow",
+                "from": "path",
+                "to": "set"
+              },
+              {
+                "kind": "flow",
+                "from": "city",
+                "to": "set"
+              },
+              {
+                "kind": "flow",
+                "from": "set",
+                "to": "updated"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "rebuild": "function",
+              "set": "function",
+              "path": "hof"
+            },
+            "tooltips": {
+              "rebuild": "Without a lens, every intermediate immutable record must be reconstructed.",
+              "set": "set updates the focused field and returns a new Person.",
+              "path": "A composed lens focuses from Person through Address to the city name."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "NestedUpdate",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "rebuild",
+              "type": "RebuildPerson",
+              "role": "function",
+              "tooltip": "Without a lens, every intermediate immutable record must be reconstructed."
+            },
+            {
+              "kind": "action",
+              "id": "set",
+              "type": "SetCity",
+              "role": "function",
+              "tooltip": "set updates the focused field and returns a new Person."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "person",
+              "type": "Person"
+            },
+            {
+              "kind": "object",
+              "id": "city",
+              "type": "String"
+            },
+            {
+              "kind": "object",
+              "id": "rebuilt",
+              "type": "Person"
+            },
+            {
+              "kind": "object",
+              "id": "path",
+              "type": "Lens Person String",
+              "role": "hof",
+              "tooltip": "A composed lens focuses from Person through Address to the city name."
+            },
+            {
+              "kind": "object",
+              "id": "updated",
+              "type": "Person"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "person",
+              "to": "rebuild"
+            },
+            {
+              "kind": "flow",
+              "from": "city",
+              "to": "rebuild"
+            },
+            {
+              "kind": "flow",
+              "from": "rebuild",
+              "to": "rebuilt"
+            },
+            {
+              "kind": "flow",
+              "from": "person",
+              "to": "set"
+            },
+            {
+              "kind": "flow",
+              "from": "path",
+              "to": "set"
+            },
+            {
+              "kind": "flow",
+              "from": "city",
+              "to": "set"
+            },
+            {
+              "kind": "flow",
+              "from": "set",
+              "to": "updated"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "rebuild": "function",
+            "set": "function",
+            "path": "hof"
+          },
+          "tooltips": {
+            "rebuild": "Without a lens, every intermediate immutable record must be reconstructed.",
+            "set": "set updates the focused field and returns a new Person.",
+            "path": "A composed lens focuses from Person through Address to the city name."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "OpticsMotivation",
+          "viewType": "FpActivityView",
+          "expose": "NestedUpdate",
+          "rendering": "fpActivityDiagram",
+          "title": "optics motivation",
+          "name": "lens update",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "optics motivation",
+    "name": "lens update",
+    "direction": "LR",
+    "render": "NestedUpdate",
+    "shows": {
+      "rebuild": "function",
+      "set": "function",
+      "path": "hof"
+    },
+    "tooltips": {
+      "rebuild": "Without a lens, every intermediate immutable record must be reconstructed.",
+      "set": "set updates the focused field and returns a new Person.",
+      "path": "A composed lens focuses from Person through Address to the city name."
+    }
+  }
+}

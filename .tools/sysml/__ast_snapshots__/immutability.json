@@ -1,0 +1,93 @@
+{
+  "packages": [
+    {
+      "name": "Immutability",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "SharedLists",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "xs",
+              "type": "xs = [1, 2, 3]",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The original list remains unchanged."
+            },
+            {
+              "kind": "part",
+              "id": "zero",
+              "type": "new head: 0",
+              "ports": [],
+              "role": "value",
+              "tooltip": "Only the new head is allocated."
+            },
+            {
+              "kind": "part",
+              "id": "ys",
+              "type": "ys = 0 : xs",
+              "ports": [],
+              "role": "type",
+              "tooltip": "A new list points at the new head and shared tail."
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "ys",
+              "to": "zero",
+              "label": "new head"
+            },
+            {
+              "kind": "connection",
+              "from": "ys",
+              "to": "xs",
+              "label": "shared tail (no copy)"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "xs": "type",
+            "zero": "value",
+            "ys": "type"
+          },
+          "tooltips": {
+            "xs": "The original list remains unchanged.",
+            "zero": "Only the new head is allocated.",
+            "ys": "A new list points at the new head and shared tail."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "Immutability",
+          "viewType": "FpIbdView",
+          "expose": "SharedLists",
+          "rendering": "fpIbdDiagram",
+          "title": " Immutability with structural sharing "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": " Immutability with structural sharing ",
+    "render": "SharedLists",
+    "shows": {
+      "xs": "type",
+      "zero": "value",
+      "ys": "type"
+    },
+    "tooltips": {
+      "xs": "The original list remains unchanged.",
+      "zero": "Only the new head is allocated.",
+      "ys": "A new list points at the new head and shared tail."
+    }
+  }
+}

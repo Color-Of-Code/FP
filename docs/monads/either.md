@@ -3,7 +3,7 @@
 The **Either monad** (`Result` in Rust/Swift) models computations that may **fail with an error
 value** — carrying a description of what went wrong.
 
-![either monad](either/either.svg)
+![Either bind propagates the first Left error and skips later functions](either/either.svg)
 
 ![bind :: Either e a ⟶ (a ⟶ Either e b) ⟶ Either e b — also called: andThen / and_then, Bind, flatMap, >>=](either/either-ibd.svg)
 

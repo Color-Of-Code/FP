@@ -3,7 +3,7 @@
 The **Parser monad** models computations that **consume a sequence of input** — typically characters
 — and either succeed, returning a parsed value alongside the unconsumed remainder, or fail.
 
-![parser monad](parser/parser.svg)
+![A Parser a consumes input and returns a value with the unconsumed suffix](parser/parser.svg)
 
 ![bind :: Parser a ⟶ (a ⟶ Parser b) ⟶ Parser b — also called: flatMap, Bind, >>=](parser/parser-ibd.svg)
 

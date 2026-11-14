@@ -1,0 +1,390 @@
+{
+  "packages": [
+    {
+      "name": "ComonadMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "Pure",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "M a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Bind",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "M a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a -> M b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "M b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Extract",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "wa",
+              "type": "W a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "a",
+              "type": "a",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Extend",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "wa",
+              "type": "W a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "W a -> b",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "wb",
+              "type": "W b",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "DualOperations",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "DualOperations",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "pure",
+                "type": "Pure"
+              },
+              {
+                "kind": "action",
+                "id": "bind",
+                "type": "Bind"
+              },
+              {
+                "kind": "action",
+                "id": "extract",
+                "type": "Extract"
+              },
+              {
+                "kind": "action",
+                "id": "extend",
+                "type": "Extend"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "a",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "ma",
+                "type": "M a"
+              },
+              {
+                "kind": "object",
+                "id": "mf",
+                "type": "a -> M b",
+                "role": "hof"
+              },
+              {
+                "kind": "object",
+                "id": "mb",
+                "type": "M b"
+              },
+              {
+                "kind": "object",
+                "id": "wa",
+                "type": "W a"
+              },
+              {
+                "kind": "object",
+                "id": "focused",
+                "type": "a"
+              },
+              {
+                "kind": "object",
+                "id": "wf",
+                "type": "W a -> b",
+                "role": "hof"
+              },
+              {
+                "kind": "object",
+                "id": "wb",
+                "type": "W b"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "a",
+                "to": "pure"
+              },
+              {
+                "kind": "flow",
+                "from": "pure",
+                "to": "ma"
+              },
+              {
+                "kind": "flow",
+                "from": "ma",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "mf",
+                "to": "bind"
+              },
+              {
+                "kind": "flow",
+                "from": "bind",
+                "to": "mb"
+              },
+              {
+                "kind": "flow",
+                "from": "wa",
+                "to": "extract"
+              },
+              {
+                "kind": "flow",
+                "from": "extract",
+                "to": "focused"
+              },
+              {
+                "kind": "flow",
+                "from": "wa",
+                "to": "extend"
+              },
+              {
+                "kind": "flow",
+                "from": "wf",
+                "to": "extend"
+              },
+              {
+                "kind": "flow",
+                "from": "extend",
+                "to": "wb"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "mf": "hof",
+              "wf": "hof"
+            },
+            "tooltips": {}
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "DualOperations",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "pure",
+              "type": "Pure"
+            },
+            {
+              "kind": "action",
+              "id": "bind",
+              "type": "Bind"
+            },
+            {
+              "kind": "action",
+              "id": "extract",
+              "type": "Extract"
+            },
+            {
+              "kind": "action",
+              "id": "extend",
+              "type": "Extend"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "a",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "ma",
+              "type": "M a"
+            },
+            {
+              "kind": "object",
+              "id": "mf",
+              "type": "a -> M b",
+              "role": "hof"
+            },
+            {
+              "kind": "object",
+              "id": "mb",
+              "type": "M b"
+            },
+            {
+              "kind": "object",
+              "id": "wa",
+              "type": "W a"
+            },
+            {
+              "kind": "object",
+              "id": "focused",
+              "type": "a"
+            },
+            {
+              "kind": "object",
+              "id": "wf",
+              "type": "W a -> b",
+              "role": "hof"
+            },
+            {
+              "kind": "object",
+              "id": "wb",
+              "type": "W b"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "a",
+              "to": "pure"
+            },
+            {
+              "kind": "flow",
+              "from": "pure",
+              "to": "ma"
+            },
+            {
+              "kind": "flow",
+              "from": "ma",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "mf",
+              "to": "bind"
+            },
+            {
+              "kind": "flow",
+              "from": "bind",
+              "to": "mb"
+            },
+            {
+              "kind": "flow",
+              "from": "wa",
+              "to": "extract"
+            },
+            {
+              "kind": "flow",
+              "from": "extract",
+              "to": "focused"
+            },
+            {
+              "kind": "flow",
+              "from": "wa",
+              "to": "extend"
+            },
+            {
+              "kind": "flow",
+              "from": "wf",
+              "to": "extend"
+            },
+            {
+              "kind": "flow",
+              "from": "extend",
+              "to": "wb"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "mf": "hof",
+            "wf": "hof"
+          },
+          "tooltips": {}
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ComonadMotivation",
+          "viewType": "FpActivityView",
+          "expose": "DualOperations",
+          "rendering": "fpActivityDiagram",
+          "title": "comonad motivation",
+          "name": "dual operations",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "comonad motivation",
+    "name": "dual operations",
+    "direction": "LR",
+    "render": "DualOperations",
+    "shows": {
+      "mf": "hof",
+      "wf": "hof"
+    },
+    "tooltips": {}
+  }
+}

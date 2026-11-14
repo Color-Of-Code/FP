@@ -1,0 +1,413 @@
+{
+  "packages": [
+    {
+      "name": "ApplicativeMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ParseInt",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ManualCombine",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "Maybe Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "y",
+              "type": "Maybe Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplyFirst",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "fn",
+              "type": "Maybe (Int -> Int -> Int)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "Maybe Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "partial",
+              "type": "Maybe (Int -> Int)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplyNext",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "fn",
+              "type": "Maybe (Int -> Int)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "y",
+              "type": "Maybe Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Maybe Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ApplicativeComparison",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ApplicativeComparison",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "parseX",
+                "type": "ParseInt"
+              },
+              {
+                "kind": "action",
+                "id": "parseY",
+                "type": "ParseInt"
+              },
+              {
+                "kind": "action",
+                "id": "manual",
+                "type": "ManualCombine",
+                "role": "function",
+                "tooltip": "Manual nested case analysis combines both independent parse results."
+              },
+              {
+                "kind": "action",
+                "id": "apFirst",
+                "type": "ApplyFirst",
+                "role": "function",
+                "tooltip": "<*> applies a wrapped function to a wrapped value."
+              },
+              {
+                "kind": "action",
+                "id": "apNext",
+                "type": "ApplyNext"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "parsedX",
+                "type": "Maybe Int"
+              },
+              {
+                "kind": "object",
+                "id": "parsedY",
+                "type": "Maybe Int"
+              },
+              {
+                "kind": "object",
+                "id": "manualResult",
+                "type": "Maybe Int"
+              },
+              {
+                "kind": "object",
+                "id": "wrappedPlus",
+                "type": "Maybe (Int -> Int -> Int)",
+                "role": "hof",
+                "tooltip": "The addition function lifted into Maybe."
+              },
+              {
+                "kind": "object",
+                "id": "partial",
+                "type": "Maybe (Int -> Int)"
+              },
+              {
+                "kind": "object",
+                "id": "applicativeResult",
+                "type": "Maybe Int"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "parseX",
+                "to": "parsedX"
+              },
+              {
+                "kind": "flow",
+                "from": "parseY",
+                "to": "parsedY"
+              },
+              {
+                "kind": "flow",
+                "from": "parsedX",
+                "to": "manual"
+              },
+              {
+                "kind": "flow",
+                "from": "parsedY",
+                "to": "manual"
+              },
+              {
+                "kind": "flow",
+                "from": "manual",
+                "to": "manualResult"
+              },
+              {
+                "kind": "flow",
+                "from": "wrappedPlus",
+                "to": "apFirst"
+              },
+              {
+                "kind": "flow",
+                "from": "parsedX",
+                "to": "apFirst"
+              },
+              {
+                "kind": "flow",
+                "from": "apFirst",
+                "to": "partial"
+              },
+              {
+                "kind": "flow",
+                "from": "partial",
+                "to": "apNext"
+              },
+              {
+                "kind": "flow",
+                "from": "parsedY",
+                "to": "apNext"
+              },
+              {
+                "kind": "flow",
+                "from": "apNext",
+                "to": "applicativeResult"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "manual": "function",
+              "apFirst": "function",
+              "wrappedPlus": "hof"
+            },
+            "tooltips": {
+              "manual": "Manual nested case analysis combines both independent parse results.",
+              "apFirst": "<*> applies a wrapped function to a wrapped value.",
+              "wrappedPlus": "The addition function lifted into Maybe."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ApplicativeComparison",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "parseX",
+              "type": "ParseInt"
+            },
+            {
+              "kind": "action",
+              "id": "parseY",
+              "type": "ParseInt"
+            },
+            {
+              "kind": "action",
+              "id": "manual",
+              "type": "ManualCombine",
+              "role": "function",
+              "tooltip": "Manual nested case analysis combines both independent parse results."
+            },
+            {
+              "kind": "action",
+              "id": "apFirst",
+              "type": "ApplyFirst",
+              "role": "function",
+              "tooltip": "<*> applies a wrapped function to a wrapped value."
+            },
+            {
+              "kind": "action",
+              "id": "apNext",
+              "type": "ApplyNext"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "parsedX",
+              "type": "Maybe Int"
+            },
+            {
+              "kind": "object",
+              "id": "parsedY",
+              "type": "Maybe Int"
+            },
+            {
+              "kind": "object",
+              "id": "manualResult",
+              "type": "Maybe Int"
+            },
+            {
+              "kind": "object",
+              "id": "wrappedPlus",
+              "type": "Maybe (Int -> Int -> Int)",
+              "role": "hof",
+              "tooltip": "The addition function lifted into Maybe."
+            },
+            {
+              "kind": "object",
+              "id": "partial",
+              "type": "Maybe (Int -> Int)"
+            },
+            {
+              "kind": "object",
+              "id": "applicativeResult",
+              "type": "Maybe Int"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "parseX",
+              "to": "parsedX"
+            },
+            {
+              "kind": "flow",
+              "from": "parseY",
+              "to": "parsedY"
+            },
+            {
+              "kind": "flow",
+              "from": "parsedX",
+              "to": "manual"
+            },
+            {
+              "kind": "flow",
+              "from": "parsedY",
+              "to": "manual"
+            },
+            {
+              "kind": "flow",
+              "from": "manual",
+              "to": "manualResult"
+            },
+            {
+              "kind": "flow",
+              "from": "wrappedPlus",
+              "to": "apFirst"
+            },
+            {
+              "kind": "flow",
+              "from": "parsedX",
+              "to": "apFirst"
+            },
+            {
+              "kind": "flow",
+              "from": "apFirst",
+              "to": "partial"
+            },
+            {
+              "kind": "flow",
+              "from": "partial",
+              "to": "apNext"
+            },
+            {
+              "kind": "flow",
+              "from": "parsedY",
+              "to": "apNext"
+            },
+            {
+              "kind": "flow",
+              "from": "apNext",
+              "to": "applicativeResult"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "manual": "function",
+            "apFirst": "function",
+            "wrappedPlus": "hof"
+          },
+          "tooltips": {
+            "manual": "Manual nested case analysis combines both independent parse results.",
+            "apFirst": "<*> applies a wrapped function to a wrapped value.",
+            "wrappedPlus": "The addition function lifted into Maybe."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ApplicativeMotivation",
+          "viewType": "FpActivityView",
+          "expose": "ApplicativeComparison",
+          "rendering": "fpActivityDiagram",
+          "title": "applicative motivation",
+          "name": "applicative",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "applicative motivation",
+    "name": "applicative",
+    "direction": "LR",
+    "render": "ApplicativeComparison",
+    "shows": {
+      "manual": "function",
+      "apFirst": "function",
+      "wrappedPlus": "hof"
+    },
+    "tooltips": {
+      "manual": "Manual nested case analysis combines both independent parse results.",
+      "apFirst": "<*> applies a wrapped function to a wrapped value.",
+      "wrappedPlus": "The addition function lifted into Maybe."
+    }
+  }
+}

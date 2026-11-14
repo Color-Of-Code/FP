@@ -1,0 +1,261 @@
+{
+  "packages": [
+    {
+      "name": "ImmutabilityMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "MutateInPlace",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "user",
+              "type": "User(age=30)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "User(age=31)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ObserveReferences",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "user",
+              "type": "User(age=31)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "all references see age 31",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CopyWithUpdate",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "user",
+              "type": "User(age=30)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "new User(age=31)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Outcome",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "old and new User values",
+              "direction": "in"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Comparison",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "Comparison",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "mutate",
+                "type": "MutateInPlace",
+                "role": "function",
+                "tooltip": "Mutation changes the value all aliases observe."
+              },
+              {
+                "kind": "action",
+                "id": "observe",
+                "type": "ObserveReferences"
+              },
+              {
+                "kind": "action",
+                "id": "copy",
+                "type": "CopyWithUpdate",
+                "role": "function",
+                "tooltip": "An update returns a distinct value and leaves the input intact."
+              },
+              {
+                "kind": "action",
+                "id": "coexist",
+                "type": "Outcome"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "user",
+                "type": "User(age=30)",
+                "role": "value",
+                "tooltip": "The starting value for both alternatives."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "user",
+                "to": "mutate"
+              },
+              {
+                "kind": "flow",
+                "from": "mutate",
+                "to": "observe"
+              },
+              {
+                "kind": "flow",
+                "from": "user",
+                "to": "copy"
+              },
+              {
+                "kind": "flow",
+                "from": "copy",
+                "to": "coexist"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "mutate": "function",
+              "copy": "function",
+              "user": "value"
+            },
+            "tooltips": {
+              "mutate": "Mutation changes the value all aliases observe.",
+              "copy": "An update returns a distinct value and leaves the input intact.",
+              "user": "The starting value for both alternatives."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "Comparison",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "mutate",
+              "type": "MutateInPlace",
+              "role": "function",
+              "tooltip": "Mutation changes the value all aliases observe."
+            },
+            {
+              "kind": "action",
+              "id": "observe",
+              "type": "ObserveReferences"
+            },
+            {
+              "kind": "action",
+              "id": "copy",
+              "type": "CopyWithUpdate",
+              "role": "function",
+              "tooltip": "An update returns a distinct value and leaves the input intact."
+            },
+            {
+              "kind": "action",
+              "id": "coexist",
+              "type": "Outcome"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "user",
+              "type": "User(age=30)",
+              "role": "value",
+              "tooltip": "The starting value for both alternatives."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "user",
+              "to": "mutate"
+            },
+            {
+              "kind": "flow",
+              "from": "mutate",
+              "to": "observe"
+            },
+            {
+              "kind": "flow",
+              "from": "user",
+              "to": "copy"
+            },
+            {
+              "kind": "flow",
+              "from": "copy",
+              "to": "coexist"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "mutate": "function",
+            "copy": "function",
+            "user": "value"
+          },
+          "tooltips": {
+            "mutate": "Mutation changes the value all aliases observe.",
+            "copy": "An update returns a distinct value and leaves the input intact.",
+            "user": "The starting value for both alternatives."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ImmutabilityMotivation",
+          "viewType": "FpActivityView",
+          "expose": "Comparison",
+          "rendering": "fpActivityDiagram",
+          "title": " Immutability: mutation versus new values "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Immutability: mutation versus new values ",
+    "render": "Comparison",
+    "shows": {
+      "mutate": "function",
+      "copy": "function",
+      "user": "value"
+    },
+    "tooltips": {
+      "mutate": "Mutation changes the value all aliases observe.",
+      "copy": "An update returns a distinct value and leaves the input intact.",
+      "user": "The starting value for both alternatives."
+    }
+  }
+}

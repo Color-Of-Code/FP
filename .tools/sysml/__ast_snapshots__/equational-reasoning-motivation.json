@@ -1,0 +1,241 @@
+{
+  "packages": [
+    {
+      "name": "EquationalReasoningMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "ImpureCall",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "x",
+              "type": "x = 1",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "x = unknown",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "InspectCall",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "state",
+              "type": "x = unknown",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "inspect f and every call it makes",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "PureCompute",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "input",
+              "type": "x = compute(42), y = x + x",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "compute(42) + compute(42)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Substitute",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "compute(42) + compute(42)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "84",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Comparison",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "Comparison",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "call",
+                "type": "ImpureCall"
+              },
+              {
+                "kind": "action",
+                "id": "inspect",
+                "type": "InspectCall"
+              },
+              {
+                "kind": "action",
+                "id": "compute",
+                "type": "PureCompute"
+              },
+              {
+                "kind": "action",
+                "id": "substitute",
+                "type": "Substitute"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "initial",
+                "type": "x = 1"
+              },
+              {
+                "kind": "object",
+                "id": "input",
+                "type": "x = compute(42), y = x + x"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "initial",
+                "to": "call"
+              },
+              {
+                "kind": "flow",
+                "from": "call",
+                "to": "inspect"
+              },
+              {
+                "kind": "flow",
+                "from": "input",
+                "to": "compute"
+              },
+              {
+                "kind": "flow",
+                "from": "compute",
+                "to": "substitute"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {},
+            "tooltips": {}
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "Comparison",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "call",
+              "type": "ImpureCall"
+            },
+            {
+              "kind": "action",
+              "id": "inspect",
+              "type": "InspectCall"
+            },
+            {
+              "kind": "action",
+              "id": "compute",
+              "type": "PureCompute"
+            },
+            {
+              "kind": "action",
+              "id": "substitute",
+              "type": "Substitute"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "initial",
+              "type": "x = 1"
+            },
+            {
+              "kind": "object",
+              "id": "input",
+              "type": "x = compute(42), y = x + x"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "initial",
+              "to": "call"
+            },
+            {
+              "kind": "flow",
+              "from": "call",
+              "to": "inspect"
+            },
+            {
+              "kind": "flow",
+              "from": "input",
+              "to": "compute"
+            },
+            {
+              "kind": "flow",
+              "from": "compute",
+              "to": "substitute"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "EquationalReasoningMotivation",
+          "viewType": "FpActivityView",
+          "expose": "Comparison",
+          "rendering": "fpActivityDiagram",
+          "title": " Purity makes substitution predictable "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Purity makes substitution predictable ",
+    "render": "Comparison",
+    "shows": {},
+    "tooltips": {}
+  }
+}

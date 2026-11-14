@@ -1,0 +1,291 @@
+{
+  "packages": [
+    {
+      "name": "CpsStructure",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "DirectStep",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CpsStep",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "value",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "next",
+              "type": "Int -> Result",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "Result",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CpsProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "CpsProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "h",
+                "type": "DirectStep"
+              },
+              {
+                "kind": "action",
+                "id": "g",
+                "type": "DirectStep"
+              },
+              {
+                "kind": "action",
+                "id": "f",
+                "type": "DirectStep"
+              },
+              {
+                "kind": "action",
+                "id": "hCps",
+                "type": "CpsStep",
+                "role": "function",
+                "tooltip": "In CPS the function calls its continuation instead of returning an intermediate value."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "x",
+                "type": "Int"
+              },
+              {
+                "kind": "object",
+                "id": "directResult",
+                "type": "Int"
+              },
+              {
+                "kind": "object",
+                "id": "next",
+                "type": "Int -> Result",
+                "role": "hof",
+                "tooltip": "The continuation says what to do with h's result; here it represents the rest of the computation."
+              },
+              {
+                "kind": "object",
+                "id": "cpsResult",
+                "type": "Result"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "h"
+              },
+              {
+                "kind": "flow",
+                "from": "h",
+                "to": "g"
+              },
+              {
+                "kind": "flow",
+                "from": "g",
+                "to": "f"
+              },
+              {
+                "kind": "flow",
+                "from": "f",
+                "to": "directResult"
+              },
+              {
+                "kind": "flow",
+                "from": "x",
+                "to": "hCps"
+              },
+              {
+                "kind": "flow",
+                "from": "next",
+                "to": "hCps"
+              },
+              {
+                "kind": "flow",
+                "from": "hCps",
+                "to": "cpsResult"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "hCps": "function",
+              "next": "hof"
+            },
+            "tooltips": {
+              "hCps": "In CPS the function calls its continuation instead of returning an intermediate value.",
+              "next": "The continuation says what to do with h's result; here it represents the rest of the computation."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "CpsProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "h",
+              "type": "DirectStep"
+            },
+            {
+              "kind": "action",
+              "id": "g",
+              "type": "DirectStep"
+            },
+            {
+              "kind": "action",
+              "id": "f",
+              "type": "DirectStep"
+            },
+            {
+              "kind": "action",
+              "id": "hCps",
+              "type": "CpsStep",
+              "role": "function",
+              "tooltip": "In CPS the function calls its continuation instead of returning an intermediate value."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "x",
+              "type": "Int"
+            },
+            {
+              "kind": "object",
+              "id": "directResult",
+              "type": "Int"
+            },
+            {
+              "kind": "object",
+              "id": "next",
+              "type": "Int -> Result",
+              "role": "hof",
+              "tooltip": "The continuation says what to do with h's result; here it represents the rest of the computation."
+            },
+            {
+              "kind": "object",
+              "id": "cpsResult",
+              "type": "Result"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "h"
+            },
+            {
+              "kind": "flow",
+              "from": "h",
+              "to": "g"
+            },
+            {
+              "kind": "flow",
+              "from": "g",
+              "to": "f"
+            },
+            {
+              "kind": "flow",
+              "from": "f",
+              "to": "directResult"
+            },
+            {
+              "kind": "flow",
+              "from": "x",
+              "to": "hCps"
+            },
+            {
+              "kind": "flow",
+              "from": "next",
+              "to": "hCps"
+            },
+            {
+              "kind": "flow",
+              "from": "hCps",
+              "to": "cpsResult"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "hCps": "function",
+            "next": "hof"
+          },
+          "tooltips": {
+            "hCps": "In CPS the function calls its continuation instead of returning an intermediate value.",
+            "next": "The continuation says what to do with h's result; here it represents the rest of the computation."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "CpsStructure",
+          "viewType": "FpActivityView",
+          "expose": "CpsProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "CPS structure",
+          "name": "CPS",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "CPS structure",
+    "name": "CPS",
+    "direction": "LR",
+    "render": "CpsProcess",
+    "shows": {
+      "hCps": "function",
+      "next": "hof"
+    },
+    "tooltips": {
+      "hCps": "In CPS the function calls its continuation instead of returning an intermediate value.",
+      "next": "The continuation says what to do with h's result; here it represents the rest of the computation."
+    }
+  }
+}

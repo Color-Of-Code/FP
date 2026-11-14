@@ -3,7 +3,7 @@
 The **IO monad** models **side-effectful computations** — reading input, writing output, accessing
 files, clocks, or any interaction with the outside world.
 
-![IO monad](io/io.svg)
+![IO computations describe effects and bind sequences them explicitly](io/io.svg)
 
 ![bind :: IO a ⟶ (a ⟶ IO b) ⟶ IO b — also called: .then (Promises), >>=](io/io-ibd.svg)
 

@@ -1,0 +1,99 @@
+{
+  "packages": [
+    {
+      "name": "Newtype",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "WrappedMeasures",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "raw",
+              "type": "Int",
+              "ports": [],
+              "role": "type",
+              "tooltip": "All wrappers share the same runtime representation."
+            },
+            {
+              "kind": "part",
+              "id": "age",
+              "type": "Age",
+              "ports": [],
+              "role": "type",
+              "tooltip": "Distinct from Year and Kg at compile time."
+            },
+            {
+              "kind": "part",
+              "id": "year",
+              "type": "Year",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "kg",
+              "type": "Kg",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "raw",
+              "to": "age",
+              "label": "wrap / coerce (zero-cost)"
+            },
+            {
+              "kind": "connection",
+              "from": "raw",
+              "to": "year",
+              "label": "wrap / coerce (zero-cost)"
+            },
+            {
+              "kind": "connection",
+              "from": "raw",
+              "to": "kg",
+              "label": "wrap / coerce (zero-cost)"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "raw": "type",
+            "age": "type"
+          },
+          "tooltips": {
+            "raw": "All wrappers share the same runtime representation.",
+            "age": "Distinct from Year and Kg at compile time."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "Newtype",
+          "viewType": "FpIbdView",
+          "expose": "WrappedMeasures",
+          "rendering": "fpIbdDiagram",
+          "title": " Newtypes distinguish types without changing representation "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": " Newtypes distinguish types without changing representation ",
+    "render": "WrappedMeasures",
+    "shows": {
+      "raw": "type",
+      "age": "type"
+    },
+    "tooltips": {
+      "raw": "All wrappers share the same runtime representation.",
+      "age": "Distinct from Year and Kg at compile time."
+    }
+  }
+}

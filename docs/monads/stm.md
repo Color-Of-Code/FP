@@ -4,7 +4,7 @@
 **atomic transactions**. A transaction either commits completely — with all its writes visible at
 once — or retries from the beginning if another thread modified a value it read.
 
-![STM monad](stm/stm.svg)
+![TVar reads and writes compose into an STM transaction committed by atomically](stm/stm.svg)
 
 ![bind :: STM a ⟶ (a ⟶ STM b) ⟶ STM b — also called: >>=](stm/stm-ibd.svg)
 

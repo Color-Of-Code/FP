@@ -1,0 +1,124 @@
+{
+  "packages": [
+    {
+      "name": "GetterSetterOptics",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "GetterSetterOperations",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "source",
+              "type": "S",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "getter",
+              "type": "Getter S A",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "viewOp",
+              "type": "view",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "focused",
+              "type": "A",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "setter",
+              "type": "Setter S A",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "transform",
+              "type": "A ⟶ A",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "overOp",
+              "type": "over",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "updated",
+              "type": "S",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "getter",
+              "to": "viewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "source",
+              "to": "viewOp"
+            },
+            {
+              "kind": "connection",
+              "from": "viewOp",
+              "to": "focused"
+            },
+            {
+              "kind": "connection",
+              "from": "setter",
+              "to": "overOp"
+            },
+            {
+              "kind": "connection",
+              "from": "transform",
+              "to": "overOp"
+            },
+            {
+              "kind": "connection",
+              "from": "source",
+              "to": "overOp"
+            },
+            {
+              "kind": "connection",
+              "from": "overOp",
+              "to": "updated"
+            }
+          ],
+          "notes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "GetterSetterOptics",
+          "viewType": "FpIbdView",
+          "expose": "GetterSetterOperations",
+          "rendering": "fpIbdDiagram",
+          "title": "Getter reads one value; Setter modifies focused values"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "Getter reads one value; Setter modifies focused values",
+    "render": "GetterSetterOperations",
+    "shows": {},
+    "tooltips": {}
+  }
+}

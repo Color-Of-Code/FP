@@ -5,7 +5,7 @@ let a machine generate hundreds of random inputs and check the law automatically
 **property-based testing** — was pioneered by QuickCheck (Haskell, 1999) and is now available in
 every major language.
 
-![property-based testing](12-property-based-testing/property-based-testing.svg)
+![Property tests generate cases and shrink failures](12-property-based-testing/property-based-testing.svg)
 
 ## Why it matters
 
@@ -35,7 +35,7 @@ property "associativity" {
 }
 ```
 
-![property-based testing motivation](12-property-based-testing/property-based-testing-motivation.svg)
+![Generated properties cover more cases than hand-picked tests](12-property-based-testing/property-based-testing-motivation.svg)
 
 ## Laws worth testing as properties
 

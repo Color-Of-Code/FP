@@ -1,0 +1,113 @@
+{
+  "packages": [
+    {
+      "name": "FoldOptic",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "FoldComposition",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "orders",
+              "type": "Fold Cart Order",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "price",
+              "type": "Fold Order Double",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "compose",
+              "type": "optic composition",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "prices",
+              "type": "Fold Cart Double",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "cart",
+              "type": "Cart",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "collect",
+              "type": "toListOf",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "allPrices",
+              "type": "[Double]",
+              "ports": []
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "orders",
+              "to": "compose"
+            },
+            {
+              "kind": "connection",
+              "from": "price",
+              "to": "compose"
+            },
+            {
+              "kind": "connection",
+              "from": "compose",
+              "to": "prices"
+            },
+            {
+              "kind": "connection",
+              "from": "cart",
+              "to": "collect"
+            },
+            {
+              "kind": "connection",
+              "from": "prices",
+              "to": "collect"
+            },
+            {
+              "kind": "connection",
+              "from": "collect",
+              "to": "allPrices"
+            }
+          ],
+          "notes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FoldOptic",
+          "viewType": "FpIbdView",
+          "expose": "FoldComposition",
+          "rendering": "fpIbdDiagram",
+          "title": "Fold composes read-only paths to collect zero or more values"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "Fold composes read-only paths to collect zero or more values",
+    "render": "FoldComposition",
+    "shows": {},
+    "tooltips": {}
+  }
+}

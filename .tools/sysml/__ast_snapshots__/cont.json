@@ -1,0 +1,219 @@
+{
+  "packages": [
+    {
+      "name": "ContOverview",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunCont",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "computation",
+              "type": "Cont r a",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "k",
+              "type": "a ⟶ r",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "result",
+              "type": "r",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ContProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "ContProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "runCont",
+                "type": "RunCont",
+                "role": "function",
+                "tooltip": "Run the suspended Cont computation by supplying its continuation."
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "computation",
+                "type": "Cont r a",
+                "role": "type",
+                "tooltip": "Cont r a = (a ⟶ r) ⟶ r — a computation waiting for a continuation."
+              },
+              {
+                "kind": "object",
+                "id": "k",
+                "type": "a ⟶ r",
+                "role": "hof",
+                "tooltip": "k : a ⟶ r — the rest of the computation, supplied by the caller."
+              },
+              {
+                "kind": "object",
+                "id": "result",
+                "type": "r",
+                "role": "value",
+                "tooltip": "The final result produced when the computation calls k with its value."
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "computation",
+                "to": "runCont",
+                "label": "Cont r a"
+              },
+              {
+                "kind": "flow",
+                "from": "k",
+                "to": "runCont",
+                "label": "a ⟶ r"
+              },
+              {
+                "kind": "flow",
+                "from": "runCont",
+                "to": "result",
+                "label": "r"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "runCont": "function",
+              "computation": "type",
+              "k": "hof",
+              "result": "value"
+            },
+            "tooltips": {
+              "runCont": "Run the suspended Cont computation by supplying its continuation.",
+              "computation": "Cont r a = (a ⟶ r) ⟶ r — a computation waiting for a continuation.",
+              "k": "k : a ⟶ r — the rest of the computation, supplied by the caller.",
+              "result": "The final result produced when the computation calls k with its value."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "ContProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "runCont",
+              "type": "RunCont",
+              "role": "function",
+              "tooltip": "Run the suspended Cont computation by supplying its continuation."
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "computation",
+              "type": "Cont r a",
+              "role": "type",
+              "tooltip": "Cont r a = (a ⟶ r) ⟶ r — a computation waiting for a continuation."
+            },
+            {
+              "kind": "object",
+              "id": "k",
+              "type": "a ⟶ r",
+              "role": "hof",
+              "tooltip": "k : a ⟶ r — the rest of the computation, supplied by the caller."
+            },
+            {
+              "kind": "object",
+              "id": "result",
+              "type": "r",
+              "role": "value",
+              "tooltip": "The final result produced when the computation calls k with its value."
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "computation",
+              "to": "runCont",
+              "label": "Cont r a"
+            },
+            {
+              "kind": "flow",
+              "from": "k",
+              "to": "runCont",
+              "label": "a ⟶ r"
+            },
+            {
+              "kind": "flow",
+              "from": "runCont",
+              "to": "result",
+              "label": "r"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "runCont": "function",
+            "computation": "type",
+            "k": "hof",
+            "result": "value"
+          },
+          "tooltips": {
+            "runCont": "Run the suspended Cont computation by supplying its continuation.",
+            "computation": "Cont r a = (a ⟶ r) ⟶ r — a computation waiting for a continuation.",
+            "k": "k : a ⟶ r — the rest of the computation, supplied by the caller.",
+            "result": "The final result produced when the computation calls k with its value."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "ContOverview",
+          "viewType": "FpActivityView",
+          "expose": "ContProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "A Cont computation waits for its continuation to produce the final result",
+          "name": "Cont",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "A Cont computation waits for its continuation to produce the final result",
+    "name": "Cont",
+    "direction": "LR",
+    "render": "ContProcess",
+    "shows": {
+      "runCont": "function",
+      "computation": "type",
+      "k": "hof",
+      "result": "value"
+    },
+    "tooltips": {
+      "runCont": "Run the suspended Cont computation by supplying its continuation.",
+      "computation": "Cont r a = (a ⟶ r) ⟶ r — a computation waiting for a continuation.",
+      "k": "k : a ⟶ r — the rest of the computation, supplied by the caller.",
+      "result": "The final result produced when the computation calls k with its value."
+    }
+  }
+}

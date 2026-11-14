@@ -13,8 +13,6 @@ recursive data structures. Rather than writing explicit recursive functions, you
 This is the generalisation of [16. Fold](./16-fold.md) from lists to arbitrary recursive types, and
 directly builds on [7. Algebraic Data Types](./07-adt.md) and [13. Functor](./13-functor.md).
 
-![recursion schemes](28-recursion-schemes/recursion-schemes.svg)
-
 ## The key insight: separate shape from recursion
 
 The trick is to define a **base functor** `F` — the _shape_ of one level of your data type, with a

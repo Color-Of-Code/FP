@@ -1,165 +1,152 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1021 1016"><svg class="d2-1499139598 d2-svg" width="1021" height="1016" viewBox="-89 -89 1021 1016"><rect x="-89.000000" y="-89.000000" width="1021.000000" height="1016.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
-.d2-1499139598 .text {
-	font-family: "d2-1499139598-font-regular";
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 836.0000000000001 194" width="836.0000000000001" height="194" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">TVar reads and writes compose into an STM transaction committed by atomically</title>
+  <desc id="diagram-description">Functional programming diagram: TVar reads and writes compose into an STM transaction committed by atomically</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
 }
-@font-face {
-	font-family: d2-1499139598-font-regular;
-	src: url("data:application/font-woff;base64,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");
-}
-.appendix-icon {
-	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
-}
-.d2-1499139598 .text-bold {
-	font-family: "d2-1499139598-font-bold";
-}
-@font-face {
-	font-family: d2-1499139598-font-bold;
-	src: url("data:application/font-woff;base64,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");
-}]]></style><style type="text/css"><![CDATA[.shape {
-  shape-rendering: geometricPrecision;
-  stroke-linejoin: round;
-}
-.connection {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.blend {
-  mix-blend-mode: multiply;
-  opacity: 0.5;
-}
-
-		.d2-1499139598 .fill-N1{fill:#0A0F25;}
-		.d2-1499139598 .fill-N2{fill:#676C7E;}
-		.d2-1499139598 .fill-N3{fill:#9499AB;}
-		.d2-1499139598 .fill-N4{fill:#CFD2DD;}
-		.d2-1499139598 .fill-N5{fill:#DEE1EB;}
-		.d2-1499139598 .fill-N6{fill:#EEF1F8;}
-		.d2-1499139598 .fill-N7{fill:#FFFFFF;}
-		.d2-1499139598 .fill-B1{fill:#0D32B2;}
-		.d2-1499139598 .fill-B2{fill:#0D32B2;}
-		.d2-1499139598 .fill-B3{fill:#E3E9FD;}
-		.d2-1499139598 .fill-B4{fill:#E3E9FD;}
-		.d2-1499139598 .fill-B5{fill:#EDF0FD;}
-		.d2-1499139598 .fill-B6{fill:#F7F8FE;}
-		.d2-1499139598 .fill-AA2{fill:#4A6FF3;}
-		.d2-1499139598 .fill-AA4{fill:#EDF0FD;}
-		.d2-1499139598 .fill-AA5{fill:#F7F8FE;}
-		.d2-1499139598 .fill-AB4{fill:#EDF0FD;}
-		.d2-1499139598 .fill-AB5{fill:#F7F8FE;}
-		.d2-1499139598 .stroke-N1{stroke:#0A0F25;}
-		.d2-1499139598 .stroke-N2{stroke:#676C7E;}
-		.d2-1499139598 .stroke-N3{stroke:#9499AB;}
-		.d2-1499139598 .stroke-N4{stroke:#CFD2DD;}
-		.d2-1499139598 .stroke-N5{stroke:#DEE1EB;}
-		.d2-1499139598 .stroke-N6{stroke:#EEF1F8;}
-		.d2-1499139598 .stroke-N7{stroke:#FFFFFF;}
-		.d2-1499139598 .stroke-B1{stroke:#0D32B2;}
-		.d2-1499139598 .stroke-B2{stroke:#0D32B2;}
-		.d2-1499139598 .stroke-B3{stroke:#E3E9FD;}
-		.d2-1499139598 .stroke-B4{stroke:#E3E9FD;}
-		.d2-1499139598 .stroke-B5{stroke:#EDF0FD;}
-		.d2-1499139598 .stroke-B6{stroke:#F7F8FE;}
-		.d2-1499139598 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-1499139598 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-1499139598 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-1499139598 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-1499139598 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-1499139598 .background-color-N1{background-color:#0A0F25;}
-		.d2-1499139598 .background-color-N2{background-color:#676C7E;}
-		.d2-1499139598 .background-color-N3{background-color:#9499AB;}
-		.d2-1499139598 .background-color-N4{background-color:#CFD2DD;}
-		.d2-1499139598 .background-color-N5{background-color:#DEE1EB;}
-		.d2-1499139598 .background-color-N6{background-color:#EEF1F8;}
-		.d2-1499139598 .background-color-N7{background-color:#FFFFFF;}
-		.d2-1499139598 .background-color-B1{background-color:#0D32B2;}
-		.d2-1499139598 .background-color-B2{background-color:#0D32B2;}
-		.d2-1499139598 .background-color-B3{background-color:#E3E9FD;}
-		.d2-1499139598 .background-color-B4{background-color:#E3E9FD;}
-		.d2-1499139598 .background-color-B5{background-color:#EDF0FD;}
-		.d2-1499139598 .background-color-B6{background-color:#F7F8FE;}
-		.d2-1499139598 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-1499139598 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-1499139598 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-1499139598 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-1499139598 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-1499139598 .color-N1{color:#0A0F25;}
-		.d2-1499139598 .color-N2{color:#676C7E;}
-		.d2-1499139598 .color-N3{color:#9499AB;}
-		.d2-1499139598 .color-N4{color:#CFD2DD;}
-		.d2-1499139598 .color-N5{color:#DEE1EB;}
-		.d2-1499139598 .color-N6{color:#EEF1F8;}
-		.d2-1499139598 .color-N7{color:#FFFFFF;}
-		.d2-1499139598 .color-B1{color:#0D32B2;}
-		.d2-1499139598 .color-B2{color:#0D32B2;}
-		.d2-1499139598 .color-B3{color:#E3E9FD;}
-		.d2-1499139598 .color-B4{color:#E3E9FD;}
-		.d2-1499139598 .color-B5{color:#EDF0FD;}
-		.d2-1499139598 .color-B6{color:#F7F8FE;}
-		.d2-1499139598 .color-AA2{color:#4A6FF3;}
-		.d2-1499139598 .color-AA4{color:#EDF0FD;}
-		.d2-1499139598 .color-AA5{color:#F7F8FE;}
-		.d2-1499139598 .color-AB4{color:#EDF0FD;}
-		.d2-1499139598 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-1499139598);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-1499139598);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-1499139598);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-1499139598);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-1499139598);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-1499139598);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-1499139598);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-1499139598);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><defs>
-	<filter id="shadow-filter" width="200%" height="200%" x="-50%" y="-50%">
-		<feGaussianBlur stdDeviation="1.7 " in="SourceGraphic"></feGaussianBlur>
-		<feFlood flood-color="#3d4574" flood-opacity="0.4" result="ShadowFeFlood" in="SourceGraphic"></feFlood>
-		<feComposite in="ShadowFeFlood" in2="SourceAlpha" operator="in" result="ShadowFeComposite"></feComposite>
-		<feOffset dx="3" dy="5" result="ShadowFeOffset" in="ShadowFeComposite"></feOffset>
-		<feBlend in="SourceGraphic" in2="ShadowFeOffset" mode="normal" result="ShadowFeBlend"></feBlend>
-	</filter>
-</defs><g class="dHZhcg=="><g class="shape" ><rect x="12.000000" y="12.000000" width="819.000000" height="180.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="421.500000" y="45.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">TVar a — shared mutable cell</text></g><g class="YXRvbWljYWxseV9ib3g="><g class="shape" ><rect x="161.000000" y="212.000000" width="521.000000" height="180.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="421.500000" y="245.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">atomically :: STM a -&gt; IO a</text></g><g class="cmV0cnlfb3JFbHNl"><g class="shape" ><rect x="134.000000" y="412.000000" width="574.000000" height="414.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="421.000000" y="445.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">retry / orElse — conditional blocking</text></g><g class="dHZhci5yZWFk function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="62.000000" y="69.000000" width="231.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="177.500000" y="107.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">readTVar :: TVar a -&gt; STM a</text><title>Read the current value of the TVar inside an STM transaction.</title></g><g class="dHZhci50dmFy value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="403.000000" cy="102.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="403.000000" y="107.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">TVar a</text></g><g class="dHZhci53cml0ZQ== function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="513.000000" y="69.000000" width="268.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="647.000000" y="107.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">writeTVar :: TVar a -&gt; a -&gt; STM ()</text><title>Write a new value. The write is tentative until atomically commits.</title></g><g class="YXRvbWljYWxseV9ib3guc3RtX2FjdGlvbg== type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="251.000000" cy="302.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="251.000000" cy="302.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="251.000000" y="307.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">STM a</text></g><g class="YXRvbWljYWxseV9ib3guYXRvbWljYWxseQ== function h" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="361.000000" y="269.000000" width="121.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4f461" class=" stroke-B1" style="stroke-width:1;" /></g><text x="421.500000" y="307.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">atomically</text><title>Execute the STM action. All writes commit atomically or the whole transaction retries on conflict.</title></g><g class="YXRvbWljYWxseV9ib3guaW9fcmVzdWx0 type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="592.000000" cy="302.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="592.000000" cy="302.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="592.000000" y="307.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">IO a</text></g><g class="cmV0cnlfb3JFbHNlLnN0bTE= type a" style='opacity:0.800000'><g class="shape" ><ellipse rx="77.500000" ry="77.500000" cx="261.500000" cy="539.500000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="72.500000" ry="72.500000" cx="261.500000" cy="539.500000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="261.500000" y="544.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">STM a (may retry)</text></g><g class="cmV0cnlfb3JFbHNlLm9yRWxzZQ== function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="419.000000" y="583.000000" width="89.000000" height="80.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="463.500000" y="628.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">orElse</text><title>Run stm1. If it calls retry, run stm2. If stm2 also retries, block until any read TVar changes.</title></g><g class="cmV0cnlfb3JFbHNlLnN0bTI= type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="69.500000" ry="69.500000" cx="269.500000" cy="706.500000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="64.500000" ry="64.500000" cx="269.500000" cy="706.500000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="269.500000" y="711.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">STM a (fallback)</text></g><g class="cmV0cnlfb3JFbHNlLnJlc3VsdA== type b" style='opacity:0.800000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="618.000000" cy="623.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /><ellipse rx="35.000000" ry="35.000000" cx="618.000000" cy="623.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="618.000000" y="628.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">STM a</text></g><g class="dHZhci4ocmVhZCAtJmd0OyB0dmFyKVswXQ=="><marker id="mk-d2-1499139598-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 294.500000 102.000000 L 359.500000 102.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1499139598-3488378134)" mask="url(#d2-1499139598)" /></g><g class="dHZhci4odHZhciAtJmd0OyB3cml0ZSlbMF0="><path d="M 444.500000 102.000000 L 509.500000 102.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1499139598-3488378134)" mask="url(#d2-1499139598)" /></g><g class="YXRvbWljYWxseV9ib3guKHN0bV9hY3Rpb24gLSZndDsgYXRvbWljYWxseSlbMF0="><path d="M 292.500000 302.000000 L 357.500000 302.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1499139598-3488378134)" mask="url(#d2-1499139598)" /></g><g class="YXRvbWljYWxseV9ib3guKGF0b21pY2FsbHkgLSZndDsgaW9fcmVzdWx0KVswXQ=="><path d="M 483.500000 302.000000 L 548.500000 302.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1499139598-3488378134)" mask="url(#d2-1499139598)" /></g><g class="cmV0cnlfb3JFbHNlLihzdG0xIC0mZ3Q7IG9yRWxzZSlbMF0="><path d="M 341.499880 539.981014 L 369.500801 539.626572 S 379.500000 539.500000 379.500000 549.500000 L 379.500000 599.666016 S 379.500000 609.666016 389.500000 609.666016 L 416.000000 609.666016" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1499139598-3488378134)" mask="url(#d2-1499139598)" /></g><g class="cmV0cnlfb3JFbHNlLihzdG0yIC0mZ3Q7IG9yRWxzZSlbMF0="><path d="M 341.499880 706.981014 L 369.500801 706.626572 S 379.500000 706.500000 379.500000 696.500000 L 379.500000 646.333008 S 379.500000 636.333008 389.500000 636.333008 L 416.000000 636.333008" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1499139598-3488378134)" mask="url(#d2-1499139598)" /></g><g class="cmV0cnlfb3JFbHNlLihvckVsc2UgLSZndDsgcmVzdWx0KVswXQ=="><path d="M 510.000000 623.000000 L 575.500000 623.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-1499139598-3488378134)" mask="url(#d2-1499139598)" /></g><g transform="translate(277 53)" class="appendix-icon"><title>Read the current value of the TVar inside an STM transaction.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-1499139598-OR3GC4ROOJSWCZA)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-1499139598-OR3GC4ROOJSWCZA">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="418.00000000000006" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">TVar reads and writes compose into an STM transaction committed by atomically</text>
+  <g transform="translate(0,28) scale(1)">
+    <rect x="0" y="0" width="836.0000000000001" height="166" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-block">
+      <path d="M0,0 L177.20000000000002,0 L177.20000000000002,12 L167.20000000000002,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+      <text x="88.60000000000001" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«block» TransactionContext</text>
+    </g>
+    <g class="edge">
+      <path d="M183.6,101.0 L188.6,101.0 Q193.6,101.0 193.6,106.0 L193.6,114.0 L193.6,114.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M183.6,101.0 L188.6,101.0 Q193.6,101.0 193.6,96.0 L193.6,63.0 L193.6,63.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M183.6,49.0 L191.6,49.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M323.6,114.0 L328.6,114.0 Q333.6,114.0 333.6,109.0 L333.6,56.0 L333.6,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M323.6,56.0 L331.6,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M500.4,56.0 L504.4,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="edge">
+      <path d="M636.4,56.0 L640.4,56.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+    </g>
+    <g class="object-node">
+      <title>A shared mutable cell, accessed only through STM operations.</title>
+      <rect x="70" y="82" width="113.60000000000001" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="126.80000000000001" y="101" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">cell : TVar a</text>
+    </g>
+    <g class="action-node">
+      <title>readTVar :: TVar a ⟶ STM a — read the cell value inside a transaction.</title>
+      <rect x="203.60000000000002" y="92" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="263.6" y="114" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">read : ReadTVar</text>
+    </g>
+    <g class="object-node">
+      <title>A value to be written tentatively inside the transaction.</title>
+      <rect x="73.60000000000002" y="30" width="110" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="128.60000000000002" y="49" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">newValue : a</text>
+    </g>
+    <g class="action-node">
+      <title>writeTVar :: TVar a ⟶ a ⟶ STM () — record a tentative write.</title>
+      <rect x="203.60000000000002" y="34" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="263.6" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">write : WriteTVar</text>
+    </g>
+    <g class="object-node">
+      <title>The transactional program composes reads and writes before it is run.</title>
+      <rect x="343.6" y="37" width="156.8" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="422" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">transaction : STM a</text>
+    </g>
+    <g class="action-node">
+      <title>atomically :: STM a ⟶ IO a — commit all writes together or retry the whole transaction.</title>
+      <rect x="516.4000000000001" y="34" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="576.4000000000001" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">commit : Atomically</text>
+    </g>
+    <g class="object-node">
+      <title>The result is available in IO only after the transaction commits.</title>
+      <rect x="652.4000000000001" y="37" width="113.60000000000001" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="709.2" y="56" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">result : IO a</text>
+    </g>
+  </g>
 </svg>
-</g><g transform="translate(765 53)" class="appendix-icon"><title>Write a new value. The write is tentative until atomically commits.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-1499139598-OR3GC4ROO5ZGS5DF)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-1499139598-OR3GC4ROO5ZGS5DF">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><g transform="translate(466 253)" class="appendix-icon"><title>Execute the STM action. All writes commit atomically or the whole transaction retries on conflict.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-1499139598-MF2G63LJMNQWY3DZL5RG66BOMF2G63LJMNQWY3DZ)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-1499139598-MF2G63LJMNQWY3DZL5RG66BOMF2G63LJMNQWY3DZ">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><g transform="translate(492 567)" class="appendix-icon"><title>Run stm1. If it calls retry, run stm2. If stm2 also retries, block until any read TVar changes.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-1499139598-OJSXI4TZL5XXERLMONSS433SIVWHGZI)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-1499139598-OJSXI4TZL5XXERLMONSS433SIVWHGZI">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><mask id="d2-1499139598" maskUnits="userSpaceOnUse" x="-89" y="-89" width="1021" height="1016">
-<rect x="-89" y="-89" width="1021" height="1016" fill="white"></rect>
-
-</mask></svg></svg>

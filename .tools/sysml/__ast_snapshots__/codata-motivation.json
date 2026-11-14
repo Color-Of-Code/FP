@@ -1,0 +1,293 @@
+{
+  "packages": [
+    {
+      "name": "CodataMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "UnfoldStream",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "seed",
+              "type": "Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "stream",
+              "type": "Stream Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ObserveHead",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "stream",
+              "type": "Stream Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "head",
+              "type": "Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ObserveTail",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "stream",
+              "type": "Stream Int",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "tail",
+              "type": "Stream Int",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "StreamObservations",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "StreamObservations",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "ana",
+                "type": "UnfoldStream",
+                "role": "function",
+                "tooltip": "The anamorphism produces one stream layer and a new seed on demand."
+              },
+              {
+                "kind": "action",
+                "id": "head",
+                "type": "ObserveHead",
+                "role": "function",
+                "tooltip": "Each observation reveals a finite piece; the stream need not terminate."
+              },
+              {
+                "kind": "action",
+                "id": "tail",
+                "type": "ObserveTail"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "seed",
+                "type": "Int",
+                "role": "value",
+                "tooltip": "A seed determines the next observable piece of the stream."
+              },
+              {
+                "kind": "object",
+                "id": "stream",
+                "type": "Stream Int"
+              },
+              {
+                "kind": "object",
+                "id": "value",
+                "type": "Int"
+              },
+              {
+                "kind": "object",
+                "id": "rest",
+                "type": "Stream Int"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "seed",
+                "to": "ana"
+              },
+              {
+                "kind": "flow",
+                "from": "ana",
+                "to": "stream"
+              },
+              {
+                "kind": "flow",
+                "from": "stream",
+                "to": "head"
+              },
+              {
+                "kind": "flow",
+                "from": "head",
+                "to": "value"
+              },
+              {
+                "kind": "flow",
+                "from": "stream",
+                "to": "tail"
+              },
+              {
+                "kind": "flow",
+                "from": "tail",
+                "to": "rest"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "ana": "function",
+              "head": "function",
+              "seed": "value"
+            },
+            "tooltips": {
+              "ana": "The anamorphism produces one stream layer and a new seed on demand.",
+              "head": "Each observation reveals a finite piece; the stream need not terminate.",
+              "seed": "A seed determines the next observable piece of the stream."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "StreamObservations",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "ana",
+              "type": "UnfoldStream",
+              "role": "function",
+              "tooltip": "The anamorphism produces one stream layer and a new seed on demand."
+            },
+            {
+              "kind": "action",
+              "id": "head",
+              "type": "ObserveHead",
+              "role": "function",
+              "tooltip": "Each observation reveals a finite piece; the stream need not terminate."
+            },
+            {
+              "kind": "action",
+              "id": "tail",
+              "type": "ObserveTail"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "seed",
+              "type": "Int",
+              "role": "value",
+              "tooltip": "A seed determines the next observable piece of the stream."
+            },
+            {
+              "kind": "object",
+              "id": "stream",
+              "type": "Stream Int"
+            },
+            {
+              "kind": "object",
+              "id": "value",
+              "type": "Int"
+            },
+            {
+              "kind": "object",
+              "id": "rest",
+              "type": "Stream Int"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "seed",
+              "to": "ana"
+            },
+            {
+              "kind": "flow",
+              "from": "ana",
+              "to": "stream"
+            },
+            {
+              "kind": "flow",
+              "from": "stream",
+              "to": "head"
+            },
+            {
+              "kind": "flow",
+              "from": "head",
+              "to": "value"
+            },
+            {
+              "kind": "flow",
+              "from": "stream",
+              "to": "tail"
+            },
+            {
+              "kind": "flow",
+              "from": "tail",
+              "to": "rest"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "ana": "function",
+            "head": "function",
+            "seed": "value"
+          },
+          "tooltips": {
+            "ana": "The anamorphism produces one stream layer and a new seed on demand.",
+            "head": "Each observation reveals a finite piece; the stream need not terminate.",
+            "seed": "A seed determines the next observable piece of the stream."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "CodataMotivation",
+          "viewType": "FpActivityView",
+          "expose": "StreamObservations",
+          "rendering": "fpActivityDiagram",
+          "title": "codata motivation",
+          "name": "coinduction",
+          "direction": "LR"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "codata motivation",
+    "name": "coinduction",
+    "direction": "LR",
+    "render": "StreamObservations",
+    "shows": {
+      "ana": "function",
+      "head": "function",
+      "seed": "value"
+    },
+    "tooltips": {
+      "ana": "The anamorphism produces one stream layer and a new seed on demand.",
+      "head": "Each observation reveals a finite piece; the stream need not terminate.",
+      "seed": "A seed determines the next observable piece of the stream."
+    }
+  }
+}

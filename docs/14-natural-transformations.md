@@ -15,7 +15,7 @@ type `a` — that converts `F a` into `G a` **without inspecting or depending on
 α :: ∀ a. F a → G a
 ```
 
-![natural transformations](14-natural-transformations/natural-transformations.svg)
+![The naturality square: both routes produce the same G b](14-natural-transformations/natural-transformations.svg)
 
 The defining constraint is the **naturality square**: for every function `f :: a → b`,
 
@@ -34,7 +34,10 @@ on the element type — and that is exactly what the square demands.
 
 This is the **free theorem** (Wadler 1989): parametricity gives you the naturality law for free.
 
-![natural transformations motivation](14-natural-transformations/natural-transformations-motivation.svg)
+| Ad hoc conversion                        | Natural transformation                      |
+| ---------------------------------------- | ------------------------------------------- |
+| A specific conversion such as `safeHead` | A uniform `α :: ∀ a. F a → G a` for all `a` |
+| No general guarantee about `fmap`        | Respects `fmap` by the naturality square    |
 
 ## Common examples
 

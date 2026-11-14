@@ -1,0 +1,164 @@
+{
+  "packages": [
+    {
+      "name": "STMOverview",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "TransactionContext",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "cell",
+              "type": "TVar a",
+              "ports": [],
+              "role": "value",
+              "tooltip": "A shared mutable cell, accessed only through STM operations."
+            },
+            {
+              "kind": "part",
+              "id": "read",
+              "type": "ReadTVar",
+              "ports": [],
+              "role": "function",
+              "tooltip": "readTVar :: TVar a ⟶ STM a — read the cell value inside a transaction."
+            },
+            {
+              "kind": "part",
+              "id": "newValue",
+              "type": "a",
+              "ports": [],
+              "role": "value",
+              "tooltip": "A value to be written tentatively inside the transaction."
+            },
+            {
+              "kind": "part",
+              "id": "write",
+              "type": "WriteTVar",
+              "ports": [],
+              "role": "function",
+              "tooltip": "writeTVar :: TVar a ⟶ a ⟶ STM () — record a tentative write."
+            },
+            {
+              "kind": "part",
+              "id": "transaction",
+              "type": "STM a",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The transactional program composes reads and writes before it is run."
+            },
+            {
+              "kind": "part",
+              "id": "commit",
+              "type": "Atomically",
+              "ports": [],
+              "role": "function",
+              "tooltip": "atomically :: STM a ⟶ IO a — commit all writes together or retry the whole transaction."
+            },
+            {
+              "kind": "part",
+              "id": "result",
+              "type": "IO a",
+              "ports": [],
+              "role": "type",
+              "tooltip": "The result is available in IO only after the transaction commits."
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "cell",
+              "to": "read"
+            },
+            {
+              "kind": "connection",
+              "from": "cell",
+              "to": "write"
+            },
+            {
+              "kind": "connection",
+              "from": "newValue",
+              "to": "write"
+            },
+            {
+              "kind": "connection",
+              "from": "read",
+              "to": "transaction"
+            },
+            {
+              "kind": "connection",
+              "from": "write",
+              "to": "transaction"
+            },
+            {
+              "kind": "connection",
+              "from": "transaction",
+              "to": "commit"
+            },
+            {
+              "kind": "connection",
+              "from": "commit",
+              "to": "result"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "cell": "value",
+            "read": "function",
+            "newValue": "value",
+            "write": "function",
+            "transaction": "type",
+            "commit": "function",
+            "result": "type"
+          },
+          "tooltips": {
+            "cell": "A shared mutable cell, accessed only through STM operations.",
+            "read": "readTVar :: TVar a ⟶ STM a — read the cell value inside a transaction.",
+            "newValue": "A value to be written tentatively inside the transaction.",
+            "write": "writeTVar :: TVar a ⟶ a ⟶ STM () — record a tentative write.",
+            "transaction": "The transactional program composes reads and writes before it is run.",
+            "commit": "atomically :: STM a ⟶ IO a — commit all writes together or retry the whole transaction.",
+            "result": "The result is available in IO only after the transaction commits."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "STMOverview",
+          "viewType": "FpIbdView",
+          "expose": "TransactionContext",
+          "rendering": "fpIbdDiagram",
+          "title": "TVar reads and writes compose into an STM transaction committed by atomically"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": "TVar reads and writes compose into an STM transaction committed by atomically",
+    "render": "TransactionContext",
+    "shows": {
+      "cell": "value",
+      "read": "function",
+      "newValue": "value",
+      "write": "function",
+      "transaction": "type",
+      "commit": "function",
+      "result": "type"
+    },
+    "tooltips": {
+      "cell": "A shared mutable cell, accessed only through STM operations.",
+      "read": "readTVar :: TVar a ⟶ STM a — read the cell value inside a transaction.",
+      "newValue": "A value to be written tentatively inside the transaction.",
+      "write": "writeTVar :: TVar a ⟶ a ⟶ STM () — record a tentative write.",
+      "transaction": "The transactional program composes reads and writes before it is run.",
+      "commit": "atomically :: STM a ⟶ IO a — commit all writes together or retry the whole transaction.",
+      "result": "The result is available in IO only after the transaction commits."
+    }
+  }
+}

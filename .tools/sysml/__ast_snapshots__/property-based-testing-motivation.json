@@ -1,0 +1,259 @@
+{
+  "packages": [
+    {
+      "name": "PropertyBasedTestingMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "RunExamples",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "cases",
+              "type": "hand-picked inputs",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "only those cases checked",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "GenerateMany",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "property",
+              "type": "invariant",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "hundreds of generated inputs",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "CheckProperty",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "inputs",
+              "type": "generated inputs",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "property",
+              "type": "invariant",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "law holds or counterexample found",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Minimize",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "failure",
+              "type": "failing case",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "small reproducible counterexample",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Comparison",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "Comparison",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "examples",
+                "type": "RunExamples"
+              },
+              {
+                "kind": "action",
+                "id": "generate",
+                "type": "GenerateMany"
+              },
+              {
+                "kind": "action",
+                "id": "check",
+                "type": "CheckProperty"
+              },
+              {
+                "kind": "action",
+                "id": "shrink",
+                "type": "Minimize"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "selected",
+                "type": "test(0), test(1), test(-1), …"
+              },
+              {
+                "kind": "object",
+                "id": "invariant",
+                "type": "property holds for all inputs"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "selected",
+                "to": "examples"
+              },
+              {
+                "kind": "flow",
+                "from": "invariant",
+                "to": "generate"
+              },
+              {
+                "kind": "flow",
+                "from": "generate",
+                "to": "check"
+              },
+              {
+                "kind": "flow",
+                "from": "invariant",
+                "to": "check"
+              },
+              {
+                "kind": "flow",
+                "from": "check",
+                "to": "shrink",
+                "label": "on failure"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {},
+            "tooltips": {}
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "Comparison",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "examples",
+              "type": "RunExamples"
+            },
+            {
+              "kind": "action",
+              "id": "generate",
+              "type": "GenerateMany"
+            },
+            {
+              "kind": "action",
+              "id": "check",
+              "type": "CheckProperty"
+            },
+            {
+              "kind": "action",
+              "id": "shrink",
+              "type": "Minimize"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "selected",
+              "type": "test(0), test(1), test(-1), …"
+            },
+            {
+              "kind": "object",
+              "id": "invariant",
+              "type": "property holds for all inputs"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "selected",
+              "to": "examples"
+            },
+            {
+              "kind": "flow",
+              "from": "invariant",
+              "to": "generate"
+            },
+            {
+              "kind": "flow",
+              "from": "generate",
+              "to": "check"
+            },
+            {
+              "kind": "flow",
+              "from": "invariant",
+              "to": "check"
+            },
+            {
+              "kind": "flow",
+              "from": "check",
+              "to": "shrink",
+              "label": "on failure"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "PropertyBasedTestingMotivation",
+          "viewType": "FpActivityView",
+          "expose": "Comparison",
+          "rendering": "fpActivityDiagram",
+          "title": " Generated properties cover more cases than hand-picked tests "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Generated properties cover more cases than hand-picked tests ",
+    "render": "Comparison",
+    "shows": {},
+    "tooltips": {}
+  }
+}

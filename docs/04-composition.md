@@ -8,7 +8,7 @@
 Given two functions `f :: a ⟶ b` and `g :: b ⟶ c`, their **composition** `h = g∘f :: a ⟶ c` is a new
 function that applies `f` first and then `g`.
 
-![composition](04-composition/composition.svg)
+![Function composition applies f then g](04-composition/composition.svg)
 
 This is the central mechanism of functional programming: building complex behaviour by combining
 small, pure functions.
@@ -42,7 +42,7 @@ validate_and_trim   = trim   ∘ validate
 result = x |> validate |> trim |> format
 ```
 
-![composition motivation](04-composition/composition-motivation.svg)
+![Composition replaces one-off wrapper functions](04-composition/composition-motivation.svg)
 
 ## Examples
 

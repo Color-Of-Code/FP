@@ -1,0 +1,293 @@
+{
+  "packages": [
+    {
+      "name": "TraversalOptic",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "CollectTargets",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "optic",
+              "type": "Traversal S A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "source",
+              "type": "S",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "[A]",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "ModifyTargets",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "optic",
+              "type": "Traversal S A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "transform",
+              "type": "A ⟶ A",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "source",
+              "type": "S",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "S",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "TraversalProcess",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "TraversalProcess",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "collect",
+                "type": "CollectTargets"
+              },
+              {
+                "kind": "action",
+                "id": "modify",
+                "type": "ModifyTargets"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "source",
+                "type": "S"
+              },
+              {
+                "kind": "object",
+                "id": "optic",
+                "type": "Traversal S A"
+              },
+              {
+                "kind": "object",
+                "id": "targets",
+                "type": "[A]"
+              },
+              {
+                "kind": "object",
+                "id": "transform",
+                "type": "A ⟶ A",
+                "role": "hof",
+                "tooltip": "Applied to every focused A; there may be zero, one, or many targets."
+              },
+              {
+                "kind": "object",
+                "id": "updated",
+                "type": "S"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "optic",
+                "to": "collect",
+                "label": "Traversal S A"
+              },
+              {
+                "kind": "flow",
+                "from": "source",
+                "to": "collect",
+                "label": "S"
+              },
+              {
+                "kind": "flow",
+                "from": "collect",
+                "to": "targets",
+                "label": "zero or more A"
+              },
+              {
+                "kind": "flow",
+                "from": "optic",
+                "to": "modify",
+                "label": "Traversal S A"
+              },
+              {
+                "kind": "flow",
+                "from": "transform",
+                "to": "modify",
+                "label": "A ⟶ A"
+              },
+              {
+                "kind": "flow",
+                "from": "source",
+                "to": "modify",
+                "label": "S"
+              },
+              {
+                "kind": "flow",
+                "from": "modify",
+                "to": "updated",
+                "label": "same structure, all foci modified"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "transform": "hof"
+            },
+            "tooltips": {
+              "transform": "Applied to every focused A; there may be zero, one, or many targets."
+            }
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "TraversalProcess",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "collect",
+              "type": "CollectTargets"
+            },
+            {
+              "kind": "action",
+              "id": "modify",
+              "type": "ModifyTargets"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "source",
+              "type": "S"
+            },
+            {
+              "kind": "object",
+              "id": "optic",
+              "type": "Traversal S A"
+            },
+            {
+              "kind": "object",
+              "id": "targets",
+              "type": "[A]"
+            },
+            {
+              "kind": "object",
+              "id": "transform",
+              "type": "A ⟶ A",
+              "role": "hof",
+              "tooltip": "Applied to every focused A; there may be zero, one, or many targets."
+            },
+            {
+              "kind": "object",
+              "id": "updated",
+              "type": "S"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "optic",
+              "to": "collect",
+              "label": "Traversal S A"
+            },
+            {
+              "kind": "flow",
+              "from": "source",
+              "to": "collect",
+              "label": "S"
+            },
+            {
+              "kind": "flow",
+              "from": "collect",
+              "to": "targets",
+              "label": "zero or more A"
+            },
+            {
+              "kind": "flow",
+              "from": "optic",
+              "to": "modify",
+              "label": "Traversal S A"
+            },
+            {
+              "kind": "flow",
+              "from": "transform",
+              "to": "modify",
+              "label": "A ⟶ A"
+            },
+            {
+              "kind": "flow",
+              "from": "source",
+              "to": "modify",
+              "label": "S"
+            },
+            {
+              "kind": "flow",
+              "from": "modify",
+              "to": "updated",
+              "label": "same structure, all foci modified"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "transform": "hof"
+          },
+          "tooltips": {
+            "transform": "Applied to every focused A; there may be zero, one, or many targets."
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "TraversalOptic",
+          "viewType": "FpActivityView",
+          "expose": "TraversalProcess",
+          "rendering": "fpActivityDiagram",
+          "title": "Traversal updates and collects zero or more targets"
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": "Traversal updates and collects zero or more targets",
+    "render": "TraversalProcess",
+    "shows": {
+      "transform": "hof"
+    },
+    "tooltips": {
+      "transform": "Applied to every focused A; there may be zero, one, or many targets."
+    }
+  }
+}

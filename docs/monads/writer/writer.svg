@@ -1,139 +1,175 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1951 1108"><svg class="d2-2623191294 d2-svg" width="1951" height="1108" viewBox="-89 -89 1951 1108"><rect x="-89.000000" y="-89.000000" width="1951.000000" height="1108.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
-.d2-2623191294 .text {
-	font-family: "d2-2623191294-font-regular";
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1229.8 189" width="1229.8" height="189" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">Writer bind combines each step's log with the result in order</title>
+  <desc id="diagram-description">Functional programming diagram: Writer bind combines each step's log with the result in order</desc>
+  <style>:root {
+  color-scheme: light;
+  --fp-canvas: #ffffff;
+  --fp-action-fill: #dafbe1;
+  --fp-action-stroke: #1a7f37;
+  --fp-obj-fill: #f6f8fa;
+  --fp-obj-stroke: #57606a;
+  --fp-hof-fill: #ddf4ff;
+  --fp-hof-stroke: #0969da;
+  --fp-pin-fill: #eaeef2;
+  --fp-pin-stroke: #57606a;
+  --fp-frame-fill: #ffffff;
+  --fp-frame-stroke: #6e7781;
+  --fp-frame-tab-fill: #eaeef2;
+  --fp-init-fill: #24292f;
+  --fp-final-stroke: #24292f;
+  --fp-final-fill: #24292f;
+  --fp-edge-stroke: #57606a;
+  --fp-hof-edge: #0969da;
+  --fp-label-fill: #24292f;
+  --fp-secondary-text: #57606a;
+  --fp-pin-label: #57606a;
+  --fp-port-label: #57606a;
+  --fp-decision-fill: #fff8c5;
+  --fp-decision-stroke: #9a6700;
+  --fp-decision-label: #633c01;
+  --fp-note-fill: #fff8c5;
+  --fp-note-fold-fill: #ffdf5d;
+  --fp-note-stroke: #9a6700;
+  --fp-note-label: #633c01;
+  --fp-lane-fill: #f6f8fa;
+  --fp-lane-stroke: #6e7781;
+  --fp-lane-header: #eaeef2;
+  --fp-error-text: #cf222e;
 }
-@font-face {
-	font-family: d2-2623191294-font-regular;
-	src: url("data:application/font-woff;base64,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");
-}
-.appendix-icon {
-	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
-}
-.d2-2623191294 .text-bold {
-	font-family: "d2-2623191294-font-bold";
-}
-@font-face {
-	font-family: d2-2623191294-font-bold;
-	src: url("data:application/font-woff;base64,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");
-}]]></style><style type="text/css"><![CDATA[.shape {
-  shape-rendering: geometricPrecision;
-  stroke-linejoin: round;
-}
-.connection {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.blend {
-  mix-blend-mode: multiply;
-  opacity: 0.5;
-}
-
-		.d2-2623191294 .fill-N1{fill:#0A0F25;}
-		.d2-2623191294 .fill-N2{fill:#676C7E;}
-		.d2-2623191294 .fill-N3{fill:#9499AB;}
-		.d2-2623191294 .fill-N4{fill:#CFD2DD;}
-		.d2-2623191294 .fill-N5{fill:#DEE1EB;}
-		.d2-2623191294 .fill-N6{fill:#EEF1F8;}
-		.d2-2623191294 .fill-N7{fill:#FFFFFF;}
-		.d2-2623191294 .fill-B1{fill:#0D32B2;}
-		.d2-2623191294 .fill-B2{fill:#0D32B2;}
-		.d2-2623191294 .fill-B3{fill:#E3E9FD;}
-		.d2-2623191294 .fill-B4{fill:#E3E9FD;}
-		.d2-2623191294 .fill-B5{fill:#EDF0FD;}
-		.d2-2623191294 .fill-B6{fill:#F7F8FE;}
-		.d2-2623191294 .fill-AA2{fill:#4A6FF3;}
-		.d2-2623191294 .fill-AA4{fill:#EDF0FD;}
-		.d2-2623191294 .fill-AA5{fill:#F7F8FE;}
-		.d2-2623191294 .fill-AB4{fill:#EDF0FD;}
-		.d2-2623191294 .fill-AB5{fill:#F7F8FE;}
-		.d2-2623191294 .stroke-N1{stroke:#0A0F25;}
-		.d2-2623191294 .stroke-N2{stroke:#676C7E;}
-		.d2-2623191294 .stroke-N3{stroke:#9499AB;}
-		.d2-2623191294 .stroke-N4{stroke:#CFD2DD;}
-		.d2-2623191294 .stroke-N5{stroke:#DEE1EB;}
-		.d2-2623191294 .stroke-N6{stroke:#EEF1F8;}
-		.d2-2623191294 .stroke-N7{stroke:#FFFFFF;}
-		.d2-2623191294 .stroke-B1{stroke:#0D32B2;}
-		.d2-2623191294 .stroke-B2{stroke:#0D32B2;}
-		.d2-2623191294 .stroke-B3{stroke:#E3E9FD;}
-		.d2-2623191294 .stroke-B4{stroke:#E3E9FD;}
-		.d2-2623191294 .stroke-B5{stroke:#EDF0FD;}
-		.d2-2623191294 .stroke-B6{stroke:#F7F8FE;}
-		.d2-2623191294 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-2623191294 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-2623191294 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-2623191294 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-2623191294 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-2623191294 .background-color-N1{background-color:#0A0F25;}
-		.d2-2623191294 .background-color-N2{background-color:#676C7E;}
-		.d2-2623191294 .background-color-N3{background-color:#9499AB;}
-		.d2-2623191294 .background-color-N4{background-color:#CFD2DD;}
-		.d2-2623191294 .background-color-N5{background-color:#DEE1EB;}
-		.d2-2623191294 .background-color-N6{background-color:#EEF1F8;}
-		.d2-2623191294 .background-color-N7{background-color:#FFFFFF;}
-		.d2-2623191294 .background-color-B1{background-color:#0D32B2;}
-		.d2-2623191294 .background-color-B2{background-color:#0D32B2;}
-		.d2-2623191294 .background-color-B3{background-color:#E3E9FD;}
-		.d2-2623191294 .background-color-B4{background-color:#E3E9FD;}
-		.d2-2623191294 .background-color-B5{background-color:#EDF0FD;}
-		.d2-2623191294 .background-color-B6{background-color:#F7F8FE;}
-		.d2-2623191294 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-2623191294 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-2623191294 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-2623191294 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-2623191294 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-2623191294 .color-N1{color:#0A0F25;}
-		.d2-2623191294 .color-N2{color:#676C7E;}
-		.d2-2623191294 .color-N3{color:#9499AB;}
-		.d2-2623191294 .color-N4{color:#CFD2DD;}
-		.d2-2623191294 .color-N5{color:#DEE1EB;}
-		.d2-2623191294 .color-N6{color:#EEF1F8;}
-		.d2-2623191294 .color-N7{color:#FFFFFF;}
-		.d2-2623191294 .color-B1{color:#0D32B2;}
-		.d2-2623191294 .color-B2{color:#0D32B2;}
-		.d2-2623191294 .color-B3{color:#E3E9FD;}
-		.d2-2623191294 .color-B4{color:#E3E9FD;}
-		.d2-2623191294 .color-B5{color:#EDF0FD;}
-		.d2-2623191294 .color-B6{color:#F7F8FE;}
-		.d2-2623191294 .color-AA2{color:#4A6FF3;}
-		.d2-2623191294 .color-AA4{color:#EDF0FD;}
-		.d2-2623191294 .color-AA5{color:#F7F8FE;}
-		.d2-2623191294 .color-AB4{color:#EDF0FD;}
-		.d2-2623191294 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-2623191294);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-2623191294);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-2623191294);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-2623191294);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-2623191294);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-2623191294);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-2623191294);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-2623191294);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><defs>
-	<filter id="shadow-filter" width="200%" height="200%" x="-50%" y="-50%">
-		<feGaussianBlur stdDeviation="1.7 " in="SourceGraphic"></feGaussianBlur>
-		<feFlood flood-color="#3d4574" flood-opacity="0.4" result="ShadowFeFlood" in="SourceGraphic"></feFlood>
-		<feComposite in="ShadowFeFlood" in2="SourceAlpha" operator="in" result="ShadowFeComposite"></feComposite>
-		<feOffset dx="3" dy="5" result="ShadowFeOffset" in="ShadowFeComposite"></feOffset>
-		<feBlend in="SourceGraphic" in2="ShadowFeOffset" mode="normal" result="ShadowFeBlend"></feBlend>
-	</filter>
-</defs><g class="cHJpbWl0aXZlcw=="><g class="shape" ><rect x="584.000000" y="12.000000" width="604.000000" height="509.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="886.000000" y="45.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">primitive operations</text></g><g class="ZXhhbXBsZQ=="><g class="shape" ><rect x="12.000000" y="541.000000" width="1749.000000" height="377.000000" stroke="#0D32B2" fill="#E3E9FD" class=" stroke-B1 fill-B4" style="stroke-width:2;" /></g><text x="886.500000" y="574.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:28px">logging a computation</text></g><g class="cHJpbWl0aXZlcy50ZWxs"><g class="shape" ><rect x="634.000000" y="62.000000" width="504.000000" height="199.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="886.000000" y="91.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">tell :: w ⟶ Writer w ()</text></g><g class="cHJpbWl0aXZlcy53cml0ZXJfb3A="><g class="shape" ><rect x="636.000000" y="281.000000" width="500.000000" height="190.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="886.000000" y="310.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">writer :: (a, w) ⟶ Writer w a</text></g><g class="ZXhhbXBsZS5zdGVwMQ=="><g class="shape" ><rect x="62.000000" y="613.000000" width="547.000000" height="233.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="335.500000" y="642.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">double 3</text></g><g class="ZXhhbXBsZS5zdGVwMg=="><g class="shape" ><rect x="689.000000" y="622.000000" width="515.000000" height="215.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="946.500000" y="651.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">add 1</text></g><g class="ZXhhbXBsZS5zdGVwMw=="><g class="shape" ><rect x="1284.000000" y="591.000000" width="427.000000" height="277.000000" stroke="#0D32B2" fill="#EDF0FD" class=" stroke-B1 fill-B5" style="stroke-width:2;" /></g><text x="1497.500000" y="620.000000" fill="#0A0F25" class="text fill-N1" style="text-anchor:middle;font-size:24px">combined result</text></g><g class="cHJpbWl0aXZlcy50ZWxsLnc= value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="49.500000" ry="49.500000" cx="733.500000" cy="161.500000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="733.500000" y="166.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">log entry w</text></g><g class="cHJpbWl0aXZlcy50ZWxsLm9w function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="853.000000" y="128.000000" width="85.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="895.500000" y="166.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">tell w</text><title>Append w to the log. Produces no meaningful result value.</title></g><g class="cHJpbWl0aXZlcy50ZWxsLm91dA== value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="1048.000000" cy="161.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1048.000000" y="166.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">((), w)</text></g><g class="cHJpbWl0aXZlcy53cml0ZXJfb3AucGFpcg== value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="726.000000" cy="376.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="726.000000" y="381.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">(a, w)</text></g><g class="cHJpbWl0aXZlcy53cml0ZXJfb3Aub3A= function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="836.000000" y="343.000000" width="90.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="881.000000" y="381.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">writer</text><title>Construct a Writer from a value and an initial log entry.</title></g><g class="cHJpbWl0aXZlcy53cml0ZXJfb3Aub3V0 value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="45.000000" ry="45.000000" cx="1041.000000" cy="376.000000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1041.000000" y="381.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">Writer w a</text></g><g class="ZXhhbXBsZS5zdGVwMS5pbjE= value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="152.000000" cy="729.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="152.000000" y="734.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">3</text></g><g class="ZXhhbXBsZS5zdGVwMS5vcDE= function f" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="262.000000" y="696.000000" width="94.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#f4a261" class=" stroke-B1" style="stroke-width:1;" /></g><text x="309.000000" y="734.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">double</text></g><g class="ZXhhbXBsZS5zdGVwMS5vdXQx value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="66.500000" ry="66.500000" cx="492.500000" cy="729.500000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="492.500000" y="734.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">(6, [doubled 3])</text></g><g class="ZXhhbXBsZS5zdGVwMi5pbjI= value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="779.000000" cy="729.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="779.000000" y="734.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">6</text></g><g class="ZXhhbXBsZS5zdGVwMi5vcDI= function g" style='opacity:0.900000'><g class="shape" filter="url(#shadow-filter)" ><rect x="889.000000" y="696.000000" width="80.000000" height="66.000000" rx="5.000000" stroke="#0D32B2" fill="#9191f4" class=" stroke-B1" style="stroke-width:1;" /></g><text x="929.000000" y="734.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">add1</text></g><g class="ZXhhbXBsZS5zdGVwMi5vdXQy value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="57.500000" ry="57.500000" cx="1096.500000" cy="729.500000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1096.500000" y="734.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">(7, [added 1])</text></g><g class="ZXhhbXBsZS5zdGVwMy5yZXN1bHQ= value a" style='opacity:0.700000'><g class="shape" ><ellipse rx="40.000000" ry="40.000000" cx="1374.000000" cy="729.000000" stroke="#0D32B2" fill="#f4a261" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1374.000000" y="734.000000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">7</text></g><g class="ZXhhbXBsZS5zdGVwMy5sb2c= value b" style='opacity:0.700000'><g class="shape" ><ellipse rx="88.500000" ry="88.500000" cx="1572.500000" cy="729.500000" stroke="#0D32B2" fill="#9191f4" class="shape stroke-B1" style="stroke-width:1;" /></g><text x="1572.500000" y="734.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px">[doubled 3, added 1]</text></g><g class="cHJpbWl0aXZlcy50ZWxsLih3IC0mZ3Q7IG9wKVswXQ=="><marker id="mk-d2-2623191294-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 785.499847 161.978574 L 850.500357 161.049995" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="cHJpbWl0aXZlcy50ZWxsLihvcCAtJmd0OyBvdXQpWzBd"><path d="M 939.999962 161.510638 L 1005.500088 161.975178" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="cHJpbWl0aXZlcy53cml0ZXJfb3AuKHBhaXIgLSZndDsgb3ApWzBd"><path d="M 768.500000 376.000000 L 833.500000 376.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="cHJpbWl0aXZlcy53cml0ZXJfb3AuKG9wIC0mZ3Q7IG91dClbMF0="><path d="M 928.000000 376.000000 L 993.500000 376.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="ZXhhbXBsZS5zdGVwMS4oaW4xIC0mZ3Q7IG9wMSlbMF0="><path d="M 193.499847 729.978574 L 258.500357 729.049995" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="ZXhhbXBsZS5zdGVwMS4ob3AxIC0mZ3Q7IG91dDEpWzBd"><path d="M 357.499962 729.510714 L 422.500089 729.975001" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="ZXhhbXBsZS5zdGVwMi4oaW4yIC0mZ3Q7IG9wMilbMF0="><path d="M 820.499847 729.978574 L 885.500357 729.049995" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="ZXhhbXBsZS5zdGVwMi4ob3AyIC0mZ3Q7IG91dDIpWzBd"><path d="M 970.499962 729.510714 L 1035.500089 729.975001" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="ZXhhbXBsZS5zdGVwMy4ocmVzdWx0IC0mZ3Q7IGxvZylbMF0="><path d="M 1415.499847 729.978574 L 1480.500357 729.049995" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="ZXhhbXBsZS4oc3RlcDEub3V0MSAtJmd0OyBzdGVwMi5pbjIpWzBd"><path d="M 560.499977 729.991667 L 735.500054 729.019444" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g class="ZXhhbXBsZS4oc3RlcDIub3V0MiAtJmd0OyBzdGVwMy5yZXN1bHQpWzBd"><path d="M 1155.499977 729.991667 L 1330.500054 729.019444" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-2623191294-3488378134)" mask="url(#d2-2623191294)" /></g><g transform="translate(922 112)" class="appendix-icon"><title>Append w to the log. Produces no meaningful result value.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2623191294-OBZGS3LJORUXMZLTFZ2GK3DMFZXXA)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2623191294-OBZGS3LJORUXMZLTFZ2GK3DMFZXXA">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  --fp-canvas: #0d1117;
+  --fp-action-fill: #0f2d1f;
+  --fp-action-stroke: #3fb950;
+  --fp-obj-fill: #161b22;
+  --fp-obj-stroke: #8b949e;
+  --fp-hof-fill: #082f49;
+  --fp-hof-stroke: #79c0ff;
+  --fp-pin-fill: #30363d;
+  --fp-pin-stroke: #8b949e;
+  --fp-frame-fill: #0d1117;
+  --fp-frame-stroke: #6e7681;
+  --fp-frame-tab-fill: #21262d;
+  --fp-init-fill: #e6edf3;
+  --fp-final-stroke: #e6edf3;
+  --fp-final-fill: #e6edf3;
+  --fp-edge-stroke: #8b949e;
+  --fp-hof-edge: #79c0ff;
+  --fp-label-fill: #e6edf3;
+  --fp-secondary-text: #9198a1;
+  --fp-pin-label: #c9d1d9;
+  --fp-port-label: #c9d1d9;
+  --fp-decision-fill: #3d2c00;
+  --fp-decision-stroke: #d29922;
+  --fp-decision-label: #f0c674;
+  --fp-note-fill: #3d2c00;
+  --fp-note-fold-fill: #573a00;
+  --fp-note-stroke: #d29922;
+  --fp-note-label: #f0c674;
+  --fp-lane-fill: #161b22;
+  --fp-lane-stroke: #6e7681;
+  --fp-lane-header: #21262d;
+  --fp-error-text: #ff7b72;
+  }
+}</style>
+  <defs>
+    <marker id="arrowFilled" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-edge-stroke)"/>
+    </marker>
+    <marker id="arrowOpen" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.25"/>
+    </marker>
+    <marker id="arrowHof" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,1.5 L10,5 L0,8.5 L2.5,5 Z" fill="var(--fp-hof-edge)"/>
+    </marker>
+  </defs>
+  <text x="614.9" y="18" text-anchor="middle" font-size="14" font-weight="bold" font-family="sans-serif" fill="var(--fp-label-fill)">Writer bind combines each step's log with the result in order</text>
+  <g transform="translate(0,28) scale(1)">
+    <rect x="0" y="0" width="1229.8" height="161" fill="var(--fp-frame-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1.5"/>
+    <g class="diagram-frame-tab tab-activity">
+      <path d="M0,0 L152.4,0 L152.4,12 L142.4,22 L0,22 Z" fill="var(--fp-frame-tab-fill)" stroke="var(--fp-frame-stroke)" stroke-width="1"/>
+      <text x="76.2" y="12" text-anchor="middle" font-size="10" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">«activity» Writer bind</text>
+    </g>
+    <g class="edge">
+      <path d="M236.0,59.0 L421.0,59.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="334.5" y="53" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Writer [String] Int</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M236.0,111.0 L385.0,111.0 Q391.0,111.0 391.0,105.0 L391.0,83.0 Q391.0,77.0 397.0,77.0 L421.0,77.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="313.5" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Int ⟶ Writer [String] Int</text>
+    </g>
+    <g class="edge">
+      <path d="M565.0,62.0 L605.0,62.0 Q611.0,62.0 611.0,68.0 L611.0,83.0 Q611.0,89.0 617.0,89.0 L758.0,89.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="690.5" y="83" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Writer [String] Int</text>
+    </g>
+    <g class="edge hof-edge">
+      <path d="M601.0,123.0 L754.0,123.0 Q760.0,123.0 760.0,117.0 L760.0,104.0 L760.0,104.0" fill="none" stroke="var(--fp-hof-edge)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowHof)"/>
+      <text x="680.5" y="117" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Int ⟶ Writer [String] Int</text>
+    </g>
+    <g class="edge">
+      <path d="M902.0,93.0 L1025.0,93.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowFilled)"/>
+      <text x="971.5" y="87" text-anchor="middle" dominant-baseline="middle" font-size="9" font-family="sans-serif" fill="var(--fp-label-fill)">Writer [String] Int</text>
+    </g>
+    <g class="edge">
+      <path d="M561.0,78.0 L766.0,78.0" fill="none" stroke="var(--fp-edge-stroke)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrowOpen)" stroke-dasharray="6,4"/>
+    </g>
+    <g class="action-node">
+      <title>Apply doubleWithLog, then append its log fragment to the existing log.</title>
+      <rect x="441" y="46" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="501" y="68" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind1</text>
+      <g class="pin pin-in">
+        <rect x="437" y="56.666666666666664" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="447" y="60.666666666666664" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">wa</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="437" y="71.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="447" y="75.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="557" y="64" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="555" y="68" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">wb</text>
+      </g>
+    </g>
+    <g class="action-node">
+      <title>Apply addOneWithLog and append this step's log after the first step's log.</title>
+      <rect x="778" y="71" width="120" height="44" rx="12" fill="var(--fp-action-fill)" stroke="var(--fp-action-stroke)" stroke-width="1.5"/>
+      <text class="action-label" x="838" y="93" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">bind2</text>
+      <g class="pin pin-in">
+        <rect x="774" y="81.66666666666667" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="784" y="85.66666666666667" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">wa</text>
+      </g>
+      <g class="pin pin-in">
+        <rect x="774" y="96.33333333333333" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="784" y="100.33333333333333" text-anchor="start" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">f</text>
+      </g>
+      <g class="pin pin-out">
+        <rect x="894" y="89" width="8" height="8" fill="var(--fp-pin-fill)" stroke="var(--fp-pin-stroke)" stroke-width="1"/>
+        <text x="892" y="93" text-anchor="end" dominant-baseline="middle" font-size="8" font-family="sans-serif" fill="var(--fp-pin-label)">wb</text>
+      </g>
+    </g>
+    <g class="object-node">
+      <title>(3, []) — the starting result and empty log.</title>
+      <rect x="79.19999999999999" y="40" width="156.8" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="157.6" y="59" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Writer [String] Int</text>
+    </g>
+    <g class="object-node hof">
+      <title>doubleWithLog : Int ⟶ Writer [String] Int; for 3 it yields (6, ["doubled 3"]).</title>
+      <rect x="36" y="92" width="200" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="136" y="104" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="136" y="118" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Int ⟶ Writer [String] Int</text>
+    </g>
+    <g class="object-node hof">
+      <title>addOneWithLog : Int ⟶ Writer [String] Int; for 6 it yields (7, ["added 1 to 6"]).</title>
+      <rect x="401" y="104" width="200" height="38" fill="var(--fp-hof-fill)" stroke="var(--fp-hof-stroke)" stroke-width="1.5"/>
+      <text x="501" y="116" text-anchor="middle" font-size="9" font-style="italic" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-hof-stroke)">«function»</text>
+      <text x="501" y="130" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Int ⟶ Writer [String] Int</text>
+    </g>
+    <g class="object-node">
+      <title>(7, ["doubled 3", "added 1 to 6"]) — result plus logs accumulated in order.</title>
+      <rect x="1037" y="74" width="156.8" height="38" fill="var(--fp-obj-fill)" stroke="var(--fp-obj-stroke)" stroke-width="1.5"/>
+      <text x="1115.4" y="93" text-anchor="middle" font-size="11" font-family="sans-serif" dominant-baseline="middle" fill="var(--fp-label-fill)">Writer [String] Int</text>
+    </g>
+  </g>
 </svg>
-</g><g transform="translate(910 327)" class="appendix-icon"><title>Construct a Writer from a value and an initial log entry.</title><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_3427_35082111-d2-2623191294-OBZGS3LJORUXMZLTFZ3XE2LUMVZF633QFZXXA)">
-<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
-<path d="M16 26C21.5228 26 26 21.5228 26 16C26 10.4772 21.5228 6 16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26Z" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 19.998V15.998" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 12H16.0098" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_3427_35082111-d2-2623191294-OBZGS3LJORUXMZLTFZ3XE2LUMVZF633QFZXXA">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-</g><mask id="d2-2623191294" maskUnits="userSpaceOnUse" x="-89" y="-89" width="1951" height="1108">
-<rect x="-89" y="-89" width="1951" height="1108" fill="white"></rect>
-
-</mask></svg></svg>

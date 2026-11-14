@@ -1,0 +1,99 @@
+{
+  "packages": [
+    {
+      "name": "FunctorMotivation",
+      "portDefs": [],
+      "partDefs": [
+        {
+          "kind": "partDef",
+          "name": "GenericMapping",
+          "parts": [
+            {
+              "kind": "part",
+              "id": "listMap",
+              "type": "map_list :: List a ⟶ List b",
+              "ports": [],
+              "role": "function",
+              "tooltip": "The same mapping logic is duplicated for each container."
+            },
+            {
+              "kind": "part",
+              "id": "maybeMap",
+              "type": "map_maybe :: Maybe a ⟶ Maybe b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "treeMap",
+              "type": "map_tree :: Tree a ⟶ Tree b",
+              "ports": []
+            },
+            {
+              "kind": "part",
+              "id": "f",
+              "type": "a ⟶ b",
+              "ports": [],
+              "role": "hof",
+              "tooltip": "One plain function is reused inside every functor."
+            },
+            {
+              "kind": "part",
+              "id": "fmap",
+              "type": "fmap :: (a ⟶ b) ⟶ F a ⟶ F b",
+              "ports": [],
+              "role": "function",
+              "tooltip": "fmap lifts f according to the container's structure."
+            }
+          ],
+          "ports": [],
+          "connections": [
+            {
+              "kind": "connection",
+              "from": "f",
+              "to": "fmap",
+              "label": "function argument"
+            }
+          ],
+          "notes": [],
+          "shows": {
+            "listMap": "function",
+            "f": "hof",
+            "fmap": "function"
+          },
+          "tooltips": {
+            "listMap": "The same mapping logic is duplicated for each container.",
+            "f": "One plain function is reused inside every functor.",
+            "fmap": "fmap lifts f according to the container's structure."
+          }
+        }
+      ],
+      "actionDefs": [],
+      "activityDefs": [],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "FunctorMotivation",
+          "viewType": "FpIbdView",
+          "expose": "GenericMapping",
+          "rendering": "fpIbdDiagram",
+          "title": " fmap replaces container-specific mapping code "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "ibd",
+    "title": " fmap replaces container-specific mapping code ",
+    "render": "GenericMapping",
+    "shows": {
+      "listMap": "function",
+      "f": "hof",
+      "fmap": "function"
+    },
+    "tooltips": {
+      "listMap": "The same mapping logic is duplicated for each container.",
+      "f": "One plain function is reused inside every functor.",
+      "fmap": "fmap lifts f according to the container's structure."
+    }
+  }
+}

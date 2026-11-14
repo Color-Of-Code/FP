@@ -1,0 +1,317 @@
+{
+  "packages": [
+    {
+      "name": "LazyEvaluationMotivation",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "MaterializeFilter",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "N records",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "materialized filtered list",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "MaterializeMap",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "filtered list",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "materialized mapped list",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "EagerTake",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "mapped list",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "first 10 (after processing all N)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "LazyFilter",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "source",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "filtered values on demand",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "LazyMap",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "filtered values",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "mapped values on demand",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "LazyTake",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "values",
+              "type": "mapped values",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "10 results; stop pulling",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "SequenceProcessing",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "SequenceProcessing",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "eagerFilter",
+                "type": "MaterializeFilter"
+              },
+              {
+                "kind": "action",
+                "id": "eagerMap",
+                "type": "MaterializeMap"
+              },
+              {
+                "kind": "action",
+                "id": "eagerTake",
+                "type": "EagerTake"
+              },
+              {
+                "kind": "action",
+                "id": "filter",
+                "type": "LazyFilter"
+              },
+              {
+                "kind": "action",
+                "id": "map",
+                "type": "LazyMap"
+              },
+              {
+                "kind": "action",
+                "id": "take",
+                "type": "LazyTake"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "eagerSource",
+                "type": "load N records"
+              },
+              {
+                "kind": "object",
+                "id": "lazySource",
+                "type": "source (possibly infinite)"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "eagerSource",
+                "to": "eagerFilter"
+              },
+              {
+                "kind": "flow",
+                "from": "eagerFilter",
+                "to": "eagerMap"
+              },
+              {
+                "kind": "flow",
+                "from": "eagerMap",
+                "to": "eagerTake"
+              },
+              {
+                "kind": "flow",
+                "from": "lazySource",
+                "to": "filter"
+              },
+              {
+                "kind": "flow",
+                "from": "filter",
+                "to": "map"
+              },
+              {
+                "kind": "flow",
+                "from": "map",
+                "to": "take"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {},
+            "tooltips": {}
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "SequenceProcessing",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "eagerFilter",
+              "type": "MaterializeFilter"
+            },
+            {
+              "kind": "action",
+              "id": "eagerMap",
+              "type": "MaterializeMap"
+            },
+            {
+              "kind": "action",
+              "id": "eagerTake",
+              "type": "EagerTake"
+            },
+            {
+              "kind": "action",
+              "id": "filter",
+              "type": "LazyFilter"
+            },
+            {
+              "kind": "action",
+              "id": "map",
+              "type": "LazyMap"
+            },
+            {
+              "kind": "action",
+              "id": "take",
+              "type": "LazyTake"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "eagerSource",
+              "type": "load N records"
+            },
+            {
+              "kind": "object",
+              "id": "lazySource",
+              "type": "source (possibly infinite)"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "eagerSource",
+              "to": "eagerFilter"
+            },
+            {
+              "kind": "flow",
+              "from": "eagerFilter",
+              "to": "eagerMap"
+            },
+            {
+              "kind": "flow",
+              "from": "eagerMap",
+              "to": "eagerTake"
+            },
+            {
+              "kind": "flow",
+              "from": "lazySource",
+              "to": "filter"
+            },
+            {
+              "kind": "flow",
+              "from": "filter",
+              "to": "map"
+            },
+            {
+              "kind": "flow",
+              "from": "map",
+              "to": "take"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {},
+          "tooltips": {}
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "LazyEvaluationMotivation",
+          "viewType": "FpActivityView",
+          "expose": "SequenceProcessing",
+          "rendering": "fpActivityDiagram",
+          "title": " Lazy pipelines stop when enough results are demanded "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Lazy pipelines stop when enough results are demanded ",
+    "render": "SequenceProcessing",
+    "shows": {},
+    "tooltips": {}
+  }
+}

@@ -12,8 +12,6 @@
 read it, update it, or fold over it — without breaking immutability or scattering field-access logic
 across the codebase.
 
-![optics hierarchy](27-optics/optics.svg)
-
 A **lens** is the most common optic: it focuses on exactly one field inside a product type and
 provides a `get` (read the field) and a `set`/`over` (return a new structure with the field
 changed). Because lenses are values, they **compose** with function composition `(.)` — the

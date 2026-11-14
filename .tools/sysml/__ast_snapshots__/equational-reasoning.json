@@ -1,0 +1,239 @@
+{
+  "packages": [
+    {
+      "name": "EquationalReasoning",
+      "portDefs": [],
+      "partDefs": [],
+      "actionDefs": [
+        {
+          "kind": "actionDef",
+          "name": "UnfoldInner",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "expression",
+              "type": "double (double 3)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "double (3 + 3)",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "EvaluateInner",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "expression",
+              "type": "double (3 + 3)",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "double 6",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "UnfoldOuter",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "expression",
+              "type": "double 6",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "6 + 6",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Arithmetic",
+          "pins": [
+            {
+              "kind": "port",
+              "id": "expression",
+              "type": "6 + 6",
+              "direction": "in"
+            },
+            {
+              "kind": "port",
+              "id": "_",
+              "type": "12",
+              "direction": "out"
+            }
+          ]
+        },
+        {
+          "kind": "actionDef",
+          "name": "Reduction",
+          "pins": [],
+          "activity": {
+            "kind": "activityDef",
+            "name": "Reduction",
+            "actions": [
+              {
+                "kind": "action",
+                "id": "unfoldInner",
+                "type": "UnfoldInner"
+              },
+              {
+                "kind": "action",
+                "id": "evaluateInner",
+                "type": "EvaluateInner"
+              },
+              {
+                "kind": "action",
+                "id": "unfoldOuter",
+                "type": "UnfoldOuter"
+              },
+              {
+                "kind": "action",
+                "id": "arithmetic",
+                "type": "Arithmetic"
+              }
+            ],
+            "objects": [
+              {
+                "kind": "object",
+                "id": "expression",
+                "type": "double (double 3)",
+                "role": "value"
+              }
+            ],
+            "decisions": [],
+            "merges": [],
+            "flows": [
+              {
+                "kind": "flow",
+                "from": "expression",
+                "to": "unfoldInner"
+              },
+              {
+                "kind": "flow",
+                "from": "unfoldInner",
+                "to": "evaluateInner"
+              },
+              {
+                "kind": "flow",
+                "from": "evaluateInner",
+                "to": "unfoldOuter"
+              },
+              {
+                "kind": "flow",
+                "from": "unfoldOuter",
+                "to": "arithmetic"
+              }
+            ],
+            "successions": [],
+            "notes": [],
+            "lanes": [],
+            "shows": {
+              "expression": "value"
+            },
+            "tooltips": {}
+          }
+        }
+      ],
+      "activityDefs": [
+        {
+          "kind": "activityDef",
+          "name": "Reduction",
+          "actions": [
+            {
+              "kind": "action",
+              "id": "unfoldInner",
+              "type": "UnfoldInner"
+            },
+            {
+              "kind": "action",
+              "id": "evaluateInner",
+              "type": "EvaluateInner"
+            },
+            {
+              "kind": "action",
+              "id": "unfoldOuter",
+              "type": "UnfoldOuter"
+            },
+            {
+              "kind": "action",
+              "id": "arithmetic",
+              "type": "Arithmetic"
+            }
+          ],
+          "objects": [
+            {
+              "kind": "object",
+              "id": "expression",
+              "type": "double (double 3)",
+              "role": "value"
+            }
+          ],
+          "decisions": [],
+          "merges": [],
+          "flows": [
+            {
+              "kind": "flow",
+              "from": "expression",
+              "to": "unfoldInner"
+            },
+            {
+              "kind": "flow",
+              "from": "unfoldInner",
+              "to": "evaluateInner"
+            },
+            {
+              "kind": "flow",
+              "from": "evaluateInner",
+              "to": "unfoldOuter"
+            },
+            {
+              "kind": "flow",
+              "from": "unfoldOuter",
+              "to": "arithmetic"
+            }
+          ],
+          "successions": [],
+          "notes": [],
+          "lanes": [],
+          "shows": {
+            "expression": "value"
+          },
+          "tooltips": {}
+        }
+      ],
+      "views": [
+        {
+          "id": "diagram",
+          "packageName": "EquationalReasoning",
+          "viewType": "FpActivityView",
+          "expose": "Reduction",
+          "rendering": "fpActivityDiagram",
+          "title": " Equational reasoning by substitution "
+        }
+      ]
+    }
+  ],
+  "diagram": {
+    "diagType": "activity",
+    "title": " Equational reasoning by substitution ",
+    "render": "Reduction",
+    "shows": {
+      "expression": "value"
+    },
+    "tooltips": {}
+  }
+}
