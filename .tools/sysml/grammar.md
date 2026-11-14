@@ -1,204 +1,89 @@
 # SysML grammar reference
 
-This repository uses a small SysML v2 textual notation subset plus a project-specific `#diagram`
-block for rendering metadata. The authoritative grammar source lives in
-[`sysml.langium`](sysml.langium); this file is a human-readable companion. Run
-`make -C .tools langium-gen` after changing the grammar to refresh `sysml/generated/`.
+The local SysML parser implements a deliberately small SysML v2 textual subset plus the FP project's
+rendering metadata. The authoritative grammar is [`sysml.langium`](sysml.langium); the project view
+and rendering declarations are in [`FpDiagram.sysml`](FpDiagram.sysml). Regenerate parser sources
+with `make -C .tools langium-gen`.
 
-This is a derived reference, not a verbatim copy of the full OMG grammar.
+This subset supports the syntax currently used by `docs/**/*.sysml`. It is not a full SysML v2
+implementation: imports and standard-library names are parsed but not resolved, and an independent
+SysML implementation has not been used to validate the sources.
 
-## Upstream basis
+## Supported constructs
 
-The local subset was matched against the official SysML v2 release BNF:
+- Packages and imports.
+- `action def` definitions with pins, actions, items, decisions, merges, and flows.
+- `part def` definitions with parts, ports, and connections.
+- User-defined metadata definitions and annotations.
+- View definitions, view usages, documentation comments, `expose`, and `render`.
 
-- <https://github.com/systems-modeling/sysml-v2-release/blob/main/bnf/SysML-textual-bnf.html>
-- <https://github.com/systems-modeling/sysml-v2-release/blob/main/bnf/KerML-textual-bnf.html>
+The parser does not accept the retired `#diagram` extension or the legacy `activity def`, `object`,
+and `decision` keywords. Use `action def`, `item`, and `decide`.
 
-Those files define the complete language. The grammar below is intentionally narrower: it captures
-the concrete syntax used in this repo's `.sysml` sources and the constructs the local transpiler
-actually parses.
+## Project library
 
-## Scope
+[`FpDiagram.sysml`](FpDiagram.sysml) declares `FpActivityView` and `FpIbdView`, which specialize the
+standard `ActionFlowView` and `InterconnectionView` concepts, plus the project's `fpActivityDiagram`
+and `fpIbdDiagram` renderings. Its metadata definitions provide presentation information consumed by
+the local renderer:
 
-Supported standard-ish SysML concepts:
+- `FpNodePresentation`: node role, tooltip, and explicit lane/member ordering.
+- `FpViewPresentation`: short diagram name and layout direction.
 
-- `package`
-- `port def`
-- `part def`, `part`, `port`, `connection`
-- `action def`, `activity def`, `action`, `object`
-- `decision`, `merge`, `flow`, `succession`
+These are project-specific metadata/renderings; the model elements and `view` / `expose` / `render`
+structure use the supported SysML v2 textual subset.
 
-Supported project-specific extension:
-
-- `#diagram { ... }`
-
-Deliberately not modeled here:
-
-- the full SysML v2 namespace and type system
-- `::`-qualified names and the broader KerML lexical space
-- guards, expressions, multiplicities, metadata, imports, and most other SysML constructs
-- parser recovery behavior for unknown syntax
-
-## Lexical notes
-
-The lexer is intentionally small. In practice, author files using the conventions below.
-
-```ebnf
-LINE_COMMENT  = "//" , { any character except newline } ;
-BLOCK_COMMENT = "/*" , { any character } , "*/" ;
-STRING        = '"' , { escaped_quote | any character except '"' } , '"' ;
-PUNCT         = "{" | "}" | ":" | ";" | "," | "#" | "=" | "." | "[" | "]" ;
-IDENT         = letter_or_digit_or_underscore_or_angle_bracket ,
-                { letter_or_digit_or_underscore_or_angle_bracket } ;
-```
-
-Notes:
-
-- Whitespace and comments are ignored.
-- The only string escape the lexer handles explicitly is `\"`.
-- Complex FP types are usually written as quoted strings, for example `"F(a ⟶ b)"`.
-- The implementation is permissive about tokens inside names; the grammar below documents the
-  intended authoring subset rather than every recovery edge case.
-
-## Supported grammar
-
-The grammar below describes the supported happy-path syntax. The parser will also skip unknown items
-up to the next `;` or balanced `{ ... }` block, but that recovery behavior is not part of the
-authoring contract.
-
-```ebnf
-Model             = { TopLevelItem } ;
-
-TopLevelItem      = PackageDecl | DiagramMeta ;
-
-PackageDecl       = "package" , QualifiedName , "{" , { PackageItem } , "}" ;
-
-PackageItem       = PortDef
-                  | PartDefDecl
-                  | ActionDefDecl
-                  | ActivityDefDecl ;
-
-PortDef           = "port" , "def" , IDENT , PortDefTail ;
-PortDefTail       = ";" | Block | Empty ;
-
-PartDefDecl       = "part" , "def" , PartDef ;
-PartDef           = QualifiedName , ( ";" | "{" , { PartBodyItem } , "}" ) ;
-
-PartBodyItem      = "part" , PartUsage
-                  | "port" , PortUsage
-                  | "connection" , ConnectionUsage ;
-
-PartUsage         = IDENT , [ ":" , TypeRef ] , ( ";" | "{" , { PartMember } , "}" ) ;
-PartMember        = "port" , PortUsage ;
-
-PortUsage         = [ Direction ] , IDENT , [ ":" , TypeRef ] , [ ";" ] ;
-Direction         = "in" | "out" | "inout" ;
-
-ConnectionUsage   = [ ConnectionId ] , "connect" , DottedPath ,
-                    "to" , DottedPath ,
-                    [ "via" , QualifiedName ] ,
-                    [ ":" , StringOrIdent ] ,
-                    [ ";" ] ;
-ConnectionId      = IDENT ;
-
-ActionDefDecl     = "action" , "def" , ActionDef ;
-ActionDef         = QualifiedName , ( ";" | "{" , { PinDecl } , "}" ) ;
-PinDecl           = Direction , IDENT , [ ":" , TypeRef ] , [ ";" ] ;
-
-ActivityDefDecl   = "activity" , "def" , ActivityDef ;
-ActivityDef       = QualifiedName , ( ";" | "{" , { ActivityBodyItem } , "}" ) ;
-
-ActivityBodyItem  = ActionUsage
-                  | ObjectNode
-                  | DecisionNode
-                  | MergeNode
-                  | FlowUsage
-                  | SuccessionUsage ;
-
-ActionUsage       = "action" , IDENT , [ ":" , TypeRef ] , [ ";" ] ;
-ObjectNode        = "object" , IDENT , [ ":" , TypeRef ] , [ ";" ] ;
-DecisionNode      = "decision" , IDENT , [ ":" , StringOrIdent ] , [ ";" ] ;
-MergeNode         = "merge" , IDENT , [ ":" , StringOrIdent ] , [ ";" ] ;
-
-FlowUsage         = "flow" , "from" , DottedPath ,
-                    "to" , DottedPath ,
-                    [ ":" , StringOrIdent ] ,
-                    [ ";" ] ;
-
-SuccessionUsage   = "succession" , DottedPath , "then" , DottedPath , [ ";" ] ;
-
-DiagramMeta       = "#" , "diagram" , "{" , { DiagramField } , "}" ;
-
-DiagramField      = "type" , [ "=" ] , DiagramType
-                  | "title" , [ "=" ] , StringOrIdent
-                  | "name" , [ "=" ] , StringOrIdent
-                  | "direction" , [ "=" ] , LayoutDirection
-                  | "layout" , [ "=" ] , LayoutEngine
-                  | "render" , [ "=" ] , StringOrIdent
-                  | "show" , DottedPath , "as" , Role
-                  | "tooltip" , DottedPath , [ "=" ] , StringOrIdent ;
-
-DiagramType       = "activity" | "ibd" ;
-LayoutDirection   = "LR" | "TB" ;
-LayoutEngine      = "dagre" | "elk" ;
-
-Role              = "hof"
-                  | "type"
-                  | "value"
-                  | "function"
-                  | "initial"
-                  | "final"
-                  | "decision"
-                  | "merge" ;
-
-TypeRef           = StringOrIdent ;
-StringOrIdent     = STRING | IDENT ;
-
-QualifiedName     = IDENT , { GenericSuffix | DottedSuffix } ;
-GenericSuffix     = "<" , IDENT , [ ">" ] ;
-DottedSuffix      = "." , IDENT ;
-
-DottedPath        = IDENT , { "." , IDENT } ;
-
-Block             = "{" , { any supported or unsupported nested tokens } , "}" ;
-Empty             = ;
-```
-
-## `#diagram` extension
-
-The `#diagram` block is not part of SysML v2. It is a repo-local rendering extension consumed by the
-SVG transpiler.
+## Example
 
 ```sysml
-#diagram {
-    type      = activity
-    title     = "Applicative: (<*>) :: F(a ⟶ b) ⟶ Fa ⟶ Fb"
-    name      = "<*>"
-    direction = LR
-    layout    = elk
-    render    = ApplicativeProcess
-    show fff    as hof
-    show apStar as function
-    tooltip fff = "Wrapped function token"
+package Example {
+    private import FpDiagram::*;
+
+    action def Map {
+        in  value : "F a";
+        out _     : "F b";
+    }
+
+    action def MapFlow {
+        #FpNodePresentation {
+            role = "hof";
+            tooltip = "The function argument";
+            laneId = "plain";
+            laneLabel = "Plain values & functions";
+            laneOrder = "0";
+            laneMemberOrder = "0";
+        }
+        item f : "a ⟶ b";
+
+        #FpNodePresentation {
+            role = "function";
+            laneId = "monad";
+            laneLabel = "Functor";
+            laneOrder = "1";
+            laneMemberOrder = "0";
+        }
+        action map : Map;
+        flow from f to map;
+    }
+
+    #FpViewPresentation { name = "map"; direction = "LR"; }
+    view diagram : FpActivityView {
+        doc /* fmap applies a plain function inside the functor. */
+        expose MapFlow;
+        render fpActivityDiagram;
+    }
 }
 ```
 
-Supported fields:
-
-- `type`: `activity` or `ibd`
-- `title`: diagram title
-- `name`: short frame label
-- `direction`: `LR` or `TB`
-- `layout`: `dagre` or `elk`
-- `render`: activity or part definition name to render
-- `show`: assign a render role to a node
-- `tooltip`: hover text for a node
+Each source has one `view`. Its `expose` target selects the action or part definition to render.
+`FpActivityView` and `FpIbdView` select the activity and IBD renderers respectively. The view's
+documentation supplies the SVG title; node tooltips and visual roles come from `FpNodePresentation`.
 
 ## Practical constraints
 
-- Use quoted strings for math-heavy type expressions.
-- Keep names simple. The local parser is much smaller than the full SysML v2 grammar.
-- If you need syntax beyond this file, either extend `.tools/sysml/parser.ts` and
-  `.tools/sysml/lexer.ts`, or switch that diagram back to D2.
-
-Checked against the official SysML v2 release BNF on 2026-04-27.
+- Quote math-heavy type expressions, such as `"F(a ⟶ b)"`.
+- Metadata field values are strings or identifiers; lane order values are numeric strings.
+- Lane and lane-member ordering must be explicit to keep the motivation diagrams aligned.
+- The parser does not resolve imports or type-check against the SysML standard library.
+- Extend [`sysml.langium`](sysml.langium) when adding syntax, then regenerate and run
+  `make -C .tools test-update` followed by `make -C .tools test`.

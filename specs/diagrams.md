@@ -1,13 +1,15 @@
 # Diagram Conventions
 
-This repository uses two source formats for diagrams:
+During the migration, diagrams in `docs/` use D2 or the SysML-based renderer:
 
-| Format   | Source ext | Toolchain             | Used for                                                                                              |
-| -------- | ---------- | --------------------- | ----------------------------------------------------------------------------------------------------- |
-| D2       | `.d2`      | `d2 --layout=elk`     | Most concept, motivation and detail diagrams                                                          |
-| SysML v2 | `.sysml`   | `.tools/sysml/cli.ts` | Activity and IBD diagrams for fold, applicative, traversable, monad, and currying/partial-application |
+| Format    | Source ext | Toolchain             | Used for                                                                               |
+| --------- | ---------- | --------------------- | -------------------------------------------------------------------------------------- |
+| D2        | `.d2`      | `d2 --layout=elk`     | Concepts not yet migrated                                                              |
+| SysML v2* | `.sysml`   | `.tools/sysml/cli.ts` | All 88 existing SysML sources use `view` / `render`; D2 migration is still in progress |
 
-Both produce `.svg` files that are embedded in Markdown docs identically.
+Both produce `.svg` files embedded in Markdown docs. *The local parser supports a narrow SysML v2
+textual subset and project-specific presentation metadata; see
+[the grammar reference](../.tools/sysml/grammar.md).
 
 ## File locations
 
@@ -38,7 +40,12 @@ signature:
 
 ---
 
-## SysML v2 source format
+## SysML-based source format
+
+The SysML sources use a small SysML v2 textual subset plus project metadata and rendering
+definitions in [`.tools/sysml/FpDiagram.sysml`](../.tools/sysml/FpDiagram.sysml). The local parser
+does not resolve imports or validate against an independent SysML implementation. Do not treat it as
+a general-purpose SysML v2 parser.
 
 ### Diagram-type selection rationale
 
@@ -48,40 +55,40 @@ function's _type signature_ is structural; its _execution_ is behavioral.
 | Diagram type                     | SysML v2 keyword | Answers                          | Use for                                                      |
 | -------------------------------- | ---------------- | -------------------------------- | ------------------------------------------------------------ |
 | **IBD** (Internal Block Diagram) | `part def`       | "what is wired to what at rest?" | Type signatures; how types compose structurally              |
-| **Activity diagram**             | `activity def`   | "how do values flow and when?"   | HOF inputs as tokens; chaining; accumulation; effectful maps |
+| **Activity diagram**             | `action def`     | "how do values flow and when?"   | HOF inputs as tokens; chaining; accumulation; effectful maps |
 
 **Rule:** every FP combinator with a polymorphic HOF signature gets **both** diagrams:
 
 - An **IBD** (`-ibd.sysml`) showing the _type signature_ — parts connected by typed wires.
 - An **Activity** (`.sysml`) showing the _execution_ — tokens flowing through action nodes.
 
-A function-type value passed as an argument is an **object node** (a data token) in the activity
-diagram — this is semantically precise: it is data, not a structural wire. In the IBD it is a `part`
-node with a `show ... as hof` style so it renders teal.
+A function-type value passed as an argument is an **item** (a data token) in the activity diagram —
+it is data, not a structural wire. In the IBD it is a `part` node; use `FpNodePresentation` metadata
+with `role = "hof"` so it renders as a function argument.
 
 ### FP → SysML v2 element mapping
 
 This table is the canonical guide for choosing which SysML v2 construct to use for each FP concept.
 Follow it when writing new `.sysml` files.
 
-| FP concept                              | SysML v2 element                                                                                       | Diagram  |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------ | -------- |
-| Type `a`, `Fa`, `Ma`                    | `part <id> : Type` (IBD) / `object <id> : Type` (activity)                                             | both     |
-| Function type `a → b` as value argument | `part <id> : "a → b"` with `show as hof` (IBD) / `object <id> : "a → b"` with `show as hof` (activity) | both     |
-| Operation signature `f :: A → B → C`    | `part def FContext` with internal `part` nodes + `connection` wires                                    | IBD      |
-| Operation execution (token flow)        | `action def` + `action` usage + `flow from/to`                                                         | activity |
-| Structural composition                  | `connection connect A to B`                                                                            | IBD      |
-| Token movement (data flow)              | `flow from A to B [: "label"]`                                                                         | activity |
-| Sequencing (ordering constraint)        | `succession A then B`                                                                                  | activity |
-| Container cardinality (`[0..*]`)        | flow label `"∀ a"` or type annotation `"List a"`                                                       | activity |
-| Input pin of an action                  | `in <id> : <Type>` inside `action def`                                                                 | activity |
-| Output pin of an action                 | `out <id> : <Type>` inside `action def`                                                                | activity |
-| Pattern match / conditional branch      | `decision <id>` — diamond node with one inflow and guarded outflows                                    | activity |
-| Joining divergent paths                 | `merge <id>` — diamond node that unites branches into a single outflow                                 | activity |
+| FP concept                              | SysML v2 element                                                             | Diagram  |
+| --------------------------------------- | ---------------------------------------------------------------------------- | -------- |
+| Type `a`, `Fa`, `Ma`                    | `part <id> : Type` (IBD) / `item <id> : Type` (activity)                     | both     |
+| Function type `a → b` as value argument | `part <id> : "a → b"` / `item <id> : "a → b"`, annotated with `role = "hof"` | both     |
+| Operation signature `f :: A → B → C`    | `part def FContext` with internal `part` nodes + `connection` wires          | IBD      |
+| Operation execution (token flow)        | `action def` + `action` usage + `flow from/to`                               | activity |
+| Structural composition                  | `connection connect A to B`                                                  | IBD      |
+| Token movement (data flow)              | `flow from A to B [: "label"]`                                               | activity |
+| Sequencing (ordering constraint)        | `succession A then B`                                                        | activity |
+| Container cardinality (`[0..*]`)        | flow label `"∀ a"` or type annotation `"List a"`                             | activity |
+| Input pin of an action                  | `in <id> : <Type>` inside `action def`                                       | activity |
+| Output pin of an action                 | `out <id> : <Type>` inside `action def`                                      | activity |
+| Pattern match / conditional branch      | `decide <id>` — diamond node with one inflow and guarded outflows            | activity |
+| Joining divergent paths                 | `merge <id>` — diamond node that unites branches into a single outflow       | activity |
 
 **Types as quoted strings** — complex math types (`a → Mb`, `F(a → b)`, `List a`) are written as
-quoted strings in the SysML source: `object f : "a → Mb"`. The renderer strips the quotes and
-displays the math notation verbatim.
+quoted strings in the SysML source: `item f : "a → Mb"`. The renderer strips the quotes and displays
+the math notation verbatim.
 
 ### Which diagrams use SysML v2
 
@@ -114,11 +121,13 @@ displays the math notation verbatim.
 | `docs/16-fold/fold-ibd.sysml`               | `docs/16-fold/fold-ibd.svg`               | ch 16 Fold                    |
 | `docs/monads/maybe/maybe-ibd.sysml`         | `docs/monads/maybe/maybe-ibd.svg`         | Maybe monad detail (bind sig) |
 
-### SysML v2 constructs used
+### SysML v2 subset and project metadata
 
-These files use a subset of the official SysML v2 textual notation (OMG SysML 2.0, adopted 2025).
+The local parser supports a narrow SysML v2 textual subset plus project-defined presentation
+metadata. It does not resolve imports or validate sources against an independent SysML
+implementation.
 
-#### Activity diagram syntax
+#### Activity view syntax
 
 ```sysml
 package <Name> {
@@ -129,39 +138,27 @@ package <Name> {
         out <id> : <Type>;          // output pin
     }
 
-    // ── activity (one diagram per activity def) ────────────────────────────
-    activity def <DiagramName> {
-        object <id> : <Type>;       // object node — a typed data token
-        action <id> : <ActionDef>;  // action node — executes a transformation
-
-        // object flow: a data token moves from one node to another
+    // ── action model selected by one view ──────────────────────────────────
+    action def <DiagramName> {
+        item <id> : <Type>;         // typed data token
+        action <id> : <ActionDef>;  // operation
         flow from <id> to <id> [: "<label>"];
-
-        // control flow: ordering constraint (no data carried)
         succession <id> then <id>;
-
-        // decision node: diamond that branches on a condition
-        decision <id>;
-
-        // merge node: diamond that joins divergent branches
+        decide <id>;
         merge <id>;
     }
-}
-
-// ── diagram metadata (vendor extension, not part of SysML v2 grammar) ────────
-#diagram {
-    type  = activity                 // or: ibd
-    title = "<diagram title>"
-    render = <ActivityDefName>       // optional: which activity def to render
-    show <id> as <role>              // role: hof | type | value | function
-    tooltip <id> = "<hover text>"
+    #FpViewPresentation { name = "map"; direction = "LR"; }
+    view diagram : FpActivityView {
+        doc /* fmap applies a function inside the functor. */
+        expose <DiagramName>;
+        render fpActivityDiagram;
+    }
 }
 ```
 
-**HOF inputs in activity diagrams**: a function type passed as an argument is modelled as an
-`object` node with role `hof`. It flows into an `action` node exactly like any data token — this is
-the correct SysML v2 semantics. Mark it `show <id> as hof` to render it with a `«function»`
-stereotype and teal fill, and the flow edge will render as a solid teal arrow.
+`FpActivityView` specializes `ActionFlowView`. A function passed to a combinator is an `item`
+annotated with `#FpNodePresentation { role = "hof"; }`; it flows into the combinator action as an
+argument while the main chain remains on the combinator nodes.
 
 #### IBD syntax (for structural/signature diagrams)
 
@@ -177,48 +174,42 @@ package <Name> {
     }
 }
 
-#diagram {
-    type  = ibd
-    title = "..."
-    render = <PartDefName>       // optional: which part def to render
-    show <id> as <role>
-    tooltip <id> = "..."
+view diagram : FpIbdView {
+    doc /* Type signature of the operation. */
+    expose <PartDefName>;
+    render fpIbdDiagram;
 }
 ```
 
-### `#diagram` vendor extension
+### Presentation metadata
 
-The `#diagram { ... }` block is a project-specific extension (prefixed `#` to distinguish from
-standard SysML keywords). It controls visual rendering only.
+Node and view presentation are declared with the project metadata types in
+[`FpDiagram.sysml`](../.tools/sysml/FpDiagram.sysml). They control visual rendering only.
 
 ```sysml
-#diagram {
-    type      = activity          // or: ibd
-    title     = "fold :: (b ⟶ a ⟶ b) ⟶ b ⟶ List<a> ⟶ b"
-    name      = "fold"            // short label for the activity-frame tab
-    direction = TB                // layout direction: LR (default) or TB (top→bottom)
-    layout    = elk               // layout engine: dagre (default) or elk
-    render    = FoldProcess       // which activity def or part def to render
-    show f     as hof             // rectangle with «function» stereotype + teal fill
-    show step1 as function        // rounded rectangle — the action that executes
-    show b0    as value           // plain rectangle — a concrete value
-    show ta    as type            // plain rectangle — a data type
-    tooltip f  = "The combining function (b ⟶ a ⟶ b) — a HOF data token"
+#FpNodePresentation { role = "hof"; tooltip = "The combining function"; }
+item f : "b ⟶ a ⟶ b";
+
+#FpViewPresentation { name = "fold"; direction = "TB"; }
+view diagram : FpActivityView {
+    doc /* fold combines a collection into one value. */
+    expose FoldProcess;
+    render fpActivityDiagram;
 }
 ```
 
-| Field       | Required | Values / notes                                                                                       |
-| ----------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `type`      | yes      | `activity` or `ibd`                                                                                  |
-| `title`     | no       | Displayed in the SVG title row (full signature)                                                      |
-| `name`      | no       | Short label for the activity-frame tab (e.g. `"traverse"`, `"bind"`)                                 |
-| `direction` | no       | `LR` (default, left→right) or `TB` (top→bottom, useful for stepped diagrams)                         |
-| `layout`    | no       | `dagre` (default, fast, sync) or `elk` (better edge routing for HOF inputs that skip multiple ranks) |
-| `render`    | no       | Which `activity def` or `part def` to render; defaults to the first one                              |
-| `show`      | no       | Assign a visual role (see below)                                                                     |
-| `tooltip`   | no       | Hover text on a node                                                                                 |
+| Metadata field                 | Purpose                                                                                               |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `role`                         | Selects node styling: `hof`, `type`, `value`, `function`, `initial`, `final`, `decision`, or `merge`. |
+| `tooltip`                      | Adds hover text to a node.                                                                            |
+| `laneId`, `laneLabel`          | Assigns a node to a lane and labels that lane.                                                        |
+| `laneOrder`, `laneMemberOrder` | Explicitly controls lane and within-lane order.                                                       |
+| View `name`                    | Short frame label.                                                                                    |
+| View `direction`               | `LR` or `TB`; layout engine details are renderer-controlled.                                          |
 
-**`show` roles:** `hof`, `type`, `value`, `function`, `initial`, `final`, `decision`, `merge`.
+Each source has one `view`. `expose` selects the definition and `render` selects the activity or IBD
+renderer. The view's `doc` comment supplies the SVG title. The legacy `#diagram` extension is not
+supported.
 
 #### Multiplicity and cardinality
 
@@ -226,8 +217,8 @@ To express "this processes any number of elements" without unrolling N steps, us
 quoted type annotations:
 
 ```sysml
-object la  : "List a";        // type annotation communicates the container
-object lb  : "List b";
+item la  : "List a";          // type annotation communicates the container
+item lb  : "List b";
 flow from la to bind : "∀ a";  // "for every element"
 flow from bind to lb : "[0..*]"; // produces zero or more results
 ```
@@ -247,16 +238,16 @@ This keeps the diagram abstract and avoids the literal enumeration that only wor
 | SysML v2 construct             | FP diagram meaning                                            |
 | ------------------------------ | ------------------------------------------------------------- |
 | `action def` + `in`/`out` pins | Type signature of an operation                                |
-| `object <id> : <Type>`         | A typed data token (value, type, or HOF function)             |
+| `item <id> : <Type>`           | A typed data token (value, type, or HOF function)             |
 | `action <id> : <ActionDef>`    | An operation that transforms tokens                           |
 | `flow from A to B`             | Object flow — a token moves from node A to node B             |
 | `succession A then B`          | Control flow — A completes before B starts (dashed arrow)     |
-| `decision <id>`                | Diamond node — conditional branch (pattern match / guard)     |
+| `decide <id>`                  | Diamond node — conditional branch (pattern match / guard)     |
 | `merge <id>`                   | Diamond node — joins divergent branches into a single outflow |
 | `part def` + `port in/out`     | IBD structural block with typed boundary ports                |
 | `connection connect A to B`    | IBD wire (structural, not a data flow)                        |
 
-**Decision / merge nodes**: Use a `decision` node when the flow depends on the shape or value of an
+**Decision / merge nodes**: Use a `decide` node when the flow depends on the shape or value of an
 incoming token (e.g. a pattern match on `Just a` vs `Nothing`). Outgoing flows from a decision carry
 **guard labels** (the `flow … : "label"` syntax). A corresponding `merge` node joins the branches
 back into a single output. Both render as yellow diamonds.
@@ -283,7 +274,7 @@ The renderer follows OMG SysML v2 visual conventions (ISO 19514):
 there is no fixed canvas size. The layout engine uses Sugiyama-style layered placement (left→right)
 with barycentric ordering to reduce edge crossings.
 
-An `object` node with role `hof` renders as a rectangle with `«function»` stereotype in italic above
+An `item` node with role `hof` renders as a rectangle with `«function»` stereotype in italic above
 the label, with a teal fill. The flow edge from it into an action renders as a solid teal arrow.
 
 A `succession` edge (control flow) renders as a dashed arrow with an open arrowhead.
