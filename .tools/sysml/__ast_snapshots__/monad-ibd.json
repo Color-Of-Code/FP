@@ -6,71 +6,113 @@
       "partDefs": [
         {
           "kind": "partDef",
-          "name": "BindContext",
+          "name": "bind",
           "parts": [
             {
               "kind": "part",
-              "id": "ma_val",
-              "type": "Ma",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Ma — monadic value, provides unwrapped a to the continuation"
-            },
-            {
-              "kind": "part",
-              "id": "f_val",
-              "type": "a ⟶ Mb",
-              "ports": [],
-              "role": "hof",
-              "tooltip": "(a ⟶ Mb) — the continuation: maps each a to a new monadic Mb"
-            },
-            {
-              "kind": "part",
-              "id": "bind",
-              "type": "BindOp",
-              "ports": [],
+              "id": "fmap",
+              "type": "M a ⟶ M (M b)",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "f",
+                  "type": "a ⟶ M b",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "M a",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "M (M b)",
+                  "direction": "out"
+                }
+              ],
               "role": "function",
-              "tooltip": ">>= (bind): sequences two monadic actions, threading the value"
+              "tooltip": "fmap :: (a ⟶ M b) ⟶ M a ⟶ M (M b) — from Functor. Applies f under the outer context without removing it: Maybe 0 or 1 times, List once per element, Reader/State once the environment/state is supplied."
             },
             {
               "kind": "part",
-              "id": "mb_val",
-              "type": "Mb",
-              "ports": [],
-              "role": "type",
-              "tooltip": "Mb — final monadic result"
+              "id": "join",
+              "type": "M (M b) ⟶ M b",
+              "ports": [
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "M (M b)",
+                  "direction": "in"
+                },
+                {
+                  "kind": "port",
+                  "id": "_",
+                  "type": "M b",
+                  "direction": "out"
+                }
+              ],
+              "role": "function",
+              "tooltip": "join :: M (M b) ⟶ M b — the monad-specific part. Merges outer and inner context: Maybe drops Nothing, List concatenates, Writer appends logs, State runs the outer then the inner computation."
             }
           ],
-          "ports": [],
+          "ports": [
+            {
+              "kind": "port",
+              "id": "ma",
+              "type": "M a",
+              "direction": "in",
+              "tooltip": "M a — the wrapped input"
+            },
+            {
+              "kind": "port",
+              "id": "f",
+              "type": "a ⟶ M b",
+              "direction": "in",
+              "tooltip": "f : a ⟶ M b — user code; returns a new wrapped value"
+            },
+            {
+              "kind": "port",
+              "id": "mb",
+              "type": "M b",
+              "direction": "out",
+              "tooltip": "M b — the flat result; never M (M b)"
+            }
+          ],
           "connections": [
             {
               "kind": "connection",
-              "from": "ma_val",
-              "to": "bind"
+              "from": "ma",
+              "to": "fmap._",
+              "label": "wrapped"
             },
             {
               "kind": "connection",
-              "from": "f_val",
-              "to": "bind"
+              "from": "f",
+              "to": "fmap.f",
+              "label": "user code"
             },
             {
               "kind": "connection",
-              "from": "bind",
-              "to": "mb_val"
+              "from": "fmap._",
+              "to": "join._",
+              "label": "nested (internal only)"
+            },
+            {
+              "kind": "connection",
+              "from": "join._",
+              "to": "mb"
             }
           ],
           "notes": [],
           "shows": {
-            "ma_val": "type",
-            "f_val": "hof",
-            "bind": "function",
-            "mb_val": "type"
+            "fmap": "function",
+            "join": "function"
           },
           "tooltips": {
-            "ma_val": "Ma — monadic value, provides unwrapped a to the continuation",
-            "f_val": "(a ⟶ Mb) — the continuation: maps each a to a new monadic Mb",
-            "bind": ">>= (bind): sequences two monadic actions, threading the value",
-            "mb_val": "Mb — final monadic result"
+            "fmap": "fmap :: (a ⟶ M b) ⟶ M a ⟶ M (M b) — from Functor. Applies f under the outer context without removing it: Maybe 0 or 1 times, List once per element, Reader/State once the environment/state is supplied.",
+            "join": "join :: M (M b) ⟶ M b — the monad-specific part. Merges outer and inner context: Maybe drops Nothing, List concatenates, Writer appends logs, State runs the outer then the inner computation."
           }
         }
       ],
@@ -81,28 +123,26 @@
           "id": "diagram",
           "packageName": "MonadSignature",
           "viewType": "FpIbdView",
-          "expose": "BindContext",
+          "expose": "bind",
           "rendering": "fpIbdDiagram",
-          "title": "(>>=) :: Ma ⟶ (a ⟶ Mb) ⟶ Mb"
+          "title": "(>>=) :: M a ⟶ (a ⟶ M b) ⟶ M b — inside bind: fmap f, then join; the nested M (M b) never leaves the block",
+          "name": "bind"
         }
       ]
     }
   ],
   "diagram": {
     "diagType": "ibd",
-    "title": "(>>=) :: Ma ⟶ (a ⟶ Mb) ⟶ Mb",
-    "render": "BindContext",
+    "title": "(>>=) :: M a ⟶ (a ⟶ M b) ⟶ M b — inside bind: fmap f, then join; the nested M (M b) never leaves the block",
+    "name": "bind",
+    "render": "bind",
     "shows": {
-      "ma_val": "type",
-      "f_val": "hof",
-      "bind": "function",
-      "mb_val": "type"
+      "fmap": "function",
+      "join": "function"
     },
     "tooltips": {
-      "ma_val": "Ma — monadic value, provides unwrapped a to the continuation",
-      "f_val": "(a ⟶ Mb) — the continuation: maps each a to a new monadic Mb",
-      "bind": ">>= (bind): sequences two monadic actions, threading the value",
-      "mb_val": "Mb — final monadic result"
+      "fmap": "fmap :: (a ⟶ M b) ⟶ M a ⟶ M (M b) — from Functor. Applies f under the outer context without removing it: Maybe 0 or 1 times, List once per element, Reader/State once the environment/state is supplied.",
+      "join": "join :: M (M b) ⟶ M b — the monad-specific part. Merges outer and inner context: Maybe drops Nothing, List concatenates, Writer appends logs, State runs the outer then the inner computation."
     }
   }
 }

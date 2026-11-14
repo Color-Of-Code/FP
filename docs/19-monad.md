@@ -24,16 +24,22 @@ this.
 
 ![List Monad: bind :: List a ⟶ (a ⟶ List b) ⟶ List b](19-monad/monad-4.svg)
 
-![(>>=) :: Ma ⟶ (a ⟶ Mb) ⟶ Mb](19-monad/monad-ibd.svg)
+![(>>=) :: M a ⟶ (a ⟶ M b) ⟶ M b — inside bind: fmap f, then join; the nested M (M b) never leaves the block](19-monad/monad-ibd.svg)
+
+Inside `bind`: the ports on the frame are everything a caller sees — `M a` and `f` go in, `M b`
+comes out. Nothing ever extracts a plain `a` from `M a`; there is no general `M a ⟶ a`. Instead,
+`fmap` applies `f` under the outer context, and `join` merges the outer and inner contexts. `fmap`
+and `join` come from the monad instance; `f` is the only user code. The nested `M (M b)` exists only
+inside the block.
 
 ## Operations
 
 - **`pure :: a ⟶ Ma`** — lift a plain value into the monad (inherited from
   [Applicative](./15-applicative.md)). Per-language aliases: `return`, `of`, `unit`, `point`, `Some`
   / `Just` / `Right` (per concrete monad).
-- **`bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb`** — unwrap `a` from `Ma`, apply `f`, and flatten `M(Mb)` to `Mb`.
-  Per-language aliases: `flatMap` (Scala, JS, Kotlin), `andThen` / `and_then` (F#, Rust, C++23),
-  `SelectMany` (C#/LINQ), `.then` (JS Promises), `>>=` (Haskell).
+- **`bind :: Ma ⟶ (a ⟶ Mb) ⟶ Mb`** — map `f` over `Ma` (giving `M(Mb)`), then flatten `M(Mb)` to
+  `Mb`. Per-language aliases: `flatMap` (Scala, JS, Kotlin), `andThen` / `and_then` (F#, Rust,
+  C++23), `SelectMany` (C#/LINQ), `.then` (JS Promises), `>>=` (Haskell).
 
 Chaining multiple binds produces a pipeline of effectful steps where each step can see the result of
 the previous one.
