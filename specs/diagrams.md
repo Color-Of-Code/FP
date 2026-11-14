@@ -254,30 +254,43 @@ back into a single output. Both render as yellow diamonds.
 
 #### Visual notation (SysML v2 compliant)
 
-The renderer follows OMG SysML v2 visual conventions (ISO 19514):
+The renderer uses SysML-inspired shapes with a shared light/dark palette from
+[`.tools/sysml/types/theme.ts`](../.tools/sysml/types/theme.ts). Do not add literal colors to renderer
+code; semantic tokens keep diagrams consistent and allow contrast to be tested.
 
-| Element          | Shape                              | Fill / Stroke                  | When to use                                                |
-| ---------------- | ---------------------------------- | ------------------------------ | ---------------------------------------------------------- |
-| Action node      | rounded rectangle (`rx=12`)        | light green `#e8f5e9`          | An **action** — an operation that executes                 |
-| Object node      | plain rectangle                    | light grey `#f5f5f5`           | A data type or concrete value                              |
-| HOF object node  | rectangle with `«function»` stereo | teal `#e0f2f1` / `#00796b`     | A **function type flowing in as a data token** (HOF arg)   |
-| Decision node    | diamond (rotated square)           | yellow `#fff9c4` / `#f9a825`   | Pattern match / conditional branch (one in, N guarded out) |
-| Merge node       | diamond (rotated square)           | yellow `#fff9c4` / `#f9a825`   | Joins N branches back into a single flow                   |
-| Object flow edge | solid arrow, filled arrowhead      | grey `#424242` / teal for HOF  | Token moves from node A to node B                          |
-| Control flow     | dashed arrow, open arrowhead       | grey `#424242`                 | Ordering only — A completes before B starts                |
-| Initial node     | filled black circle                | `#212121`                      | Start pseudo-node                                          |
-| Final node       | bull's-eye (outer + inner circle)  | `#212121`                      | End pseudo-node                                            |
-| Activity frame   | rounded rect + pentagon name tab   | `#fafafa` frame, `#e0e0e0` tab | Encloses the activity, tab shows `«activity» Name`         |
-| Pins             | small squares on action boundary   | `#e0e0e0`                      | Input pins (left) / output pins (right) from action def    |
+| Element          | Shape                              | Theme tokens                                | When to use                                                |
+| ---------------- | ---------------------------------- | ------------------------------------------- | ---------------------------------------------------------- |
+| Action node      | rounded rectangle (`rx=12`)        | `actionFill`, `actionStroke`                | An **action** — an operation that executes                 |
+| Object node      | plain rectangle                    | `objFill`, `objStroke`                      | A data type or concrete value                              |
+| HOF object node  | rectangle with `«function»` stereo | `hofFill`, `hofStroke`                      | A **function type flowing in as a data token** (HOF arg)   |
+| Decision node    | diamond (rotated square)           | `decisionFill`, `decisionStroke`            | Pattern match / conditional branch (one in, N guarded out) |
+| Merge node       | diamond (rotated square)           | `decisionFill`, `decisionStroke`            | Joins N branches back into a single flow                   |
+| Object flow edge | solid arrow, filled arrowhead      | `edgeStroke`; `hofEdge` for HOF             | Token moves from node A to node B                          |
+| Control flow     | dashed arrow, open arrowhead       | `edgeStroke`; `controlFlow` dash pattern    | Ordering only — A completes before B starts                |
+| Initial node     | filled circle                      | `initFill`                                  | Start pseudo-node                                          |
+| Final node       | bull's-eye (outer + inner circle)  | `finalStroke`, `finalFill`                  | End pseudo-node                                            |
+| Activity frame   | rounded rect + pentagon name tab   | `frameFill`, `frameStroke`, `frameTabFill`  | Encloses the activity, tab shows `«activity» Name`         |
+| Pins             | small squares on action boundary   | `pinFill`, `pinStroke`                      | Input pins (left) / output pins (right) from action def    |
 
 **Canvas auto-sizing**: the SVG dimensions are computed from actual node widths and edge gaps —
 there is no fixed canvas size. The layout engine uses Sugiyama-style layered placement (left→right)
 with barycentric ordering to reduce edge crossings.
 
-An `item` node with role `hof` renders as a rectangle with `«function»` stereotype in italic above
-the label, with a teal fill. The flow edge from it into an action renders as a solid teal arrow.
+An `item` node with role `hof` renders as a rectangle with `«function»` stereotype above the
+label. Its fill, label, and flow use the HOF palette tokens in both color schemes.
 
 A `succession` edge (control flow) renders as a dashed arrow with an open arrowhead.
+
+The SVG canvas is transparent. `prefers-color-scheme` in the embedded SVG selects the light or
+dark token set; this follows the browser or operating-system preference, not a site's independent
+theme toggle. SVGs include a semantic `<title>` and `<desc>`, and are labelled as images. The view's
+`doc` text must exactly match the Markdown image alt text. `lint-diagrams` enforces this, verifies
+source/output/embed consistency, and caps each rendered graph at 20 nodes. Contrast tests require
+at least 4.5:1 for text and 3:1 for graphical elements in both schemes.
+
+**Law diagrams:** draw the two expressions as separate paths and join their endpoints with a visible
+`=` marker. Keep each path's operations explicit; the shared result alone does not communicate the
+equivalence.
 
 ### Compilation
 
@@ -288,6 +301,9 @@ node --experimental-strip-types .tools/sysml/cli.ts docs/16-fold/fold.sysml docs
 # All SysML sources (activity + IBD)
 make -C .tools sysml
 
+# Diagram metadata, alt text, source links, and node budget
+make -C .tools lint-diagrams
+
 # Everything (D2 + SysML + format + lint)
 make -C .tools all
 ```
@@ -295,6 +311,10 @@ make -C .tools all
 ---
 
 ## D2 source format
+
+> **Deprecated for new and updated diagrams.** D2 remains only for existing `docs/` diagrams while
+> they are migrated. Do not add or modify `.d2` files; use the SysML-based renderer above. The
+> D2 ratchet checks that this inventory only shrinks.
 
 (Each diagram source sits in the per-chapter folder next to its `.md` page, e.g.
 `docs/16-fold/fold-ibd.sysml` for `docs/16-fold.md`, and `docs/monads/maybe/maybe-bind.sysml` for
