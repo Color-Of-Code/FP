@@ -14,14 +14,15 @@ All tooling lives in `.tools/`. Run from the repo root:
 make -C .tools <target>
 ```
 
-| Target       | What it does                                         |
-| ------------ | ---------------------------------------------------- |
-| `fmt-md`     | Format all Markdown with prettier                    |
-| `lint-md`    | Lint all Markdown with markdownlint-cli2             |
-| `lint-langs` | Check 9-language completeness and order in every doc |
-| `svgs`       | Compile D2 and SysML sources to SVG                  |
-| `fmt`        | `fmt-md` + D2 formatter                              |
-| `all`        | `svgs` + `fmt` + `lint-md` + `lint-langs`            |
+| Target          | What it does                                            |
+| --------------- | ------------------------------------------------------- |
+| `fmt-md`        | Format all Markdown with prettier                       |
+| `lint-md`       | Lint all Markdown with markdownlint-cli2                |
+| `lint-langs`    | Check 9-language completeness and order in every doc    |
+| `lint-diagrams` | Check diagram links, alt text, sources, and node budget |
+| `svgs`          | Compile D2 and SysML sources to SVG                     |
+| `fmt`           | `fmt-md` + D2 formatter                                 |
+| `all`           | `svgs` + `fmt` + lint, typecheck, and tests             |
 
 **After every edit run at minimum:** `make -C .tools fmt-md lint-md lint-langs`
 
@@ -109,10 +110,10 @@ that the D2 inventory only shrinks.
 9. **Anonymous combinator output pins**: `bind`, `ap`, etc. typically have one output. Use
    `out _ : "Maybe b"` (or similar) so the pin square is rendered without a noisy `result` label.
 
-10. **Swimlanes** in `*-motivation-with.sysml` files use `FpNodePresentation` metadata:
-    `laneId`, `laneLabel`, `laneOrder`, and `laneMemberOrder`. Keep member order aligned with the
-    flow order; the layout engine uses it to align each HOF input over its target combinator. Lanes
-    are decoration only and must not encode flow direction or semantics.
+10. **Swimlanes** in `*-motivation-with.sysml` files use `FpNodePresentation` metadata: `laneId`,
+    `laneLabel`, `laneOrder`, and `laneMemberOrder`. Keep member order aligned with the flow order;
+    the layout engine uses it to align each HOF input over its target combinator. Lanes are
+    decoration only and must not encode flow direction or semantics.
 
 ## Lessons learned — do not repeat
 

@@ -16,6 +16,7 @@ const textPairs: readonly [ColorName, ColorName][] = [
   ["labelFill", "laneHeader"],
   ["labelFill", "frameTabFill"],
   ["secondaryText", "canvas"],
+  ["errorText", "canvas"],
 ];
 
 const graphicPairs: readonly [ColorName, ColorName][] = [
@@ -24,8 +25,15 @@ const graphicPairs: readonly [ColorName, ColorName][] = [
   ["hofStroke", "hofFill"],
   ["pinStroke", "pinFill"],
   ["frameStroke", "frameFill"],
+  ["initFill", "canvas"],
+  ["finalStroke", "canvas"],
+  ["finalFill", "canvas"],
   ["edgeStroke", "canvas"],
+  ["edgeStroke", "laneFill"],
   ["hofEdge", "canvas"],
+  ["hofEdge", "laneFill"],
+  ["secondaryText", "canvas"],
+  ["secondaryText", "laneFill"],
   ["decisionStroke", "decisionFill"],
   ["noteStroke", "noteFill"],
   ["laneStroke", "laneFill"],
@@ -52,19 +60,19 @@ describe("diagram theme", () => {
     ["light", theme.palette.light],
     ["dark", theme.palette.dark],
   ] as const)("meets text and graphics contrast targets in %s mode", (mode, palette) => {
-    for (const [foreground, background] of textPairs) {
+    textPairs.forEach(([foreground, background]) => {
       expect(
         contrast(palette[foreground], palette[background]),
         `${mode}: ${foreground} on ${background}`,
       ).toBeGreaterThanOrEqual(4.5);
-    }
+    });
 
-    for (const [foreground, background] of graphicPairs) {
+    graphicPairs.forEach(([foreground, background]) => {
       expect(
         contrast(palette[foreground], palette[background]),
         `${mode}: ${foreground} against ${background}`,
       ).toBeGreaterThanOrEqual(3);
-    }
+    });
   });
 
   it("provides light and prefers-color-scheme dark SVG tokens", () => {

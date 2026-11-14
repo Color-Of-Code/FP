@@ -33,6 +33,13 @@ the local renderer:
 These are project-specific metadata/renderings; the model elements and `view` / `expose` / `render`
 structure use the supported SysML v2 textual subset.
 
+## Rendering theme
+
+The renderer's semantic tokens and light/dark palette live in [`types/theme.ts`](types/theme.ts).
+SVGs keep a transparent canvas and switch CSS variables with `prefers-color-scheme`; they include a
+semantic title and description. Do not hard-code renderer colors. `theme.test.ts` checks text
+contrast of at least 4.5:1 and graphical contrast of at least 3:1 in both schemes.
+
 ## Example
 
 ```sysml
@@ -85,5 +92,7 @@ documentation supplies the SVG title; node tooltips and visual roles come from `
 - Metadata field values are strings or identifiers; lane order values are numeric strings.
 - Lane and lane-member ordering must be explicit to keep the motivation diagrams aligned.
 - The parser does not resolve imports or type-check against the SysML standard library.
+- Run `make -C .tools lint-diagrams` to check view/alt-text consistency, source/output links, and
+  the 20-node budget.
 - Extend [`sysml.langium`](sysml.langium) when adding syntax, then regenerate and run
   `make -C .tools test-update` followed by `make -C .tools test`.

@@ -23,44 +23,14 @@ function findFiles(directory: string, extensions: readonly string[]): string[] {
 }
 
 function parseImages(markdown: string): MarkdownImage[] {
-  const images: MarkdownImage[] = [];
-  let index = 0;
-
-  while (index < markdown.length - 2) {
-    if (markdown[index] !== "!" || markdown[index + 1] !== "[") {
-      index++;
-      continue;
-    }
-
-    const altStart = index + 2;
-    let cursor = altStart;
-    while (cursor < markdown.length) {
-      if (markdown[cursor] === "\\") {
-        cursor += 2;
-        continue;
-      }
-      if (markdown[cursor] === "]") break;
-      cursor++;
-    }
-    if (cursor >= markdown.length || markdown[cursor + 1] !== "(") {
-      index = altStart;
-      continue;
-    }
-
-    const hrefStart = cursor + 2;
-    const hrefEnd = markdown.indexOf(")", hrefStart);
-    if (hrefEnd < 0) break;
-
-    const alt = markdown.slice(altStart, cursor).replace(/\\(.)/g, "$1");
-    const href = markdown.slice(hrefStart, hrefEnd).trim().replace(/^<|>$/g, "");
-    const line = markdown.slice(0, index).split("\n").length;
-    if (href.toLowerCase().split(/[?#]/, 1)[0].endsWith(".svg")) {
-      images.push({ alt, href, line });
-    }
-    index = hrefEnd + 1;
-  }
-
-  return images;
+  const imagePattern = /!\[((?:\\.|[^\\\]])*)\]\(([^)]+)\)/g;
+  return [...markdown.matchAll(imagePattern)]
+    .map((match) => ({
+      alt: match[1].replace(/\\(.)/g, "$1"),
+      href: match[2].trim().replace(/^<|>$/g, ""),
+      line: markdown.slice(0, match.index).split("\n").length,
+    }))
+    .filter((image) => image.href.toLowerCase().split(/[?#]/, 1)[0].endsWith(".svg"));
 }
 
 function nodeCount(model: ReturnType<typeof parse>): number | undefined {
@@ -84,88 +54,126 @@ function nodeCount(model: ReturnType<typeof parse>): number | undefined {
   return definition ? definition.parts.length + definition.notes.length : undefined;
 }
 
+function checkSysmlSource(repoRoot: string, source: string): string[] {
+  const relativeSource = path.relative(repoRoot, source);
+  const svg = source.replace(/\.sysml$/, ".svg");
+  const missingSvg = fs.existsSync(svg) ? [] : [`${relativeSource}: missing sibling SVG`];
+
+  try {
+    const model = parse(fs.readFileSync(source, "utf8"));
+    const views = model.packages.flatMap((pkg) => pkg.views);
+    if (views.length !== 1) {
+      return [
+        ...missingSvg,
+        `${relativeSource}: expected exactly one view, found ${views.length}`,
+      ];
+    }
+
+    const count = nodeCount(model);
+    return [
+      ...missingSvg,
+      ...(!model.diagram.title?.trim()
+        ? [`${relativeSource}: view documentation must provide a title`]
+        : []),
+      ...(count === undefined
+        ? [`${relativeSource}: exposed definition was not found`]
+        : count > NODE_BUDGET
+          ? [`${relativeSource}: ${count} rendered nodes exceeds the budget of ${NODE_BUDGET}`]
+          : []),
+    ];
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return [
+      ...missingSvg,
+      `${relativeSource}: failed to parse SysML source: ${message}`,
+    ];
+  }
+}
+
+function checkMarkdownImage(
+  repoRoot: string,
+  markdown: string,
+  image: MarkdownImage,
+  sourceBySvg: Map<string, string>,
+): { errors: string[]; referencedSvg?: string } {
+  const relativeMarkdown = path.relative(repoRoot, markdown);
+  const imagePath = path.resolve(path.dirname(markdown), image.href);
+  const relativeImage = path.relative(repoRoot, imagePath);
+  const location = `${relativeMarkdown}:${image.line}`;
+  const emptyAlt = image.alt.trim() ? [] : [`${location}: SVG image alt text must not be empty`];
+
+  if (!fs.existsSync(imagePath)) {
+    return {
+      errors: [...emptyAlt, `${location}: referenced SVG does not exist: ${image.href}`],
+    };
+  }
+  if (!sourceBySvg.has(imagePath)) {
+    return {
+      errors: [
+        ...emptyAlt,
+        `${location}: SVG has no sibling .sysml or .d2 source: ${relativeImage}`,
+      ],
+    };
+  }
+
+  const source = sourceBySvg.get(imagePath)!;
+  if (!source.endsWith(".sysml")) return { errors: emptyAlt, referencedSvg: imagePath };
+
+  try {
+    const title = parse(fs.readFileSync(source, "utf8")).diagram.title?.trim();
+    return {
+      errors: [
+        ...emptyAlt,
+        ...(title && image.alt.trim() !== title
+          ? [
+              `${location}: alt text must match view documentation in ${path.relative(repoRoot, source)}`,
+            ]
+          : []),
+      ],
+      referencedSvg: imagePath,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return {
+      errors: [...emptyAlt, `${location}: failed to parse source: ${message}`],
+      referencedSvg: imagePath,
+    };
+  }
+}
+
 const repoRoot = path.resolve(process.argv[2] ?? path.join(import.meta.dirname, ".."));
 const docsRoot = path.join(repoRoot, "docs");
 const sourceFiles = findFiles(docsRoot, [".sysml", ".d2"]);
 const sysmlFiles = sourceFiles.filter((file) => file.endsWith(".sysml"));
 const svgFiles = findFiles(docsRoot, [".svg"]);
 const markdownFiles = findFiles(docsRoot, [".md"]);
-const errors: string[] = [];
-const referencedSvgs = new Set<string>();
 const sourceBySvg = new Map(
   sourceFiles.map((source) => [source.replace(/\.(sysml|d2)$/, ".svg"), source]),
 );
-
-for (const source of sysmlFiles) {
-  const relativeSource = path.relative(repoRoot, source);
-  const svg = source.replace(/\.sysml$/, ".svg");
-  if (!fs.existsSync(svg)) errors.push(`${relativeSource}: missing sibling SVG`);
-
-  try {
-    const model = parse(fs.readFileSync(source, "utf8"));
-    const views = model.packages.flatMap((pkg) => pkg.views);
-    if (views.length !== 1) {
-      errors.push(`${relativeSource}: expected exactly one view, found ${views.length}`);
-      continue;
-    }
-    if (!model.diagram.title?.trim()) {
-      errors.push(`${relativeSource}: view documentation must provide a title`);
-    }
-    const count = nodeCount(model);
-    if (count === undefined) {
-      errors.push(`${relativeSource}: exposed definition was not found`);
-    } else if (count > NODE_BUDGET) {
-      errors.push(
-        `${relativeSource}: ${count} rendered nodes exceeds the budget of ${NODE_BUDGET}`,
-      );
-    }
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    errors.push(`${relativeSource}: failed to parse SysML source: ${message}`);
-  }
-}
-
-for (const markdown of markdownFiles) {
-  const relativeMarkdown = path.relative(repoRoot, markdown);
+const sourceErrors = sysmlFiles.flatMap((source) => checkSysmlSource(repoRoot, source));
+const markdownResults = markdownFiles.flatMap((markdown) => {
   const contents = fs.readFileSync(markdown, "utf8");
-  for (const image of parseImages(contents)) {
-    const imagePath = path.resolve(path.dirname(markdown), image.href);
-    const relativeImage = path.relative(repoRoot, imagePath);
-    const location = `${relativeMarkdown}:${image.line}`;
-
-    if (!image.alt.trim()) errors.push(`${location}: SVG image alt text must not be empty`);
-    if (!fs.existsSync(imagePath)) {
-      errors.push(`${location}: referenced SVG does not exist: ${image.href}`);
-      continue;
-    }
-    if (!sourceBySvg.has(imagePath)) {
-      errors.push(`${location}: SVG has no sibling .sysml or .d2 source: ${relativeImage}`);
-      continue;
-    }
-    referencedSvgs.add(imagePath);
-
-    const source = sourceBySvg.get(imagePath)!;
-    if (source.endsWith(".sysml")) {
-      try {
-        const title = parse(fs.readFileSync(source, "utf8")).diagram.title?.trim();
-        if (title && image.alt.trim() !== title) {
-          errors.push(
-            `${location}: alt text must match view documentation in ${path.relative(repoRoot, source)}`,
-          );
-        }
-      } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        errors.push(`${location}: failed to parse source: ${message}`);
-      }
-    }
-  }
-}
-
-for (const svg of svgFiles) {
+  return parseImages(contents).map((image) =>
+    checkMarkdownImage(repoRoot, markdown, image, sourceBySvg),
+  );
+});
+const referencedSvgs = new Set(
+  markdownResults.flatMap((result) => (result.referencedSvg ? [result.referencedSvg] : [])),
+);
+const svgErrors = svgFiles.flatMap((svg) => {
   const relativeSvg = path.relative(repoRoot, svg);
-  if (!sourceBySvg.has(svg)) errors.push(`${relativeSvg}: orphan SVG has no source`);
-  if (!referencedSvgs.has(svg)) errors.push(`${relativeSvg}: orphan SVG is not embedded in Markdown`);
-}
+  return [
+    ...(!sourceBySvg.has(svg) ? [`${relativeSvg}: orphan SVG has no source`] : []),
+    ...(!referencedSvgs.has(svg)
+      ? [`${relativeSvg}: orphan SVG is not embedded in Markdown`]
+      : []),
+  ];
+});
+const errors = [
+  ...sourceErrors,
+  ...markdownResults.flatMap((result) => result.errors),
+  ...svgErrors,
+];
 
 if (errors.length > 0) {
   console.error(`Diagram lint failed with ${errors.length} error(s):`);
